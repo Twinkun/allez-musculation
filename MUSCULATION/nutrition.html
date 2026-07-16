@@ -1,0 +1,4256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e8960a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ALLEZ">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Nutrition — ALLEZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0ece3;
+  --bg-card: #ffffff;
+  --bg-dark: #0b1020;
+  --bg-mid: #111826;
+  --gold: #e8960a;
+  --gold-light: #f5b040;
+  --green: #0a9e52;
+  --green-light: #12c564;
+  --protein: #e05a1e;
+  --carbs: #1560d4;
+  --fat: #7c10d4;
+  --red: #d4200a;
+  --text: #1a1f2e;
+  --text-mid: #3a4060;
+  --text-light: #6b7090;
+  --border: rgba(0,0,0,0.08);
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.14);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --font-head: 'Bebas Neue', sans-serif;
+  --font: 'Inter', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { overflow-x: hidden; scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(11,16,32,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.nav-logo {
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+.nav-links a.active { color: var(--gold); background: rgba(232,150,10,0.12); }
+
+/* ── HERO ── */
+.hero {
+  background: var(--bg-dark);
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 80px 70px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 10% 60%, rgba(10,158,82,0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 60% at 90% 20%, rgba(232,150,10,0.1) 0%, transparent 60%);
+}
+
+.hero-content {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  width: 100%;
+  max-width: 1200px;
+  align-items: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(10,158,82,0.18);
+  border: 1px solid rgba(10,158,82,0.4);
+  color: var(--green-light);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+
+.hero-badge span { width: 6px; height: 6px; background: var(--green-light); border-radius: 50%; animation: pulse 2s infinite; }
+
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+.hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  color: #fff;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  margin-bottom: 20px;
+}
+
+.hero h1 em { color: var(--gold); font-style: normal; }
+
+.hero p {
+  color: rgba(255,255,255,0.6);
+  font-size: 1rem;
+  max-width: 520px;
+  line-height: 1.7;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px 40px;
+}
+
+.hero-stat-item { }
+
+.hero-stat-val {
+  font-family: var(--font-head);
+  font-size: 2rem;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.hero-stat-lbl {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+}
+
+.hero-right { display: flex; flex-direction: column; gap: 32px; }
+
+.hero-anchors { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
+
+.hero-anchor {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.6);
+  padding: 5px 13px;
+  border-radius: 100px;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.hero-anchor:hover {
+  background: rgba(232,150,10,0.18);
+  border-color: rgba(232,150,10,0.4);
+  color: var(--gold);
+}
+
+/* ── SECTION WRAPPER ── */
+.section {
+  padding: 80px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  scroll-margin-top: 72px;
+}
+
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.section-sub {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  max-width: 580px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+
+/* ── CALORIE DASHBOARD ── */
+.calorie-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.cal-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.cal-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+
+.cal-card.training::before { background: linear-gradient(90deg, var(--green), var(--green-light)); }
+.cal-card.rest::before { background: linear-gradient(90deg, var(--carbs), #4a90e2); }
+
+.cal-type {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.cal-card.training .cal-type { color: var(--green); }
+.cal-card.rest .cal-type { color: var(--carbs); }
+
+.cal-main {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.cal-num {
+  font-family: var(--font-head);
+  font-size: 4rem;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--text);
+}
+
+.cal-unit {
+  font-size: 1rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.cal-breakdown {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.macro-chip {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+
+.macro-chip-val {
+  font-family: var(--font-head);
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+}
+
+.macro-chip-lbl {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+.macro-chip.p .macro-chip-val { color: var(--protein); }
+.macro-chip.c .macro-chip-val { color: var(--carbs); }
+.macro-chip.f .macro-chip-val { color: var(--fat); }
+
+.calorie-formula {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+.formula-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.formula-steps {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.formula-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.formula-step-val {
+  font-family: var(--font-head);
+  font-size: 1.6rem;
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+
+.formula-step-lbl {
+  font-size: 0.65rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+}
+
+.formula-op {
+  font-size: 1.6rem;
+  color: var(--text-light);
+  font-weight: 300;
+}
+
+.formula-result {
+  background: linear-gradient(135deg, var(--green), var(--green-light));
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.formula-result .formula-step-val { color: #fff; }
+.formula-result .formula-step-lbl { color: rgba(255,255,255,0.75); }
+
+/* ── MACRO VISUAL ── */
+.macro-visual {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.macro-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.macro-ring {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 20px;
+  position: relative;
+}
+
+.macro-ring svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.macro-ring circle {
+  fill: none;
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+
+.macro-ring .track { stroke: var(--bg); }
+
+.macro-ring .fill {
+  stroke-dasharray: 314;
+  stroke-dashoffset: 314;
+  transition: stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1);
+}
+
+.macro-ring-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.macro-ring-pct {
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.macro-ring-sub {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-light);
+}
+
+.macro-card-name {
+  font-family: var(--font-head);
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.macro-card-g {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.macro-card-unit { font-size: 0.9rem; font-weight: 400; color: var(--text-light); }
+
+.macro-card-detail {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.macro-card.p { border-top: 4px solid var(--protein); }
+.macro-card.c { border-top: 4px solid var(--carbs); }
+.macro-card.f { border-top: 4px solid var(--fat); }
+.macro-card.p .macro-card-name { color: var(--protein); }
+.macro-card.c .macro-card-name { color: var(--carbs); }
+.macro-card.f .macro-card-name { color: var(--fat); }
+.macro-card.p .macro-card-g { color: var(--protein); }
+.macro-card.c .macro-card-g { color: var(--carbs); }
+.macro-card.f .macro-card-g { color: var(--fat); }
+.macro-card.p .macro-ring .fill { stroke: var(--protein); }
+.macro-card.c .macro-ring .fill { stroke: var(--carbs); }
+.macro-card.f .macro-ring .fill { stroke: var(--fat); }
+
+/* ── REPAS TIMELINE ── */
+.meal-timeline {
+  position: relative;
+}
+
+.meal-timeline::before {
+  content: '';
+  position: absolute;
+  left: 48px;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--green) 0%, var(--gold) 50%, var(--carbs) 100%);
+  opacity: 0.3;
+}
+
+.meal-item {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.5s ease;
+}
+
+.meal-item.visible { opacity: 1; transform: translateX(0); }
+
+.meal-time-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 96px;
+  flex-shrink: 0;
+}
+
+.meal-time-bubble {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.meal-time-label {
+  font-size: 0.7rem;
+  color: var(--text-light);
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.meal-card {
+  flex: 1;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.meal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.meal-name {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.meal-kcal {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  text-align: right;
+}
+
+.meal-prix {
+  display: block;
+  font-family: var(--font);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--green);
+  margin-top: 3px;
+  line-height: 1;
+}
+
+.meal-macros-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.meal-macro-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+.meal-macro-pill.p { background: rgba(224,90,30,0.1); color: var(--protein); }
+.meal-macro-pill.c { background: rgba(21,96,212,0.1); color: var(--carbs); }
+.meal-macro-pill.f { background: rgba(124,16,212,0.1); color: var(--fat); }
+
+.meal-foods {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.meal-foods li {
+  font-size: 0.88rem;
+  color: var(--text-mid);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.meal-foods li::before {
+  content: '·';
+  color: var(--green);
+  font-size: 1.2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.meal-note {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(10,158,82,0.07);
+  border-left: 3px solid var(--green);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.8rem;
+  color: var(--text-mid);
+  font-style: italic;
+}
+
+/* training/rest color codes */
+.meal-time-bubble.green { background: rgba(10,158,82,0.15); color: var(--green); border: 2px solid rgba(10,158,82,0.35); }
+.meal-time-bubble.gold { background: rgba(232,150,10,0.15); color: var(--gold); border: 2px solid rgba(232,150,10,0.35); }
+.meal-time-bubble.blue { background: rgba(21,96,212,0.15); color: var(--carbs); border: 2px solid rgba(21,96,212,0.35); }
+.meal-time-bubble.purple { background: rgba(124,16,212,0.15); color: var(--fat); border: 2px solid rgba(124,16,212,0.35); }
+
+/* ── CYCLING SECTION ── */
+.cycling-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.cycling-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.cycling-day {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.cycling-kcal-big {
+  font-family: var(--font-head);
+  font-size: 2.5rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.cycling-card.t { border-top: 3px solid var(--green); }
+.cycling-card.t .cycling-day { color: var(--green); }
+.cycling-card.t .cycling-kcal-big { color: var(--green); }
+
+.cycling-card.r { border-top: 3px solid var(--carbs); }
+.cycling-card.r .cycling-day { color: var(--carbs); }
+.cycling-card.r .cycling-kcal-big { color: var(--carbs); }
+
+.cycling-card.c { border-top: 3px solid var(--gold); }
+.cycling-card.c .cycling-day { color: var(--gold); }
+.cycling-card.c .cycling-kcal-big { color: var(--gold); }
+
+.cycling-desc {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  line-height: 1.5;
+  margin-top: 6px;
+}
+
+/* ── SUPPLEMENTS ── */
+.supp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.supp-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.supp-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+}
+
+.supp-card.whey::before { background: linear-gradient(90deg, var(--protein), #f5903a); }
+.supp-card.creatine::before { background: linear-gradient(90deg, var(--carbs), #4a90e2); }
+.supp-card.zma::before { background: linear-gradient(90deg, var(--fat), #a855d4); }
+.supp-card.opti::before { background: linear-gradient(90deg, var(--green), var(--green-light)); }
+
+.supp-icon {
+  font-size: 2.2rem;
+  margin-bottom: 14px;
+}
+
+.supp-brand {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+
+.supp-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.supp-timing-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.supp-timing-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.supp-timing-tag {
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.supp-timing-tag.dose { background: rgba(232,150,10,0.15); color: var(--gold); }
+.supp-timing-tag.quand { background: rgba(10,158,82,0.12); color: var(--green); }
+.supp-timing-tag.tip { background: rgba(21,96,212,0.1); color: var(--carbs); }
+.supp-timing-tag.warn { background: rgba(212,32,10,0.1); color: var(--red); }
+
+.supp-timing-text {
+  font-size: 0.82rem;
+  color: var(--text-mid);
+  line-height: 1.5;
+}
+
+/* ── HYDRATION ── */
+.hydration-block {
+  background: linear-gradient(135deg, #0b1020, #111826);
+  border-radius: var(--radius);
+  padding: 48px;
+  color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.hydration-left h3 {
+  font-family: var(--font-head);
+  font-size: 2.5rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+  color: var(--gold);
+}
+
+.hydration-left p {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.hydration-bottles {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hydration-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hydration-label {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.6);
+  width: 120px;
+  flex-shrink: 0;
+}
+
+.hydration-bar {
+  flex: 1;
+  height: 10px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.hydration-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--carbs), var(--green-light));
+  border-radius: 100px;
+  width: 0;
+  transition: width 1.5s cubic-bezier(.4,0,.2,1);
+}
+
+.hydration-val {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  width: 50px;
+  text-align: right;
+}
+
+/* ── CONSEILS ── */
+.conseils-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.conseil-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.conseil-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  background: rgba(10,158,82,0.1);
+}
+
+.conseil-body h4 {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.conseil-body p {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* ── ERREURS ── */
+.erreurs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.erreur-item {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 22px 28px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--red);
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: all 0.4s ease;
+}
+
+.erreur-item.visible { opacity: 1; transform: translateX(0); }
+
+.erreur-x {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(212,32,10,0.1);
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.erreur-body h4 {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+
+.erreur-body p {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.erreur-fix {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* ── PRIORITY FOODS ── */
+.foods-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.foods-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.foods-card-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.foods-card.p .foods-card-title { color: var(--protein); }
+.foods-card.c .foods-card-title { color: var(--carbs); }
+.foods-card.f .foods-card-title { color: var(--fat); }
+
+.foods-card-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.2;
+}
+
+.foods-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.foods-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.83rem;
+  color: var(--text-mid);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.foods-items li:last-child { border-bottom: none; padding-bottom: 0; }
+
+.foods-items li span {
+  font-size: 0.75rem;
+  color: var(--text-light);
+}
+
+/* ── SECTION DIVIDER ── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0 60px;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg-dark);
+  color: rgba(255,255,255,0.45);
+  padding: 36px 60px;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+footer a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── HAMBURGER ── */
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.85); border-radius: 2px; transition: all .3s; }
+
+/* ── MOBILE & ANDROID PWA ── */
+
+/* Touch optimisations globales */
+button, a, [onclick], .courses-meal-item, .plan-tab-btn {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+@media (max-width: 768px) {
+  /* NAV */
+  nav { padding: 0 20px; }
+  .nav-hamburger { display: flex; }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  nav.open { height: auto; flex-wrap: wrap; padding-bottom: 12px; }
+  nav.open .nav-links { display: flex !important; flex-direction: column; width: 100%; gap: 2px; margin-top: 8px; }
+  nav.open .nav-links li { list-style: none; }
+  nav.open .nav-links a { padding: 12px 14px; color: rgba(255,255,255,0.85); font-size: 0.95rem; min-height: 48px; display: flex; align-items: center; }
+  .nav-links { display: none; }
+
+  /* HERO */
+  .hero { padding: 74px 20px 36px; min-height: auto; justify-content: flex-start; }
+  .hero-content { grid-template-columns: 1fr; gap: 28px; }
+  .hero h1 { font-size: clamp(2.6rem, 10vw, 3.2rem); margin-bottom: 10px; }
+  .hero p { font-size: .88rem; line-height: 1.6; }
+  .hero-badge { margin-bottom: 14px; font-size: .7rem; }
+  .hero-right { gap: 20px; }
+  .hero-stats { grid-template-columns: 1fr 1fr; gap: 18px 24px; }
+  .hero-stat-val { font-size: 1.75rem; }
+  .hero-stat-lbl { font-size: .68rem; }
+
+  /* ANCHORS — bande horizontale scrollable, boutons plus grands pour le doigt */
+  .hero-anchors {
+    order: -1;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 6px;
+    gap: 8px;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .hero-anchors::-webkit-scrollbar { display: none; }
+  .hero-anchor {
+    padding: 10px 18px;
+    font-size: .73rem;
+    flex-shrink: 0;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* SECTIONS */
+  .section { padding: 48px 20px; }
+  .section-title { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+  .section-sub { font-size: .85rem; }
+
+  /* GRILLES */
+  .calorie-grid { grid-template-columns: 1fr; }
+  .macro-visual { grid-template-columns: 1fr; }
+  .cycling-grid { grid-template-columns: 1fr; }
+  .supp-grid { grid-template-columns: 1fr; }
+  .conseils-grid { grid-template-columns: 1fr; }
+  .foods-grid { grid-template-columns: 1fr; }
+  .hydration-block { grid-template-columns: 1fr; padding: 28px 20px; gap: 28px; }
+
+  /* REPAS */
+  .meal-timeline::before { left: 40px; }
+  .meal-time-col { width: 80px; }
+  .meal-time { font-size: .75rem; }
+
+  /* FORMULE */
+  .formula-steps { gap: 8px; }
+  .formula-step-val { font-size: .9rem; }
+
+  /* DIVERS */
+  .section-divider { margin: 0 20px; }
+  footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 20px; }
+
+  /* COURSES — boutons plus grands pour le doigt */
+  .courses-meal-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .courses-meal-item { padding: 12px 14px; min-height: 52px; }
+  .courses-ctrl-btn { min-height: 44px; }
+  .courses-btn-gen { margin-left: 0; width: 100%; min-height: 52px; font-size: 1.1rem; }
+  .courses-result-hd { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .courses-copy-btn { width: 100%; text-align: center; min-height: 44px; }
+  .courses-cats { padding: 16px 16px; }
+
+  /* TOP 20 */
+  .top10-rank { width: 56px; min-width: 56px; font-size: 1.8rem; }
+  .top10-rank.r1 { font-size: 2rem; }
+  .top10-body { padding: 14px 16px; }
+  .top10-title { font-size: .92rem; }
+  .top10-ingr li { font-size: .8rem; }
+  .top10-why { font-size: .74rem; }
+
+  /* PLAN TAB BUTTONS */
+  .plan-tab-btn { min-height: 44px; }
+}
+
+/* Très petits écrans (360px et moins) */
+@media (max-width: 400px) {
+  .courses-meal-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.4rem; }
+  .hero-stats { gap: 14px 16px; }
+}
+
+/* ── TOP 10 PLATS ── */
+.top10-list { display:flex; flex-direction:column; gap:14px; }
+.top10-card {
+  background:var(--bg-card); border-radius:var(--radius);
+  box-shadow:var(--shadow); border:1px solid var(--border);
+  overflow:hidden; display:flex;
+  opacity:0; transform:translateY(20px); transition:all 0.45s ease;
+}
+.top10-card.visible { opacity:1; transform:translateY(0); }
+.top10-rank {
+  background:var(--bg-dark); color:var(--gold);
+  font-family:var(--font-head); font-size:2.6rem; letter-spacing:.04em;
+  width:86px; min-width:86px; display:flex; align-items:center;
+  justify-content:center; line-height:1; flex-shrink:0;
+}
+.top10-rank.r1 { background:linear-gradient(160deg,#1a1000,#0b1020); font-size:3rem; }
+.top10-rank.r2 { background:linear-gradient(160deg,#0e1218,#0b1020); }
+.top10-rank.r3 { background:linear-gradient(160deg,#0d1015,#0b1020); }
+.top10-body { flex:1; padding:20px 26px; }
+.top10-title { font-weight:700; font-size:.98rem; color:var(--text); margin-bottom:10px; }
+.top10-macros { display:flex; gap:7px; margin-bottom:13px; flex-wrap:wrap; align-items:center; }
+.top10-kcal { font-size:.76rem; color:var(--text-light); font-weight:600; margin-left:4px; }
+.top10-prix { font-size:.76rem; color:var(--green); font-weight:700; margin-left:8px; white-space:nowrap; }
+.top10-ingr { list-style:none; display:flex; flex-direction:column; gap:5px; }
+.top10-ingr li { font-size:.83rem; color:var(--text-mid); display:flex; align-items:baseline; gap:7px; }
+.top10-ingr li::before { content:'·'; color:var(--green); font-size:1.1rem; flex-shrink:0; line-height:1; }
+.ingr-prix { font-size:.70rem; color:var(--green); font-weight:700; margin-left:auto; white-space:nowrap; flex-shrink:0; padding-left:8px; opacity:.85; }
+.top10-why {
+  margin-top:11px; padding:8px 13px;
+  background:rgba(232,150,10,0.07); border-left:3px solid var(--gold);
+  border-radius:0 6px 6px 0; font-size:.77rem; color:var(--text-mid); font-style:italic;
+}
+.tag-jp {
+  display:inline-flex; align-items:center; gap:3px;
+  font-size:.6rem; font-weight:700; letter-spacing:.06em;
+  background:rgba(188,0,45,0.1); color:#bc002d;
+  border:1px solid rgba(188,0,45,0.2);
+  padding:2px 8px; border-radius:100px;
+  margin-left:7px; vertical-align:middle; font-style:normal;
+}
+.tag-banger {
+  display:inline-flex; align-items:center; gap:3px;
+  font-size:.6rem; font-weight:700; letter-spacing:.06em;
+  background:rgba(232,150,10,0.15); color:#b8700a;
+  border:1px solid rgba(232,150,10,0.35);
+  padding:2px 8px; border-radius:100px;
+  margin-left:7px; vertical-align:middle; font-style:normal;
+}
+@media(max-width:768px){
+  .top10-rank { width:56px; min-width:56px; font-size:1.8rem; }
+  .top10-rank.r1 { font-size:2rem; }
+  .top10-body { padding:16px 18px; }
+}
+
+/* ── PLAN TOGGLE ── */
+.plan-toggle { display:flex; gap:8px; margin-bottom:2rem; flex-wrap:wrap; }
+.plan-tab-btn {
+  padding:10px 22px; border-radius:10px; border:2px solid var(--border);
+  background:var(--bg-card); font-size:0.85rem; font-weight:600;
+  cursor:pointer; transition:all .2s; color:var(--text-mid);
+  font-family:var(--font);
+}
+.plan-tab-btn:hover { border-color:var(--gold); color:var(--gold); }
+.plan-tab-btn.active { background:var(--gold); border-color:var(--gold); color:#fff; }
+
+/* ── LISTE DE COURSES ── */
+.courses-meal-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:9px; margin-bottom:22px; }
+.courses-meal-item { display:flex; align-items:center; gap:10px; background:var(--bg-card); border:1.5px solid var(--border); border-radius:10px; padding:11px 15px; cursor:pointer; transition:all .15s; user-select:none; }
+.courses-meal-item:hover { border-color:var(--gold); }
+.courses-meal-item.ck { border-color:var(--green); background:rgba(10,158,82,0.06); }
+.courses-meal-chk { width:20px; height:20px; border-radius:6px; border:2px solid #ccc; background:#fff; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:.85rem; transition:all .15s; }
+.courses-meal-item.ck .courses-meal-chk { background:var(--green); border-color:var(--green); color:#fff; }
+.courses-meal-rank { font-family:var(--font-head); font-size:.85rem; color:var(--text-light); min-width:22px; flex-shrink:0; }
+.courses-meal-name { font-size:.8rem; font-weight:600; color:var(--text); line-height:1.3; }
+.courses-controls { display:flex; gap:10px; align-items:center; margin-bottom:28px; flex-wrap:wrap; }
+.courses-ctrl-btn { padding:8px 18px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg-card); font-size:.82rem; font-weight:600; cursor:pointer; color:var(--text-mid); transition:all .18s; font-family:var(--font); }
+.courses-ctrl-btn:hover { border-color:var(--gold); color:var(--gold); }
+.courses-btn-gen { background:var(--gold); color:#fff; border:none; padding:12px 32px; border-radius:10px; font-family:var(--font-head); font-size:1.05rem; letter-spacing:.1em; cursor:pointer; margin-left:auto; transition:all .18s; }
+.courses-btn-gen:hover { background:var(--gold-light); transform:translateY(-1px); }
+.courses-result { background:var(--bg-card); border-radius:var(--radius); box-shadow:var(--shadow-lg); border:1px solid var(--border); overflow:hidden; margin-top:10px; }
+.courses-result-hd { display:flex; align-items:center; justify-content:space-between; padding:20px 28px; background:var(--bg-dark); }
+.courses-result-title { font-family:var(--font-head); font-size:1.4rem; letter-spacing:.06em; color:var(--gold); }
+.courses-result-sub { font-size:.76rem; color:rgba(255,255,255,0.45); margin-top:3px; }
+.courses-copy-btn { background:rgba(232,150,10,0.15); color:var(--gold); border:1px solid rgba(232,150,10,0.4); padding:8px 20px; border-radius:8px; font-family:var(--font-head); font-size:.88rem; letter-spacing:.08em; cursor:pointer; transition:all .18s; white-space:nowrap; flex-shrink:0; }
+.courses-copy-btn:hover { background:var(--gold); color:#fff; }
+.courses-cats { padding:24px 28px; display:flex; flex-direction:column; gap:22px; }
+.courses-cat-title { font-size:.7rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--text-light); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.courses-cat-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.courses-items-list { list-style:none; display:flex; flex-direction:column; }
+.courses-item { display:flex; justify-content:space-between; align-items:baseline; padding:7px 0; border-bottom:1px solid var(--border); font-size:.86rem; }
+.courses-item:last-child { border-bottom:none; }
+.courses-item-name { color:var(--text); font-weight:500; }
+.courses-item-qty { color:var(--text-light); font-size:.78rem; white-space:nowrap; margin-left:12px; text-align:right; }
+.courses-item-qty b { color:var(--gold); }
+.courses-item-right { display:flex; align-items:center; gap:10px; margin-left:12px; }
+.cf-link { text-decoration:none; font-size:.9rem; line-height:1; opacity:.5; transition:opacity .15s; flex-shrink:0; }
+.cf-link:hover, .cf-link:active { opacity:1; }
+.courses-copied { text-align:center; padding:12px; font-size:.82rem; color:var(--green); font-weight:600; display:none; border-top:1px solid var(--border); }
+/* courses mobile géré dans le bloc @media principal */
+/* ── ACCESSIBILITÉ ── */
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px;}
+@media (hover:none){
+  button:active,a:active{opacity:.82;}
+  .meal-card:active,.top10-card:active,.supp-card:active{transform:scale(0.99);}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">ALLEZ</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="nutrition.html" class="active">Nutrition</a></li>
+    <li><a href="logbook.html">Logbook</a></li>
+    <li><a href="progression.html">Progression</a></li>
+    <li><a href="exercices.html">Exercices</a></li>
+    <li><a href="programme.html">Programme</a></li>
+    <li><a href="analyse.html">Analyse</a></li>
+    <li><a href="posture.html">Posture</a></li>
+    <li><a href="projection.html">Projection</a></li>
+    <li><a href="lifestyle.html">Lifestyle</a></li>
+    <li><a href="recettes.html">Recettes</a></li>
+    <li><a href="pingpong.html">Ping-Pong</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHbg" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <!-- GAUCHE -->
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span></span>
+        Plan Nutrition Personnalisé
+      </div>
+      <h1>FORGE<br><em>TON</em><br>CORPS</h1>
+      <p>Plan nutritionnel calculé sur mesure pour ta morphologie, tes objectifs de prise de masse propre et ton niveau d'activité. Basé sur la formule Mifflin-St Jeor.</p>
+    </div>
+    <!-- DROITE -->
+    <div class="hero-right">
+      <div class="hero-stats">
+        <div class="hero-stat-item">
+          <div class="hero-stat-val">2 650</div>
+          <div class="hero-stat-lbl">Kcal entraînement</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-val">2 100</div>
+          <div class="hero-stat-lbl">Kcal repos</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-val">160g</div>
+          <div class="hero-stat-lbl">Protéines / jour</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-val">+217</div>
+          <div class="hero-stat-lbl">Surplus training</div>
+        </div>
+      </div>
+      <div class="hero-anchors">
+        <a class="hero-anchor" href="#sec-calories">Calories</a>
+        <a class="hero-anchor" href="#sec-macros">Macros</a>
+        <a class="hero-anchor" href="#sec-aliments">Aliments</a>
+        <a class="hero-anchor" href="#sec-repas">Plan Repas</a>
+        <a class="hero-anchor" href="#sec-complements">Compléments</a>
+        <a class="hero-anchor" href="#sec-hydratation">Hydratation</a>
+        <a class="hero-anchor" href="#sec-conseils">Conseils</a>
+        <a class="hero-anchor" href="#sec-erreurs">Erreurs</a>
+        <a class="hero-anchor" href="#sec-top50">Top 50</a>
+        <a class="hero-anchor" href="#sec-courses">Courses</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1 : CALORIES -->
+<div class="section" id="sec-calories">
+  <div class="section-label">Calories</div>
+  <div class="section-title">Ton Budget Calorique</div>
+  <div class="section-sub">Calculé avec Mifflin-St Jeor × 1.45 (débutant 3x/sem). Stratégie recomposition : surplus +217 kcal en training, déficit modéré au repos — newbie gains + 20,5% BF de départ permettent prise musculaire et perte grasse simultanées.</div>
+
+  <!-- FORMULE -->
+  <div class="calorie-formula reveal">
+    <div class="formula-title">Calcul BMR → TDEE (Mifflin-St Jeor)</div>
+    <div class="formula-steps">
+      <div class="formula-step">
+        <div class="formula-step-val">10 × 71</div>
+        <div class="formula-step-lbl">Poids (kg)</div>
+      </div>
+      <div class="formula-op">+</div>
+      <div class="formula-step">
+        <div class="formula-step-val">6.25 × 178</div>
+        <div class="formula-step-lbl">Taille (cm)</div>
+      </div>
+      <div class="formula-op">−</div>
+      <div class="formula-step">
+        <div class="formula-step-val">5 × 30</div>
+        <div class="formula-step-lbl">Âge</div>
+      </div>
+      <div class="formula-op">+5 =</div>
+      <div class="formula-step">
+        <div class="formula-step-val">1 678</div>
+        <div class="formula-step-lbl">BMR kcal</div>
+      </div>
+      <div class="formula-op">× 1.45 =</div>
+      <div class="formula-step formula-result">
+        <div class="formula-step-val">2 433</div>
+        <div class="formula-step-lbl">TDEE kcal</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CYCLING CARDS -->
+  <div class="cycling-grid reveal">
+    <div class="cycling-card t">
+      <div class="cycling-day">Jour Entraînement</div>
+      <div class="cycling-kcal-big">2 650</div>
+      <div style="font-size:.75rem;color:var(--text-light);">kcal</div>
+      <div class="cycling-desc">TDEE + 217 kcal de surplus contrôlé. Glucides élevés autour de la séance pour la performance et la récupération.</div>
+    </div>
+    <div class="cycling-card r">
+      <div class="cycling-day">Jour de Repos</div>
+      <div class="cycling-kcal-big">2 100</div>
+      <div style="font-size:.75rem;color:var(--text-light);">kcal</div>
+      <div class="cycling-desc">Légèrement sous le TDEE repos. Protéines maintenues. Glucides réduits, lipides augmentés.</div>
+    </div>
+    <div class="cycling-card c">
+      <div class="cycling-day">Moyenne Semaine</div>
+      <div class="cycling-kcal-big">2 336</div>
+      <div style="font-size:.75rem;color:var(--text-light);">kcal</div>
+      <div class="cycling-desc">3 jours training + 4 jours repos = légère sous-maintenance (−97 kcal/j). Recomposition active : perte grasse progressive avec préservation musculaire.</div>
+    </div>
+  </div>
+
+  <!-- CALORIE CARDS -->
+  <div class="calorie-grid reveal">
+    <div class="cal-card training">
+      <div class="cal-type">Jour d'entraînement</div>
+      <div class="cal-main">
+        <div class="cal-num">2 650</div>
+        <div class="cal-unit">kcal</div>
+      </div>
+      <div class="cal-breakdown">
+        <div class="macro-chip p">
+          <div class="macro-chip-val">160g</div>
+          <div class="macro-chip-lbl">Protéines</div>
+        </div>
+        <div class="macro-chip c">
+          <div class="macro-chip-val">345g</div>
+          <div class="macro-chip-lbl">Glucides</div>
+        </div>
+        <div class="macro-chip f">
+          <div class="macro-chip-val">70g</div>
+          <div class="macro-chip-lbl">Lipides</div>
+        </div>
+      </div>
+    </div>
+    <div class="cal-card rest">
+      <div class="cal-type">Jour de repos</div>
+      <div class="cal-main">
+        <div class="cal-num">2 100</div>
+        <div class="cal-unit">kcal</div>
+      </div>
+      <div class="cal-breakdown">
+        <div class="macro-chip p">
+          <div class="macro-chip-val">160g</div>
+          <div class="macro-chip-lbl">Protéines</div>
+        </div>
+        <div class="macro-chip c">
+          <div class="macro-chip-val">197g</div>
+          <div class="macro-chip-lbl">Glucides</div>
+        </div>
+        <div class="macro-chip f">
+          <div class="macro-chip-val">75g</div>
+          <div class="macro-chip-lbl">Lipides</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 2 : MACROS -->
+<div class="section" id="sec-macros">
+  <div class="section-label">Macronutriments</div>
+  <div class="section-title">Répartition des Macros</div>
+  <div class="section-sub">Basé sur les jours d'entraînement. Chaque macro a un rôle précis dans la construction musculaire et la santé.</div>
+
+  <div class="macro-visual reveal">
+    <div class="macro-card p">
+      <div class="macro-ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="track" cx="60" cy="60" r="50" stroke="#f0ece3"/>
+          <circle class="fill" cx="60" cy="60" r="50" data-pct="24"/>
+        </svg>
+        <div class="macro-ring-center">
+          <div class="macro-ring-pct" style="color:var(--protein)">24%</div>
+          <div class="macro-ring-sub">des kcal</div>
+        </div>
+      </div>
+      <div class="macro-card-name">PROTÉINES</div>
+      <div class="macro-card-g">160<span class="macro-card-unit">g/j</span></div>
+      <div class="macro-card-detail">
+        2.25g par kg de poids corporel<br>
+        640 kcal · Synthèse musculaire<br>
+        <strong>Sources :</strong> Blanc de poulet, thon, œufs, skyr, whey
+      </div>
+    </div>
+
+    <div class="macro-card c">
+      <div class="macro-ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="track" cx="60" cy="60" r="50" stroke="#f0ece3"/>
+          <circle class="fill" cx="60" cy="60" r="50" data-pct="52"/>
+        </svg>
+        <div class="macro-ring-center">
+          <div class="macro-ring-pct" style="color:var(--carbs)">52%</div>
+          <div class="macro-ring-sub">des kcal</div>
+        </div>
+      </div>
+      <div class="macro-card-name">GLUCIDES</div>
+      <div class="macro-card-g">345<span class="macro-card-unit">g/j</span></div>
+      <div class="macro-card-detail">
+        4.9g par kg de poids corporel<br>
+        1 380 kcal · Performance & récupération<br>
+        <strong>Sources :</strong> Riz, flocons d'avoine, patate douce, fruits
+      </div>
+    </div>
+
+    <div class="macro-card f">
+      <div class="macro-ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="track" cx="60" cy="60" r="50" stroke="#f0ece3"/>
+          <circle class="fill" cx="60" cy="60" r="50" data-pct="24"/>
+        </svg>
+        <div class="macro-ring-center">
+          <div class="macro-ring-pct" style="color:var(--fat)">24%</div>
+          <div class="macro-ring-sub">des kcal</div>
+        </div>
+      </div>
+      <div class="macro-card-name">LIPIDES</div>
+      <div class="macro-card-g">70<span class="macro-card-unit">g/j</span></div>
+      <div class="macro-card-detail">
+        0.98g par kg de poids corporel<br>
+        630 kcal · Hormones & vitamines<br>
+        <strong>Sources :</strong> Huile d'olive, avocat, noix, jaunes d'œufs
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 3 : ALIMENTS PRIORITAIRES -->
+<div class="section" id="sec-aliments">
+  <div class="section-label">Alimentation</div>
+  <div class="section-title">Aliments Prioritaires</div>
+  <div class="section-sub">Les meilleurs choix pour chaque macro, optimisés pour la prise de masse propre et la santé digestive.</div>
+
+  <div class="foods-grid reveal">
+    <div class="foods-card p">
+      <div class="foods-card-title">Protéines</div>
+      <ul class="foods-items">
+        <li>Blanc de poulet <span>31g P / 100g</span></li>
+        <li>Thon au naturel <span>25g P / 100g</span></li>
+        <li>Saumon <span>22g P / 100g</span></li>
+        <li>Œufs entiers <span>13g P / 100g</span></li>
+        <li>Skyr / Fromage blanc 0% <span>11g P / 100g</span></li>
+        <li>Jambon blanc dégraissé <span>22g P / 100g</span></li>
+        <li>Whey ON Gold Standard <span>24g P / 30g</span></li>
+      </ul>
+    </div>
+
+    <div class="foods-card c">
+      <div class="foods-card-title">Glucides</div>
+      <ul class="foods-items">
+        <li>Riz blanc basmati <span>75g G / 100g sec</span></li>
+        <li>Flocons d'avoine <span>62g G / 100g</span></li>
+        <li>Patate douce <span>21g G / 100g</span></li>
+        <li>Pain complet <span>45g G / 100g</span></li>
+        <li>Banane <span>23g G / 100g</span></li>
+        <li>Riz complet <span>72g G / 100g sec</span></li>
+        <li>Légumineuses <span>20g G + protéines</span></li>
+      </ul>
+    </div>
+
+    <div class="foods-card f">
+      <div class="foods-card-title">Lipides</div>
+      <ul class="foods-items">
+        <li>Huile d'olive vierge <span>100g L / 100ml</span></li>
+        <li>Avocat <span>15g L / 100g</span></li>
+        <li>Noix / Amandes <span>60g L / 100g</span></li>
+        <li>Jaunes d'œufs <span>10g L / jaune</span></li>
+        <li>Saumon / Maquereau <span>Oméga-3 +++</span></li>
+        <li>Beurre de cacahuète <span>52g L / 100g</span></li>
+        <li>Fromage (avec modération) <span>Calcium + L</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 4 : PLAN DE REPAS -->
+<div class="section" id="sec-repas">
+  <div class="section-label">Exemple de Journée</div>
+  <div class="section-title">Plan Repas — Jour d'Entraînement</div>
+  <div class="section-sub">Deux plans adaptés à tes créneaux. La logique clé : repas léger pré-séance, shaker immédiat post-séance, vrai repas dans l'heure qui suit.</div>
+
+  <div class="plan-toggle">
+    <button class="plan-tab-btn active" onclick="switchPlan('lj',this)">Lundi &amp; Jeudi — 8h00</button>
+    <button class="plan-tab-btn" onclick="switchPlan('sam',this)">Samedi — 11h00</button>
+  </div>
+
+  <!-- ── PLAN LUNDI / JEUDI 8h ── -->
+  <div class="meal-timeline" id="plan-lj">
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble green">6h30</div>
+        <div class="meal-time-label">Pré-workout</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Pré-workout léger — 90 min avant la séance</div>
+          <div class="meal-kcal" style="color:var(--green)">~260 kcal<span class="meal-prix">~1.15€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 11g</div>
+          <div class="meal-macro-pill c">G: 43g</div>
+          <div class="meal-macro-pill f">L: 5g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>1 banane mûre (énergie rapide, facile à digérer)</li>
+          <li>30g flocons d'avoine sèche ou 2 galettes de riz</li>
+          <li>1 œuf dur (protéines légères)</li>
+          <li>5g Créatine ON Micronized dans un verre d'eau</li>
+        </ul>
+        <div class="meal-note">Intentionnellement léger — ventre trop plein à 6h30 = nausées pendant la séance. L'objectif est juste d'avoir du carburant, pas de te rassasier.</div>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble gold">8h00</div>
+        <div class="meal-time-label">Séance</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Pendant la Séance — Push / Pull / V-Shape</div>
+          <div class="meal-kcal" style="color:var(--gold)">Hydratation</div>
+        </div>
+        <ul class="meal-foods">
+          <li>500–750ml d'eau plate pendant la séance (1h15 environ)</li>
+          <li>Sips réguliers toutes les 15–20 min — pas de grandes quantités d'un coup</li>
+          <li>Pas de shaker whey pendant la séance (inutile et digestivement lourd)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble purple">9h30</div>
+        <div class="meal-time-label">Post-workout</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Shaker Post-Workout — Dans les 30 min</div>
+          <div class="meal-kcal" style="color:var(--fat)">~330 kcal<span class="meal-prix">~1.55€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 32g</div>
+          <div class="meal-macro-pill c">G: 40g</div>
+          <div class="meal-macro-pill f">L: 4g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>1 scoop ON Gold Standard Whey (24g protéines)</li>
+          <li>200ml lait demi-écrémé ou eau froide</li>
+          <li>1 banane — recharge glycogène immédiate</li>
+        </ul>
+        <div class="meal-note">Priorité absolue dès la sortie de la salle. La fenêtre post-workout est ouverte — profite-en. Prépare le shaker à l'avance.</div>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble green">11h00</div>
+        <div class="meal-time-label">Petit-déj</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Vrai Petit-Déjeuner — Repas post-workout complet</div>
+          <div class="meal-kcal" style="color:var(--green)">~510 kcal<span class="meal-prix">~2.05€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 28g</div>
+          <div class="meal-macro-pill c">G: 81g</div>
+          <div class="meal-macro-pill f">L: 8g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>60g flocons d'avoine (cuits à l'eau ou lait végétal)</li>
+          <li>150g skyr nature ou fromage blanc 0%</li>
+          <li>1 cuillère à café de miel + fruits rouges 80g</li>
+          <li>1 dose Opti-Men avec ce repas</li>
+        </ul>
+        <div class="meal-note">Opti-Men ici : les vitamines liposolubles (A, D, E, K) s'absorbent avec les lipides du skyr. Ce repas complète la fenêtre post-workout ouverte à 9h30.</div>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble blue">13h30</div>
+        <div class="meal-time-label">Déjeuner</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Déjeuner — Repas complet équilibré</div>
+          <div class="meal-kcal" style="color:var(--carbs)">~650 kcal<span class="meal-prix">~1.80–2.15€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 42g</div>
+          <div class="meal-macro-pill c">G: 80g</div>
+          <div class="meal-macro-pill f">L: 18g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>150g blanc de poulet grillé (ou thon 120g)</li>
+          <li>90g riz basmati cru → ~225g cuit</li>
+          <li>200g légumes variés (haricots verts, courgettes, brocoli)</li>
+          <li>1 c. à soupe huile d'olive</li>
+        </ul>
+        <div class="meal-note">Mange lentement, mâche bien. Évite les boissons gazeuses — réduit le ballonnement abdominal (important pour le vacuum).</div>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble gold">16h30</div>
+        <div class="meal-time-label">Collation</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Collation Après-Midi</div>
+          <div class="meal-kcal" style="color:var(--gold)">~395 kcal<span class="meal-prix">~1.30€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 23g</div>
+          <div class="meal-macro-pill c">G: 55g</div>
+          <div class="meal-macro-pill f">L: 9g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>100g cottage cheese</li>
+          <li>2 tranches pain complet</li>
+          <li>10g beurre de cacahuète (protéines + lipides sains)</li>
+          <li>1 pomme (glucides intermédiaires avant le dîner)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble blue">19h30</div>
+        <div class="meal-time-label">Dîner</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Dîner — Récupération nocturne</div>
+          <div class="meal-kcal" style="color:var(--carbs)">~590 kcal<span class="meal-prix">~2.20–3.90€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 34g</div>
+          <div class="meal-macro-pill c">G: 43g</div>
+          <div class="meal-macro-pill f">L: 31g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>150g saumon ou maquereau (oméga-3 pour la récupération)</li>
+          <li>200g patate douce rôtie au four</li>
+          <li>Salade verte + 1 c. à soupe huile d'olive</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble purple">22h30</div>
+        <div class="meal-time-label">Coucher</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">ZMA — 30-60 min avant de dormir</div>
+          <div class="meal-kcal" style="color:var(--fat)">Compléments<span class="meal-prix">~0.20€</span></div>
+        </div>
+        <ul class="meal-foods">
+          <li>ZMA MyProtein : dose selon étiquette (zinc + magnésium)</li>
+          <li>À prendre à jeun ou 2h après le dîner — loin de tout calcium</li>
+          <li>Le magnésium améliore la qualité du sommeil et la récupération musculaire</li>
+        </ul>
+        <div class="meal-note">Le calcium inhibe l'absorption du zinc. ZMA + produits laitiers = perte d'efficacité. Respecte le timing.</div>
+      </div>
+    </div>
+
+  </div><!-- /plan-lj -->
+
+  <!-- ── PLAN SAMEDI 11h ── -->
+  <div class="meal-timeline" id="plan-sam" style="display:none">
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble green">8h30</div>
+        <div class="meal-time-label">Réveil</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Réveil — Hydratation + mise en route</div>
+          <div class="meal-kcal" style="color:var(--green)">Eau</div>
+        </div>
+        <ul class="meal-foods">
+          <li>500ml d'eau dès le réveil (réhydratation nocturne)</li>
+          <li>Café ou thé si habitude — sans sucre ni lait</li>
+          <li>Le vrai repas pré-workout est à 9h30 — ne grignote pas avant</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble green">9h30</div>
+        <div class="meal-time-label">Pré-workout</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Petit-Déjeuner Pré-Workout — 90 min avant la séance</div>
+          <div class="meal-kcal" style="color:var(--green)">~625 kcal<span class="meal-prix">~2.55€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 40g</div>
+          <div class="meal-macro-pill c">G: 98g</div>
+          <div class="meal-macro-pill f">L: 8g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>80g flocons d'avoine (cuits à l'eau ou lait végétal)</li>
+          <li>200g skyr nature — protéines complètes</li>
+          <li>1 banane tranchée + 1 c. à soupe de miel</li>
+          <li>1 dose Opti-Men avec ce repas</li>
+          <li>5g Créatine ON Micronized dans un verre d'eau</li>
+        </ul>
+        <div class="meal-note">C'est le seul jour où tu peux prendre un vrai petit-déj pré-workout sans te lever à l'aube. Profite de ce confort — repas complet 90 min avant = performance optimale.</div>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble gold">11h00</div>
+        <div class="meal-time-label">Séance</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">V-Shape — Épaules 3D · Dos · Bras</div>
+          <div class="meal-kcal" style="color:var(--gold)">Hydratation</div>
+        </div>
+        <ul class="meal-foods">
+          <li>500–750ml d'eau plate pendant la séance</li>
+          <li>Séance la plus longue de la semaine (~1h30) — hydrate bien</li>
+          <li>Pas de shaker whey pendant l'effort</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble purple">12h30</div>
+        <div class="meal-time-label">Post-workout</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Shaker Post-Workout — Dans les 30 min</div>
+          <div class="meal-kcal" style="color:var(--fat)">~350 kcal<span class="meal-prix">~2.55€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 48g</div>
+          <div class="meal-macro-pill c">G: 33g</div>
+          <div class="meal-macro-pill f">L: 3g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>2 scoops ON Gold Standard Whey</li>
+          <li>250ml eau froide</li>
+          <li>1 banane optionnelle si faim intense</li>
+        </ul>
+        <div class="meal-note">Fenêtre post-workout ouverte — shaker immédiat puis déjeuner complet 1h après. <strong>Note :</strong> le samedi tourne naturellement plus protéiné (~200g, à cause des 2 scoops + de la séance la plus longue) et un peu moins en glucides que Lun/Jeu — calories équivalentes (~2 600), répartition adaptée à la charge du jour.</div>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble blue">14h00</div>
+        <div class="meal-time-label">Déjeuner</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Déjeuner Post-Workout Complet</div>
+          <div class="meal-kcal" style="color:var(--carbs)">~650 kcal<span class="meal-prix">~1.80–2.15€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 42g</div>
+          <div class="meal-macro-pill c">G: 80g</div>
+          <div class="meal-macro-pill f">L: 18g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>150g blanc de poulet ou thon 120g</li>
+          <li>90g riz basmati cru → ~225g cuit</li>
+          <li>200g légumes variés + 1 c. à soupe huile d'olive</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble gold">17h00</div>
+        <div class="meal-time-label">Collation</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Collation Après-Midi</div>
+          <div class="meal-kcal" style="color:var(--gold)">~350 kcal<span class="meal-prix">~1.35€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 25g</div>
+          <div class="meal-macro-pill c">G: 40g</div>
+          <div class="meal-macro-pill f">L: 9g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>100g cottage cheese</li>
+          <li>2 tranches pain complet + 15g beurre de cacahuète</li>
+          <li>1 pomme ou poire</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble blue">20h00</div>
+        <div class="meal-time-label">Dîner</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Dîner — Récupération &amp; Sommeil</div>
+          <div class="meal-kcal" style="color:var(--carbs)">~635 kcal<span class="meal-prix">~2.65–4.35€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 47g</div>
+          <div class="meal-macro-pill c">G: 44g</div>
+          <div class="meal-macro-pill f">L: 30g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>150g saumon ou maquereau (oméga-3 pour la récupération)</li>
+          <li>200g patate douce rôtie</li>
+          <li>Salade verte nature (vinaigrette citron)</li>
+          <li>2 œufs brouillés (protéines + graisses saines supplémentaires)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble purple">22h30</div>
+        <div class="meal-time-label">Coucher</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">ZMA — 30-60 min avant de dormir</div>
+          <div class="meal-kcal" style="color:var(--fat)">Compléments<span class="meal-prix">~0.20€</span></div>
+        </div>
+        <ul class="meal-foods">
+          <li>ZMA MyProtein : dose selon étiquette</li>
+          <li>À jeun ou 2h après le dîner — loin de tout calcium</li>
+          <li>Le magnésium améliore la qualité du sommeil et la récupération</li>
+        </ul>
+        <div class="meal-note">Le calcium inhibe l'absorption du zinc. Respecte le timing.</div>
+      </div>
+    </div>
+
+  </div><!-- /plan-sam -->
+
+</div>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 5 : COMPLÉMENTS ALIMENTAIRES -->
+<div class="section" id="sec-complements">
+  <div class="section-label">Compléments Alimentaires</div>
+  <div class="section-title">Tes Compléments Alimentaires</div>
+  <div class="section-sub">Doses, timing et protocoles précis pour maximiser l'efficacité de chaque complément tout en évitant les interactions.</div>
+
+  <div class="supp-grid reveal">
+
+    <div class="supp-card whey">
+      <div class="supp-icon">🥤</div>
+      <div class="supp-brand">Optimum Nutrition</div>
+      <div class="supp-name">Gold Standard Whey</div>
+      <div class="supp-timing-list">
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag dose">Dose</span>
+          <div class="supp-timing-text">1 à 2 scoops (30-60g) selon les besoins du jour. 1 scoop = 24g protéines.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag quand">Quand</span>
+          <div class="supp-timing-text"><strong>Post-workout obligatoire</strong> dans les 45 min. Optionnel au réveil si le petit-déj est léger.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag tip">Conseil</span>
+          <div class="supp-timing-text">Shaker avec eau froide pour digestion rapide. Avec lait pour digestion plus lente (avant dodo si besoin).</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag warn">Attention</span>
+          <div class="supp-timing-text">Ne remplace pas les repas solides. Complément, pas substitut. Max 2 shakers par jour.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="supp-card creatine">
+      <div class="supp-icon">⚡</div>
+      <div class="supp-brand">Optimum Nutrition</div>
+      <div class="supp-name">Creatine Micronized</div>
+      <div class="supp-timing-list">
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag dose">Dose</span>
+          <div class="supp-timing-text">5g par jour — TOUS les jours sans exception. Pas besoin de phase de charge pour la monohydrate micronisée.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag quand">Quand</span>
+          <div class="supp-timing-text">Pré ou post-workout les jours d'entraînement. N'importe quand les jours de repos. <strong>Quotidienneté = clé.</strong></div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag tip">Mécanisme</span>
+          <div class="supp-timing-text">Augmente les stocks de phosphocréatine dans les muscles → +5-15% force et volume d'entraînement. Effets visibles à 4 semaines.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag warn">À savoir</span>
+          <div class="supp-timing-text">Légère rétention d'eau intramusculaire possible (+1-2 kg sur la balance). C'est normal et souhaitable.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="supp-card zma">
+      <div class="supp-icon">🌙</div>
+      <div class="supp-brand">MyProtein</div>
+      <div class="supp-name">Zinc & Magnesium</div>
+      <div class="supp-timing-list">
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag dose">Dose</span>
+          <div class="supp-timing-text">Selon étiquette MyProtein. Zinc ~10-15mg + Magnésium ~150-200mg par dose.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag quand">Quand</span>
+          <div class="supp-timing-text">30 à 60 min avant de dormir, <strong>à jeun ou 2h après le repas</strong>. Loin de tout calcium.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag tip">Bénéfices</span>
+          <div class="supp-timing-text">Zinc → soutien de la testostérone et de l'immunité (surtout en cas de déficit). Magnésium → qualité du sommeil, récupération musculaire, réduction du cortisol.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag warn">Interaction</span>
+          <div class="supp-timing-text">Le calcium bloque l'absorption du zinc. Évite lait, fromage, yaourt 2h avant la prise. Zinc total (ZMA + Opti-Men) reste sous 40mg/j : sécuritaire.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="supp-card opti">
+      <div class="supp-icon">💊</div>
+      <div class="supp-brand">Optimum Nutrition</div>
+      <div class="supp-name">Opti-Men Multivitamines</div>
+      <div class="supp-timing-list">
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag dose">Dose</span>
+          <div class="supp-timing-text">3 comprimés par jour (dose recommandée Opti-Men). Peut être pris en 1 ou 2 prises.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag quand">Quand</span>
+          <div class="supp-timing-text"><strong>Obligatoirement avec un repas contenant des lipides</strong> (petit-déjeuner ou déjeuner). Vitamines A, D, E, K sont liposolubles.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag tip">Bénéfices</span>
+          <div class="supp-timing-text">Couvre les carences micronutritionnelles liées à l'entraînement intense : B6, B12, D3, magnésium, zinc, vitamine C, etc.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag warn">Doublons</span>
+          <div class="supp-timing-text">Opti-Men contient déjà zinc et magnésium. Combiné avec ZMA : total zinc ~25-28mg (sous la limite 40mg) et magnésium ~290-330mg (sous 350mg) — sécuritaire.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 6 : HYDRATATION -->
+<div class="section" id="sec-hydratation">
+  <div class="section-label">Hydratation</div>
+  <div class="section-title">L'Eau, Premier Complément</div>
+  <div class="section-sub">La déshydratation à 2% réduit la performance de 10-20%. L'eau est aussi essentielle que tes compléments.</div>
+
+  <div class="hydration-block reveal">
+    <div class="hydration-left">
+      <h3>3.5 L<br>par jour</h3>
+      <p>Objectif hydratation pour un athlète de 71 kg en recomposition avec 3 séances par semaine (lun/jeu/sam). Adapter selon la transpiration et la chaleur.</p>
+      <br>
+      <p style="color:rgba(255,255,255,0.5);font-size:0.82rem;">
+        La créatine augmente légèrement les besoins en eau (elle retient l'eau intramusculaire). Une bonne hydratation accompagne donc sa prise quotidienne.
+      </p>
+    </div>
+    <div class="hydration-right" style="flex:1">
+      <div class="hydration-bottles">
+        <div class="hydration-row">
+          <div class="hydration-label">Réveil (à jeun)</div>
+          <div class="hydration-bar"><div class="hydration-fill" data-w="20"></div></div>
+          <div class="hydration-val">500ml</div>
+        </div>
+        <div class="hydration-row">
+          <div class="hydration-label">Matin (repas)</div>
+          <div class="hydration-bar"><div class="hydration-fill" data-w="30"></div></div>
+          <div class="hydration-val">750ml</div>
+        </div>
+        <div class="hydration-row">
+          <div class="hydration-label">Déjeuner</div>
+          <div class="hydration-bar"><div class="hydration-fill" data-w="20"></div></div>
+          <div class="hydration-val">500ml</div>
+        </div>
+        <div class="hydration-row">
+          <div class="hydration-label">Pendant séance</div>
+          <div class="hydration-bar"><div class="hydration-fill" data-w="28"></div></div>
+          <div class="hydration-val">700ml</div>
+        </div>
+        <div class="hydration-row">
+          <div class="hydration-label">Post-workout</div>
+          <div class="hydration-bar"><div class="hydration-fill" data-w="24"></div></div>
+          <div class="hydration-val">600ml</div>
+        </div>
+        <div class="hydration-row">
+          <div class="hydration-label">Soirée</div>
+          <div class="hydration-bar"><div class="hydration-fill" data-w="18"></div></div>
+          <div class="hydration-val">450ml</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 7 : CONSEILS LEAN BULK -->
+<div class="section" id="sec-conseils">
+  <div class="section-label">Stratégie</div>
+  <div class="section-title">Conseils Prise de Masse Propre</div>
+  <div class="section-sub">À 20,5% de masse grasse avec newbie gains disponibles, la recomposition est la stratégie optimale : surplus contrôlé en training, déficit au repos. Prise musculaire et perte de gras simultanées.</div>
+
+  <div class="conseils-grid reveal">
+    <div class="conseil-card">
+      <div class="conseil-icon">⚖️</div>
+      <div class="conseil-body">
+        <h4>Pèse-toi 1x/semaine, même jour</h4>
+        <p>Le mardi matin à jeun après les toilettes. Moyenne sur 4 semaines = tendance réelle. Le poids fluctue de ±2kg selon l'hydratation, le glycogène et le sel — ne pas paniquer.</p>
+      </div>
+    </div>
+    <div class="conseil-card">
+      <div class="conseil-icon">📈</div>
+      <div class="conseil-body">
+        <h4>Objectif +0.3 à 0.5 kg/mois</h4>
+        <p>Au-delà de 0.5 kg/mois en débutant avancé, tu prends de la graisse. En dessous de 0.3 kg, tu progresses trop lentement. Zone verte = 3-6 kg/an maximum de muscle sec.</p>
+      </div>
+    </div>
+    <div class="conseil-card">
+      <div class="conseil-icon">🕐</div>
+      <div class="conseil-body">
+        <h4>Timing des glucides = autour des séances</h4>
+        <p>Concentre 60-70% de tes glucides journaliers sur le repas pré-workout et post-workout. Le matin aussi car tu es après le jeûne nocturne. Le soir : moins de glucides sauf post-workout.</p>
+      </div>
+    </div>
+    <div class="conseil-card">
+      <div class="conseil-icon">🥚</div>
+      <div class="conseil-body">
+        <h4>4 sources de protéines par jour</h4>
+        <p>Répartis tes 160g en 4-5 prises de 30-40g. C'est surtout une question de praticité et de satiété : étaler l'apport maximise la stimulation de la synthèse protéique sur la journée. L'idée d'un « plafond strict de 40g par repas » est dépassée — l'organisme assimile bien les gros repas, simplement plus lentement.</p>
+      </div>
+    </div>
+    <div class="conseil-card">
+      <div class="conseil-icon">🧘</div>
+      <div class="conseil-body">
+        <h4>Vacuum abdominal = outil nutritionnel</h4>
+        <p>Pratique le vacuum à jeun le matin (5 séries × 20-30s). Renforce le transverse. Combiné à un déficit modéré les jours de repos, il réduit le tour de taille sans perte musculaire.</p>
+      </div>
+    </div>
+    <div class="conseil-card">
+      <div class="conseil-icon">😴</div>
+      <div class="conseil-body">
+        <h4>7-9h de sommeil = anabolisme naturel</h4>
+        <p>Une large part de la GH (Growth Hormone) est sécrétée pendant le sommeil profond. Le manque de sommeil chronique (moins de 6h) tend à élever le cortisol et à réduire la testostérone, ce qui freine la récupération. Le sommeil est un pilier à part entière.</p>
+      </div>
+    </div>
+    <div class="conseil-card">
+      <div class="conseil-icon">🍽️</div>
+      <div class="conseil-body">
+        <h4>Repas cheat 1x/semaine maximum</h4>
+        <p>Autorise-toi 1 repas plaisir par semaine (pas une journée entière). Ça maintient la leptine élevée et la santé mentale. Au-delà, ça détruit le surplus contrôlé sur la semaine.</p>
+      </div>
+    </div>
+    <div class="conseil-card">
+      <div class="conseil-icon">🚫</div>
+      <div class="conseil-body">
+        <h4>Alcool = ennemi N°1 de la composition</h4>
+        <p>L'alcool réduit la synthèse protéique pendant plusieurs heures, abaisse la testostérone, dégrade la qualité du sommeil profond et est calorique (7 kcal/g). Même quelques verres amputent nettement la récupération de la nuit.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 8 : ERREURS -->
+<div class="section" id="sec-erreurs">
+  <div class="section-label">À Éviter</div>
+  <div class="section-title">Erreurs Nutritionnelles Fatales</div>
+  <div class="section-sub">Les 8 erreurs qui sabotent 90% des programmes de prise de masse. Évite-les dès le départ.</div>
+
+  <div class="erreurs-list">
+
+    <div class="erreur-item">
+      <div class="erreur-x">✕</div>
+      <div class="erreur-body">
+        <h4>Manger "en bulk" sans compter les calories</h4>
+        <p>Le "je mange beaucoup" sans pesée = sur-estimation garantie. La plupart sous-estiment leur apport de 20-40%. Sans comptage les 3 premiers mois, tu navigues à l'aveugle.</p>
+        <div class="erreur-fix">✓ Solution : utilise MyFitnessPal ou Cronometer pendant 4-6 semaines pour calibrer ton instinct.</div>
+      </div>
+    </div>
+
+    <div class="erreur-item">
+      <div class="erreur-x">✕</div>
+      <div class="erreur-body">
+        <h4>Ne pas manger assez de protéines</h4>
+        <p>Le piège le plus fréquent. 1g/kg (le minimum santé) ≠ 2.2g/kg (l'optimum hypertrophie). À 71 kg, il faut atteindre 155-165g/j. Sans ça, tu t'entraînes mais tu ne construis pas.</p>
+        <div class="erreur-fix">✓ Solution : priorise une source protéique à chaque repas. Vise 30-40g par repas, 4x/jour.</div>
+      </div>
+    </div>
+
+    <div class="erreur-item">
+      <div class="erreur-x">✕</div>
+      <div class="erreur-body">
+        <h4>Sauter le repas post-workout</h4>
+        <p>La fenêtre péri-séance est plus large qu'on ne le croyait : c'est surtout ton apport protéique <b>total sur la journée</b> (160g) qui construit le muscle. Un repas riche en protéines dans les ~2h autour de la séance reste une bonne habitude, mais rate-le occasionnellement ne « gâche » pas ta séance — ne saute juste pas tes prises de la journée.</p>
+        <div class="erreur-fix">✓ Solution : prépare ton shaker avant de partir. Il t'attend dans ton sac de sport.</div>
+      </div>
+    </div>
+
+    <div class="erreur-item">
+      <div class="erreur-x">✕</div>
+      <div class="erreur-body">
+        <h4>Surplus trop important (bulk classique)</h4>
+        <p>À 20,5% de BF, un surplus de +500 kcal ou plus ira en priorité dans les cellules adipeuses déjà remplies de ton abdomen. Tu vas prendre du muscle ET du gras au mauvais endroit.</p>
+        <div class="erreur-fix">✓ Solution : reste strictement à +200-250 kcal les jours d'entraînement, maintenance les jours de repos.</div>
+      </div>
+    </div>
+
+    <div class="erreur-item">
+      <div class="erreur-x">✕</div>
+      <div class="erreur-body">
+        <h4>Prendre ZMA avec des produits laitiers</h4>
+        <p>Zinc + calcium = compétition d'absorption au niveau intestinal. Le calcium gagne presque toujours. Résultat : tu prends ton ZMA pour rien. Erreur très commune.</p>
+        <div class="erreur-fix">✓ Solution : ZMA 2h minimum après tout produit laitier. Idéalement à jeun, 45 min avant de dormir.</div>
+      </div>
+    </div>
+
+    <div class="erreur-item">
+      <div class="erreur-x">✕</div>
+      <div class="erreur-body">
+        <h4>Négliger les lipides "par peur de grossir"</h4>
+        <p>Les lipides alimentaires ne se stockent pas directement en graisses corporelles (c'est le surplus calorique global qui le fait). En dessous de 0.6g/kg, ta testostérone chute significativement.</p>
+        <div class="erreur-fix">✓ Solution : maintiens minimum 60-70g de lipides/jour, surtout monoinsaturés (huile d'olive, avocat, noix).</div>
+      </div>
+    </div>
+
+    <div class="erreur-item">
+      <div class="erreur-x">✕</div>
+      <div class="erreur-body">
+        <h4>Penser que plus de whey = plus de muscle</h4>
+        <p>Au-delà de tes besoins protéiques (~160g/j), les acides aminés supplémentaires sont oxydés comme énergie ou stockés comme graisse. 3 shakers par jour sans repas solides = erreur nutritionnelle.</p>
+        <div class="erreur-fix">✓ Solution : food first. La whey complète l'alimentation, elle ne la remplace pas.</div>
+      </div>
+    </div>
+
+    <div class="erreur-item">
+      <div class="erreur-x">✕</div>
+      <div class="erreur-body">
+        <h4>Manger les mêmes choses tous les jours</h4>
+        <p>La monotonie alimentaire crée des carences micronutritionnelles malgré les compléments. Elle crée aussi une lassitude qui mène aux excès. Varier les sources = meilleure santé et meilleure adhérence.</p>
+        <div class="erreur-fix">✓ Solution : tourne sur 3-4 sources de protéines, 3-4 féculents, et 5+ légumes différents par semaine.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- SECTION TOP 50 PLATS -->
+<div class="section" id="sec-top50">
+  <div class="section-label">Cuisine Pratique</div>
+  <div class="section-title">Top 50 Plats Pour Tes Objectifs</div>
+  <div class="section-sub">50 repas classés selon densité protéique, profil anti-inflammatoire et praticité. Cuisines du monde intégrées (Japon, Italie, Mexique, Inde, Thaïlande, Liban…). Chaque repas couvre 22 à 58g de protéines.</div>
+
+  <div class="top10-list">
+
+    <div class="top10-card">
+      <div class="top10-rank">06</div>
+      <div class="top10-body">
+        <div class="top10-title">Bowl Poulet Riz Patate Douce</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 52g</div>
+          <div class="meal-macro-pill c">C 75g</div>
+          <div class="meal-macro-pill f">F 10g</div>
+          <span class="top10-kcal">650 kcal</span>
+          <span class="top10-prix">~3.80€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>180g blanc de poulet (grillé, cumin + paprika fumé)<span class="ingr-prix">~2.15€</span></li>
+          <li>45g riz basmati sec → 150g cuit<span class="ingr-prix">~0.12€</span></li>
+          <li>200g patate douce rôtie au four (ail, huile d'olive)<span class="ingr-prix">~0.55€</span></li>
+          <li>Grosse poignée d'épinards frais sautés à l'ail<span class="ingr-prix">~0.55€</span></li>
+          <li>Jus de citron, sel, poivre, piment d'Espelette<span class="ingr-prix">~0.40€</span></li>
+        </ul>
+        <div class="top10-why">Le repas de base bodybuilding par excellence. Ratio protéines/glucides parfait post-workout. Prépare-en double le dimanche — il se conserve 4 jours au frigo.</div>
+      </div>
+    </div>
+
+    <div class="top10-card r1">
+      <div class="top10-rank r1">01</div>
+      <div class="top10-body">
+        <div class="top10-title">Pavé de Saumon · Quinoa · Avocat</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 48g</div>
+          <div class="meal-macro-pill c">C 50g</div>
+          <div class="meal-macro-pill f">F 28g</div>
+          <span class="top10-kcal">700 kcal</span>
+          <span class="top10-prix">~5.85€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>200g pavé de saumon à la plancha (citron, aneth, sel)<span class="ingr-prix">~3.80€</span></li>
+          <li>60g quinoa sec → 180g cuit (eau bouillante, 15 min)<span class="ingr-prix">~0.35€</span></li>
+          <li>½ avocat tranché<span class="ingr-prix">~0.60€</span></li>
+          <li>Tomates cerises + concombre<span class="ingr-prix">~0.85€</span></li>
+          <li>Vinaigrette : 1 CS huile d'olive, jus citron, moutarde<span class="ingr-prix">~0.25€</span></li>
+        </ul>
+        <div class="top10-why">Oméga-3 du saumon (anti-inflammatoire, récupération) + acides aminés complets du quinoa. Idéal les soirs de repos. Les lipides sains t'aident à maintenir ta testostérone.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">08</div>
+      <div class="top10-body">
+        <div class="top10-title">Omelette Jambon · Patate Douce Rôtie</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 50g</div>
+          <div class="meal-macro-pill c">C 42g</div>
+          <div class="meal-macro-pill f">F 34g</div>
+          <span class="top10-kcal">660 kcal</span>
+          <span class="top10-prix">~4.65€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>5 œufs entiers + 2 blancs (ou 5 entiers tout court)<span class="ingr-prix">~1.70€</span></li>
+          <li>100g jambon blanc tranché épais (sans nitrites si possible)<span class="ingr-prix">~1.30€</span></li>
+          <li>½ poivron rouge + champignons de Paris émincés<span class="ingr-prix">~0.85€</span></li>
+          <li>200g patate douce rôtie au four, côté<span class="ingr-prix">~0.55€</span></li>
+          <li>Herbes : ciboulette, persil. 1 cc beurre ou huile de coco<span class="ingr-prix">~0.25€</span></li>
+        </ul>
+        <div class="top10-why">Prêt en 10 minutes. Les 5 œufs entiers = profil d'acides aminés complet + vitamine D, choline. Pour le PE : les œufs font partie des meilleures sources de protéines sans contrainte biomécanique.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">12</div>
+      <div class="top10-body">
+        <div class="top10-title">Steak Haché 5% · Pâtes Complètes · Sauce Tomate Maison</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 52g</div>
+          <div class="meal-macro-pill c">C 72g</div>
+          <div class="meal-macro-pill f">F 18g</div>
+          <span class="top10-kcal">700 kcal</span>
+          <span class="top10-prix">~4.35€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>200g steak haché bœuf 5% MG (poêle antiadhésive)<span class="ingr-prix">~2.60€</span></li>
+          <li>100g pâtes complètes sèches → 250g cuites al dente<span class="ingr-prix">~0.28€</span></li>
+          <li>Sauce : 1 boîte tomates pelées + 1 oignon + 2 gousses d'ail + basilic<span class="ingr-prix">~1.00€</span></li>
+          <li>20g parmesan râpé (par-dessus, en fin)<span class="ingr-prix">~0.40€</span></li>
+          <li>Sel, poivre, origan, piment rouge en option<span class="ingr-prix">~0.05€</span></li>
+        </ul>
+        <div class="top10-why">Budget très accessible, charge glycémique modérée grâce aux pâtes complètes. Le bœuf apporte créatine naturelle + zinc + fer héminique. Plat de pré-workout de premier choix.</div>
+      </div>
+    </div>
+
+    <div class="top10-card r3">
+      <div class="top10-rank r3">03</div>
+      <div class="top10-body">
+        <div class="top10-title">Thon · Riz Basmati · Brocolis Vapeur</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 55g</div>
+          <div class="meal-macro-pill c">C 55g</div>
+          <div class="meal-macro-pill f">F 8g</div>
+          <span class="top10-kcal">520 kcal</span>
+          <span class="top10-prix">~4.10€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>2 boîtes thon naturel (eau) égouttées = 200g net<span class="ingr-prix">~2.50€</span></li>
+          <li>45g riz basmati sec → 150g cuit<span class="ingr-prix">~0.12€</span></li>
+          <li>250g brocolis vapeur (micro-ondes 5 min suffit)<span class="ingr-prix">~0.55€</span></li>
+          <li>Sauce : sauce soja + 1 cc huile de sésame + gingembre râpé<span class="ingr-prix">~0.60€</span></li>
+          <li>Citron + graines de sésame<span class="ingr-prix">~0.30€</span></li>
+        </ul>
+        <div class="top10-why">Repas le plus rapide de la liste (15 min). Ratio protéines/calories excellent (55g pour 520 kcal). Le brocoli apporte des composés soufrés qui soutiennent un métabolisme hormonal sain — utile en recomposition.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">20</div>
+      <div class="top10-body">
+        <div class="top10-title">Bowl Petit-Déjeuner Protéiné (Yaourt + Avoine + Œufs)</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 42g</div>
+          <div class="meal-macro-pill c">C 62g</div>
+          <div class="meal-macro-pill f">F 14g</div>
+          <span class="top10-kcal">570 kcal</span>
+          <span class="top10-prix">~2.25€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>250g yaourt grec Total 2% ou 0%<span class="ingr-prix">~1.00€</span></li>
+          <li>50g flocons d'avoine (crus ou overnight oats)<span class="ingr-prix">~0.10€</span></li>
+          <li>2 œufs à la coque ou mollets (6 min dans l'eau bouillante)<span class="ingr-prix">~0.60€</span></li>
+          <li>1 banane mûre tranchée<span class="ingr-prix">~0.25€</span></li>
+          <li>15g amandes effilées + 1 filet de miel (5g)<span class="ingr-prix">~0.30€</span></li>
+        </ul>
+        <div class="top10-why">Le meilleur déjeuner pour les jours de repos. Digestion lente (caséine du yaourt + β-glucane avoine) = satiété 4-5h. Couvre environ 25% de ton apport protéique journalier dès le matin.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">15</div>
+      <div class="top10-body">
+        <div class="top10-title">Poulet Mariné · Légumes Méditerranéens Rôtis</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 48g</div>
+          <div class="meal-macro-pill c">C 60g</div>
+          <div class="meal-macro-pill f">F 12g</div>
+          <span class="top10-kcal">580 kcal</span>
+          <span class="top10-prix">~4.45€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>200g escalope poulet (marinade : huile d'olive, ail, herbes de Provence, jus citron, 30 min min.)<span class="ingr-prix">~2.65€</span></li>
+          <li>300g légumes mélangés : courgette + poivron rouge + oignon rouge + tomates cerises<span class="ingr-prix">~1.20€</span></li>
+          <li>200g patate douce en cubes (tout au four, 200°C, 25 min)<span class="ingr-prix">~0.55€</span></li>
+          <li>Sel, poivre, origan séché, thym<span class="ingr-prix">~0.05€</span></li>
+        </ul>
+        <div class="top10-why">Meal prep idéal — tout sur une seule plaque en 30 min. Les légumes colorés apportent lycopène, bêta-carotène, vitamine C. Rôtir concentre les saveurs sans ajouter de calories.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">16</div>
+      <div class="top10-body">
+        <div class="top10-title">Wraps Dinde · Avocat · Fromage Frais</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 40g</div>
+          <div class="meal-macro-pill c">C 48g</div>
+          <div class="meal-macro-pill f">F 20g</div>
+          <span class="top10-kcal">560 kcal</span>
+          <span class="top10-prix">~3.95€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>2 tortillas complètes (ou 1 grande)<span class="ingr-prix">~0.40€</span></li>
+          <li>150g émincé de dinde (grillé à la poêle, sel + cumin)<span class="ingr-prix">~1.50€</span></li>
+          <li>½ avocat en tranches<span class="ingr-prix">~0.60€</span></li>
+          <li>2 CS fromage frais (Philadelphia léger ou St Môret)<span class="ingr-prix">~0.65€</span></li>
+          <li>Salade verte + tomates + concombre en rondelles + jus de citron<span class="ingr-prix">~0.80€</span></li>
+        </ul>
+        <div class="top10-why">Le meilleur repas "en déplacement" ou au bureau. Se prépare en 8 minutes. La dinde est l'une des viandes les plus maigres qui existent (1g de lipides pour 30g de protéines/100g).</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">04</div>
+      <div class="top10-body">
+        <div class="top10-title">Lentilles Corail · Poulet · Curry Coco</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 50g</div>
+          <div class="meal-macro-pill c">C 58g</div>
+          <div class="meal-macro-pill f">F 18g</div>
+          <span class="top10-kcal">600 kcal</span>
+          <span class="top10-prix">~3.40€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>100g lentilles corail sèches (rincées, cuisson 15 min)<span class="ingr-prix">~0.35€</span></li>
+          <li>150g poulet coupé en dés (poêle ou ajouté direct dans la casserole)<span class="ingr-prix">~1.80€</span></li>
+          <li>100ml lait de coco léger<span class="ingr-prix">~0.35€</span></li>
+          <li>Épices : 1 CS curry, ½ cc curcuma, ½ cc cumin, 1 cc gingembre râpé, 2 gousses d'ail<span class="ingr-prix">~0.25€</span></li>
+          <li>Grosse poignée d'épinards frais (en fin de cuisson)<span class="ingr-prix">~0.55€</span></li>
+          <li>Riz basmati 40g sec en accompagnement (optionnel)<span class="ingr-prix">~0.10€</span></li>
+        </ul>
+        <div class="top10-why">Les lentilles corail = double protéine (végétale + animale) + fer + zinc. Le curcuma est anti-inflammatoire puissant — utile pour la récupération musculaire. Plat économique, rassasiant, très dense en micronutriments.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">18</div>
+      <div class="top10-body">
+        <div class="top10-title">Riz Sauté aux Œufs · Edamame · Sauce Soja</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 36g</div>
+          <div class="meal-macro-pill c">C 65g</div>
+          <div class="meal-macro-pill f">F 16g</div>
+          <span class="top10-kcal">560 kcal</span>
+          <span class="top10-prix">~2.50€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>200g riz basmati cuit (de la veille — le riz froid saute mieux)<span class="ingr-prix">~0.17€</span></li>
+          <li>3 œufs entiers (battus, ajoutés directement dans le wok)<span class="ingr-prix">~0.90€</span></li>
+          <li>100g edamame décortiqués (rayon surgelés, 3 min micro-ondes)<span class="ingr-prix">~0.56€</span></li>
+          <li>2 CS sauce soja réduite en sel<span class="ingr-prix">~0.48€</span></li>
+          <li>1 cc huile de sésame (en fin), gingembre râpé, 2 oignons verts<span class="ingr-prix">~0.30€</span></li>
+          <li>Graines de sésame blanc pour finir<span class="ingr-prix">~0.10€</span></li>
+        </ul>
+        <div class="top10-why">L'anti-gaspillage parfait pour finir le riz de la veille. L'edamame apporte des isoflavones, phytostérols et protéines végétales complètes. Prêt en 8 minutes chrono, très satisfaisant gustativement.</div>
+      </div>
+    </div>
+
+    <div class="top10-card r2">
+      <div class="top10-rank r2">02</div>
+      <div class="top10-body">
+        <div class="top10-title">Chirashi Bowl · Saumon · Riz Vinaigré <span class="tag-jp">🇯🇵 Japonais</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 44g</div>
+          <div class="meal-macro-pill c">C 62g</div>
+          <div class="meal-macro-pill f">F 24g</div>
+          <span class="top10-kcal">680 kcal</span>
+          <span class="top10-prix">~5.55€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>150g saumon frais en dés (sashimi grade si possible)<span class="ingr-prix">~2.85€</span></li>
+          <li>60g riz japonica sec → cuit + 1 CS vinaigre de riz + 1 cc sucre + pincée sel<span class="ingr-prix">~0.35€</span></li>
+          <li>100g edamame décortiqués (surgelés, 3 min micro-ondes)<span class="ingr-prix">~0.56€</span></li>
+          <li>½ avocat + ¼ concombre en rondelles fines<span class="ingr-prix">~0.73€</span></li>
+          <li>Gingembre mariné (gari) + algues nori coupées en lanières<span class="ingr-prix">~0.65€</span></li>
+          <li>Sauce : 2 CS sauce soja + ½ cc huile de sésame + jus citron ou yuzu<span class="ingr-prix">~0.40€</span></li>
+        </ul>
+        <div class="top10-why">Tout ce que le saumon #1 offre — oméga-3, protéines complètes — avec en plus l'edamame (isoflavones), le gingembre (anti-inflammatoire), et le plaisir durable d'un plat que tu adoreras refaire.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">07</div>
+      <div class="top10-body">
+        <div class="top10-title">Soba Froides · Poulet · Sauce Tsuyu <span class="tag-jp">🇯🇵 Japonais</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 46g</div>
+          <div class="meal-macro-pill c">C 60g</div>
+          <div class="meal-macro-pill f">F 6g</div>
+          <span class="top10-kcal">500 kcal</span>
+          <span class="top10-prix">~4.75€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>100g nouilles soba sèches (sarrasin — cuisson 4 min, rincer à l'eau froide)<span class="ingr-prix">~0.90€</span></li>
+          <li>160g blanc de poulet grillé, tranché fin en biais<span class="ingr-prix">~1.92€</span></li>
+          <li>Sauce tsuyu : 3 CS sauce soja + 2 CS mirin + 150ml dashi (ou eau + 1 cc dashi en poudre)<span class="ingr-prix">~1.40€</span></li>
+          <li>¼ concombre en julienne + ½ feuille nori coupée<span class="ingr-prix">~0.30€</span></li>
+          <li>Graines de sésame + oignons verts + gingembre râpé<span class="ingr-prix">~0.20€</span></li>
+        </ul>
+        <div class="top10-why">Les soba = index glycémique bas (≈55) vs pâtes classiques (≈70). Repas ultra-léger parfait les jours de repos. Le sarrasin contient de la rutine (anti-inflammatoire vasculaire) — bénéfique pour la circulation.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">10</div>
+      <div class="top10-body">
+        <div class="top10-title">Gyudon · Bœuf Oignon · Riz <span class="tag-jp">🇯🇵 Japonais</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 44g</div>
+          <div class="meal-macro-pill c">C 68g</div>
+          <div class="meal-macro-pill f">F 22g</div>
+          <span class="top10-kcal">650 kcal</span>
+          <span class="top10-prix">~4.45€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>180g bœuf émincé très fin (ou steak haché façonné en fines lamelles)<span class="ingr-prix">~2.52€</span></li>
+          <li>1 gros oignon émincé en demi-lunes<span class="ingr-prix">~0.25€</span></li>
+          <li>Sauce : 3 CS sauce soja + 2 CS mirin + 1 cc sucre + 150ml dashi (ou eau)<span class="ingr-prix">~1.00€</span></li>
+          <li>60g riz japonica sec (riz à sushi) cuit à la casserole<span class="ingr-prix">~0.20€</span></li>
+          <li>1 œuf mollet (6 min) posé au centre du bol<span class="ingr-prix">~0.30€</span></li>
+          <li>Oignons verts ciselés — shichimi (7 épices) optionnel<span class="ingr-prix">~0.20€</span></li>
+        </ul>
+        <div class="top10-why">Le plat populaire japonais par excellence. Le bœuf apporte créatine naturelle + zinc + fer héminique, les trois micronutriments les plus critiques pour un athlète débutant. L'œuf mollet ajoute un shot de protéines complet.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">13</div>
+      <div class="top10-body">
+        <div class="top10-title">Donburi Teriyaki Poulet <span class="tag-jp">🇯🇵 Japonais</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 46g</div>
+          <div class="meal-macro-pill c">C 70g</div>
+          <div class="meal-macro-pill f">F 14g</div>
+          <span class="top10-kcal">640 kcal</span>
+          <span class="top10-prix">~3.10€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>200g cuisse de poulet désossée (plus moelleuse que le blanc pour ce plat)<span class="ingr-prix">~1.70€</span></li>
+          <li>Sauce teriyaki maison : 3 CS sauce soja + 2 CS mirin + 1 CS miel + 1 cc fécule de maïs<span class="ingr-prix">~1.00€</span></li>
+          <li>60g riz japonica sec cuit<span class="ingr-prix">~0.20€</span></li>
+          <li>Graines de sésame blanc + oignons verts ciselés<span class="ingr-prix">~0.15€</span></li>
+          <li>½ CS huile neutre pour la poêle (arachide ou tournesol)<span class="ingr-prix">~0.05€</span></li>
+        </ul>
+        <div class="top10-why">Le mirin réduit légèrement la réponse glycémique vs sucre pur. La cuisse de poulet a plus de graisses intramusculaires que le blanc → plus de saveur, plus de satisfaction. Plat très facile à aimer et donc à manger régulièrement.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">14</div>
+      <div class="top10-body">
+        <div class="top10-title">Soupe Miso · Tofu · Poulet · Riz <span class="tag-jp">🇯🇵 Japonais</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 48g</div>
+          <div class="meal-macro-pill c">C 48g</div>
+          <div class="meal-macro-pill f">F 12g</div>
+          <span class="top10-kcal">500 kcal</span>
+          <span class="top10-prix">~3.90€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>200ml bouillon dashi (sachet katsuobushi ou dashi en poudre)<span class="ingr-prix">~0.25€</span></li>
+          <li>1,5 CS pâte miso blanche (shiro miso — dissoudre hors ébullition)<span class="ingr-prix">~0.60€</span></li>
+          <li>150g tofu ferme en dés (ou tofu soyeux)<span class="ingr-prix">~0.90€</span></li>
+          <li>120g blanc de poulet émincé fin, poché directement dans le bouillon<span class="ingr-prix">~1.44€</span></li>
+          <li>5g algues wakamé sèches (réhydratées = 40g)<span class="ingr-prix">~0.33€</span></li>
+          <li>45g riz japonica cuit à part, servi dans le bol<span class="ingr-prix">~0.15€</span></li>
+          <li>Oignons verts + ½ cc huile de sésame pour finir<span class="ingr-prix">~0.20€</span></li>
+        </ul>
+        <div class="top10-why">La pâte miso est un prébiotique fermenté — elle nourrit le microbiome intestinal, ce qui améliore l'absorption des protéines et des micronutriments. Repas chaud, réconfortant, idéal les soirs d'hiver ou les jours de repos.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">05</div>
+      <div class="top10-body">
+        <div class="top10-title">Cabillaud en Papillote · Patate Douce · Brocoli</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 46g</div>
+          <div class="meal-macro-pill c">C 44g</div>
+          <div class="meal-macro-pill f">F 6g</div>
+          <span class="top10-kcal">440 kcal</span>
+          <span class="top10-prix">~5.20€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>220g filet de cabillaud (papillote alu ou papier cuisson)<span class="ingr-prix">~3.95€</span></li>
+          <li>Dans la papillote : 1 CS huile d'olive + 2 gousses d'ail + jus citron + thym + sel<span class="ingr-prix">~0.25€</span></li>
+          <li>200g patate douce en cubes (vapeur ou micro-ondes 6 min)<span class="ingr-prix">~0.55€</span></li>
+          <li>200g brocolis vapeur<span class="ingr-prix">~0.44€</span></li>
+          <li>Cuisson four : 190°C, 15 min — ne jamais dépasser</li>
+        </ul>
+        <div class="top10-why">Repas le moins calorique de la liste (440 kcal) pour un maximum de protéines (46g). Idéal les jours de repos si tu vises le déficit léger. Le cabillaud est l'une des sources de protéines les plus digestes.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">09</div>
+      <div class="top10-body">
+        <div class="top10-title">Crevettes Sautées · Riz · Épinards · Ail</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 42g</div>
+          <div class="meal-macro-pill c">C 52g</div>
+          <div class="meal-macro-pill f">F 8g</div>
+          <span class="top10-kcal">480 kcal</span>
+          <span class="top10-prix">~5.10€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>200g crevettes décortiquées crues (surgelées ok — décongeler au frigo la veille)<span class="ingr-prix">~4.00€</span></li>
+          <li>45g riz basmati sec cuit<span class="ingr-prix">~0.12€</span></li>
+          <li>Grosse poignée d'épinards frais (fondent à la poêle en 2 min)<span class="ingr-prix">~0.55€</span></li>
+          <li>3-4 gousses d'ail émincées + piment rouge + persil frais<span class="ingr-prix">~0.20€</span></li>
+          <li>1 CS huile d'olive + jus d'un demi citron<span class="ingr-prix">~0.25€</span></li>
+        </ul>
+        <div class="top10-why">Les crevettes sont une source d'iode (thyroïde), sélénium (antioxydant) et astaxanthine (pigment anti-inflammatoire). Cuisson ultra-rapide (3 min à la poêle). Idéal si tu rentres tard et as peu de temps.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">11</div>
+      <div class="top10-body">
+        <div class="top10-title">Salade Niçoise Protéinée</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 52g</div>
+          <div class="meal-macro-pill c">C 38g</div>
+          <div class="meal-macro-pill f">F 22g</div>
+          <span class="top10-kcal">580 kcal</span>
+          <span class="top10-prix">~5.40€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>160g thon naturel en boîte (égouttés)<span class="ingr-prix">~1.80€</span></li>
+          <li>3 œufs durs (9 min dans eau bouillante)<span class="ingr-prix">~0.90€</span></li>
+          <li>150g haricots verts cuits (vapeur ou blanchi)<span class="ingr-prix">~0.60€</span></li>
+          <li>2 tomates + ½ poivron rouge en lanières<span class="ingr-prix">~1.30€</span></li>
+          <li>100g pommes de terre vapeur (petites, en rondelles)<span class="ingr-prix">~0.13€</span></li>
+          <li>10 olives noires dénoyautées<span class="ingr-prix">~0.40€</span></li>
+          <li>Vinaigrette : 1 CS huile d'olive + citron + 1 cc moutarde + basilic + anchois optionnel<span class="ingr-prix">~0.25€</span></li>
+        </ul>
+        <div class="top10-why">Plat estival anti-gaspillage par excellence. Très riche en protéines (52g) avec peu de glucides — parfait les jours de repos pour rester en déficit léger. Les olives et l'huile d'olive apportent les graisses monoinsaturées critiques pour la testostérone.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">17</div>
+      <div class="top10-body">
+        <div class="top10-title">Galette de Sarrasin · Œuf · Jambon · Emmental</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 38g</div>
+          <div class="meal-macro-pill c">C 42g</div>
+          <div class="meal-macro-pill f">F 18g</div>
+          <span class="top10-kcal">480 kcal</span>
+          <span class="top10-prix">~2.75€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>Pâte à galette : 100g farine de sarrasin + 250ml eau + 1 pincée sel (repos 30 min, 2 galettes)<span class="ingr-prix">~0.22€</span></li>
+          <li>2 œufs entiers (cuits dans la galette pliée en forme de carré)<span class="ingr-prix">~0.60€</span></li>
+          <li>80g jambon blanc épais (ou jambon de Paris sans nitrite)<span class="ingr-prix">~1.05€</span></li>
+          <li>30g emmental râpé fondu<span class="ingr-prix">~0.25€</span></li>
+          <li>Salade verte + tomates cerises en accompagnement<span class="ingr-prix">~0.60€</span></li>
+        </ul>
+        <div class="top10-why">Le sarrasin est naturellement sans gluten et contient du fer, magnésium et rutine. Repas convivial, facile à varier (champignons, saumon fumé, chèvre). Moins dense en protéines que les autres — compléter avec une whey ou un yaourt grec.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">19</div>
+      <div class="top10-body">
+        <div class="top10-title">Pancakes Avoine · Banane · Œufs</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 38g</div>
+          <div class="meal-macro-pill c">C 65g</div>
+          <div class="meal-macro-pill f">F 14g</div>
+          <span class="top10-kcal">560 kcal</span>
+          <span class="top10-prix">~3.75€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>3 œufs entiers<span class="ingr-prix">~0.90€</span></li>
+          <li>1 banane mûre bien écrasée à la fourchette<span class="ingr-prix">~0.25€</span></li>
+          <li>60g flocons d'avoine mixés finement (= farine d'avoine)<span class="ingr-prix">~0.12€</span></li>
+          <li>1 scoop whey vanille ou nature (optionnel mais recommandé)<span class="ingr-prix">~1.15€</span></li>
+          <li>1 cc cannelle + 1 pincée sel + ½ cc extrait vanille<span class="ingr-prix">~0.20€</span></li>
+          <li>200g yaourt grec 0% pour servir (+ quelques fruits rouges)<span class="ingr-prix">~1.10€</span></li>
+        </ul>
+        <div class="top10-why">Idéal le matin d'un jour d'entraînement — forte charge glucidique et protéique. Le ranking est bas non par manque de qualité mais parce que c'est un petit-déjeuner spécifique, pas un repas universel. Avec la whey, ça monte à 55g de protéines facilement.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">21</div>
+      <div class="top10-body">
+        <div class="top10-title">Tortilla Espagnole Protéinée · Poulet · Pommes de Terre</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 48g</div>
+          <div class="meal-macro-pill c">C 28g</div>
+          <div class="meal-macro-pill f">F 20g</div>
+          <span class="top10-kcal">490 kcal</span>
+          <span class="top10-prix">~3.85€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>5 œufs entiers<span class="ingr-prix">~1.50€</span></li>
+          <li>150g blanc de poulet émincé très fin (saisi 3 min à la poêle avant d'incorporer)<span class="ingr-prix">~1.80€</span></li>
+          <li>200g pommes de terre cuites à l'eau en rondelles (ou patate douce pour variante)<span class="ingr-prix">~0.25€</span></li>
+          <li>½ oignon émincé + 1 CS huile d'olive<span class="ingr-prix">~0.20€</span></li>
+          <li>Sel, poivre, persil frais ou ciboulette<span class="ingr-prix">~0.10€</span></li>
+        </ul>
+        <div class="top10-why">Se mange chaud ou froid — le meal prep par excellence (3 jours au frigo). Les 5 œufs entiers donnent un profil complet en acides aminés essentiels + vitamine D + choline. Low carb naturellement : parfait les jours de repos si tu sautes le riz. Cuisson unique en poêle antiadhésive, 25 min.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">22</div>
+      <div class="top10-body">
+        <div class="top10-title">Bowl Mexicain · Poulet Épicé · Haricots Noirs · Guacamole</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 52g</div>
+          <div class="meal-macro-pill c">C 65g</div>
+          <div class="meal-macro-pill f">F 14g</div>
+          <span class="top10-kcal">610 kcal</span>
+          <span class="top10-prix">~3.70€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>180g blanc de poulet (épices tex-mex : cumin + paprika fumé + piment + origan)<span class="ingr-prix">~2.15€</span></li>
+          <li>120g haricots noirs en boîte égouttés et rincés<span class="ingr-prix">~0.35€</span></li>
+          <li>45g riz basmati sec cuit<span class="ingr-prix">~0.12€</span></li>
+          <li>½ avocat en dés + jus de citron vert<span class="ingr-prix">~0.60€</span></li>
+          <li>50g maïs + ¼ poivron rouge + coriandre fraîche<span class="ingr-prix">~0.35€</span></li>
+        </ul>
+        <div class="top10-why">Les haricots noirs complètent le profil d'acides aminés du poulet et doublent l'apport en fibres — satiété 4-5h garantie. Le cumin facilite la digestion des légumineuses. Parfait post-entraînement avec surplus glucidique naturel. Coloré, varié, anti-monotonie.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">23</div>
+      <div class="top10-body">
+        <div class="top10-title">Cottage Cheese · Fruits Rouges · Granola Protéiné</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 34g</div>
+          <div class="meal-macro-pill c">C 42g</div>
+          <div class="meal-macro-pill f">F 6g</div>
+          <span class="top10-kcal">370 kcal</span>
+          <span class="top10-prix">~2.40€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>300g cottage cheese (Carrefour, Lidl ou MDD — source de caséine native)<span class="ingr-prix">~1.35€</span></li>
+          <li>100g fruits rouges surgelés (framboises, myrtilles, cassis)<span class="ingr-prix">~0.55€</span></li>
+          <li>40g granola (sans sucre ajouté de préférence)<span class="ingr-prix">~0.40€</span></li>
+          <li>1 filet de miel (5g) + zeste de citron jaune<span class="ingr-prix">~0.10€</span></li>
+        </ul>
+        <div class="top10-why">34g de protéines en 5 minutes de préparation pour ~2.40€ — meilleur rapport qualité/prix/praticité de la liste. Le cottage cheese est riche en caséine native : digestion lente, idéal le matin ou avant de dormir. Les fruits rouges apportent des anthocyanines anti-inflammatoires et antioxydantes qui accélèrent la récupération musculaire.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">24</div>
+      <div class="top10-body">
+        <div class="top10-title">Smash Burger Maison · Cheddar · Frites de Patate Douce <span class="tag-jp" style="background:rgba(60,59,110,0.1);color:#3c3b6e;border-color:rgba(60,59,110,0.25)">🇺🇸 Américain</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 52g</div>
+          <div class="meal-macro-pill c">C 75g</div>
+          <div class="meal-macro-pill f">F 24g</div>
+          <span class="top10-kcal">720 kcal</span>
+          <span class="top10-prix">~4.30€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>180g steak haché 5% MG (en 2 boules écrasées fort sur poêle brûlante)<span class="ingr-prix">~2.40€</span></li>
+          <li>1 pain burger complet<span class="ingr-prix">~0.45€</span></li>
+          <li>1 tranche de cheddar<span class="ingr-prix">~0.30€</span></li>
+          <li>200g patate douce en frites au four (1 cc huile, 200°C 25 min)<span class="ingr-prix">~0.55€</span></li>
+          <li>Sauce yaourt-moutarde-cornichon + salade, tomate, oignon rouge<span class="ingr-prix">~0.60€</span></li>
+        </ul>
+        <div class="top10-why">Le burger version prise de masse propre : steak 5% + pain complet donnent 52g de protéines et de bons glucides pour 720 kcal seulement. Le goût « resto » vient de la réaction de Maillard — on écrase fort le steak sur une poêle brûlante pour créer la croûte. Les frites de patate douce au four remplacent la friture (index glycémique plus bas, vitamine A). La récompense des jours d'entraînement.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">25</div>
+      <div class="top10-body">
+        <div class="top10-title">Quinoa · Poulet Grillé · Pois Chiches Rôtis · Féta</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 50g</div>
+          <div class="meal-macro-pill c">C 58g</div>
+          <div class="meal-macro-pill f">F 16g</div>
+          <span class="top10-kcal">580 kcal</span>
+          <span class="top10-prix">~4.00€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>160g blanc de poulet grillé (herbes de Provence + huile d'olive)<span class="ingr-prix">~1.92€</span></li>
+          <li>70g quinoa sec → 210g cuit<span class="ingr-prix">~0.40€</span></li>
+          <li>100g pois chiches en boîte égouttés (poêle 3 min + sel + cumin = croustillants)<span class="ingr-prix">~0.35€</span></li>
+          <li>40g féta émiettée<span class="ingr-prix">~0.65€</span></li>
+          <li>Épinards + tomates cerises + vinaigrette citron-huile d'olive<span class="ingr-prix">~0.50€</span></li>
+        </ul>
+        <div class="top10-why">Triple source protéique — poulet (complet), quinoa (complet, les 9 acides aminés essentiels) et pois chiches (légumineuse). La féta apporte calcium et une saveur méditerranéenne qui rend ce plat addictif. Chaud ou froid, il reste excellent — parfait en boîte repas pour manger au bureau ou au gym.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">26</div>
+      <div class="top10-body">
+        <div class="top10-title">Poke Bowl Thon · Mangue · Avocat · Sauce Ponzu</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 42g</div>
+          <div class="meal-macro-pill c">C 62g</div>
+          <div class="meal-macro-pill f">F 10g</div>
+          <span class="top10-kcal">500 kcal</span>
+          <span class="top10-prix">~3.55€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>160g thon naturel en boîte (égoutté, assaisonné sauce ponzu 5 min avant)<span class="ingr-prix">~1.30€</span></li>
+          <li>60g riz japonica sec → cuit + vinaigré<span class="ingr-prix">~0.20€</span></li>
+          <li>100g mangue fraîche ou surgelée en dés<span class="ingr-prix">~0.60€</span></li>
+          <li>½ avocat en dés<span class="ingr-prix">~0.58€</span></li>
+          <li>Sauce ponzu : 2 CS sauce soja + jus citron vert + 1 cc miel<span class="ingr-prix">~0.35€</span></li>
+          <li>Graines de sésame + oignons verts ciselés<span class="ingr-prix">~0.12€</span></li>
+        </ul>
+        <div class="top10-why">La mangue apporte bêta-carotène, vitamine C et une douceur fruitée qui équilibre la salinité du ponzu — association gustative exceptionnelle. Zéro cuisson requise. Idéal le midi les jours de repos : léger, frais, préparable en 15 minutes avec des boîtes de thon.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">27</div>
+      <div class="top10-body">
+        <div class="top10-title">Shakshuka Protéinée · Œufs Pochés · Poulet · Poivrons</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 46g</div>
+          <div class="meal-macro-pill c">C 20g</div>
+          <div class="meal-macro-pill f">F 18g</div>
+          <span class="top10-kcal">430 kcal</span>
+          <span class="top10-prix">~4.70€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>4 œufs entiers (cassés directement dans la sauce — cuisson pochée)<span class="ingr-prix">~1.20€</span></li>
+          <li>120g blanc de poulet émincé (saisi en premier dans la poêle)<span class="ingr-prix">~1.44€</span></li>
+          <li>1 boîte tomates pelées (400g) — base de la sauce<span class="ingr-prix">~0.80€</span></li>
+          <li>1 poivron rouge + 1 oignon + 2 gousses d'ail<span class="ingr-prix">~1.00€</span></li>
+          <li>Épices : 1 cc harissa + 1 cc cumin + paprika fumé + sel<span class="ingr-prix">~0.25€</span></li>
+        </ul>
+        <div class="top10-why">Plat nord-africain ultra-simple — tout dans une seule poêle en 20 minutes. Seulement 20g de glucides : parfait les jours de repos en déficit léger. La tomate cuite libère plus de lycopène qu'en cru — puissant antioxydant et anti-inflammatoire pour la récupération musculaire. Un classique à faire tourner chaque semaine.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">28</div>
+      <div class="top10-body">
+        <div class="top10-title">Buddha Bowl · Tofu Croustillant · Patate Douce · Tahini</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 32g</div>
+          <div class="meal-macro-pill c">C 58g</div>
+          <div class="meal-macro-pill f">F 18g</div>
+          <span class="top10-kcal">510 kcal</span>
+          <span class="top10-prix">~3.55€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>200g tofu ferme pressé (cubes : sauce soja + ail, four 200°C 20 min — croustillant dehors, fondant dedans)<span class="ingr-prix">~1.20€</span></li>
+          <li>200g patate douce rôtie (cumin + paprika, même plaque que le tofu)<span class="ingr-prix">~0.55€</span></li>
+          <li>100g pois chiches rôtis (sel + huile, 15 min four)<span class="ingr-prix">~0.35€</span></li>
+          <li>Grosse poignée d'épinards + tomates cerises<span class="ingr-prix">~0.55€</span></li>
+          <li>Sauce tahini : 2 CS tahini + jus citron + 1 gousse d'ail + 3 CS eau chaude<span class="ingr-prix">~0.60€</span></li>
+          <li>Graines de sésame + grenade (garniture)<span class="ingr-prix">~0.20€</span></li>
+        </ul>
+        <div class="top10-why">L'unique repas végétarien de la liste — 32g de protéines, à compléter avec un yaourt grec ou une whey. Le tahini est l'une des meilleures sources de calcium, zinc et magnésium de l'alimentation. Trois textures différentes (croustillant, fondant, croquant) en une seule assiette — gustativement irréprochable.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">29</div>
+      <div class="top10-body">
+        <div class="top10-title">Poulet Tikka Masala Maison · Riz Basmati <span class="tag-banger">★ Banger</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 52g</div>
+          <div class="meal-macro-pill c">C 65g</div>
+          <div class="meal-macro-pill f">F 18g</div>
+          <span class="top10-kcal">640 kcal</span>
+          <span class="top10-prix">~5.20€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>200g blanc de poulet en morceaux<span class="ingr-prix">~2.40€</span></li>
+          <li>Marinade (4h ou nuit) : 150g yaourt grec + garam masala + curcuma + cumin + ail + gingembre<span class="ingr-prix">~0.75€</span></li>
+          <li>Sauce : 1 boîte tomates pelées + 1 oignon + 2 gousses d'ail (revenir 10 min, mixer)<span class="ingr-prix">~1.00€</span></li>
+          <li>100ml lait de coco léger + 2 CS crème (pour onctuosité finale)<span class="ingr-prix">~0.50€</span></li>
+          <li>Épices sauce : garam masala + coriandre moulue + paprika doux<span class="ingr-prix">~0.35€</span></li>
+          <li>60g riz basmati sec<span class="ingr-prix">~0.16€</span></li>
+        </ul>
+        <div class="top10-why">Le marinage yaourt attendrit la viande grâce aux acides lactiques — résultat identique à un restaurant indien. Le garam masala contient cardamome, cannelle, clou de girofle : tous anti-inflammatoires puissants. Prépare-en double le dimanche soir (10 min actifs + 40 min cuisson) — meilleur le lendemain quand les épices ont infusé toute la nuit.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">30</div>
+      <div class="top10-body">
+        <div class="top10-title">Pad Thaï · Poulet · Crevettes · Cacahuètes <span class="tag-banger">★ Banger</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 58g</div>
+          <div class="meal-macro-pill c">C 55g</div>
+          <div class="meal-macro-pill f">F 16g</div>
+          <span class="top10-kcal">600 kcal</span>
+          <span class="top10-prix">~7.60€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>120g blanc de poulet émincé fin<span class="ingr-prix">~1.44€</span></li>
+          <li>150g crevettes décortiquées crues surgelées<span class="ingr-prix">~3.00€</span></li>
+          <li>150g nouilles de riz sèches (trempage 30 min eau froide avant cuisson)<span class="ingr-prix">~0.90€</span></li>
+          <li>3 œufs entiers (brouillés directement dans le wok en cours de cuisson)<span class="ingr-prix">~0.90€</span></li>
+          <li>Sauce pad thaï : 3 CS nuoc-mâm + 2 CS sauce soja + 1 CS sucre de canne + jus citron vert<span class="ingr-prix">~0.55€</span></li>
+          <li>80g pousses de soja + 2 oignons verts + coriandre fraîche<span class="ingr-prix">~0.45€</span></li>
+          <li>2 CS cacahuètes concassées + quartiers citron vert (service)<span class="ingr-prix">~0.20€</span></li>
+        </ul>
+        <div class="top10-why">Le plat de référence de la street food thaïlandaise — double protéine (poulet + crevettes) pour un profil d'acides aminés exceptionnel. Le nuoc-mâm fermenté apporte umami profond, zinc et glutamine naturelle. Technique wok : feu très fort, tout va vite (10 min de cuisson max). Le plat le plus cher de la liste mais aussi le plus impactant gustativement. À faire les soirs post-workout du samedi.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">31</div>
+      <div class="top10-body">
+        <div class="top10-title">Fajitas de Poulet · Poivrons · Tortillas <span class="tag-jp" style="background:rgba(0,104,71,0.1);color:#006847;border-color:rgba(0,104,71,0.25)">🇲🇽 Mexicain</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 52g</div>
+          <div class="meal-macro-pill c">C 62g</div>
+          <div class="meal-macro-pill f">F 16g</div>
+          <span class="top10-kcal">600 kcal</span>
+          <span class="top10-prix">~3.80€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>180g blanc de poulet en fines lanières<span class="ingr-prix">~1.60€</span></li>
+          <li>2 tortillas de blé complètes<span class="ingr-prix">~0.70€</span></li>
+          <li>1½ poivrons (rouge + vert) + ½ oignon<span class="ingr-prix">~0.90€</span></li>
+          <li>1 CS épices fajitas + 1 cc huile + citron vert<span class="ingr-prix">~0.30€</span></li>
+          <li>Salsa + coriandre fraîche<span class="ingr-prix">~0.30€</span></li>
+        </ul>
+        <div class="top10-why">Le banger tex-mex express et coloré : 52g de protéines maigres, des poivrons gorgés de vitamine C, et des tortillas complètes pour recharger le glycogène après l'entraînement. Le secret de poivrons « grillés resto » : poêle très chaude et on ne remue pas trop, pour qu'ils marquent sans rendre d'eau.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">32</div>
+      <div class="top10-body">
+        <div class="top10-title">Bibimbap Bœuf · Riz · Légumes · Œuf <span class="tag-jp" style="background:rgba(0,71,160,0.1);color:#0047a0;border-color:rgba(0,71,160,0.25)">🇰🇷 Coréen</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 42g</div>
+          <div class="meal-macro-pill c">C 60g</div>
+          <div class="meal-macro-pill f">F 16g</div>
+          <span class="top10-kcal">560 kcal</span>
+          <span class="top10-prix">~4.00€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>150g bœuf haché 5% MG<span class="ingr-prix">~1.95€</span></li>
+          <li>60g riz sec + 1 œuf<span class="ingr-prix">~0.46€</span></li>
+          <li>300g légumes : carotte + épinards + champignons + courgette<span class="ingr-prix">~0.85€</span></li>
+          <li>Sauce : gochujang + sauce soja + huile de sésame<span class="ingr-prix">~0.74€</span></li>
+        </ul>
+        <div class="top10-why">Plat coréen complet : protéines, glucides et 4 légumes en un bol. Le gochujang (pâte de piment fermentée) apporte umami et probiotiques. Disposer les légumes par couleur avant de mélanger. Idéal post-entraînement.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">33</div>
+      <div class="top10-body">
+        <div class="top10-title">Poulet Shawarma Bowl · Riz · Sauce Yaourt-Ail <span class="tag-jp" style="background:rgba(0,122,61,0.1);color:#007a3d;border-color:rgba(0,122,61,0.25)">🇱🇧 Libanais</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 54g</div>
+          <div class="meal-macro-pill c">C 56g</div>
+          <div class="meal-macro-pill f">F 11g</div>
+          <span class="top10-kcal">540 kcal</span>
+          <span class="top10-prix">~3.90€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>180g blanc de poulet (mariné au yaourt + épices)<span class="ingr-prix">~1.65€</span></li>
+          <li>60g riz basmati sec<span class="ingr-prix">~0.18€</span></li>
+          <li>80g yaourt grec 0% (sauce ail-citron)<span class="ingr-prix">~0.50€</span></li>
+          <li>Épices shawarma (cumin, paprika, coriandre, curcuma) + 1 cc huile<span class="ingr-prix">~0.45€</span></li>
+          <li>Tomate, concombre, oignon rouge, persil + pickles<span class="ingr-prix">~1.12€</span></li>
+        </ul>
+        <div class="top10-why">Le goût street-food du shawarma en version healthy et maigre : 54g de protéines pour seulement 11g de lipides. La marinade au yaourt n'est pas qu'une question de goût — son acidité lactique attendrit les fibres du poulet et le garde juteux. La sauce ail-citron sur base de yaourt grec ajoute des protéines sans les calories d'une sauce blanche classique.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">34</div>
+      <div class="top10-body">
+        <div class="top10-title">Bun Cha · Poulet · Vermicelles · Herbes <span class="tag-jp" style="background:rgba(218,37,29,0.1);color:#da251d;border-color:rgba(218,37,29,0.25)">🇻🇳 Vietnamien</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 38g</div>
+          <div class="meal-macro-pill c">C 68g</div>
+          <div class="meal-macro-pill f">F 8g</div>
+          <span class="top10-kcal">500 kcal</span>
+          <span class="top10-prix">~3.65€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>150g blanc de poulet (mariné soja + miel + ail)<span class="ingr-prix">~1.80€</span></li>
+          <li>80g vermicelles de riz<span class="ingr-prix">~0.50€</span></li>
+          <li>Salade + menthe + coriandre + carotte râpée<span class="ingr-prix">~0.75€</span></li>
+          <li>Sauce nuoc-mâm + citron vert + 1 CS cacahuètes<span class="ingr-prix">~0.60€</span></li>
+        </ul>
+        <div class="top10-why">Plat vietnamien frais et léger. Les herbes fraîches (menthe, coriandre) apportent micronutriments et digestion facile. Le nuoc-mâm fermenté = umami + zinc. Idéal en été ou les jours d'entraînement.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">35</div>
+      <div class="top10-body">
+        <div class="top10-title">Chili Con Carne · Bœuf · Haricots · Riz</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 56g</div>
+          <div class="meal-macro-pill c">C 70g</div>
+          <div class="meal-macro-pill f">F 15g</div>
+          <span class="top10-kcal">640 kcal</span>
+          <span class="top10-prix">~4.80€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>200g bœuf haché 5% MG<span class="ingr-prix">~2.60€</span></li>
+          <li>1 boîte haricots rouges + 50g maïs<span class="ingr-prix">~0.60€</span></li>
+          <li>400g tomates pelées<span class="ingr-prix">~0.80€</span></li>
+          <li>Oignon + ½ poivron + ail + épices<span class="ingr-prix">~0.64€</span></li>
+          <li>45g riz basmati sec<span class="ingr-prix">~0.16€</span></li>
+        </ul>
+        <div class="top10-why">56g de protéines et un grand volume — très rassasiant. Bœuf (fer héminique + créatine) + haricots rouges (fibres + protéines végétales). Parfait à préparer en grande quantité : il s'améliore en réchauffant.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">36</div>
+      <div class="top10-body">
+        <div class="top10-title">Poulet Crémeux aux Champignons · Brocoli</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 54g</div>
+          <div class="meal-macro-pill c">C 16g</div>
+          <div class="meal-macro-pill f">F 19g</div>
+          <span class="top10-kcal">450 kcal</span>
+          <span class="top10-prix">~3.90€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>180g blanc de poulet (en aiguillettes)<span class="ingr-prix">~1.60€</span></li>
+          <li>150g champignons de Paris<span class="ingr-prix">~0.80€</span></li>
+          <li>200g brocoli<span class="ingr-prix">~0.70€</span></li>
+          <li>100g skyr / fromage blanc 0% (sauce)<span class="ingr-prix">~0.40€</span></li>
+          <li>1 cc huile + moutarde + ail + oignon + bouillon<span class="ingr-prix">~0.40€</span></li>
+        </ul>
+        <div class="top10-why">Le réconfort d'une sauce crémeuse sans la crème : 54g de protéines, seulement 16g de glucides et 450 kcal. L'astuce technique : le skyr s'ajoute hors du feu (au-delà de ~80°C il tranche) — résultat onctueux pour une fraction des calories d'une vraie sauce. Idéal les jours de repos en léger déficit.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">37</div>
+      <div class="top10-body">
+        <div class="top10-title">Wrap Falafel · Houmous · Crudités <span class="tag-jp" style="background:rgba(0,122,61,0.1);color:#007a3d;border-color:rgba(0,122,61,0.25)">🇱🇧 Libanais</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 22g</div>
+          <div class="meal-macro-pill c">C 58g</div>
+          <div class="meal-macro-pill f">F 20g</div>
+          <span class="top10-kcal">500 kcal</span>
+          <span class="top10-prix">~3.20€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>2 tortillas complètes<span class="ingr-prix">~0.40€</span></li>
+          <li>6 falafels (frais ou surgelés)<span class="ingr-prix">~1.20€</span></li>
+          <li>60g houmous<span class="ingr-prix">~0.60€</span></li>
+          <li>Salade + tomate + concombre + sauce yaourt<span class="ingr-prix">~1.00€</span></li>
+        </ul>
+        <div class="top10-why">Repas libanais végétarien, parfait à emporter. 22g de protéines végétales (pois chiches du falafel + houmous) — compléter d'un yaourt grec ou d'une whey. Le tahini du houmous apporte calcium et magnésium.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">38</div>
+      <div class="top10-body">
+        <div class="top10-title">Pâtes au Thon · Citron · Ail · Parmesan <span class="tag-jp" style="background:rgba(0,140,69,0.1);color:#008c45;border-color:rgba(0,140,69,0.25)">🇮🇹 Italien</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 58g</div>
+          <div class="meal-macro-pill c">C 74g</div>
+          <div class="meal-macro-pill f">F 12g</div>
+          <span class="top10-kcal">640 kcal</span>
+          <span class="top10-prix">~3.75€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>100g pâtes complètes sèches<span class="ingr-prix">~0.28€</span></li>
+          <li>2 boîtes thon naturel (200g égoutté)<span class="ingr-prix">~2.50€</span></li>
+          <li>1 citron (zeste + jus) + 2 gousses d'ail<span class="ingr-prix">~0.40€</span></li>
+          <li>1 CS huile d'olive + persil + 20g parmesan<span class="ingr-prix">~0.57€</span></li>
+        </ul>
+        <div class="top10-why">Express (15 min) et très protéiné (58g) à partir de placard. L'eau de cuisson amidonnée est le secret d'une sauce qui nappe sans crème. Le citron casse le côté « boîte » du thon. Pâtes complètes = index glycémique plus bas.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">39</div>
+      <div class="top10-body">
+        <div class="top10-title">Porridge Protéiné · Chocolat · Banane</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 38g</div>
+          <div class="meal-macro-pill c">C 65g</div>
+          <div class="meal-macro-pill f">F 10g</div>
+          <span class="top10-kcal">500 kcal</span>
+          <span class="top10-prix">~1.45€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>60g flocons d'avoine<span class="ingr-prix">~0.12€</span></li>
+          <li>1 scoop whey chocolat<span class="ingr-prix">~0.60€</span></li>
+          <li>1 banane + 200ml lait demi-écrémé + cacao<span class="ingr-prix">~0.58€</span></li>
+          <li>10g beurre de cacahuète<span class="ingr-prix">~0.15€</span></li>
+        </ul>
+        <div class="top10-why">Petit-déj costaud à 1,45€ : 38g de protéines, glucides lents (β-glucane de l'avoine = satiété). Ajoute toujours la whey hors du feu pour ne pas la dénaturer. Goût « bowl cake » qui rend le petit-déj addictif.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">40</div>
+      <div class="top10-body">
+        <div class="top10-title">Skyr Bowl · Beurre de Cacahuète · Pomme</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 34g</div>
+          <div class="meal-macro-pill c">C 42g</div>
+          <div class="meal-macro-pill f">F 13g</div>
+          <span class="top10-kcal">420 kcal</span>
+          <span class="top10-prix">~2.10€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>250g skyr nature<span class="ingr-prix">~1.10€</span></li>
+          <li>1 pomme en dés<span class="ingr-prix">~0.30€</span></li>
+          <li>20g beurre de cacahuète<span class="ingr-prix">~0.30€</span></li>
+          <li>30g granola + miel + cannelle<span class="ingr-prix">~0.40€</span></li>
+        </ul>
+        <div class="top10-why">5 minutes, 34g de protéines (caséine du skyr = satiété longue). Parfait en collation ou petit-déj rapide. La cannelle aide à stabiliser la glycémie. Ajoute pomme et granola au dernier moment pour le croquant.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">41</div>
+      <div class="top10-body">
+        <div class="top10-title">Poulet Yassa · Oignons Citron · Riz <span class="tag-jp" style="background:rgba(0,133,63,0.1);color:#00853f;border-color:rgba(0,133,63,0.25)">🇸🇳 Sénégalais</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 46g</div>
+          <div class="meal-macro-pill c">C 58g</div>
+          <div class="meal-macro-pill f">F 12g</div>
+          <span class="top10-kcal">520 kcal</span>
+          <span class="top10-prix">~3.50€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>180g blanc de poulet<span class="ingr-prix">~2.15€</span></li>
+          <li>3 oignons émincés<span class="ingr-prix">~0.45€</span></li>
+          <li>2 citrons (jus) + 1 CS moutarde<span class="ingr-prix">~0.45€</span></li>
+          <li>60g riz sec + olives + épices + laurier<span class="ingr-prix">~0.45€</span></li>
+        </ul>
+        <div class="top10-why">Classique sénégalais maigre (46g de protéines, peu de gras) et plein de saveur grâce au citron et aux oignons fondus. Économique et idéal en meal prep : la sauce s'intensifie le lendemain.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">42</div>
+      <div class="top10-body">
+        <div class="top10-title">Saumon Teriyaki · Riz · Brocoli <span class="tag-jp">🇯🇵 Japonais</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 38g</div>
+          <div class="meal-macro-pill c">C 62g</div>
+          <div class="meal-macro-pill f">F 18g</div>
+          <span class="top10-kcal">560 kcal</span>
+          <span class="top10-prix">~4.15€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>150g pavé de saumon<span class="ingr-prix">~2.85€</span></li>
+          <li>60g riz sec<span class="ingr-prix">~0.20€</span></li>
+          <li>Sauce teriyaki : soja + mirin + miel<span class="ingr-prix">~0.50€</span></li>
+          <li>150g brocoli + sésame + oignon vert<span class="ingr-prix">~0.60€</span></li>
+        </ul>
+        <div class="top10-why">Oméga-3 du saumon (anti-inflammatoires, récupération) + glucides du riz = repas post-entraînement parfait. La sauce teriyaki maison évite le sucre des versions industrielles. Le brocoli soutient un métabolisme hormonal sain.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">43</div>
+      <div class="top10-body">
+        <div class="top10-title">Boulettes de Dinde · Sauce Tomate · Polenta</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 46g</div>
+          <div class="meal-macro-pill c">C 52g</div>
+          <div class="meal-macro-pill f">F 12g</div>
+          <span class="top10-kcal">500 kcal</span>
+          <span class="top10-prix">~3.70€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>180g dinde hachée<span class="ingr-prix">~1.90€</span></li>
+          <li>60g polenta (semoule de maïs)<span class="ingr-prix">~0.25€</span></li>
+          <li>400g tomates pelées + oignon + ail<span class="ingr-prix">~1.05€</span></li>
+          <li>20g parmesan + herbes<span class="ingr-prix">~0.50€</span></li>
+        </ul>
+        <div class="top10-why">La dinde est l'une des viandes les plus maigres (46g de protéines, peu de gras). La polenta est une alternative économique et sans gluten au riz. Plat réconfortant qui se réchauffe très bien.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">44</div>
+      <div class="top10-body">
+        <div class="top10-title">Quesadilla Poulet · Cheddar · Haricots Noirs <span class="tag-jp" style="background:rgba(0,104,71,0.1);color:#006847;border-color:rgba(0,104,71,0.25)">🇲🇽 Mexicain</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 52g</div>
+          <div class="meal-macro-pill c">C 50g</div>
+          <div class="meal-macro-pill f">F 21g</div>
+          <span class="top10-kcal">600 kcal</span>
+          <span class="top10-prix">~3.55€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>150g blanc de poulet (épices tex-mex)<span class="ingr-prix">~1.80€</span></li>
+          <li>2 tortillas<span class="ingr-prix">~0.40€</span></li>
+          <li>60g cheddar râpé<span class="ingr-prix">~0.65€</span></li>
+          <li>60g haricots noirs + ¼ poivron + oignon<span class="ingr-prix">~0.70€</span></li>
+        </ul>
+        <div class="top10-why">52g de protéines (poulet + cheddar + haricots). Cuisson à la poêle sans matière grasse : le fromage fait le liant et la coloration. Les haricots noirs ajoutent fibres et satiété. Idéal post-entraînement.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">45</div>
+      <div class="top10-body">
+        <div class="top10-title">Tofu Croustillant · Sauce Cacahuète · Nouilles <span class="tag-jp" style="background:rgba(165,25,49,0.1);color:#a51931;border-color:rgba(165,25,49,0.25)">🇹🇭 Thaï</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 34g</div>
+          <div class="meal-macro-pill c">C 70g</div>
+          <div class="meal-macro-pill f">F 23g</div>
+          <span class="top10-kcal">620 kcal</span>
+          <span class="top10-prix">~3.40€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>180g tofu ferme (épongé + maïzena = croustillant)<span class="ingr-prix">~1.20€</span></li>
+          <li>70g nouilles (riz ou blé) sèches<span class="ingr-prix">~0.40€</span></li>
+          <li>1½ CS beurre de cacahuète (sauce)<span class="ingr-prix">~0.40€</span></li>
+          <li>200g légumes sautés (poivron, chou, carotte)<span class="ingr-prix">~0.90€</span></li>
+          <li>Sauce soja + citron vert + ail + gingembre + sriracha + cacahuètes<span class="ingr-prix">~0.50€</span></li>
+        </ul>
+        <div class="top10-why">Le banger végé qui ne fait aucun compromis sur le goût : tofu croustillant + sauce cacahuète crémeuse, 34g de protéines végétales complètes (le soja est l'une des rares protéines végétales à PDCAAS élevé). Le secret du tofu croustillant : bien l'éponger et le rouler dans un peu de maïzena. La sauce cacahuète apporte de bons lipides et un umami addictif.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">46</div>
+      <div class="top10-body">
+        <div class="top10-title">Bœuf Sauté aux Brocolis · Riz · Sauce Soja-Sésame</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 48g</div>
+          <div class="meal-macro-pill c">C 60g</div>
+          <div class="meal-macro-pill f">F 20g</div>
+          <span class="top10-kcal">610 kcal</span>
+          <span class="top10-prix">~4.50€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>180g bœuf (bavette/rumsteck) en fines lanières<span class="ingr-prix">~2.60€</span></li>
+          <li>60g riz basmati sec<span class="ingr-prix">~0.20€</span></li>
+          <li>200g brocoli en bouquets<span class="ingr-prix">~0.70€</span></li>
+          <li>Sauce soja + 1 cc miel + ail + gingembre<span class="ingr-prix">~0.50€</span></li>
+          <li>1 cc huile + graines de sésame + oignon vert<span class="ingr-prix">~0.50€</span></li>
+        </ul>
+        <div class="top10-why">Le classique sauté asiatique beef &amp; broccoli : 48g de protéines + le fer héminique et la créatine naturelle du bœuf, parfaits pour la performance. Deux secrets de tendreté : trancher la viande fin et contre les fibres, et saisir à feu très vif et brièvement (une cuisson lente la durcit). Le brocoli blanchi garde sa couleur et son croquant.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">47</div>
+      <div class="top10-body">
+        <div class="top10-title">Riz Cantonais Protéiné · Œufs · Jambon <span class="tag-jp" style="background:rgba(222,41,16,0.1);color:#de2910;border-color:rgba(222,41,16,0.25)">🇨🇳 Chinois</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 38g</div>
+          <div class="meal-macro-pill c">C 62g</div>
+          <div class="meal-macro-pill f">F 16g</div>
+          <span class="top10-kcal">540 kcal</span>
+          <span class="top10-prix">~2.70€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>200g riz cuit de la veille<span class="ingr-prix">~0.17€</span></li>
+          <li>3 œufs<span class="ingr-prix">~0.90€</span></li>
+          <li>80g jambon (ou poulet) en dés<span class="ingr-prix">~0.80€</span></li>
+          <li>60g petits pois + oignon vert + sauce soja<span class="ingr-prix">~0.83€</span></li>
+        </ul>
+        <div class="top10-why">L'anti-gaspi parfait pour finir le riz de la veille — 38g de protéines pour 2,70€ en 15 min. Le secret : riz bien froid et wok très chaud pour qu'il saute sans coller. Version plus maigre avec du poulet à la place du jambon.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">48</div>
+      <div class="top10-body">
+        <div class="top10-title">Gnocchis Poêlés · Tomate · Mozzarella · Œuf <span class="tag-jp" style="background:rgba(0,140,69,0.1);color:#008c45;border-color:rgba(0,140,69,0.25)">🇮🇹 Italien</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 33g</div>
+          <div class="meal-macro-pill c">C 72g</div>
+          <div class="meal-macro-pill f">F 20g</div>
+          <span class="top10-kcal">600 kcal</span>
+          <span class="top10-prix">~2.95€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>220g gnocchis (rayon frais, poêlés à sec)<span class="ingr-prix">~0.90€</span></li>
+          <li>200g sauce tomate / passata<span class="ingr-prix">~0.50€</span></li>
+          <li>60g mozzarella<span class="ingr-prix">~0.70€</span></li>
+          <li>1 œuf (poché ou au plat)<span class="ingr-prix">~0.30€</span></li>
+          <li>10g parmesan + basilic + ail + 1 cc huile d'olive<span class="ingr-prix">~0.55€</span></li>
+        </ul>
+        <div class="top10-why">Le confort italien pas cher et rapide (2,95€, 20 min). L'astuce qui change tout : poêler les gnocchis à sec au lieu de les bouillir — texture croustillante dehors, moelleuse dedans. L'œuf et la mozzarella montent l'ensemble à 33g de protéines. Idéal après une séance pour recharger le glycogène avec un plat réconfortant.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">49</div>
+      <div class="top10-body">
+        <div class="top10-title">Pancakes Protéinés · Myrtilles</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 46g</div>
+          <div class="meal-macro-pill c">C 58g</div>
+          <div class="meal-macro-pill f">F 14g</div>
+          <span class="top10-kcal">540 kcal</span>
+          <span class="top10-prix">~2.05€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>60g flocons d'avoine (mixés)<span class="ingr-prix">~0.12€</span></li>
+          <li>1 scoop whey vanille<span class="ingr-prix">~0.60€</span></li>
+          <li>2 œufs + 1 banane<span class="ingr-prix">~0.85€</span></li>
+          <li>60g myrtilles + filet de lait<span class="ingr-prix">~0.48€</span></li>
+        </ul>
+        <div class="top10-why">Petit-déj gourmand mais 46g de protéines pour 2,05€. La whey vanille sucre naturellement la pâte (zéro sucre ajouté). Feu moyen impératif : trop chaud, la whey brûle. Les myrtilles apportent des antioxydants.</div>
+      </div>
+    </div>
+
+    <div class="top10-card">
+      <div class="top10-rank">50</div>
+      <div class="top10-body">
+        <div class="top10-title">Crevettes Curry Coco · Riz <span class="tag-jp" style="background:rgba(165,25,49,0.1);color:#a51931;border-color:rgba(165,25,49,0.25)">🇹🇭 Thaï</span></div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P 36g</div>
+          <div class="meal-macro-pill c">C 58g</div>
+          <div class="meal-macro-pill f">F 16g</div>
+          <span class="top10-kcal">520 kcal</span>
+          <span class="top10-prix">~4.50€</span>
+        </div>
+        <ul class="top10-ingr">
+          <li>150g crevettes décortiquées crues<span class="ingr-prix">~3.00€</span></li>
+          <li>100ml lait de coco + 1 CS pâte de curry rouge<span class="ingr-prix">~0.65€</span></li>
+          <li>60g riz basmati sec<span class="ingr-prix">~0.16€</span></li>
+          <li>Poivron + oignon + coriandre + citron vert<span class="ingr-prix">~0.69€</span></li>
+        </ul>
+        <div class="top10-why">Curry thaï express et parfumé. Les crevettes ont l'un des meilleurs ratios protéines/calories (+ iode et sélénium). ⚠️ Ne pas trop cuire (3 min max, forme en C). Lait de coco léger pour limiter les graisses saturées.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- SECTION LISTE DE COURSES -->
+<div class="section" id="sec-courses">
+  <div class="section-label">Pratique</div>
+  <div class="section-title">Liste de Courses Auto</div>
+  <div class="section-sub">Coche les repas que tu veux cuisiner cette semaine — ta liste est générée instantanément, groupée par rayon supermarché avec les quantités totales.</div>
+
+  <div class="courses-meal-grid" id="coursesMeals"></div>
+
+  <div class="courses-controls">
+    <button class="courses-ctrl-btn" onclick="coursesToggleAll(true)">Tout cocher</button>
+    <button class="courses-ctrl-btn" onclick="coursesToggleAll(false)">Tout décocher</button>
+    <button class="courses-btn-gen" onclick="coursesGenerate()">⚡ GÉNÉRER MA LISTE</button>
+  </div>
+
+  <div id="coursesResult" class="courses-result" style="display:none">
+    <div class="courses-result-hd">
+      <div>
+        <div class="courses-result-title">MA LISTE DE COURSES</div>
+        <div class="courses-result-sub" id="coursesResultSub"></div>
+      </div>
+      <button class="courses-copy-btn" onclick="coursesCopy()">COPIER</button>
+    </div>
+    <div class="courses-cats" id="coursesCats"></div>
+    <div class="courses-copied" id="coursesCopied">✓ Copié dans le presse-papier !</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>ALLEZ — Programme Nutrition Personnalisé · 30 ans · 71 kg · 1m78</span>
+  <span>
+    <a href="index.html">Accueil</a> &nbsp;·&nbsp;
+    <a href="exercices.html">Exercices</a> &nbsp;·&nbsp;
+    <a href="nutrition.html">Nutrition</a>
+  </span>
+</footer>
+
+<script>
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(el => {
+    if (el.isIntersecting) {
+      el.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal, .meal-item, .erreur-item, .top10-card').forEach(el => observer.observe(el));
+
+// ── MACRO RINGS ANIMATION ──
+const ringObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const fills = entry.target.querySelectorAll('.macro-ring .fill');
+      fills.forEach(fill => {
+        const pct = parseFloat(fill.getAttribute('data-pct'));
+        const circumference = 2 * Math.PI * 50; // r=50
+        const offset = circumference - (pct / 100) * circumference;
+        fill.style.strokeDasharray = circumference;
+        fill.style.strokeDashoffset = offset;
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.macro-visual').forEach(el => ringObserver.observe(el));
+
+// ── HYDRATION BARS ──
+const hydObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.hydration-fill').forEach(bar => {
+        const w = bar.getAttribute('data-w');
+        bar.style.width = w + '%';
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.hydration-block').forEach(el => hydObserver.observe(el));
+
+// ── STAGGERED MEAL ITEMS ──
+const mealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const items = document.querySelectorAll('.meal-item');
+      items.forEach((item, i) => {
+        setTimeout(() => item.classList.add('visible'), i * 120);
+      });
+      mealObserver.disconnect();
+    }
+  });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('.meal-timeline').forEach(t => mealObserver.observe(t));
+
+// ── TOP 20 SORT ──
+(function(){
+  var list = document.querySelector('.top10-list');
+  if (!list) return;
+  var cards = Array.from(list.querySelectorAll('.top10-card'));
+  cards.sort(function(a,b){
+    return (parseInt(a.querySelector('.top10-rank').textContent)||99) -
+           (parseInt(b.querySelector('.top10-rank').textContent)||99);
+  });
+  cards.forEach(function(c){ list.appendChild(c); });
+})();
+
+// ── PLAN TOGGLE ──
+function switchPlan(id, btn) {
+  document.querySelectorAll('.meal-timeline').forEach(el => el.style.display = 'none');
+  document.getElementById('plan-' + id).style.display = 'block';
+  document.querySelectorAll('.plan-tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // Re-trigger meal animations for new plan
+  const items = document.getElementById('plan-' + id).querySelectorAll('.meal-item');
+  items.forEach((item, i) => {
+    item.classList.remove('visible');
+    void item.offsetHeight;
+    setTimeout(() => item.classList.add('visible'), i * 100 + 50);
+  });
+}
+
+// ── STAGGERED ERREUR ITEMS ──
+const errObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const items = document.querySelectorAll('.erreur-item');
+      items.forEach((item, i) => {
+        setTimeout(() => item.classList.add('visible'), i * 80);
+      });
+      errObserver.disconnect();
+    }
+  });
+}, { threshold: 0.05 });
+
+const errList = document.querySelector('.erreurs-list');
+if (errList) errObserver.observe(errList);
+
+// ── COUNTER ANIMATION for hero stats ──
+function animateCount(el, target, suffix) {
+  const duration = 1600;
+  const start = performance.now();
+  const isDecimal = target % 1 !== 0;
+
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const current = target * ease;
+    el.textContent = (isDecimal ? current.toFixed(1) : Math.round(current)).toLocaleString('fr-FR') + (suffix || '');
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+const heroObserver = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting) {
+    animateCount(document.querySelectorAll('.hero-stat-val')[0], 2650, '');
+    animateCount(document.querySelectorAll('.hero-stat-val')[1], 2100, '');
+    animateCount(document.querySelectorAll('.hero-stat-val')[2], 160, 'g');
+    animateCount(document.querySelectorAll('.hero-stat-val')[3], 217, '');
+    heroObserver.disconnect();
+  }
+}, { threshold: 0.5 });
+
+const heroStats = document.querySelector('.hero-stats');
+if (heroStats) heroObserver.observe(heroStats);
+</script>
+<script>
+const _hbg = document.getElementById('navHbg');
+const _nav = document.querySelector('nav');
+_hbg.addEventListener('click', () => { _hbg.classList.toggle('open'); _nav.classList.toggle('open'); });
+document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => { _hbg.classList.remove('open'); _nav.classList.remove('open'); }); });
+document.addEventListener('click', e => { if (_nav.classList.contains('open') && !_nav.contains(e.target)) { _hbg.classList.remove('open'); _nav.classList.remove('open'); } });
+</script>
+<script>
+// ── LISTE DE COURSES ──
+var MEALS_DB = [
+  {id:1, title:'Pavé de Saumon · Quinoa · Avocat', ingr:[
+    {k:'saumon', n:'Saumon (pavé frais)', q:200, u:'g', c:'poisson'},
+    {k:'quinoa', n:'Quinoa', q:60, u:'g', c:'feculents'},
+    {k:'avocat', n:'Avocat', q:0.5, u:'pièce', c:'legumes'},
+    {k:'tomates_cerises', n:'Tomates cerises', q:100, u:'g', c:'legumes'},
+    {k:'concombre', n:'Concombre', q:0.5, u:'pièce', c:'legumes'},
+    {k:'citron', n:'Citron', q:1, u:'pièce', c:'legumes'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
+    {k:'moutarde', n:'Moutarde', q:1, u:'cs', c:'condiments'},
+  ]},
+  {id:2, title:'Chirashi Bowl · Saumon', ingr:[
+    {k:'saumon', n:'Saumon (qualité sashimi)', q:150, u:'g', c:'poisson'},
+    {k:'riz_sushi', n:'Riz à sushi', q:60, u:'g', c:'feculents'},
+    {k:'vinaigre_riz', n:'Vinaigre de riz', q:1, u:'CS', c:'condiments'},
+    {k:'edamame', n:'Edamame (surgelés)', q:100, u:'g', c:'surgeles'},
+    {k:'avocat', n:'Avocat', q:0.5, u:'pièce', c:'legumes'},
+    {k:'concombre', n:'Concombre', q:0.25, u:'pièce', c:'legumes'},
+    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
+    {k:'sauce_soja', n:'Sauce soja', q:2, u:'CS', c:'condiments'},
+    {k:'huile_sesame', n:'Huile de sésame', q:1, u:'cs', c:'condiments'},
+    {k:'nori', n:'Feuilles de nori', q:2, u:'feuille', c:'conserves'},
+    {k:'gingembre', n:'Gingembre mariné (gari)', q:1, u:'cs', c:'condiments'},
+  ]},
+  {id:3, title:'Thon · Riz Basmati · Brocolis', ingr:[
+    {k:'thon_boite', n:'Thon naturel en boîte', q:2, u:'boîte', c:'conserves'},
+    {k:'riz_basmati', n:'Riz basmati', q:45, u:'g', c:'feculents'},
+    {k:'brocoli', n:'Brocoli', q:250, u:'g', c:'legumes'},
+    {k:'sauce_soja', n:'Sauce soja', q:1, u:'CS', c:'condiments'},
+    {k:'huile_sesame', n:'Huile de sésame', q:1, u:'cs', c:'condiments'},
+    {k:'gingembre', n:'Gingembre frais', q:1, u:'morceau', c:'condiments'},
+    {k:'citron', n:'Citron', q:0.5, u:'pièce', c:'legumes'},
+    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
+  ]},
+  {id:4, title:'Lentilles Corail · Poulet · Curry Coco', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:150, u:'g', c:'viandes'},
+    {k:'lentilles_corail', n:'Lentilles corail', q:100, u:'g', c:'feculents'},
+    {k:'lait_coco', n:'Lait de coco léger', q:100, u:'g', c:'conserves'},
+    {k:'epinards', n:'Épinards frais', q:80, u:'g', c:'legumes'},
+    {k:'riz_basmati', n:'Riz basmati', q:40, u:'g', c:'feculents'},
+    {k:'oignon', n:'Oignon', q:1, u:'pièce', c:'legumes'},
+    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
+    {k:'gingembre', n:'Gingembre frais', q:1, u:'morceau', c:'condiments'},
+    {k:'curry', n:'Curry en poudre', q:1, u:'CS', c:'condiments'},
+    {k:'curcuma', n:'Curcuma', q:1, u:'cs', c:'condiments'},
+    {k:'cumin', n:'Cumin', q:1, u:'cs', c:'condiments'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
+  ]},
+  {id:5, title:'Cabillaud en Papillote · Patate Douce · Brocoli', ingr:[
+    {k:'cabillaud', n:'Cabillaud (filet)', q:220, u:'g', c:'poisson'},
+    {k:'patate_douce', n:'Patate douce', q:200, u:'g', c:'legumes'},
+    {k:'brocoli', n:'Brocoli', q:200, u:'g', c:'legumes'},
+    {k:'citron', n:'Citron', q:1, u:'pièce', c:'legumes'},
+    {k:'herbes_prov', n:'Herbes de Provence', q:1, u:'cs', c:'condiments'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
+    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
+  ]},
+  {id:6, title:'Bowl Poulet · Riz · Patate Douce', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:180, u:'g', c:'viandes'},
+    {k:'riz_basmati', n:'Riz basmati', q:45, u:'g', c:'feculents'},
+    {k:'patate_douce', n:'Patate douce', q:200, u:'g', c:'legumes'},
+    {k:'epinards', n:'Épinards frais', q:80, u:'g', c:'legumes'},
+    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
+    {k:'citron', n:'Citron', q:0.5, u:'pièce', c:'legumes'},
+    {k:'cumin', n:'Cumin', q:1, u:'cs', c:'condiments'},
+    {k:'paprika', n:'Paprika fumé', q:1, u:'cs', c:'condiments'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
+  ]},
+  {id:7, title:'Soba Froides · Poulet · Sauce Tsuyu', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:160, u:'g', c:'viandes'},
+    {k:'soba', n:'Nouilles soba', q:100, u:'g', c:'feculents'},
+    {k:'sauce_soja', n:'Sauce soja', q:3, u:'CS', c:'condiments'},
+    {k:'mirin', n:'Mirin', q:2, u:'CS', c:'condiments'},
+    {k:'dashi', n:'Dashi (granulés)', q:1, u:'cs', c:'condiments'},
+    {k:'concombre', n:'Concombre', q:0.25, u:'pièce', c:'legumes'},
+    {k:'nori', n:'Feuilles de nori', q:1, u:'feuille', c:'conserves'},
+    {k:'cebette', n:'Cébette / oignon vert', q:2, u:'tige', c:'legumes'},
+    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
+    {k:'gingembre', n:'Gingembre frais', q:1, u:'morceau', c:'condiments'},
+  ]},
+  {id:8, title:'Omelette Jambon · Patate Douce Rôtie', ingr:[
+    {k:'oeufs', n:'Œufs', q:5, u:'pièce', c:'oeufs'},
+    {k:'jambon_blanc', n:'Jambon blanc', q:100, u:'g', c:'viandes'},
+    {k:'poivron_rouge', n:'Poivron rouge', q:0.5, u:'pièce', c:'legumes'},
+    {k:'champignons', n:'Champignons de Paris', q:100, u:'g', c:'legumes'},
+    {k:'patate_douce', n:'Patate douce', q:200, u:'g', c:'legumes'},
+    {k:'ciboulette', n:'Ciboulette fraîche', q:1, u:'bouquet', c:'legumes'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
+  ]},
+  {id:9, title:'Crevettes Sautées · Riz · Épinards', ingr:[
+    {k:'crevettes', n:'Crevettes décortiquées', q:200, u:'g', c:'surgeles'},
+    {k:'riz_basmati', n:'Riz basmati', q:45, u:'g', c:'feculents'},
+    {k:'epinards', n:'Épinards frais', q:100, u:'g', c:'legumes'},
+    {k:'ail', n:'Ail', q:4, u:'gousse', c:'condiments'},
+    {k:'piment_rouge', n:'Piment rouge frais', q:1, u:'pièce', c:'legumes'},
+    {k:'persil', n:'Persil frais', q:1, u:'bouquet', c:'legumes'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
+    {k:'citron', n:'Citron', q:0.5, u:'pièce', c:'legumes'},
+  ]},
+  {id:10, title:'Gyudon · Bœuf Oignon · Riz', ingr:[
+    {k:'boeuf', n:'Bœuf (tranches fines)', q:180, u:'g', c:'viandes'},
+    {k:'riz_japonais', n:'Riz japonais (Koshi-hikari)', q:60, u:'g', c:'feculents'},
+    {k:'oeufs', n:'Œufs', q:1, u:'pièce', c:'oeufs'},
+    {k:'oignon', n:'Oignon', q:1, u:'pièce', c:'legumes'},
+    {k:'cebette', n:'Cébette / oignon vert', q:2, u:'tige', c:'legumes'},
+    {k:'sauce_soja', n:'Sauce soja', q:3, u:'CS', c:'condiments'},
+    {k:'mirin', n:'Mirin', q:2, u:'CS', c:'condiments'},
+    {k:'dashi', n:'Dashi (granulés)', q:1, u:'cs', c:'condiments'},
+  ]},
+  {id:11, title:'Salade Niçoise Protéinée', ingr:[
+    {k:'thon_boite', n:'Thon naturel en boîte', q:2, u:'boîte', c:'conserves'},
+    {k:'oeufs', n:'Œufs', q:3, u:'pièce', c:'oeufs'},
+    {k:'haricots_verts', n:'Haricots verts', q:150, u:'g', c:'legumes'},
+    {k:'tomates', n:'Tomates', q:2, u:'pièce', c:'legumes'},
+    {k:'poivron_rouge', n:'Poivron rouge', q:0.5, u:'pièce', c:'legumes'},
+    {k:'pommes_de_terre', n:'Pommes de terre', q:100, u:'g', c:'legumes'},
+    {k:'olives_noires', n:'Olives noires dénoyautées', q:60, u:'g', c:'conserves'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
+    {k:'citron', n:'Citron', q:0.5, u:'pièce', c:'legumes'},
+    {k:'moutarde', n:'Moutarde', q:1, u:'cs', c:'condiments'},
+    {k:'basilic', n:'Basilic frais', q:1, u:'bouquet', c:'legumes'},
+  ]},
+  {id:12, title:'Steak Haché · Pâtes Complètes · Sauce Tomate', ingr:[
+    {k:'steak_hache', n:'Steak haché 5% MG', q:200, u:'g', c:'viandes'},
+    {k:'pates_completes', n:'Pâtes complètes', q:100, u:'g', c:'feculents'},
+    {k:'tomates_pelees', n:'Tomates pelées (boîte 400g)', q:1, u:'boîte', c:'conserves'},
+    {k:'parmesan', n:'Parmesan râpé', q:20, u:'g', c:'oeufs'},
+    {k:'oignon', n:'Oignon', q:1, u:'pièce', c:'legumes'},
+    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
+    {k:'basilic', n:'Basilic frais', q:1, u:'bouquet', c:'legumes'},
+    {k:'origan', n:'Origan séché', q:1, u:'cs', c:'condiments'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
+  ]},
+  {id:13, title:'Donburi Teriyaki Poulet', ingr:[
+    {k:'poulet_cuisse', n:'Cuisse de poulet désossée', q:200, u:'g', c:'viandes'},
+    {k:'riz_japonais', n:'Riz japonais (Koshi-hikari)', q:60, u:'g', c:'feculents'},
+    {k:'sauce_soja', n:'Sauce soja', q:3, u:'CS', c:'condiments'},
+    {k:'mirin', n:'Mirin', q:2, u:'CS', c:'condiments'},
+    {k:'miel', n:'Miel', q:1, u:'CS', c:'condiments'},
+    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
+    {k:'cebette', n:'Cébette / oignon vert', q:2, u:'tige', c:'legumes'},
+    {k:'huile_neutre', n:'Huile neutre (tournesol)', q:1, u:'CS', c:'condiments'},
+  ]},
+  {id:14, title:'Soupe Miso · Tofu · Poulet · Riz', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:120, u:'g', c:'viandes'},
+    {k:'tofu', n:'Tofu ferme', q:150, u:'g', c:'oeufs'},
+    {k:'riz_japonais', n:'Riz japonais (Koshi-hikari)', q:45, u:'g', c:'feculents'},
+    {k:'miso', n:'Pâte miso', q:2, u:'CS', c:'conserves'},
+    {k:'dashi', n:'Dashi (granulés)', q:1, u:'cs', c:'condiments'},
+    {k:'wakame', n:'Algues wakame séchées', q:1, u:'cs', c:'conserves'},
+    {k:'cebette', n:'Cébette / oignon vert', q:2, u:'tige', c:'legumes'},
+    {k:'huile_sesame', n:'Huile de sésame', q:1, u:'cs', c:'condiments'},
+  ]},
+  {id:15, title:'Poulet Mariné · Légumes Méditerranéens', ingr:[
+    {k:'poulet_blanc', n:'Escalope de poulet', q:200, u:'g', c:'viandes'},
+    {k:'courgette', n:'Courgette', q:1, u:'pièce', c:'legumes'},
+    {k:'oignon_rouge', n:'Oignon rouge', q:1, u:'pièce', c:'legumes'},
+    {k:'poivron_rouge', n:'Poivron rouge', q:1, u:'pièce', c:'legumes'},
+    {k:'tomates_cerises', n:'Tomates cerises', q:100, u:'g', c:'legumes'},
+    {k:'patate_douce', n:'Patate douce', q:200, u:'g', c:'legumes'},
+    {k:'huile_olive', n:"Huile d'olive", q:2, u:'CS', c:'condiments'},
+    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
+    {k:'herbes_prov', n:'Herbes de Provence', q:1, u:'cs', c:'condiments'},
+    {k:'citron', n:'Citron', q:1, u:'pièce', c:'legumes'},
+  ]},
+  {id:16, title:'Wraps Dinde · Avocat · Fromage Frais', ingr:[
+    {k:'dinde', n:'Blanc de dinde', q:150, u:'g', c:'viandes'},
+    {k:'tortillas', n:'Tortillas blé complet', q:2, u:'pièce', c:'feculents'},
+    {k:'avocat', n:'Avocat', q:0.5, u:'pièce', c:'legumes'},
+    {k:'fromage_frais', n:'Fromage frais léger', q:60, u:'g', c:'oeufs'},
+    {k:'tomates_cerises', n:'Tomates cerises', q:80, u:'g', c:'legumes'},
+    {k:'concombre', n:'Concombre', q:0.5, u:'pièce', c:'legumes'},
+    {k:'salade', n:'Salade verte (jeunes pousses)', q:40, u:'g', c:'legumes'},
+    {k:'citron', n:'Citron', q:0.5, u:'pièce', c:'legumes'},
+  ]},
+  {id:17, title:'Galette de Sarrasin · Œuf · Jambon · Emmental', ingr:[
+    {k:'farine_sarrasin', n:'Farine de sarrasin', q:100, u:'g', c:'feculents'},
+    {k:'oeufs', n:'Œufs', q:2, u:'pièce', c:'oeufs'},
+    {k:'jambon_blanc', n:'Jambon blanc', q:80, u:'g', c:'viandes'},
+    {k:'emmental', n:'Emmental râpé', q:30, u:'g', c:'oeufs'},
+    {k:'tomates_cerises', n:'Tomates cerises', q:80, u:'g', c:'legumes'},
+    {k:'salade', n:'Salade verte (jeunes pousses)', q:40, u:'g', c:'legumes'},
+  ]},
+  {id:18, title:'Riz Sauté aux Œufs · Edamame · Sauce Soja', ingr:[
+    {k:'oeufs', n:'Œufs', q:3, u:'pièce', c:'oeufs'},
+    {k:'riz_basmati', n:'Riz basmati', q:80, u:'g', c:'feculents'},
+    {k:'edamame', n:'Edamame (surgelés)', q:100, u:'g', c:'surgeles'},
+    {k:'sauce_soja', n:'Sauce soja', q:2, u:'CS', c:'condiments'},
+    {k:'huile_sesame', n:'Huile de sésame', q:1, u:'cs', c:'condiments'},
+    {k:'gingembre', n:'Gingembre frais', q:1, u:'morceau', c:'condiments'},
+    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
+    {k:'cebette', n:'Cébette / oignon vert', q:2, u:'tige', c:'legumes'},
+  ]},
+  {id:19, title:'Pancakes Avoine · Banane · Œufs', ingr:[
+    {k:'oeufs', n:'Œufs', q:3, u:'pièce', c:'oeufs'},
+    {k:'banane', n:'Banane', q:1, u:'pièce', c:'legumes'},
+    {k:'flocons_avoine', n:"Flocons d'avoine", q:60, u:'g', c:'feculents'},
+    {k:'whey', n:'Whey protéine (vanille)', q:1, u:'scoop', c:'oeufs'},
+    {k:'cannelle', n:'Cannelle', q:1, u:'cs', c:'condiments'},
+    {k:'yaourt_grec', n:'Yaourt grec 0%', q:200, u:'g', c:'oeufs'},
+    {k:'fruits_rouges', n:'Fruits rouges', q:80, u:'g', c:'surgeles'},
+  ]},
+  {id:20, title:'Bowl Petit-Déjeuner Protéiné', ingr:[
+    {k:'yaourt_grec', n:'Yaourt grec 0%', q:250, u:'g', c:'oeufs'},
+    {k:'flocons_avoine', n:"Flocons d'avoine", q:50, u:'g', c:'feculents'},
+    {k:'oeufs', n:'Œufs', q:2, u:'pièce', c:'oeufs'},
+    {k:'banane', n:'Banane', q:1, u:'pièce', c:'legumes'},
+    {k:'amandes', n:'Amandes effilées', q:15, u:'g', c:'conserves'},
+    {k:'miel', n:'Miel', q:1, u:'cs', c:'condiments'},
+  ]},
+  {id:21, title:'Tortilla Espagnole Protéinée', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:150, u:'g', c:'viandes'},
+    {k:'oeufs', n:'Œufs', q:5, u:'pièce', c:'oeufs'},
+    {k:'pommes_de_terre', n:'Pommes de terre', q:200, u:'g', c:'legumes'},
+    {k:'oignon', n:'Oignon', q:0.5, u:'pièce', c:'legumes'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
+    {k:'persil', n:'Persil frais', q:1, u:'bouquet', c:'legumes'},
+  ]},
+  {id:22, title:'Bowl Mexicain · Poulet · Haricots Noirs', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:180, u:'g', c:'viandes'},
+    {k:'haricots_noirs', n:'Haricots noirs (boîte)', q:120, u:'g', c:'conserves'},
+    {k:'riz_basmati', n:'Riz basmati', q:45, u:'g', c:'feculents'},
+    {k:'avocat', n:'Avocat', q:0.5, u:'pièce', c:'legumes'},
+    {k:'mais', n:'Maïs (boîte)', q:50, u:'g', c:'conserves'},
+    {k:'poivron_rouge', n:'Poivron rouge', q:0.25, u:'pièce', c:'legumes'},
+    {k:'coriandre', n:'Coriandre fraîche', q:1, u:'bouquet', c:'legumes'},
+    {k:'citron_vert', n:'Citron vert', q:1, u:'pièce', c:'legumes'},
+    {k:'cumin', n:'Cumin', q:1, u:'cs', c:'condiments'},
+    {k:'paprika', n:'Paprika fumé', q:1, u:'cs', c:'condiments'},
+  ]},
+  {id:23, title:'Cottage Cheese · Fruits Rouges · Granola', ingr:[
+    {k:'cottage_cheese', n:'Cottage cheese', q:300, u:'g', c:'oeufs'},
+    {k:'fruits_rouges', n:'Fruits rouges (surgelés)', q:100, u:'g', c:'surgeles'},
+    {k:'granola', n:'Granola', q:40, u:'g', c:'feculents'},
+    {k:'miel', n:'Miel', q:1, u:'cs', c:'condiments'},
+  ]},
+  {id:24, title:'Smash Burger Maison · Frites de Patate Douce', ingr:[
+    {k:'boeuf_hache', n:'Steak haché 5% MG', q:180, u:'g', c:'viandes'},
+    {k:'pain_burger', n:'Pain burger complet', q:1, u:'pièce', c:'feculents'},
+    {k:'cheddar', n:'Cheddar (tranche)', q:1, u:'tranche', c:'oeufs'},
+    {k:'patate_douce', n:'Patate douce', q:200, u:'g', c:'legumes'},
+    {k:'yaourt_grec', n:'Yaourt 0% (sauce)', q:30, u:'g', c:'oeufs'},
+    {k:'moutarde', n:'Moutarde + cornichon', q:1, u:'cs', c:'condiments'},
+    {k:'salade', n:'Salade + tomate + oignon rouge', q:1, u:'bouquet', c:'legumes'},
+  ]},
+  {id:25, title:'Quinoa · Poulet · Pois Chiches · Féta', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:160, u:'g', c:'viandes'},
+    {k:'quinoa', n:'Quinoa', q:70, u:'g', c:'feculents'},
+    {k:'pois_chiches', n:'Pois chiches (boîte)', q:100, u:'g', c:'conserves'},
+    {k:'feta', n:'Féta', q:40, u:'g', c:'oeufs'},
+    {k:'epinards', n:'Épinards frais', q:80, u:'g', c:'legumes'},
+    {k:'tomates_cerises', n:'Tomates cerises', q:80, u:'g', c:'legumes'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
+    {k:'citron', n:'Citron', q:0.5, u:'pièce', c:'legumes'},
+    {k:'herbes_prov', n:'Herbes de Provence', q:1, u:'cs', c:'condiments'},
+  ]},
+  {id:26, title:'Poke Bowl Thon · Mangue · Avocat · Ponzu', ingr:[
+    {k:'thon_boite', n:'Thon naturel en boîte', q:2, u:'boîte', c:'conserves'},
+    {k:'riz_sushi', n:'Riz à sushi', q:60, u:'g', c:'feculents'},
+    {k:'mangue', n:'Mangue', q:100, u:'g', c:'legumes'},
+    {k:'avocat', n:'Avocat', q:0.5, u:'pièce', c:'legumes'},
+    {k:'sauce_soja', n:'Sauce soja', q:2, u:'CS', c:'condiments'},
+    {k:'vinaigre_riz', n:'Vinaigre de riz', q:1, u:'CS', c:'condiments'},
+    {k:'citron_vert', n:'Citron vert', q:1, u:'pièce', c:'legumes'},
+    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
+    {k:'cebette', n:'Cébette / oignon vert', q:2, u:'tige', c:'legumes'},
+  ]},
+  {id:27, title:'Shakshuka Protéinée · Œufs · Poulet', ingr:[
+    {k:'oeufs', n:'Œufs', q:4, u:'pièce', c:'oeufs'},
+    {k:'poulet_blanc', n:'Blanc de poulet', q:120, u:'g', c:'viandes'},
+    {k:'tomates_pelees', n:'Tomates pelées (boîte 400g)', q:1, u:'boîte', c:'conserves'},
+    {k:'poivron_rouge', n:'Poivron rouge', q:1, u:'pièce', c:'legumes'},
+    {k:'oignon', n:'Oignon', q:1, u:'pièce', c:'legumes'},
+    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
+    {k:'harissa', n:'Harissa', q:1, u:'cs', c:'condiments'},
+    {k:'cumin', n:'Cumin', q:1, u:'cs', c:'condiments'},
+    {k:'paprika', n:'Paprika fumé', q:1, u:'cs', c:'condiments'},
+  ]},
+  {id:28, title:'Buddha Bowl · Tofu · Patate Douce · Tahini', ingr:[
+    {k:'tofu', n:'Tofu ferme', q:200, u:'g', c:'oeufs'},
+    {k:'patate_douce', n:'Patate douce', q:200, u:'g', c:'legumes'},
+    {k:'pois_chiches', n:'Pois chiches (boîte)', q:100, u:'g', c:'conserves'},
+    {k:'epinards', n:'Épinards frais', q:80, u:'g', c:'legumes'},
+    {k:'tomates_cerises', n:'Tomates cerises', q:60, u:'g', c:'legumes'},
+    {k:'tahini', n:'Tahini (crème de sésame)', q:2, u:'CS', c:'condiments'},
+    {k:'citron', n:'Citron', q:1, u:'pièce', c:'legumes'},
+    {k:'ail', n:'Ail', q:1, u:'gousse', c:'condiments'},
+    {k:'sauce_soja', n:'Sauce soja', q:1, u:'CS', c:'condiments'},
+    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
+  ]},
+  {id:29, title:'Poulet Tikka Masala · Riz Basmati', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:200, u:'g', c:'viandes'},
+    {k:'yaourt_grec', n:'Yaourt grec', q:150, u:'g', c:'oeufs'},
+    {k:'tomates_pelees', n:'Tomates pelées (boîte 400g)', q:1, u:'boîte', c:'conserves'},
+    {k:'lait_coco', n:'Lait de coco léger', q:100, u:'g', c:'conserves'},
+    {k:'riz_basmati', n:'Riz basmati', q:60, u:'g', c:'feculents'},
+    {k:'oignon', n:'Oignon', q:1, u:'pièce', c:'legumes'},
+    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
+    {k:'gingembre', n:'Gingembre frais', q:1, u:'morceau', c:'condiments'},
+    {k:'garam_masala', n:'Garam masala', q:1, u:'CS', c:'condiments'},
+    {k:'curcuma', n:'Curcuma', q:1, u:'cs', c:'condiments'},
+    {k:'cumin', n:'Cumin', q:1, u:'cs', c:'condiments'},
+    {k:'coriandre_moul', n:'Coriandre moulue', q:1, u:'cs', c:'condiments'},
+    {k:'creme', n:'Crème (optionnel, 2 CS)', q:2, u:'CS', c:'oeufs'},
+  ]},
+  {id:30, title:'Pad Thaï · Poulet · Crevettes', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:120, u:'g', c:'viandes'},
+    {k:'crevettes', n:'Crevettes décortiquées', q:150, u:'g', c:'surgeles'},
+    {k:'nouilles_riz', n:'Nouilles de riz', q:150, u:'g', c:'feculents'},
+    {k:'oeufs', n:'Œufs', q:3, u:'pièce', c:'oeufs'},
+    {k:'pousses_soja', n:'Pousses de soja', q:80, u:'g', c:'legumes'},
+    {k:'cebette', n:'Cébette / oignon vert', q:2, u:'tige', c:'legumes'},
+    {k:'cacahuetes', n:'Cacahuètes concassées', q:30, u:'g', c:'conserves'},
+    {k:'nuoc_mam', n:'Nuoc-mâm (sauce poisson)', q:3, u:'CS', c:'condiments'},
+    {k:'sauce_soja', n:'Sauce soja', q:2, u:'CS', c:'condiments'},
+    {k:'sucre_canne', n:'Sucre de canne', q:1, u:'CS', c:'condiments'},
+    {k:'citron_vert', n:'Citron vert', q:2, u:'pièce', c:'legumes'},
+    {k:'coriandre', n:'Coriandre fraîche', q:1, u:'bouquet', c:'legumes'},
+  ]},
+  {id:31, title:'Fajitas de Poulet · Poivrons · Tortillas', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:180, u:'g', c:'viandes'},
+    {k:'tortillas', n:'Tortillas de blé complètes', q:2, u:'pièce', c:'feculents'},
+    {k:'poivron_rouge', n:'Poivrons (rouge + vert)', q:1.5, u:'pièce', c:'legumes'},
+    {k:'oignon', n:'Oignon', q:0.5, u:'pièce', c:'legumes'},
+    {k:'epices_fajitas', n:'Épices fajitas', q:1, u:'CS', c:'condiments'},
+    {k:'citron_vert', n:'Citron vert', q:0.5, u:'pièce', c:'legumes'},
+    {k:'salsa', n:'Salsa + coriandre', q:1, u:'bouquet', c:'legumes'},
+  ]},
+  {id:32, title:'Bibimbap Bœuf · Riz · Légumes', ingr:[
+    {k:'boeuf_hache', n:'Bœuf haché 5%', q:150, u:'g', c:'viandes'},
+    {k:'riz_basmati', n:'Riz', q:60, u:'g', c:'feculents'},
+    {k:'oeufs', n:'Œufs', q:1, u:'pièce', c:'oeufs'},
+    {k:'carotte', n:'Carotte', q:1, u:'pièce', c:'legumes'},
+    {k:'epinards', n:'Épinards frais', q:100, u:'g', c:'legumes'},
+    {k:'champignons', n:'Champignons', q:60, u:'g', c:'legumes'},
+    {k:'courgette', n:'Courgette', q:0.5, u:'pièce', c:'legumes'},
+    {k:'gochujang', n:'Gochujang (pâte de piment)', q:1, u:'cs', c:'condiments'},
+    {k:'sauce_soja', n:'Sauce soja', q:1, u:'CS', c:'condiments'},
+    {k:'huile_sesame', n:'Huile de sésame', q:1, u:'cs', c:'condiments'},
+  ]},
+  {id:33, title:'Poulet Shawarma Bowl · Riz · Sauce Yaourt-Ail', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:180, u:'g', c:'viandes'},
+    {k:'riz_basmati', n:'Riz basmati', q:60, u:'g', c:'feculents'},
+    {k:'yaourt_grec', n:'Yaourt grec 0%', q:80, u:'g', c:'oeufs'},
+    {k:'epices_shawarma', n:'Épices shawarma', q:1, u:'CS', c:'condiments'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'cs', c:'condiments'},
+    {k:'tomates', n:'Tomate + concombre + oignon rouge', q:150, u:'g', c:'legumes'},
+    {k:'pickles', n:'Pickles + persil', q:1, u:'bouquet', c:'legumes'},
+  ]},
+  {id:34, title:'Bun Cha · Poulet · Vermicelles', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:150, u:'g', c:'viandes'},
+    {k:'vermicelles_riz', n:'Vermicelles de riz', q:80, u:'g', c:'feculents'},
+    {k:'salade', n:'Salade verte', q:0.5, u:'pièce', c:'legumes'},
+    {k:'menthe', n:'Menthe + coriandre', q:1, u:'bouquet', c:'legumes'},
+    {k:'carotte', n:'Carotte', q:1, u:'pièce', c:'legumes'},
+    {k:'nuoc_mam', n:'Nuoc-mâm', q:2, u:'CS', c:'condiments'},
+    {k:'citron_vert', n:'Citron vert', q:1, u:'pièce', c:'legumes'},
+    {k:'cacahuetes', n:'Cacahuètes', q:1, u:'CS', c:'conserves'},
+  ]},
+  {id:35, title:'Chili Con Carne · Bœuf · Haricots', ingr:[
+    {k:'boeuf_hache', n:'Bœuf haché 5%', q:200, u:'g', c:'viandes'},
+    {k:'haricots_rouges', n:'Haricots rouges (boîte)', q:240, u:'g', c:'conserves'},
+    {k:'tomates_pelees', n:'Tomates pelées (boîte)', q:400, u:'g', c:'conserves'},
+    {k:'mais', n:'Maïs', q:50, u:'g', c:'conserves'},
+    {k:'oignon', n:'Oignon', q:1, u:'pièce', c:'legumes'},
+    {k:'poivron_rouge', n:'Poivron rouge', q:0.5, u:'pièce', c:'legumes'},
+    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
+    {k:'riz_basmati', n:'Riz basmati', q:45, u:'g', c:'feculents'},
+  ]},
+  {id:36, title:'Poulet Crémeux aux Champignons · Brocoli', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:180, u:'g', c:'viandes'},
+    {k:'champignons', n:'Champignons de Paris', q:150, u:'g', c:'legumes'},
+    {k:'brocoli', n:'Brocoli', q:200, u:'g', c:'legumes'},
+    {k:'skyr', n:'Skyr / fromage blanc 0%', q:100, u:'g', c:'oeufs'},
+    {k:'oignon', n:'Oignon', q:0.5, u:'pièce', c:'legumes'},
+    {k:'moutarde', n:'Moutarde + ail + bouillon', q:1, u:'cs', c:'condiments'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'cs', c:'condiments'},
+  ]},
+  {id:37, title:'Wrap Falafel · Houmous', ingr:[
+    {k:'tortillas', n:'Tortillas complètes', q:2, u:'pièce', c:'feculents'},
+    {k:'falafel', n:'Falafels', q:6, u:'pièce', c:'surgeles'},
+    {k:'houmous', n:'Houmous', q:60, u:'g', c:'conserves'},
+    {k:'salade', n:'Salade + tomate + concombre', q:1, u:'bouquet', c:'legumes'},
+    {k:'yaourt_grec', n:'Yaourt (sauce)', q:50, u:'g', c:'oeufs'},
+  ]},
+  {id:38, title:'Pâtes au Thon · Citron · Parmesan', ingr:[
+    {k:'pates', n:'Pâtes complètes', q:100, u:'g', c:'feculents'},
+    {k:'thon_boite', n:'Thon naturel en boîte', q:2, u:'boîte', c:'conserves'},
+    {k:'citron', n:'Citron', q:1, u:'pièce', c:'legumes'},
+    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
+    {k:'parmesan', n:'Parmesan', q:20, u:'g', c:'oeufs'},
+  ]},
+  {id:39, title:'Porridge Protéiné · Chocolat · Banane', ingr:[
+    {k:'flocons_avoine', n:"Flocons d'avoine", q:60, u:'g', c:'feculents'},
+    {k:'whey', n:'Whey chocolat', q:1, u:'scoop', c:'condiments'},
+    {k:'banane', n:'Banane', q:1, u:'pièce', c:'legumes'},
+    {k:'lait', n:'Lait demi-écrémé', q:200, u:'ml', c:'oeufs'},
+    {k:'cacao', n:'Cacao en poudre', q:1, u:'cs', c:'condiments'},
+    {k:'beurre_cacahuete', n:'Beurre de cacahuète', q:10, u:'g', c:'condiments'},
+  ]},
+  {id:40, title:'Skyr Bowl · Beurre de Cacahuète · Pomme', ingr:[
+    {k:'skyr', n:'Skyr nature', q:250, u:'g', c:'oeufs'},
+    {k:'pomme', n:'Pomme', q:1, u:'pièce', c:'legumes'},
+    {k:'beurre_cacahuete', n:'Beurre de cacahuète', q:20, u:'g', c:'condiments'},
+    {k:'granola', n:'Granola', q:30, u:'g', c:'feculents'},
+    {k:'miel', n:'Miel', q:5, u:'g', c:'condiments'},
+  ]},
+  {id:41, title:'Poulet Yassa · Oignons Citron · Riz', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:180, u:'g', c:'viandes'},
+    {k:'oignon', n:'Oignons', q:3, u:'pièce', c:'legumes'},
+    {k:'citron', n:'Citrons', q:2, u:'pièce', c:'legumes'},
+    {k:'moutarde', n:'Moutarde', q:1, u:'CS', c:'condiments'},
+    {k:'riz_basmati', n:'Riz', q:60, u:'g', c:'feculents'},
+    {k:'olives', n:'Olives', q:8, u:'pièce', c:'conserves'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'cs', c:'condiments'},
+  ]},
+  {id:42, title:'Saumon Teriyaki · Riz · Brocoli', ingr:[
+    {k:'saumon', n:'Pavé de saumon', q:150, u:'g', c:'poisson'},
+    {k:'riz_basmati', n:'Riz', q:60, u:'g', c:'feculents'},
+    {k:'sauce_soja', n:'Sauce soja', q:2, u:'CS', c:'condiments'},
+    {k:'mirin', n:'Mirin', q:1, u:'CS', c:'condiments'},
+    {k:'miel', n:'Miel', q:1, u:'cs', c:'condiments'},
+    {k:'brocoli', n:'Brocoli', q:150, u:'g', c:'legumes'},
+    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
+  ]},
+  {id:43, title:'Boulettes de Dinde · Sauce Tomate · Polenta', ingr:[
+    {k:'dinde_hachee', n:'Dinde hachée', q:180, u:'g', c:'viandes'},
+    {k:'polenta', n:'Polenta (semoule de maïs)', q:60, u:'g', c:'feculents'},
+    {k:'tomates_pelees', n:'Tomates pelées (boîte)', q:400, u:'g', c:'conserves'},
+    {k:'oignon', n:'Oignon', q:1, u:'pièce', c:'legumes'},
+    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
+    {k:'parmesan', n:'Parmesan', q:20, u:'g', c:'oeufs'},
+  ]},
+  {id:44, title:'Quesadilla Poulet · Cheddar · Haricots Noirs', ingr:[
+    {k:'poulet_blanc', n:'Blanc de poulet', q:150, u:'g', c:'viandes'},
+    {k:'tortillas', n:'Tortillas', q:2, u:'pièce', c:'feculents'},
+    {k:'cheddar', n:'Cheddar râpé', q:60, u:'g', c:'oeufs'},
+    {k:'haricots_noirs', n:'Haricots noirs (boîte)', q:60, u:'g', c:'conserves'},
+    {k:'poivron_rouge', n:'Poivron rouge', q:0.25, u:'pièce', c:'legumes'},
+    {k:'oignon', n:'Oignon', q:0.5, u:'pièce', c:'legumes'},
+  ]},
+  {id:45, title:'Tofu Croustillant · Sauce Cacahuète · Nouilles', ingr:[
+    {k:'tofu', n:'Tofu ferme', q:180, u:'g', c:'oeufs'},
+    {k:'nouilles_riz', n:'Nouilles (riz ou blé)', q:70, u:'g', c:'feculents'},
+    {k:'beurre_cacahuete', n:'Beurre de cacahuète', q:1.5, u:'CS', c:'condiments'},
+    {k:'legumes_sautes', n:'Légumes (poivron, chou, carotte)', q:200, u:'g', c:'legumes'},
+    {k:'sauce_soja', n:'Sauce soja + sriracha', q:2, u:'CS', c:'condiments'},
+    {k:'citron_vert', n:'Citron vert', q:1, u:'pièce', c:'legumes'},
+    {k:'gingembre', n:'Gingembre + ail', q:1, u:'morceau', c:'condiments'},
+    {k:'cacahuetes', n:'Cacahuètes + coriandre', q:1, u:'CS', c:'conserves'},
+  ]},
+  {id:46, title:'Bœuf Sauté aux Brocolis · Riz', ingr:[
+    {k:'boeuf_bavette', n:'Bœuf (bavette / rumsteck)', q:180, u:'g', c:'viandes'},
+    {k:'riz_basmati', n:'Riz basmati', q:60, u:'g', c:'feculents'},
+    {k:'brocoli', n:'Brocoli', q:200, u:'g', c:'legumes'},
+    {k:'sauce_soja', n:'Sauce soja + miel', q:2, u:'CS', c:'condiments'},
+    {k:'ail', n:'Ail + gingembre', q:2, u:'gousse', c:'condiments'},
+    {k:'sesame', n:'Graines de sésame + oignon vert', q:1, u:'CS', c:'condiments'},
+  ]},
+  {id:47, title:'Riz Cantonais Protéiné · Œufs · Jambon', ingr:[
+    {k:'riz_basmati', n:'Riz (cuit de la veille)', q:200, u:'g', c:'feculents'},
+    {k:'oeufs', n:'Œufs', q:3, u:'pièce', c:'oeufs'},
+    {k:'jambon', n:'Jambon (ou poulet)', q:80, u:'g', c:'viandes'},
+    {k:'petits_pois', n:'Petits pois (surgelés)', q:60, u:'g', c:'surgeles'},
+    {k:'cebette', n:'Oignon vert', q:2, u:'tige', c:'legumes'},
+    {k:'sauce_soja', n:'Sauce soja', q:1, u:'CS', c:'condiments'},
+  ]},
+  {id:48, title:'Gnocchis Poêlés · Tomate · Mozzarella · Œuf', ingr:[
+    {k:'gnocchi', n:'Gnocchis (frais)', q:220, u:'g', c:'feculents'},
+    {k:'sauce_tomate', n:'Sauce tomate / passata', q:200, u:'g', c:'conserves'},
+    {k:'mozzarella', n:'Mozzarella', q:60, u:'g', c:'oeufs'},
+    {k:'oeufs', n:'Œuf', q:1, u:'pièce', c:'oeufs'},
+    {k:'parmesan', n:'Parmesan + basilic', q:10, u:'g', c:'oeufs'},
+    {k:'huile_olive', n:"Huile d'olive", q:1, u:'cs', c:'condiments'},
+  ]},
+  {id:49, title:'Pancakes Protéinés · Myrtilles', ingr:[
+    {k:'flocons_avoine', n:"Flocons d'avoine", q:60, u:'g', c:'feculents'},
+    {k:'whey', n:'Whey vanille', q:1, u:'scoop', c:'condiments'},
+    {k:'oeufs', n:'Œufs', q:2, u:'pièce', c:'oeufs'},
+    {k:'banane', n:'Banane', q:1, u:'pièce', c:'legumes'},
+    {k:'myrtilles', n:'Myrtilles', q:60, u:'g', c:'legumes'},
+    {k:'lait', n:'Lait', q:50, u:'ml', c:'oeufs'},
+  ]},
+  {id:50, title:'Crevettes Curry Coco · Riz', ingr:[
+    {k:'crevettes', n:'Crevettes décortiquées', q:150, u:'g', c:'surgeles'},
+    {k:'lait_coco', n:'Lait de coco léger', q:100, u:'ml', c:'conserves'},
+    {k:'pate_curry', n:'Pâte de curry rouge', q:1, u:'CS', c:'condiments'},
+    {k:'riz_basmati', n:'Riz basmati', q:60, u:'g', c:'feculents'},
+    {k:'poivron_rouge', n:'Poivron rouge', q:0.5, u:'pièce', c:'legumes'},
+    {k:'oignon', n:'Oignon', q:0.5, u:'pièce', c:'legumes'},
+    {k:'citron_vert', n:'Citron vert', q:1, u:'pièce', c:'legumes'},
+    {k:'coriandre', n:'Coriandre fraîche', q:1, u:'bouquet', c:'legumes'},
+  ]},
+];
+
+var CATS_CONFIG = [
+  {k:'viandes',   label:'Viandes & Volailles',         icon:'🥩'},
+  {k:'poisson',   label:'Poissons & Fruits de mer',    icon:'🐟'},
+  {k:'surgeles',  label:'Surgelés',                    icon:'❄️'},
+  {k:'oeufs',     label:'Œufs & Produits Laitiers',    icon:'🥚'},
+  {k:'legumes',   label:'Légumes & Fruits Frais',       icon:'🥦'},
+  {k:'feculents', label:'Féculents & Céréales',         icon:'🌾'},
+  {k:'conserves', label:'Conserves & Bocaux',           icon:'🥫'},
+  {k:'condiments',label:'Épices & Condiments',          icon:'🫙'},
+];
+
+var coursesSelected = new Set();
+
+function coursesFmtQty(q, u) {
+  if (u === 'g') return '<b>' + Math.round(q) + 'g</b>';
+  var n;
+  if (['pièce','boîte','gousse','tige','bouquet','feuille','scoop','morceau'].indexOf(u) !== -1) {
+    n = Math.ceil(q);
+    return '<b>' + n + '</b> ' + u + (n > 1 && u !== 'morceau' ? 's' : '');
+  }
+  if (u === 'tube') return '<b>1</b> tube';
+  n = Math.round(q * 10) / 10;
+  return '<b>' + n + '</b> ' + u;
+}
+
+function coursesBuildResult() {
+  var result = {};
+  var selectedMeals = MEALS_DB.filter(function(m) { return coursesSelected.has(m.id); });
+  selectedMeals.forEach(function(meal) {
+    meal.ingr.forEach(function(ingr) {
+      if (result[ingr.k]) {
+        result[ingr.k].count++;
+        if (result[ingr.k].u === ingr.u) result[ingr.k].q += ingr.q;
+      } else {
+        result[ingr.k] = {n:ingr.n, q:ingr.q, u:ingr.u, c:ingr.c, count:1};
+      }
+    });
+  });
+  var byCat = {};
+  Object.keys(result).forEach(function(k) {
+    var item = result[k];
+    if (!byCat[item.c]) byCat[item.c] = [];
+    byCat[item.c].push({k:k, n:item.n, q:item.q, u:item.u, count:item.count});
+  });
+  return {result:result, byCat:byCat};
+}
+
+function coursesInit() {
+  var saved = localStorage.getItem('px_courses_sel');
+  if (saved) try { coursesSelected = new Set(JSON.parse(saved)); } catch(e) {}
+  var grid = document.getElementById('coursesMeals');
+  if (!grid) return;
+  var sorted = MEALS_DB.slice().sort(function(a,b){ return a.id - b.id; });
+  sorted.forEach(function(meal) {
+    var isJP = [2,7,10,13,14,42].indexOf(meal.id) !== -1;
+    var isBanger = [29,30].indexOf(meal.id) !== -1;
+    var ck = coursesSelected.has(meal.id);
+    var div = document.createElement('div');
+    div.className = 'courses-meal-item' + (ck ? ' ck' : '');
+    div.dataset.id = meal.id;
+    div.innerHTML =
+      '<div class="courses-meal-chk">' + (ck ? '✓' : '') + '</div>' +
+      '<div class="courses-meal-rank">' + String(meal.id).padStart(2,'0') + '</div>' +
+      '<div class="courses-meal-name">' + meal.title + (isJP ? ' <span style="font-size:.6rem;color:#bc002d">🇯🇵</span>' : '') + (isBanger ? ' <span style="font-size:.6rem;color:#b8700a;font-weight:700">★</span>' : '') + '</div>';
+    div.addEventListener('click', function() {
+      var id = parseInt(this.dataset.id);
+      var chk = this.querySelector('.courses-meal-chk');
+      if (coursesSelected.has(id)) {
+        coursesSelected.delete(id); this.classList.remove('ck'); chk.textContent = '';
+      } else {
+        coursesSelected.add(id); this.classList.add('ck'); chk.textContent = '✓';
+      }
+      localStorage.setItem('px_courses_sel', JSON.stringify(Array.from(coursesSelected)));
+    });
+    grid.appendChild(div);
+  });
+}
+
+function coursesToggleAll(state) {
+  coursesSelected.clear();
+  document.querySelectorAll('.courses-meal-item').forEach(function(el) {
+    var chk = el.querySelector('.courses-meal-chk');
+    if (state) {
+      el.classList.add('ck'); chk.textContent = '✓';
+      coursesSelected.add(parseInt(el.dataset.id));
+    } else {
+      el.classList.remove('ck'); chk.textContent = '';
+    }
+  });
+  localStorage.setItem('px_courses_sel', JSON.stringify(Array.from(coursesSelected)));
+}
+
+function coursesGenerate() {
+  if (coursesSelected.size === 0) { alert('Coche au moins un repas !'); return; }
+  var data = coursesBuildResult();
+  var catsEl = document.getElementById('coursesCats');
+  catsEl.innerHTML = '';
+  var totalItems = 0;
+  function cfUrl(name){
+    var t = name.toLowerCase()
+      .replace(/\([^)]*\)/g,'')
+      .replace(/\d+\s*%/g,'')
+      .replace(/œ/g,'oe')
+      .replace(/[éèê]/g,'e').replace(/[àâ]/g,'a').replace(/[îï]/g,'i').replace(/[ôö]/g,'o').replace(/[ûù]/g,'u').replace(/ç/g,'c')
+      .replace(/[^a-z0-9 ]/g,' ')
+      .replace(/\s+/g,' ').trim();
+    return 'https://www.carrefour.fr/s?q=' + encodeURIComponent(t);
+  }
+  CATS_CONFIG.forEach(function(cat) {
+    if (!data.byCat[cat.k]) return;
+    var items = data.byCat[cat.k].sort(function(a,b){ return a.n.localeCompare(b.n,'fr'); });
+    totalItems += items.length;
+    var sec = document.createElement('div');
+    sec.className = 'courses-cat';
+    var title = document.createElement('div');
+    title.className = 'courses-cat-title';
+    title.innerHTML = '<span>' + cat.icon + '</span> ' + cat.label;
+    sec.appendChild(title);
+    var ul = document.createElement('ul');
+    ul.className = 'courses-items-list';
+    items.forEach(function(item) {
+      var li = document.createElement('li');
+      li.className = 'courses-item';
+      li.innerHTML =
+        '<span class="courses-item-name">' + item.n + '</span>' +
+        '<span class="courses-item-right">' +
+          '<span class="courses-item-qty">' + coursesFmtQty(item.q, item.u) +
+          (item.count > 1 ? ' <span style="color:var(--text-light);font-size:.7rem">· ' + item.count + ' repas</span>' : '') + '</span>' +
+          '<a class="cf-link" href="' + cfUrl(item.n) + '" target="_blank" rel="noopener" title="Chercher « ' + item.n + ' » sur Carrefour Drive">🔍</a>' +
+        '</span>';
+      ul.appendChild(li);
+    });
+    sec.appendChild(ul);
+    catsEl.appendChild(sec);
+  });
+  document.getElementById('coursesResultSub').textContent =
+    coursesSelected.size + ' repas sélectionné' + (coursesSelected.size > 1 ? 's' : '') + ' · ' + totalItems + ' articles groupés par rayon · 🔍 = recherche Carrefour Drive';
+  var resultEl = document.getElementById('coursesResult');
+  resultEl.style.display = 'block';
+  document.getElementById('coursesCopied').style.display = 'none';
+  setTimeout(function() { resultEl.scrollIntoView({behavior:'smooth', block:'start'}); }, 80);
+}
+
+function coursesCopy() {
+  if (coursesSelected.size === 0) return;
+  var data = coursesBuildResult();
+  var lines = ['MA LISTE DE COURSES — ALLEZ', '(' + coursesSelected.size + ' repas)', ''];
+  CATS_CONFIG.forEach(function(cat) {
+    if (!data.byCat[cat.k]) return;
+    lines.push(cat.icon + ' ' + cat.label.toUpperCase());
+    data.byCat[cat.k].sort(function(a,b){ return a.n.localeCompare(b.n,'fr'); }).forEach(function(item) {
+      var qty;
+      if (item.u === 'g') qty = Math.round(item.q) + 'g';
+      else if (['pièce','boîte','gousse','tige','bouquet','feuille','scoop','morceau'].indexOf(item.u) !== -1) qty = Math.ceil(item.q) + ' ' + item.u;
+      else qty = (Math.round(item.q*10)/10) + ' ' + item.u;
+      lines.push('  ☐ ' + item.n + ' — ' + qty);
+    });
+    lines.push('');
+  });
+  navigator.clipboard.writeText(lines.join('\n')).then(function() {
+    var cp = document.getElementById('coursesCopied');
+    cp.style.display = 'block';
+    setTimeout(function(){ cp.style.display = 'none'; }, 3000);
+  }).catch(function() {
+    alert('Copie non disponible. Sélectionne le texte manuellement.');
+  });
+}
+
+coursesInit();
+</script>
+<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
+</body>
+</html>

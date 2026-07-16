@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Générer les icônes PWA — ALLEZ</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #0b1020; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+  h1 { color: #e8960a; font-size: 1.6rem; margin-bottom: 8px; }
+  p { color: rgba(255,255,255,0.6); margin-bottom: 24px; text-align: center; font-size: 14px; max-width: 480px; }
+  .btn { background: linear-gradient(135deg, #e8960a, #f5b340); color: #000; border: none; padding: 14px 32px; border-radius: 10px; font-size: 15px; font-weight: 800; cursor: pointer; margin: 8px; transition: opacity .2s; }
+  .btn:hover { opacity: .88; }
+  canvas { border-radius: 20px; margin: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.5); }
+  .previews { display: flex; gap: 24px; align-items: flex-end; flex-wrap: wrap; justify-content: center; margin: 20px 0; }
+  .preview-item { text-align: center; }
+  .preview-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 8px; }
+  .step { background: rgba(255,255,255,.06); border-radius: 10px; padding: 14px 18px; margin: 6px 0; font-size: 13px; color: rgba(255,255,255,.75); max-width: 480px; width: 100%; }
+  .step b { color: #e8960a; }
+</style>
+</head>
+<body>
+
+<h1>Générateur d'icônes PWA</h1>
+<p>Ouvre cette page une seule fois pour créer les icônes nécessaires à l'installation de l'app ALLEZ sur ton téléphone.</p>
+
+<div class="previews">
+  <div class="preview-item">
+    <canvas id="c192" width="192" height="192"></canvas>
+    <div class="preview-label">icon-192.png</div>
+  </div>
+  <div class="preview-item">
+    <canvas id="c512" width="512" height="512" style="width:128px;height:128px"></canvas>
+    <div class="preview-label">icon-512.png</div>
+  </div>
+</div>
+
+<button class="btn" onclick="download(192)">⬇ Télécharger icon-192.png</button>
+<button class="btn" onclick="download(512)">⬇ Télécharger icon-512.png</button>
+
+<br><br>
+
+<div class="step"><b>Étape 1 :</b> Clique sur les deux boutons ci-dessus pour télécharger les fichiers PNG.</div>
+<div class="step"><b>Étape 2 :</b> Déplace <code>icon-192.png</code> et <code>icon-512.png</code> dans le dossier <code>MUSCULATION</code> (le même dossier que tes fichiers HTML).</div>
+<div class="step"><b>Étape 3 :</b> Tu peux supprimer ce fichier <code>generate-icons.html</code> une fois terminé.</div>
+
+<script>
+function drawIcon(canvas) {
+  const s = canvas.width;
+  const ctx = canvas.getContext('2d');
+  const r = s * 0.188;
+
+  // Rounded background
+  ctx.beginPath();
+  ctx.moveTo(r, 0);
+  ctx.lineTo(s - r, 0);
+  ctx.quadraticCurveTo(s, 0, s, r);
+  ctx.lineTo(s, s - r);
+  ctx.quadraticCurveTo(s, s, s - r, s);
+  ctx.lineTo(r, s);
+  ctx.quadraticCurveTo(0, s, 0, s - r);
+  ctx.lineTo(0, r);
+  ctx.quadraticCurveTo(0, 0, r, 0);
+  ctx.closePath();
+
+  const bgGrad = ctx.createLinearGradient(0, 0, s, s);
+  bgGrad.addColorStop(0, '#0f1628');
+  bgGrad.addColorStop(1, '#0b1020');
+  ctx.fillStyle = bgGrad;
+  ctx.fill();
+
+  // Top gold bar
+  const topBarH = Math.max(4, s * 0.014);
+  const barX = s * 0.117;
+  const barW = s * 0.766;
+  ctx.fillStyle = '#e8960a';
+  ctx.globalAlpha = 0.8;
+  ctx.beginPath();
+  ctx.roundRect(barX, s * 0.1, barW, topBarH, topBarH / 2);
+  ctx.fill();
+  ctx.globalAlpha = 1;
+
+  // Gold "A" letter
+  const goldGrad = ctx.createLinearGradient(0, 0, 0, s);
+  goldGrad.addColorStop(0, '#f5b340');
+  goldGrad.addColorStop(1, '#e8960a');
+
+  const fontSize = Math.round(s * 0.645);
+  ctx.font = `900 ${fontSize}px 'Arial Black', Impact, Arial, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = goldGrad;
+  ctx.fillText('A', s / 2, s * 0.728);
+
+  // ALLEZ label
+  const labelSize = Math.round(s * 0.09);
+  ctx.font = `700 ${labelSize}px Arial, sans-serif`;
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.letterSpacing = (s * 0.027) + 'px';
+  ctx.fillText('ALLEZ', s / 2, s * 0.888);
+
+  // Bottom gold bar
+  ctx.fillStyle = '#e8960a';
+  ctx.globalAlpha = 0.4;
+  ctx.beginPath();
+  ctx.roundRect(barX, s * 0.915, barW, topBarH * 0.7, topBarH / 2);
+  ctx.fill();
+  ctx.globalAlpha = 1;
+}
+
+function download(size) {
+  const canvas = document.getElementById('c' + size);
+  const a = document.createElement('a');
+  a.download = `icon-${size}.png`;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+
+// Render both canvases
+drawIcon(document.getElementById('c192'));
+drawIcon(document.getElementById('c512'));
+</script>
+</body>
+</html>

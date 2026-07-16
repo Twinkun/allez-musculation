@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e8960a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ALLEZ">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Projection 12 Mois — ALLEZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0ece3;
+  --bg-card: #ffffff;
+  --bg-dark: #0b1020;
+  --bg-mid: #f7f4ef;
+  --gold: #e8960a;
+  --gold-light: #f5b040;
+  --green: #0a9e52;
+  --green-light: #12c564;
+  --blue: #1560d4;
+  --purple: #7c10d4;
+  --red: #d4200a;
+  --text: #1a1f2e;
+  --text-mid: #3a4060;
+  --text-light: #6b7090;
+  --border: rgba(0,0,0,0.08);
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.14);
+  --radius: 16px;
+  --font-head: 'Bebas Neue', sans-serif;
+  --font: 'Inter', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: hidden; scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 40px; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(11,16,32,0.96); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.nav-logo { font-family: var(--font-head); font-size: 1.5rem; letter-spacing: 0.08em; color: var(--gold); text-decoration: none; }
+.nav-links { display: flex; gap: 8px; list-style: none; }
+.nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; }
+.nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+.nav-links a.active { color: var(--gold); background: rgba(232,150,10,0.12); }
+
+/* ── HAMBURGER ── */
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.85); border-radius: 2px; transition: all .3s; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--bg-dark); min-height: 400px;
+  display: flex; align-items: flex-end; padding: 100px 60px 60px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 10% 60%, rgba(232,150,10,0.1) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 60% at 90% 20%, rgba(21,96,212,0.09) 0%, transparent 60%);
+}
+.hero-content { position: relative; z-index: 1; max-width: 700px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(232,150,10,0.15); border: 1px solid rgba(232,150,10,0.4);
+  color: var(--gold-light); font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px;
+  border-radius: 100px; margin-bottom: 20px;
+}
+.hero-badge span { width: 6px; height: 6px; background: var(--gold-light); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+.hero h1 { font-family: var(--font-head); font-size: clamp(3rem, 7vw, 5.5rem); color: #fff; line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 20px; }
+.hero h1 em { color: var(--gold); font-style: normal; }
+.hero p { color: rgba(255,255,255,0.6); font-size: 1rem; max-width: 520px; line-height: 1.7; }
+.hero-stats { display: flex; gap: 40px; margin-top: 36px; flex-wrap: wrap; }
+.hero-stat-val { font-family: var(--font-head); font-size: 2rem; color: var(--gold); letter-spacing: 0.04em; line-height: 1; }
+.hero-stat-lbl { font-size: 0.72rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+
+/* ── LAYOUT ── */
+.section { padding: 72px 60px; max-width: 1200px; margin: 0 auto; }
+.section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.section-title { font-family: var(--font-head); font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 0.03em; line-height: 1.05; color: var(--text); margin-bottom: 8px; }
+.section-sub { color: var(--text-light); font-size: 0.95rem; max-width: 620px; line-height: 1.7; margin-bottom: 44px; }
+.section-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 60px; }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── DÉPART CARD ── */
+.start-card {
+  background: var(--bg-dark); border-radius: var(--radius); padding: 36px;
+  border: 1px solid rgba(232,150,10,0.2); position: relative; overflow: hidden;
+}
+.start-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 0% 50%, rgba(232,150,10,0.07) 0%, transparent 60%);
+}
+.start-card-inner { position: relative; z-index: 1; }
+.start-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(232,150,10,0.18); border: 1px solid rgba(232,150,10,0.5);
+  color: var(--gold-light); font-size: 0.72rem; font-weight: 800;
+  letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 12px;
+  border-radius: 100px; margin-bottom: 28px;
+}
+.start-stats-row { display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 32px; }
+.start-stat { display: flex; flex-direction: column; gap: 4px; }
+.start-val { font-family: var(--font-head); font-size: 2rem; color: var(--gold); letter-spacing: 0.04em; line-height: 1; }
+.start-lbl { font-size: 0.7rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; }
+.start-photo-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.start-photo-slot {
+  aspect-ratio: 2/3; border-radius: 12px;
+  border: 1.5px solid rgba(10,158,82,0.5);
+  background: rgba(10,158,82,0.05);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+}
+.start-photo-check { width: 32px; height: 32px; border-radius: 50%; background: rgba(10,158,82,0.2); display: flex; align-items: center; justify-content: center; }
+.start-photo-check svg { width: 16px; height: 16px; stroke: var(--green); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.start-photo-label { font-size: 0.72rem; font-weight: 600; color: var(--green); text-transform: uppercase; letter-spacing: 0.1em; }
+.start-photo-date { font-size: 0.65rem; color: rgba(255,255,255,0.35); }
+
+/* ── PHASE BAR ── */
+.phase-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 48px; }
+.phase-seg {
+  padding: 12px 16px; border-radius: 10px; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; text-align: center; line-height: 1.4;
+}
+.phase-seg.blue   { background: rgba(21,96,212,0.1);  color: var(--blue);   border: 1px solid rgba(21,96,212,0.2); }
+.phase-seg.green  { background: rgba(10,158,82,0.1);  color: var(--green);  border: 1px solid rgba(10,158,82,0.2); }
+.phase-seg.purple { background: rgba(124,16,212,0.1); color: var(--purple); border: 1px solid rgba(124,16,212,0.2); }
+.phase-seg.gold   { background: rgba(232,150,10,0.1); color: var(--gold);   border: 1px solid rgba(232,150,10,0.2); }
+
+/* ── TIMELINE ── */
+.tl { position: relative; padding-left: 48px; }
+.tl::before {
+  content: ''; position: absolute; left: 20px; top: 8px; bottom: 8px; width: 2px;
+  background: linear-gradient(to bottom,
+    var(--blue) 0%, var(--blue) 16.6%,
+    var(--green) 16.6%, var(--green) 33.3%,
+    var(--purple) 33.3%, var(--purple) 50%,
+    var(--blue) 50%, var(--blue) 66.6%,
+    var(--green) 66.6%, var(--green) 75%,
+    var(--purple) 75%, var(--purple) 83.3%,
+    var(--gold) 83.3%, var(--gold) 100%
+  );
+}
+
+.tl-item { position: relative; margin-bottom: 20px; }
+
+/* Milestone banner above card */
+.tl-milestone-banner {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 10px; margin-left: -48px; padding-left: 48px;
+}
+.tl-milestone-line { flex: 1; height: 1px; background: currentColor; opacity: 0.25; }
+.tl-milestone-chip {
+  font-size: 0.65rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 100px; border: 1px solid currentColor;
+  white-space: nowrap;
+}
+
+/* Node (circle on the line) */
+.tl-node {
+  position: absolute; left: -48px; top: 20px;
+  width: 40px; height: 40px; border-radius: 50%; z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-size: 0.9rem; letter-spacing: 0.04em;
+  border: 2px solid currentColor; background: var(--bg-card);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.tl-item:hover .tl-node { transform: scale(1.1); }
+
+/* Connector from node to card */
+.tl-connector {
+  position: absolute; left: -8px; top: 38px;
+  width: 8px; height: 2px; background: var(--border);
+}
+
+/* Card */
+.tl-card {
+  background: var(--bg-card); border-radius: var(--radius);
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+  padding: 24px; transition: box-shadow 0.3s, transform 0.3s;
+  opacity: 0; transform: translateX(16px); transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s;
+}
+.tl-card.visible { opacity: 1; transform: translateX(0); }
+.tl-card:hover { box-shadow: var(--shadow-lg); }
+
+/* Card header */
+.tl-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.tl-card-title { font-family: var(--font-head); font-size: 1.6rem; letter-spacing: 0.04em; line-height: 1; }
+.tl-phase-badge {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 10px; border-radius: 6px; white-space: nowrap;
+}
+.tl-weeks { font-size: 0.72rem; color: var(--text-light); margin-top: 4px; }
+
+/* Photo row */
+.tl-photo-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+.tl-photo-slot {
+  aspect-ratio: 2/3; border-radius: 10px;
+  border: 2px dashed rgba(0,0,0,0.12);
+  background: var(--bg);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  cursor: pointer; transition: border-color 0.2s, background 0.2s;
+  position: relative;
+}
+.tl-photo-slot:hover { border-color: var(--gold); background: rgba(232,150,10,0.03); }
+.tl-photo-slot svg { width: 24px; height: 24px; stroke: var(--text-light); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.5; }
+.tl-photo-slot-label { font-size: 0.68rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.1em; }
+.tl-photo-slot-sub { font-size: 0.62rem; color: var(--text-light); opacity: 0.7; }
+
+/* Stats row */
+.tl-stats { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+.tl-stat { flex: 1; padding: 10px 12px; text-align: center; border-right: 1px solid var(--border); }
+.tl-stat:last-child { border-right: none; }
+.tl-stat-val { font-family: var(--font-head); font-size: 1.15rem; letter-spacing: 0.04em; line-height: 1; }
+.tl-stat-key { font-size: 0.62rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
+
+/* Focus text */
+.tl-focus {
+  font-size: 0.8rem; color: var(--text-mid); line-height: 1.6;
+  padding: 10px 14px; border-radius: 8px; background: var(--bg);
+  border-left: 3px solid var(--border);
+}
+
+/* Color variants */
+.tl-color-blue   .tl-node, .tl-color-blue   .tl-card-title, .tl-color-blue   .tl-stat-val { color: var(--blue); }
+.tl-color-blue   .tl-phase-badge { background: rgba(21,96,212,0.1);  color: var(--blue);   border: 1px solid rgba(21,96,212,0.2); }
+.tl-color-blue   .tl-node { border-color: var(--blue); }
+.tl-color-blue   .tl-milestone-chip, .tl-color-blue   .tl-milestone-line { color: var(--blue); }
+.tl-color-blue   .tl-focus { border-left-color: var(--blue); }
+.tl-color-blue:hover .tl-node { box-shadow: 0 0 0 6px rgba(21,96,212,0.12); }
+
+.tl-color-green  .tl-node, .tl-color-green  .tl-card-title, .tl-color-green  .tl-stat-val { color: var(--green); }
+.tl-color-green  .tl-phase-badge { background: rgba(10,158,82,0.1);  color: var(--green);  border: 1px solid rgba(10,158,82,0.2); }
+.tl-color-green  .tl-node { border-color: var(--green); }
+.tl-color-green  .tl-milestone-chip, .tl-color-green  .tl-milestone-line { color: var(--green); }
+.tl-color-green  .tl-focus { border-left-color: var(--green); }
+.tl-color-green:hover .tl-node { box-shadow: 0 0 0 6px rgba(10,158,82,0.12); }
+
+.tl-color-purple .tl-node, .tl-color-purple .tl-card-title, .tl-color-purple .tl-stat-val { color: var(--purple); }
+.tl-color-purple .tl-phase-badge { background: rgba(124,16,212,0.1); color: var(--purple); border: 1px solid rgba(124,16,212,0.2); }
+.tl-color-purple .tl-node { border-color: var(--purple); }
+.tl-color-purple .tl-milestone-chip, .tl-color-purple .tl-milestone-line { color: var(--purple); }
+.tl-color-purple .tl-focus { border-left-color: var(--purple); }
+.tl-color-purple:hover .tl-node { box-shadow: 0 0 0 6px rgba(124,16,212,0.12); }
+
+.tl-color-gold   .tl-node, .tl-color-gold   .tl-card-title, .tl-color-gold   .tl-stat-val { color: var(--gold); }
+.tl-color-gold   .tl-phase-badge { background: rgba(232,150,10,0.1); color: var(--gold);   border: 1px solid rgba(232,150,10,0.2); }
+.tl-color-gold   .tl-node { border-color: var(--gold); }
+.tl-color-gold   .tl-milestone-chip, .tl-color-gold   .tl-milestone-line { color: var(--gold); }
+.tl-color-gold   .tl-focus { border-left-color: var(--gold); }
+.tl-color-gold:hover .tl-node { box-shadow: 0 0 0 6px rgba(232,150,10,0.12); }
+
+/* Final month M12 */
+.tl-item.final .tl-card {
+  background: linear-gradient(135deg, var(--bg-card), rgba(232,150,10,0.04));
+  border-color: rgba(232,150,10,0.25);
+}
+.tl-item.final .tl-node { background: var(--gold); color: #fff; }
+
+/* Cycle separator */
+.tl-cycle-sep {
+  display: flex; align-items: center; gap: 16px;
+  margin: 32px 0 20px -48px; padding-left: 0;
+}
+.tl-cycle-sep-line { flex: 1; height: 1px; background: var(--border); }
+.tl-cycle-label {
+  font-size: 0.68rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-light); white-space: nowrap;
+}
+
+/* ── SILHOUETTE ── */
+.tl-sil-wrap {
+  display: grid; grid-template-columns: 1fr 100px; gap: 16px; align-items: start;
+  margin-bottom: 4px;
+}
+.tl-sil-content { min-width: 0; }
+.tl-sil-box {
+  width: 100px; height: 185px; flex-shrink: 0;
+  border-radius: 10px; background: var(--bg);
+  border: 1px solid var(--border); overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.tl-sil-label {
+  position: absolute; bottom: 5px; left: 0; right: 0;
+  text-align: center; font-size: 0.55rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-light); opacity: 0.7;
+}
+
+/* ── PROJECTION BLOCK ── */
+.tl-proj-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px;
+}
+.tl-proj-col {
+  border-radius: 10px; padding: 14px 16px; background: var(--bg);
+}
+.tl-proj-head {
+  font-size: 0.62rem; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+.tl-proj-head-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.tl-proj-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.tl-proj-item {
+  display: flex; gap: 8px; font-size: 0.78rem;
+  color: var(--text-mid); line-height: 1.45; align-items: flex-start;
+}
+.tl-proj-symbol { flex-shrink: 0; margin-top: 1px; font-size: 0.72rem; font-weight: 700; }
+.tl-insight {
+  margin-top: 12px; padding: 10px 14px; border-radius: 8px;
+  font-size: 0.78rem; color: var(--text-mid); line-height: 1.6;
+  background: var(--bg); border-left: 3px solid var(--border);
+  font-style: italic;
+}
+/* M12 special */
+.tl-item.final .tl-insight { border-left-color: var(--gold); background: rgba(232,150,10,0.04); }
+
+/* ── FOOTER ── */
+footer { background: var(--bg-dark); color: rgba(255,255,255,0.45); padding: 36px 60px; font-size: 0.82rem; display: flex; align-items: center; justify-content: space-between; margin-top: 40px; }
+footer a { color: var(--gold); text-decoration: none; }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-hamburger { display: flex; }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  nav.open { height: auto; flex-wrap: wrap; padding-bottom: 12px; }
+  nav.open .nav-links { display: flex !important; flex-direction: column; width: 100%; gap: 2px; margin-top: 8px; }
+  nav.open .nav-links li { list-style: none; }
+  nav.open .nav-links a { padding: 10px 14px; color: rgba(255,255,255,0.8); font-size: 0.9rem; min-height: 48px; display: flex; align-items: center; }
+  .nav-links { display: none; }
+  .hero { padding: 90px 24px 48px; }
+  .hero-stats { gap: 24px; }
+  .section { padding: 48px 20px; scroll-margin-top: 72px; }
+  .section-divider { margin: 0 20px; }
+  .phase-bar { grid-template-columns: 1fr 1fr; }
+  .tl { padding-left: 40px; }
+  .tl-node { left: -40px; width: 32px; height: 32px; font-size: 0.75rem; top: 18px; }
+  .tl-connector { left: -8px; top: 32px; }
+  .tl-photo-row { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .tl-stats { flex-wrap: wrap; }
+  .tl-stat { min-width: 33%; }
+  .tl-proj-grid { grid-template-columns: 1fr; }
+  .tl-sil-wrap { grid-template-columns: 1fr 80px; }
+  .tl-sil-box { width: 80px; height: 148px; }
+  .start-photo-row { grid-template-columns: repeat(3, 1fr); }
+  .start-stats-row { gap: 20px; }
+  footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 20px; }
+}
+
+/* ── TOUCH ANDROID ── */
+button, a, [onclick], input, select, label {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+/* ── ACCESSIBILITÉ ── */
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+  .tl-card{opacity:1;transform:none;}
+}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px;}
+@media (hover:none){
+  button:active,a:active{opacity:.82;}
+  .tl-card:active,.phase-item:active{transform:scale(0.99);}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">ALLEZ</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="nutrition.html">Nutrition</a></li>
+    <li><a href="logbook.html">Logbook</a></li>
+    <li><a href="progression.html">Progression</a></li>
+    <li><a href="exercices.html">Exercices</a></li>
+    <li><a href="programme.html">Programme</a></li>
+    <li><a href="analyse.html">Analyse</a></li>
+    <li><a href="posture.html">Posture</a></li>
+    <li><a href="projection.html" class="active">Projection</a></li>
+    <li><a href="lifestyle.html">Lifestyle</a></li>
+    <li><a href="recettes.html">Recettes</a></li>
+    <li><a href="pingpong.html">Ping-Pong</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHbg" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><span></span>Transformation Physique · 12 Mois</div>
+    <h1>PROJECTION<br><em>PHYSIQUE</em></h1>
+    <p>Timeline visuelle mois par mois. Photographies mensuelles + métriques projetées pour documenter et comparer l'évolution réelle de ta transformation.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-val">71 kg</div>
+        <div class="hero-stat-lbl">Poids départ</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">77 kg</div>
+        <div class="hero-stat-lbl">Objectif 12 mois</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">20,5%</div>
+        <div class="hero-stat-lbl">BF départ</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">17%</div>
+        <div class="hero-stat-lbl">BF objectif</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── POINT DE DÉPART ── -->
+<div class="section">
+  <div class="section-label">Baseline</div>
+  <div class="section-title">Point de Départ — Mai 2026</div>
+  <div class="section-sub">Photos de référence prises le 24 mai 2026. Toutes les comparaisons futures reviennent à ce point zéro. Même heure, même lumière, mêmes angles.</div>
+
+  <div class="start-card reveal">
+    <div class="start-card-inner">
+      <div class="start-badge">M0 · DÉPART · 24 mai 2026</div>
+      <div class="start-stats-row">
+        <div class="start-stat">
+          <span class="start-val">71 kg</span>
+          <span class="start-lbl">Poids</span>
+        </div>
+        <div class="start-stat">
+          <span class="start-val">20,5%</span>
+          <span class="start-lbl">Masse grasse</span>
+        </div>
+        <div class="start-stat">
+          <span class="start-val">56.4 kg</span>
+          <span class="start-lbl">Masse maigre</span>
+        </div>
+        <div class="start-stat">
+          <span class="start-val">34 cm</span>
+          <span class="start-lbl">Biceps tendu (33 au repos)</span>
+        </div>
+        <div class="start-stat">
+          <span class="start-val">178 cm</span>
+          <span class="start-lbl">Taille</span>
+        </div>
+      </div>
+      <div class="start-photo-row">
+        <div class="start-photo-slot">
+          <div class="start-photo-check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <div class="start-photo-label">Face</div>
+          <div class="start-photo-date">24 mai 2026</div>
+        </div>
+        <div class="start-photo-slot">
+          <div class="start-photo-check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <div class="start-photo-label">Profil</div>
+          <div class="start-photo-date">24 mai 2026</div>
+        </div>
+        <div class="start-photo-slot">
+          <div class="start-photo-check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <div class="start-photo-label">Dos</div>
+          <div class="start-photo-date">24 mai 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ── TIMELINE 12 MOIS ── -->
+<div class="section">
+  <div class="section-label">Timeline</div>
+  <div class="section-title">Évolution Mois par Mois</div>
+  <div class="section-sub">Photos à prendre le 1er de chaque mois, le matin à jeun. Même position, même lumière naturelle. Les milestones M3 · M6 · M9 · M12 sont les bilans comparatifs officiels.</div>
+
+  <div class="phase-bar reveal">
+    <div class="phase-seg blue">Cycle 1 · M1–M3<br>Jun–Août 2026</div>
+    <div class="phase-seg green">Cycle 2 · M4–M6<br>Sep–Nov 2026</div>
+    <div class="phase-seg purple">Cycle 3 · M7–M9<br>Déc 2026–Fév 2027</div>
+    <div class="phase-seg gold">Cycle 4 · M10–M12<br>Mar–Mai 2027</div>
+  </div>
+
+  <div class="tl" id="timeline"></div>
+</div>
+
+<footer>
+  <span>ALLEZ — Projection Physique 12 Mois · Mai 2026 → Mai 2027</span>
+  <span>
+    <a href="index.html">Accueil</a> &nbsp;·&nbsp;
+    <a href="progression.html">Progression</a> &nbsp;·&nbsp;
+    <a href="exercices.html">Exercices</a> &nbsp;·&nbsp;
+    <a href="nutrition.html">Nutrition</a>
+  </span>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// DATA — 12 mois · projection physique détaillée
+// Profil : 30 ans · 178 cm · 71 kg · 20,5% BF
+// Débutant · 3x/sem · Recomposition · PE + discopathie L5-S1
+//
+// sil = silhouette SVG (viewBox 0 0 100 200)
+//   sw : largeur épaules totale (unités SVG)
+//   ww : largeur taille totale
+//   hw : largeur hanches totale
+//   at : épaisseur bras
+// ═══════════════════════════════════════════════════════
+
+const TIMELINE_DATA = [
+  {
+    n: 1, cal: 'Juin 2026', weeks: 'Semaines 1–4',
+    phase: 'B1 · Adaptation', cycle: 1, color: 'blue',
+    poids: 71.5, bf: 20.2, muscle: 57.0, waist: 85.5,
+    sil: { sw: 46, ww: 34, hw: 42, at: 8.5 },
+    strengths: [
+      'Biceps déjà le meilleur groupe — belle forme contractée confirmée',
+      'Taille naturellement fine — atout V-taper déjà présent',
+      'Pompe post-séance plus prononcée dès la 2e semaine',
+    ],
+    changes: [
+      'Force +20–30% sur tous les mouvements (gain neurologique pur)',
+      'Aucune modification visible dans le miroir — normal et attendu',
+      'Légère rétention eau intramusculaire (+glycogène stocké)',
+      'Antéversion du bassin qui commence à se corriger (gainage daily)',
+    ],
+    insight: 'Le mois 1 ne se voit pas dans le miroir. Il se sent dans la séance : les charges augmentent, la technique s\'installe. C\'est la fondation de tout.',
+    milestone: false
+  },
+  {
+    n: 2, cal: 'Juillet 2026', weeks: 'Semaines 5–8',
+    phase: 'B2 · Hypertrophie', cycle: 1, color: 'green',
+    poids: 72.0, bf: 20.0, muscle: 57.7, waist: 85.0,
+    sil: { sw: 47, ww: 34, hw: 42, at: 8.9 },
+    strengths: [
+      'Biceps légèrement plus épais au repos — premier signe structural',
+      'Épaules plus carrées dans les vêtements (stabilité deltoïde médial)',
+      'Activation du grand dorsal améliorée — se sent dans le tirage',
+    ],
+    changes: [
+      'Premiers gains structuraux réels : +0.6 kg masse musculaire',
+      'Congestion dure 2–3h après séance (signe d\'hypertrophie active)',
+      'Tour de taille −0.5 cm (recomposition qui démarre)',
+      'BF légèrement en baisse — invisible mais les chiffres l\'indiquent',
+    ],
+    insight: 'La connexion neuro-musculaire est en place. Le corps peut maintenant recruter plus de fibres sur chaque rep — le vrai travail hypertrophique commence.',
+    milestone: false
+  },
+  {
+    n: 3, cal: 'Août 2026', weeks: 'Semaines 9–13',
+    phase: 'B3 · Intensification + Deload', cycle: 1, color: 'purple',
+    poids: 72.5, bf: 19.7, muscle: 58.3, waist: 84.5,
+    sil: { sw: 49, ww: 33.8, hw: 42, at: 9.4 },
+    strengths: [
+      'Deltoïdes médiaux clairement plus épais — épaules visuellement plus larges',
+      'Bras plus volumineux dans les manches courtes',
+      'Dos "existe" — largeur perceptible quand les bras sont baissés',
+    ],
+    changes: [
+      'Première photo avant/après comparatif possible (vs M0)',
+      'BF −0,8% vs départ → muscles existants plus visibles',
+      'Triceps donnent un premier galbe au dos du bras',
+      'Tour de taille −1.5 cm — ventre moins "mou"',
+    ],
+    insight: 'Fin de cycle 1. Le deload de la semaine 13 est obligatoire, pas optionnel : le SNC a besoin de récupérer pour exploser au cycle 2.',
+    milestone: true, milestoneLabel: 'BILAN FIN CYCLE 1'
+  },
+  {
+    n: 4, cal: 'Septembre 2026', weeks: 'Semaines 14–17',
+    phase: 'B1 · Adaptation C2', cycle: 2, color: 'blue',
+    poids: 73.0, bf: 19.4, muscle: 59.0, waist: 84.0,
+    sil: { sw: 51, ww: 33.5, hw: 42, at: 9.9 },
+    strengths: [
+      'Ratio épaules/taille nettement amélioré — V-taper naissant visible',
+      'Dos plus large visible de face (écartement naturel des bras augmente)',
+      'Biceps avec pic visible sous contraction même légère',
+    ],
+    changes: [
+      'L\'entourage remarque pour la première fois — changement "récent ?"',
+      'BF −1,1% vs départ → face plus fine, pommettes plus définies',
+      'Pectoraux hauts légèrement plus présents malgré PE (développé incliné DB)',
+      'Posture au quotidien corrigée — dos naturellement droit',
+    ],
+    insight: 'Cycle 2 démarre avec +5% de charge globale. Le corps est désormais entraîné — il répondra plus vite à la stimulation qu\'au mois 1.',
+    milestone: false
+  },
+  {
+    n: 5, cal: 'Octobre 2026', weeks: 'Semaines 18–21',
+    phase: 'B2 · Hypertrophie C2', cycle: 2, color: 'green',
+    poids: 73.5, bf: 19.2, muscle: 59.6, waist: 83.5,
+    sil: { sw: 53, ww: 33.3, hw: 42, at: 10.4 },
+    strengths: [
+      'V-shape naissant visible de face, bras le long du corps',
+      'Séparation biceps/triceps perceptible à l\'œil et au toucher',
+      'Silhouette habillée différente — dos plus large sous les t-shirts',
+    ],
+    changes: [
+      'BF 19,2% → légère définition des pectoraux latéraux sous bonne lumière',
+      'Deltoïdes : faisceau antérieur, médial et postérieur commencent à se distinguer',
+      'Premier "WOW" en sortie de douche sous lumière directe',
+      'Pull-ups assistés avec −5 à −10 kg (progression vers non-assisté)',
+    ],
+    insight: 'L\'effet combiné de la prise de muscle + la perte de gras commence à créer une transformation visible qui accélère — les deux courbes se croisent.',
+    milestone: false
+  },
+  {
+    n: 6, cal: 'Novembre 2026', weeks: 'Semaines 22–26',
+    phase: 'B3 · Intensification C2', cycle: 2, color: 'purple',
+    poids: 74.0, bf: 18.9, muscle: 60.3, waist: 83.0,
+    sil: { sw: 55, ww: 33, hw: 42, at: 10.9 },
+    strengths: [
+      'V-taper clairement photographiable — transformation visible et indéniable',
+      'Épaules ~+2 cm de largeur (mesurable) vs M0',
+      'Bras ~+1.5 cm tendu (biceps ~35.5 cm)',
+    ],
+    changes: [
+      'BF 18,9% → pectoraux hauts avec définition sous lumière directe',
+      'Corps plus "dense" — même poids paraît plus musclé qu\'à M1',
+      'Triceps galbe prononcé au dos du bras — bras plus équilibré',
+      'Photo M6 vs M0 : première vraie comparaison frappante',
+    ],
+    insight: 'Mi-parcours. +3.9 kg de masse musculaire, −1,6% BF. La recomposition fonctionne : le corps change sans que l\'alimentation soit une souffrance.',
+    milestone: true, milestoneLabel: 'BILAN MI-PARCOURS — 6 MOIS'
+  },
+  {
+    n: 7, cal: 'Décembre 2026', weeks: 'Semaines 27–30',
+    phase: 'B1 · Adaptation C3', cycle: 3, color: 'blue',
+    poids: 74.5, bf: 18.6, muscle: 60.9, waist: 82.5,
+    sil: { sw: 56.5, ww: 32.8, hw: 42, at: 11.3 },
+    strengths: [
+      'Densité musculaire accrue — muscles "fermes" au repos, plus seulement en pompe',
+      'Silhouette sous pull d\'hiver : épaules plus larges, dos plus épais',
+      'Pull-ups complets sans assistance — force sérieuse',
+    ],
+    changes: [
+      'BF 18,6% → obliques qui commencent à apparaître (taille fine = levier fort)',
+      'Veines légèrement visibles dans l\'avant-bras en pompe',
+      'Qualité musculaire prime : muscles moins "gonflés", plus "solides"',
+      'Posture entièrement corrigée — plus aucune antéversion perceptible',
+    ],
+    insight: 'Cycle 3. La densité musculaire évolue autant que le volume. Un muscle entraîné depuis 6 mois est qualitativement différent d\'un muscle de débutant.',
+    milestone: false
+  },
+  {
+    n: 8, cal: 'Janvier 2027', weeks: 'Semaines 31–34',
+    phase: 'B2 · Hypertrophie C3', cycle: 3, color: 'green',
+    poids: 75.0, bf: 18.4, muscle: 61.6, waist: 82.0,
+    sil: { sw: 57.5, ww: 32.6, hw: 42, at: 11.7 },
+    strengths: [
+      'Transformation incontestable — les inconnus (pas seulement l\'entourage) le remarquent',
+      'Séparation nette biceps/triceps/deltoïde visible au repos',
+      'Pectoraux hauts avec volume — PE visuellement moins dominant',
+    ],
+    changes: [
+      'BF 18,4% → abdominaux hauts en cours d\'apparition (éclairage favorable)',
+      'Biceps ~37–38 cm tendu (objectif de départ presque atteint)',
+      'Trapèzes et rhomboïdes visibles et épais de profil',
+      'Pull-ups lestés (+5 kg) — force mesurée',
+    ],
+    insight: '8 mois de programme continu sans coupure = le facteur #1. Ce résultat n\'est pas atteignable autrement. La régularité l\'emporte toujours sur l\'intensité.',
+    milestone: false
+  },
+  {
+    n: 9, cal: 'Février 2027', weeks: 'Semaines 35–39',
+    phase: 'B3 · Intensification C3', cycle: 3, color: 'purple',
+    poids: 75.5, bf: 18.1, muscle: 62.2, waist: 81.5,
+    sil: { sw: 59, ww: 32.3, hw: 42, at: 12.1 },
+    strengths: [
+      'V-taper prononcé et mesurable — ratio taille/épaules ~1.40',
+      'Abdominaux hauts visibles au repos sous lumière normale',
+      'Épaules 3D — trois faisceaux du deltoïde visuellement distincts',
+    ],
+    changes: [
+      'BF 18,1% → définition abdominale haute et milieu (tracé visible)',
+      'Corps "athlétique" — aucun observateur ne dirait débutant',
+      'Vascularité avant-bras permanente (plus seulement en pompe)',
+      'Photo M9 vs M0 : silhouette entièrement différente',
+    ],
+    insight: '9 mois, bilan officiel. +5.8 kg de muscle, −2,4% BF. La transformation est complète dans l\'esprit — le corps va continuer à suivre.',
+    milestone: true, milestoneLabel: 'BILAN 9 MOIS'
+  },
+  {
+    n: 10, cal: 'Mars 2027', weeks: 'Semaines 40–43',
+    phase: 'B1 · Adaptation C4', cycle: 4, color: 'blue',
+    poids: 76.0, bf: 17.9, muscle: 62.9, waist: 81.0,
+    sil: { sw: 60, ww: 32, hw: 42, at: 12.6 },
+    strengths: [
+      'Lignes musculaires claires de l\'épaule à l\'avant-bras',
+      'V-taper maximal — taille fine naturelle = levier spectaculaire',
+      'Dos en triangle inversé visible habillé (t-shirts serrés dans les épaules)',
+    ],
+    changes: [
+      'BF 17,9% → obliques visibles + début définition abdominale complète',
+      'Veines avant-bras permanentes + légère vascularité bras en pompe',
+      'Corps "sec et plein" — recomposition presque aboutie',
+      'Connexion MMC totale : chaque rep se sent dans le muscle cible',
+    ],
+    insight: 'Dernier cycle. L\'objectif n\'est plus de construire — c\'est de sculpter et d\'affiner ce qui a été construit en 9 mois de travail régulier.',
+    milestone: false
+  },
+  {
+    n: 11, cal: 'Avril 2027', weeks: 'Semaines 44–47',
+    phase: 'B2 · Hypertrophie C4', cycle: 4, color: 'green',
+    poids: 76.5, bf: 17.5, muscle: 63.5, waist: 80.5,
+    sil: { sw: 60.5, ww: 31.8, hw: 42, at: 13.0 },
+    strengths: [
+      'Abdominaux hauts + milieu visibles au repos sous lumière directe',
+      'Ratio épaules/taille ~1.42 — seuil V-shape confirmé',
+      'Transformation annuelle presque complète — aucune ressemblance avec M0',
+    ],
+    changes: [
+      'BF 17,5% → définition quasi-complète du haut du corps',
+      'Muscles présents même sans contraction active',
+      'Tour de taille −6 cm vs M0 (sans régime extrême)',
+      'Corps en phase sculpture finale avant bilan annuel',
+    ],
+    insight: 'Avant-dernier mois. Maintenir la régularité jusqu\'au bout est aussi difficile qu\'au début — mais les raisons de continuer sont maintenant visibles dans le miroir.',
+    milestone: false
+  },
+  {
+    n: 12, cal: 'Mai 2027', weeks: 'Semaines 48–52',
+    phase: 'B3 · Bilan Final', cycle: 4, color: 'gold',
+    poids: 77.0, bf: 17.0, muscle: 64.0, waist: 80.0,
+    sil: { sw: 61, ww: 31.5, hw: 42, at: 13.2 },
+    strengths: [
+      '+7.6 kg de masse musculaire pure sur 12 mois',
+      'BF 17% — définition complète, abdos visibles en conditions normales',
+      'V-taper spectaculaire : taille fine + épaules larges + dos en V',
+      'Bras ~38–40 cm tendu — objectif de départ atteint ou dépassé',
+    ],
+    changes: [
+      'Photo avant/après M0 → M12 : transformation totale et indéniable',
+      'Nouvelle baseline physique pour définir les objectifs année 2',
+      'Corps prêt pour lean bulk ciblé ou continuation recomposition',
+      'Niveau de forme le plus élevé de ta vie — à partir d\'ici, tu construis sur du solide',
+    ],
+    insight: '12 mois. 52 semaines. ~144 séances. La seule variable qui déterminait tout : ne pas s\'arrêter.',
+    milestone: true, milestoneLabel: 'BILAN FINAL — 12 MOIS'
+  }
+];
+
+// ═══════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════
+
+const cameraSVG = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+  <circle cx="12" cy="13" r="4"/>
+</svg>`;
+
+const COLOR_VAR = {
+  blue:   'var(--blue)',
+  green:  'var(--green)',
+  purple: 'var(--purple)',
+  gold:   'var(--gold)'
+};
+
+// Valeurs résolues (pour SVG inline qui ne lit pas les CSS vars)
+const COLOR_RAW = {
+  blue:   '#1560d4',
+  green:  '#0a9e52',
+  purple: '#7c10d4',
+  gold:   '#e8960a'
+};
+
+// ═══════════════════════════════════════════════════════
+// SILHOUETTE SVG — génération front-view par mois
+// viewBox 0 0 100 200 · cx=50
+//
+// Paramètres qui évoluent :
+//   sw  épaules (largeur totale) — principal marqueur V-taper
+//   ww  taille (largeur totale) — reste stable (naturellement fine)
+//   hw  hanches — constante
+//   at  épaisseur bras — croît avec la masse musculaire
+//
+// def (0→1) : niveau de définition musculaire (calculé depuis BF)
+//   — contrôle l'opacité des lignes musculaires
+//   — deltoïdes apparaissent dès M3, pectoraux M4, abdos M8
+// ═══════════════════════════════════════════════════════
+
+function makeSilhouette(m) {
+  const col = COLOR_RAW[m.color];
+  const s   = m.sil;
+  // def = 0 au départ (20,5% BF), 1 à l'objectif (17% BF)
+  const def = Math.min(1, Math.max(0, (20.5 - m.bf) / 3.5));
+
+  const cx = 50;
+
+  // Demi-largeurs
+  const shHW = s.sw / 2;
+  const waHW = s.ww / 2;
+  const hiHW = s.hw / 2;
+  const at   = s.at;
+  const al   = 60; // longueur bras (constante)
+
+  // Coordonnées Y
+  const hy  = 15;  // centre tête
+  const hr  = 11;  // rayon tête
+  const ny  = 28;  // haut cou
+  const sy  = 38;  // épaules
+  const wy  = 108; // taille
+  const epy = 140; // coupure bas (hanches)
+  const nw  = 6;   // demi-largeur cou
+
+  // Torse : trapèze courbé neck → épaule → taille → hanches
+  const torso = [
+    `M ${cx - nw},${ny}`,
+    `L ${cx - shHW},${sy}`,
+    `C ${cx - shHW - 1},${sy + 20} ${cx - waHW - 5},${wy - 22} ${cx - waHW},${wy}`,
+    `L ${cx - hiHW},${epy}`,
+    `L ${cx + hiHW},${epy}`,
+    `L ${cx + waHW},${wy}`,
+    `C ${cx + waHW + 5},${wy - 22} ${cx + shHW + 1},${sy + 20} ${cx + shHW},${sy}`,
+    `L ${cx + nw},${ny}`,
+    `Z`
+  ].join(' ');
+
+  // Bras droits
+  const rax = cx + shHW + 2;
+  const armR = [
+    `M ${rax},${sy + 3}`,
+    `L ${rax},${sy + al}`,
+    `Q ${rax},${sy + al + 5} ${rax - at * 0.5},${sy + al + 5}`,
+    `Q ${rax - at},${sy + al + 5} ${rax - at},${sy + al}`,
+    `L ${rax - at},${sy + 3}`,
+    `Z`
+  ].join(' ');
+
+  // Bras gauche (miroir)
+  const lax = cx - shHW - 2;
+  const armL = [
+    `M ${lax},${sy + 3}`,
+    `L ${lax},${sy + al}`,
+    `Q ${lax},${sy + al + 5} ${lax + at * 0.5},${sy + al + 5}`,
+    `Q ${lax + at},${sy + al + 5} ${lax + at},${sy + al}`,
+    `L ${lax + at},${sy + 3}`,
+    `Z`
+  ].join(' ');
+
+  // Opacités selon défLevel
+  const fillA   = 0.05 + def * 0.07;
+  const strokeA = 0.38 + def * 0.5;
+  const deltA   = Math.max(0, def - 0.12) * 0.55;  // dès M3
+  const pecA    = Math.max(0, def - 0.20) * 0.40;  // dès M4 (latéral, adapté PE)
+  const absA    = Math.max(0, def - 0.38) * 0.65;  // dès M8
+
+  return `<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block" aria-label="Silhouette projection mois ${m.n}">
+  <defs>
+    <linearGradient id="sg${m.n}" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%"   stop-color="${col}" stop-opacity="${(fillA * 1.8).toFixed(3)}"/>
+      <stop offset="100%" stop-color="${col}" stop-opacity="${(fillA * 0.5).toFixed(3)}"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Tête -->
+  <circle cx="${cx}" cy="${hy}" r="${hr}" fill="url(#sg${m.n})" stroke="${col}" stroke-width="1" opacity="${strokeA.toFixed(2)}"/>
+
+  <!-- Cou -->
+  <rect x="${cx - nw}" y="${ny - 2}" width="${nw * 2}" height="${sy - ny + 4}" fill="url(#sg${m.n})" opacity="${strokeA.toFixed(2)}"/>
+
+  <!-- Bras -->
+  <path d="${armL}" fill="url(#sg${m.n})" stroke="${col}" stroke-width="0.9" stroke-linejoin="round" opacity="${strokeA.toFixed(2)}"/>
+  <path d="${armR}" fill="url(#sg${m.n})" stroke="${col}" stroke-width="0.9" stroke-linejoin="round" opacity="${strokeA.toFixed(2)}"/>
+
+  <!-- Torse (forme principale du V-taper) -->
+  <path d="${torso}" fill="url(#sg${m.n})" stroke="${col}" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="${strokeA.toFixed(2)}"/>
+
+  <!-- Deltoïdes (apparaissent dès M3, BF < 19,7%) -->
+  ${deltA > 0.02 ? `
+  <path d="M ${(cx + shHW - 1).toFixed(1)},${sy + 3} C ${(cx + shHW + 3).toFixed(1)},${sy + 18} ${(cx + shHW + 1).toFixed(1)},${sy + 38} ${(cx + shHW - 3).toFixed(1)},${sy + 55}" fill="none" stroke="${col}" stroke-width="0.7" stroke-linecap="round" opacity="${deltA.toFixed(2)}"/>
+  <path d="M ${(cx - shHW + 1).toFixed(1)},${sy + 3} C ${(cx - shHW - 3).toFixed(1)},${sy + 18} ${(cx - shHW - 1).toFixed(1)},${sy + 38} ${(cx - shHW + 3).toFixed(1)},${sy + 55}" fill="none" stroke="${col}" stroke-width="0.7" stroke-linecap="round" opacity="${deltA.toFixed(2)}"/>
+  ` : ''}
+
+  <!-- Pectoraux latéraux (adaptés PE — pas de ligne centrale, seulement bords) -->
+  ${pecA > 0.02 ? `
+  <path d="M ${cx + 7},${sy + 8} C ${cx + 15},${sy + 18} ${cx + 16},${sy + 28} ${cx + 12},${sy + 38}" fill="none" stroke="${col}" stroke-width="0.6" stroke-linecap="round" opacity="${pecA.toFixed(2)}"/>
+  <path d="M ${cx - 7},${sy + 8} C ${cx - 15},${sy + 18} ${cx - 16},${sy + 28} ${cx - 12},${sy + 38}" fill="none" stroke="${col}" stroke-width="0.6" stroke-linecap="round" opacity="${pecA.toFixed(2)}"/>
+  ` : ''}
+
+  <!-- Abdominaux (apparaissent M8+, BF < 18,4%) -->
+  ${absA > 0.02 ? `
+  <line x1="${cx - 8}" y1="${sy + 62}" x2="${cx + 8}" y2="${sy + 62}" stroke="${col}" stroke-width="0.55" stroke-linecap="round" opacity="${absA.toFixed(2)}"/>
+  <line x1="${cx - 7}" y1="${sy + 74}" x2="${cx + 7}" y2="${sy + 74}" stroke="${col}" stroke-width="0.55" stroke-linecap="round" opacity="${(absA * 0.75).toFixed(2)}"/>
+  <line x1="${cx}" y1="${sy + 48}" x2="${cx}" y2="${sy + 82}" stroke="${col}" stroke-width="0.5" stroke-linecap="round" opacity="${(absA * 0.5).toFixed(2)}"/>
+  ` : ''}
+</svg>`;
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER TIMELINE
+// ═══════════════════════════════════════════════════════
+
+function renderTimeline() {
+  const container = document.getElementById('timeline');
+  let html = '';
+  let currentCycle = 0;
+
+  TIMELINE_DATA.forEach((m, i) => {
+    const col = COLOR_VAR[m.color];
+
+    // Cycle separator
+    if (m.cycle !== currentCycle) {
+      currentCycle = m.cycle;
+      if (i > 0) {
+        html += `<div class="tl-cycle-sep">
+          <div class="tl-cycle-sep-line"></div>
+          <div class="tl-cycle-label">Cycle ${m.cycle}</div>
+          <div class="tl-cycle-sep-line"></div>
+        </div>`;
+      }
+    }
+
+    // Milestone banner
+    const milestoneBanner = m.milestone ? `
+      <div class="tl-milestone-banner tl-color-${m.color}">
+        <div class="tl-milestone-line"></div>
+        <div class="tl-milestone-chip">${m.milestoneLabel}</div>
+        <div class="tl-milestone-line"></div>
+      </div>` : '';
+
+    // Deltas vs départ
+    const deltaMuscle = (m.muscle - 56.4).toFixed(1);
+    const deltaBF     = (20.5 - m.bf).toFixed(1);
+
+    // Strengths list
+    const strengthsHTML = m.strengths.map(s => `
+      <li class="tl-proj-item">
+        <span class="tl-proj-symbol" style="color:var(--green)">✓</span>
+        <span>${s}</span>
+      </li>`).join('');
+
+    // Changes list
+    const changesHTML = m.changes.map(c => `
+      <li class="tl-proj-item">
+        <span class="tl-proj-symbol" style="color:${col}">→</span>
+        <span>${c}</span>
+      </li>`).join('');
+
+    html += `
+      <div class="tl-item tl-color-${m.color}${m.n === 12 ? ' final' : ''}">
+        ${milestoneBanner}
+        <div class="tl-node">M${m.n}</div>
+        <div class="tl-connector"></div>
+
+        <div class="tl-card">
+
+          <!-- En-tête mois -->
+          <div class="tl-card-head">
+            <div>
+              <div class="tl-card-title">${m.cal}</div>
+              <div class="tl-weeks">${m.weeks}</div>
+            </div>
+            <div class="tl-phase-badge">${m.phase}</div>
+          </div>
+
+          <!-- Métriques + silhouette côte à côte -->
+          <div class="tl-sil-wrap">
+            <div class="tl-sil-content">
+              <div class="tl-stats">
+                <div class="tl-stat">
+                  <div class="tl-stat-val">${m.poids} kg</div>
+                  <div class="tl-stat-key">Poids</div>
+                </div>
+                <div class="tl-stat">
+                  <div class="tl-stat-val">${m.bf}%</div>
+                  <div class="tl-stat-key">BF</div>
+                </div>
+                <div class="tl-stat">
+                  <div class="tl-stat-val">${m.muscle} kg</div>
+                  <div class="tl-stat-key">Masse maigre</div>
+                </div>
+                <div class="tl-stat">
+                  <div class="tl-stat-val" style="color:var(--green)">+${deltaMuscle} kg</div>
+                  <div class="tl-stat-key">Muscle gagné</div>
+                </div>
+                <div class="tl-stat">
+                  <div class="tl-stat-val" style="color:${col}">−${deltaBF}%</div>
+                  <div class="tl-stat-key">BF perdu</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Silhouette SVG -->
+            <div class="tl-sil-box">
+              ${makeSilhouette(m)}
+              <div class="tl-sil-label">Vue face</div>
+            </div>
+          </div>
+
+          <!-- Emplacements photos -->
+          <div class="tl-photo-row">
+            <div class="tl-photo-slot">
+              ${cameraSVG}
+              <div class="tl-photo-slot-label">Face</div>
+              <div class="tl-photo-slot-sub">À venir</div>
+            </div>
+            <div class="tl-photo-slot">
+              ${cameraSVG}
+              <div class="tl-photo-slot-label">Profil</div>
+              <div class="tl-photo-slot-sub">À venir</div>
+            </div>
+            <div class="tl-photo-slot">
+              ${cameraSVG}
+              <div class="tl-photo-slot-label">Dos</div>
+              <div class="tl-photo-slot-sub">À venir</div>
+            </div>
+          </div>
+
+          <!-- Projection physique -->
+          <div class="tl-proj-grid">
+            <div class="tl-proj-col">
+              <div class="tl-proj-head" style="color:var(--green)">
+                <div class="tl-proj-head-dot" style="background:var(--green)"></div>
+                Points forts visibles
+              </div>
+              <ul class="tl-proj-list">${strengthsHTML}</ul>
+            </div>
+            <div class="tl-proj-col">
+              <div class="tl-proj-head" style="color:${col}">
+                <div class="tl-proj-head-dot" style="background:${col}"></div>
+                Changements attendus
+              </div>
+              <ul class="tl-proj-list">${changesHTML}</ul>
+            </div>
+          </div>
+
+          <!-- Insight du mois -->
+          <div class="tl-insight">${m.insight}</div>
+
+        </div>
+      </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+renderTimeline();
+
+// ═══════════════════════════════════════════════════════
+// INTERSECTION OBSERVER — reveal cards
+// ═══════════════════════════════════════════════════════
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.tl-card, .reveal').forEach(el => obs.observe(el));
+
+// ═══════════════════════════════════════════════════════
+// HAMBURGER NAV
+// ═══════════════════════════════════════════════════════
+
+const _hbg = document.getElementById('navHbg');
+const _nav = document.querySelector('nav');
+_hbg.addEventListener('click', () => { _hbg.classList.toggle('open'); _nav.classList.toggle('open'); });
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => { _hbg.classList.remove('open'); _nav.classList.remove('open'); });
+});
+document.addEventListener('click', e => {
+  if (_nav.classList.contains('open') && !_nav.contains(e.target)) {
+    _hbg.classList.remove('open'); _nav.classList.remove('open');
+  }
+});
+</script>
+<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
+</body>
+</html>

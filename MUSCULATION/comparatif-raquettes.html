@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparatif — Ancienne vs Nouvelle raquette 🏓</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1020; --card:#141b33; --card2:#1b2444; --gold:#e8960a; --pp:#1565d4;
+    --txt:#eef1f7; --mut:#9aa6c2; --line:rgba(255,255,255,.08);
+    --ok:#22c98a; --no:#ff5d5d; --old:#8a93ad; --new:#3aa0ff;
+  }
+  *{box-sizing:border-box}
+  html{overflow-x:hidden}
+  body{margin:0;background:var(--bg);color:var(--txt);overflow-x:hidden;
+       font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.55;padding:0 0 70px;-webkit-text-size-adjust:100%}
+  .wrap{max-width:860px;margin:0 auto;padding:0 14px}
+  header{background:linear-gradient(160deg,#13204a,#0b1020);padding:32px 16px 24px;text-align:center;border-bottom:1px solid var(--line)}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:1px;margin:0 0 6px;line-height:1}
+  h1 span{color:var(--gold)}
+  .hsub{color:var(--mut);font-size:14px;max-width:600px;margin:0 auto}
+  h2{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.5px;margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--gold)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+  th{color:var(--gold);font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  .col-old{color:#cfd5e6}
+  .col-new{color:#bfe0ff}
+  td.win-new{background:rgba(58,160,255,.10)}
+  td.win-old{background:rgba(138,147,173,.10)}
+  .spec{font-size:12.5px;color:var(--mut)}
+  /* score bars */
+  .crit{margin:12px 0}
+  .crit .lbl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:5px}
+  .crit .lbl b{font-weight:600}
+  .crit .w{color:var(--mut);font-size:11.5px}
+  .bar{position:relative;height:22px;border-radius:6px;background:#0d1430;overflow:hidden;margin-bottom:4px}
+  .bar i{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;padding-left:8px;font-size:12px;font-weight:700;color:#04122b;border-radius:6px}
+  .bar.old i{background:#8a93ad}
+  .bar.new i{background:linear-gradient(90deg,#1565d4,#3aa0ff)}
+  .legend{display:flex;gap:18px;font-size:12.5px;color:var(--mut);margin:6px 0 0}
+  .dot{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:middle}
+  .final{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  @media(max-width:560px){.final{grid-template-columns:1fr}}
+  .scorebox{border-radius:16px;padding:18px;text-align:center}
+  .scorebox.old{background:rgba(138,147,173,.12);border:1px solid rgba(138,147,173,.4)}
+  .scorebox.new{background:rgba(58,160,255,.14);border:1px solid rgba(58,160,255,.5)}
+  .scorebox .big{font-family:'Bebas Neue',sans-serif;font-size:54px;line-height:1}
+  .scorebox.old .big{color:var(--old)}
+  .scorebox.new .big{color:var(--new)}
+  .note{background:var(--card2);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:12px 14px;margin:12px 0;font-size:13.5px;color:#dfe4f0}
+  ul{margin:8px 0;padding-left:20px}li{margin:5px 0;font-size:14px}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}
+  .tag.new{background:rgba(58,160,255,.18);color:#7fb0ff}
+  .tag.old{background:rgba(138,147,173,.18);color:#c2c9da}
+  footer{color:var(--mut);font-size:12px;text-align:center;margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Comparatif <span>raquettes</span> 🏓</h1>
+  <p class="hsub">Ma JOOLA Infinity Carbon actuelle <b>vs</b> mon nouveau montage sur-mesure (Innerforce ALC + Tenergy 05 + Rozena). Caractéristiques réelles + notation pondérée pour MON jeu.</p>
+</header>
+
+<div class="wrap">
+
+  <!-- IDENTITE -->
+  <h2>1 · Les deux raquettes</h2>
+  <div class="final">
+    <div class="scorebox old">
+      <span class="tag old">ACTUELLE</span>
+      <h3 style="margin:8px 0 2px">JOOLA Infinity Carbon</h3>
+      <p class="spec">Raquette <b>pré-montée</b> · ~90-120€<br>Bois 5+2 carbone (externe) + gommes <b>JOOLA Micron+</b><br><b>État réel : gommes mortes</b> (écaillées/décollées en haut)</p>
+    </div>
+    <div class="scorebox new">
+      <span class="tag new">NOUVELLE</span>
+      <h3 style="margin:8px 0 2px">Montage sur-mesure</h3>
+      <p class="spec">À la carte · ~212€<br>Bois <b>Innerforce Layer ALC</b> (carbone interne) FL<br>CD <b>Tenergy 05</b> 2,1 · RV <b>Rozena</b> 1,9</p>
+    </div>
+  </div>
+
+  <!-- SPECS -->
+  <h2>2 · Caractéristiques techniques</h2>
+  <div class="card" style="overflow-x:auto">
+    <table>
+      <tr><th>Critère</th><th class="col-old">JOOLA Infinity Carbon</th><th class="col-new">Montage sur-mesure</th></tr>
+      <tr><td><b>Type</b></td><td class="col-old">Pré-montée, figée</td><td class="win-new col-new">Custom (bois + 2 gommes au choix)</td></tr>
+      <tr><td><b>Bois — plis</b></td><td class="col-old">5 bois + 2 carbone</td><td class="col-new">5 bois + 2 Arylate-Carbone (ALC)</td></tr>
+      <tr><td><b>Position carbone</b></td><td class="win-old col-old">Externe (sec, rapide, vibrant)</td><td class="win-new col-new">Interne « inner » → + toucher, + sweet spot</td></tr>
+      <tr><td><b>Vitesse bois</b></td><td class="col-old">OFF/OFF+ (rapide, parfois trop)</td><td class="col-new">OFF (rapide mais maîtrisable)</td></tr>
+      <tr><td><b>Poids / épaisseur</b></td><td class="col-old">~85-90 g (non choisi)</td><td class="col-new">~85 g · 6,0 mm</td></tr>
+      <tr><td><b>Manche</b></td><td class="col-old">FL « Ergo Grip » imposé</td><td class="win-new col-new">FL choisi (cale ma prise pouce-haut)</td></tr>
+      <tr><td><b>Gomme CD</b></td><td class="col-old">JOOLA Micron+ (entrée/milieu de gamme)</td><td class="win-new col-new">Tenergy 05 (High-Tension haut de gamme)</td></tr>
+      <tr><td><b>CD — Effet / Vitesse / Arc</b></td><td class="col-old">~65 / ~80 / ~65 <span class="spec">(estim.)</span></td><td class="win-new col-new">76 / 83 / 79 <span class="spec">(officiel BTY)</span></td></tr>
+      <tr><td><b>Dureté mousse CD</b></td><td class="col-old">Mi-dure générique</td><td class="col-new">36° BTY (~48° euro), Spring Sponge</td></tr>
+      <tr><td><b>Gomme RV</b></td><td class="col-old">JOOLA Micron+ (même que CD)</td><td class="win-new col-new">Rozena (souple, contrôle)</td></tr>
+      <tr><td><b>RV — Effet / Vitesse / Arc</b></td><td class="col-old">~65 / ~80 / ~65 <span class="spec">(estim.)</span></td><td class="win-new col-new">70 / 83 / 75 · dureté 35°</td></tr>
+      <tr><td><b>Personnalisation</b></td><td class="col-old">Aucune</td><td class="win-new col-new">Totale (manche, épaisseurs, gommes)</td></tr>
+      <tr><td><b>Réparable / évolutif</b></td><td class="col-old">Non (on rachète tout)</td><td class="win-new col-new">Oui (on change une gomme)</td></tr>
+      <tr><td><b>Prix</b></td><td class="win-old col-old">~90-120€ tout compris</td><td class="col-new">~212€ (+ montage)</td></tr>
+      <tr><td><b>Prêt à jouer</b></td><td class="win-old col-old">Oui, direct</td><td class="col-new">Montage requis (souvent offert en magasin)</td></tr>
+    </table>
+    <p class="spec">⚠️ Les notes « 120+ Speed / 120+ Spin / 112 Control » de la fiche JOOLA sont une <b>échelle maison marketing</b>, non comparable aux notes Butterfly (officielles, mesurées). Les valeurs Micron sont donc des <b>estimations expertes</b>.</p>
+  </div>
+
+  <!-- NOTATION -->
+  <h2>3 · Notation par critère <span class="spec">(pondérée pour mon jeu)</span></h2>
+  <div class="card">
+    <div class="legend">
+      <span><span class="dot" style="background:#8a93ad"></span>JOOLA Infinity (actuelle, neuve)</span>
+      <span><span class="dot" style="background:#3aa0ff"></span>Montage sur-mesure</span>
+    </div>
+    <p class="spec" style="margin-top:6px">Note /10. Le <b>poids %</b> = importance du critère pour MON style (coup droit dominant, mi-distance, sensations, revers de sécurité). Pas de limite de budget → prix/simplicité faiblement pondérés.</p>
+
+    <!-- macro to repeat -->
+    <div class="crit"><div class="lbl"><b>Effet au coup droit (spin)</b><span class="w">poids 14%</span></div>
+      <div class="bar old"><i style="width:65%">6,5</i></div><div class="bar new"><i style="width:95%">9,5</i></div></div>
+
+    <div class="crit"><div class="lbl"><b>Arc / capacité à lever &amp; brosser</b><span class="w">poids 10%</span></div>
+      <div class="bar old"><i style="width:60%">6,0</i></div><div class="bar new"><i style="width:90%">9,0</i></div></div>
+
+    <div class="crit"><div class="lbl"><b>Toucher / sensations</b><span class="w">poids 12%</span></div>
+      <div class="bar old"><i style="width:50%">5,0</i></div><div class="bar new"><i style="width:90%">9,0</i></div></div>
+
+    <div class="crit"><div class="lbl"><b>Sweet spot / tolérance balle décalée</b><span class="w">poids 9%</span></div>
+      <div class="bar old"><i style="width:65%">6,5</i></div><div class="bar new"><i style="width:90%">9,0</i></div></div>
+
+    <div class="crit"><div class="lbl"><b>Performance à mi-distance</b><span class="w">poids 11%</span></div>
+      <div class="bar old"><i style="width:65%">6,5</i></div><div class="bar new"><i style="width:90%">9,0</i></div></div>
+
+    <div class="crit"><div class="lbl"><b>Contrôle / tolérance</b><span class="w">poids 9%</span></div>
+      <div class="bar old"><i style="width:60%">6,0</i></div><div class="bar new"><i style="width:80%">8,0</i></div></div>
+
+    <div class="crit"><div class="lbl"><b>Revers de sécurité (bloc + coupe)</b><span class="w">poids 9%</span></div>
+      <div class="bar old"><i style="width:60%">6,0</i></div><div class="bar new"><i style="width:85%">8,5</i></div></div>
+
+    <div class="crit"><div class="lbl"><b>Adapté à ma prise &amp; mon niveau</b><span class="w">poids 8%</span></div>
+      <div class="bar old"><i style="width:65%">6,5</i></div><div class="bar new"><i style="width:90%">9,0</i></div></div>
+
+    <div class="crit"><div class="lbl"><b>Vitesse brute</b><span class="w">poids 6%</span></div>
+      <div class="bar old"><i style="width:85%">8,5</i></div><div class="bar new"><i style="width:85%">8,5</i></div></div>
+
+    <div class="crit"><div class="lbl"><b>Personnalisation</b><span class="w">poids 4%</span></div>
+      <div class="bar old"><i style="width:20%">2,0</i></div><div class="bar new"><i style="width:100%">10</i></div></div>
+
+    <div class="crit"><div class="lbl"><b>Durabilité / entretien</b><span class="w">poids 3%</span></div>
+      <div class="bar old"><i style="width:50%">5,0</i></div><div class="bar new"><i style="width:80%">8,0</i></div></div>
+
+    <div class="crit"><div class="lbl"><b>Évolutivité (marge de progression)</b><span class="w">poids 3%</span></div>
+      <div class="bar old"><i style="width:40%">4,0</i></div><div class="bar new"><i style="width:90%">9,0</i></div></div>
+
+    <div class="crit"><div class="lbl"><b>Prix / accessibilité</b><span class="w">poids 1%</span></div>
+      <div class="bar old"><i style="width:90%">9,0</i></div><div class="bar new"><i style="width:40%">4,0</i></div></div>
+
+    <div class="crit"><div class="lbl"><b>Simplicité (prêt à jouer)</b><span class="w">poids 1%</span></div>
+      <div class="bar old"><i style="width:100%">10</i></div><div class="bar new"><i style="width:50%">5,0</i></div></div>
+  </div>
+
+  <!-- SCORE FINAL -->
+  <h2>4 · Score final pondéré</h2>
+  <div class="final">
+    <div class="scorebox old">
+      <span class="tag old">JOOLA Infinity Carbon</span>
+      <div class="big">61<span style="font-size:22px">/100</span></div>
+      <p class="spec">…et seulement <b>~50/100 en état réel</b> (gommes mortes). Gagne uniquement sur <b>prix</b> et <b>prêt à jouer</b>.</p>
+    </div>
+    <div class="scorebox new">
+      <span class="tag new">Montage sur-mesure</span>
+      <div class="big">88<span style="font-size:22px">/100</span></div>
+      <p class="spec">Gagne sur <b>12 critères sur 14</b>, et surtout sur ceux qui comptent le plus pour mon jeu.</p>
+    </div>
+  </div>
+  <div class="note"><b>Écart décisif (+27 pts, +38 en réel) :</b> il ne vient pas de la vitesse (les deux sont rapides) mais de l'<b>effet</b>, de l'<b>arc</b>, du <b>toucher</b> et du <b>sweet spot</b> — exactement les 4 leviers de mon coup droit à mi-distance. C'est là que la JOOLA (carbone externe sec + gommes d'origine) plafonne et que l'inner ALC + Tenergy 05 explosent.</div>
+
+  <!-- VERDICT -->
+  <h2>5 · Verdict</h2>
+  <div class="card">
+    <h3 style="color:var(--new)">✅ Ce que je gagne en passant au sur-mesure</h3>
+    <ul>
+      <li><b>Beaucoup plus d'effet et d'arc</b> au coup droit (Tenergy 05 = référence des loopeurs) → balles plus chargées, plus de marge par-dessus le filet.</li>
+      <li><b>Le toucher qui me manquait</b> : le carbone interne « parle », fini la sensation sèche/rigide de la JOOLA.</li>
+      <li><b>Gros sweet spot</b> : pardonne mes balles prises décalées quand je bouge.</li>
+      <li><b>Un vrai revers de sécurité</b> : la Rozena bloque et coupe avec contrôle.</li>
+      <li><b>Tout est à moi</b> : manche FL pour ma prise, épaisseurs choisies, et je remplace une gomme usée sans tout racheter.</li>
+    </ul>
+    <h3 style="color:var(--old)">⚠️ Les seuls avantages de garder la JOOLA</h3>
+    <ul>
+      <li><b>Le prix</b> (~90-120€ vs ~212€) — mais je n'ai pas de contrainte de budget.</li>
+      <li><b>Prête à jouer</b> direct — le sur-mesure demande un montage (souvent offert en magasin).</li>
+      <li>Sa <b>vitesse brute</b> est équivalente — mais une vitesse sèche peu maîtrisée n'est pas un atout à mon niveau.</li>
+    </ul>
+    <div class="note" style="border-color:var(--new)"><b>Conclusion :</b> le sur-mesure gagne <b>nettement</b> (88 vs 61, et ~50 en l'état). La JOOLA n'est pas « mauvaise » — elle est juste <b>pré-montée, sèche et usée</b>, et ne peut pas suivre un jeu de coup droit brossé à mi-distance. <b>Astuce :</b> avant d'acheter la lame, je peux re-gommer ma JOOLA (Tenergy + Rozena, ~95€) pour goûter 80% du gain « gommes » et confirmer — mais à terme, le montage inner ALC reste très supérieur.</div>
+  </div>
+
+  <footer>
+    Comparatif établi d'après les fiches officielles Butterfly (notes effet/vitesse/arc mesurées) et JOOLA, + analyse de mes photos/vidéo · juin 2026.<br>
+    Notes Micron = estimations expertes (pas de mesure neutre publiée). Notation pondérée selon mon style de jeu.
+  </footer>
+</div>
+</body>
+</html>

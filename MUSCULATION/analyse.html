@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e8960a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ALLEZ">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Analyse Physique — ALLEZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f0ece3;
+    --gold: #e8960a;
+    --gold-dim: #c47f08;
+    --bg-dark: #0b1020;
+    --text: #1a1a2e;
+    --muted: #6b6b80;
+    --card: #ffffff;
+    --border: rgba(0,0,0,0.08);
+    --green: #16a34a;
+    --red: #dc2626;
+    --blue: #2563eb;
+    --purple: #7c3aed;
+    --orange: #ea580c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { overflow-x: clip; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    background: var(--bg-dark);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 2px;
+  }
+  .nav-links { display: flex; gap: 0.25rem; }
+  .nav-links a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+  .nav-links a.active { color: var(--gold); background: rgba(232,150,10,0.12); }
+
+  /* HERO */
+  .hero {
+    background: var(--bg-dark);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(232,150,10,0.12) 0%, transparent 65%);
+  }
+  .hero-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: #fff;
+    letter-spacing: 3px;
+    line-height: 1;
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.95rem;
+    font-weight: 400;
+    position: relative;
+    margin-bottom: 3rem;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 1px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 1.25rem 1.5rem;
+    flex: 1;
+    min-width: 130px;
+    border-radius: 4px;
+  }
+  .hero-stat-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: var(--gold);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .hero-stat-lab {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 0.3rem;
+  }
+
+  /* SECTIONS */
+  .section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-dark { background: var(--bg-dark); padding: 4rem 2rem; }
+  .section-dark .section { color: #fff; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+  .section-dark .section-title { color: #fff; }
+  .section-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+  }
+  .section-dark .section-sub { color: rgba(255,255,255,0.4); }
+  .gold { color: var(--gold); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* STAT CARDS */
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent, var(--gold));
+  }
+  .stat-card-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--accent, var(--gold));
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .stat-card-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+  .stat-card-note { font-size: 0.8rem; color: var(--muted); margin-top: 0.5rem; }
+
+  /* BF GAUGE */
+  .bf-gauge-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  .bf-gauge-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 1rem; }
+  .bf-scale-outer { position: relative; height: 28px; border-radius: 14px; overflow: hidden; }
+  .bf-scale {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      #1aab5e 0%, #1aab5e 8%,
+      #5ab34e 8%, #5ab34e 15%,
+      #a3c93a 15%, #a3c93a 20%,
+      #e8b30a 20%, #e8b30a 25%,
+      #e87a0a 25%, #e87a0a 32%,
+      #dc3030 32%, #dc3030 100%
+    );
+  }
+  .bf-labels { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--muted); margin-top: 0.4rem; }
+  .bf-markers-row { position: relative; height: 36px; }
+  .bf-marker {
+    position: absolute;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .bf-marker-line { width: 2px; height: 14px; background: var(--marker-color, #333); }
+  .bf-marker-chip {
+    background: var(--marker-color, #333);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+  .bf-info-row { display: flex; gap: 1rem; margin-top: 1.25rem; flex-wrap: wrap; }
+  .bf-info-chip {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .bf-info-chip strong { color: var(--text); }
+
+  /* VUE CARDS */
+  .vue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+  .vue-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .vue-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .vue-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .vue-name { font-weight: 700; font-size: 0.95rem; }
+  .vue-body { padding: 1.25rem 1.5rem; }
+  .vue-highlight {
+    background: rgba(232,150,10,0.1);
+    border-left: 3px solid var(--gold);
+    padding: 0.6rem 0.75rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 1rem;
+  }
+  .vue-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .vue-list li {
+    font-size: 0.83rem;
+    color: #333;
+    padding-left: 1rem;
+    position: relative;
+  }
+  .vue-list li::before {
+    content: '›';
+    position: absolute; left: 0;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* ZONE CARDS */
+  .zone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; }
+  .zone-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  .zone-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+  .zone-name { font-weight: 700; font-size: 1rem; }
+  .zone-score { display: flex; flex-direction: column; align-items: flex-end; }
+  .zone-score-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--zone-color, var(--gold));
+    line-height: 1;
+  }
+  .zone-score-label { font-size: 0.65rem; color: var(--muted); }
+  .zone-bar-wrap { height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; margin-bottom: 1rem; }
+  .zone-bar {
+    height: 100%;
+    background: var(--zone-color, var(--gold));
+    border-radius: 4px;
+    width: 0;
+    transition: width 1s cubic-bezier(.22,.68,0,1.2);
+  }
+  .zone-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .zone-list li { font-size: 0.8rem; color: #444; padding-left: 1rem; position: relative; }
+  .zone-list li::before { content: '—'; position: absolute; left: 0; color: var(--muted); }
+
+  /* GENETIC CARDS */
+  .gen-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  @media (max-width: 600px) { .gen-grid { grid-template-columns: 1fr; } }
+  .gen-card {
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid;
+  }
+  .gen-card.positive { background: #f0fdf4; border-color: #bbf7d0; }
+  .gen-card.negative { background: #fef2f2; border-color: #fecaca; }
+  .gen-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
+  .gen-icon { font-size: 1.2rem; }
+  .gen-title { font-weight: 700; font-size: 0.9rem; }
+  .gen-card.positive .gen-title { color: var(--green); }
+  .gen-card.negative .gen-title { color: var(--red); }
+  .gen-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .gen-list li { font-size: 0.82rem; color: #333; padding-left: 1.1rem; position: relative; }
+  .gen-card.positive .gen-list li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; font-size: 0.75rem; }
+  .gen-card.negative .gen-list li::before { content: '✗'; position: absolute; left: 0; color: var(--red); font-weight: 700; font-size: 0.75rem; }
+
+  /* STRUCTURAL CONDITIONS */
+  .struct-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+  .struct-card {
+    background: var(--card);
+    border-radius: 12px;
+    border: 1px solid;
+    overflow: hidden;
+  }
+  .struct-card.pe { border-color: rgba(124,58,237,0.3); }
+  .struct-card.scol { border-color: rgba(37,99,235,0.3); }
+  .struct-card.post { border-color: rgba(232,150,10,0.3); }
+  .struct-top {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .struct-card.pe .struct-top { background: rgba(124,58,237,0.05); }
+  .struct-card.scol .struct-top { background: rgba(37,99,235,0.05); }
+  .struct-card.post .struct-top { background: rgba(232,150,10,0.05); }
+  .struct-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+  .struct-icon { font-size: 1.3rem; }
+  .struct-name { font-weight: 700; font-size: 0.95rem; }
+  .struct-card.pe .struct-name { color: var(--purple); }
+  .struct-card.scol .struct-name { color: var(--blue); }
+  .struct-card.post .struct-name { color: var(--gold-dim); }
+  .struct-severity { display: flex; gap: 4px; align-items: center; }
+  .sev-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border);
+  }
+  .struct-card.pe .sev-dot.on { background: var(--purple); }
+  .struct-card.scol .sev-dot.on { background: var(--blue); }
+  .struct-card.post .sev-dot.on { background: var(--gold); }
+  .sev-label { font-size: 0.7rem; color: var(--muted); margin-left: 0.3rem; }
+  .struct-body { padding: 1.25rem 1.5rem; }
+  .struct-subtitle { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 0.5rem; margin-top: 0.75rem; }
+  .struct-subtitle:first-child { margin-top: 0; }
+  .impact-list { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .impact-list li { font-size: 0.8rem; color: #444; padding-left: 1rem; position: relative; }
+  .impact-list li::before { content: '→'; position: absolute; left: 0; color: var(--muted); }
+  .struct-solutions {
+    margin-top: 0.75rem;
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+  }
+  .struct-solutions-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.4rem; }
+  .struct-card.pe .struct-solutions-title { color: var(--purple); }
+  .struct-card.scol .struct-solutions-title { color: var(--blue); }
+  .struct-card.post .struct-solutions-title { color: var(--gold-dim); }
+  .sol-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+  .sol-list li { font-size: 0.78rem; color: #333; }
+
+  /* CONTRAST CARDS */
+  .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  @media (max-width: 640px) { .contrast-grid { grid-template-columns: 1fr; } }
+  .contrast-card {
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid;
+  }
+  .contrast-card.neg { background: #fef2f2; border-color: #fecaca; }
+  .contrast-card.pos { background: #f0fdf4; border-color: #bbf7d0; }
+  .contrast-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
+  .contrast-icon { font-size: 1.2rem; }
+  .contrast-title { font-weight: 700; font-size: 0.9rem; }
+  .contrast-card.neg .contrast-title { color: var(--red); }
+  .contrast-card.pos .contrast-title { color: var(--green); }
+  .contrast-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .contrast-list li { font-size: 0.82rem; color: #333; padding-left: 1.2rem; position: relative; }
+  .contrast-card.neg .contrast-list li::before { content: '✗'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+  .contrast-card.pos .contrast-list li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+  /* PRIORITY MUSCLES */
+  .priority-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .priority-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .priority-rank {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .priority-rank.r1 { background: #fef3c7; color: #b45309; border: 2px solid #fbbf24; }
+  .priority-rank.r2 { background: #f3f4f6; color: #374151; border: 2px solid #9ca3af; }
+  .priority-rank.r3 { background: #fff7ed; color: #c2410c; border: 2px solid #fb923c; }
+  .priority-rank.r4 { background: #f0fdf4; color: #15803d; border: 2px solid #4ade80; }
+  .priority-rank.r5 { background: #eff6ff; color: #1d4ed8; border: 2px solid #60a5fa; }
+  .priority-info { flex: 1; }
+  .priority-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.2rem; }
+  .priority-reason { font-size: 0.8rem; color: var(--muted); }
+  .priority-impact {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    background: rgba(232,150,10,0.12);
+    color: var(--gold-dim);
+  }
+
+  /* EXERCICES */
+  .ex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+  .ex-group {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .ex-group-header {
+    background: var(--bg);
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .ex-group-icon { font-size: 1.1rem; }
+  .ex-group-name { font-weight: 700; font-size: 0.9rem; }
+  .ex-group-body { padding: 1.25rem; }
+  .ex-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.75rem; }
+  .ex-list li { font-size: 0.82rem; color: #333; display: flex; align-items: flex-start; gap: 0.5rem; }
+  .ex-list li::before { content: '•'; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+  .ex-note {
+    background: rgba(232,150,10,0.08);
+    border-left: 2px solid var(--gold);
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+    color: var(--gold-dim);
+    font-weight: 500;
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* ERRORS */
+  .error-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+  .error-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    gap: 1rem;
+  }
+  .error-x {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: #fef2f2;
+    border: 2px solid #fecaca;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    color: var(--red);
+    font-weight: 700;
+  }
+  .error-body { flex: 1; }
+  .error-title { font-weight: 700; font-size: 0.88rem; color: var(--red); margin-bottom: 0.3rem; }
+  .error-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .error-fix {
+    font-size: 0.78rem;
+    color: var(--green);
+    font-weight: 500;
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--green);
+  }
+
+  /* MILESTONES */
+  .milestone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+  .milestone {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .ms-head {
+    background: var(--bg-dark);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .ms-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .ms-period { color: rgba(255,255,255,0.6); font-size: 0.85rem; }
+  .ms-period strong { color: #fff; display: block; font-size: 1rem; }
+  .ms-body { padding: 1.25rem 1.5rem; }
+  .ms-rows { display: flex; flex-direction: column; gap: 0.6rem; }
+  .ms-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.83rem; }
+  .ms-key { color: var(--muted); }
+  .ms-val { font-weight: 700; color: var(--text); }
+  .ms-highlight {
+    margin-top: 1rem;
+    background: rgba(232,150,10,0.1);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--gold-dim);
+    font-weight: 500;
+  }
+
+  /* STRATEGY */
+  .phase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; margin-bottom: 2.5rem; }
+  .phase-card {
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid;
+  }
+  .phase-card.p1 { background: rgba(232,150,10,0.06); border-color: rgba(232,150,10,0.25); }
+  .phase-card.p2 { background: rgba(37,99,235,0.05); border-color: rgba(37,99,235,0.2); }
+  .phase-card.p3 { background: rgba(22,163,74,0.05); border-color: rgba(22,163,74,0.2); }
+  .phase-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+  .phase-card.p1 .phase-num { color: var(--gold); }
+  .phase-card.p2 .phase-num { color: var(--blue); }
+  .phase-card.p3 .phase-num { color: var(--green); }
+  .phase-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.25rem; }
+  .phase-period { font-size: 0.75rem; color: var(--muted); margin-bottom: 1rem; }
+  .phase-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .phase-list li { font-size: 0.82rem; color: #333; padding-left: 1rem; position: relative; }
+  .phase-list li::before { content: '›'; position: absolute; left: 0; color: var(--muted); font-weight: 700; }
+
+  .absol-list { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; }
+  .absol-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .absol-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    width: 32px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .absol-text { flex: 1; }
+  .absol-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.15rem; }
+  .absol-detail { font-size: 0.78rem; color: var(--muted); }
+
+  .chemin-block {
+    background: var(--bg-dark);
+    border-radius: 16px;
+    padding: 2.5rem;
+  }
+  .chemin-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-bottom: 0.4rem;
+  }
+  .chemin-sub { color: rgba(255,255,255,0.45); font-size: 0.83rem; margin-bottom: 2rem; }
+  .chemin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+  .chemin-step {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+  .chemin-step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .chemin-step-title { font-weight: 700; color: #fff; font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .chemin-step-desc { font-size: 0.78rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg-dark);
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    letter-spacing: 3px;
+    margin-bottom: 0.4rem;
+  }
+  .footer-sub { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 0 2rem; }
+
+  /* HAMBURGER */
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+  .nav-hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.85); border-radius: 2px; transition: all .3s; }
+
+  /* ── TOUCH ANDROID ── */
+  button, a, [onclick], input, select, label {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2.8rem; }
+    .gen-grid, .contrast-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    nav.open { height: auto; flex-wrap: wrap; padding-bottom: 12px; }
+    nav.open .nav-links { display: flex !important; flex-direction: column; width: 100%; gap: 2px; margin-top: 8px; }
+    nav.open .nav-links a { padding: 10px 14px; color: rgba(255,255,255,0.8); font-size: 0.9rem; }
+    nav.open .nav-links a { min-height: 48px; display: flex; align-items: center; }
+    .section { padding: 48px 20px; }
+    .section-dark { padding: 48px 20px; }
+    .priority-item, .absol-item { min-height: 44px; }
+    .section[id], section[id] { scroll-margin-top: 72px; }
+  }
+  /* ── ACCESSIBILITÉ ── */
+  @media (prefers-reduced-motion: reduce) {
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+  }
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px;}
+  @media (hover:none){
+    button:active,a:active{opacity:.82;}
+    .error-item:active,.phase-card:active,.zone-card:active{transform:scale(0.99);}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">ALLEZ</a>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="nutrition.html">Nutrition</a>
+    <a href="logbook.html">Logbook</a>
+    <a href="progression.html">Progression</a>
+    <a href="exercices.html">Exercices</a>
+    <a href="programme.html">Programme</a>
+    <a href="analyse.html" class="active">Analyse</a>
+    <a href="posture.html">Posture</a>
+    <a href="projection.html">Projection</a>
+    <a href="lifestyle.html">Lifestyle</a>
+    <a href="recettes.html">Recettes</a>
+    <a href="pingpong.html">Ping-Pong</a>
+  </div>
+  <button class="nav-hamburger" id="navHbg" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">Diagnostic complet · 24 mai 2026</div>
+  <h1>TON PHYSIQUE<br><span>ANALYSÉ</span></h1>
+  <p class="hero-sub">Analyse honnête, objective et ultra-précise basée sur tes photos · 30 ans · 178 cm · 71 kg</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-val">20,5%</div>
+      <div class="hero-stat-lab">Masse grasse estimée</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">2.5</div>
+      <div class="hero-stat-lab">Niveau musculaire /10</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">7</div>
+      <div class="hero-stat-lab">Potentiel naturel /10</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">178</div>
+      <div class="hero-stat-lab">cm · ossature moyenne</div>
+    </div>
+  </div>
+</section>
+
+<!-- BILAN ACTUEL -->
+<div class="divider"></div>
+<div class="section reveal">
+  <div class="section-title">BILAN ACTUEL</div>
+  <div class="section-sub">Composition corporelle estimée à partir des photos. Honnête et calibré.</div>
+  <div class="stat-grid">
+    <div class="stat-card" style="--accent:#dc2626">
+      <div class="stat-card-label">Masse grasse estimée</div>
+      <div class="stat-card-val">20,5%</div>
+      <div class="stat-card-note">~14.6 kg de graisse · estimation optimiste (réel ~22% au vu du profil) · Objectif : 17%</div>
+    </div>
+    <div class="stat-card" style="--accent:#2563eb">
+      <div class="stat-card-label">Masse maigre actuelle</div>
+      <div class="stat-card-val">56.4 kg</div>
+      <div class="stat-card-note">Objectif 12 mois : 64 kg (+7.6 kg lean)</div>
+    </div>
+    <div class="stat-card" style="--accent:#7c3aed">
+      <div class="stat-card-label">Niveau musculaire</div>
+      <div class="stat-card-val">2.5/10</div>
+      <div class="stat-card-note">Aucun développement visible — débutant réel</div>
+    </div>
+    <div class="stat-card" style="--accent:#16a34a">
+      <div class="stat-card-label">Potentiel génétique</div>
+      <div class="stat-card-val">7/10</div>
+      <div class="stat-card-note">Hanches + taille osseuse étroites → bon V-shape (cadre moyen, à construire)</div>
+    </div>
+  </div>
+
+  <div class="bf-gauge-wrap">
+    <div class="bf-gauge-title">Échelle masse grasse — position actuelle vs objectif</div>
+    <div class="bf-scale-outer"><div class="bf-scale"></div></div>
+    <div class="bf-labels">
+      <span>5%</span><span>10%</span><span>15%</span><span>20%</span><span>25%</span><span>30%+</span>
+    </div>
+    <div class="bf-markers-row">
+      <!-- Marker at 20% = position (20-5)/(30-5) * 100 = 60% -->
+      <div class="bf-marker" style="left:60%; --marker-color:#dc2626">
+        <div class="bf-marker-line"></div>
+        <div class="bf-marker-chip">Toi · 20,5%</div>
+      </div>
+      <!-- Target at 17% = (17-5)/25 * 100 = 48% -->
+      <div class="bf-marker" style="left:48%; --marker-color:#16a34a">
+        <div class="bf-marker-line"></div>
+        <div class="bf-marker-chip">Objectif · 17%</div>
+      </div>
+    </div>
+    <div class="bf-info-row">
+      <div class="bf-info-chip">📊 <strong>Pattern :</strong> « skinny-fat » — membres fins, gras concentré sur le ventre, aucune définition</div>
+      <div class="bf-info-chip">⬇ <strong>À perdre :</strong> ~2.5 kg de graisse pour atteindre 17%</div>
+      <div class="bf-info-chip">⚡ <strong>Stratégie :</strong> Recomposition — déficit modéré jours repos</div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALYSE PAR VUE -->
+<div class="divider"></div>
+<div class="section reveal">
+  <div class="section-title">ANALYSE PAR <span class="gold">VUE</span></div>
+  <div class="section-sub">Ce que chaque angle révèle — points précis observés sur tes photos.</div>
+  <div class="vue-grid">
+    <div class="vue-card">
+      <div class="vue-header">
+        <div class="vue-icon">👤</div>
+        <div>
+          <div class="vue-name">Vue de face</div>
+        </div>
+      </div>
+      <div class="vue-body">
+        <div class="vue-highlight">Taille de taille fine — ton atout #1, souvent sous-estimé</div>
+        <ul class="vue-list">
+          <li>Épaules étroites sans développement deltoid visible — priorité absolue</li>
+          <li>Pectoraux plats avec légère dépression centrale (PE léger — pecs surtout non travaillés)</li>
+          <li>Ventre légèrement bombé — graisse abdominale concentrée</li>
+          <li>Bras longs, fins — insertion biceps plutôt longue (ventre du muscle long, peu de gap au coude) : favorable au volume et à l'épaisseur du bras → bonne base à remplir à l'entraînement</li>
+          <li>Hanches relativement étroites — excellent rapport taille/épaules potentiel</li>
+          <li>Trapèzes non développés, cou fin — fragilise la silhouette de face</li>
+        </ul>
+      </div>
+    </div>
+    <div class="vue-card">
+      <div class="vue-header">
+        <div class="vue-icon">👁</div>
+        <div>
+          <div class="vue-name">Vue de profil</div>
+        </div>
+      </div>
+      <div class="vue-body">
+        <div class="vue-highlight">Posture enroulée — crée une illusion négative corrigeable en 3 mois</div>
+        <ul class="vue-list">
+          <li>Épaules tombantes et antéversées — typique PE + sédentarité</li>
+          <li>Lordose lombaire modérée — renforce l'impression de ventre</li>
+          <li>Poitrine rentrée/creuse — signature PE, visible en silhouette</li>
+          <li>Tête en avant (head-forward posture) — réduit hauteur apparente</li>
+          <li>Peu de masse pectorale ou dorsale visible — profil plat</li>
+          <li>Jambes fines mais structure longue et élancée — bon potentiel</li>
+        </ul>
+      </div>
+    </div>
+    <div class="vue-card">
+      <div class="vue-header">
+        <div class="vue-icon">↩</div>
+        <div>
+          <div class="vue-name">Vue de dos</div>
+        </div>
+      </div>
+      <div class="vue-body">
+        <div class="vue-highlight">Dos révèle le potentiel V-Shape le plus clairement</div>
+        <ul class="vue-list">
+          <li>Légère asymétrie scapulaire (musculaire/posturale — radio 2020 : pas de scoliose) — perceptible mais pas défigurante</li>
+          <li>Aucun développement latissimus visible — dos complètement plat</li>
+          <li>Trapèzes inférieurs non développés — épaules remontent mal</li>
+          <li>Érecteurs spinaux inexistants — bas du dos sans relief</li>
+          <li>Bonne largeur interscapulaire potentielle — ossature favorable au V</li>
+          <li>Fessiers et ischio-jambiers inexploités — jambes non prioritaires mais à ne pas négliger</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALYSE PAR ZONE -->
+<div class="divider"></div>
+<div class="section reveal">
+  <div class="section-title">ANALYSE PAR <span class="gold">ZONE</span></div>
+  <div class="section-sub">Score actuel /10 — évaluation honnête, calibrée sur la moyenne naturelle.</div>
+  <div class="zone-grid">
+    <div class="zone-card" style="--zone-color:#dc2626">
+      <div class="zone-header">
+        <div>
+          <div class="zone-name">Épaules / Deltoïdes</div>
+        </div>
+        <div class="zone-score">
+          <div class="zone-score-val">2/10</div>
+          <div class="zone-score-label">Score actuel</div>
+        </div>
+      </div>
+      <div class="zone-bar-wrap"><div class="zone-bar" data-w="20"></div></div>
+      <ul class="zone-list">
+        <li>Aucun capping visible, aucune séparation des faisceaux</li>
+        <li>Deltoid antérieur dominé par PE (épaules enroulées)</li>
+        <li>Latéral quasi absent — contribue le moins à la largeur</li>
+        <li>Zone qui transforme le plus la silhouette si développée</li>
+      </ul>
+    </div>
+    <div class="zone-card" style="--zone-color:#dc2626">
+      <div class="zone-header">
+        <div>
+          <div class="zone-name">Dos / Dorsaux</div>
+        </div>
+        <div class="zone-score">
+          <div class="zone-score-val">2/10</div>
+          <div class="zone-score-label">Score actuel</div>
+        </div>
+      </div>
+      <div class="zone-bar-wrap"><div class="zone-bar" data-w="20"></div></div>
+      <ul class="zone-list">
+        <li>Latissimus dorsi complètement plat — aucun volume</li>
+        <li>Trapèzes inférieurs/moyens inexistants</li>
+        <li>Asymétrie scapulaire posturale (radio : pas de scoliose)</li>
+        <li>Potentiel V-shape le plus important du corps</li>
+      </ul>
+    </div>
+    <div class="zone-card" style="--zone-color:#ea580c">
+      <div class="zone-header">
+        <div>
+          <div class="zone-name">Torse / Pectoraux</div>
+        </div>
+        <div class="zone-score">
+          <div class="zone-score-val">2.5/10</div>
+          <div class="zone-score-label">Score actuel</div>
+        </div>
+      </div>
+      <div class="zone-bar-wrap"><div class="zone-bar" data-w="25"></div></div>
+      <ul class="zone-list">
+        <li>Pectoraux plats avec dépression centrale (PE)</li>
+        <li>Partie basse exploitable mais partie haute limitée par PE</li>
+        <li>Approche adaptée nécessaire — éviter développé couché lourd</li>
+        <li>Extensions overhead câble et écartés inclinés à prioriser</li>
+      </ul>
+    </div>
+    <div class="zone-card" style="--zone-color:#e8b30a">
+      <div class="zone-header">
+        <div>
+          <div class="zone-name">Bras (biceps/triceps)</div>
+        </div>
+        <div class="zone-score">
+          <div class="zone-score-val">3.5/10</div>
+          <div class="zone-score-label">Score actuel</div>
+        </div>
+      </div>
+      <div class="zone-bar-wrap"><div class="zone-bar" data-w="35"></div></div>
+      <ul class="zone-list">
+        <li>Un peu de tonus visible — meilleure zone actuelle</li>
+        <li>Biceps meilleur groupe actuel — belle forme contractée</li>
+        <li>Insertion plutôt longue (peu de gap au coude) → favorable au volume et à l'épaisseur, à développer</li>
+        <li>Avant-bras fins — développement attendu avec les compound</li>
+      </ul>
+    </div>
+    <div class="zone-card" style="--zone-color:#16a34a">
+      <div class="zone-header">
+        <div>
+          <div class="zone-name">Taille / Obliques</div>
+        </div>
+        <div class="zone-score">
+          <div class="zone-score-val">7/10</div>
+          <div class="zone-score-label">Score actuel</div>
+        </div>
+      </div>
+      <div class="zone-bar-wrap"><div class="zone-bar" data-w="70"></div></div>
+      <ul class="zone-list">
+        <li>Taille osseuse fine — vrai atout génétique, mais actuellement masquée par le gras abdominal</li>
+        <li>Rapport taille/hanches favorable au V une fois le ventre séché</li>
+        <li>Priorité = perdre le gras abdominal pour révéler la finesse osseuse</li>
+        <li>Ne pas travailler les obliques lourd — préserver la finesse</li>
+      </ul>
+    </div>
+    <div class="zone-card" style="--zone-color:#2563eb">
+      <div class="zone-header">
+        <div>
+          <div class="zone-name">Core / Abdominaux</div>
+        </div>
+        <div class="zone-score">
+          <div class="zone-score-val">2/10</div>
+          <div class="zone-score-label">Score actuel</div>
+        </div>
+      </div>
+      <div class="zone-bar-wrap"><div class="zone-bar" data-w="20"></div></div>
+      <ul class="zone-list">
+        <li>Aucune définition abdominale visible à 20,5% BF</li>
+        <li>Core profond faible — favorise la lordose</li>
+        <li>Travail stabilisateur prioritaire (planche, dead bug)</li>
+        <li>Visibles à ~12% BF — patience requise</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- POINTS FORTS / FAIBLES -->
+<div class="divider"></div>
+<div class="section reveal">
+  <div class="section-title">GÉNÉTIQUE — FORCES & <span class="gold">FAIBLESSES</span></div>
+  <div class="section-sub">Ce que la nature t'a donné et ce que tu devras compenser.</div>
+  <div class="gen-grid">
+    <div class="gen-card positive">
+      <div class="gen-header">
+        <div class="gen-icon">💪</div>
+        <div class="gen-title">Points forts génétiques</div>
+      </div>
+      <ul class="gen-list">
+        <li>Taille osseuse naturellement fine — base du V-shape (actuellement masquée par le gras abdominal)</li>
+        <li>Hanches étroites — c'est ton vrai levier V-shape, plus que la carrure (largeur d'épaules osseuse moyenne)</li>
+        <li>Grande taille (178 cm) — meilleur rendu visuel des muscles longs</li>
+        <li>Le V se créera surtout par contraste : delts + lats à construire au-dessus d'une taille fine</li>
+        <li>Biceps à insertion longue (favorable au volume/épaisseur) — beau galbe contracté, volume à bâtir</li>
+        <li>Jambes longues et fines — silhouette naturellement athlétique</li>
+        <li>Peau fine — définition rapide dès que BF descend sous 17%</li>
+        <li>Débutant complet à 30 ans — récupération solide et « newbie gains » intacts : marge de progression maximale la 1ʳᵉ année</li>
+      </ul>
+    </div>
+    <div class="gen-card negative">
+      <div class="gen-header">
+        <div class="gen-icon">⚠</div>
+        <div class="gen-title">Faiblesses à compenser</div>
+      </div>
+      <ul class="gen-list">
+        <li>Pectus excavatum — pectoraux hauts limités, sternum creux visible</li>
+        <li>Asymétrie posturale du dos + discopathie L5-S1 — déséquilibre musculaire, lombaires à protéger</li>
+        <li>Épaules tombantes — posture antéversée, deltoid antérieur sur-sollicité</li>
+        <li>Cou fin — fragilise la silhouette même avec du muscle partout</li>
+        <li>Insertion épaule potentiellement courte sur faisceau latéral</li>
+        <li>Masse grasse répartie surtout au niveau abdominal — recomposition nécessaire</li>
+        <li>Aucune base musculaire actuelle — courbe d'apprentissage à traverser</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CONDITIONS STRUCTURELLES -->
+<div class="divider"></div>
+<div class="section reveal">
+  <div class="section-title">CONDITIONS <span class="gold">STRUCTURELLES</span></div>
+  <div class="section-sub">Pectus excavatum, dos (asymétrie + discopathie L5-S1), posture — impacts réels et adaptations concrètes.</div>
+  <div class="struct-grid">
+    <div class="struct-card pe">
+      <div class="struct-top">
+        <div class="struct-header">
+          <div class="struct-icon">🔵</div>
+          <div class="struct-name">Pectus Excavatum</div>
+        </div>
+        <div class="struct-severity">
+          <div class="sev-dot on"></div>
+          <div class="sev-dot on"></div>
+          <div class="sev-dot"></div>
+          <div class="sev-dot"></div>
+          <div class="sev-dot"></div>
+          <span class="sev-label">Sévérité légère (sur photos)</span>
+        </div>
+      </div>
+      <div class="struct-body">
+        <div class="struct-subtitle">Impacts</div>
+        <ul class="impact-list">
+          <li>Dépression sternale crée un creux visuel entre les pectoraux hauts</li>
+          <li>Dans les formes marquées seulement, peut gêner l'expansion thoracique à l'effort — à évaluer médicalement si essoufflement anormal</li>
+          <li>Développé couché horizontal accentue visuellement le creux</li>
+          <li>Le sternum rentre à l'effort — illusion de pectoraux «écartés»</li>
+        </ul>
+        <div class="struct-solutions">
+          <div class="struct-solutions-title">Adaptations clés</div>
+          <ul class="sol-list">
+            <li>✓ Privilégier angles inclinés (30-45°) pour pectoraux hauts</li>
+            <li>✓ Écartés câbles > haltères → tension constante</li>
+            <li>✓ Éviter développé couché à barre horizontal lourd</li>
+            <li>✓ Expansion thoracique : respiration profonde, stretching</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="struct-card scol">
+      <div class="struct-top">
+        <div class="struct-header">
+          <div class="struct-icon">🔷</div>
+          <div class="struct-name">Dos — Asymétrie & L5-S1</div>
+        </div>
+        <div class="struct-severity">
+          <div class="sev-dot on"></div>
+          <div class="sev-dot"></div>
+          <div class="sev-dot"></div>
+          <div class="sev-dot"></div>
+          <div class="sev-dot"></div>
+          <span class="sev-label">Radio 2020 : pas de scoliose structurelle</span>
+        </div>
+      </div>
+      <div class="struct-body">
+        <div class="struct-subtitle">Impacts</div>
+        <ul class="impact-list">
+          <li>Asymétrie musculaire/posturale — épaule légèrement plus haute, colonne « décalée » à la palpation (la radio exclut une déviation osseuse)</li>
+          <li>Discopathie L5-S1 (petit pincement, radio 2020) — lombalgies, disque sensible à la flexion chargée</li>
+          <li>Risque de compensation → côté dominant prend toute la charge</li>
+          <li>Exercices bilatéraux masquent les déséquilibres</li>
+        </ul>
+        <div class="struct-solutions">
+          <div class="struct-solutions-title">Adaptations clés</div>
+          <ul class="sol-list">
+            <li>✓ Priorité aux exercices unilatéraux (DB vs barre), commencer côté faible</li>
+            <li>✓ Jamais de flexion lombaire sous charge — dos neutre + gainage actif</li>
+            <li>✓ Core anti-mouvement : planche latérale, Pallof, dead bug, bird dog</li>
+            <li>✓ Dead hangs en fin de séance — décompression du rachis</li>
+            <li>✓ Douleurs persistantes ou irradiantes → refaire un bilan médical (radio de 2020)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="struct-card post">
+      <div class="struct-top">
+        <div class="struct-header">
+          <div class="struct-icon">🟡</div>
+          <div class="struct-name">Posture Globale</div>
+        </div>
+        <div class="struct-severity">
+          <div class="sev-dot on"></div>
+          <div class="sev-dot on"></div>
+          <div class="sev-dot on"></div>
+          <div class="sev-dot"></div>
+          <div class="sev-dot"></div>
+          <span class="sev-label">Impact fort sur esthétique</span>
+        </div>
+      </div>
+      <div class="struct-body">
+        <div class="struct-subtitle">Impacts</div>
+        <ul class="impact-list">
+          <li>Épaules antéversées — effacent visuellement la largeur</li>
+          <li>Head-forward posture — cou semble plus court et plus fin</li>
+          <li>Lordose lombaire — accentue l'impression de ventre</li>
+          <li>Fermeture thoracique — réduit expansion pectorale</li>
+        </ul>
+        <div class="struct-solutions">
+          <div class="struct-solutions-title">Correction 12 semaines</div>
+          <ul class="sol-list">
+            <li>✓ Face pulls 3×/semaine — rétraction scapulaire</li>
+            <li>✓ Band pull-aparts quotidiens</li>
+            <li>✓ Planche + dead bug pour core stabilisateur</li>
+            <li>✓ Activation fessiers — libère la lordose</li>
+            <li>✓ Étirement pectoraux/deltoïde antérieur quotidien</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CE QUI NUIT / CE QUI IMPRESSIONNERA -->
+<div class="divider"></div>
+<div class="section reveal">
+  <div class="section-title">CE QUI NUIT VS <span class="gold">CE QUI IMPRESSIONNERA</span></div>
+  <div class="section-sub">Diagnostic honnête de ta silhouette actuelle et de ton potentiel visuel.</div>
+  <div class="contrast-grid">
+    <div class="contrast-card neg">
+      <div class="contrast-header">
+        <div class="contrast-icon">⚠</div>
+        <div class="contrast-title">Ce qui nuit à ton physique maintenant</div>
+      </div>
+      <ul class="contrast-list">
+        <li>Posture enroulée — efface 50% du potentiel visuel existant</li>
+        <li>Épaules tombantes sans capping — silhouette rectangulaire de face</li>
+        <li>Ventre légèrement proéminent à 20,5% BF — centre les regards</li>
+        <li>Pectus excavatum visible de face en profil — creux central pectoraux</li>
+        <li>Bras et jambes très fins — accentue l'effet «peau sur os»</li>
+        <li>Cou fin sans trapèze — rend la tête trop grosse visuellement</li>
+        <li>Dos plat — aucune largeur visible de dos</li>
+        <li>Head-forward posture — réduit hauteur apparente et charisme</li>
+      </ul>
+    </div>
+    <div class="contrast-card pos">
+      <div class="contrast-header">
+        <div class="contrast-icon">✨</div>
+        <div class="contrast-title">Ce qui impressionnera dans 12 mois</div>
+      </div>
+      <ul class="contrast-list">
+        <li>Taille fine séchée + delts/lats construits → V-shape net (par contraste)</li>
+        <li>Grande taille (178) → chaque kilo de muscle se voit davantage</li>
+        <li>Insertion longue de biceps (favorable au volume) → bras épais et galbé une fois le volume construit</li>
+        <li>Dos travaillé → largeur construite (le relief viendra du muscle, le cadre osseux étant moyen)</li>
+        <li>Hanches étroites → contraste épaules/taille maximal</li>
+        <li>Peau fine → définition rapide dès 17% BF, veines visibles à 14%</li>
+        <li>Structure élancée → correspond au physique «athlète de natation»</li>
+        <li>Posture corrigée → transformation instantanée sans une once de muscle</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- MUSCLES PRIORITAIRES -->
+<div class="divider"></div>
+<div class="section reveal">
+  <div class="section-title">MUSCLES <span class="gold">PRIORITAIRES</span></div>
+  <div class="section-sub">Classés par impact visuel immédiat sur ta transformation.</div>
+  <div class="priority-list">
+    <div class="priority-item">
+      <div class="priority-rank r1">1</div>
+      <div class="priority-info">
+        <div class="priority-name">Deltoïdes latéraux</div>
+        <div class="priority-reason">Créent la largeur d'épaules — point de transformation le plus rentable. Impact direct sur le V-shape. Chaque mm de capping change la silhouette de face.</div>
+      </div>
+      <div class="priority-impact">Impact maximal</div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-rank r2">2</div>
+      <div class="priority-info">
+        <div class="priority-name">Latissimus dorsi</div>
+        <div class="priority-reason">Donnent la largeur de dos et creusent la taille par contraste. Avec tes hanches étroites, les lats sont LA clé de ton V-shape — c'est ici qu'est ta plus grosse marge.</div>
+      </div>
+      <div class="priority-impact">V-shape critique</div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-rank r3">3</div>
+      <div class="priority-info">
+        <div class="priority-name">Trapèzes (portion inférieure et moyenne)</div>
+        <div class="priority-reason">Corrigent la posture et équilibrent les épaules. Changent instantanément l'allure générale. Face pulls et rowing vont redresser et élargir.</div>
+      </div>
+      <div class="priority-impact">Posture + épaules</div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-rank r4">4</div>
+      <div class="priority-info">
+        <div class="priority-name">Pectoraux (adaptés PE)</div>
+        <div class="priority-reason">Remplissent le torse et compensent l'aspect creux. Approche adaptée pectus — incliné 30-45°, câbles, écartés. Transforment le profil radicalement.</div>
+      </div>
+      <div class="priority-impact">Profil + torse</div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-rank r5">5</div>
+      <div class="priority-info">
+        <div class="priority-name">Triceps</div>
+        <div class="priority-reason">2/3 du volume du bras. Développement des bras passe d'abord par les triceps. Complète le physique et donne du volume aux bras de face et de dos.</div>
+      </div>
+      <div class="priority-impact">Volume bras</div>
+    </div>
+  </div>
+</div>
+
+<!-- EXERCICES IDÉAUX -->
+<div class="divider"></div>
+<div class="section reveal">
+  <div class="section-title">EXERCICES <span class="gold">IDÉAUX</span></div>
+  <div class="section-sub">Sélectionnés pour ton profil spécifique — PE, dos (L5-S1), débutant, Fitness Park Carré Sénart.</div>
+  <div class="ex-grid">
+    <div class="ex-group">
+      <div class="ex-group-header">
+        <div class="ex-group-icon">💥</div>
+        <div class="ex-group-name">Épaules (priorité #1)</div>
+      </div>
+      <div class="ex-group-body">
+        <ul class="ex-list">
+          <li>Élévations latérales haltères 3×15-20 — faisceau latéral pur</li>
+          <li>Arnold press haltères — 3 faisceaux simultanément</li>
+          <li>Face pulls câbles — rétraction + correction posture</li>
+          <li>Oiseau haltères / machine — deltoïde postérieur</li>
+          <li>Élévations frontales câbles — faisceau antérieur contrôlé</li>
+        </ul>
+        <div class="ex-note">Faisceau latéral : 4-5 séries/semaine minimum. C'est lui qui crée la largeur.</div>
+      </div>
+    </div>
+    <div class="ex-group">
+      <div class="ex-group-header">
+        <div class="ex-group-icon">🔙</div>
+        <div class="ex-group-name">Dos / V-Shape</div>
+      </div>
+      <div class="ex-group-body">
+        <ul class="ex-list">
+          <li>Tirage vertical poulie — mouvement roi des lats</li>
+          <li>Rowing haltère unilatéral — corrige l'asymétrie, lombaires déchargées</li>
+          <li>Rowing câble assis prise neutre</li>
+          <li>Tirage horizontal buste penché</li>
+          <li>Pull-over câble debout — isolation lats en fin de séance</li>
+        </ul>
+        <div class="ex-note">Toujours commencer par le côté faible (asymétrie). Contracter les omoplates.</div>
+      </div>
+    </div>
+    <div class="ex-group">
+      <div class="ex-group-header">
+        <div class="ex-group-icon">💪</div>
+        <div class="ex-group-name">Pectoraux (adapté PE)</div>
+      </div>
+      <div class="ex-group-body">
+        <ul class="ex-list">
+          <li>Développé incliné haltères 30-45° — priorité pectoraux hauts</li>
+          <li>Écartés câbles inclinés — tension constante, aucune pression sternale</li>
+          <li>Pec-deck machine — fin de séance, isolation sécurisée</li>
+        </ul>
+        <div class="ex-note">Éviter développé couché horizontal à barre — accentue le creux PE visuellement.</div>
+      </div>
+    </div>
+    <div class="ex-group">
+      <div class="ex-group-header">
+        <div class="ex-group-icon">🦾</div>
+        <div class="ex-group-name">Triceps (2/3 du bras)</div>
+      </div>
+      <div class="ex-group-body">
+        <ul class="ex-list">
+          <li>Pushdown câble — chef latéral, définition</li>
+          <li>Extensions overhead câble / haltère — chef long (masse)</li>
+          <li>Kickback haltère — finition et séparation</li>
+          <li>Extensions overhead câble barre droite — masse globale triceps</li>
+        </ul>
+        <div class="ex-note">Extensions overhead surtout — chef long (70% du triceps) est le plus visible.</div>
+      </div>
+    </div>
+    <div class="ex-group">
+      <div class="ex-group-header">
+        <div class="ex-group-icon">💡</div>
+        <div class="ex-group-name">Biceps</div>
+      </div>
+      <div class="ex-group-body">
+        <ul class="ex-list">
+          <li>Curl haltères alterné — base, permet la supination</li>
+          <li>Curl concentré — isolation, contraction maximale</li>
+          <li>Curl câble bas — tension constante sur toute l'amplitude</li>
+          <li>Curl marteau — chef externe + brachioradial (avant-bras)</li>
+        </ul>
+        <div class="ex-note">Insertion longue → ne forcer la supination qu'en haut du mouvement pour le pic.</div>
+      </div>
+    </div>
+    <div class="ex-group">
+      <div class="ex-group-header">
+        <div class="ex-group-icon">🛡</div>
+        <div class="ex-group-name">Core / Posture (samedi)</div>
+      </div>
+      <div class="ex-group-body">
+        <ul class="ex-list">
+          <li>Planche (isométrique) — anti-extension, core profond</li>
+          <li>Dead bug — dissociation membres, stabilisateur</li>
+          <li>Bird dog — érecteurs + fessiers + coordination</li>
+          <li>Band pull-aparts — rétraction quotidienne</li>
+          <li>Hollow body hold — corps entier sous tension</li>
+        </ul>
+        <div class="ex-note">Aucun crunch. Objectif : posture neutre, non six-pack pour l'instant.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ERREURS À ÉVITER -->
+<div class="divider"></div>
+<div class="section reveal">
+  <div class="section-title">ERREURS À <span class="gold">ÉVITER</span></div>
+  <div class="section-sub">Les pièges spécifiques à ton profil — PE, dos, débutant.</div>
+  <div class="error-grid">
+    <div class="error-item">
+      <div class="error-x">✗</div>
+      <div class="error-body">
+        <div class="error-title">Développé couché horizontal lourd</div>
+        <div class="error-desc">Accentue visuellement le creux pectus excavatum, sur-sollicite les épaules antéversées.</div>
+        <div class="error-fix">→ Remplacer par développé incliné 30-45° haltères ou écartés câbles</div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-x">✗</div>
+      <div class="error-body">
+        <div class="error-title">Trop d'exercices bilatéraux sans correction</div>
+        <div class="error-desc">L'asymétrie posturale crée une compensation — le côté dominant prend toute la charge, aggrave le déséquilibre.</div>
+        <div class="error-fix">→ Majorité des exercices en unilatéral, commencer côté faible</div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-x">✗</div>
+      <div class="error-body">
+        <div class="error-title">Négliger les élévations latérales</div>
+        <div class="error-desc">Le muscle le plus transformateur de ta silhouette. Beaucoup se concentrent sur le développé et oublient le faisceau latéral.</div>
+        <div class="error-fix">→ Minimum 4-5 séries de latérales par semaine, toujours en séance</div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-x">✗</div>
+      <div class="error-body">
+        <div class="error-title">Obliques lourds (crunchs obliques, woodchops)</div>
+        <div class="error-desc">Élargir les obliques annule ton avantage génétique #1 — ta taille osseuse fine.</div>
+        <div class="error-fix">→ Core uniquement stabilisateur : planche, dead bug, hollow body</div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-x">✗</div>
+      <div class="error-body">
+        <div class="error-title">Sauter les séances posture/core</div>
+        <div class="error-desc">Sans correction posturale, les muscles se développent sur une mauvaise base → déséquilibres aggravés, blessures, esthétique gâchée.</div>
+        <div class="error-fix">→ Samedi core est non-négociable, face pulls à chaque séance upper body obligatoires</div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-x">✗</div>
+      <div class="error-body">
+        <div class="error-title">Cardio excessif en début de transformation</div>
+        <div class="error-desc">À 20,5% BF débutant, la recomposition est plus efficace que cardio. Le cardio excessif mange les gains musculaires (newbie gains).</div>
+        <div class="error-fix">→ Marche 8000 pas/jour maximum en cardio, conserver énergie pour la fonte</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POTENTIEL RÉALISTE -->
+<div class="divider"></div>
+<div class="section reveal">
+  <div class="section-title">POTENTIEL <span class="gold">RÉALISTE</span></div>
+  <div class="section-sub">Projections honnêtes basées sur tes données — pas de bullshit, pas d'exagération.</div>
+  <div class="milestone-grid">
+    <div class="milestone">
+      <div class="ms-head">
+        <div class="ms-num">01</div>
+        <div class="ms-period">
+          <strong>Mois 1 à 12</strong>
+          Newbie gains + recomposition
+        </div>
+      </div>
+      <div class="ms-body">
+        <div class="ms-rows">
+          <div class="ms-row"><span class="ms-key">Poids cible</span><span class="ms-val">77 kg</span></div>
+          <div class="ms-row"><span class="ms-key">BF cible</span><span class="ms-val">17%</span></div>
+          <div class="ms-row"><span class="ms-key">Masse maigre</span><span class="ms-val">~64 kg (+7.6 kg)</span></div>
+          <div class="ms-row"><span class="ms-key">Niveau musculaire</span><span class="ms-val">4.5–5/10</span></div>
+        </div>
+        <div class="ms-highlight">Transformation visible. Posture redressée, épaules apparentes, ventre plat. Début du V-shape. Physique remarquable dans 12 mois.</div>
+      </div>
+    </div>
+    <div class="milestone">
+      <div class="ms-head">
+        <div class="ms-num">02</div>
+        <div class="ms-period">
+          <strong>An 1 à 2</strong>
+          Progression intermédiaire
+        </div>
+      </div>
+      <div class="ms-body">
+        <div class="ms-rows">
+          <div class="ms-row"><span class="ms-key">Poids cible</span><span class="ms-val">80–83 kg</span></div>
+          <div class="ms-row"><span class="ms-key">BF cible</span><span class="ms-val">14–15%</span></div>
+          <div class="ms-row"><span class="ms-key">Masse maigre</span><span class="ms-val">~69 kg (+12 kg)</span></div>
+          <div class="ms-row"><span class="ms-key">Niveau musculaire</span><span class="ms-val">6–6.5/10</span></div>
+        </div>
+        <div class="ms-highlight">Définition visible. Veines sur avant-bras. Épaules capping. V-shape évident de face et de dos. Compliments réguliers, silhouette athlète confirmée.</div>
+      </div>
+    </div>
+    <div class="milestone">
+      <div class="ms-head">
+        <div class="ms-num">05</div>
+        <div class="ms-period">
+          <strong>An 2 à 5</strong>
+          Potentiel naturel maximal
+        </div>
+      </div>
+      <div class="ms-body">
+        <div class="ms-rows">
+          <div class="ms-row"><span class="ms-key">Poids cible</span><span class="ms-val">80–84 kg</span></div>
+          <div class="ms-row"><span class="ms-key">BF cible</span><span class="ms-val">12–13%</span></div>
+          <div class="ms-row"><span class="ms-key">Masse maigre</span><span class="ms-val">~70 kg (+13–14 kg)</span></div>
+          <div class="ms-row"><span class="ms-key">Niveau musculaire</span><span class="ms-val">7/10</span></div>
+        </div>
+        <div class="ms-highlight">Excellent physique naturel : abdos visibles, V-shape net, bras ~40 cm. Tes articulations fines (poignets/chevilles étroits) orientent vers un rendu sec et esthétique type « athlète » plutôt que massif — c'est ton style optimal, pas une limite.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STRATÉGIE DE TRANSFORMATION -->
+<div class="divider"></div>
+<div class="section reveal">
+  <div class="section-title">STRATÉGIE DE <span class="gold">TRANSFORMATION</span></div>
+  <div class="section-sub">Trois phases, cinq priorités absolues, un chemin optimal.</div>
+
+  <div class="phase-grid">
+    <div class="phase-card p1">
+      <div class="phase-num">Phase 1</div>
+      <div class="phase-title">Fondation & Correction</div>
+      <div class="phase-period">Mois 1 à 3</div>
+      <ul class="phase-list">
+        <li>Corriger la posture en priorité absolue (face pulls à chaque séance upper body)</li>
+        <li>Maîtriser les patterns de mouvement de base proprement</li>
+        <li>Mettre en place la nutrition (2 650/2 100 kcal, 160g protéines)</li>
+        <li>Développer la connexion neuromusculaire — sentir les muscles</li>
+        <li>3 séances : Push (lun 8h) / Pull (jeu 8h) / V-Shape (sam 11h) + core intégré</li>
+        <li>Objectif : perdre 1-2% BF, gagner 2-3 kg lean</li>
+      </ul>
+    </div>
+    <div class="phase-card p2">
+      <div class="phase-num">Phase 2</div>
+      <div class="phase-title">Construction Accélérée</div>
+      <div class="phase-period">Mois 4 à 9</div>
+      <ul class="phase-list">
+        <li>Augmenter progressivement les charges (surcharge progressive)</li>
+        <li>Specialisation épaules et dos — volume supplémentaire</li>
+        <li>Introduire techniques d'intensification (drop sets, rest-pause)</li>
+        <li>Prises de mesures mensuelles — ajustement nutrition si stagnation</li>
+        <li>Objectif : −2% BF supplémentaire, +4-5 kg lean</li>
+      </ul>
+    </div>
+    <div class="phase-card p3">
+      <div class="phase-num">Phase 3</div>
+      <div class="phase-title">Optimisation & Solidification</div>
+      <div class="phase-period">Mois 10 à 12</div>
+      <ul class="phase-list">
+        <li>Affinage de la composition — légère coupe si BF > 18%</li>
+        <li>Volume maximal sur points forts (épaules, dos)</li>
+        <li>Solidifier la base pour l'année 2</li>
+        <li>Bilan photo complet — évaluation du parcours</li>
+        <li>Objectif : 77 kg, 17% BF, physique V-shape visible</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title" style="font-size:1.6rem; margin-bottom:1.25rem;">PRIORITÉS <span class="gold">ABSOLUES</span></div>
+  <div class="absol-list">
+    <div class="absol-item">
+      <div class="absol-num">1</div>
+      <div class="absol-text">
+        <div class="absol-title">Consistance avant tout</div>
+        <div class="absol-detail">3 séances par semaine, chaque semaine (lun/jeu/sam). Aucune interruption. Le muscle se construit dans la durée, pas dans l'intensité épisodique.</div>
+      </div>
+    </div>
+    <div class="absol-item">
+      <div class="absol-num">2</div>
+      <div class="absol-text">
+        <div class="absol-title">160g de protéines minimum tous les jours</div>
+        <div class="absol-detail">Pas de muscle sans protéines suffisantes. Jours training ou repos — 160g est le plancher absolu. C'est la seule règle nutritionnelle non-négociable.</div>
+      </div>
+    </div>
+    <div class="absol-item">
+      <div class="absol-num">3</div>
+      <div class="absol-text">
+        <div class="absol-title">Élévations latérales 4-5 séries par semaine</div>
+        <div class="absol-detail">Le muscle transformateur numéro 1. Chaque mm de deltoïde latéral change ton rapport épaules/taille. Ne jamais skipper ce mouvement.</div>
+      </div>
+    </div>
+    <div class="absol-item">
+      <div class="absol-num">4</div>
+      <div class="absol-text">
+        <div class="absol-title">Face pulls + band pull-aparts quotidiens</div>
+        <div class="absol-detail">Correction posturale non-négociable. Tes épaules tombantes annulent visuellement ton potentiel. La posture se corrige en 8-12 semaines avec de la consistance.</div>
+      </div>
+    </div>
+    <div class="absol-item">
+      <div class="absol-num">5</div>
+      <div class="absol-text">
+        <div class="absol-title">Exercices unilatéraux pour corriger l'asymétrie</div>
+        <div class="absol-detail">Systématiquement commencer par le côté faible. 70%+ des exercices en haltères plutôt qu'en barre. Vérifier la symétrie mensuellement.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chemin-block">
+    <div class="chemin-title">LE CHEMIN OPTIMAL</div>
+    <div class="chemin-sub">Les 3 leviers qui maximisent ta transformation dans l'ordre d'impact</div>
+    <div class="chemin-grid">
+      <div class="chemin-step">
+        <div class="chemin-step-num">01</div>
+        <div class="chemin-step-title">Corriger la posture d'abord</div>
+        <div class="chemin-step-desc">Avant même de construire du muscle, redresser la posture transforme instantanément ta silhouette. C'est 0 euro, 0 muscle, résultat immédiat en 6-8 semaines. Face pulls + band pull-aparts + activation fessiers tous les jours.</div>
+      </div>
+      <div class="chemin-step">
+        <div class="chemin-step-num">02</div>
+        <div class="chemin-step-title">Construire les épaules et le dos ensemble</div>
+        <div class="chemin-step-desc">Ton V-shape vient de l'équation : épaules développées + dos large + taille fine. La taille, tu l'as déjà (ossature). Construis les deux autres avec 70% de ton volume d'entraînement dirigé sur ces zones pendant 12 mois.</div>
+      </div>
+      <div class="chemin-step">
+        <div class="chemin-step-num">03</div>
+        <div class="chemin-step-title">Maintenir la recomposition — jamais stopper</div>
+        <div class="chemin-step-desc">La constance sur 12 mois transforme davantage que n'importe quelle technique. Mange bien les jours d'entraînement, en léger déficit les jours de repos. Protéines 160g/jour. Dors 8h. Répète.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ALLEZ</div>
+  <div class="footer-sub">71 kg → 77 kg · Recomposition 12 mois · Analyse physique personnalisée</div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // Animate zone bars when section visible
+        const bars = e.target.querySelectorAll('.zone-bar[data-w]');
+        bars.forEach(bar => {
+          setTimeout(() => {
+            bar.style.width = bar.dataset.w + '%';
+          }, 200);
+        });
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+<script>
+const _hbg = document.getElementById('navHbg');
+const _nav = document.querySelector('nav');
+_hbg.addEventListener('click', () => { _hbg.classList.toggle('open'); _nav.classList.toggle('open'); });
+document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => { _hbg.classList.remove('open'); _nav.classList.remove('open'); }); });
+document.addEventListener('click', e => { if (_nav.classList.contains('open') && !_nav.contains(e.target)) { _hbg.classList.remove('open'); _nav.classList.remove('open'); } });
+</script>
+<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
+</body>
+</html>

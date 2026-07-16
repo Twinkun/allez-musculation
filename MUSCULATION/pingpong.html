@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e8960a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ALLEZ">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Ping-Pong — Coaching & Progression — ALLEZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0ece3;
+  --bg-card: #ffffff;
+  --bg-dark: #0b1020;
+  --bg-mid: #111826;
+  --gold: #e8960a;
+  --gold-light: #f5b040;
+  --pp: #1565d4;          /* bleu table */
+  --pp-light: #3d86ef;
+  --teal: #0a8a9e;
+  --green: #0a9e52;
+  --green-light: #12c564;
+  --red: #d4200a;
+  --orange: #e05a1e;
+  --text: #1a1f2e;
+  --text-mid: #3a4060;
+  --text-light: #6b7090;
+  --border: rgba(0,0,0,0.08);
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.14);
+  --radius: 16px;
+  --font-head: 'Bebas Neue', sans-serif;
+  --font: 'Inter', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: hidden; scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 40px; height: 64px; display: flex; align-items: center; justify-content: space-between; background: rgba(11,16,32,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.07); }
+.nav-logo { font-family: var(--font-head); font-size: 1.5rem; letter-spacing: 0.08em; color: var(--gold); text-decoration: none; }
+.nav-links { display: flex; gap: 8px; list-style: none; flex-wrap: wrap; }
+.nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; }
+.nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+.nav-links a.active { color: var(--gold); background: rgba(232,150,10,0.12); }
+
+/* HERO */
+.hero { background: var(--bg-dark); min-height: 420px; display: flex; align-items: flex-end; padding: 100px 60px 60px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 10% 60%, rgba(21,101,212,0.16) 0%, transparent 65%), radial-gradient(ellipse 50% 60% at 90% 20%, rgba(232,150,10,0.08) 0%, transparent 60%); }
+.hero-content { position: relative; z-index: 1; max-width: 760px; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(21,101,212,0.18); border: 1px solid rgba(21,101,212,0.45); color: var(--pp-light); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+.hero-badge span { width: 6px; height: 6px; background: var(--pp-light); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+.hero h1 { font-family: var(--font-head); font-size: clamp(3rem, 7vw, 5.5rem); color: #fff; line-height: 0.92; letter-spacing: 0.02em; margin-bottom: 20px; }
+.hero h1 em { color: var(--pp-light); font-style: normal; }
+.hero p { color: rgba(255,255,255,0.6); font-size: 1rem; max-width: 600px; line-height: 1.75; }
+.hero-tags { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
+.hero-tag { padding: 6px 14px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; }
+.hero-tag.hl { border-color: rgba(21,101,212,0.5); color: var(--pp-light); background: rgba(21,101,212,0.12); }
+
+/* LAYOUT */
+.section { padding: 72px 60px; max-width: 1180px; margin: 0 auto; }
+.section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pp); margin-bottom: 10px; }
+.section-title { font-family: var(--font-head); font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 0.03em; line-height: 1.05; color: var(--text); margin-bottom: 8px; }
+.section-sub { color: var(--text-light); font-size: 0.95rem; max-width: 660px; line-height: 1.75; margin-bottom: 44px; }
+.section-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 60px; }
+.section.alt-bg { max-width: none; background: #f7f4ee; }
+.section.alt-bg > * { max-width: 1180px; margin-left: auto; margin-right: auto; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* CARDS GÉNÉRIQUES */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
+.card { background: var(--bg-card); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.card-icon { font-size: 2.2rem; margin-bottom: 14px; }
+.card-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; color: var(--text); }
+.card-text { font-size: 0.9rem; color: var(--text-mid); line-height: 1.75; }
+.card-text b { color: var(--text); }
+.card.top-pp { border-top: 4px solid var(--pp); }
+.card.top-gold { border-top: 4px solid var(--gold); }
+.card.top-green { border-top: 4px solid var(--green); }
+.card.top-red { border-top: 4px solid var(--red); }
+.card.top-orange { border-top: 4px solid var(--orange); }
+
+/* PROFIL STATS */
+.profile-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 36px; }
+.pstat { background: var(--bg-dark); color:#fff; border-radius: var(--radius); padding: 22px 20px; text-align:center; }
+.pstat .v { font-family: var(--font-head); font-size: 2.6rem; line-height: 1; color: var(--pp-light); letter-spacing:.02em; }
+.pstat .v.gold { color: var(--gold-light); }
+.pstat .l { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.55); margin-top: 8px; }
+
+/* COMPARE (prise) */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 8px 0 28px; }
+.cmp { background: var(--bg-card); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.cmp.bad { border-top: 4px solid var(--red); }
+.cmp.good { border-top: 4px solid var(--green); }
+.cmp-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; }
+.cmp.bad .cmp-label { color: var(--red); }
+.cmp.good .cmp-label { color: var(--green); }
+.cmp ul { list-style: none; }
+.cmp li { font-size: 0.88rem; color: var(--text-mid); padding: 7px 0 7px 26px; position: relative; line-height: 1.6; }
+.cmp.bad li::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+.cmp.good li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+/* DECISION BOX */
+.decision { background: linear-gradient(135deg, #0b1020, #16203a); color: #fff; border-radius: var(--radius); padding: 36px; box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.08); }
+.decision h3 { font-family: var(--font-head); font-size: 1.8rem; letter-spacing: 0.03em; color: var(--gold-light); margin-bottom: 14px; }
+.decision p { color: rgba(255,255,255,0.72); font-size: 0.92rem; line-height: 1.8; margin-bottom: 14px; }
+.decision .verdict { display: inline-block; background: rgba(21,101,212,0.2); border: 1px solid rgba(21,101,212,0.5); color: var(--pp-light); font-weight: 700; font-size: 0.82rem; padding: 6px 14px; border-radius: 100px; letter-spacing: 0.06em; margin-bottom: 18px; }
+
+/* STEP LIST */
+.steps { counter-reset: st; display: grid; gap: 14px; }
+.step { display: flex; gap: 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; box-shadow: var(--shadow); }
+.step::before { counter-increment: st; content: counter(st); flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; background: var(--pp); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+.step-body h4 { font-size: 0.96rem; margin-bottom: 4px; color: var(--text); }
+.step-body p { font-size: 0.86rem; color: var(--text-mid); line-height: 1.65; }
+
+/* MINI TABLE (court diagram) */
+.court-wrap { display:flex; justify-content:center; margin: 8px 0 8px; }
+.court { width: 100%; max-width: 420px; height: 230px; background: linear-gradient(180deg,#1565d4,#0f4ea8); border: 4px solid #fff; border-radius: 8px; position: relative; box-shadow: var(--shadow); }
+.court::after { content:''; position:absolute; left:50%; top:0; bottom:0; width:2px; background:rgba(255,255,255,0.8); transform: translateX(-50%); }
+.court .net { position:absolute; top:-6px; bottom:-6px; left:0; width:3px; background:#111; opacity:0; }
+.court .midline { position:absolute; top:50%; left:0; right:0; height:2px; background:rgba(255,255,255,0.45); }
+.court .dot { position:absolute; width:14px; height:14px; border-radius:50%; transform: translate(-50%,-50%); border:2px solid #fff; }
+.court .dot.serve { background: var(--gold); }
+.court .dot.target { background: var(--red); }
+.court .arrow { position:absolute; height:2px; background:rgba(255,255,255,0.85); transform-origin:left center; }
+.court .lbl { position:absolute; font-size:0.62rem; font-weight:700; color:#fff; background:rgba(0,0,0,0.35); padding:2px 6px; border-radius:4px; transform: translate(-50%,-50%); white-space:nowrap; }
+
+/* SPIN CARDS */
+.spin-grid { display:grid; grid-template-columns: repeat(4,1fr); gap:18px; }
+.spin { background: var(--bg-card); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); border:1px solid var(--border); text-align:center; }
+.spin .arc { font-size: 2rem; margin-bottom: 10px; }
+.spin h4 { font-size: 0.98rem; margin-bottom: 8px; }
+.spin p { font-size: 0.82rem; color: var(--text-mid); line-height:1.6; }
+.spin .tip { margin-top:12px; font-size:0.76rem; color:var(--pp); font-weight:600; background:rgba(21,101,212,0.08); border-radius:8px; padding:8px; }
+
+/* STROKE TABS */
+.tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:22px; }
+.tab-btn { background: var(--bg-card); border:1px solid var(--border); color: var(--text-mid); font-weight:600; font-size:0.84rem; padding:10px 18px; border-radius:100px; cursor:pointer; transition: all .2s; min-height:44px; }
+.tab-btn.active { background: var(--pp); color:#fff; border-color: var(--pp); }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; animation: fadeUp .4s ease; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.stroke-card { background: var(--bg-card); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); border:1px solid var(--border); }
+.stroke-card h4 { font-family: var(--font-head); font-size: 1.5rem; letter-spacing:.03em; color: var(--text); margin-bottom: 6px; }
+.stroke-prio { display:inline-block; font-size:0.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:4px 10px; border-radius:100px; margin-bottom:14px; }
+.prio-hi { background: rgba(212,32,10,0.12); color: var(--red); }
+.prio-mid { background: rgba(232,150,10,0.14); color: var(--gold); }
+.prio-lo { background: rgba(10,158,82,0.12); color: var(--green); }
+.stroke-card ul { list-style:none; margin-top:8px; }
+.stroke-card li { font-size:0.88rem; color:var(--text-mid); padding:6px 0 6px 22px; position:relative; line-height:1.6; }
+.stroke-card li::before { content:'▸'; position:absolute; left:0; color:var(--pp); }
+
+/* DRILLS / PLAN */
+.plan-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:20px; }
+.day { background: var(--bg-card); border-radius: var(--radius); box-shadow: var(--shadow); border:1px solid var(--border); overflow:hidden; }
+.day-head { background: var(--bg-dark); color:#fff; padding:16px 20px; }
+.day-head .d { font-family: var(--font-head); font-size:1.4rem; letter-spacing:.04em; color: var(--pp-light); }
+.day-head .t { font-size:0.76rem; color:rgba(255,255,255,0.55); text-transform:uppercase; letter-spacing:.08em; }
+.day-body { padding:18px 20px; }
+.drill { padding:10px 0; border-bottom:1px solid var(--border); }
+.drill:last-child { border-bottom:none; }
+.drill b { display:block; font-size:0.9rem; color:var(--text); }
+.drill span { font-size:0.82rem; color:var(--text-light); }
+
+/* TACTIC */
+.tac-list { display:grid; gap:14px; }
+.tac { display:flex; gap:16px; background: var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; box-shadow:var(--shadow); }
+.tac .ic { font-size:1.6rem; flex-shrink:0; }
+.tac b { font-size:0.95rem; color:var(--text); }
+.tac p { font-size:0.86rem; color:var(--text-mid); line-height:1.65; margin-top:2px; }
+
+/* MATCH TRACKER */
+.tracker { background: var(--bg-card); border-radius: var(--radius); box-shadow: var(--shadow-lg); border:1px solid var(--border); padding: 28px; }
+.tk-stats { display:grid; grid-template-columns: repeat(4,1fr); gap:14px; margin-bottom:24px; }
+.tk-stat { text-align:center; background:#f7f4ee; border-radius:12px; padding:18px 10px; }
+.tk-stat .v { font-family: var(--font-head); font-size:2.2rem; line-height:1; color: var(--text); }
+.tk-stat.win .v { color: var(--green); }
+.tk-stat.loss .v { color: var(--red); }
+.tk-stat.rate .v { color: var(--pp); }
+.tk-stat .l { font-size:0.7rem; text-transform:uppercase; letter-spacing:.1em; color:var(--text-light); margin-top:6px; }
+.tk-form { display:grid; grid-template-columns: 1.4fr 1fr 0.9fr 0.9fr auto; gap:10px; margin-bottom:18px; }
+.tk-form input, .tk-form select { font-family: var(--font); font-size:0.88rem; padding:10px 12px; border:1px solid var(--border); border-radius:10px; background:#fff; color:var(--text); min-height:44px; }
+.tk-form input:focus, .tk-form select:focus { outline:2px solid var(--pp); outline-offset:1px; }
+.tk-add { background: var(--pp); color:#fff; border:none; border-radius:10px; font-weight:700; padding:10px 20px; cursor:pointer; min-height:44px; font-size:0.88rem; }
+.tk-add:hover { background: var(--pp-light); }
+.tk-list { display:grid; gap:8px; }
+.tk-row { display:grid; grid-template-columns: auto 1fr auto auto auto; gap:12px; align-items:center; background:#f7f4ee; border-radius:10px; padding:12px 16px; font-size:0.86rem; }
+.tk-res { font-weight:800; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:0.78rem; }
+.tk-res.V { background: var(--green); }
+.tk-res.D { background: var(--red); }
+.tk-opp { font-weight:600; color:var(--text); }
+.tk-meta { color: var(--text-light); font-size:0.78rem; }
+.tk-del { background:none; border:none; color:var(--text-light); cursor:pointer; font-size:1.1rem; line-height:1; padding:4px 8px; }
+.tk-del:hover { color: var(--red); }
+.tk-empty { text-align:center; color:var(--text-light); font-size:0.88rem; padding:24px; }
+
+/* OBJECTIVES */
+.obj-list { display:grid; gap:10px; }
+.obj { display:flex; align-items:center; gap:14px; background: var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:14px 18px; box-shadow:var(--shadow); cursor:pointer; transition: all .2s; }
+.obj:hover { border-color: var(--pp); }
+.obj-check { flex-shrink:0; width:24px; height:24px; border-radius:6px; border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:0.9rem; color:#fff; transition: all .2s; }
+.obj.done .obj-check { background: var(--green); border-color: var(--green); }
+.obj.done .obj-label { text-decoration: line-through; color: var(--text-light); }
+.obj-label { font-size:0.92rem; color:var(--text); }
+
+/* CALLOUT */
+.callout { background: rgba(21,101,212,0.07); border-left: 4px solid var(--pp); border-radius: 0 12px 12px 0; padding: 20px 24px; font-size: 0.9rem; color: var(--text-mid); line-height: 1.75; margin-top: 8px; }
+.callout b { color: var(--text); }
+
+/* FOOTER */
+footer { background: var(--bg-dark); color: rgba(255,255,255,0.45); padding: 36px 60px; font-size: 0.82rem; display: flex; align-items: center; justify-content: space-between; margin-top: 40px; }
+footer a { color: var(--gold); text-decoration: none; }
+
+/* HAMBURGER */
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.85); border-radius: 2px; transition: all .3s; }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-hamburger { display: flex; }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  nav.open { height: auto; flex-wrap: wrap; padding-bottom: 12px; }
+  nav.open .nav-links { display: flex !important; flex-direction: column; width: 100%; gap: 2px; margin-top: 8px; }
+  nav.open .nav-links li { list-style: none; }
+  nav.open .nav-links a { padding: 10px 14px; color: rgba(255,255,255,0.8); font-size: 0.9rem; min-height: 48px; display: flex; align-items: center; }
+  .nav-links { display: none; }
+  .hero { padding: 48px 20px 40px; min-height: 360px; }
+  .section { padding: 48px 20px; scroll-margin-top: 72px; }
+  .section-divider { margin: 0 24px; }
+  .grid-2, .grid-3, .grid-4, .compare, .spin-grid, .plan-grid, .profile-stats, .tk-stats { grid-template-columns: 1fr; }
+  .spin-grid, .profile-stats, .tk-stats { grid-template-columns: 1fr 1fr; }
+  .tk-form { grid-template-columns: 1fr 1fr; }
+  .tk-add { grid-column: 1 / -1; }
+  .tk-row { grid-template-columns: auto 1fr auto auto; }
+  .tk-row .tk-meta.pts { display:none; }
+  footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 24px; }
+}
+
+/* TOUCH ANDROID */
+button, a, [onclick], input, select, label {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+/* ACCESSIBILITÉ */
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px;}
+@media (hover:none){
+  button:active,a:active{opacity:.82;}
+  .card:active,.obj:active{transform:scale(0.99);}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">ALLEZ</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="nutrition.html">Nutrition</a></li>
+    <li><a href="logbook.html">Logbook</a></li>
+    <li><a href="progression.html">Progression</a></li>
+    <li><a href="exercices.html">Exercices</a></li>
+    <li><a href="programme.html">Programme</a></li>
+    <li><a href="analyse.html">Analyse</a></li>
+    <li><a href="posture.html">Posture</a></li>
+    <li><a href="projection.html">Projection</a></li>
+    <li><a href="lifestyle.html">Lifestyle</a></li>
+    <li><a href="recettes.html">Recettes</a></li>
+    <li><a href="pingpong.html" class="active">Ping-Pong</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHbg" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><span></span>Tennis de table · Coaching personnalisé</div>
+    <h1>PING-<em>PONG</em><br>PROGRESSION</h1>
+    <p>Gaucher, moins d'un an de pratique, déjà 14 victoires pour 4 défaites en compétition. Tu montes vite. Voici le plan pour transformer ton style « tennis » en arme et grimper au-delà de la D4.</p>
+    <div class="hero-tags">
+      <span class="hero-tag hl">🏓 Gaucher</span>
+      <span class="hero-tag hl">Division 4</span>
+      <span class="hero-tag hl">550 points</span>
+      <span class="hero-tag">14 V – 4 D</span>
+      <span class="hero-tag">&lt; 1 an de jeu</span>
+    </div>
+  </div>
+</header>
+
+<!-- PROFIL -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-label">Diagnostic</div>
+    <h2 class="section-title">Ton profil de joueur</h2>
+    <p class="section-sub">Une lecture honnête de là où tu es. Tu as deux vrais atouts (gaucher + progression rapide) et une prise atypique qu'on va transformer en arme plutôt qu'en frein.</p>
+  </div>
+
+  <div class="profile-stats reveal">
+    <div class="pstat"><div class="v">78%</div><div class="l">Ratio victoires</div></div>
+    <div class="pstat"><div class="v gold">550</div><div class="l">Points officiels</div></div>
+    <div class="pstat"><div class="v">D4</div><div class="l">Division (équipe)</div></div>
+    <div class="pstat"><div class="v gold">~11%</div><div class="l">De gauchers (rareté = atout)</div></div>
+  </div>
+
+  <div class="grid-4 reveal">
+    <div class="card top-green">
+      <div class="card-icon">🤚</div>
+      <div class="card-title">Atout n°1 — Gaucher</div>
+      <div class="card-text">Tu joues contre des droitiers habitués à des droitiers. Tes diagonales, tes services et tes placements les dérangent <b>en permanence</b>. C'est un avantage gratuit que peu exploitent à fond.</div>
+    </div>
+    <div class="card top-green">
+      <div class="card-icon">📈</div>
+      <div class="card-title">Atout n°2 — Marge de progrès</div>
+      <div class="card-text">Moins d'un an, 78% de victoires : tu es en pleine phase d'apprentissage rapide. Chaque point technique corrigé maintenant rapporte gros — bien plus qu'un joueur installé depuis 10 ans.</div>
+    </div>
+    <div class="card top-orange">
+      <div class="card-icon">🎾</div>
+      <div class="card-title">Point clé — Prise « tennis »</div>
+      <div class="card-text">Tu tiens la raquette très en arrière, la tranche du bois au fond de la paume. Ça donne un coup droit fouetté et de l'allonge, mais ça <b>bride ton revers et ton jeu court</b>. On l'optimise — on ne la change pas.</div>
+    </div>
+    <div class="card top-pp">
+      <div class="card-icon">🎯</div>
+      <div class="card-title">Niveau réel — 550 pts</div>
+      <div class="card-text">En France, un licencié démarre à 500 pts. À 550 tu as déjà gagné des matchs « comptés ». L'objectif réaliste sur 12 mois : <b>franchir 700-800 pts</b> et verrouiller un revers de secours fiable (bloc).</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- LA PRISE -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-label">Ta signature</div>
+    <h2 class="section-title">Ta prise, ton style</h2>
+    <p class="section-sub">Tu as une prise vraiment rare — la tranche du bois calée dans la paume, main reculée, façon coup droit de tennis. On te le fait remarquer à chaque compétition… et tu gagnes quand même (14-4). Donc on ne la « casse » pas : on en fait une <b>arme</b> et on bâtit ton jeu autour.</p>
+  </div>
+
+  <div class="compare reveal">
+    <div class="cmp good">
+      <div class="cmp-label">Ce que ta prise fait de mieux → à exploiter</div>
+      <ul>
+        <li>Coup droit lourd, fouetté, beaucoup d'effet et d'allonge — c'est ton vrai poids de balle</li>
+        <li>Geste ample façon tennis : tu accélères fort et tu trouves des angles que les autres ne voient pas</li>
+        <li>Prise déroutante : personne ne s'entraîne contre ce profil → effet de surprise permanent</li>
+        <li>Naturellement <b>coup-droit-dominant</b> : idéale pour couvrir les 2/3 de la table en coup droit</li>
+      </ul>
+    </div>
+    <div class="cmp bad">
+      <div class="cmp-label">Ses limites → à compenser (pas à supprimer)</div>
+      <ul>
+        <li><b>Revers difficile à lifter/placer</b> : c'est ton trou, tout joueur de 550+ va le chercher</li>
+        <li>Poignet peu mobile : variation fine d'effet plus dure sur certains services</li>
+        <li>Jeu court / touché délicat : poussette courte et flip moins naturels</li>
+        <li>Replacement exigeant : jouer coup droit partout demande de bonnes jambes</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="decision reveal">
+    <span class="verdict">Décision assumée</span>
+    <h3>On optimise ta prise, on ne la reconstruit pas</h3>
+    <p>Beaucoup de joueurs atypiques percent <b>justement</b> parce qu'ils assument leur style au lieu de devenir un clone moyen. Ton plan : <b>jeu coup-droit-dominant</b> + des jambes qui couvrent le revers + un revers « de secours » simple (bloc / poussette) juste pour ne pas être puni. Tu gardes 100 % de ce qui te fait gagner.</p>
+    <p><b>La seule vraie limite à connaître :</b> sans aucune solution côté revers, un adversaire malin jouera 100 % dessus. Tu n'as pas besoin d'un top revers — tu as besoin d'un <b>bloc revers fiable</b> et d'un <b>déplacement</b> pour basculer en coup droit dès que possible. C'est ça, la clé de ton plafond.</p>
+  </div>
+
+  <h3 style="margin:34px 0 16px;font-family:var(--font-head);font-size:1.5rem;letter-spacing:.03em;">Tes 4 chantiers prioritaires (avec ta prise)</h3>
+  <div class="steps reveal">
+    <div class="step"><div class="step-body"><h4>Sécuriser le revers minimal</h4><p>Pas de top revers à apprendre. Juste : <b>bloc revers</b> (raquette fixe, légèrement fermée, tu absorbes et tu remets bas et profond) + <b>poussette revers</b> sur balle coupée. Objectif unique : ne JAMAIS offrir de balle haute côté revers.</p></div></div>
+    <div class="step"><div class="step-body"><h4>Le « pivot » coup droit</h4><p>LE déplacement qui transforme ta prise en force : apprendre à tourner pour jouer <b>coup droit depuis le coin revers</b>. Pas chassés, épaules qui pivotent, puis replacement vers le centre. C'est le cœur du jeu coup-droit-dominant.</p></div></div>
+    <div class="step"><div class="step-body"><h4>Régularité coup droit = mitraillette</h4><p>Ton arme doit tenir la cadence : vise <b>20-30 coups droits topspin d'affilée</b> sans faute, d'abord croisé, puis décroisé (ligne). Un coup droit fiable 4 fois de suite gagne plus de points qu'un missile une fois sur deux.</p></div></div>
+    <div class="step"><div class="step-body"><h4>Détendre le pouce au service</h4><p>Sans changer ta prise de jeu : au moment de servir, <b>relâche légèrement le pouce</b> (sur les photos il est très tendu) pour libérer un minimum de poignet. Ça débloque la variation d'effet — détaillé dans la section Service plus bas.</p></div></div>
+  </div>
+
+  <div class="callout reveal" style="margin-top:20px;">
+    <b>Montre cette analyse à ton entraîneur de club.</b> Avec une prise aussi personnelle, un œil qui te voit jouer en direct vaut de l'or pour régler les détails (hauteur de balle, timing du pivot, replacement). Et si un jour, par curiosité, tu veux tester une prise plus neutre : fais-le <b>hors compétition</b> uniquement. Ce n'est pas une obligation pour progresser à ton niveau — ta priorité, c'est d'optimiser ce que tu as.
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ANALYSE VIDEO -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-label">Analyse vidéo</div>
+    <h2 class="section-title">Ce que dit ta vidéo</h2>
+    <p class="section-sub">Vidéo découpée image par image (échanges ~30-90 s). Voici ce qu'on voit vraiment de ton jeu — et les 3 réglages qui changeront le plus de choses, tout de suite.</p>
+  </div>
+  <div class="grid-3 reveal" style="margin-bottom:26px;">
+    <div class="card top-green"><div class="card-icon">🤚</div><div class="card-title">Gaucher, 100 % coup droit</div><div class="card-text">Sur tout l'échange, <b>jamais de top revers</b> : tu couvres le côté revers en pivotant ou en allant chercher la balle. Parfaitement cohérent avec ta prise.</div></div>
+    <div class="card top-orange"><div class="card-icon">⬇️</div><div class="card-title">Raquette trop basse à l'attente</div><div class="card-text">Entre les frappes tu portes la raquette <b>contre la hanche</b> (réflexe tennis). Elle doit rester <b>devant le ventre, coude ~90°</b>, prête des 2 côtés.</div></div>
+    <div class="card top-orange"><div class="card-icon">🦵</div><div class="card-title">Tu vas chercher en fente</div><div class="card-text">Tu compenses le placement par de grandes <b>fentes/allonges</b> au lieu de petits pas. Résultat : contact souvent bas, tardif et loin du corps.</div></div>
+    <div class="card top-pp"><div class="card-icon">🎾</div><div class="card-title">Coup droit ample façon tennis</div><div class="card-text">Grand armé, finition haute : <b>lourd et puissant</b>, mais lent à réarmer dans les échanges rapides.</div></div>
+    <div class="card top-pp"><div class="card-icon">🧍</div><div class="card-title">Posture un peu haute</div><div class="card-text">Tu restes assez droit et de côté/loin de la table. Plus <b>fléchi + poids sur l'avant</b> = meilleure réactivité et premier pas plus rapide.</div></div>
+    <div class="card top-green"><div class="card-icon">⚡</div><div class="card-title">Gros atout : tes jambes</div><div class="card-text">Déplacement et explosivité <b>au-dessus de la moyenne 550-600</b> — ta muscu paie. Belle base à canaliser.</div></div>
+  </div>
+
+  <h3 style="margin:30px 0 14px;font-family:var(--font-head);font-size:1.5rem;letter-spacing:.03em;">Tes 3 réglages prioritaires (coche quand c'est acquis)</h3>
+  <div class="obj-list reveal" id="vidFixList"></div>
+  <div class="callout reveal" style="margin-top:18px;">
+    Les 3 montages que j'ai extraits sont dans ton dossier <b>Photo ping pong</b> (<i>analyse_sequence-echange.jpg</i>, <i>analyse_geste-coupdroit.jpg</i>, <i>analyse_sequence-2.jpg</i>). Pour un diagnostic <b>prise doigt par doigt en action</b>, refilme-toi de plus près et de face (quelqu'un derrière l'adversaire).
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- MATERIEL -->
+<section class="section alt-bg">
+  <div class="reveal">
+    <div class="section-label">Ton matériel</div>
+    <h2 class="section-title">Ta raquette — JOOLA Infinity</h2>
+    <p class="section-sub">Identifiée sur tes photos : bois <b>JOOLA Infinity Carbon</b> (construction avec couche(s) de carbone, exact selon le modèle) + revêtements <b>JOOLA Micron+</b>, raquette pré-montée vendue ~120 €. Voici l'avis honnête, sans le marketing.</p>
+  </div>
+  <div class="grid-3 reveal">
+    <div class="card top-pp">
+      <div class="card-icon">🏓</div>
+      <div class="card-title">Ce que c'est vraiment</div>
+      <div class="card-text">Une pré-montée « ready-to-play » correcte. « Professionnelle / céramique / approuvée ITTF » = <b>argument commercial</b> : l'homologation ITTF signifie juste que la gomme est légale en compétition, pas qu'elle est de niveau pro.</div>
+    </div>
+    <div class="card top-orange">
+      <div class="card-icon">⚡</div>
+      <div class="card-title">Rapide… peut-être trop</div>
+      <div class="card-text">Le carbone la rend rapide. Pour un joueur de moins d'un an qui construit son toucher et ses effets, beaucoup de vitesse = plus dur à contrôler. Tu gagnes avec, garde-la — mais un bois plus lent aide à <b>apprendre l'effet</b>.</div>
+    </div>
+    <div class="card top-red">
+      <div class="card-icon">🔧</div>
+      <div class="card-title">Tes gommes sont usées</div>
+      <div class="card-text">Sur les photos, les bords sont ébréchés (rouge ET noir). Une gomme abîmée/lustrée accroche moins = <b>moins d'effet</b>. Mets du ruban de tranche, nettoie à l'eau après chaque séance, et re-colle des revêtements neufs quand la surface devient lisse.</div>
+    </div>
+  </div>
+  <div class="callout reveal" style="margin-top:20px;">
+    <b>Ton prochain montage est décidé :</b> un <b>sur-mesure Butterfly</b> (manche FL) — bois <b>Innerforce Layer ALC</b> (carbone interne = toucher + gros sweet spot), coup droit <b>Tenergy 05</b> (l'arme des loopeurs, arc haut qui pardonne) et revers <b>Rozena</b> (souple, bloc + coupe). Total <b>~212 €</b>, pensé exactement pour ton jeu coup-droit-dominant à mi-distance. Le détail complet (specs, liens d'achat, montage) et le comparatif chiffré avec ta JOOLA actuelle sont sur les fiches dédiées :
+    <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;">
+      <a href="fiche-raquette-pingpong.html" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#0b1020;font-weight:700;font-size:0.9rem;padding:11px 18px;border-radius:10px;">🏓 Ma fiche raquette sur-mesure</a>
+      <a href="comparatif-raquettes.html" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--pp);border:1.5px solid var(--pp);font-weight:700;font-size:0.9rem;padding:11px 18px;border-radius:10px;">⚖️ Comparatif JOOLA vs sur-mesure</a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ATOUT GAUCHER -->
+<section class="section alt-bg">
+  <div class="reveal">
+    <div class="section-label">Exploiter ton avantage</div>
+    <h2 class="section-title">L'arme du gaucher</h2>
+    <p class="section-sub">~11% des joueurs sont gauchers : tes adversaires droitiers s'entraînent presque toujours contre des droitiers. Leurs automatismes de placement se retournent contre eux. Voici comment en abuser.</p>
+  </div>
+
+  <div class="grid-2 reveal" style="align-items:start;">
+    <div>
+      <div class="court-wrap">
+        <div class="court">
+          <div class="midline"></div>
+          <div class="dot serve" style="left:18%;top:75%"></div>
+          <div class="lbl" style="left:18%;top:88%">Toi (gaucher)</div>
+          <div class="dot target" style="left:80%;top:25%"></div>
+          <div class="lbl" style="left:80%;top:12%">Revers adverse</div>
+          <div class="arrow" style="left:18%;top:75%;width:66%;transform:rotate(-38deg)"></div>
+        </div>
+      </div>
+      <p style="font-size:0.86rem;color:var(--text-mid);text-align:center;margin-top:8px;line-height:1.6;">Ton coup droit croisé file naturellement vers le <b>revers</b> du droitier — son côté le plus faible. C'est ta diagonale « gratuite ».</p>
+    </div>
+    <div class="tac-list">
+      <div class="tac"><div class="ic">🎯</div><div><b>Sers wide sur son coup droit</b><p>Un service latéral qui sort du côté coup droit du droitier l'oblige à s'écarter de la table : il libère tout le revers pour ta balle suivante.</p></div></div>
+      <div class="tac"><div class="ic">↗️</div><div><b>Attaque la diagonale revers</b><p>Ton coup droit croisé attaque son revers. Enchaîne dessus jusqu'à ce qu'il craque ou qu'il découvre son coup droit.</p></div></div>
+      <div class="tac"><div class="ic">🔄</div><div><b>Joue le « grand angle »</b><p>En gaucher, le coup droit décroisé (ligne) sort très large côté coup droit adverse : un angle que les droitiers voient rarement.</p></div></div>
+      <div class="tac"><div class="ic">👥</div><div><b>En double, tu es en or</b><p>Une paire gaucher + droitier ne se gêne pas dans les déplacements. Si tu joues le double en équipe, c'est un avantage tactique énorme.</p></div></div>
+    </div>
+  </div>
+
+  <div class="callout reveal" style="margin-top:24px;">
+    <b>Important — ces schémas supposent un adversaire DROITIER</b> (le cas le plus fréquent). Face à un <b>gaucher comme toi</b>, inverse les diagonales : ton coup droit croisé tombe alors sur SON coup droit (son point fort). Dans ce cas, joue plutôt <b>la ligne pour viser son revers</b>, et méfie-toi de l'effet « miroir » (vous visez les mêmes zones et servez les mêmes angles). Repère vite, dès les 2 premiers points, si tu as un droitier ou un gaucher en face.
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EFFETS -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-label">Lire et produire</div>
+    <h2 class="section-title">Les effets</h2>
+    <p class="section-sub">Au-delà de la D4, presque tous les points se gagnent ou se perdent sur l'effet. Venant du tennis tu sens déjà le lifté ; le vrai saut de niveau, c'est <b>lire l'effet adverse</b> et gérer le coupé.</p>
+  </div>
+
+  <div class="spin-grid reveal">
+    <div class="spin">
+      <div class="arc">⤴️</div>
+      <h4>Lifté (topspin)</h4>
+      <p>La balle tourne vers l'avant, plonge et rebondit en accélérant. C'est ton coup naturel de tennis.</p>
+      <div class="tip">Remise : ferme ta raquette, frappe au-dessus de la balle.</div>
+    </div>
+    <div class="spin">
+      <div class="arc">⤵️</div>
+      <h4>Coupé (backspin)</h4>
+      <p>La balle tourne vers l'arrière, flotte et tombe court. Si tu frappes normalement, elle part dans le filet.</p>
+      <div class="tip">Remise : ouvre la raquette, passe sous la balle (poussette ou top lent).</div>
+    </div>
+    <div class="spin">
+      <div class="arc">↪️</div>
+      <h4>Latéral (sidespin)</h4>
+      <p>La balle dévie sur le côté au rebond. Très utilisé au service pour tromper la remise.</p>
+      <div class="tip">Remise : oriente ta raquette à l'opposé de la déviation.</div>
+    </div>
+    <div class="spin">
+      <div class="arc">⚪</div>
+      <h4>Sans effet (no spin)</h4>
+      <p>Balle « morte ». Piège classique : on croit à du coupé et on l'envoie trop haut.</p>
+      <div class="tip">Remise : frappe franchement, raquette quasi droite.</div>
+    </div>
+  </div>
+
+  <h3 style="margin:38px 0 16px;font-family:var(--font-head);font-size:1.5rem;letter-spacing:.03em;">Produire l'effet : on BROSSE, on ne tape pas</h3>
+  <p style="font-size:0.92rem;color:var(--text-mid);max-width:680px;margin-bottom:22px;line-height:1.75;">La règle n°1 de l'effet : <b>contact fin et frôlé</b>, raquette qui accélère au moment du toucher. Plus tu effleures la balle (sans l'écraser), plus elle tourne. Si tu « tapes », tu fais de la vitesse mais zéro effet.</p>
+  <div class="grid-3 reveal">
+    <div class="card top-pp">
+      <div class="card-title">⤴️ Mettre du lifté (topspin)</div>
+      <div class="card-text">Raquette légèrement <b>fermée</b>. Geste de <b>bas en haut</b>, tu brosses l'<b>arrière-dessus</b> de la balle. Finis vers ton front. C'est ton coup droit naturel — accentue le brossage pour plus d'effet, moins de force.</div>
+    </div>
+    <div class="card top-gold">
+      <div class="card-title">⤵️ Mettre du coupé (backspin)</div>
+      <div class="card-text">Raquette <b>ouverte</b> (face vers le ciel). Geste de <b>haut vers l'avant-bas</b>, tu passes <b>sous</b> la balle en l'effleurant. Sert en poussette et au service court. Plus tu passes sous, plus ça « flotte » et plonge court.</div>
+    </div>
+    <div class="card top-green">
+      <div class="card-title">↪️ Mettre du latéral (sidespin)</div>
+      <div class="card-text">Geste qui balaie <b>sur le côté</b> de la balle (de gauche à droite ou l'inverse). Surtout au service. En gaucher, ton latéral part dans un sens que les droitiers lisent mal → service très payant.</div>
+    </div>
+  </div>
+
+  <h3 style="margin:38px 0 16px;font-family:var(--font-head);font-size:1.5rem;letter-spacing:.03em;">Lire l'effet adverse en 3 secondes</h3>
+  <div class="steps reveal">
+    <div class="step"><div class="step-body"><h4>Regarde la raquette au contact, pas la balle</h4><p>80 % des points perdus au filet ou dehors à ton niveau viennent d'un effet mal lu. La balle ment, la raquette dit la vérité. Verrouille ton regard sur sa gomme au moment où il touche.</p></div></div>
+    <div class="step"><div class="step-body"><h4>Sens du geste = sens de l'effet</h4><p>Geste vers le <b>haut</b> = lifté → tu <b>fermes</b> ta raquette. Geste vers le <b>bas</b> = coupé → tu <b>ouvres</b>. Geste sur le <b>côté</b> = latéral → tu vises légèrement à l'<b>opposé</b> de la déviation.</p></div></div>
+    <div class="step"><div class="step-body"><h4>Doute ? Pousse bas et profond</h4><p>Si tu n'as pas lu l'effet, ne tente pas le coup parfait : remets <b>bas, long et lent</b>, près de la ligne de fond. Tu neutralises et tu rejoues le point. C'est la remise « sécurité ».</p></div></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- COUPS -->
+<section class="section alt-bg">
+  <div class="reveal">
+    <div class="section-label">Technique</div>
+    <h2 class="section-title">Tes coups, par priorité</h2>
+    <p class="section-sub">Classés selon ce qui te fera gagner le plus de points vite, vu ton profil. Clique pour détailler chaque coup.</p>
+  </div>
+
+  <div class="tabs reveal" id="strokeTabs">
+    <button class="tab-btn active" data-panel="cd">Coup droit lifté</button>
+    <button class="tab-btn" data-panel="rev">Revers</button>
+    <button class="tab-btn" data-panel="pou">Poussette</button>
+    <button class="tab-btn" data-panel="bloc">Bloc</button>
+    <button class="tab-btn" data-panel="flip">Flip</button>
+  </div>
+
+  <div class="tab-panel active" id="panel-cd">
+    <div class="stroke-card">
+      <span class="stroke-prio prio-lo">Déjà ton point fort</span>
+      <h4>Coup droit lifté</h4>
+      <p style="color:var(--text-mid);font-size:0.9rem;margin-bottom:6px;">Ton arme. On la garde, on la rend juste plus régulière et moins « tout ou rien ».</p>
+      <ul>
+        <li>Jambes fléchies, poids d'abord sur la jambe arrière (<b>la gauche</b>, puisque tu es gaucher), puis transfert vers l'avant au contact</li>
+        <li>Geste de bas en haut, l'avant-bras accélère au contact — comme un coup droit de tennis brossé</li>
+        <li>Frappe la balle dans sa phase descendante au début, montante quand tu maîtrises</li>
+        <li>Termine le geste vers ton front : c'est la garantie du lift</li>
+        <li>Erreur à corriger : trop de bras, pas assez de jambes → tu perds la régularité</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-rev">
+    <div class="stroke-card">
+      <span class="stroke-prio prio-hi">Ton revers « de secours »</span>
+      <h4>Revers (bloc + poussette)</h4>
+      <p style="color:var(--text-mid);font-size:0.9rem;margin-bottom:6px;">Avec ta prise, on ne vise PAS un top revers. On vise un revers fiable juste pour ne pas être puni — et basculer en coup droit dès que possible.</p>
+      <ul>
+        <li><b>Bloc revers</b> : raquette devant le ventre, légèrement fermée, FIXE. Tu absorbes la balle et tu la remets bas et profond, sans geste</li>
+        <li><b>Poussette revers</b> : raquette ouverte, tu passes sous la balle coupée pour remettre court et bas</li>
+        <li>Objectif réaliste : tenir 15-20 blocs revers sans faute et ne <b>jamais</b> offrir de balle haute</li>
+        <li>Dès que tu peux, <b>pivote</b> pour reprendre en coup droit — c'est là qu'est ta puissance</li>
+        <li>Tant que ton revers est un trou total, un joueur de 550+ jouera 100 % dessus : un bloc fiable suffit à fermer cette porte</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-pou">
+    <div class="stroke-card">
+      <span class="stroke-prio prio-hi">Indispensable</span>
+      <h4>Poussette (push)</h4>
+      <p style="color:var(--text-mid);font-size:0.9rem;margin-bottom:6px;">Le coup de contrôle sur balle courte et coupée. Venant du tennis, c'est ce qui te manque le plus.</p>
+      <ul>
+        <li>Raquette ouverte, tu passes sous la balle pour remettre du coupé</li>
+        <li>Geste vers l'avant et le bas, contrôlé, près de la table</li>
+        <li>Sert à neutraliser un service coupé court sans offrir d'attaque</li>
+        <li>Varie : poussette longue rapide vs courte molle pour casser le rythme</li>
+        <li>Sans poussette fiable, tu ne peux pas gérer les services courts coupés → faute directe</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-bloc">
+    <div class="stroke-card">
+      <span class="stroke-prio prio-mid">Très rentable</span>
+      <h4>Bloc</h4>
+      <p style="color:var(--text-mid);font-size:0.9rem;margin-bottom:6px;">Renvoyer la balle liftée de l'adversaire sans forcer, en utilisant sa propre vitesse.</p>
+      <ul>
+        <li>Raquette légèrement fermée, tu « tiens » la balle juste après le rebond</li>
+        <li>Pas de geste : tu absorbes et tu rediriges, près de la table</li>
+        <li>Permet de survivre face à un attaquant et de le faire douter</li>
+        <li>Bloc actif (poussé) pour reprendre l'initiative quand tu es à l'aise</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-flip">
+    <div class="stroke-card">
+      <span class="stroke-prio prio-lo">Plus tard</span>
+      <h4>Flip (prise d'initiative sur balle courte)</h4>
+      <p style="color:var(--text-mid);font-size:0.9rem;margin-bottom:6px;">Attaquer une balle courte au-dessus de la table. À travailler une fois le revers et la poussette acquis.</p>
+      <ul>
+        <li>Avance le pied côté balle sous la table, poignet armé</li>
+        <li>Petit geste explosif qui passe sous puis devant la balle</li>
+        <li>Te permet d'attaquer les services courts au lieu de seulement les pousser</li>
+        <li>Coup avancé : ne le force pas tant que les bases ne sont pas solides</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SERVICE -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-label">Le coup le plus rentable</div>
+    <h2 class="section-title">Service &amp; remise</h2>
+    <p class="section-sub">À ton niveau, c'est <b>là</b> que se gagnent le plus de points. Un service que l'adversaire ne lit pas = un point facile ou une balle molle à attaquer. C'est aussi le seul coup que tu contrôles à 100%.</p>
+  </div>
+
+  <div class="callout reveal" style="margin-top:0;margin-bottom:26px;">
+    <b>LE secret du service, à graver :</b> <b>même geste, effets différents.</b> Tu prépares toujours exactement pareil, et c'est seulement au contact que tu changes (sous la balle = coupé, sur le côté = latéral, à peine effleurée = sans effet). L'adversaire ne lit pas l'effet → il fait une faute directe ou te rend une balle molle à attaquer. Ce n'est pas la force qui pique, c'est l'identique.
+  </div>
+
+  <h3 style="margin:8px 0 16px;font-family:var(--font-head);font-size:1.5rem;letter-spacing:.03em;">Ton service signature (adapté à ta prise)</h3>
+  <p style="font-size:0.92rem;color:var(--text-mid);max-width:680px;margin-bottom:20px;line-height:1.75;">Ta prise verrouille le poignet → on construit ton service du <b>côté coup droit</b>, là où ta main est la plus à l'aise, et on s'appuie sur l'avant-bras + la rotation du corps plutôt que sur un poignet ultra-cassant.</p>
+  <div class="steps reveal">
+    <div class="step"><div class="step-body"><h4>1 · Position de côté, balle sur la paume ouverte</h4><p>Mets-toi légèrement de profil, côté coup droit vers la table. Balle posée à plat sur la paume ouverte, au-dessus de la table, derrière la ligne de fond.</p></div></div>
+    <div class="step"><div class="step-body"><h4>2 · Relâche le pouce</h4><p>Le réglage clé pour TA prise : au moment de servir, <b>détends le pouce</b> (sur tes photos il est très tendu). Ça libère juste assez de poignet pour brosser la balle. Tu reprends ta prise normale juste après le service.</p></div></div>
+    <div class="step"><div class="step-body"><h4>3 · Lancer vertical 16 cm + geste pendulaire</h4><p>Lance la balle bien droit (≥16 cm). Ton bras descend en pendule ; au contact tu <b>passes sous la balle en l'effleurant</b>, avant-bras qui accélère. Contact près du manche = plus de contrôle, vers le bout = plus d'effet.</p></div></div>
+    <div class="step"><div class="step-body"><h4>4 · Court et bas : 2 rebonds, qui frôle le filet</h4><p>Vise un service qui <b>rebondirait 2 fois</b> sur la moitié adverse s'il n'était pas touché, et qui passe <b>au ras du filet</b>. Un service court et bas ne peut pas être attaqué fort : l'adversaire est obligé de pousser → tu enchaînes.</p></div></div>
+  </div>
+
+  <div class="decision reveal" style="margin:34px 0 18px;">
+    <span class="verdict">LE service-piège · ta meilleure arme</span>
+    <h3>Le coupé court &amp; son jumeau « sans-effet »</h3>
+    <p>Aucun service n'est vraiment imparable — mais à 600, celui-ci s'en approche le plus. Le principe : <b>DEUX services au geste rigoureusement identique</b>, l'un très coupé, l'autre sans effet. L'adversaire ne peut pas faire la différence → piège à double détente :</p>
+    <p style="margin-bottom:0;">▸ S'il lit « coupé » et <b>ouvre</b> sa raquette → sur le <b>sans-effet</b>, la balle ressort <b>HAUTE</b> → tu <b>smashes direct.</b><br>▸ S'il lit « rien » et <b>frappe</b> → sur le <b>coupé</b>, la balle <b>plonge dans le filet.</b><br>Dans les deux cas : tu gagnes le point, ou tu attaques. C'est exactement ce que tu cherches.</p>
+  </div>
+
+  <h4 style="font-size:1.05rem;margin:22px 0 10px;color:var(--text);">Version A — le coupé court (lourd et bas)</h4>
+  <div class="steps reveal" style="margin-bottom:18px;">
+    <div class="step"><div class="step-body"><h4>Prépare</h4><p>Coin gauche (ton coup droit), de profil, balle sur la paume ouverte, <b>pouce relâché</b>. Lancer vertical ≥16 cm.</p></div></div>
+    <div class="step"><div class="step-body"><h4>Raquette TRÈS ouverte, contact fin sous la balle</h4><p>Face quasi vers le ciel. Tu passes <b>fin sous la balle</b>, près du <b>bout</b> de la raquette (plus de bout = plus d'effet), avec une <b>accélération sèche de l'avant-bras</b>. C'est la vitesse + la finesse du frottement qui font l'effet, pas la force.</p></div></div>
+    <div class="step"><div class="step-body"><h4>Court et bas : 2 rebonds, au ras du filet</h4><p>La balle doit rebondir une 1ʳᵉ fois dans TON camp (vers le milieu de ta demi-table), puis une 2ᵉ fois courte sur sa moitié. Un coupé court bien fait est presque inattaquable : il est <b>obligé de pousser</b>.</p></div></div>
+  </div>
+
+  <h4 style="font-size:1.05rem;margin:22px 0 10px;color:var(--text);">Version B — le jumeau « sans-effet » (le piège)</h4>
+  <div class="steps reveal" style="margin-bottom:18px;">
+    <div class="step"><div class="step-body"><h4>Exactement le même geste</h4><p>Même lancer, même descente de raquette, <b>même fin de geste</b>. C'est l'identique qui trompe.</p></div></div>
+    <div class="step"><div class="step-body"><h4>Mais au contact, tu ne brosses PAS</h4><p>Tu pousses la balle presque <b>à plat</b> (contact épais, plus près du manche). La balle part <b>sans effet</b>, courte. Lui croit que c'est coupé → il ouvre → la balle ressort <b>haute</b>.</p></div></div>
+    <div class="step"><div class="step-body"><h4>Garde la finition du coupé</h4><p>Refais le <b>même grand mouvement vide</b> après le contact pour « vendre » l'effet. À 600, l'adversaire lit l'effet sur ta FIN de geste autant que sur le contact — même fin = il devine au hasard.</p></div></div>
+  </div>
+
+  <div class="callout reveal" style="margin-bottom:18px;">
+    <b>Le détail qui tue = la finition identique.</b> 90 % des joueurs trahissent leur effet en relâchant le geste sur le sans-effet. Toi, tu finis <b>pareil</b> dans les deux cas. C'est ça qui rend le service indétectable, bien plus que la quantité d'effet.
+  </div>
+
+  <div class="grid-2 reveal" style="margin-bottom:6px;align-items:start;">
+    <div class="card top-green"><div class="card-title">💥 Il pop la balle haut (sur le sans-effet)</div><div class="card-text">Le scénario que tu adores : <b>smash direct</b> dans le grand angle ouvert (souvent son revers, ou le coin coup droit vide). Sois prêt à attaquer DÈS que tu as servi sans-effet — la balle haute arrive vite.</div></div>
+    <div class="card top-pp"><div class="card-title">🌀 Il pousse long/mou (sur le coupé)</div><div class="card-text"><b>Ouvre en coup droit</b> (technique de la section « attaquer la balle coupée »). À 600, presque personne n'attaque une coupette courte bien faite : tu récupères l'initiative.</div></div>
+  </div>
+
+  <div class="callout reveal" style="margin-bottom:6px;">
+    <b>Honnêteté de coach :</b> « jamais renvoyé » n'existe pas, et au début ton coupé ne sera pas très lourd (ta prise verrouille le poignet — compense par la <b>vitesse d'avant-bras</b> et un contact <b>très fin</b>). Mais ce piège à double détente est, à ton niveau, ce qui se rapproche le plus d'un service ingagnable. Compte <b>2-3 semaines de panier de balles</b> pour le rôder. Bonus : ajoute un soupçon de <b>latéral</b> au coupé (geste qui balaie un peu sur le côté) → encore plus dur à lire pour un droitier.
+  </div>
+
+  <div class="callout reveal" style="margin-bottom:6px;">
+    <b>Exercice :</b> seul sur une table, 20 services en alternance (10 coupés / 10 sans-effet), <b>geste identique</b>. Objectif : que TOI-même tu ne voies pas la différence sur la fin de geste. Puis filme-toi de face pour vérifier que les deux sont indiscernables.
+  </div>
+
+  <h3 style="margin:34px 0 16px;font-family:var(--font-head);font-size:1.5rem;letter-spacing:.03em;">Tes 3 services (même préparation)</h3>
+  <div class="grid-2 reveal" style="align-items:start;">
+    <div>
+      <div class="court-wrap">
+        <div class="court">
+          <div class="midline"></div>
+          <div class="dot serve" style="left:20%;top:80%"></div>
+          <div class="lbl" style="left:20%;top:92%">Toi</div>
+          <div class="dot target" style="left:58%;top:30%;background:var(--green)"></div>
+          <div class="lbl" style="left:58%;top:18%">1 · court coupé</div>
+          <div class="dot target" style="left:82%;top:34%;background:var(--gold)"></div>
+          <div class="lbl" style="left:82%;top:22%">2 · court latéral</div>
+          <div class="dot target" style="left:68%;top:10%;background:var(--red)"></div>
+          <div class="lbl" style="left:68%;top:2%">3 · long coude</div>
+        </div>
+      </div>
+    </div>
+    <div class="tac-list">
+      <div class="tac"><div class="ic">①</div><div><b>Court coupé (ton pain quotidien)</b><p>Contact bien <b>sous</b> la balle, court dans le coin coup droit adverse. Il est obligé de pousser → tu attaques en coup droit (3ᵉ balle). 70 % de tes services.</p></div></div>
+      <div class="tac"><div class="ic">②</div><div><b>Court latéral (ta surprise de gaucher)</b><p>Même geste, contact plus sur le <b>côté</b>. La balle dévie d'un sens inhabituel pour un droitier → remise molle ou faute. Alterne avec le ①, geste identique.</p></div></div>
+      <div class="tac"><div class="ic">③</div><div><b>Long rapide dans le coude</b><p>Quand il s'avance pour la balle courte : même préparation, mais tu accélères <b>long et tendu dans le coude</b> (entre coup droit et revers). Effet de surprise garanti. À sortir 2-3 fois par set, pas plus.</p></div></div>
+    </div>
+  </div>
+
+  <h3 style="margin:36px 0 14px;font-family:var(--font-head);font-size:1.5rem;letter-spacing:.03em;">D'où servir : tes positions</h3>
+  <p style="font-size:0.92rem;color:var(--text-mid);max-width:700px;margin-bottom:18px;line-height:1.75;">Tu sers surtout depuis ton <b>coin gauche (ton côté coup droit)</b> en diagonale, et rarement depuis ton coin droit (sauf coupé). Bon instinct — mais voici comment exploiter les DEUX positions pour devenir imprévisible.</p>
+  <div class="court-wrap reveal">
+    <div class="court">
+      <div class="midline"></div>
+      <div class="arrow" style="left:16%;top:84%;width:72%;transform:rotate(-42deg)"></div>
+      <div class="arrow" style="left:84%;top:84%;width:72%;transform:rotate(-138deg)"></div>
+      <div class="dot serve" style="left:16%;top:84%"></div>
+      <div class="lbl" style="left:16%;top:95%">Toi (CD)</div>
+      <div class="dot serve" style="left:84%;top:84%"></div>
+      <div class="lbl" style="left:84%;top:95%">Toi (RV)</div>
+      <div class="dot target" style="left:80%;top:22%;background:var(--green)"></div>
+      <div class="lbl" style="left:80%;top:11%">revers droitier</div>
+      <div class="dot target" style="left:20%;top:26%;background:var(--gold)"></div>
+      <div class="lbl" style="left:22%;top:15%">coup droit droitier</div>
+    </div>
+  </div>
+  <div class="tac-list reveal" style="margin-top:8px;">
+    <div class="tac"><div class="ic">✅</div><div><b>Coin gauche (ton coup droit) — ta préférée, garde-la</b><p>La diagonale file vers le <b>revers du droitier</b> (son point faible), et tu es déjà placé côté coup droit pour enchaîner ta 3ᵉ balle. C'est une excellente position pour ton style.</p></div></div>
+    <div class="tac"><div class="ic">⚠️</div><div><b>Son risque : ton grand côté revers reste ouvert</b><p>En servant de ton coin gauche, tu laisses béante ta <b>droite (ton revers)</b>. Un bon remiseur ira t'y chercher. Réflexe : après le service, <b>reviens vite vers le centre</b>, prêt à pivoter.</p></div></div>
+    <div class="tac"><div class="ic">🔓</div><div><b>Coin droit — à développer au-delà du coupé</b><p>De là, la diagonale part vers le <b>coup droit du droitier</b> : tu l'écartes de la table et tu ouvres tout son revers pour ta balle suivante. Et tu peux te décaler pour tout jouer en coup droit. Ne le réserve pas qu'au coupé !</p></div></div>
+    <div class="tac"><div class="ic">🎲</div><div><b>La règle : change de coin pour casser ses repères</b><p>Varie surtout le <b>placement</b> (coin / milieu / court-long) avec le <b>même geste</b>. Un 700 mémorise vite : si tu sers toujours du même endroit au même endroit, il anticipe. Alterne tes 2 positions.</p></div></div>
+  </div>
+
+  <div class="callout reveal" style="margin-top:24px;">
+    <b>Le schéma qui gagne contre du 550-600 — service + 3ᵉ balle :</b> à ce niveau, presque tout le monde <b>pousse</b> les balles courtes, souvent long et un peu haut. Donc : tu sers <b>court coupé</b> → il pousse → tu enchaînes ton <b>coup droit topspin</b>. Répète ce schéma encore et encore. C'est LA combinaison qui fait basculer les matchs serrés à ton niveau. Entraîne-le en boucle (15 min « je sers, partenaire pousse, j'attaque la 3ᵉ »).
+  </div>
+
+  <h3 style="margin:40px 0 10px;font-family:var(--font-head);font-size:1.6rem;letter-spacing:.03em;">Remise de service — pourquoi tu n'en passes qu'1 sur 2</h3>
+  <p style="font-size:0.92rem;color:var(--text-mid);max-width:700px;margin-bottom:22px;line-height:1.75;">Un joueur de 700 sert <b>lourd et varié avec un geste presque identique</b> à chaque fois. Ton erreur — celle de tout le monde au début — : tu réagis à la <b>balle</b>, pas à l'<b>effet</b>. On inverse ça. La remise, ça se LIT, ça ne se devine pas.</p>
+
+  <h4 style="font-size:1.05rem;margin-bottom:10px;color:var(--text);">Étape 1 — Lis l'effet AVANT de bouger</h4>
+  <div class="steps reveal" style="margin-bottom:26px;">
+    <div class="step"><div class="step-body"><h4>Regarde sa raquette au contact</h4><p>Le <b>sens du frottement</b> = le sens de l'effet. Vers le haut = lifté. Vers le bas = coupé. Sur le côté = latéral. Verrouille ton regard sur sa gomme, pas sur la balle.</p></div></div>
+    <div class="step"><div class="step-body"><h4>Lis le rebond de la balle chez TOI</h4><p>Elle « s'assoit » et freine = <b>coupé</b>. Elle fuse bas vers l'avant = <b>lifté</b>. Elle saute sur le côté = <b>latéral</b>. Elle arrive lente et ne fait rien = <b>sans effet</b> (le piège).</p></div></div>
+    <div class="step"><div class="step-body"><h4>Juge la quantité d'effet</h4><p>Frottement <b>très vif</b> = effet lourd → réagis fort (ouvre/ferme bien la raquette). Frottement <b>mou</b> = peu ou pas d'effet → souvent un faux coupé qu'il faut frapper, pas soulever.</p></div></div>
+  </div>
+
+  <h4 style="font-size:1.05rem;margin-bottom:14px;color:var(--text);">Étape 2 — Renvoie selon le type (mémorise ces 5 cas)</h4>
+  <div class="grid-2 reveal" style="margin-bottom:24px;align-items:start;">
+    <div class="card top-orange"><div class="card-title">① Court coupé</div><div class="card-text"><b>Reconnaître :</b> rebondit court, flotte, plonge bas.<br><b>Renvoyer :</b> <b>pousse bas</b>, raquette ouverte, tu passes SOUS la balle. Pour toi : pousse <b>long et profond</b> dans son revers (utilise ta force) plutôt qu'une remise courte touchée. ⚠️ Ne frappe JAMAIS à plat → filet assuré.</div></div>
+    <div class="card top-pp"><div class="card-title">② Long coupé</div><div class="card-text"><b>Reconnaître :</b> arrive long, lent, flotte et plonge.<br><b>Renvoyer :</b> <b>OUVRE dessus</b> (top lent et brossé — voir section suivante) ou pousse long et bas. Surtout pas frapper fort à plat.</div></div>
+    <div class="card top-green"><div class="card-title">③ Latéral (sidespin)</div><div class="card-text"><b>Reconnaître :</b> la balle dévie en l'air et/ou saute de côté au rebond.<br><b>Renvoyer :</b> vise <b>à l'opposé</b> de la déviation, raquette <b>ferme</b>. Si la balle fuit à droite, oriente ta raquette pour viser à gauche. Compense l'angle, ne lutte pas contre.</div></div>
+    <div class="card top-red"><div class="card-title">④ Long lifté / rapide</div><div class="card-text"><b>Reconnaître :</b> arrive vite, tendu, fuse au rebond.<br><b>Renvoyer :</b> <b>BLOQUE</b> près de la table, raquette <b>fermée</b>, contact court et ferme. Ne l'ouvre pas, ne recule pas en panique : tu absorbes et tu remets.</div></div>
+    <div class="card top-gold" style="grid-column:1 / -1;"><div class="card-title">⑤ Sans effet — LE piège</div><div class="card-text"><b>Reconnaître :</b> le geste ressemble à un effet, mais la balle arrive molle et « s'assoit » sans rien faire.<br><b>Renvoyer :</b> <b>frappe ou pousse normalement</b>, raquette quasi droite. L'erreur classique : croire que c'est du coupé et soulever → la balle part haute et longue, cadeau. Beaucoup de tes points perdus en remise viennent de là.</div></div>
+  </div>
+
+  <div class="callout reveal" style="margin-bottom:24px;">
+    <b>Tes 2 remises de sécurité (avec ta prise) :</b> quand tu ne lis pas l'effet, ou que la balle vient dans ton revers — <b>(a)</b> POUSSE <b>longue, basse et profonde</b> dans un coin (près de la ligne de fond) : ça neutralise 90 % des services à ton niveau et ça utilise ta zone de confort. <b>(b)</b> Dès que la balle est un peu longue, <b>PIVOTE et ouvre en coup droit</b>. Évite les petites remises courtes touchées : ta prise ne les permet pas bien — joue <b>long</b>, c'est ta force.
+  </div>
+
+  <div class="grid-2 reveal" style="margin-top:24px;align-items:start;">
+    <div class="card top-pp">
+      <div class="card-title" style="font-size:1.1rem;">⚖️ Service réglementaire (sinon point perdu)</div>
+      <div class="card-text">
+        <ul style="list-style:none;margin-top:8px;">
+          <li style="padding:6px 0 6px 22px;position:relative;"><span style="position:absolute;left:0;color:var(--pp);">▸</span> Balle sur la <b>paume ouverte</b>, main plate, au-dessus de la table</li>
+          <li style="padding:6px 0 6px 22px;position:relative;"><span style="position:absolute;left:0;color:var(--pp);">▸</span> Lancer <b>quasi vertical, ≥16 cm</b>, sans effet de lancer</li>
+          <li style="padding:6px 0 6px 22px;position:relative;"><span style="position:absolute;left:0;color:var(--pp);">▸</span> Frappe derrière la ligne de fond, balle <b>visible</b> (ni bras ni corps qui la cachent)</li>
+          <li style="padding:6px 0 6px 22px;position:relative;"><span style="position:absolute;left:0;color:var(--pp);">▸</span> En départemental l'arbitrage est souvent souple, mais un service caché flagrant = point adverse. Reste légal.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card top-gold">
+      <div class="card-title" style="font-size:1.1rem;">↩️ Ta remise (ne fais AUCUN cadeau)</div>
+      <div class="card-text">
+        <ul style="list-style:none;margin-top:8px;">
+          <li style="padding:6px 0 6px 22px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">▸</span> Service <b>court</b> → remets court, ou pousse <b>long et bas</b> dans son coin faible</li>
+          <li style="padding:6px 0 6px 22px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">▸</span> Service <b>long</b> → attaque-le en coup droit, c'est cadeau</li>
+          <li style="padding:6px 0 6px 22px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">▸</span> <b>Jamais</b> de balle haute et molle au centre = smash offert. La plupart de tes défaites viennent de là.</li>
+          <li style="padding:6px 0 6px 22px;position:relative;"><span style="position:absolute;left:0;color:var(--gold);">▸</span> Doute sur l'effet → remise sécurité : <b>bas, long, lent</b>, près de la ligne de fond.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ATTAQUER COUPE -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-label">Le coup qui débloque tout</div>
+    <h2 class="section-title">Attaquer la balle coupée</h2>
+    <p class="section-sub">Le fameux « duel de coupette » : vous re-coupez chacun votre tour, et dès que tu tentes d'attaquer, ça part dans le filet. C'est <b>normal</b> — on n'attaque PAS une balle coupée comme une balle normale. Voici exactement comment faire.</p>
+  </div>
+
+  <div class="callout reveal" style="margin-bottom:26px;">
+    <b>Pourquoi ça finit dans le filet :</b> une balle coupée tourne vers l'arrière. Au contact de ta raquette, cet effet la fait <b>plonger vers le bas</b>. Si tu frappes vers l'avant (comme un coup normal), tu l'envoies droit dans le filet. La seule solution : <b>brosser la balle vers le HAUT</b> pour retourner son effet. C'est ce qu'on appelle « <b>ouvrir</b> ».
+  </div>
+
+  <h3 style="margin:8px 0 14px;font-family:var(--font-head);font-size:1.5rem;letter-spacing:.03em;">Comprendre le principe — le schéma</h3>
+  <p style="font-size:0.92rem;color:var(--text-mid);max-width:700px;margin-bottom:20px;line-height:1.75;">Lis les 3 cases dans l'ordre. Une fois que tu as compris <b>pourquoi</b> la balle plonge, le geste devient évident.</p>
+  <div class="grid-3 reveal">
+    <div class="card top-pp">
+      <div class="card-title">1 · L'effet coupé</div>
+      <svg viewBox="0 0 280 200" style="width:100%;height:auto;display:block;margin:6px 0 4px">
+        <defs><marker id="s1r" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 Z" fill="#d4200a"/></marker><marker id="s1g" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 Z" fill="#6b7090"/></marker></defs>
+        <circle cx="130" cy="96" r="46" fill="#f7f4ee" stroke="#1565d4" stroke-width="3"/>
+        <path d="M174 78 Q130 62 86 78" fill="none" stroke="#d4200a" stroke-width="3.5" marker-end="url(#s1r)"/>
+        <path d="M86 114 Q130 130 174 114" fill="none" stroke="#d4200a" stroke-width="3.5" marker-end="url(#s1r)"/>
+        <text x="130" y="101" text-anchor="middle" font-size="15" font-weight="800" fill="#1565d4">COUPÉ</text>
+        <line x1="62" y1="180" x2="205" y2="180" stroke="#6b7090" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#s1g)"/>
+        <text x="132" y="196" text-anchor="middle" font-size="10.5" fill="#6b7090">la balle vient vers toi →</text>
+      </svg>
+      <div class="card-text">La balle tourne <b>vers l'arrière</b> : le dessous avance, le dessus recule.</div>
+    </div>
+    <div class="card top-red">
+      <div class="card-title">2 · À plat = l'erreur</div>
+      <svg viewBox="0 0 280 200" style="width:100%;height:auto;display:block;margin:6px 0 4px">
+        <defs><marker id="s2r" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 Z" fill="#d4200a"/></marker></defs>
+        <line x1="20" y1="152" x2="260" y2="152" stroke="#3a4060" stroke-width="3"/>
+        <line x1="140" y1="152" x2="140" y2="116" stroke="#3a4060" stroke-width="3"/>
+        <text x="70" y="170" text-anchor="middle" font-size="10.5" fill="#6b7090">adversaire</text>
+        <text x="222" y="170" text-anchor="middle" font-size="10.5" fill="#6b7090">toi</text>
+        <line x1="224" y1="110" x2="224" y2="140" stroke="#1a1f2e" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="214" cy="125" r="7" fill="#fff" stroke="#d4200a" stroke-width="2.5"/>
+        <path d="M209 128 Q176 152 143 147" fill="none" stroke="#d4200a" stroke-width="3.5" marker-end="url(#s2r)"/>
+        <text x="139" y="104" text-anchor="middle" font-size="13" font-weight="800" fill="#d4200a">✗ FILET</text>
+      </svg>
+      <div class="card-text">Raquette droite, tu frappes vers l'avant → l'effet « mord » ta gomme et <b>plonge</b> dans le filet.</div>
+    </div>
+    <div class="card top-green">
+      <div class="card-title">3 · Brossé = la solution</div>
+      <svg viewBox="0 0 280 200" style="width:100%;height:auto;display:block;margin:6px 0 4px">
+        <defs><marker id="s3b" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 Z" fill="#1565d4"/></marker><marker id="s3g" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 Z" fill="#0a9e52"/></marker></defs>
+        <line x1="20" y1="152" x2="260" y2="152" stroke="#3a4060" stroke-width="3"/>
+        <line x1="140" y1="152" x2="140" y2="116" stroke="#3a4060" stroke-width="3"/>
+        <text x="70" y="170" text-anchor="middle" font-size="10.5" fill="#6b7090">adversaire</text>
+        <text x="222" y="170" text-anchor="middle" font-size="10.5" fill="#6b7090">toi</text>
+        <line x1="216" y1="140" x2="232" y2="113" stroke="#1a1f2e" stroke-width="5" stroke-linecap="round"/>
+        <path d="M222 143 L210 107" fill="none" stroke="#0a9e52" stroke-width="3" marker-end="url(#s3g)"/>
+        <text x="190" y="120" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0a9e52">brosse ↑</text>
+        <circle cx="212" cy="123" r="7" fill="#fff" stroke="#1565d4" stroke-width="2.5"/>
+        <path d="M206 121 Q150 80 60 147" fill="none" stroke="#1565d4" stroke-width="3.5" marker-end="url(#s3b)"/>
+        <circle cx="60" cy="149" r="3.5" fill="#1565d4"/>
+        <text x="150" y="74" text-anchor="middle" font-size="12" font-weight="800" fill="#0a9e52">✓ ça passe</text>
+      </svg>
+      <div class="card-text">Raquette <b>ouverte</b> + tu <b>brosses vers le haut</b> → la balle monte par-dessus le filet, puis ton lift la fait replonger.</div>
+    </div>
+  </div>
+
+  <div class="callout reveal" style="margin-top:20px;">
+    <b>Le « pourquoi » en une phrase :</b> une balle coupée <b>veut plonger</b> en touchant ta raquette. En l'ouvrant et en brossant vers le haut, ton geste fait <b>deux choses d'un coup</b> → (1) il envoie la balle <b>par-dessus le filet</b>, et (2) il <b>retourne l'effet en lift (topspin)</b>, ce qui fait <b>replonger</b> la balle dans la table. C'est pour ça que tu vises haut et que tu montes : tu ne « frappes » pas la balle, tu la <b>relèves en la faisant retourner</b>.
+  </div>
+
+  <h3 style="margin:34px 0 16px;font-family:var(--font-head);font-size:1.5rem;letter-spacing:.03em;">L'ouverture coup droit, pas à pas</h3>
+  <div class="steps reveal">
+    <div class="step"><div class="step-body"><h4>1 · Descends la raquette SOUS la balle</h4><p>Plie les jambes, raquette légèrement <b>ouverte</b> (face vers le haut), amenée <b>plus bas que la balle</b>. C'est l'erreur n°1 : on garde la raquette trop haute → impossible de lifter.</p></div></div>
+    <div class="step"><div class="step-body"><h4>2 · Geste de BAS en HAUT, presque vertical</h4><p>Tu <b>brosses l'arrière-dessus</b> de la balle en l'effleurant (contact fin), tu ne la tapes pas. C'est le frottement vers le haut qui crée le lift qui ramène la balle dans la table.</p></div></div>
+    <div class="step"><div class="step-body"><h4>3 · La poussée vient des JAMBES</h4><p>Tu te <b>grandis</b> : les jambes se tendent et propulsent le geste vers le haut. Pas juste le bras. C'est ça qui donne l'effet et la régularité.</p></div></div>
+    <div class="step"><div class="step-body"><h4>4 · Vise HAUT au-dessus du filet</h4><p>Vise <b>30-50 cm au-dessus du filet</b> : le lift que tu mets fera replonger la balle dans la table. Plus la balle est coupée, plus tu <b>ouvres</b> la raquette et plus tu brosses vers le haut.</p></div></div>
+    <div class="step"><div class="step-body"><h4>5 · LENT et brossé d'abord, pas puissant</h4><p>Première intention : « ouvrir » = un top <b>lent et très lifté</b>. La vitesse viendra après. Une ouverture lente passe ; un missile à plat finit dans le filet. Finis le geste vers le haut, près de ton front.</p></div></div>
+  </div>
+
+  <div class="compare reveal" style="margin-top:28px;">
+    <div class="cmp bad">
+      <div class="cmp-label">Ce qui met dans le filet</div>
+      <ul>
+        <li>Raquette trop fermée (face vers l'avant)</li>
+        <li>Geste vers l'avant, on « tape » la balle</li>
+        <li>Bras raide, aucune montée de jambes</li>
+        <li>Contact trop tard et trop bas, balle déjà retombée</li>
+        <li>On vise au ras du filet et on veut frapper fort</li>
+      </ul>
+    </div>
+    <div class="cmp good">
+      <div class="cmp-label">Ce qui passe</div>
+      <ul>
+        <li>Raquette ouverte, d'autant plus que la balle est coupée</li>
+        <li>Geste bas → haut, on brosse fin l'arrière-dessus</li>
+        <li>Jambes qui poussent vers le haut (tu te grandis)</li>
+        <li>Tu prends la balle au sommet ou juste après le rebond</li>
+        <li>Tu vises haut au-dessus du filet, lent et très lifté</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout reveal" style="margin-top:24px;">
+    <b>Pour TOI, dans le duel de coupette :</b> n'essaie pas d'ouvrir en revers (ta prise ne le permet pas). Tant que la balle est courte et coupée, <b>re-coupe en revers, bas et profond</b>, pour provoquer une balle <b>un peu longue</b>. Dès qu'elle est longue → <b>pivote et OUVRE en coup droit</b>. C'est ça, ton chemin : tu utilises ton revers juste pour amener la balle où ton coup droit peut frapper.
+  </div>
+
+  <div class="callout reveal" style="margin-top:16px;">
+    <b>L'exercice qui l'ancre :</b> ton partenaire te pousse <b>10 balles coupées de suite</b> ; tu ouvres lent et brossé, objectif <b>8/10 dans la table</b>. Quand c'est fluide, ajoute de la vitesse. Puis enchaîne « il pousse → tu ouvres → il bloque → tu continues en coup droit » : c'est le schéma roi du tennis de table moderne, et il colle parfaitement à ton jeu coup-droit-dominant.
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PLAN D'ENTRAINEMENT -->
+<section class="section alt-bg">
+  <div class="reveal">
+    <div class="section-label">Structurer tes séances</div>
+    <h2 class="section-title">Plan d'entraînement type</h2>
+    <p class="section-sub">3 séances par semaine si tu peux. La clé : ne pas faire que des matchs. Les matchs entretiennent ton niveau ; les <b>exercices répétés</b> (régularité) le font monter.</p>
+  </div>
+
+  <div class="plan-grid reveal">
+    <div class="day">
+      <div class="day-head"><div class="d">Séance 1</div><div class="t">Régularité &amp; revers</div></div>
+      <div class="day-body">
+        <div class="drill"><b>Échauffement 10 min</b><span>Coup droit / revers diagonale, balles lentes</span></div>
+        <div class="drill"><b>Bloc revers ×15 min</b><span>Le partenaire attaque ton revers, tu remets bas et profond (ton revers « de secours »)</span></div>
+        <div class="drill"><b>Coup droit croisé ×10 min</b><span>Ta diagonale gauchère, régulier puis accéléré — 20-30 balles sans faute</span></div>
+        <div class="drill"><b>Matchs ×30 min</b><span>Focus : pivoter pour jouer coup droit dès que possible</span></div>
+      </div>
+    </div>
+    <div class="day">
+      <div class="day-head"><div class="d">Séance 2</div><div class="t">Service &amp; jeu court</div></div>
+      <div class="day-body">
+        <div class="drill"><b>Panier de services ×15 min</b><span>30 balles par service (coupé court, latéral, long), seul sur une table</span></div>
+        <div class="drill"><b>Service + 3ᵉ balle ×15 min</b><span>Tu sers court coupé, le partenaire pousse, tu attaques en coup droit (ton schéma gagnant)</span></div>
+        <div class="drill"><b>Poussette ×10 min</b><span>Lire le coupé, remettre court et bas</span></div>
+        <div class="drill"><b>Matchs ×25 min</b><span>Focus : ne jamais offrir de balle haute en remise</span></div>
+      </div>
+    </div>
+    <div class="day">
+      <div class="day-head"><div class="d">Séance 3</div><div class="t">Déplacements &amp; match</div></div>
+      <div class="day-body">
+        <div class="drill"><b>Jeu de jambes ×10 min</b><span>Pas chassés, position de base, replacement au centre</span></div>
+        <div class="drill"><b>Exercice « Falkenberg » ×15 min</b><span>Revers – coup droit côté revers – coup droit côté coup droit, en boucle</span></div>
+        <div class="drill"><b>Bloc vs attaque ×10 min</b><span>L'un attaque, l'autre bloque, puis on inverse</span></div>
+        <div class="drill"><b>Matchs à thème ×25 min</b><span>Ex : interdiction de jouer 2 fois de suite le même coup</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout reveal" style="margin-top:24px;">
+    <b>Lien avec ta muscu :</b> le ping-pong demande explosivité des jambes, gainage et épaules saines. Tes séances <a href="exercices.html">Exercices</a> (deltoïdes, dos, core) et tes <a href="posture.html">correctifs posture</a> servent directement ta vitesse de déplacement et ta stabilité à la table. Pense aussi mollets/quadriceps pour les pas chassés. Échauffe poignets et épaules avant de jouer.
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- TACTIQUE & MENTAL -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-label">Gagner le jour J</div>
+    <h2 class="section-title">Tactique &amp; mental en compétition</h2>
+    <p class="section-sub">Le talent ouvre les matchs, la tête les ferme. Voici les routines qui transforment un bon joueur d'entraînement en compétiteur qui gagne ses matchs serrés.</p>
+  </div>
+
+  <div class="decision reveal" style="margin-bottom:32px;">
+    <span class="verdict">Plan de match type · adversaire 550-600</span>
+    <h3>Ta recette pour faire tomber un joueur de ton niveau</h3>
+    <p>À 550-600, le profil type : <b>revers instable</b>, <b>lit mal l'effet au service</b>, <b>pousse les balles courtes</b> (souvent long et un peu haut), et <b>recule</b> dès que ça va vite. Ta feuille de route, dans l'ordre :</p>
+    <ol style="color:rgba(255,255,255,0.8);font-size:0.9rem;line-height:1.9;margin:6px 0 0 18px;">
+      <li><b>Sers court coupé</b> → il pousse → <b>attaque ta 3ᵉ balle en coup droit.</b> C'est 60 % de tes points.</li>
+      <li><b>Trouve son revers</b> dès les 2 premiers points et <b>martèle-le</b> jusqu'à ce qu'il craque.</li>
+      <li><b>Varie un service par set</b> : le long rapide dans le coude pour l'empêcher de s'avancer.</li>
+      <li><b>Ne fais jamais de cadeau en remise</b> : bas et long, jamais haut au centre.</li>
+      <li><b>Sur balle rapide, reste près de la table</b> et bloque — c'est lui qui recule, pas toi.</li>
+    </ol>
+  </div>
+
+  <div class="grid-2 reveal">
+    <div class="tac-list">
+      <div class="tac"><div class="ic">🔍</div><div><b>Lis ton adversaire dans les 2 premiers points</b><p>Revers faible ? Recule sur les services longs ? Panique sur les balles rapides ? Trouve sa faille et martèle-la.</p></div></div>
+      <div class="tac"><div class="ic">🧭</div><div><b>Aie toujours un plan A et un plan B</b><p>Plan A : ton schéma service court + attaque. Si ça ne marche pas, plan B : jeu long et bas pour le faire fauter. Ne reste jamais sans plan.</p></div></div>
+      <div class="tac"><div class="ic">⏱️</div><div><b>Routine entre les points</b><p>Respire, essuie la main, fixe ta cible, sers. Cette routine de 3-4 s te recentre et t'évite d'enchaîner les fautes sous pression.</p></div></div>
+    </div>
+    <div class="tac-list">
+      <div class="tac"><div class="ic">🔄</div><div><b>Quand ça va mal, change tout</b><p>Tu mènes le set adverse ? Casse le rythme : change de service, ralentis, vise l'autre coin. Ne « subis » jamais une série en répétant la même chose.</p></div></div>
+      <div class="tac"><div class="ic">🎯</div><div><b>Joue les points importants simplement</b><p>À 9-9, sors ton service le plus fiable et ton schéma le plus rôdé. Pas le moment de tenter le coup parfait — le moment de ne pas faire de faute.</p></div></div>
+      <div class="tac"><div class="ic">💪</div><div><b>Reste positif, langage corporel haut</b><p>Tête haute entre les points, même menée. Les adversaires sentent le découragement. Ta progression rapide est une force mentale : tu n'as rien à perdre, tout à apprendre.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PICOTS -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-label">Le matchup piège</div>
+    <h2 class="section-title">Picots, anti-top &amp; défenseurs</h2>
+    <p class="section-sub">À 550-600, tu vas tomber sur des revêtements bizarres (picots, anti-top) et des défenseurs qui coupent loin de la table. C'est LE genre de match qu'on perd « sans comprendre ». Voici la clé pour ne plus te faire avoir.</p>
+  </div>
+
+  <div class="callout reveal" style="margin-bottom:24px;">
+    <b>La règle d'or :</b> ces revêtements <b>n'ajoutent pas d'effet, ils RETOURNENT ou TUENT le tien</b>. En clair : <b>ce que tu envoies te revient à l'envers.</b> Ton top revient coupé. Ton coupé revient sans effet (ou léger top). Si tu joues comme contre une gomme normale, tu enchaînes les fautes sans comprendre pourquoi.
+  </div>
+
+  <div class="grid-3 reveal" style="margin-bottom:24px;">
+    <div class="card top-pp"><div class="card-icon">🔎</div><div class="card-title">Les reconnaître</div><div class="card-text">Surface <b>mate / à picots visibles</b>, souvent un côté lisse + un côté picots (il <b>tourne sa raquette</b> en jeu pour te tromper). La balle revient « morte », flottante ou avec un effet inattendu. Repère sa gomme <b>avant</b> de servir.</div></div>
+    <div class="card top-orange"><div class="card-icon">🔄</div><div class="card-title">Picots longs / anti-top</div><div class="card-text">Ils <b>inversent</b> ton effet. Gros top de ta part → la balle revient <b>coupée</b> → tu dois <b>ré-ouvrir</b> (lifter), surtout pas redriver à plat. Tu pousses coupé → ça revient <b>sans effet</b> → frappe, ne soulève pas.</div></div>
+    <div class="card top-green"><div class="card-icon">🧱</div><div class="card-title">Le défenseur (chop)</div><div class="card-text">Il coupe loin de la table et attend ta faute. <b>Ne smashe pas tout.</b> Alterne <b>top lourd long</b> + <b>balle courte</b> pour le ramener à la table (il déteste ça). Sois patient, construis le point.</div></div>
+  </div>
+
+  <h3 style="margin:30px 0 14px;font-family:var(--font-head);font-size:1.5rem;letter-spacing:.03em;">Ton plan contre eux</h3>
+  <div class="tac-list reveal">
+    <div class="tac"><div class="ic">🧠</div><div><b>Anticipe l'effet inversé</b><p>Après chaque balle, demande-toi « qu'est-ce que MON effet va devenir en revenant ? ». Top → attends du coupé. Coupé → attends du sans-effet. Adapte ta raquette sur la balle d'après.</p></div></div>
+    <div class="tac"><div class="ic">🎚️</div><div><b>Change de rythme, pas de puissance</b><p>Les picots adorent la vitesse régulière (ils la renvoient toute seule). Casse le tempo : un coup lent et lifté, puis un coup vif. C'est le <b>changement</b> qui les fait fauter, pas la force.</p></div></div>
+    <div class="tac"><div class="ic">🎯</div><div><b>Attaque quand l'effet est neutre</b><p>Frappe surtout les balles « mortes »/sans effet (faciles à lire). Sur celles qui reviennent coupées, contente-toi d'<b>ouvrir lent et régulier</b> — pas de missile.</p></div></div>
+    <div class="tac"><div class="ic">🧊</div><div><b>Garde ton sang-froid</b><p>Le vrai piège est mental : ça paraît lent et « facile », tu t'impatientes, tu forces, tu rates. Reste solide, joue régulier — c'est LUI qui doit craquer en premier.</p></div></div>
+  </div>
+
+  <div class="callout reveal" style="margin-top:20px;">
+    <b>Pour ton jeu :</b> ton gros coup droit lifté revient flotté/coupé contre des picots → sois prêt à <b>ré-ouvrir</b> (cf. « attaquer la balle coupée ») plutôt qu'à redriver. Et ton atout ici, c'est le <b>changement de rythme</b> : alterne ouverture lente et accélération, ça déstabilise n'importe quel picots ou défenseur de ton niveau.
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- OBJECTIFS -->
+<section class="section alt-bg">
+  <div class="reveal">
+    <div class="section-label">Feuille de route</div>
+    <h2 class="section-title">Tes objectifs 6 mois</h2>
+    <p class="section-sub">Coche au fur et à mesure. Sauvegardé sur ton téléphone (comme le reste de l'app). Tant que le bloc revers n'est pas coché, c'est lui la priorité n°1.</p>
+  </div>
+  <div class="obj-list reveal" id="objList">
+    <!-- rempli par JS -->
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- TRACKER -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-label">Suivi compétition</div>
+    <h2 class="section-title">Tracker de matchs</h2>
+    <p class="section-sub">Note chaque match officiel. L'app calcule ton ratio et garde l'historique en local. Démarre avec ton bilan actuel (14 V – 4 D) ou repars de zéro pour la nouvelle saison.</p>
+  </div>
+
+  <div class="tracker reveal">
+    <div class="tk-stats">
+      <div class="tk-stat"><div class="v" id="tkTotal">0</div><div class="l">Matchs</div></div>
+      <div class="tk-stat win"><div class="v" id="tkWins">0</div><div class="l">Victoires</div></div>
+      <div class="tk-stat loss"><div class="v" id="tkLoss">0</div><div class="l">Défaites</div></div>
+      <div class="tk-stat rate"><div class="v" id="tkRate">—</div><div class="l">% victoires</div></div>
+    </div>
+
+    <div class="tk-form">
+      <input type="text" id="tkOpp" placeholder="Adversaire" aria-label="Adversaire">
+      <input type="text" id="tkScore" placeholder="Score (3-1)" aria-label="Score">
+      <select id="tkRes" aria-label="Résultat">
+        <option value="V">Victoire</option>
+        <option value="D">Défaite</option>
+      </select>
+      <input type="number" id="tkPts" placeholder="Pts adv." aria-label="Points adverse" inputmode="numeric">
+      <button class="tk-add" id="tkAdd">+ Ajouter</button>
+    </div>
+
+    <div class="tk-list" id="tkList"></div>
+  </div>
+
+  <div class="callout reveal" style="margin-top:20px;">
+    <b>Système de points FFTT (rappel) :</b> tout licencié démarre à <b>500 points</b>. Tu gagnes des points en battant un joueur mieux classé (et tu en perds peu en t'inclinant face à plus fort). Le classement est recalculé à chaque phase. Battre des joueurs au-dessus de 550-600 est le moyen le plus rapide de grimper — d'où l'intérêt de noter les points de tes adversaires ci-dessus.
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- LEXIQUE -->
+<section class="section alt-bg">
+  <div class="reveal">
+    <div class="section-label">Mémo</div>
+    <h2 class="section-title">Lexique express</h2>
+    <p class="section-sub">Tous les mots de cette page (et du bord de la table), en une ligne chacun. À relire avant un match si un terme te bloque.</p>
+  </div>
+  <div class="grid-2 reveal" style="gap:10px;">
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Top / lifté</b> — effet vers l'avant ; la balle plonge et accélère au rebond.</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Coupé (backspin)</b> — effet arrière ; la balle flotte, freine et tombe court.</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Latéral (sidespin)</b> — effet de côté ; la balle dévie en l'air et au rebond.</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Sans effet (no spin)</b> — balle « morte », aucune rotation. Le piège classique.</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Poussette (push)</b> — renvoi contrôlé sous une balle coupée, près de la table.</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Bloc</b> — renvoyer une balle liftée sans geste, en absorbant sa vitesse.</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Flip (flick)</b> — petite attaque du poignet sur une balle courte, au-dessus de la table.</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Ouvrir / ouverture</b> — lifter une balle coupée pour la passer (ton 1ᵉʳ top de l'échange).</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Contre (contre-top)</b> — relancer le top adverse par ton propre top.</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Smash</b> — frappe puissante à plat sur une balle haute.</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Pivot</b> — se décaler pour jouer coup droit depuis le coin revers.</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">3ᵉ balle</b> — ta 1ʳᵉ attaque après ton service (tu sers → il remet → tu frappes).</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Service court / long</b> — qui rebondit 2 fois (court) ou 1 fois près du fond (long).</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Remise</b> — le retour du service adverse (le coup où tu galérais avant !).</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Let / remise de service</b> — point rejoué (ex. service qui touche le filet et entre).</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Picots / anti-top</b> — revêtements qui inversent ou tuent l'effet.</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Chop / défense</b> — coupé défensif joué loin de la table.</div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Bois allround / offensif</b> — bois lent (contrôle) vs rapide (vitesse).</div>
+  </div>
+</section>
+
+<footer>
+  <span>ALLEZ — Ping-Pong · Coaching &amp; Progression</span>
+  <span>
+    <a href="index.html">Accueil</a> &nbsp;·&nbsp;
+    <a href="exercices.html">Exercices</a> &nbsp;·&nbsp;
+    <a href="posture.html">Posture</a> &nbsp;·&nbsp;
+    <a href="pingpong.html">Ping-Pong</a>
+  </span>
+</footer>
+
+<script>
+// SCROLL REVEAL
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// STROKE TABS
+const tabBtns = document.querySelectorAll('#strokeTabs .tab-btn');
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabBtns.forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+  });
+});
+
+// ── OBJECTIFS (localStorage) ──
+const OBJ_KEY = 'px_pingpong_obj';
+const OBJECTIVES = [
+  { id: 'bloc',    label: 'Bloc revers fiable : 15-20 sans faute, jamais de balle haute' },
+  { id: 'pivot',   label: 'Pivoter pour jouer coup droit depuis le coin revers' },
+  { id: 'cd',      label: 'Régularité coup droit : 20-30 topspins d\'affilée sans faute' },
+  { id: 'service', label: 'Maîtriser 3 services au même geste (coupé court, latéral, long)' },
+  { id: 'schema',  label: 'Schéma gagnant : service court coupé → attaque coup droit (3ᵉ balle)' },
+  { id: 'lecture', label: 'Lire l\'effet adverse à la gomme/raquette, pas à la balle' },
+  { id: 'points',  label: 'Franchir 700 points officiels' },
+];
+function objLoad() { try { return JSON.parse(localStorage.getItem(OBJ_KEY)) || {}; } catch(e) { return {}; } }
+function objSave(s) { localStorage.setItem(OBJ_KEY, JSON.stringify(s)); }
+function renderObj() {
+  const state = objLoad();
+  const wrap = document.getElementById('objList');
+  wrap.innerHTML = '';
+  OBJECTIVES.forEach(o => {
+    const done = !!state[o.id];
+    const div = document.createElement('div');
+    div.className = 'obj' + (done ? ' done' : '');
+    div.innerHTML = '<div class="obj-check">' + (done ? '✓' : '') + '</div><div class="obj-label">' + o.label + '</div>';
+    div.addEventListener('click', () => {
+      const s = objLoad(); s[o.id] = !s[o.id]; objSave(s); renderObj();
+    });
+    wrap.appendChild(div);
+  });
+}
+renderObj();
+
+// ── RÉGLAGES VIDÉO (localStorage) ──
+const VID_KEY = 'px_pingpong_video';
+const VIDEO_FIXES = [
+  { id: 'attente', label: 'Remonter la raquette devant le ventre après CHAQUE frappe' },
+  { id: 'pas',     label: 'Un pas de plus au lieu de tendre le bras (contact près du corps)' },
+  { id: 'blocrev', label: 'Bloc revers fiable pour ne plus être puni côté revers' },
+];
+function vidLoad() { try { return JSON.parse(localStorage.getItem(VID_KEY)) || {}; } catch(e) { return {}; } }
+function vidSave(s) { localStorage.setItem(VID_KEY, JSON.stringify(s)); }
+function renderVidFixes() {
+  const state = vidLoad();
+  const wrap = document.getElementById('vidFixList');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  VIDEO_FIXES.forEach(o => {
+    const done = !!state[o.id];
+    const div = document.createElement('div');
+    div.className = 'obj' + (done ? ' done' : '');
+    div.innerHTML = '<div class="obj-check">' + (done ? '✓' : '') + '</div><div class="obj-label">' + o.label + '</div>';
+    div.addEventListener('click', () => { const s = vidLoad(); s[o.id] = !s[o.id]; vidSave(s); renderVidFixes(); });
+    wrap.appendChild(div);
+  });
+}
+renderVidFixes();
+
+// ── TRACKER MATCHS (localStorage) ──
+const PP_KEY = 'px_pingpong_matches';
+function ppLoad() { try { return JSON.parse(localStorage.getItem(PP_KEY)) || []; } catch(e) { return []; } }
+function ppSave(a) { localStorage.setItem(PP_KEY, JSON.stringify(a)); }
+const ppEsc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function renderMatches() {
+  const matches = ppLoad();
+  const wins = matches.filter(m => m.res === 'V').length;
+  const loss = matches.filter(m => m.res === 'D').length;
+  const total = matches.length;
+  document.getElementById('tkTotal').textContent = total;
+  document.getElementById('tkWins').textContent = wins;
+  document.getElementById('tkLoss').textContent = loss;
+  document.getElementById('tkRate').textContent = total ? Math.round(wins / total * 100) + '%' : '—';
+
+  const list = document.getElementById('tkList');
+  list.innerHTML = '';
+  if (!total) {
+    list.innerHTML = '<div class="tk-empty">Aucun match enregistré. Ajoute ton premier résultat ci-dessus.</div>';
+    return;
+  }
+  matches.slice().reverse().forEach((m, ri) => {
+    const realIdx = total - 1 - ri;
+    const row = document.createElement('div');
+    row.className = 'tk-row';
+    row.innerHTML =
+      '<div class="tk-res ' + m.res + '">' + m.res + '</div>' +
+      '<div class="tk-opp">' + (m.opp ? ppEsc(m.opp) : 'Adversaire') + '</div>' +
+      '<div class="tk-meta">' + (m.score ? ppEsc(m.score) : '') + '</div>' +
+      '<div class="tk-meta pts">' + (m.pts ? ppEsc(m.pts) + ' pts' : '') + '</div>' +
+      '<button class="tk-del" aria-label="Supprimer">✕</button>';
+    row.querySelector('.tk-del').addEventListener('click', () => {
+      const arr = ppLoad(); arr.splice(realIdx, 1); ppSave(arr); renderMatches();
+    });
+    list.appendChild(row);
+  });
+}
+document.getElementById('tkAdd').addEventListener('click', () => {
+  const opp = document.getElementById('tkOpp').value.trim();
+  const score = document.getElementById('tkScore').value.trim();
+  const res = document.getElementById('tkRes').value;
+  const pts = document.getElementById('tkPts').value.trim();
+  if (!opp && !score) { document.getElementById('tkOpp').focus(); return; }
+  const arr = ppLoad();
+  arr.push({ opp, score, res, pts, date: new Date().toISOString() });
+  ppSave(arr);
+  document.getElementById('tkOpp').value = '';
+  document.getElementById('tkScore').value = '';
+  document.getElementById('tkPts').value = '';
+  renderMatches();
+});
+renderMatches();
+
+// Update nav active state
+document.querySelectorAll('.nav-links a').forEach(a => {
+  if (a.href === window.location.href) a.classList.add('active');
+});
+</script>
+<script>
+const _hbg = document.getElementById('navHbg');
+const _nav = document.querySelector('nav');
+_hbg.addEventListener('click', () => { _hbg.classList.toggle('open'); _nav.classList.toggle('open'); });
+document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => { _hbg.classList.remove('open'); _nav.classList.remove('open'); }); });
+document.addEventListener('click', e => { if (_nav.classList.contains('open') && !_nav.contains(e.target)) { _hbg.classList.remove('open'); _nav.classList.remove('open'); } });
+</script>
+<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
+</body>
+</html>

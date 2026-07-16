@@ -1,0 +1,18 @@
+# Outil local de publication (ne pas servir sur le web)
+publier.cmd
+
+# Fichiers systeme Windows / OneDrive
+desktop.ini
+Thumbs.db
+*.tmp
+
+# PRIVE — ne jamais publier (photos, medical, notes perso)
+MUSCULATION/Photo Physique/
+MUSCULATION/Photo ping pong/
+MUSCULATION/memory/
+MUSCULATION/PROJET.md
+MUSCULATION/PROMPTS.md
+*.jpg
+*.jpeg
+*.pdf
+*.mp4

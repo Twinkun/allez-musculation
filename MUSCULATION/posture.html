@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e8960a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ALLEZ">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Posture & Pectus Excavatum — ALLEZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0ece3;
+  --bg-card: #ffffff;
+  --bg-dark: #0b1020;
+  --bg-mid: #111826;
+  --gold: #e8960a;
+  --gold-light: #f5b040;
+  --teal: #0a8a9e;
+  --teal-light: #12adc4;
+  --green: #0a9e52;
+  --green-light: #12c564;
+  --red: #d4200a;
+  --orange: #e05a1e;
+  --text: #1a1f2e;
+  --text-mid: #3a4060;
+  --text-light: #6b7090;
+  --border: rgba(0,0,0,0.08);
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.14);
+  --radius: 16px;
+  --font-head: 'Bebas Neue', sans-serif;
+  --font: 'Inter', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: hidden; scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 40px; height: 64px; display: flex; align-items: center; justify-content: space-between; background: rgba(11,16,32,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.07); }
+.nav-logo { font-family: var(--font-head); font-size: 1.5rem; letter-spacing: 0.08em; color: var(--gold); text-decoration: none; }
+.nav-links { display: flex; gap: 8px; list-style: none; }
+.nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; }
+.nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+.nav-links a.active { color: var(--gold); background: rgba(232,150,10,0.12); }
+
+/* HERO */
+.hero { background: var(--bg-dark); min-height: 400px; display: flex; align-items: flex-end; padding: 100px 60px 60px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 10% 60%, rgba(10,138,158,0.13) 0%, transparent 65%), radial-gradient(ellipse 50% 60% at 90% 20%, rgba(232,150,10,0.08) 0%, transparent 60%); }
+.hero-content { position: relative; z-index: 1; max-width: 720px; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(10,138,158,0.18); border: 1px solid rgba(10,138,158,0.45); color: var(--teal-light); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+.hero-badge span { width: 6px; height: 6px; background: var(--teal-light); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+.hero h1 { font-family: var(--font-head); font-size: clamp(3rem, 7vw, 5.5rem); color: #fff; line-height: 0.92; letter-spacing: 0.02em; margin-bottom: 20px; }
+.hero h1 em { color: var(--teal-light); font-style: normal; }
+.hero p { color: rgba(255,255,255,0.6); font-size: 1rem; max-width: 560px; line-height: 1.75; }
+.hero-tags { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
+.hero-tag { padding: 6px 14px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; }
+.hero-tag.hl { border-color: rgba(10,138,158,0.5); color: var(--teal-light); background: rgba(10,138,158,0.12); }
+
+/* LAYOUT */
+.section { padding: 72px 60px; max-width: 1200px; margin: 0 auto; }
+.section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+.section-title { font-family: var(--font-head); font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 0.03em; line-height: 1.05; color: var(--text); margin-bottom: 8px; }
+.section-sub { color: var(--text-light); font-size: 0.95rem; max-width: 600px; line-height: 1.75; margin-bottom: 44px; }
+.section-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 60px; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── COMPRENDRE ── */
+.understand-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.understand-card { background: var(--bg-card); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.understand-icon { font-size: 2.4rem; margin-bottom: 16px; }
+.understand-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; color: var(--text); }
+.understand-text { font-size: 0.88rem; color: var(--text-mid); line-height: 1.75; }
+.understand-card.highlight { border-top: 4px solid var(--teal); }
+.understand-card.warn { border-top: 4px solid var(--gold); }
+.understand-card.good { border-top: 4px solid var(--green); }
+.understand-card.info { border-top: 4px solid var(--orange); }
+
+.severity-scale { display: flex; gap: 0; margin-top: 20px; border-radius: 10px; overflow: hidden; }
+.sev-item { flex: 1; padding: 10px 8px; text-align: center; font-size: 0.72rem; font-weight: 700; }
+.sev-item.active { position: relative; }
+.sev-item.active::after { content: '▲ TOI'; position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%); font-size: 0.6rem; white-space: nowrap; }
+.sev-1 { background: rgba(10,158,82,0.15); color: var(--green); }
+.sev-2 { background: rgba(232,150,10,0.15); color: var(--gold); }
+.sev-3 { background: rgba(224,90,30,0.2); color: var(--orange); }
+.sev-4 { background: rgba(212,32,10,0.15); color: var(--red); }
+
+/* ── POSTURE VISUEL ── */
+.posture-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+.posture-card { background: var(--bg-card); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); border: 1px solid var(--border); text-align: center; }
+.posture-card.bad { border-top: 4px solid var(--red); }
+.posture-card.good { border-top: 4px solid var(--green); }
+.posture-card-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px; }
+.posture-card.bad .posture-card-label { color: var(--red); }
+.posture-card.good .posture-card-label { color: var(--green); }
+
+/* CSS Posture Figure */
+.posture-figure { display: flex; justify-content: center; margin: 16px 0 24px; }
+.figure { position: relative; width: 100px; height: 200px; }
+.f-head { width: 30px; height: 30px; border-radius: 50%; background: var(--text); position: absolute; top: 0; left: 50%; transform: translateX(-50%); }
+.f-neck { width: 8px; height: 14px; background: var(--text-mid); position: absolute; top: 28px; left: 50%; transform: translateX(-50%); border-radius: 3px; }
+.f-torso { width: 36px; height: 60px; position: absolute; top: 42px; left: 50%; transform: translateX(-50%); border-radius: 6px 6px 10px 10px; }
+.f-arm-l { width: 10px; height: 50px; position: absolute; top: 44px; border-radius: 5px; }
+.f-arm-r { width: 10px; height: 50px; position: absolute; top: 44px; border-radius: 5px; }
+.f-leg-l { width: 12px; height: 58px; position: absolute; top: 102px; border-radius: 5px 5px 8px 8px; }
+.f-leg-r { width: 12px; height: 58px; position: absolute; top: 102px; border-radius: 5px 5px 8px 8px; }
+
+/* BAD posture */
+.bad-fig .f-head { top: 8px; left: calc(50% + 10px); }
+.bad-fig .f-neck { top: 35px; left: calc(50% + 6px); transform: rotate(15deg); }
+.bad-fig .f-torso { background: rgba(212,32,10,0.25); border: 2px solid rgba(212,32,10,0.4); transform: translateX(-50%) rotate(-5deg); }
+.bad-fig .f-arm-l { background: var(--text-mid); left: calc(50% - 28px); transform: rotate(10deg); }
+.bad-fig .f-arm-r { background: var(--text-mid); left: calc(50% + 18px); transform: rotate(-10deg); }
+.bad-fig .f-leg-l { background: var(--text-mid); left: calc(50% - 14px); }
+.bad-fig .f-leg-r { background: var(--text-mid); left: calc(50% + 2px); }
+
+/* GOOD posture */
+.good-fig .f-head { top: 0; left: 50%; }
+.good-fig .f-neck { top: 28px; left: 50%; }
+.good-fig .f-torso { background: rgba(10,158,82,0.2); border: 2px solid rgba(10,158,82,0.45); }
+.good-fig .f-arm-l { background: var(--text-mid); left: calc(50% - 24px); transform: rotate(5deg); }
+.good-fig .f-arm-r { background: var(--text-mid); left: calc(50% + 14px); transform: rotate(-5deg); }
+.good-fig .f-leg-l { background: var(--text-mid); left: calc(50% - 13px); }
+.good-fig .f-leg-r { background: var(--text-mid); left: calc(50% + 1px); }
+
+.posture-points { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+.posture-point { display: flex; align-items: flex-start; gap: 10px; font-size: 0.83rem; color: var(--text-mid); line-height: 1.5; }
+.pp-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+.bad .pp-dot { background: var(--red); }
+.good .pp-dot { background: var(--green); }
+
+/* ── MUSCLES PRIORITAIRES ── */
+.muscle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.muscle-card { background: var(--bg-card); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); border: 1px solid var(--border); position: relative; overflow: hidden; }
+.muscle-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.muscle-card.prio-1::before { background: linear-gradient(90deg, var(--teal), var(--teal-light)); }
+.muscle-card.prio-2::before { background: linear-gradient(90deg, var(--green), var(--green-light)); }
+.muscle-card.prio-3::before { background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+.muscle-prio-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: 100px; margin-bottom: 12px; }
+.prio-1 .muscle-prio-badge { background: rgba(10,138,158,0.12); color: var(--teal); }
+.prio-2 .muscle-prio-badge { background: rgba(10,158,82,0.1); color: var(--green); }
+.prio-3 .muscle-prio-badge { background: rgba(232,150,10,0.12); color: var(--gold); }
+.muscle-icon { font-size: 2rem; margin-bottom: 10px; }
+.muscle-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+.muscle-role { font-size: 0.8rem; color: var(--text-light); line-height: 1.6; margin-bottom: 12px; }
+.muscle-why { font-size: 0.78rem; color: var(--text-mid); line-height: 1.6; padding: 10px 12px; background: var(--bg); border-radius: 8px; border-left: 3px solid currentColor; }
+.prio-1 .muscle-why { border-color: var(--teal); }
+.prio-2 .muscle-why { border-color: var(--green); }
+.prio-3 .muscle-why { border-color: var(--gold); }
+
+/* ── EXERCICES TABS ── */
+.ex-tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+.ex-tab { padding: 8px 18px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.8rem; font-weight: 600; cursor: pointer; background: var(--bg-card); color: var(--text-light); transition: all 0.2s; }
+.ex-tab:hover { border-color: var(--teal); color: var(--teal); }
+.ex-tab.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+.ex-panel { display: none; }
+.ex-panel.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; }
+
+.ex-card { background: var(--bg-card); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.ex-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.ex-num { width: 40px; height: 40px; border-radius: 10px; background: rgba(10,138,158,0.12); color: var(--teal); font-family: var(--font-head); font-size: 1.2rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ex-meta { }
+.ex-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 2px; }
+.ex-target { font-size: 0.72rem; color: var(--text-light); }
+.ex-tags { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+.ex-tag { font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; letter-spacing: 0.06em; text-transform: uppercase; }
+.ex-tag.sets { background: rgba(10,138,158,0.1); color: var(--teal); }
+.ex-tag.duration { background: rgba(10,158,82,0.1); color: var(--green); }
+.ex-tag.freq { background: rgba(232,150,10,0.1); color: var(--gold); }
+.ex-steps { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.ex-step { display: flex; gap: 10px; align-items: flex-start; font-size: 0.82rem; color: var(--text-mid); line-height: 1.55; }
+.ex-step-num { width: 20px; height: 20px; border-radius: 50%; background: var(--teal); color: #fff; font-size: 0.65rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.ex-tip { padding: 10px 12px; background: rgba(10,138,158,0.07); border-left: 3px solid var(--teal); border-radius: 0 8px 8px 0; font-size: 0.78rem; color: var(--text-mid); font-style: italic; }
+
+/* ── ÉTIREMENTS ── */
+.stretch-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.stretch-card { background: var(--bg-card); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); border: 1px solid var(--border); display: flex; gap: 18px; }
+.stretch-timer { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 80px; flex-shrink: 0; }
+.stretch-timer-ring { width: 72px; height: 72px; position: relative; }
+.stretch-timer-ring svg { transform: rotate(-90deg); width: 72px; height: 72px; }
+.str-ring-track { fill: none; stroke: var(--bg); stroke-width: 6; }
+.str-ring-fill { fill: none; stroke: var(--teal); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 188; stroke-dashoffset: 188; transition: stroke-dashoffset 0.5s; }
+.str-ring-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--font-head); font-size: 1rem; color: var(--teal); letter-spacing: 0.04em; }
+.stretch-body { flex: 1; }
+.stretch-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+.stretch-target { font-size: 0.72rem; color: var(--teal); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+.stretch-desc { font-size: 0.82rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 10px; }
+.stretch-sets { font-size: 0.78rem; color: var(--text-light); font-weight: 600; }
+
+/* ── RESPIRATION ── */
+.breath-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.breath-visual { background: var(--bg-dark); border-radius: var(--radius); padding: 40px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.breath-circle-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+.breath-circle {
+  width: 180px; height: 180px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(10,138,158,0.3) 0%, rgba(10,138,158,0.05) 70%);
+  border: 2px solid rgba(10,138,158,0.4);
+  display: flex; align-items: center; justify-content: center;
+  animation: breathe 8s ease-in-out infinite;
+  position: relative;
+}
+@keyframes breathe {
+  0%,100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(10,138,158,0.2); }
+  40% { transform: scale(1.3); box-shadow: 0 0 0 30px rgba(10,138,158,0); }
+  60% { transform: scale(1.3); }
+  80% { transform: scale(1); }
+}
+.breath-label { font-family: var(--font-head); font-size: 1.4rem; color: var(--teal-light); letter-spacing: 0.1em; }
+.breath-phase { font-size: 0.75rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.12em; }
+.breath-steps { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+.breath-step-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 10px; background: rgba(255,255,255,0.05); }
+.breath-step-icon { font-size: 1.1rem; flex-shrink: 0; }
+.breath-step-text { font-size: 0.82rem; color: rgba(255,255,255,0.7); }
+.breath-step-text strong { color: var(--teal-light); }
+
+.breath-cards { display: flex; flex-direction: column; gap: 16px; }
+.breath-card { background: var(--bg-card); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.breath-card-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+.breath-card-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 10px; }
+.breath-card-text { font-size: 0.83rem; color: var(--text-mid); line-height: 1.7; }
+.breath-timing { display: flex; gap: 8px; margin-top: 14px; }
+.breath-timing-box { flex: 1; text-align: center; padding: 10px; border-radius: 8px; }
+.bt-val { font-family: var(--font-head); font-size: 1.6rem; letter-spacing: 0.04em; }
+.bt-lbl { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-light); margin-top: 2px; }
+.bt-inhale { background: rgba(10,138,158,0.1); }
+.bt-inhale .bt-val { color: var(--teal); }
+.bt-hold { background: rgba(232,150,10,0.1); }
+.bt-hold .bt-val { color: var(--gold); }
+.bt-exhale { background: rgba(10,158,82,0.1); }
+.bt-exhale .bt-val { color: var(--green); }
+
+/* ── ERREURS ── */
+.erreur-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.erreur-card { background: var(--bg-card); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); border: 1px solid var(--border); border-left: 4px solid var(--red); opacity: 0; transform: translateX(-12px); transition: all 0.4s ease; }
+.erreur-card.visible { opacity: 1; transform: translateX(0); }
+.erreur-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.erreur-x { width: 32px; height: 32px; border-radius: 50%; background: rgba(212,32,10,0.1); color: var(--red); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; flex-shrink: 0; }
+.erreur-title { font-weight: 700; font-size: 0.92rem; color: var(--red); }
+.erreur-text { font-size: 0.82rem; color: var(--text-mid); line-height: 1.65; }
+.erreur-fix { margin-top: 10px; display: flex; align-items: flex-start; gap: 8px; font-size: 0.8rem; color: var(--green); font-weight: 600; line-height: 1.5; }
+
+/* ── PROTOCOLE QUOTIDIEN ── */
+.protocol-timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+.protocol-timeline::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--teal), var(--gold), var(--green)); opacity: 0.3; }
+.proto-item { display: flex; gap: 24px; padding-bottom: 24px; }
+.proto-dot-col { display: flex; flex-direction: column; align-items: center; width: 40px; flex-shrink: 0; }
+.proto-dot { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; border: 2px solid currentColor; background: var(--bg-card); }
+.proto-dot.morning { color: var(--gold); background: rgba(232,150,10,0.1); }
+.proto-dot.preworkout { color: var(--teal); background: rgba(10,138,158,0.1); }
+.proto-dot.postworkout { color: var(--green); background: rgba(10,158,82,0.1); }
+.proto-dot.evening { color: var(--text-light); background: var(--bg); }
+.proto-body { background: var(--bg-card); border-radius: var(--radius); padding: 22px 26px; box-shadow: var(--shadow); border: 1px solid var(--border); flex: 1; margin-bottom: 0; }
+.proto-when { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+.morning .proto-when { color: var(--gold); }
+.preworkout .proto-when { color: var(--teal); }
+.postworkout .proto-when { color: var(--green); }
+.evening .proto-when { color: var(--text-light); }
+.proto-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; }
+.proto-list { display: flex; flex-direction: column; gap: 5px; }
+.proto-list li { font-size: 0.83rem; color: var(--text-mid); list-style: none; display: flex; gap: 8px; line-height: 1.5; }
+.proto-list li::before { content: '·'; color: var(--teal); font-size: 1.2rem; line-height: 1; flex-shrink: 0; }
+
+/* CONSEIL BOX */
+.conseil-box { background: linear-gradient(135deg, var(--bg-dark), var(--bg-mid)); border-radius: var(--radius); padding: 40px 48px; color: #fff; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+.conseil-col { }
+.conseil-col-title { font-family: var(--font-head); font-size: 1.4rem; letter-spacing: 0.06em; color: var(--teal-light); margin-bottom: 16px; }
+.conseil-items { display: flex; flex-direction: column; gap: 8px; }
+.conseil-item { display: flex; gap: 8px; font-size: 0.83rem; color: rgba(255,255,255,0.7); line-height: 1.55; }
+.conseil-item::before { content: '✓'; color: var(--teal-light); font-weight: 700; flex-shrink: 0; }
+.conseil-item.no::before { content: '✕'; color: var(--red); }
+
+/* FOOTER */
+footer { background: var(--bg-dark); color: rgba(255,255,255,0.45); padding: 36px 60px; font-size: 0.82rem; display: flex; align-items: center; justify-content: space-between; margin-top: 40px; }
+footer a { color: var(--gold); text-decoration: none; }
+
+/* ── HAMBURGER ── */
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.85); border-radius: 2px; transition: all .3s; }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-hamburger { display: flex; }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  nav.open { height: auto; flex-wrap: wrap; padding-bottom: 12px; }
+  nav.open .nav-links { display: flex !important; flex-direction: column; width: 100%; gap: 2px; margin-top: 8px; }
+  nav.open .nav-links li { list-style: none; }
+  nav.open .nav-links a { padding: 10px 14px; color: rgba(255,255,255,0.8); font-size: 0.9rem; min-height: 48px; display: flex; align-items: center; }
+  .nav-links { display: none; }
+  .hero { padding: 48px 20px 40px; }
+  .section { padding: 48px 20px; scroll-margin-top: 72px; }
+  .section-divider { margin: 0 24px; }
+  .understand-grid { grid-template-columns: 1fr; }
+  .posture-compare { grid-template-columns: 1fr; }
+  .muscle-grid { grid-template-columns: 1fr; }
+  .ex-panel.active { grid-template-columns: 1fr; }
+  .stretch-grid { grid-template-columns: 1fr; }
+  .stretch-card { flex-direction: column; }
+  .breath-layout { grid-template-columns: 1fr; }
+  .erreur-grid { grid-template-columns: 1fr; }
+  .conseil-box { grid-template-columns: 1fr; padding: 28px 24px; }
+  footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 24px; }
+  .ex-tab { min-height: 44px; display: flex; align-items: center; }
+}
+
+/* ── TOUCH ANDROID ── */
+button, a, [onclick], input, select, label {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+/* ── ACCESSIBILITÉ ── */
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+  .breathe-circle{animation:none!important;}
+}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px;}
+@media (hover:none){
+  button:active,a:active{opacity:.82;}
+  .erreur-card:active,.conseil-item:active{transform:scale(0.99);}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">ALLEZ</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="nutrition.html">Nutrition</a></li>
+    <li><a href="logbook.html">Logbook</a></li>
+    <li><a href="progression.html">Progression</a></li>
+    <li><a href="exercices.html">Exercices</a></li>
+    <li><a href="programme.html">Programme</a></li>
+    <li><a href="analyse.html">Analyse</a></li>
+    <li><a href="posture.html" class="active">Posture</a></li>
+    <li><a href="projection.html">Projection</a></li>
+    <li><a href="lifestyle.html">Lifestyle</a></li>
+    <li><a href="recettes.html">Recettes</a></li>
+    <li><a href="pingpong.html">Ping-Pong</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHbg" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><span></span>Programme Personnalisé · Adapté à ton morphotype</div>
+    <h1>POSTURE &<br><em>PECTUS</em><br>EXCAVATUM</h1>
+    <p>Guide complet pour comprendre ton anatomie, corriger ta posture et construire un physique esthétique malgré les particularités morphologiques. Chaque exercice est adapté à ta sévérité légère.</p>
+    <div class="hero-tags">
+      <span class="hero-tag hl">Pectus léger esthétique</span>
+      <span class="hero-tag hl">Asymétrie posturale du dos</span>
+      <span class="hero-tag hl">Discopathie L5-S1 (radio 2020)</span>
+      <span class="hero-tag">Adapté débutant</span>
+      <span class="hero-tag">Approche esthétique</span>
+    </div>
+  </div>
+</div>
+
+<!-- S1 : COMPRENDRE -->
+<div class="section">
+  <div class="section-label">Éducation</div>
+  <div class="section-title">Comprendre le Pectus Excavatum</div>
+  <div class="section-sub">Une déformation du sternum fréquente (1/400 personnes) qui ne t'empêche pas de construire un physique esthétique — à condition d'adapter ton approche.</div>
+
+  <div class="understand-grid reveal">
+    <div class="understand-card highlight">
+      <div class="understand-icon">🫁</div>
+      <div class="understand-title">C'est quoi exactement ?</div>
+      <div class="understand-text">
+        Le pectus excavatum est une malformation du cartilage costal qui provoque un enfoncement du sternum (bréchet). Dans la grande majorité des cas (~90%), il est <strong>avant tout esthétique</strong> et n'empêche pas de t'entraîner ni de construire un beau physique.<br><br>
+        ⚠️ Seul un scanner (indice de Haller) et un avis médical peuvent confirmer la sévérité réelle et écarter tout retentissement cardiaque ou respiratoire. Si tu ressens un essoufflement anormal à l'effort ou des palpitations, consulte. En l'absence de ces signes, concentre-toi sur l'approche esthétique ci-dessous.
+      </div>
+      <div style="margin-top:20px">
+        <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-light);margin-bottom:12px;">Échelle de sévérité (Indice de Haller)</div>
+        <div class="severity-scale">
+          <div class="sev-item sev-1">Léger<br>< 3.2</div>
+          <div class="sev-item sev-2">Modéré<br>3.2-3.5</div>
+          <div class="sev-item sev-3">Sévère<br>3.5-4.0</div>
+          <div class="sev-item sev-4">Chir.<br>> 4.0</div>
+        </div>
+        <div style="height:22px"></div>
+      </div>
+    </div>
+
+    <div class="understand-card warn">
+      <div class="understand-icon">⚠️</div>
+      <div class="understand-title">Ce que ça change pour la musculation</div>
+      <div class="understand-text">
+        Le pectus crée naturellement un déséquilibre postural : les pectoraux tirent le sternum vers l'intérieur, les épaules ont tendance à s'enrouler vers l'avant, et la cage thoracique peut paraître plus étroite de face.<br><br>
+        <strong>Conséquence clé :</strong> si tu développes tes pectoraux sans renforcer simultanément ton dos et tes trapèzes moyens, tu accentues visuellement la dépression sternale et l'aspect "épaules roulées".<br><br>
+        <strong>La bonne nouvelle :</strong> un dos large et des épaules développées compensent optiquement le pectus et donnent une apparence V-shape puissante.
+      </div>
+    </div>
+
+    <div class="understand-card good">
+      <div class="understand-icon">✅</div>
+      <div class="understand-title">Ce que tu PEUX faire sans restriction</div>
+      <div class="understand-text">
+        Avec une sévérité légère et en l'absence de symptôme à l'effort, tu peux a priori faire <strong>tous les exercices de musculation</strong> avec quelques ajustements de priorité (à valider avec ton médecin en cas de doute) :<br><br>
+        · Presse inclinée ✓ (meilleure option que le plat)<br>
+        · Câbles pour les pectoraux ✓<br>
+        · Écarté haltères avec amplitude ✓<br>
+        · Dips ✗ (à éviter — compression sternale accentuée avec le pectus)<br>
+        · Tractions ✓ (excellent pour le dos)<br>
+        · Tous les exercices d'épaules ✓<br><br>
+        Pas de restriction absolue, juste une hiérarchisation intelligente.
+      </div>
+    </div>
+
+    <div class="understand-card info">
+      <div class="understand-icon">🎯</div>
+      <div class="understand-title">Ta stratégie esthétique optimale</div>
+      <div class="understand-text">
+        L'objectif n'est pas de "cacher" le pectus mais de construire autour pour que le regard soit attiré ailleurs :<br><br>
+        <strong>1. Épaules larges</strong> → décalage visuel du sternum (le regard va aux deltoïdes)<br>
+        <strong>2. Dos V-shape</strong> → silhouette triangulaire qui domine l'image frontale<br>
+        <strong>3. Pectoraux supérieurs</strong> → le haut du torse compense la concavité centrale<br>
+        <strong>4. Posture correcte</strong> → tête haute, épaules ouvertes, cage thoracique sortie<br><br>
+        Ces 4 éléments sont exactement ce que ton programme construit.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- S1B : RADIO DOS -->
+<div class="section">
+  <div class="section-label">Imagerie médicale</div>
+  <div class="section-title">Ton Dos : Ce Que Dit la Radio</div>
+  <div class="section-sub">Radiographie du rachis entier debout (juillet 2020, compte rendu signé du radiologue) — on s'appuie sur les faits, pas sur les suppositions.</div>
+
+  <div class="understand-grid reveal">
+    <div class="understand-card good">
+      <div class="understand-icon">✅</div>
+      <div class="understand-title">Pas de scoliose structurelle</div>
+      <div class="understand-text">
+        Le compte rendu est formel : <strong>« Pas de déviation scoliotique significative mise en évidence »</strong> — colonne droite de face, pas de bascule pelvienne, pas d'anomalie sagittale, pas de tassement.<br><br>
+        La différence que tu sens en palpant (colonne qui semble décalée à droite) correspond donc a priori à une <strong>asymétrie musculaire et posturale</strong> : paravertébraux inégaux, côté dominant plus développé. C'est réel au toucher et sur les photos, mais ce n'est pas l'os qui dévie — et ça se corrige par un entraînement équilibré. C'est exactement le rôle des exercices unilatéraux de cette page.
+      </div>
+    </div>
+
+    <div class="understand-card warn">
+      <div class="understand-icon">⚠️</div>
+      <div class="understand-title">Discopathie L5-S1 : ta vraie contrainte</div>
+      <div class="understand-text">
+        La seule trouvaille de la radio : un <strong>petit pincement du disque L5-S1</strong> (charnière entre la dernière lombaire et le sacrum), cohérent avec tes lombalgies. Fréquent, compatible avec la musculation, à condition de respecter 3 règles :<br><br>
+        <strong>1.</strong> Jamais de <strong>flexion lombaire sous charge</strong> (crunchs lestés lourds, dos qui s'enroule sur un tirage)<br>
+        <strong>2.</strong> Limiter la <strong>compression axiale lourde</strong> — pas de squat barre nuque ni soulevé de terre lourd (ton programme n'en contient pas)<br>
+        <strong>3.</strong> Jamais de <strong>flexion + rotation chargée</strong> combinées<br><br>
+        Dos neutre et gainage actif sur tout exercice debout ou penché.
+      </div>
+    </div>
+
+    <div class="understand-card highlight">
+      <div class="understand-icon">🙌</div>
+      <div class="understand-title">Ce qui soulage ton dos</div>
+      <div class="understand-text">
+        <strong>Dead hang</strong> — suspension passive à la barre de traction, 20-30 sec × 2-3, en fin de séance : décompression douce du rachis, souvent très agréable avec un pincement discal.<br><br>
+        <strong>Core anti-mouvement</strong> — planche, planche latérale, dead bug, bird dog, Pallof press : gainage puissant avec quasi zéro stress discal. Déjà dans ton programme.<br><br>
+        <strong>Marche quotidienne</strong> — le disque n'a pas de vaisseaux sanguins, il se nourrit du mouvement. La position assise prolongée est son pire ennemi : lève-toi toutes les 45 min.
+      </div>
+    </div>
+
+    <div class="understand-card info">
+      <div class="understand-icon">🩺</div>
+      <div class="understand-title">Douleurs actuelles : le bon réflexe</div>
+      <div class="understand-text">
+        Ta radio date de <strong>2020</strong> et tu as encore des douleurs au dos aujourd'hui. Un compte rendu vieux de 6 ans ne décrit plus forcément l'état actuel du disque.<br><br>
+        Si les douleurs <strong>persistent, augmentent, ou irradient</strong> vers la fesse ou la jambe, refais un bilan médical récent (médecin, ± nouvelle imagerie) — c'est le seul moyen de savoir où en est ce disque.<br><br>
+        En attendant, règle simple à la salle : <strong>aucun exercice qui déclenche ou reproduit ta douleur</strong>, même s'il est « au programme ». La douleur lombaire n'est jamais une courbature à traverser.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- S2 : POSTURE -->
+<div class="section">
+  <div class="section-label">Biomécanique</div>
+  <div class="section-title">Posture Correcte vs Incorrecte</div>
+  <div class="section-sub">Avec le pectus excavatum, le corps compense naturellement en enroulant les épaules. Voici exactement comment corriger ça.</div>
+
+  <div class="posture-compare reveal">
+    <div class="posture-card bad">
+      <div class="posture-card-label">Posture compensée (à éviter)</div>
+      <div class="posture-figure">
+        <div class="figure bad-fig">
+          <div class="f-head"></div>
+          <div class="f-neck"></div>
+          <div class="f-torso"></div>
+          <div class="f-arm-l"></div>
+          <div class="f-arm-r"></div>
+          <div class="f-leg-l"></div>
+          <div class="f-leg-r"></div>
+        </div>
+      </div>
+      <div class="posture-points bad">
+        <div class="posture-point"><div class="pp-dot"></div>Tête projetée vers l'avant (antéposition cervicale)</div>
+        <div class="posture-point"><div class="pp-dot"></div>Épaules enroulées vers l'avant et vers le bas</div>
+        <div class="posture-point"><div class="pp-dot"></div>Cage thoracique effondrée, sternum rentré</div>
+        <div class="posture-point"><div class="pp-dot"></div>Hypercyphose dorsale (dos arrondi)</div>
+        <div class="posture-point"><div class="pp-dot"></div>Pectoraux et pectoral mineur rétractés</div>
+        <div class="posture-point"><div class="pp-dot"></div>Accentue visuellement le pectus excavatum</div>
+      </div>
+    </div>
+
+    <div class="posture-card good">
+      <div class="posture-card-label">Posture optimale (à cultiver)</div>
+      <div class="posture-figure">
+        <div class="figure good-fig">
+          <div class="f-head"></div>
+          <div class="f-neck"></div>
+          <div class="f-torso"></div>
+          <div class="f-arm-l"></div>
+          <div class="f-arm-r"></div>
+          <div class="f-leg-l"></div>
+          <div class="f-leg-r"></div>
+        </div>
+      </div>
+      <div class="posture-points good">
+        <div class="posture-point"><div class="pp-dot"></div>Oreilles alignées avec les épaules (tête neutre)</div>
+        <div class="posture-point"><div class="pp-dot"></div>Épaules en arrière et en bas (omoplates soudées)</div>
+        <div class="posture-point"><div class="pp-dot"></div>Cage thoracique sortie, sternum "fier"</div>
+        <div class="posture-point"><div class="pp-dot"></div>Colonne en courbes naturelles (lordose/cyphose normales)</div>
+        <div class="posture-point"><div class="pp-dot"></div>Abdominaux légèrement engagés (transverse actif)</div>
+        <div class="posture-point"><div class="pp-dot"></div>Minimise visuellement la dépression sternale</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="conseil-box reveal">
+    <div class="conseil-col">
+      <div class="conseil-col-title">Habitudes à Adopter</div>
+      <div class="conseil-items">
+        <div class="conseil-item">Déverrouille tes épaules toutes les heures si tu travailles assis</div>
+        <div class="conseil-item">Dors sur le dos ou le côté, jamais le ventre (accentue la cyphose)</div>
+        <div class="conseil-item">Chin tuck 10× chaque matin dès le réveil</div>
+        <div class="conseil-item">Pousse "sternum vers le ciel" en position debout</div>
+        <div class="conseil-item">Sac à dos plutôt que sac sur une épaule</div>
+        <div class="conseil-item">Écran d'ordinateur à hauteur des yeux</div>
+      </div>
+    </div>
+    <div class="conseil-col">
+      <div class="conseil-col-title">À l'Entraînement</div>
+      <div class="conseil-items">
+        <div class="conseil-item">Début de chaque séance : 5 min de posture + activation épaules</div>
+        <div class="conseil-item">Ratio dos/pectoraux : 2 pour 1 en volume</div>
+        <div class="conseil-item">Face pull à chaque séance upper body (Push · Pull · V-SHAPE)</div>
+        <div class="conseil-item">Inclinaison 30° pour le développé (jamais plat lourd)</div>
+        <div class="conseil-item">Amplitude complète sur tous les exercices dos</div>
+        <div class="conseil-item">Excentrique lent sur le tirage (3-4 secondes)</div>
+      </div>
+    </div>
+    <div class="conseil-col">
+      <div class="conseil-col-title">À Éviter</div>
+      <div class="conseil-items">
+        <div class="conseil-item no">Développé couché barre plat avec prise très large</div>
+        <div class="conseil-item no">Surcharger les pectoraux sans équilibrer le dos</div>
+        <div class="conseil-item no">Négliger les rotateurs externes de l'épaule</div>
+        <div class="conseil-item no">Croiser les bras devant soi (rétraction pectoral mineur)</div>
+        <div class="conseil-item no">Hyperextension lombaire pour "sortir" le sternum</div>
+        <div class="conseil-item no">S'asseoir avachi pendant de longues heures</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- S3 : MUSCLES PRIORITAIRES -->
+<div class="section">
+  <div class="section-label">Anatomie</div>
+  <div class="section-title">Muscles Prioritaires pour Toi</div>
+  <div class="section-sub">Ces muscles sont sous-développés chez la plupart des personnes avec pectus excavatum. Les renforcer est la clé de ta transformation esthétique ET posturale.</div>
+
+  <div class="muscle-grid reveal">
+    <div class="muscle-card prio-1">
+      <div class="muscle-prio-badge">🔴 Priorité 1</div>
+      <div class="muscle-icon">🔺</div>
+      <div class="muscle-name">Deltoïde Médial</div>
+      <div class="muscle-role">Face latérale de l'épaule. Donne la largeur et le "cap" d'épaule. Le muscle #1 pour le V-shape.</div>
+      <div class="muscle-why">Avec le pectus, les épaules semblent plus étroites. Développer le deltoïde médial élargit visuellement les épaules et éloigne le regard du sternum. ~13 séries d'isolation par semaine dans ton programme (Push + V-Shape) — pile dans la fourchette efficace.</div>
+    </div>
+
+    <div class="muscle-card prio-1">
+      <div class="muscle-prio-badge">🔴 Priorité 1</div>
+      <div class="muscle-icon">🏗️</div>
+      <div class="muscle-name">Trapèzes Moyens & Inférieurs</div>
+      <div class="muscle-role">Rétraction et abaissement des omoplates. Anti-enroulement d'épaules. Posture verticale.</div>
+      <div class="muscle-why">Le pectus crée une dominance des trapèzes supérieurs (haussement d'épaules) au détriment des moyens/inférieurs (rétraction). Le rowing câble, l'oiseau et le face pull ciblent cette zone critique.</div>
+    </div>
+
+    <div class="muscle-card prio-1">
+      <div class="muscle-prio-badge">🔴 Priorité 1</div>
+      <div class="muscle-icon">🦅</div>
+      <div class="muscle-name">Grand Dorsal</div>
+      <div class="muscle-role">Largeur du dos. Tire les bras en bas et vers l'arrière. Forme le V de la silhouette.</div>
+      <div class="muscle-why">Un grand dorsal développé est le meilleur "correcteur esthétique" du pectus. Le tirage vertical prise large et les tractions sont tes exercices rois. Priorité absolue dans chaque séance Pull.</div>
+    </div>
+
+    <div class="muscle-card prio-2">
+      <div class="muscle-prio-badge">🟡 Priorité 2</div>
+      <div class="muscle-icon">⚙️</div>
+      <div class="muscle-name">Deltoïde Postérieur</div>
+      <div class="muscle-role">Face arrière de l'épaule. Rotation externe, rétraction. Équilibre avec le deltoïde antérieur.</div>
+      <div class="muscle-why">Souvent négligé au profit du deltoïde antérieur (développé, élévations frontales). L'oiseau sur banc incliné et l'élévation latérale câble à la face ciblent ce muscle qui ouvre les épaules vers l'arrière.</div>
+    </div>
+
+    <div class="muscle-card prio-2">
+      <div class="muscle-prio-badge">🟡 Priorité 2</div>
+      <div class="muscle-icon">🌀</div>
+      <div class="muscle-name">Serratus Anterior (Grand Dentelé)</div>
+      <div class="muscle-role">Muscle "en dents de scie" sous les pectoraux. Plaque l'omoplate contre la cage thoracique.</div>
+      <div class="muscle-why">Le pectus peut créer une décollement partiel des omoplates (scapula alata). Le grand dentelé est le correcteur direct : il maintient l'omoplate en place et stabilise chaque mouvement d'épaule.</div>
+    </div>
+
+    <div class="muscle-card prio-2">
+      <div class="muscle-prio-badge">🟡 Priorité 2</div>
+      <div class="muscle-icon">🛡️</div>
+      <div class="muscle-name">Rhomboïdes</div>
+      <div class="muscle-role">Entre les omoplates. Rétraction scapulaire. Maintien de la posture verticale.</div>
+      <div class="muscle-why">Les rhomboïdes s'étirent en permanence dans une posture enroulée. Les renforcer via le rowing unilatéral et le rowing câble ramène les omoplates en position neutre et réduit la cyphose dorsale.</div>
+    </div>
+
+    <div class="muscle-card prio-3">
+      <div class="muscle-prio-badge">🟢 Priorité 3</div>
+      <div class="muscle-icon">🧱</div>
+      <div class="muscle-name">Transverse Abdominal</div>
+      <div class="muscle-role">Muscle "corset" profond. Stabilise le tronc et réduit le tour de taille.</div>
+      <div class="muscle-why">Le vacuum abdominal active directement le transverse. Un transverse fort maintient la posture debout sans effort conscient et réduit visuellement le ventre — ton objectif prioritaire.</div>
+    </div>
+
+    <div class="muscle-card prio-3">
+      <div class="muscle-prio-badge">🟢 Priorité 3</div>
+      <div class="muscle-icon">🔄</div>
+      <div class="muscle-name">Rotateurs Externes de l'Épaule</div>
+      <div class="muscle-role">Infraspinatus, teres minor. Stabilisent la tête humérale. Préviennent les blessures.</div>
+      <div class="muscle-why">Le pectus favorise la rotation interne des bras (épaules vers l'avant). Les rotateurs externes contrebalancent cela. Le face pull est l'exercice parfait : il renforce rotateurs et deltoïde postérieur simultanément.</div>
+    </div>
+
+    <div class="muscle-card prio-3">
+      <div class="muscle-prio-badge">🟢 Priorité 3</div>
+      <div class="muscle-icon">🦴</div>
+      <div class="muscle-name">Fléchisseurs Cervicaux Profonds</div>
+      <div class="muscle-role">Maintiennent la tête en position neutre. Contrebalancent l'antéposition cervicale.</div>
+      <div class="muscle-why">La posture enroulée crée une "tête en avant" chronique. Le chin tuck quotidien réactive ces muscles et repositionne les vertèbres cervicales — visible sur la silhouette en moins de 3 semaines de pratique.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- S4 : EXERCICES -->
+<div class="section">
+  <div class="section-label">Exercices Correcteurs</div>
+  <div class="section-title">Mouvements Clés pour Ta Posture</div>
+  <div class="section-sub">Ces exercices sont soit déjà dans ton programme, soit à pratiquer en routine quotidienne. Ils corrigent les déséquilibres spécifiques au pectus excavatum.</div>
+
+  <div class="ex-tabs">
+    <button class="ex-tab active" data-panel="activation">Activation (avant séance)</button>
+    <button class="ex-tab" data-panel="renfo">Renforcement</button>
+    <button class="ex-tab" data-panel="gainage">Gainage & Stabilité</button>
+  </div>
+
+  <div class="ex-panel active" id="panel-activation">
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <div class="ex-num">1</div>
+        <div class="ex-meta">
+          <div class="ex-name">Chin Tuck (Rentrée du menton)</div>
+          <div class="ex-target">Fléchisseurs cervicaux profonds · Repositionnement tête</div>
+        </div>
+      </div>
+      <div class="ex-tags">
+        <span class="ex-tag sets">2 × 15 reps</span>
+        <span class="ex-tag freq">Tous les matins</span>
+      </div>
+      <div class="ex-steps">
+        <div class="ex-step"><div class="ex-step-num">1</div>Assis ou debout, dos droit, regard horizontal.</div>
+        <div class="ex-step"><div class="ex-step-num">2</div>Recule lentement la tête vers l'arrière (comme si tu avais un double menton).</div>
+        <div class="ex-step"><div class="ex-step-num">3</div>Maintiens 3 secondes en sentant l'étirement à la base du crâne.</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Reviens à la position initiale. Répète × 15.</div>
+      </div>
+      <div class="ex-tip">Tu ne dois pas baisser la tête — c'est un mouvement horizontal. "Double menton" = correct.</div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <div class="ex-num">2</div>
+        <div class="ex-meta">
+          <div class="ex-name">Wall Angel (Ange au mur)</div>
+          <div class="ex-target">Trapèzes moyens · Deltoïde post · Mobilité thoracique</div>
+        </div>
+      </div>
+      <div class="ex-tags">
+        <span class="ex-tag sets">3 × 10 reps</span>
+        <span class="ex-tag freq">Avant chaque séance upper</span>
+      </div>
+      <div class="ex-steps">
+        <div class="ex-step"><div class="ex-step-num">1</div>Dos contre le mur, talons, fesses, dos et nuque en contact avec la surface.</div>
+        <div class="ex-step"><div class="ex-step-num">2</div>Bras en position "W" (coudes à 90°), coudes et dos des mains contre le mur.</div>
+        <div class="ex-step"><div class="ex-step-num">3</div>Monte lentement les bras vers le haut (position "Y") en gardant tout en contact avec le mur.</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Redescends en W. Chaque rep = 4 secondes montée, 4 secondes descente.</div>
+      </div>
+      <div class="ex-tip">Si tu ne peux pas garder le dos des mains contre le mur, ne force pas — travaille l'amplitude progressivement. C'est un outil de diagnostic autant que d'entraînement.</div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <div class="ex-num">3</div>
+        <div class="ex-meta">
+          <div class="ex-name">Band Pull-Apart</div>
+          <div class="ex-target">Rhomboïdes · Deltoïde post · Trapèzes moyens</div>
+        </div>
+      </div>
+      <div class="ex-tags">
+        <span class="ex-tag sets">3 × 20 reps</span>
+        <span class="ex-tag freq">Échauffement Pull / Upper</span>
+      </div>
+      <div class="ex-steps">
+        <div class="ex-step"><div class="ex-step-num">1</div>Tiens un élastique de résistance légère devant toi à hauteur de poitrine, paumes vers le bas.</div>
+        <div class="ex-step"><div class="ex-step-num">2</div>Étire l'élastique en ouvrant les bras sur le côté, en pinçant les omoplates ensemble.</div>
+        <div class="ex-step"><div class="ex-step-num">3</div>L'élastique touche ta poitrine à la position finale. Tiens 1 sec, ressens la contraction entre les omoplates.</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Reviens lentement à la position départ (3 secondes de retour).</div>
+      </div>
+      <div class="ex-tip">Pas d'élastique ? Remplace par le face pull câble à poids très léger. Même bénéfice neuromusculaire.</div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <div class="ex-num">4</div>
+        <div class="ex-meta">
+          <div class="ex-name">Prone Y-T-W (sur le sol)</div>
+          <div class="ex-target">Trapèzes inf./moy. · Rhomboïdes · Grand dentelé</div>
+        </div>
+      </div>
+      <div class="ex-tags">
+        <span class="ex-tag sets">2 × 12 chaque</span>
+        <span class="ex-tag freq">3× par semaine</span>
+      </div>
+      <div class="ex-steps">
+        <div class="ex-step"><div class="ex-step-num">1</div>Allonge-toi sur le ventre, front contre le sol, bras tendus devant toi (position Superman).</div>
+        <div class="ex-step"><div class="ex-step-num">2</div>Position Y : lève les bras en diagonale (45° sur le côté). 12 reps.</div>
+        <div class="ex-step"><div class="ex-step-num">3</div>Position T : lève les bras perpendiculaires au corps (comme une croix). 12 reps.</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Position W : coudes pliés à 90°, lève les coudes en pinçant les omoplates. 12 reps.</div>
+      </div>
+      <div class="ex-tip">Commence sans poids. Quand c'est facile, ajoute 1-2 kg en chaque main. Ces 3 positions ciblent des faisceaux différents des trapèzes.</div>
+    </div>
+  </div>
+
+  <div class="ex-panel" id="panel-renfo">
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <div class="ex-num">1</div>
+        <div class="ex-meta">
+          <div class="ex-name">Face Pull Câble (déjà dans ton programme)</div>
+          <div class="ex-target">Deltoïde post · Rotateurs externes · Trapèzes</div>
+        </div>
+      </div>
+      <div class="ex-tags">
+        <span class="ex-tag sets">Bloc 1: 4×15 · Bloc 2: 4×12</span>
+        <span class="ex-tag freq">Chaque séance upper</span>
+      </div>
+      <div class="ex-steps">
+        <div class="ex-step"><div class="ex-step-num">1</div>Câble à hauteur de tête, corde. Recule jusqu'à avoir les bras tendus, prise neutre.</div>
+        <div class="ex-step"><div class="ex-step-num">2</div>Tire vers le visage en écartant les mains (finit de chaque côté du visage, coudes hauts).</div>
+        <div class="ex-step"><div class="ex-step-num">3</div>À la position finale : rotation externe maximale (pouces pointent vers l'arrière). Tiens 2 sec.</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Retour lent, 3-4 secondes. Ne laisse PAS le poids tomber.</div>
+      </div>
+      <div class="ex-tip">C'est l'exercice le plus important pour corriger la posture enroulée liée au pectus. Ne le rush jamais. Poids léger, technique parfaite.</div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <div class="ex-num">2</div>
+        <div class="ex-meta">
+          <div class="ex-name">Rowing Unilatéral Haltère (déjà dans ton programme)</div>
+          <div class="ex-target">Grand dorsal · Rhomboïdes · Biceps</div>
+        </div>
+      </div>
+      <div class="ex-tags">
+        <span class="ex-tag sets">4 × 10-12 reps</span>
+        <span class="ex-tag freq">Chaque séance Pull</span>
+      </div>
+      <div class="ex-steps">
+        <div class="ex-step"><div class="ex-step-num">1</div>Genou et main droits sur le banc, dos plat et horizontal. Haltère dans la main gauche, bras tendu.</div>
+        <div class="ex-step"><div class="ex-step-num">2</div>Tire le coude vers le haut en gardant le coude proche du corps. L'haltère monte jusqu'à la hanche.</div>
+        <div class="ex-step"><div class="ex-step-num">3</div>Au sommet : pince fort l'omoplate. Tiens 1 seconde. Sens le grand dorsal compressé.</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Descends en 3-4 secondes, bras complètement tendu en bas (étire le grand dorsal).</div>
+      </div>
+      <div class="ex-tip">Toujours commencer par le côté le plus faible (le gauche chez toi — asymétrie musculaire visible sur tes photos). Si le droit domine, fais une série supplémentaire à gauche. Bonus : le buste appuyé sur le banc décharge complètement tes lombaires (L5-S1).</div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <div class="ex-num">3</div>
+        <div class="ex-meta">
+          <div class="ex-name">Serratus Push-Up (Pompe du grand dentelé)</div>
+          <div class="ex-target">Grand dentelé · Stabilité scapulaire</div>
+        </div>
+      </div>
+      <div class="ex-tags">
+        <span class="ex-tag sets">3 × 15 reps</span>
+        <span class="ex-tag freq">3× par semaine</span>
+      </div>
+      <div class="ex-steps">
+        <div class="ex-step"><div class="ex-step-num">1</div>En position de planche haute (comme une pompe), bras tendus.</div>
+        <div class="ex-step"><div class="ex-step-num">2</div>Sans plier les coudes, pousse les omoplates vers l'extérieur (dos monte légèrement, comme un chat).</div>
+        <div class="ex-step"><div class="ex-step-num">3</div>Tiens 2 secondes en "dos arrondi" (omoplates ouvertes au maximum).</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Reviens à la position neutre. 15 répétitions lentes.</div>
+      </div>
+      <div class="ex-tip">Cet exercice est différent d'une pompe — les coudes ne plient JAMAIS. Seules les omoplates bougent. Commence au sol, puis progression sur les poings si nécessaire.</div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <div class="ex-num">4</div>
+        <div class="ex-meta">
+          <div class="ex-name">Développé Incliné Haltères 30° (à la place du plat)</div>
+          <div class="ex-target">Pectoraux supérieurs · Deltoïde ant · Triceps</div>
+        </div>
+      </div>
+      <div class="ex-tags">
+        <span class="ex-tag sets">4 × 12 reps</span>
+        <span class="ex-tag freq">Chaque séance Push</span>
+      </div>
+      <div class="ex-steps">
+        <div class="ex-step"><div class="ex-step-num">1</div>Banc à 30° (pas 45° — ça recrute trop les épaules). Haltères à hauteur des épaules, coudes à 75°.</div>
+        <div class="ex-step"><div class="ex-step-num">2</div>Pousse les haltères vers le haut et légèrement vers l'intérieur. Pince les pectoraux au sommet.</div>
+        <div class="ex-step"><div class="ex-step-num">3</div>Descends lentement (3 sec), amplitude complète sans hyperstression au bas du mouvement.</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>L'inclinaison cible le pectoraux supérieur — qui compense esthétiquement la concavité centrale.</div>
+      </div>
+      <div class="ex-tip">Préféré au développé plat pour toi : moins de pression directe sur le sternum, meilleur recrutement du haut de la poitrine qui est visuellement le plus important avec le pectus.</div>
+    </div>
+  </div>
+
+  <div class="ex-panel" id="panel-gainage">
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <div class="ex-num">1</div>
+        <div class="ex-meta">
+          <div class="ex-name">Dead Bug (déjà dans ton programme)</div>
+          <div class="ex-target">Transverse · Stabilisation lombaire · Contrôle moteur</div>
+        </div>
+      </div>
+      <div class="ex-tags">
+        <span class="ex-tag sets">3 × 10 reps / côté</span>
+        <span class="ex-tag freq">Fin de chaque séance</span>
+      </div>
+      <div class="ex-steps">
+        <div class="ex-step"><div class="ex-step-num">1</div>Sur le dos, bras tendus vers le plafond, hanches et genoux à 90° (position "table renversée").</div>
+        <div class="ex-step"><div class="ex-step-num">2</div>Colle le bas du dos au sol. Expire et contracte le transverse (ventre rentré).</div>
+        <div class="ex-step"><div class="ex-step-num">3</div>Étends le bras droit ET la jambe gauche simultanément vers le sol (sans le toucher). 4 sec.</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Reviens. Le dos NE DOIT PAS décoller du sol. Alterne côtés. 10 reps/côté.</div>
+      </div>
+      <div class="ex-tip">Excellent pour ton asymétrie posturale : il développe le contrôle moteur côté par côté et renforce le côté faible. Le bas du dos reste plaqué au sol = zéro stress sur L5-S1. Commence par des mouvements de bras seuls si c'est trop difficile.</div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <div class="ex-num">2</div>
+        <div class="ex-meta">
+          <div class="ex-name">Pallof Press Câble (déjà dans ton programme)</div>
+          <div class="ex-target">Obliques · Transverse · Anti-rotation</div>
+        </div>
+      </div>
+      <div class="ex-tags">
+        <span class="ex-tag sets">3 × 12 / côté</span>
+        <span class="ex-tag freq">Fin de séance Push ou Pull</span>
+      </div>
+      <div class="ex-steps">
+        <div class="ex-step"><div class="ex-step-num">1</div>Câble à hauteur de nombril, debout de côté par rapport à la machine. Tiens la poignée à deux mains contre le sternum.</div>
+        <div class="ex-step"><div class="ex-step-num">2</div>Pousse les bras devant toi à bout de bras. Le câble tire vers le côté — résiste à cette rotation.</div>
+        <div class="ex-step"><div class="ex-step-num">3</div>Tiens 2 secondes à bout de bras, buste parfaitement de face. Aucune rotation.</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Ramène les mains au sternum. Répète. Toujours faire les deux côtés.</div>
+      </div>
+      <div class="ex-tip">Particulièrement utile pour ton asymétrie : fais toujours 1 série supplémentaire du côté le plus faible (le gauche). L'anti-rotation renforce le tronc sans aucune flexion lombaire — idéal avec ta discopathie L5-S1.</div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <div class="ex-num">3</div>
+        <div class="ex-meta">
+          <div class="ex-name">Vacuum Abdominal</div>
+          <div class="ex-target">Transverse · Réduction tour de taille</div>
+        </div>
+      </div>
+      <div class="ex-tags">
+        <span class="ex-tag sets">5 × 20-30 sec</span>
+        <span class="ex-tag freq">Chaque matin à jeun</span>
+      </div>
+      <div class="ex-steps">
+        <div class="ex-step"><div class="ex-step-num">1</div>Debout, mains sur les genoux légèrement fléchis. Expire COMPLÈTEMENT tout l'air des poumons.</div>
+        <div class="ex-step"><div class="ex-step-num">2</div>Rentre le ventre au maximum vers la colonne vertébrale, comme si tu voulais coller le nombril au dos.</div>
+        <div class="ex-step"><div class="ex-step-num">3</div>Maintiens la contraction 20-30 secondes en prenant de légères respirations par le nez (ne bloque pas l'air). Relâche.</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Respire normalement 15-20 sec puis recommence. 5 séries quotidiennes.</div>
+      </div>
+      <div class="ex-tip">Un transverse tonique resserre visuellement la taille au repos (effet "corset") en 4-6 semaines. La vraie perte de centimètres, elle, vient du déficit calorique — le vacuum ne brûle pas de gras.</div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header">
+        <div class="ex-num">4</div>
+        <div class="ex-meta">
+          <div class="ex-name">Planche Latérale</div>
+          <div class="ex-target">Obliques · Carré des lombes · Protection lombaire</div>
+        </div>
+      </div>
+      <div class="ex-tags">
+        <span class="ex-tag sets">3 × 30-45 sec / côté</span>
+        <span class="ex-tag freq">3× par semaine</span>
+      </div>
+      <div class="ex-steps">
+        <div class="ex-step"><div class="ex-step-num">1</div>Sur le côté, appui sur l'avant-bras et le bord du pied. Corps en ligne droite de la tête aux pieds.</div>
+        <div class="ex-step"><div class="ex-step-num">2</div>Soulève les hanches jusqu'à alignement parfait — pas d'affaissement, pas de fesses en l'air.</div>
+        <div class="ex-step"><div class="ex-step-num">3</div>Maintiens la position. Respire normalement pendant la contraction.</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Fais 1 série supplémentaire en appui sur le côté le plus difficile à tenir (souvent le côté faible).</div>
+      </div>
+      <div class="ex-tip">Exercice n°1 pour ton dos : il gaine le carré des lombes et les obliques avec une compression discale quasi nulle (recommandation McGill pour les dos avec discopathie). Il corrige aussi l'asymétrie latérale du tronc en travaillant chaque côté séparément.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- S5 : ÉTIREMENTS -->
+<div class="section">
+  <div class="section-label">Flexibilité</div>
+  <div class="section-title">Étirements Prioritaires</div>
+  <div class="section-sub">Ces muscles sont systématiquement raccourcis avec le pectus et la posture enroulée. Les étirer quotidiennement est aussi important que de s'entraîner.</div>
+
+  <div class="stretch-grid reveal">
+
+    <div class="stretch-card">
+      <div class="stretch-timer">
+        <div class="stretch-timer-ring">
+          <svg viewBox="0 0 72 72"><circle class="str-ring-track" cx="36" cy="36" r="30"/><circle class="str-ring-fill" cx="36" cy="36" r="30" style="stroke-dashoffset:62"/></svg>
+          <div class="str-ring-text">30s</div>
+        </div>
+      </div>
+      <div class="stretch-body">
+        <div class="stretch-name">Étirement du Pectoral Mineur (coin de porte)</div>
+        <div class="stretch-target">Pectoral mineur · Deltoïde antérieur</div>
+        <div class="stretch-desc">Place tes avant-bras sur un encadrement de porte (coudes à 90°). Avance lentement le buste vers l'avant jusqu'à sentir un étirement profond dans le devant des épaules. Tête neutre, sternum qui "sort" vers l'avant.</div>
+        <div class="stretch-sets">3 × 30 sec · 2× par jour (matin + soir)</div>
+      </div>
+    </div>
+
+    <div class="stretch-card">
+      <div class="stretch-timer">
+        <div class="stretch-timer-ring">
+          <svg viewBox="0 0 72 72"><circle class="str-ring-track" cx="36" cy="36" r="30"/><circle class="str-ring-fill" cx="36" cy="36" r="30" style="stroke-dashoffset:47"/></svg>
+          <div class="str-ring-text">45s</div>
+        </div>
+      </div>
+      <div class="stretch-body">
+        <div class="stretch-name">Extension Thoracique sur Mousse / Rouleau</div>
+        <div class="stretch-target">Thorax · Cyphose dorsale · Mobilité colonne</div>
+        <div class="stretch-desc">Place un rouleau de yoga perpendiculairement à ta colonne (sous les omoplates). Laisse la tête et le bassin descendre vers le sol. Reste 45 sec, respire profondément. Descends le rouleau de 2-3 cm et répète sur toute la zone dorsale.</div>
+        <div class="stretch-sets">5 positions × 45 sec · Chaque matin</div>
+      </div>
+    </div>
+
+    <div class="stretch-card">
+      <div class="stretch-timer">
+        <div class="stretch-timer-ring">
+          <svg viewBox="0 0 72 72"><circle class="str-ring-track" cx="36" cy="36" r="30"/><circle class="str-ring-fill" cx="36" cy="36" r="30" style="stroke-dashoffset:78"/></svg>
+          <div class="str-ring-text">20s</div>
+        </div>
+      </div>
+      <div class="stretch-body">
+        <div class="stretch-name">Étirement du Grand Dorsal (enfant modifié)</div>
+        <div class="stretch-target">Grand dorsal · Teres major · Intercostaux</div>
+        <div class="stretch-desc">À genoux, étends les bras devant toi sur le sol, assis sur les talons. Laisse la poitrine descendre vers le sol. Pour accentuer l'étirement du grand dorsal, décale les mains légèrement sur le côté droit — l'étirement se concentre alors sur le côté gauche (souvent le plus tendu chez toi).</div>
+        <div class="stretch-sets">3 × 20 sec / côté · Fin de séance Pull</div>
+      </div>
+    </div>
+
+    <div class="stretch-card">
+      <div class="stretch-timer">
+        <div class="stretch-timer-ring">
+          <svg viewBox="0 0 72 72"><circle class="str-ring-track" cx="36" cy="36" r="30"/><circle class="str-ring-fill" cx="36" cy="36" r="30" style="stroke-dashoffset:55"/></svg>
+          <div class="str-ring-text">40s</div>
+        </div>
+      </div>
+      <div class="stretch-body">
+        <div class="stretch-name">Thread the Needle (Fil de l'Aiguille)</div>
+        <div class="stretch-target">Rotation thoracique · Capsule postérieure épaule</div>
+        <div class="stretch-desc">À quatre pattes (mains-genoux). Passe le bras droit sous ton corps en le glissant vers la gauche jusqu'à ce que l'épaule touche le sol. Tête posée sur le côté. Maintiens l'étirement. Alterne les côtés. Excellent pour la mobilité thoracique en rotation — c'est là que la rotation doit se faire, pas dans les lombaires (protège L5-S1).</div>
+        <div class="stretch-sets">3 × 40 sec / côté · Chaque jour</div>
+      </div>
+    </div>
+
+    <div class="stretch-card">
+      <div class="stretch-timer">
+        <div class="stretch-timer-ring">
+          <svg viewBox="0 0 72 72"><circle class="str-ring-track" cx="36" cy="36" r="30"/><circle class="str-ring-fill" cx="36" cy="36" r="30" style="stroke-dashoffset:62"/></svg>
+          <div class="str-ring-text">30s</div>
+        </div>
+      </div>
+      <div class="stretch-body">
+        <div class="stretch-name">Étirement Cervical Latéral</div>
+        <div class="stretch-target">Trapèze supérieur · SCM · Scalènes</div>
+        <div class="stretch-desc">Assis, attrape le bord de la chaise de la main droite pour fixer l'épaule droite. Incline la tête vers la gauche jusqu'à sentir l'étirement dans le cou. N'aide PAS avec la main — laisse le poids de la tête agir. Côté le plus raide en priorité.</div>
+        <div class="stretch-sets">3 × 30 sec / côté · Matin et soir</div>
+      </div>
+    </div>
+
+    <div class="stretch-card">
+      <div class="stretch-timer">
+        <div class="stretch-timer-ring">
+          <svg viewBox="0 0 72 72"><circle class="str-ring-track" cx="36" cy="36" r="30"/><circle class="str-ring-fill" cx="36" cy="36" r="30" style="stroke-dashoffset:47"/></svg>
+          <div class="str-ring-text">45s</div>
+        </div>
+      </div>
+      <div class="stretch-body">
+        <div class="stretch-name">Cat-Cow (Chat-Vache)</div>
+        <div class="stretch-target">Colonne vertébrale · Mobilité segmentaire · Respiration</div>
+        <div class="stretch-desc">À quatre pattes. Inspire et creuse le dos (tête et bassin vers le haut = vache). Expire et arrondis le dos au maximum en rentrant la tête et le bassin (= chat). Chaque cycle : 4 sec inspiration, 4 sec expiration. Mobilise toute la chaîne postérieure et améliore la mobilité thoracique directement liée au pectus.</div>
+        <div class="stretch-sets">10 cycles lents · Chaque matin · En réveil</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- S6 : RESPIRATION -->
+<div class="section">
+  <div class="section-label">Respiration</div>
+  <div class="section-title">Respiration & Pectus Excavatum</div>
+  <div class="section-sub">Le pectus peut créer une respiration haute et thoracique (moins efficace). Rééduquer ta respiration améliore ta posture, ta récupération et ta performance.</div>
+
+  <div class="breath-layout reveal">
+    <div class="breath-visual">
+      <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:4px">Respiration diaphragmatique</div>
+      <div class="breath-circle-wrap">
+        <div class="breath-circle">
+          <div style="text-align:center">
+            <div class="breath-label" id="breathLabel">INSPIRE</div>
+            <div class="breath-phase" id="breathPhase">4 secondes</div>
+          </div>
+        </div>
+      </div>
+      <div class="breath-steps">
+        <div class="breath-step-row">
+          <div class="breath-step-icon">↑</div>
+          <div class="breath-step-text"><strong>Inspire 4s</strong> — par le nez, ventre qui gonfle en premier, puis la cage thoracique</div>
+        </div>
+        <div class="breath-step-row">
+          <div class="breath-step-icon">⏸</div>
+          <div class="breath-step-text"><strong>Retiens 4s</strong> — diaphragme tenu, cage thoracique maximalement ouverte</div>
+        </div>
+        <div class="breath-step-row">
+          <div class="breath-step-icon">↓</div>
+          <div class="breath-step-text"><strong>Expire 6s</strong> — par la bouche, lèvres pincées, ventre se dégonfle lentement</div>
+        </div>
+        <div class="breath-step-row">
+          <div class="breath-step-icon">⏸</div>
+          <div class="breath-step-text"><strong>Pause 2s</strong> — avant la prochaine inspiration</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="breath-cards">
+      <div class="breath-card">
+        <div class="breath-card-label">Respiration Box (récupération)</div>
+        <div class="breath-card-title">Box Breathing 4-4-4-4</div>
+        <div class="breath-card-text">Idéale entre les séries lourdes et avant de dormir. Réduit le cortisol, stabilise la fréquence cardiaque, améliore la concentration. Utilisée par les forces spéciales pour gérer le stress.</div>
+        <div class="breath-timing">
+          <div class="breath-timing-box bt-inhale"><div class="bt-val">4s</div><div class="bt-lbl">Inspire</div></div>
+          <div class="breath-timing-box bt-hold"><div class="bt-val">4s</div><div class="bt-lbl">Retiens</div></div>
+          <div class="breath-timing-box bt-exhale"><div class="bt-val">4s</div><div class="bt-lbl">Expire</div></div>
+          <div class="breath-timing-box bt-hold"><div class="bt-val">4s</div><div class="bt-lbl">Pause</div></div>
+        </div>
+      </div>
+
+      <div class="breath-card">
+        <div class="breath-card-label">Pendant l'effort</div>
+        <div class="breath-card-title">Respiration à l'effort (Valsalva modifié)</div>
+        <div class="breath-card-text">Pour les exercices lourds (leg press, rowing, développé) : inspire profondément avant de soulever, bloque brièvement l'air (1-2 sec max), expire lors de la phase concentrique (effort). Ne jamais retenir la respiration en continu sur plusieurs reps.</div>
+        <div class="breath-timing">
+          <div class="breath-timing-box bt-inhale"><div class="bt-val">↓</div><div class="bt-lbl">Avant effort</div></div>
+          <div class="breath-timing-box bt-hold"><div class="bt-val">||</div><div class="bt-lbl">Excentrique</div></div>
+          <div class="breath-timing-box bt-exhale"><div class="bt-val">↑</div><div class="bt-lbl">Concentrique</div></div>
+        </div>
+      </div>
+
+      <div class="breath-card">
+        <div class="breath-card-label">Respiration 360°</div>
+        <div class="breath-card-title">Expansion Thoracique Complète</div>
+        <div class="breath-card-text">Spécifiquement bénéfique pour le pectus : en inspirant, visualise que ta cage thoracique s'expand dans toutes les directions — devant, derrière, et surtout sur les côtés. Évite la respiration haute (qui soulève les épaules). Place les mains sur les côtes : tu dois les sentir s'écarter latéralement.</div>
+        <div style="margin-top:12px;padding:10px 12px;background:rgba(10,138,158,0.08);border-radius:8px;font-size:0.8rem;color:var(--text-mid)">
+          Pratique 5 min / jour sur le rouleau de mousse : la position d'extension thoracique force mécaniquement une respiration 360° et améliore la mobilité de la cage thoracique.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- S7 : ERREURS -->
+<div class="section">
+  <div class="section-label">À Éviter</div>
+  <div class="section-title">Erreurs Courantes avec le Pectus</div>
+  <div class="section-sub">Ces erreurs aggravent l'aspect esthétique du pectus et créent des déséquilibres musculaires qui compliquent la correction à long terme.</div>
+
+  <div class="erreur-grid" id="erreursGrid">
+    <div class="erreur-card">
+      <div class="erreur-header"><div class="erreur-x">✕</div><div class="erreur-title">Sur-entraîner les pectoraux</div></div>
+      <div class="erreur-text">Beaucoup de personnes avec pectus se concentrent obsessionnellement sur la poitrine pour "remplir" la dépression. Résultat inverse : les pectoraux trop développés tirent davantage le sternum vers l'intérieur et accentuent les épaules enroulées.</div>
+      <div class="erreur-fix">✓ Ratio dos/pecto = 2:1 en volume. Pour chaque série de pectoraux, fais deux séries de dos.</div>
+    </div>
+    <div class="erreur-card">
+      <div class="erreur-header"><div class="erreur-x">✕</div><div class="erreur-title">Développé couché plat barre prise large</div></div>
+      <div class="erreur-text">La prise large au développé plat crée une pression directe sur le sternum à la descente. Avec le pectus, cette pression peut être inconfortable et ne cible pas efficacement les zones visuellement importantes.</div>
+      <div class="erreur-fix">✓ Remplace par le développé incliné haltères 30° ou l'écarté câble high-to-low. Même résultat, mieux ciblé.</div>
+    </div>
+    <div class="erreur-card">
+      <div class="erreur-header"><div class="erreur-x">✕</div><div class="erreur-title">Négliger le face pull</div></div>
+      <div class="erreur-text">Le face pull est souvent perçu comme "accessoire" et supprimé quand la séance est longue. C'est une erreur majeure pour toi : c'est le seul exercice qui corrige simultanément la rotation interne, la rétraction scapulaire et le renforcement postérieur.</div>
+      <div class="erreur-fix">✓ Face pull = exercice intouchable. Il est dans chaque séance upper body (Push · Pull · V-SHAPE), même si tu dois raccourcir ailleurs.</div>
+    </div>
+    <div class="erreur-card">
+      <div class="erreur-header"><div class="erreur-x">✕</div><div class="erreur-title">Hyperextension lombaire pour "sortir" le sternum</div></div>
+      <div class="erreur-text">Certaines personnes cambrrent excessivement le bas du dos pour projeter le sternum vers l'avant. Cette compensation crée des douleurs lombaires et une antéversion du bassin — un problème postural supplémentaire.</div>
+      <div class="erreur-fix">✓ La posture correcte vient de la rétraction des omoplates et de l'activation du transverse — pas de la lordose lombaire.</div>
+    </div>
+    <div class="erreur-card">
+      <div class="erreur-header"><div class="erreur-x">✕</div><div class="erreur-title">Ignorer l'asymétrie dans les exercices unilatéraux</div></div>
+      <div class="erreur-text">Ton dos présente une asymétrie musculaire réelle (visible photos, palpable) même si la radio 2020 exclut une scoliose structurelle : le côté droit est souvent plus fort. Sans attention, cette différence se creuse à l'entraînement au lieu de se corriger.</div>
+      <div class="erreur-fix">✓ Commence toujours par le côté gauche. Si le droit est plus fort, fais 1 série supplémentaire à gauche.</div>
+    </div>
+    <div class="erreur-card">
+      <div class="erreur-header"><div class="erreur-x">✕</div><div class="erreur-title">Ignorer la mobilité thoracique</div></div>
+      <div class="erreur-text">La région thoracique se rigidifie avec le pectus et la posture assise prolongée. Une colonne thoracique peu mobile limite l'amplitude des exercices de dos et d'épaules, et augmente la compensation cervicale et lombaire.</div>
+      <div class="erreur-fix">✓ Extension sur rouleau + Thread the needle + Cat-cow = 10 min quotidiennes de mobilité thoracique active.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- S8 : PROTOCOLE QUOTIDIEN -->
+<div class="section">
+  <div class="section-label">Routine</div>
+  <div class="section-title">Ton Protocole Quotidien</div>
+  <div class="section-sub">20 minutes par jour en dehors de tes séances de musculation pour corriger la posture et compenser le pectus. C'est peu, c'est efficace.</div>
+
+  <div class="protocol-timeline reveal">
+    <div class="proto-item">
+      <div class="proto-dot-col"><div class="proto-dot morning">☀️</div></div>
+      <div class="proto-body">
+        <div class="proto-when morning">Matin — Réveil (10 min)</div>
+        <div class="proto-title">Réveil Postural</div>
+        <ul class="proto-list">
+          <li>Chin tuck × 15 reps (repositionne la tête avant la journée)</li>
+          <li>Cat-cow × 10 cycles lents (mobilise la colonne après la nuit)</li>
+          <li>Extension thoracique sur rouleau — 5 positions × 30 sec</li>
+          <li>Vacuum abdominal × 5 séries × 20-30 sec (à jeun = plus efficace)</li>
+          <li>Étirement pectoral mineur au coin de porte × 3 × 30 sec</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="proto-item">
+      <div class="proto-dot-col"><div class="proto-dot preworkout">🏋️</div></div>
+      <div class="proto-body">
+        <div class="proto-when preworkout">Avant séance (5 min d'activation)</div>
+        <div class="proto-title">Activation Posturale</div>
+        <ul class="proto-list">
+          <li>Wall angel × 3 × 10 reps (active les trapèzes moyens/inférieurs)</li>
+          <li>Band pull-apart × 3 × 20 reps (ouvre les épaules)</li>
+          <li>Prone Y-T-W × 2 × 12 chaque (si séance upper body)</li>
+          <li>Serratus push-up × 2 × 10 (stabilisation scapulaire)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="proto-item">
+      <div class="proto-dot-col"><div class="proto-dot postworkout">💪</div></div>
+      <div class="proto-body">
+        <div class="proto-when postworkout">Après séance (5 min)</div>
+        <div class="proto-title">Étirements Ciblés</div>
+        <ul class="proto-list">
+          <li>Étirement grand dorsal (enfant modifié) × 3 × 20 sec / côté</li>
+          <li>Thread the needle × 3 × 40 sec / côté (rotation thoracique)</li>
+          <li>Étirement cervical latéral × 3 × 30 sec / côté</li>
+          <li>Respiration diaphragmatique 10 cycles (retour au calme)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="proto-item">
+      <div class="proto-dot-col"><div class="proto-dot evening">🌙</div></div>
+      <div class="proto-body">
+        <div class="proto-when evening">Soir — Coucher (5 min)</div>
+        <div class="proto-title">Récupération Posturale</div>
+        <ul class="proto-list">
+          <li>Étirement pectoral mineur × 2 × 30 sec (contre la rétraction nocturne)</li>
+          <li>Box breathing 4-4-4-4 × 5 cycles (activation parasympathique)</li>
+          <li>Dors sur le dos ou le côté gauche (pas sur le ventre)</li>
+          <li>Oreiller cervical recommandé si possible (maintient la lordose cervicale)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>ALLEZ — Posture & Pectus Excavatum · Programme Personnalisé</span>
+  <span>
+    <a href="index.html">Accueil</a> &nbsp;·&nbsp;
+    <a href="exercices.html">Exercices</a> &nbsp;·&nbsp;
+    <a href="nutrition.html">Nutrition</a> &nbsp;·&nbsp;
+    <a href="progression.html">Progression</a> &nbsp;·&nbsp;
+    <a href="posture.html">Posture</a>
+  </span>
+</footer>
+
+<script>
+// SCROLL REVEAL
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ERREUR CARDS STAGGER
+const errObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.erreur-card').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), i * 80);
+      });
+      errObs.disconnect();
+    }
+  });
+}, { threshold: 0.1 });
+const errGrid = document.getElementById('erreursGrid');
+if (errGrid) errObs.observe(errGrid);
+
+// EXERCISE TABS
+const exTabs = document.querySelectorAll('.ex-tab');
+exTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    exTabs.forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.ex-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+  });
+});
+
+// BREATHING ANIMATION LABELS
+const phases = [
+  { label: 'INSPIRE', phase: '4 secondes', dur: 4000 },
+  { label: 'RETIENS', phase: '4 secondes', dur: 4000 },
+  { label: 'EXPIRE', phase: '6 secondes', dur: 6000 },
+  { label: 'PAUSE', phase: '2 secondes', dur: 2000 },
+];
+let phaseIdx = 0;
+function nextPhase() {
+  const p = phases[phaseIdx];
+  const lbl = document.getElementById('breathLabel');
+  const ph = document.getElementById('breathPhase');
+  if (lbl) lbl.textContent = p.label;
+  if (ph) ph.textContent = p.phase;
+  phaseIdx = (phaseIdx + 1) % phases.length;
+  setTimeout(nextPhase, p.dur);
+}
+setTimeout(nextPhase, 1000);
+
+// STRETCH RINGS animate on scroll
+const stretchObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.str-ring-fill').forEach(ring => {
+        const targetOffset = parseFloat(ring.style.strokeDashoffset);
+        ring.style.transition = 'stroke-dashoffset 1.2s ease';
+        ring.style.strokeDashoffset = '0';
+        setTimeout(() => { ring.style.strokeDashoffset = targetOffset; }, 100);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.stretch-grid').forEach(el => stretchObs.observe(el));
+
+// Update nav links on other pages too
+document.querySelectorAll('.nav-links a').forEach(a => {
+  if (a.href === window.location.href) {
+    a.classList.add('active');
+  }
+});
+</script>
+<script>
+const _hbg = document.getElementById('navHbg');
+const _nav = document.querySelector('nav');
+_hbg.addEventListener('click', () => { _hbg.classList.toggle('open'); _nav.classList.toggle('open'); });
+document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => { _hbg.classList.remove('open'); _nav.classList.remove('open'); }); });
+document.addEventListener('click', e => { if (_nav.classList.contains('open') && !_nav.contains(e.target)) { _hbg.classList.remove('open'); _nav.classList.remove('open'); } });
+</script>
+<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
+</body>
+</html>

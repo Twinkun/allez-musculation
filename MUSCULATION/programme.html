@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e8960a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ALLEZ">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Programme Complet — ALLEZ</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+@page { margin: 12mm 13mm; size: A4; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden}
+body{font-family:'Inter',Arial,sans-serif;color:#111827;background:#fff;font-size:9pt;line-height:1.5;overflow-x:hidden}
+
+.print-btn{position:fixed;top:18px;right:18px;background:#e8960a;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(232,150,10,.4);z-index:999}
+.print-btn:hover{background:#d4860a}
+@media print{.print-btn{display:none}.pb{page-break-before:always}}
+
+.page{max-width:184mm;margin:0 auto;padding:6mm 0}
+
+/* DOC HEADER */
+.doc-header{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:10px;margin-bottom:18px;border-bottom:3px solid #0b1020}
+.doc-logo{font-size:30pt;font-weight:900;letter-spacing:6px;color:#0b1020;line-height:1}
+.doc-logo span{color:#e8960a}
+.doc-meta{text-align:right;font-size:7.5pt;color:#6b7280;text-transform:uppercase;letter-spacing:1px}
+.doc-meta b{color:#111}
+
+/* SECTION HEADING */
+.sh{font-size:13pt;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:#e8960a;border-bottom:2px solid #e8960a;padding-bottom:5px;margin-bottom:14px;margin-top:20px}
+.sh:first-child{margin-top:0}
+
+/* PROFILE CARDS */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:14px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.card{border:1px solid #e5e7eb;border-radius:8px;padding:10px 12px}
+.card h3{font-size:7pt;text-transform:uppercase;letter-spacing:1.5px;color:#9ca3af;margin-bottom:7px;font-weight:700}
+.row{display:flex;justify-content:space-between;font-size:8.5pt;padding:2.5px 0;border-bottom:1px solid #f9fafb}
+.row:last-child{border-bottom:none}
+.lbl{color:#6b7280}
+.val{font-weight:700;color:#111}
+.val.gold{color:#e8960a}
+.val.red{color:#dc2626}
+
+/* WEEK CALENDAR */
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:16px}
+.day{border-radius:7px;padding:7px 4px;text-align:center}
+.day.training{background:#0b1020;color:#fff}
+.day.rest{background:#f3f4f6;color:#9ca3af}
+.day.activity{background:#1e3a8a;color:#fff}
+.day-lbl{font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;opacity:.6}
+.day-name{font-size:8pt;font-weight:800}
+.day-time{font-size:7pt;margin-top:2px;opacity:.8}
+.day.training .day-name{color:#e8960a}
+
+/* OBJECTIVE CARDS */
+.obj-card{border:1px solid #e5e7eb;border-radius:8px;padding:10px;text-align:center}
+.obj-lbl{font-size:7pt;text-transform:uppercase;letter-spacing:.8px;color:#9ca3af;margin-bottom:4px;font-weight:700}
+.obj-cur{font-size:13pt;font-weight:900;color:#111;line-height:1}
+.obj-arr{font-size:8pt;color:#9ca3af;margin:2px 0}
+.obj-tgt{font-size:11pt;font-weight:900;color:#e8960a}
+
+/* MACRO BAR */
+.macro-bar{display:flex;background:#0b1020;border-radius:8px;padding:10px 16px;margin-bottom:14px;justify-content:space-around;align-items:center;gap:12px}
+.mb-item{text-align:center;color:#fff}
+.mb-val{font-size:15pt;font-weight:900;color:#e8960a;line-height:1}
+.mb-lbl{font-size:6.5pt;text-transform:uppercase;letter-spacing:1px;opacity:.55;margin-top:2px}
+
+/* SESSION BANNER */
+.session-banner{border-radius:10px;padding:11px 15px;margin-bottom:13px;color:#fff}
+.sb-push{background:linear-gradient(135deg,#991b1b,#dc2626)}
+.sb-pull{background:linear-gradient(135deg,#1e3a8a,#2563eb)}
+.sb-vs{background:linear-gradient(135deg,#4c1d95,#7c3aed)}
+.sb-row{display:flex;justify-content:space-between;align-items:flex-start}
+.sb-name{font-size:17pt;font-weight:900;letter-spacing:3px;line-height:1}
+.sb-right{text-align:right}
+.sb-day{font-size:10pt;font-weight:700}
+.sb-focus{font-size:7.5pt;opacity:.75;margin-top:2px}
+.sb-tags{display:flex;gap:8px;margin-top:7px;flex-wrap:wrap}
+.sb-tag{font-size:7.5pt;background:rgba(255,255,255,.15);padding:2px 9px;border-radius:100px}
+
+/* EXERCISE */
+.ex{border:1px solid #e5e7eb;border-radius:8px;margin-bottom:9px;overflow:hidden}
+.ex-head{display:flex;align-items:center;gap:8px;padding:6px 11px;font-weight:700;font-size:9pt}
+.ex-num{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:7.5pt;font-weight:900;flex-shrink:0}
+.ex-name-col{flex:1}
+.ex-name{font-weight:700}
+.ex-muscle{font-size:7.5pt;font-weight:500;opacity:.65;margin-top:0px}
+
+.push-ex .ex-head{background:#fef2f2;border-bottom:2px solid #fca5a5}
+.push-ex .ex-num{background:#dc2626;color:#fff}
+.push-ex .ex-name{color:#991b1b}
+.pull-ex .ex-head{background:#eff6ff;border-bottom:2px solid #93c5fd}
+.pull-ex .ex-num{background:#2563eb;color:#fff}
+.pull-ex .ex-name{color:#1e40af}
+.vs-ex .ex-head{background:#f5f3ff;border-bottom:2px solid #c4b5fd}
+.vs-ex .ex-num{background:#7c3aed;color:#fff}
+.vs-ex .ex-name{color:#4c1d95}
+.core-ex .ex-head{background:#f0fdf4;border-bottom:2px solid #86efac}
+.core-ex .ex-num{background:#16a34a;color:#fff}
+.core-ex .ex-name{color:#14532d}
+
+.ex-body{padding:7px 11px}
+.ex-stats{display:flex;gap:14px;margin-bottom:5px;flex-wrap:wrap}
+.ex-s{font-size:8pt}
+.ex-s-lbl{font-size:6.5pt;text-transform:uppercase;letter-spacing:.8px;color:#9ca3af;font-weight:700}
+.ex-s-val{font-weight:700;color:#111;font-size:8.5pt}
+.ex-equip{font-size:7.5pt;color:#6b7280;margin-bottom:4px}
+.ex-tips{font-size:8pt;color:#374151;margin-top:3px}
+.ex-tips li{list-style:none;padding-left:12px;position:relative;padding-bottom:1px}
+.ex-tips li::before{content:"·";position:absolute;left:2px;color:#e8960a;font-weight:900;font-size:11pt;top:-4px}
+
+.alert-gold{display:flex;gap:5px;background:#fffbeb;border-left:3px solid #e8960a;padding:4px 8px;border-radius:0 5px 5px 0;margin-top:5px;font-size:7.5pt;color:#92400e}
+.alert-red{display:flex;gap:5px;background:#fef2f2;border-left:3px solid #dc2626;padding:4px 8px;border-radius:0 5px 5px 0;margin-top:5px;font-size:7.5pt;color:#991b1b;font-weight:600}
+
+/* FINISHER */
+.finisher{background:#0b1020;border-radius:8px;padding:9px 13px;color:#fff;margin-bottom:10px}
+.finisher-title{font-size:7.5pt;text-transform:uppercase;letter-spacing:1.5px;color:#e8960a;font-weight:700;margin-bottom:5px}
+.finisher-exs{display:flex;gap:8px;flex-wrap:wrap}
+.finisher-ex{font-size:8pt;background:rgba(255,255,255,.1);padding:3px 10px;border-radius:100px}
+
+/* NOTES / ALERTS */
+.info-box{border-radius:8px;padding:9px 13px;margin-bottom:12px}
+.info-box.blue{background:#1e3a8a;color:#fff}
+.info-box.red{background:#dc2626;color:#fff}
+.info-box.green{background:#14532d;color:#fff}
+.info-box h4{font-size:7.5pt;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;opacity:.75}
+.info-box p{font-size:8.5pt;opacity:.95;line-height:1.55}
+
+/* NUTRITION MEALS */
+.meal-item{display:grid;grid-template-columns:52px 1fr;gap:9px;margin-bottom:7px;align-items:start}
+.m-time{font-size:11pt;font-weight:900;color:#e8960a;line-height:1;text-align:center}
+.m-tag{font-size:6pt;text-transform:uppercase;letter-spacing:.8px;color:#9ca3af;font-weight:700;text-align:center;margin-top:2px}
+.m-card{border:1px solid #e5e7eb;border-radius:7px;padding:7px 10px}
+.m-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px}
+.m-name{font-weight:700;font-size:8.5pt}
+.m-kcal{font-size:8.5pt;font-weight:700;color:#e8960a}
+.m-macros{display:flex;gap:5px;margin-bottom:4px}
+.mp{font-size:7pt;font-weight:700;padding:1.5px 6px;border-radius:100px}
+.mp.p{background:#fff7ed;color:#c2410c}
+.mp.c{background:#eff6ff;color:#1d4ed8}
+.mp.f{background:#fdf4ff;color:#7e22ce}
+.m-foods{list-style:none}
+.m-foods li{font-size:7.5pt;color:#374151;padding:1px 0 1px 11px;position:relative}
+.m-foods li::before{content:"·";position:absolute;left:1px;color:#e8960a;font-weight:900;font-size:11pt;top:-4px}
+.m-note{font-size:7pt;color:#9ca3af;font-style:italic;margin-top:3px;border-top:1px solid #f3f4f6;padding-top:3px}
+
+/* REST DAY */
+.rest-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.rest-card{background:#f9fafb;border-radius:7px;padding:8px 10px;font-size:8pt}
+.rest-card strong{display:block;font-size:7pt;text-transform:uppercase;letter-spacing:.8px;color:#9ca3af;margin-bottom:3px}
+
+/* SUPPLEMENTS */
+.supp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.supp-card{border:1px solid #e5e7eb;border-radius:8px;padding:10px 12px}
+.supp-name{font-weight:800;font-size:9pt;margin-bottom:1px}
+.supp-brand{font-size:7pt;color:#9ca3af;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+.supp-row{font-size:8pt;color:#374151;padding:2px 0;border-bottom:1px solid #f9fafb}
+.supp-row:last-child{border-bottom:none}
+.supp-row b{color:#111}
+
+/* STRENGTH TABLE */
+.strength-table{width:100%;border-collapse:collapse;font-size:8.5pt}
+.strength-table th{background:#0b1020;color:#fff;padding:6px 10px;text-align:left;font-size:7.5pt;letter-spacing:.8px;text-transform:uppercase;font-weight:700}
+.strength-table td{padding:6px 10px;border-bottom:1px solid #f3f4f6;vertical-align:middle}
+.strength-table tr:last-child td{border-bottom:none}
+.t-start{color:#6b7280}
+.t-tgt{color:#e8960a;font-weight:700}
+.pbar-wrap{background:#f3f4f6;border-radius:100px;height:5px;width:70px;display:inline-block;vertical-align:middle}
+.pbar{background:#e8960a;height:5px;border-radius:100px}
+
+.footer{text-align:center;font-size:7pt;color:#9ca3af;border-top:1px solid #e5e7eb;padding-top:8px;margin-top:22px}
+
+/* ── TOUCH ANDROID ── */
+button, a, [onclick], input, select, label {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+@media (max-width: 768px) {
+  .print-btn { min-height: 44px; }
+}
+
+/* ── EXERCISE DETAIL MODAL ── */
+.ex-fiche-btn{background:rgba(232,150,10,0.12);border:1px solid rgba(232,150,10,0.35);color:#b37200;font-size:7pt;font-weight:700;padding:3px 9px;border-radius:4px;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;letter-spacing:.3px}
+.ex-fiche-btn:hover{background:rgba(232,150,10,0.28);color:#e8960a}
+@media print{.ex-fiche-btn{display:none}}
+.em-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:9999;display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;box-sizing:border-box}
+.em-overlay.open{display:flex}
+.em-modal{background:#fff;border-radius:16px;width:100%;max-width:700px;box-shadow:0 24px 80px rgba(0,0,0,0.45);margin:auto;overflow:hidden;font-family:'Inter',sans-serif}
+.em-hdr{padding:20px 24px 16px;color:#fff;position:relative}
+.em-hdr.push{background:linear-gradient(135deg,#991b1b,#dc2626)}
+.em-hdr.pull{background:linear-gradient(135deg,#1e3a8a,#2563eb)}
+.em-hdr.vshape{background:linear-gradient(135deg,#4c1d95,#7c3aed)}
+.em-hdr.core{background:linear-gradient(135deg,#14532d,#16a34a)}
+.em-close{position:absolute;top:14px;right:14px;background:rgba(255,255,255,0.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.em-close:hover{background:rgba(255,255,255,0.38)}
+.em-icon{font-size:24px;margin-bottom:6px}
+.em-name{font-size:18px;font-weight:800;margin-bottom:3px}
+.em-mg{font-size:12px;opacity:.8;margin-bottom:10px}
+.em-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px}
+.em-stat{background:rgba(255,255,255,0.15);border-radius:7px;padding:7px 8px;text-align:center}
+.em-stat-val{font-weight:800;font-size:13px;display:block}
+.em-stat-key{font-size:8px;opacity:.7;text-transform:uppercase;letter-spacing:.4px;margin-top:1px;display:block}
+.em-ratings{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.em-rlbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;opacity:.75}
+.em-stars{display:flex;gap:1px}
+.em-star{font-size:10px;color:rgba(255,255,255,0.3)}
+.em-star.on{color:#f0a500}
+.em-rsep{color:rgba(255,255,255,0.3);font-size:9px;margin:0 2px}
+.em-yt-zone{padding:10px 24px;background:#f7f4ef;display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:1px solid #e5e0d5}
+.em-yt-btn{display:inline-flex;align-items:center;gap:6px;background:#ff0000;color:#fff;padding:6px 14px;border-radius:7px;text-decoration:none;font-size:11px;font-weight:700;transition:background .15s}
+.em-yt-btn:hover{background:#cc0000}
+.em-equip-tag{font-size:10px;color:#6b7280;background:#fff;padding:4px 9px;border-radius:5px;border:1px solid #e5e0d5}
+.em-tabs{display:flex;border-bottom:2px solid #e5e0d5;background:#f7f4ef}
+.em-tab{flex:1;padding:9px 4px;font-size:10px;font-weight:700;color:#9ca3af;background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;text-transform:uppercase;letter-spacing:.4px;font-family:'Inter',sans-serif}
+.em-tab:hover{color:#374151}
+.em-tab.active{color:#dc2626;border-bottom-color:#dc2626}
+.em-tab.active.pull{color:#2563eb;border-bottom-color:#2563eb}
+.em-tab.active.vshape{color:#7c3aed;border-bottom-color:#7c3aed}
+.em-tab.active.core{color:#16a34a;border-bottom-color:#16a34a}
+.em-panel{display:none;padding:18px 24px 24px}
+.em-panel.active{display:block}
+.em-iblk{background:#f7f4ef;border-radius:9px;padding:10px 13px;margin-bottom:9px}
+.em-iblk-t{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9ca3af;margin-bottom:5px}
+.em-iblk-v{font-size:13px;color:#374151;line-height:1.55}
+.em-breath{background:linear-gradient(135deg,rgba(21,96,212,0.05),rgba(232,150,10,0.05));border:1px solid rgba(232,150,10,0.2)}
+.em-steps{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.em-steps li{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:#374151;line-height:1.5}
+.em-snum{width:20px;height:20px;border-radius:50%;color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.em-snum.push{background:#dc2626}
+.em-snum.pull{background:#2563eb}
+.em-snum.vshape{background:#7c3aed}
+.em-snum.core{background:#16a34a}
+.em-iblk-t2{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9ca3af;margin-bottom:8px}
+.em-chk{list-style:none;display:flex;flex-direction:column;gap:4px}
+.em-chk li{font-size:12px;color:#374151;display:flex;align-items:flex-start;gap:6px}
+.em-chk li::before{content:'✓';color:#0a9e52;font-weight:700;flex-shrink:0}
+.em-map-wrap{display:flex;justify-content:center;padding:6px 0 12px}
+.em-lbls{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.em-lbl{font-size:11px;padding:3px 10px;border-radius:10px;font-weight:600}
+.em-lbl-p{background:rgba(232,150,10,0.15);color:#a66800}
+.em-lbl-s{background:rgba(21,96,212,0.1);color:#1560d4}
+.em-errs{display:flex;flex-direction:column;gap:9px}
+.em-ecard{border-radius:9px;overflow:hidden;border:1px solid #e5e0d5}
+.em-ebad{background:rgba(220,53,69,0.06);padding:9px 12px}
+.em-egood{background:rgba(10,158,82,0.06);padding:9px 12px}
+.em-elbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px}
+.em-ebad .em-elbl{color:#c0392b}
+.em-egood .em-elbl{color:#0a9e52}
+.em-etxt{font-size:12px;color:#374151}
+.em-injlist{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+.em-inj-item{display:flex;gap:7px;align-items:flex-start;font-size:12px;color:#374151;background:rgba(255,165,0,0.06);border:1px solid rgba(255,165,0,0.18);border-radius:8px;padding:8px 10px}
+.em-note{border-radius:9px;padding:11px 13px;margin-bottom:8px;font-size:12px;line-height:1.55;color:#374151}
+.em-note-pe{background:rgba(124,16,212,0.07);border-left:3px solid #7c10d4}
+.em-note-sc{background:rgba(21,96,212,0.07);border-left:3px solid #1560d4}
+.em-note-t{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+.em-note-pe .em-note-t{color:#7c10d4}
+.em-note-sc .em-note-t{color:#1560d4}
+@media(max-width:480px){.em-stats-row{grid-template-columns:repeat(2,1fr)}.em-modal{border-radius:12px}.em-overlay{padding:8px}}
+@media print{.em-overlay{display:none!important}}
+/* ── WEB NAV (écran uniquement — masquée à l'impression) ── */
+@media screen{
+  .web-nav{position:fixed;top:0;left:0;right:0;z-index:9000;background:#0b1020;display:flex;align-items:center;gap:2px;padding:0 16px;height:46px;font-family:'Inter',sans-serif;box-shadow:0 2px 12px rgba(0,0,0,.3);overflow-x:auto}
+  .web-nav-logo{color:#e8960a;font-weight:900;font-size:.92rem;letter-spacing:3px;text-decoration:none;margin-right:10px;white-space:nowrap;flex-shrink:0}
+  .web-nav a:not(.web-nav-logo){color:rgba(255,255,255,.65);text-decoration:none;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;border-radius:6px;transition:all .2s;white-space:nowrap}
+  .web-nav a:not(.web-nav-logo):hover{color:#fff;background:rgba(255,255,255,.1)}
+  .web-nav a.active{color:#e8960a!important;background:rgba(232,150,10,.15)!important}
+  .web-nav-spacer{height:54px}
+  .print-btn{top:56px!important}
+  .web-nav{-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .web-nav::-webkit-scrollbar{display:none;}
+}
+/* ── ACCESSIBILITÉ ── */
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px;}
+</style>
+</head>
+<body>
+
+<nav class="web-nav">
+  <a href="index.html" class="web-nav-logo">ALLEZ</a>
+  <a href="index.html">Accueil</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="nutrition.html">Nutrition</a>
+  <a href="logbook.html">Logbook</a>
+  <a href="progression.html">Progression</a>
+  <a href="exercices.html">Exercices</a>
+  <a href="programme.html" class="active">Programme</a>
+  <a href="analyse.html">Analyse</a>
+  <a href="posture.html">Posture</a>
+  <a href="projection.html">Projection</a>
+  <a href="lifestyle.html">Lifestyle</a>
+  <a href="recettes.html">Recettes</a>
+  <a href="pingpong.html">Ping-Pong</a>
+</nav>
+<div class="web-nav-spacer"></div>
+
+<button class="print-btn" onclick="window.print()">🖨️ Imprimer / Sauvegarder en PDF</button>
+
+<!-- ══════════════════════════════════════════
+     PAGE 1 — VUE D'ENSEMBLE
+══════════════════════════════════════════ -->
+<div class="page">
+
+  <div class="doc-header">
+    <div class="doc-logo">ALL<span>EZ</span></div>
+    <div class="doc-meta">
+      <div>Programme personnalisé · 12 mois</div>
+      <div>Fitness Park Carré Sénart</div>
+      <div style="margin-top:4px"><b>30 ans · 178 cm · 71 kg · 20,5% BF</b></div>
+    </div>
+  </div>
+
+  <div class="sh">Mon Profil &amp; Contexte</div>
+
+  <div class="grid-2" style="margin-bottom:14px">
+    <div class="card">
+      <h3>Mensurations de départ</h3>
+      <div class="row"><span class="lbl">Poids</span><span class="val">71 kg</span></div>
+      <div class="row"><span class="lbl">Taille</span><span class="val">178 cm</span></div>
+      <div class="row"><span class="lbl">Masse grasse</span><span class="val">20,5% (14,6 kg)</span></div>
+      <div class="row"><span class="lbl">Masse maigre</span><span class="val">56,4 kg</span></div>
+      <div class="row"><span class="lbl">Épaules</span><span class="val">48 cm</span></div>
+      <div class="row"><span class="lbl">Tour de taille</span><span class="val">86 cm</span></div>
+    </div>
+    <div class="card">
+      <h3>Contexte médical &amp; programme</h3>
+      <div class="row"><span class="lbl">Niveau</span><span class="val">Débutant</span></div>
+      <div class="row"><span class="lbl">Particularités</span><span class="val red">Pectus excavatum + Discopathie L5-S1</span></div>
+      <div class="row"><span class="lbl">Stratégie</span><span class="val gold">Recomposition corporelle</span></div>
+      <div class="row"><span class="lbl">BMR (Mifflin-St Jeor)</span><span class="val">1 678 kcal</span></div>
+      <div class="row"><span class="lbl">TDEE (×1,45)</span><span class="val">2 433 kcal</span></div>
+      <div class="row"><span class="lbl">Split</span><span class="val">Push / Pull / V-Shape</span></div>
+    </div>
+  </div>
+
+  <div class="sh">Calendrier Hebdomadaire</div>
+
+  <div class="week">
+    <div class="day training">
+      <div class="day-lbl">LUN</div>
+      <div class="day-name">PUSH</div>
+      <div class="day-time">8h00</div>
+    </div>
+    <div class="day rest">
+      <div class="day-lbl">MAR</div>
+      <div class="day-name">Repos</div>
+      <div class="day-time">~</div>
+    </div>
+    <div class="day rest">
+      <div class="day-lbl">MER</div>
+      <div class="day-name">Repos</div>
+      <div class="day-time">~</div>
+    </div>
+    <div class="day training">
+      <div class="day-lbl">JEU</div>
+      <div class="day-name">PULL</div>
+      <div class="day-time">8h00</div>
+    </div>
+    <div class="day activity">
+      <div class="day-lbl">VEN</div>
+      <div class="day-name">Ping Pong</div>
+      <div class="day-time">Cardio léger</div>
+    </div>
+    <div class="day training">
+      <div class="day-lbl">SAM</div>
+      <div class="day-name">V-SHAPE</div>
+      <div class="day-time">11h00</div>
+    </div>
+    <div class="day rest">
+      <div class="day-lbl">DIM</div>
+      <div class="day-name">Repos</div>
+      <div class="day-time">~</div>
+    </div>
+  </div>
+
+  <div class="sh">Objectifs à 12 Mois</div>
+
+  <div class="grid-4">
+    <div class="obj-card">
+      <div class="obj-lbl">Poids</div>
+      <div class="obj-cur">71 kg</div>
+      <div class="obj-arr">→</div>
+      <div class="obj-tgt">77 kg</div>
+    </div>
+    <div class="obj-card">
+      <div class="obj-lbl">Masse maigre</div>
+      <div class="obj-cur">56,4 kg</div>
+      <div class="obj-arr">→</div>
+      <div class="obj-tgt">64 kg</div>
+    </div>
+    <div class="obj-card">
+      <div class="obj-lbl">Masse grasse</div>
+      <div class="obj-cur">20,5%</div>
+      <div class="obj-arr">→</div>
+      <div class="obj-tgt">17%</div>
+    </div>
+    <div class="obj-card">
+      <div class="obj-lbl">Épaules / Taille</div>
+      <div class="obj-cur">48 / 86 cm</div>
+      <div class="obj-arr">→</div>
+      <div class="obj-tgt">53 / 80 cm</div>
+    </div>
+  </div>
+
+  <div class="sh">Calories &amp; Macros</div>
+
+  <div class="grid-2">
+    <div>
+      <div class="macro-bar">
+        <div class="mb-item"><div class="mb-val">2 650</div><div class="mb-lbl">kcal training</div></div>
+        <div class="mb-item"><div class="mb-val">P 160g</div><div class="mb-lbl">protéines</div></div>
+        <div class="mb-item"><div class="mb-val">C 345g</div><div class="mb-lbl">glucides</div></div>
+        <div class="mb-item"><div class="mb-val">L 70g</div><div class="mb-lbl">lipides</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="macro-bar" style="background:#1f2937">
+        <div class="mb-item"><div class="mb-val">2 100</div><div class="mb-lbl">kcal repos</div></div>
+        <div class="mb-item"><div class="mb-val">P 160g</div><div class="mb-lbl">protéines</div></div>
+        <div class="mb-item"><div class="mb-val">C 197g</div><div class="mb-lbl">glucides</div></div>
+        <div class="mb-item"><div class="mb-val">L 75g</div><div class="mb-lbl">lipides</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box blue">
+    <h4>Stratégie recomposition (newbie gains)</h4>
+    <p>Débutant + 20,5% BF = prise musculaire et perte grasse simultanées. Surplus +217 kcal les jours d'entraînement, léger déficit au repos. Moyenne hebdomadaire : 2 336 kcal. Résultat attendu : +7,6 kg de masse maigre et −3,5% de BF en 12 mois.</p>
+  </div>
+
+  <div class="footer">ALLEZ · Programme Personnalisé 12 Mois · Fitness Park Carré Sénart</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 2 — SÉANCE PUSH (LUNDI 8h)
+══════════════════════════════════════════ -->
+<div class="page pb">
+
+  <div class="session-banner sb-push">
+    <div class="sb-row">
+      <div>
+        <div class="sb-name">PUSH</div>
+        <div class="sb-focus">Pectoraux · Épaules · Triceps + finisher posture</div>
+      </div>
+      <div class="sb-right">
+        <div class="sb-day">Lundi — 8h00</div>
+        <div class="sb-focus">Durée estimée : ~1h15</div>
+      </div>
+    </div>
+    <div class="sb-tags">
+      <span class="sb-tag">6 exercices + finisher</span>
+      <span class="sb-tag">RIR 2-3 (stop 2-3 reps avant l'échec)</span>
+      <span class="sb-tag">⚠️ Pectus excavatum</span>
+    </div>
+  </div>
+
+  <!-- EX 1 -->
+  <div class="ex push-ex">
+    <div class="ex-head">
+      <div class="ex-num">1</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Développé Incliné Haltères 30°</div>
+        <div class="ex-muscle">Pectoraux supérieurs (chef claviculaire)</div>
+      </div>
+      <button class="ex-fiche-btn" onclick="event.stopPropagation();openModal(1)">📋 Fiche</button>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">4 × 12-15</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">90 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">3-1-2-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">3</div></div>
+      </div>
+      <div class="ex-equip">Haltères + banc incliné 30° (pas 45° !)</div>
+      <ul class="ex-tips">
+        <li>Omoplates SERRÉES et enfoncées dans le banc — maintenir toute la série</li>
+        <li>Coudes à 75° du corps (jamais à 90° en croix) — protège les épaules</li>
+        <li>Descente lente 3s, pause 1s en bas, poussée vers le haut-intérieur</li>
+      </ul>
+      <div class="alert-gold">⚠️ PE — Réduire l'amplitude de 10-15% si inconfort sternal. Ne jamais forcer la douleur.</div>
+    </div>
+  </div>
+
+  <!-- EX 2 -->
+  <div class="ex push-ex">
+    <div class="ex-head">
+      <div class="ex-num">2</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Élévations Latérales Haltères</div>
+        <div class="ex-muscle">Deltoïdes latéraux (faisceau médial)</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">4 × 12-15</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">60 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-1-3-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">2</div></div>
+      </div>
+      <div class="ex-equip">Haltères légers 4-8 kg — très léger, isolation pure</div>
+      <ul class="ex-tips">
+        <li>Monter exactement à l'horizontale — pas plus haut (trapèzes sinon)</li>
+        <li>Légère rotation interne : pouce légèrement vers le bas (comme verser un verre)</li>
+        <li>Légère inclinaison du buste 10° en avant · Descente contrôlée 3s — pas d'élan</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EX 3 -->
+  <div class="ex push-ex">
+    <div class="ex-head">
+      <div class="ex-num">3</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Développé Militaire Haltères Assis</div>
+        <div class="ex-muscle">Deltoïdes antérieurs + Triceps (+ médial secondaire)</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">4 × 10-12</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">90 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-1-2-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">2-3</div></div>
+      </div>
+      <div class="ex-equip">Haltères + banc droit (dossier 90°)</div>
+      <ul class="ex-tips">
+        <li>Dos COLLÉ au dossier en permanence · Abdos engagés · Pas de cambrure lombaire</li>
+        <li>Descendre jusqu'à coudes à l'horizontale · Bras quasi-tendus en haut (pas verrouillés)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EX 4 -->
+  <div class="ex push-ex">
+    <div class="ex-head">
+      <div class="ex-num">4</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Écarté Câble High-to-Low</div>
+        <div class="ex-muscle">Pectoraux — chef sternal (croisé vers le bas)</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">3 × 12-15</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">75 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-1-3-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">2-3</div></div>
+      </div>
+      <div class="ex-equip">Machine à câbles — poulies hautes</div>
+      <ul class="ex-tips">
+        <li>Coudes légèrement fléchis 15-20° fixes — ce n'est pas un rowing</li>
+        <li>Arc de cercle du haut vers le bas-avant · Légère croix des mains en fin pour contraction max</li>
+        <li>Retour contrôlé 3s · Câbles supérieurs aux haltères : tension constante sans comprimer le sternum</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EX 5 -->
+  <div class="ex push-ex">
+    <div class="ex-head">
+      <div class="ex-num">5</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Extension Triceps Câble Corde</div>
+        <div class="ex-muscle">Triceps — chef latéral &amp; médial</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">4 × 12-15</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">60 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-0-2-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">2</div></div>
+      </div>
+      <div class="ex-equip">Machine à câbles — poulie haute + corde</div>
+      <ul class="ex-tips">
+        <li>Coudes FIXÉS aux flancs — règle absolue · Légère inclinaison avant du buste</li>
+        <li>ÉCARTER les extrémités de la corde en bas = meilleure isolation et contraction maximale des chefs latéral &amp; médial</li>
+        <li>Extension complète à chaque rep · Si les coudes s'écartent : trop lourd</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EX 6 : FACE PULL -->
+  <div class="ex push-ex">
+    <div class="ex-head">
+      <div class="ex-num">6</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Face Pull Câble ★ THÉRAPEUTIQUE</div>
+        <div class="ex-muscle">Deltoïdes postérieurs + Rotateurs de coiffe</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">4 × 15-20</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">60 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-2-3-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">1</div></div>
+      </div>
+      <div class="ex-equip">Machine à câbles + corde — poulie à hauteur du visage</div>
+      <ul class="ex-tips">
+        <li>Tirer la corde VERS LE VISAGE — coudes à hauteur des yeux pendant tout le mouvement</li>
+        <li>ROTATION EXTERNE : paumes finissent vers le haut en fin de mouvement — c'est l'essentiel</li>
+        <li>Pause 2s en contraction · Retour lent 3s · Très léger — la rotation prime sur le poids</li>
+      </ul>
+      <div class="alert-gold">⚠️ NE JAMAIS SAUTER CET EXERCICE — ouvre la cage thoracique, corrige la cyphose, prévient l'impingement d'épaule. Essentiel pour le PE.</div>
+    </div>
+  </div>
+
+  <!-- FINISHER -->
+  <div class="finisher">
+    <div class="finisher-title">Finisher Posture</div>
+    <div class="finisher-exs">
+      <span class="finisher-ex">Planche abdominale — 3 × 45-60 sec</span>
+      <span class="finisher-ex">Repos 45 sec entre séries</span>
+      <span class="finisher-ex">Corps en ligne droite · Abdos + fessiers serrés</span>
+    </div>
+  </div>
+
+  <div class="footer">ALLEZ · Séance PUSH — Lundi 8h · Page 2/7</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 3 — SÉANCE PULL (JEUDI 8h)
+══════════════════════════════════════════ -->
+<div class="page pb">
+
+  <div class="session-banner sb-pull">
+    <div class="sb-row">
+      <div>
+        <div class="sb-name">PULL</div>
+        <div class="sb-focus">Dos · Biceps · Deltoïdes postérieurs + finisher core</div>
+      </div>
+      <div class="sb-right">
+        <div class="sb-day">Jeudi — 8h00</div>
+        <div class="sb-focus">Durée estimée : ~1h15</div>
+      </div>
+    </div>
+    <div class="sb-tags">
+      <span class="sb-tag">6 exercices + finisher</span>
+      <span class="sb-tag">RIR 2-3</span>
+      <span class="sb-tag">⚠️ Dos : règles spéciales</span>
+    </div>
+  </div>
+
+  <div class="info-box red">
+    <h4>Règles absolues — Dos (asymétrie + discopathie L5-S1)</h4>
+    <p>① Pour TOUS les exercices unilatéraux : commencer TOUJOURS par le côté GAUCHE (le plus faible). Si déséquilibre détecté côté droit, ajouter 1 série supplémentaire côté gauche. Contraction SYMÉTRIQUE des deux côtés du dos à chaque répétition. ② Radio 2020 : discopathie L5-S1 (petit pincement) — jamais de flexion lombaire sous charge, dos neutre + gainage sur tout exercice debout ou penché, et aucun exercice qui déclenche une douleur lombaire.</p>
+  </div>
+
+  <!-- EX 1 -->
+  <div class="ex pull-ex">
+    <div class="ex-head">
+      <div class="ex-num">1</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Tirage Vertical Prise Large</div>
+        <div class="ex-muscle">Grand dorsal — largeur · Vision V-Shape</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">4 × 10-12</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">90 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-1-3-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">2-3</div></div>
+      </div>
+      <div class="ex-equip">Machine lat pulldown — calage cuisses bien serré</div>
+      <ul class="ex-tips">
+        <li>DÉPRIMER les épaules (les baisser, loin des oreilles) AVANT de plier les coudes</li>
+        <li>Tirer vers le haut de la poitrine · Coudes qui pointent vers le sol · Légère inclinaison 15° arrière</li>
+        <li>Bras quasi-tendus en haut (stretch maximal) · Excentrique 3s — là que les lats grandissent</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EX 2 -->
+  <div class="ex pull-ex">
+    <div class="ex-head">
+      <div class="ex-num">2</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Rowing Unilatéral Haltère</div>
+        <div class="ex-muscle">Grand dorsal + Rhomboïdes</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">4 × 10-12 / côté</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">75 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-1-3-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">2</div></div>
+      </div>
+      <div class="ex-equip">Haltère + banc plat</div>
+      <ul class="ex-tips">
+        <li>Tirer vers la HANCHE (pas l'épaule) — cible les lats, pas les biceps</li>
+        <li>Dos HORIZONTAL et PLAT tout le mouvement · Légère rotation naturelle du torse OK en haut</li>
+        <li>Pause 1s en haut · Excentrique 3s · Descente complète (étirement du lat)</li>
+      </ul>
+      <div class="alert-red">⚠️ ASYMÉTRIE — TOUJOURS commencer par le côté GAUCHE (le plus faible). + 1 série côté gauche si déséquilibre.</div>
+    </div>
+  </div>
+
+  <!-- EX 3 -->
+  <div class="ex pull-ex">
+    <div class="ex-head">
+      <div class="ex-num">3</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Oiseau Câble Penché</div>
+        <div class="ex-muscle">Deltoïdes postérieurs (câble croisé)</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">3 × 15-20</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">60 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-1-2-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">2</div></div>
+      </div>
+      <div class="ex-equip">Machine à câbles — poulie basse, câble CROISÉ devant soi</div>
+      <ul class="ex-tips">
+        <li>Câble croisé (main gauche = poulie droite) → tension constante sur toute l'amplitude</li>
+        <li>Buste incliné 45° dos plat · Tirer en arc de cercle vers le haut-côté (comme un oiseau)</li>
+        <li>Très léger — isolation pure · Pause 1s en haut · Faire les deux côtés</li>
+      </ul>
+      <div class="alert-gold">⚠️ PE + Posture — Correctif prioritaire : renforce les antagonistes du pectoral, ouvre le thorax.</div>
+    </div>
+  </div>
+
+  <!-- EX 4 -->
+  <div class="ex pull-ex">
+    <div class="ex-head">
+      <div class="ex-num">4</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Rowing Câble Assis Prise Large</div>
+        <div class="ex-muscle">Rhomboïdes + Trapèzes moyens</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">3 × 12-15</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">75 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-2-3-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">2</div></div>
+      </div>
+      <div class="ex-equip">Machine à câbles poulie basse + barre large en pronation</div>
+      <ul class="ex-tips">
+        <li>Initier le mouvement avec les OMOPLATES (les rapprocher) · Dos quasi-fixe</li>
+        <li>Pause 2s en contraction — omoplates serrées, poitrine vers la machine</li>
+        <li>Retour contrôlé 3s · Coudes à hauteur du torse (ni trop hauts ni trop bas)</li>
+      </ul>
+      <div class="alert-gold">⚠️ Asymétrie — Contraction SYMÉTRIQUE des deux côtés du dos à chaque répétition.</div>
+    </div>
+  </div>
+
+  <!-- EX 5 -->
+  <div class="ex pull-ex">
+    <div class="ex-head">
+      <div class="ex-num">5</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Face Pull Câble ★ THÉRAPEUTIQUE</div>
+        <div class="ex-muscle">Deltoïdes postérieurs + Rotateurs</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">4 × 15</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">60 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-2-3-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">1</div></div>
+      </div>
+      <div class="ex-equip">Machine à câbles + corde — poulie à hauteur du visage</div>
+      <ul class="ex-tips">
+        <li>Coudes à hauteur des yeux · Rotation EXTERNE — paumes vers le haut en fin · Pause 2s</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EX 6 -->
+  <div class="ex pull-ex">
+    <div class="ex-head">
+      <div class="ex-num">6</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Curl Biceps Haltères Alternés</div>
+        <div class="ex-muscle">Biceps — chef long (supination)</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">4 × 10-12 / bras</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">75 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-1-3-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">3</div></div>
+      </div>
+      <div class="ex-equip">Haltères — debout ou assis</div>
+      <ul class="ex-tips">
+        <li>SUPINATION pendant le mouvement : paumes neutres au départ → paumes vers le haut en haut</li>
+        <li>Coudes FIXÉS aux flancs — s'ils avancent, c'est trop lourd · Descente contrôlée 3s</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FINISHER -->
+  <div class="finisher">
+    <div class="finisher-title">Finisher Core — Stabilisation Spinale</div>
+    <div class="finisher-exs">
+      <span class="finisher-ex">Dead Bug — 3 × 10 / côté</span>
+      <span class="finisher-ex">Bird Dog — 3 × 10 / côté</span>
+      <span class="finisher-ex">Repos 45 sec · Mouvements lents et contrôlés</span>
+    </div>
+  </div>
+
+  <div class="info-box green" style="margin-top:10px">
+    <h4>Dead Bug — Clé d'exécution (priorité dos / L5-S1)</h4>
+    <p>Bas du dos COLLÉ au sol en permanence. Bras DROIT + jambe GAUCHE simultanément. Si le dos se décolle : réduire l'amplitude. Exercice prescrit en rééducation lombaire — ne jamais sauter.</p>
+  </div>
+
+  <div class="footer">ALLEZ · Séance PULL — Jeudi 8h · Page 3/7</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 4 — SÉANCE V-SHAPE (SAMEDI 11h)
+══════════════════════════════════════════ -->
+<div class="page pb">
+
+  <div class="session-banner sb-vs">
+    <div class="sb-row">
+      <div>
+        <div class="sb-name">V-SHAPE</div>
+        <div class="sb-focus">Épaules 3D · Dos · Bras + finisher posture + core</div>
+      </div>
+      <div class="sb-right">
+        <div class="sb-day">Samedi — 11h00</div>
+        <div class="sb-focus">Durée estimée : ~1h30</div>
+      </div>
+    </div>
+    <div class="sb-tags">
+      <span class="sb-tag">6 exercices + 2 finishers</span>
+      <span class="sb-tag">Séance la plus longue</span>
+      <span class="sb-tag">Objectif V-Shape prioritaire</span>
+    </div>
+  </div>
+
+  <!-- EX 1 -->
+  <div class="ex vs-ex">
+    <div class="ex-head">
+      <div class="ex-num">1</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Élévations Latérales Haltères</div>
+        <div class="ex-muscle">Deltoïdes latéraux — volume maximal</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">5 × 15</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">60 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-1-3-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">2</div></div>
+      </div>
+      <div class="ex-equip">Haltères 4-8 kg — léger et strict</div>
+      <ul class="ex-tips">
+        <li>Même technique que séance Push : horizontale exacte · Rotation interne · Pas d'élan</li>
+        <li>5 séries pour maximiser le volume des épaules — clé du V-Shape</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EX 2 -->
+  <div class="ex vs-ex">
+    <div class="ex-head">
+      <div class="ex-num">2</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Élévations Latérales Câble</div>
+        <div class="ex-muscle">Deltoïdes latéraux — tension constante</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">4 × 15</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">60 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-1-3-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">2</div></div>
+      </div>
+      <div class="ex-equip">Câble poulie basse — côté à la machine</div>
+      <ul class="ex-tips">
+        <li>Même technique que haltères mais câble = tension constante même en bas du mouvement</li>
+        <li>Faire les 2 côtés · Légère inclinaison vers la machine pour meilleur angle</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EX 3 -->
+  <div class="ex vs-ex">
+    <div class="ex-head">
+      <div class="ex-num">3</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Arnold Press</div>
+        <div class="ex-muscle">Deltoïdes — 3 faisceaux simultanés</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">4 × 10-12</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">90 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">3-1-2-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">3</div></div>
+      </div>
+      <div class="ex-equip">Haltères + banc droit — exercice technique, commencer léger</div>
+      <ul class="ex-tips">
+        <li>Départ : haltères devant le visage, paumes vers soi, coudes à 90°</li>
+        <li>Pousser vers le haut EN TOURNANT progressivement les paumes vers l'extérieur</li>
+        <li>La rotation doit être LENTE et CONTINUE — c'est elle qui active les 3 faisceaux</li>
+        <li>Dos collé au dossier · Abdos engagés · Pas de cambrure</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EX 4 -->
+  <div class="ex vs-ex">
+    <div class="ex-head">
+      <div class="ex-num">4</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Pull-ups / Tractions</div>
+        <div class="ex-muscle">Grand dorsal — largeur maximale · Exercice roi</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">4 × max reps</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">120 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-1-3-0</div></div>
+      </div>
+      <div class="ex-equip">Barre de tractions — prise pronation largeur 1,5× épaules</div>
+      <ul class="ex-tips">
+        <li>Bras COMPLÈTEMENT tendus en bas — ne jamais faire de demi-rep</li>
+        <li>DÉPRIMER les épaules (les baisser) AVANT de plier les coudes</li>
+        <li>Tirer jusqu'au menton au-dessus de la barre · Légère inclinaison arrière · Excentrique 3s</li>
+        <li>Pas de balancement (kipping) — mouvements stricts uniquement</li>
+      </ul>
+      <div class="alert-gold">Débutant : utiliser élastique de résistance si moins de 5 reps. Sinon faire le Tirage Vertical les 3 premiers mois. Objectif : 10 tractions strictes à 6 mois.</div>
+    </div>
+  </div>
+
+  <!-- EX 5 -->
+  <div class="ex vs-ex">
+    <div class="ex-head">
+      <div class="ex-num">5</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Curl Barre EZ + Curl Concentré</div>
+        <div class="ex-muscle">Biceps — volume (EZ) + pic de contraction (concentré)</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">3 × 10-12 EZ · 2 × 10-12 concentré</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">75 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-1-3-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">2</div></div>
+      </div>
+      <div class="ex-equip">3 séries barre EZ debout, puis 2 séries haltère + banc (curl concentré)</div>
+      <ul class="ex-tips">
+        <li>EZ : coudes fixes aux flancs · Extension complète en bas · Tronc fixe · Excentrique 3s</li>
+        <li>Concentré : coude FIXE contre la cuisse · Pause 2s en contraction · Supination maximale en haut</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EX 6 -->
+  <div class="ex vs-ex">
+    <div class="ex-head">
+      <div class="ex-num">6</div>
+      <div class="ex-name-col">
+        <div class="ex-name">Extension Triceps Overhead Câble</div>
+        <div class="ex-muscle">Triceps — chef long (2/3 du volume du triceps)</div>
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-stats">
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">3 × 12</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">75 sec</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">3-1-2-0</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">2</div></div>
+      </div>
+      <div class="ex-equip">Câble poulie basse + corde — DOS à la machine, un pied en avant</div>
+      <ul class="ex-tips">
+        <li>Coudes pointant vers le PLAFOND — FIXES pendant tout le mouvement</li>
+        <li>Étendre les bras vers le haut · Extension COMPLÈTE · Pause 1s en haut</li>
+        <li>Descente lente 3s — étirement maximum du chef long · Ne pas laisser les coudes s'écarter</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FINISHER -->
+  <div class="finisher">
+    <div class="finisher-title">Finisher Posture ★</div>
+    <div class="finisher-exs">
+      <span class="finisher-ex">Face Pull Câble — 3 × 15</span>
+      <span class="finisher-ex">Corde à hauteur du visage · coudes hauts · rétraction scapulaire</span>
+      <span class="finisher-ex">Repos 45 sec</span>
+    </div>
+  </div>
+  <div class="finisher">
+    <div class="finisher-title">Finisher Core</div>
+    <div class="finisher-exs">
+      <span class="finisher-ex">Hollow Body — 3 × 45 sec</span>
+      <span class="finisher-ex">Planche — 3 × 45 sec</span>
+      <span class="finisher-ex">Repos 45 sec entre exercices</span>
+    </div>
+  </div>
+
+  <div class="footer">ALLEZ · Séance V-SHAPE — Samedi 11h · Page 4/7</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 5 — NUTRITION LUNDI & JEUDI
+══════════════════════════════════════════ -->
+<div class="page pb">
+
+  <div class="doc-header" style="margin-bottom:14px">
+    <div style="font-size:18pt;font-weight:900;letter-spacing:3px;color:#0b1020">NUTRITION <span style="color:#e8960a">LUNDI &amp; JEUDI</span></div>
+    <div style="text-align:right;font-size:8pt;color:#6b7280">Jour d'entraînement 8h00<br><b>2 650 kcal · P:160g · C:345g · L:70g</b></div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">6h30</div><div class="m-tag">Pré-workout</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">Pré-workout léger — 90 min avant la séance</span><span class="m-kcal">~260 kcal</span></div>
+      <div class="m-macros"><span class="mp p">P: 11g</span><span class="mp c">G: 43g</span><span class="mp f">L: 5g</span></div>
+      <ul class="m-foods">
+        <li>1 banane mûre (énergie rapide, facile à digérer)</li>
+        <li>30g flocons d'avoine sèche ou 2 galettes de riz</li>
+        <li>1 œuf dur (protéines légères)</li>
+        <li>5g Créatine ON Micronized dans un verre d'eau</li>
+      </ul>
+      <div class="m-note">Intentionnellement léger — ventre trop plein à 6h30 = nausées. Objectif : du carburant, pas se rassasier.</div>
+    </div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">8h00</div><div class="m-tag">Séance</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">Pendant la séance</span><span class="m-kcal">Eau</span></div>
+      <ul class="m-foods">
+        <li>500–750ml eau plate — sips réguliers toutes les 15-20 min</li>
+        <li>Pas de shaker whey pendant la séance</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">9h30</div><div class="m-tag">Post-workout</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">Shaker Post-Workout — Dans les 30 min après la séance</span><span class="m-kcal">~330 kcal</span></div>
+      <div class="m-macros"><span class="mp p">P: 32g</span><span class="mp c">G: 40g</span><span class="mp f">L: 4g</span></div>
+      <ul class="m-foods">
+        <li>1 scoop ON Gold Standard Whey (24g protéines)</li>
+        <li>200ml lait demi-écrémé ou eau froide</li>
+        <li>1 banane — recharge glycogène immédiate</li>
+      </ul>
+      <div class="m-note">Fenêtre post-workout ouverte — priorité absolue. Préparer le shaker à l'avance dans le sac de sport.</div>
+    </div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">11h00</div><div class="m-tag">Petit-déj</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">Vrai Petit-Déjeuner — Repas post-workout complet</span><span class="m-kcal">~520 kcal</span></div>
+      <div class="m-macros"><span class="mp p">P: 28g</span><span class="mp c">G: 75g</span><span class="mp f">L: 8g</span></div>
+      <ul class="m-foods">
+        <li>50g flocons d'avoine cuits à l'eau ou lait végétal</li>
+        <li>150g skyr nature ou fromage blanc 0%</li>
+        <li>1 c. à soupe miel + 80g fruits rouges</li>
+        <li>1 dose Opti-Men avec ce repas (vitamines liposolubles)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">13h30</div><div class="m-tag">Déjeuner</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">Déjeuner — Repas complet équilibré</span><span class="m-kcal">~700 kcal</span></div>
+      <div class="m-macros"><span class="mp p">P: 42g</span><span class="mp c">G: 80g</span><span class="mp f">L: 18g</span></div>
+      <ul class="m-foods">
+        <li>150g blanc de poulet grillé (ou thon 120g)</li>
+        <li>90g riz basmati cru → ~225g cuit</li>
+        <li>200g légumes variés (haricots verts, courgettes, brocoli)</li>
+        <li>1 c. à soupe huile d'olive</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">16h30</div><div class="m-tag">Collation</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">Collation Après-Midi</span><span class="m-kcal">~400 kcal</span></div>
+      <div class="m-macros"><span class="mp p">P: 22g</span><span class="mp c">G: 60g</span><span class="mp f">L: 9g</span></div>
+      <ul class="m-foods">
+        <li>100g cottage cheese</li>
+        <li>2 tranches pain complet + 10g beurre de cacahuète</li>
+        <li>1 pomme ou poire (glucides pour atteindre la cible des 345g/jour)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">19h30</div><div class="m-tag">Dîner</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">Dîner — Récupération nocturne</span><span class="m-kcal">~590 kcal</span></div>
+      <div class="m-macros"><span class="mp p">P: 34g</span><span class="mp c">G: 43g</span><span class="mp f">L: 31g</span></div>
+      <ul class="m-foods">
+        <li>150g saumon ou maquereau (oméga-3 pour la récupération)</li>
+        <li>200g patate douce rôtie au four</li>
+        <li>Salade verte + 1 c. à soupe huile d'olive</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">22h30</div><div class="m-tag">Coucher</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">ZMA — 30-60 min avant de dormir</span><span class="m-kcal">Compléments</span></div>
+      <ul class="m-foods">
+        <li>ZMA MyProtein — dose selon étiquette</li>
+        <li>À jeun ou 2h après le dîner · LOIN de tout calcium (inhibe l'absorption du zinc)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">ALLEZ · Nutrition Lundi &amp; Jeudi · Page 5/7</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 6 — NUTRITION SAMEDI
+══════════════════════════════════════════ -->
+<div class="page pb">
+
+  <div class="doc-header" style="margin-bottom:14px">
+    <div style="font-size:18pt;font-weight:900;letter-spacing:3px;color:#0b1020">NUTRITION <span style="color:#7c3aed">SAMEDI</span></div>
+    <div style="text-align:right;font-size:8pt;color:#6b7280">Jour d'entraînement 11h00<br><b>2 650 kcal · P:160g · C:345g · L:70g</b></div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">8h30</div><div class="m-tag">Réveil</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">Réveil — Hydratation &amp; mise en route</span><span class="m-kcal">Eau</span></div>
+      <ul class="m-foods">
+        <li>500ml d'eau dès le réveil (réhydratation nocturne)</li>
+        <li>Café ou thé sans sucre ni lait · Le vrai repas est à 9h30</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">9h30</div><div class="m-tag">Pré-workout</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">Petit-Déjeuner Pré-Workout — 90 min avant la séance</span><span class="m-kcal">~680 kcal</span></div>
+      <div class="m-macros"><span class="mp p">P: 40g</span><span class="mp c">G: 98g</span><span class="mp f">L: 8g</span></div>
+      <ul class="m-foods">
+        <li>80g flocons d'avoine cuits à l'eau ou lait végétal</li>
+        <li>200g skyr nature</li>
+        <li>1 banane tranchée + 1 c. à soupe miel</li>
+        <li>1 dose Opti-Men + 5g Créatine dans un verre d'eau</li>
+      </ul>
+      <div class="m-note">Avantage Samedi : vrai repas complet 90 min avant = performance optimale sans se lever à l'aube.</div>
+    </div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">11h00</div><div class="m-tag">Séance</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">V-SHAPE — Épaules 3D · Dos · Bras</span><span class="m-kcal">Eau</span></div>
+      <ul class="m-foods">
+        <li>500–750ml eau plate — séance la plus longue (~1h30) · Hydrater bien</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">12h30</div><div class="m-tag">Post-workout</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">Shaker Post-Workout — Dans les 30 min</span><span class="m-kcal">~350 kcal</span></div>
+      <div class="m-macros"><span class="mp p">P: 48g</span><span class="mp c">G: 33g</span><span class="mp f">L: 3g</span></div>
+      <ul class="m-foods">
+        <li>2 scoops ON Gold Standard Whey</li>
+        <li>250ml eau froide</li>
+        <li>1 banane optionnelle si faim intense</li>
+      </ul>
+      <div class="m-note">Fenêtre post-workout ouverte — shaker immédiat puis déjeuner complet 1h après.</div>
+    </div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">14h00</div><div class="m-tag">Déjeuner</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">Déjeuner Post-Workout Complet</span><span class="m-kcal">~700 kcal</span></div>
+      <div class="m-macros"><span class="mp p">P: 42g</span><span class="mp c">G: 80g</span><span class="mp f">L: 18g</span></div>
+      <ul class="m-foods">
+        <li>150g blanc de poulet ou thon 120g</li>
+        <li>90g riz basmati cru → ~225g cuit</li>
+        <li>200g légumes variés + 1 c. à soupe huile d'olive</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">17h00</div><div class="m-tag">Collation</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">Collation Après-Midi</span><span class="m-kcal">~350 kcal</span></div>
+      <div class="m-macros"><span class="mp p">P: 25g</span><span class="mp c">G: 40g</span><span class="mp f">L: 9g</span></div>
+      <ul class="m-foods">
+        <li>100g cottage cheese</li>
+        <li>2 tranches pain complet + 15g beurre de cacahuète</li>
+        <li>1 pomme ou poire</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">20h00</div><div class="m-tag">Dîner</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">Dîner — Récupération &amp; Sommeil</span><span class="m-kcal">~635 kcal</span></div>
+      <div class="m-macros"><span class="mp p">P: 47g</span><span class="mp c">G: 44g</span><span class="mp f">L: 30g</span></div>
+      <ul class="m-foods">
+        <li>150g saumon ou maquereau (oméga-3)</li>
+        <li>200g patate douce rôtie</li>
+        <li>2 œufs brouillés (protéines + graisses saines)</li>
+        <li>Salade verte nature (vinaigrette citron)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="meal-item">
+    <div><div class="m-time">22h30</div><div class="m-tag">Coucher</div></div>
+    <div class="m-card">
+      <div class="m-header"><span class="m-name">ZMA — 30-60 min avant de dormir</span><span class="m-kcal">Compléments</span></div>
+      <ul class="m-foods">
+        <li>ZMA MyProtein — dose selon étiquette · Loin de tout calcium</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">ALLEZ · Nutrition Samedi · Page 6/7</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 7 — REPOS · COMPLÉMENTS · CHARGES
+══════════════════════════════════════════ -->
+<div class="page pb">
+
+  <div class="sh">Jours de Repos — Nutrition (Mar · Mer · Dim)</div>
+
+  <div class="macro-bar" style="margin-bottom:14px">
+    <div class="mb-item"><div class="mb-val">2 100</div><div class="mb-lbl">kcal / jour repos</div></div>
+    <div class="mb-item"><div class="mb-val">P 160g</div><div class="mb-lbl">protéines maintenues</div></div>
+    <div class="mb-item"><div class="mb-val">C 197g</div><div class="mb-lbl">glucides réduits</div></div>
+    <div class="mb-item"><div class="mb-val">L 75g</div><div class="mb-lbl">lipides augmentés</div></div>
+  </div>
+
+  <div class="rest-grid" style="margin-bottom:14px">
+    <div class="rest-card">
+      <strong>Principe clé</strong>
+      Protéines maintenues à 160g (préservation musculaire). Glucides réduits de 345g → 197g. Lipides légèrement augmentés pour compenser. Pas de shaker post-workout.
+    </div>
+    <div class="rest-card">
+      <strong>Structure des repas</strong>
+      3 repas principaux + 1 collation. Même qualité d'aliments (poulet, riz, légumes, saumon, œufs). Quantité de riz réduite à ~60g cru par repas. ZMA le soir comme d'habitude.
+    </div>
+    <div class="rest-card">
+      <strong>Créatine (jours repos)</strong>
+      5g créatine à n'importe quel moment de la journée — la quotidienneté est la clé, pas le timing. Mettre dans l'eau ou jus de fruit.
+    </div>
+    <div class="rest-card">
+      <strong>Opti-Men (tous les jours)</strong>
+      3 comprimés obligatoirement avec un repas contenant des lipides (petit-déj ou déjeuner). Vitamines A, D, E, K sont liposolubles — absorption impossible sans gras.
+    </div>
+  </div>
+
+  <div class="sh">Mes Compléments Alimentaires</div>
+
+  <div class="supp-grid">
+    <div class="supp-card">
+      <div class="supp-name">Gold Standard Whey</div>
+      <div class="supp-brand">Optimum Nutrition</div>
+      <div class="supp-row"><b>Dose :</b> 1 scoop Lun/Jeu (9h30) · 2 scoops Samedi (12h30)</div>
+      <div class="supp-row"><b>Timing :</b> Post-workout obligatoire dans les 30 min</div>
+      <div class="supp-row"><b>Attention :</b> Max 2 shakers par jour — ne remplace pas les repas solides</div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-name">Creatine Micronized</div>
+      <div class="supp-brand">Optimum Nutrition</div>
+      <div class="supp-row"><b>Dose :</b> 5g par jour — TOUS les jours sans exception</div>
+      <div class="supp-row"><b>Timing :</b> Pré-workout les jours d'entraînement · N'importe quand au repos</div>
+      <div class="supp-row"><b>Note :</b> Léger gain de poids (+1-2 kg) = rétention intramusculaire normale</div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-name">ZMA (Zinc &amp; Magnésium)</div>
+      <div class="supp-brand">MyProtein</div>
+      <div class="supp-row"><b>Dose :</b> Selon étiquette · TOUS les soirs</div>
+      <div class="supp-row"><b>Timing :</b> 30-60 min avant de dormir · À jeun ou 2h après dîner</div>
+      <div class="supp-row"><b>⚠️ Interaction :</b> Calcium bloque l'absorption du zinc — zéro produit laitier 2h avant</div>
+      <div class="supp-row"><b>⚠️ Doublon magnésium :</b> Le ZMA contient déjà ~450 mg de magnésium aspartate. Si tu ajoutes un magnésium bisglycinate séparé, tu dépasses 750 mg/j → risque de troubles digestifs. Choisis : ZMA seul, OU zinc bisglycinate + magnésium bisglycinate séparés (meilleure absorption). Pas les deux.</div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-name">Opti-Men Multivitamines</div>
+      <div class="supp-brand">Optimum Nutrition</div>
+      <div class="supp-row"><b>Dose :</b> 3 comprimés par jour — TOUS les jours</div>
+      <div class="supp-row"><b>Timing :</b> Avec un repas contenant des lipides (petit-déj ou déjeuner)</div>
+      <div class="supp-row"><b>Bénéfices :</b> Couvre les carences B6, B12, D3 (dose faible), zinc, magnésium, vitamine C</div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-name">Oméga-3 EPA/DHA</div>
+      <div class="supp-brand">WHC UnoCardio 1000 ★ (ou Nutri&amp;Co Oméga-3)</div>
+      <div class="supp-row"><b>Dose :</b> 2 capsules par jour — TOUS les jours</div>
+      <div class="supp-row"><b>Timing :</b> Matin ou midi avec un repas contenant des lipides</div>
+      <div class="supp-row"><b>Pourquoi :</b> Réduit l'inflammation articulaire (PE + dos), améliore la sensibilité à l'insuline, santé cardiovasculaire. WHC = meilleure note IFOS 5★ du monde.</div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-name">Vitamine D3 3 000 UI + K2 MK-7</div>
+      <div class="supp-brand">Nutri&amp;Co D3+K2 (ou Solgar D3 + Now K2 séparés)</div>
+      <div class="supp-row"><b>Dose :</b> 3 000 UI D3 + 100 mcg K2 — TOUS les jours</div>
+      <div class="supp-row"><b>Timing :</b> Matin avec le petit-déjeuner (liposoluble — obligatoire avec des graisses)</div>
+      <div class="supp-row"><b>Pourquoi :</b> L'Opti-Men contient ~1 000 UI D3 — insuffisant pour les besoins réels. D3 = testostérone, force musculaire, densité osseuse. K2 redirige le calcium vers les os.</div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-name">Collagène Peptides Type I + Vitamine C</div>
+      <div class="supp-brand">Vital Proteins Collagen Peptides (ou Foodspring Collagène)</div>
+      <div class="supp-row"><b>Dose :</b> 10–15 g de collagène + 200 mg vitamine C</div>
+      <div class="supp-row"><b>Timing :</b> 30–60 min AVANT la séance (fenêtre anabolique tendons)</div>
+      <div class="supp-row"><b>Pourquoi :</b> Spécifique PE + dos — renforce les tendons, ligaments et tissu conjonctif sous contrainte. Réduit le risque de blessure en début de programme.</div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-name">Ashwagandha KSM-66</div>
+      <div class="supp-brand">Nutri&amp;Co Ashwagandha (ou Jarrow Formulas KSM-66)</div>
+      <div class="supp-row"><b>Dose :</b> 600 mg d'extrait standardisé KSM-66 — TOUS les soirs</div>
+      <div class="supp-row"><b>Timing :</b> Le soir avant de dormir · avec le stack ZMA</div>
+      <div class="supp-row"><b>Cycle :</b> 8 semaines ON / 4 semaines OFF — ne pas prendre en continu</div>
+      <div class="supp-row"><b>Pourquoi :</b> Réduit le cortisol (−30%), améliore la testostérone, qualité du sommeil et récupération. Effet mesurable à 4–8 semaines.</div>
+    </div>
+  </div>
+
+  <div class="sh">Objectifs de Charges — Départ → 12 Mois</div>
+
+  <table class="strength-table">
+    <thead>
+      <tr>
+        <th>Exercice</th>
+        <th>Charge Départ</th>
+        <th>Objectif 12 mois</th>
+        <th>Progression</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Développé incliné haltères</b></td>
+        <td class="t-start">2 × 14 kg</td>
+        <td class="t-tgt">2 × 22 kg</td>
+        <td><div class="pbar-wrap"><div class="pbar" style="width:28%"></div></div></td>
+      </tr>
+      <tr>
+        <td><b>Tirage vertical</b></td>
+        <td class="t-start">50 kg</td>
+        <td class="t-tgt">72 kg</td>
+        <td><div class="pbar-wrap"><div class="pbar" style="width:24%"></div></div></td>
+      </tr>
+      <tr>
+        <td><b>Arnold Press</b></td>
+        <td class="t-start">2 × 10 kg</td>
+        <td class="t-tgt">2 × 16 kg</td>
+        <td><div class="pbar-wrap"><div class="pbar" style="width:32%"></div></div></td>
+      </tr>
+      <tr>
+        <td><b>Écarté câble</b></td>
+        <td class="t-start">2 × 8 kg</td>
+        <td class="t-tgt">2 × 15 kg</td>
+        <td><div class="pbar-wrap"><div class="pbar" style="width:22%"></div></div></td>
+      </tr>
+      <tr>
+        <td><b>Rowing unilatéral haltère</b></td>
+        <td class="t-start">20 kg</td>
+        <td class="t-tgt">32 kg</td>
+        <td><div class="pbar-wrap"><div class="pbar" style="width:26%"></div></div></td>
+      </tr>
+      <tr>
+        <td><b>Curl biceps haltères</b></td>
+        <td class="t-start">2 × 10 kg</td>
+        <td class="t-tgt">2 × 16 kg</td>
+        <td><div class="pbar-wrap"><div class="pbar" style="width:30%"></div></div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="info-box blue" style="margin-top:14px">
+    <h4>Règle de progression des charges</h4>
+    <p>Atteins le haut de la fourchette de reps (ex: 15 sur 12-15) sur TOUTES les séries avec bonne forme → augmenter de 1-2 kg la séance suivante. Jamais augmenter si la technique se dégrade. Progresser 1 exercice à la fois.</p>
+  </div>
+
+  <div class="info-box green" style="margin-top:10px">
+    <h4>Lexique RIR &amp; Tempo</h4>
+    <p><b>RIR 2-3 :</b> Reps In Reserve — arrêter 2-3 reps avant l'échec musculaire. Idéal pour progresser sans se blesser. &nbsp;|&nbsp; <b>Tempo 3-1-2-0 :</b> 3s descente · 1s pause en bas · 2s montée · 0s pause en haut. Ne jamais sauter la phase excentrique (descente) — c'est là que le muscle grandit.</p>
+  </div>
+
+  <div class="footer">ALLEZ · Programme Complet · Fitness Park Carré Sénart · 12 mois de transformation</div>
+</div>
+
+<!-- ── EXERCISE DETAIL MODAL ── -->
+<div class="em-overlay" id="emOverlay">
+  <div class="em-modal" id="emModal">
+    <div id="emContent"></div>
+  </div>
+</div>
+
+<script>
+// ── Muscle names ──
+const MN_EM={chest:"Pectoraux","front-delt":"Delts antérieurs","side-delt":"Delts latéraux","rear-delt":"Delts postérieurs",biceps:"Biceps",triceps:"Triceps",forearms:"Avant-bras",abs:"Abdominaux",obliques:"Obliques",traps:"Trapèzes",lats:"Grand dorsal",rhomboids:"Rhomboïdes","lower-back":"Lombaires",glutes:"Fessiers",hamstrings:"Ischio-jambiers",quads:"Quadriceps",calves:"Mollets"};
+
+// ── Stars /5 ──
+function emStars(d){let h='';for(let i=1;i<=5;i++)h+=`<span class="em-star${i<=d?' on':''}">★</span>`;return h}
+
+// ── SVG Muscle Map (classes préfixées svgm_ pour éviter conflits CSS) ──
+function svgMapEM(muscles){
+  const pp=muscles.p||[],ss=muscles.s||[];
+  const c=id=>pp.includes(id)?'svgm_p':ss.includes(id)?'svgm_s':'svgm_i';
+  const oc=id=>pp.includes(id)?'#e8960a':ss.includes(id)?'#1560d4':'#dde1ea';
+  return `<svg viewBox="0 0 290 285" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:290px;display:block;margin:0 auto"><style>.svgm_p{fill:#e8960a;opacity:.9}.svgm_s{fill:#1560d4;opacity:.7}.svgm_i{fill:#dde1ea;opacity:.5}</style>
+<text x="68" y="11" text-anchor="middle" font-family="Inter" font-size="8" fill="#aaa" font-weight="700" letter-spacing="1">AVANT</text>
+<text x="222" y="11" text-anchor="middle" font-family="Inter" font-size="8" fill="#aaa" font-weight="700" letter-spacing="1">ARRIÈRE</text>
+<line x1="145" y1="4" x2="145" y2="278" stroke="#e5e0d5" stroke-width="1" stroke-dasharray="4,3"/>
+<circle cx="68" cy="26" r="14" fill="#f0ece3" stroke="#c8c0b4" stroke-width="1.5"/>
+<rect x="63" y="40" width="10" height="7" rx="3" fill="#e5e0d5"/>
+<path d="M49,50 Q68,46 87,50 L89,61 Q68,57 47,61Z" class="${c('traps')}"/>
+<path d="M45,60 Q68,55 91,60 Q89,75 68,72 Q47,75 45,60Z" class="${c('chest')}"/>
+<path d="M45,72 Q68,69 91,72 Q89,92 68,89 Q47,92 45,72Z" class="${c('chest')}"/>
+<ellipse cx="35" cy="63" rx="11" ry="9" class="${c('front-delt')}"/>
+<ellipse cx="101" cy="63" rx="11" ry="9" class="${c('front-delt')}"/>
+<ellipse cx="24" cy="71" rx="8" ry="8" class="${c('side-delt')}"/>
+<ellipse cx="112" cy="71" rx="8" ry="8" class="${c('side-delt')}"/>
+<ellipse cx="18" cy="96" rx="8" ry="17" class="${c('biceps')}"/>
+<ellipse cx="118" cy="96" rx="8" ry="17" class="${c('biceps')}"/>
+<ellipse cx="28" cy="96" rx="6" ry="14" class="${c('triceps')}"/>
+<ellipse cx="108" cy="96" rx="6" ry="14" class="${c('triceps')}"/>
+<ellipse cx="14" cy="124" rx="6" ry="13" class="${c('forearms')}"/>
+<ellipse cx="122" cy="124" rx="6" ry="13" class="${c('forearms')}"/>
+<rect x="57" y="93" width="22" height="45" rx="5" class="${c('abs')}"/>
+<path d="M57,99 Q47,117 49,139" stroke-width="9" stroke-linecap="round" fill="none" stroke="${oc('obliques')}"/>
+<path d="M79,99 Q89,117 87,139" stroke-width="9" stroke-linecap="round" fill="none" stroke="${oc('obliques')}"/>
+<path d="M52,140 Q68,145 84,140 L86,151 Q68,147 50,151Z" fill="#e8e3d9"/>
+<ellipse cx="53" cy="193" rx="17" ry="33" class="${c('quads')}"/>
+<ellipse cx="83" cy="193" rx="17" ry="33" class="${c('quads')}"/>
+<circle cx="53" cy="229" r="8" fill="#e5e0d5"/><circle cx="83" cy="229" r="8" fill="#e5e0d5"/>
+<ellipse cx="51" cy="252" rx="10" ry="17" class="${c('calves')}"/>
+<ellipse cx="85" cy="252" rx="10" ry="17" class="${c('calves')}"/>
+<circle cx="222" cy="26" r="14" fill="#f0ece3" stroke="#c8c0b4" stroke-width="1.5"/>
+<rect x="217" y="40" width="10" height="7" rx="3" fill="#e5e0d5"/>
+<path d="M199,50 Q222,44 245,50 L247,71 Q222,65 197,71Z" class="${c('traps')}"/>
+<ellipse cx="185" cy="66" rx="12" ry="9" class="${c('rear-delt')}"/>
+<ellipse cx="259" cy="66" rx="12" ry="9" class="${c('rear-delt')}"/>
+<path d="M197,72 Q185,106 187,136 Q197,132 201,106 Q201,88 197,72Z" class="${c('lats')}"/>
+<path d="M247,72 Q259,106 257,136 Q247,132 243,106 Q243,88 247,72Z" class="${c('lats')}"/>
+<ellipse cx="222" cy="97" rx="17" ry="15" class="${c('rhomboids')}"/>
+<ellipse cx="174" cy="96" rx="7" ry="15" class="${c('triceps')}"/>
+<ellipse cx="270" cy="96" rx="7" ry="15" class="${c('triceps')}"/>
+<rect x="209" y="135" width="26" height="19" rx="5" class="${c('lower-back')}"/>
+<ellipse cx="208" cy="173" rx="18" ry="19" class="${c('glutes')}"/>
+<ellipse cx="236" cy="173" rx="18" ry="19" class="${c('glutes')}"/>
+<ellipse cx="207" cy="213" rx="15" ry="28" class="${c('hamstrings')}"/>
+<ellipse cx="237" cy="213" rx="15" ry="28" class="${c('hamstrings')}"/>
+<circle cx="207" cy="243" r="7" fill="#e5e0d5"/><circle cx="237" cy="243" r="7" fill="#e5e0d5"/>
+<ellipse cx="205" cy="253" rx="10" ry="17" class="${c('calves')}"/>
+<ellipse cx="239" cy="253" rx="10" ry="17" class="${c('calves')}"/>
+<circle cx="10" cy="278" r="5" fill="#e8960a"/><text x="18" y="282" font-family="Inter" font-size="8" fill="#888">Primaire</text>
+<circle cx="73" cy="278" r="5" fill="#1560d4"/><text x="81" y="282" font-family="Inter" font-size="8" fill="#888">Secondaire</text>
+<circle cx="148" cy="278" r="5" fill="#dde1ea"/><text x="156" y="282" font-family="Inter" font-size="8" fill="#888">Inactif</text>
+</svg>`;}
+
+// ── Exercise data (exercise 1 only for l'instant) ──
+const EX_DATA={
+  1:{
+    id:1,name:"Développé Incliné Haltères 30°",cat:"push",mg:"Pectoraux supérieurs",
+    diff:3,eff:5,icon:"🏋️",
+    sets:"4 × 12-15",rest:"90 sec",tempo:"3-1-2-0",rir:"3",
+    equip:"Haltères + banc incliné 30°",
+    yt:"développé incliné haltères 30 degrés technique musculation débutant",
+    muscles:{p:["chest"],s:["front-delt","triceps"]},
+    steps:[
+      "Réglez le banc à exactement 30° — ni 45° (active les delts) ni moins (pecto moyen)",
+      "Saisissez les haltères, asseyez-vous au bord, remontez les genoux pour vous allonger",
+      "Omoplates SERRÉES et ENFONCÉES dans le banc — maintenez cette position tout le set",
+      "Descendez lentement en 3 secondes, coudes à 70-75° du corps (jamais à 90° en croix)",
+      "Pause 1 seconde en bas — ressentez l'étirement du pectoral supérieur",
+      "Expirez et poussez vers le haut-intérieur, haltères qui se rapprochent légèrement",
+      "Arrêtez avant de verrouiller les coudes — gardez la tension musculaire continue"
+    ],
+    breath:"⬇ Inspirez lentement en descendant → ⏸ Pause 1s → ⬆ Expirez fort en poussant",
+    amp:"Coudes légèrement sous l'épaule en bas — haltères proches (sans se toucher) en haut",
+    posture:["Pieds à plat au sol, jambes stables","Dos en contact complet avec le banc","Omoplates serrées + enfoncées (tenue constante)","Poignets neutres — ni fléchis ni hyperétendus","Cou détendu, tête posée"],
+    errors:[
+      {b:"Banc à 45° ou plus",g:"30° précis — angle optimal pour le chef claviculaire du pecto"},
+      {b:"Coudes en croix à 90°",g:"75° max — protège les rotateurs de l'épaule"},
+      {b:"Rebondir en bas",g:"Pause contrôlée 1s — stretch reflex sécurisé"},
+      {b:"Dos qui décolle du banc",g:"Contact constant — empêche la compensation lombaire"}
+    ],
+    injury:[
+      "Pectus excavatum : réduire l'amplitude de 10-15% si inconfort sternal — ne jamais forcer",
+      "Douleur d'épaule : vérifier l'angle des coudes (75° max) et réduire le poids",
+      "Poignets : légère rotation externe des haltères améliore le confort articulaire"
+    ],
+    pec:"Exercice PRIORITAIRE — remplace le développé plat qui comprime le sternum. La position 30° est idéale pour votre morphologie.",
+    scol:null
+  }
+};
+
+// ── Tab switching ──
+function emTab(cat,idx){
+  document.querySelectorAll('.em-tab').forEach((b,i)=>{
+    b.classList.toggle('active',i===idx);
+    b.classList.remove('push','pull','vshape','core');
+    if(i===idx)b.classList.add(cat);
+  });
+  document.querySelectorAll('.em-panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+}
+
+// ── Open modal ──
+function openModal(id){
+  const ex=EX_DATA[id];if(!ex)return;
+  const cat=ex.cat;
+  const primL=(ex.muscles.p||[]).map(m=>`<span class="em-lbl em-lbl-p">${MN_EM[m]||m}</span>`).join('');
+  const secL=(ex.muscles.s||[]).map(m=>`<span class="em-lbl em-lbl-s">${MN_EM[m]||m}</span>`).join('');
+  const stepsH=ex.steps.map((s,i)=>`<li><span class="em-snum ${cat}">${i+1}</span>${s}</li>`).join('');
+  const postH=ex.posture.map(p=>`<li>${p}</li>`).join('');
+  const errH=ex.errors.map(e=>`<div class="em-ecard"><div class="em-ebad"><div class="em-elbl">❌ À ÉVITER</div><div class="em-etxt">${e.b}</div></div><div class="em-egood"><div class="em-elbl">✅ À FAIRE</div><div class="em-etxt">${e.g}</div></div></div>`).join('');
+  const injH=ex.injury.map(i=>`<li class="em-inj-item">⚠ ${i}</li>`).join('');
+  const pecH=ex.pec?`<div class="em-note em-note-pe"><div class="em-note-t">🫁 PECTUS EXCAVATUM</div>${ex.pec}</div>`:'';
+  const scolH=ex.scol?`<div class="em-note em-note-sc"><div class="em-note-t">🔄 DOS & LOMBAIRES</div>${ex.scol}</div>`:'';
+
+  document.getElementById('emContent').innerHTML=`
+<div class="em-hdr ${cat}">
+  <button class="em-close" onclick="closeModal()">×</button>
+  <div class="em-icon">${ex.icon}</div>
+  <div class="em-name">${ex.name}</div>
+  <div class="em-mg">${ex.mg}</div>
+  <div class="em-stats-row">
+    <div class="em-stat"><span class="em-stat-val">${ex.sets}</span><span class="em-stat-key">Volume</span></div>
+    <div class="em-stat"><span class="em-stat-val">${ex.rest}</span><span class="em-stat-key">Repos</span></div>
+    <div class="em-stat"><span class="em-stat-val">${ex.tempo}</span><span class="em-stat-key">Tempo</span></div>
+    <div class="em-stat"><span class="em-stat-val">${ex.rir||'—'}</span><span class="em-stat-key">RIR</span></div>
+  </div>
+  <div class="em-ratings">
+    <span class="em-rlbl">Technique</span><span class="em-stars">${emStars(ex.diff)}</span>
+    <span class="em-rsep"> · </span>
+    <span class="em-rlbl">Efficacité</span><span class="em-stars">${emStars(ex.eff)}</span>
+  </div>
+</div>
+<div class="em-yt-zone">
+  <a class="em-yt-btn" href="https://www.youtube.com/results?search_query=${encodeURIComponent(ex.yt)}" target="_blank">▶ Voir démonstration</a>
+  <span class="em-equip-tag">🏋️ ${ex.equip}</span>
+</div>
+<div class="em-tabs">
+  <button class="em-tab active ${cat}" onclick="emTab('${cat}',0)">Technique</button>
+  <button class="em-tab" onclick="emTab('${cat}',1)">Muscles</button>
+  <button class="em-tab" onclick="emTab('${cat}',2)">Erreurs</button>
+  <button class="em-tab" onclick="emTab('${cat}',3)">Spécifique</button>
+</div>
+<div class="em-panel active">
+  <div class="em-iblk em-breath"><div class="em-iblk-t">🫁 Respiration</div><div class="em-iblk-v">${ex.breath}</div></div>
+  <div class="em-iblk"><div class="em-iblk-t">📏 Amplitude</div><div class="em-iblk-v">${ex.amp}</div></div>
+  <div class="em-iblk-t2">Étapes pas à pas</div>
+  <ul class="em-steps">${stepsH}</ul>
+  <div class="em-iblk"><div class="em-iblk-t">✅ Check Posture</div><ul class="em-chk">${postH}</ul></div>
+</div>
+<div class="em-panel">
+  <div class="em-map-wrap">${svgMapEM(ex.muscles)}</div>
+  <div class="em-lbls">${primL}${secL}</div>
+</div>
+<div class="em-panel">
+  <div class="em-errs">${errH}</div>
+  <ul class="em-injlist">${injH}</ul>
+</div>
+<div class="em-panel">${pecH}${scolH}${!ex.pec&&!ex.scol?'<p style="color:#9ca3af;font-size:13px">Aucune note spécifique.</p>':''}</div>`;
+
+  document.getElementById('emOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+// ── Close modal ──
+function closeModal(){
+  document.getElementById('emOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('emOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('emOverlay'))closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+
+<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
+</body>
+</html>
