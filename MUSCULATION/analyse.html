@@ -10,6 +10,8 @@
 <meta name="apple-mobile-web-app-title" content="ALLEZ">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Analyse Physique — ALLEZ</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<script src="core.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -756,12 +758,12 @@
     <div class="stat-card" style="--accent:#dc2626">
       <div class="stat-card-label">Masse grasse estimée</div>
       <div class="stat-card-val">20,5%</div>
-      <div class="stat-card-note">~14.6 kg de graisse · estimation optimiste (réel ~22% au vu du profil) · Objectif : 17%</div>
+      <div class="stat-card-note">~14,6 kg de graisse · estimation optimiste (réel ~22 % au vu du profil) · Objectif : 16 %</div>
     </div>
     <div class="stat-card" style="--accent:#2563eb">
       <div class="stat-card-label">Masse maigre actuelle</div>
-      <div class="stat-card-val">56.4 kg</div>
-      <div class="stat-card-note">Objectif 12 mois : 64 kg (+7.6 kg lean)</div>
+      <div class="stat-card-val">56,4 kg</div>
+      <div class="stat-card-note">Objectif 12 mois : ~60,9 kg (+4,5 kg)</div>
     </div>
     <div class="stat-card" style="--accent:#7c3aed">
       <div class="stat-card-label">Niveau musculaire</div>
@@ -787,15 +789,15 @@
         <div class="bf-marker-line"></div>
         <div class="bf-marker-chip">Toi · 20,5%</div>
       </div>
-      <!-- Target at 17% = (17-5)/25 * 100 = 48% -->
-      <div class="bf-marker" style="left:48%; --marker-color:#16a34a">
+      <!-- Target at 16% = (16-5)/25 * 100 = 44% -->
+      <div class="bf-marker" style="left:44%; --marker-color:#16a34a">
         <div class="bf-marker-line"></div>
-        <div class="bf-marker-chip">Objectif · 17%</div>
+        <div class="bf-marker-chip">Objectif · 16 %</div>
       </div>
     </div>
     <div class="bf-info-row">
       <div class="bf-info-chip">📊 <strong>Pattern :</strong> « skinny-fat » — membres fins, gras concentré sur le ventre, aucune définition</div>
-      <div class="bf-info-chip">⬇ <strong>À perdre :</strong> ~2.5 kg de graisse pour atteindre 17%</div>
+      <div class="bf-info-chip">⬇ <strong>À perdre :</strong> ~3 kg de graisse (tout en gagnant ~4,5 kg de masse maigre) pour atteindre 16 %</div>
       <div class="bf-info-chip">⚡ <strong>Stratégie :</strong> Recomposition — déficit modéré jours repos</div>
     </div>
   </div>
@@ -1002,7 +1004,7 @@
         <li>Le V se créera surtout par contraste : delts + lats à construire au-dessus d'une taille fine</li>
         <li>Biceps à insertion longue (favorable au volume/épaisseur) — beau galbe contracté, volume à bâtir</li>
         <li>Jambes longues et fines — silhouette naturellement athlétique</li>
-        <li>Peau fine — définition rapide dès que BF descend sous 17%</li>
+        <li>Peau fine — la définition apparaîtra plus tôt que la moyenne quand la MG descendra sous ~15 %</li>
         <li>Débutant complet à 30 ans — récupération solide et « newbie gains » intacts : marge de progression maximale la 1ʳᵉ année</li>
       </ul>
     </div>
@@ -1170,7 +1172,7 @@
         <li>Insertion longue de biceps (favorable au volume) → bras épais et galbé une fois le volume construit</li>
         <li>Dos travaillé → largeur construite (le relief viendra du muscle, le cadre osseux étant moyen)</li>
         <li>Hanches étroites → contraste épaules/taille maximal</li>
-        <li>Peau fine → définition rapide dès 17% BF, veines visibles à 14%</li>
+        <li>Peau fine → définition qui apparaît vers 14-15 % de MG, veines plus visibles en dessous</li>
         <li>Structure élancée → correspond au physique «athlète de natation»</li>
         <li>Posture corrigée → transformation instantanée sans une once de muscle</li>
       </ul>
@@ -1401,12 +1403,12 @@
       </div>
       <div class="ms-body">
         <div class="ms-rows">
-          <div class="ms-row"><span class="ms-key">Poids cible</span><span class="ms-val">77 kg</span></div>
-          <div class="ms-row"><span class="ms-key">BF cible</span><span class="ms-val">17%</span></div>
-          <div class="ms-row"><span class="ms-key">Masse maigre</span><span class="ms-val">~64 kg (+7.6 kg)</span></div>
+          <div class="ms-row"><span class="ms-key">Poids cible</span><span class="ms-val">~72,5 kg</span></div>
+          <div class="ms-row"><span class="ms-key">MG cible</span><span class="ms-val">16 %</span></div>
+          <div class="ms-row"><span class="ms-key">Masse maigre</span><span class="ms-val">~60,9 kg (+4,5 kg)</span></div>
           <div class="ms-row"><span class="ms-key">Niveau musculaire</span><span class="ms-val">4.5–5/10</span></div>
         </div>
-        <div class="ms-highlight">Transformation visible. Posture redressée, épaules apparentes, ventre plat. Début du V-shape. Physique remarquable dans 12 mois.</div>
+        <div class="ms-highlight">Transformation visible. Posture redressée, épaules apparentes, ventre nettement réduit. Début du V-shape. Les abdos se dessineront plutôt en année 2 (vers ~12 % de MG).</div>
       </div>
     </div>
     <div class="milestone">
@@ -1489,7 +1491,7 @@
         <li>Volume maximal sur points forts (épaules, dos)</li>
         <li>Solidifier la base pour l'année 2</li>
         <li>Bilan photo complet — évaluation du parcours</li>
-        <li>Objectif : 77 kg, 17% BF, physique V-shape visible</li>
+        <li>Objectif an 1 : ~72,5 kg, 16 % de MG, V-shape amorcé — année 2 : prise de masse propre</li>
       </ul>
     </div>
   </div>
@@ -1559,7 +1561,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">ALLEZ</div>
-  <div class="footer-sub">71 kg → 77 kg · Recomposition 12 mois · Analyse physique personnalisée</div>
+  <div class="footer-sub">71 → ~72,5 kg · 20,5 → 16 % · Recomposition 12 mois · Analyse physique personnalisée</div>
 </footer>
 
 <script>

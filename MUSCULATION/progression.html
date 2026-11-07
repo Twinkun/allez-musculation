@@ -10,6 +10,8 @@
 <meta name="apple-mobile-web-app-title" content="ALLEZ">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Progression — ALLEZ</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<script src="core.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -221,6 +223,9 @@ canvas { width: 100% !important; display: block; }
 .tracker-form h3 { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
 .tracker-form-sub { font-size: 0.8rem; color: var(--text-light); margin-bottom: 24px; }
 .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.tracker-layout > *, .input-grid > * { min-width: 0; }
+.input-group input { width: 100%; min-width: 0; box-sizing: border-box; }
+@media (max-width: 600px) { .tracker-form, .tracker-history { padding: 20px 16px; } }
 .input-group { display: flex; flex-direction: column; gap: 5px; }
 .input-group label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); }
 .input-group input {
@@ -409,14 +414,14 @@ button, a, [onclick], input, select, label {
       </div>
       <div>
         <div class="hero-stat-val">12</div>
-        <div class="hero-stat-lbl">Blocs planifiés</div>
+        <div class="hero-stat-lbl">Blocs de 4 sem. + 4 deloads</div>
       </div>
       <div>
-        <div class="hero-stat-val">+7.6 kg</div>
-        <div class="hero-stat-lbl">Muscle sec (objectif 12 mois)</div>
+        <div class="hero-stat-val">+4,5 kg</div>
+        <div class="hero-stat-lbl">Masse maigre (objectif 12 mois)</div>
       </div>
       <div>
-        <div class="hero-stat-val">−3,5%</div>
+        <div class="hero-stat-val">20,5 → 16 %</div>
         <div class="hero-stat-lbl">Masse grasse projetée</div>
       </div>
     </div>
@@ -428,25 +433,26 @@ button, a, [onclick], input, select, label {
   <div class="section-label">Dashboard</div>
   <div class="section-title">Tes Métriques Actuelles</div>
   <div class="section-sub">Point de départ de ta transformation. Chaque mesure sera réévaluée toutes les 4 semaines.</div>
+  <div id="startCard" style="margin-bottom:24px"></div>
 
   <div class="stat-grid">
     <div class="stat-card gold">
       <div class="stat-card-label">Poids actuel</div>
       <div class="stat-card-val" data-count="71" data-suffix=" kg">—</div>
-      <div class="stat-card-sub">Objectif → 77 kg (12 mois)</div>
-      <div class="stat-card-trend up">+0.5-0.8 kg/mois recomposition</div>
+      <div class="stat-card-sub">Objectif → ~72,5 kg (12 mois)</div>
+      <div class="stat-card-trend up">Poids quasi stable : recomposition</div>
     </div>
     <div class="stat-card green">
-      <div class="stat-card-label">Masse musculaire</div>
+      <div class="stat-card-label">Masse maigre</div>
       <div class="stat-card-val" data-count="56.4" data-suffix=" kg">—</div>
-      <div class="stat-card-sub">79,5% de la masse totale</div>
-      <div class="stat-card-trend up">+7.6 kg en 12 mois (newbie gains)</div>
+      <div class="stat-card-sub">79,5 % du poids (muscles, os, organes, eau)</div>
+      <div class="stat-card-trend up">+4,5 kg visés en 12 mois</div>
     </div>
     <div class="stat-card purple">
       <div class="stat-card-label">Masse grasse</div>
       <div class="stat-card-val" data-count="20.5" data-suffix="%">—</div>
       <div class="stat-card-sub">14,6 kg de graisse totale</div>
-      <div class="stat-card-trend down">→ 17% en 12 mois</div>
+      <div class="stat-card-trend down">→ 16 % en 12 mois (−3 kg de gras)</div>
     </div>
     <div class="stat-card blue">
       <div class="stat-card-label">IMC actuel</div>
@@ -459,31 +465,31 @@ button, a, [onclick], input, select, label {
   <div class="progress-section reveal">
     <div class="progress-row">
       <div class="progress-header">
-        <div class="progress-name">Prise de masse musculaire</div>
-        <div class="progress-vals">56.4 kg → objectif 64 kg</div>
+        <div class="progress-name">Masse maigre</div>
+        <div class="progress-vals" id="pv-lean">56,4 kg → objectif 60,9 kg</div>
       </div>
-      <div class="progress-bar"><div class="progress-fill gold" data-w="8"></div></div>
+      <div class="progress-bar"><div class="progress-fill gold" data-w="0" id="pf-lean"></div></div>
     </div>
     <div class="progress-row">
       <div class="progress-header">
         <div class="progress-name">Réduction masse grasse</div>
-        <div class="progress-vals">20,5% → objectif 17%</div>
+        <div class="progress-vals" id="pv-bf">20,5 % → objectif 16 %</div>
       </div>
-      <div class="progress-bar"><div class="progress-fill purple" data-w="5"></div></div>
+      <div class="progress-bar"><div class="progress-fill purple" data-w="0" id="pf-bf"></div></div>
     </div>
     <div class="progress-row">
       <div class="progress-header">
-        <div class="progress-name">Largeur d'épaules (V-shape)</div>
-        <div class="progress-vals">48 cm → objectif 53 cm</div>
+        <div class="progress-name">Tour de taille</div>
+        <div class="progress-vals" id="pv-waist">86 cm → objectif 82 cm</div>
       </div>
-      <div class="progress-bar"><div class="progress-fill blue" data-w="10"></div></div>
+      <div class="progress-bar"><div class="progress-fill blue" data-w="0" id="pf-waist"></div></div>
     </div>
     <div class="progress-row">
       <div class="progress-header">
         <div class="progress-name">Programme complété</div>
-        <div class="progress-vals" id="prog-label">Semaine 1 / 52</div>
+        <div class="progress-vals" id="prog-label">Pas encore démarré</div>
       </div>
-      <div class="progress-bar"><div class="progress-fill green" data-w="2" id="prog-fill"></div></div>
+      <div class="progress-bar"><div class="progress-fill green" data-w="0" id="prog-fill"></div></div>
     </div>
   </div>
 </div>
@@ -494,16 +500,16 @@ button, a, [onclick], input, select, label {
 <div class="section">
   <div class="section-label">Évolution</div>
   <div class="section-title">Graphiques de Progression</div>
-  <div class="section-sub">Courbes projetées sur 12 mois basées sur la stratégie recomposition (2 650 kcal training / 2 100 kcal repos). Mets à jour tes mesures chaque mois pour voir les courbes réelles.</div>
+  <div class="section-sub">Courbes projetées sur 12 mois (recomposition : 2 650 kcal training / 2 100 kcal repos). Tes mesures réelles s'affichent à leur date, par rapport à ton jour J.</div>
 
   <div class="chart-grid reveal">
     <div class="chart-card full">
-      <div class="chart-title">Évolution du Poids & Masse Musculaire (12 mois)</div>
+      <div class="chart-title">Évolution du Poids & Masse Maigre (12 mois)</div>
       <div class="chart-subtitle">Courbe = projection · Points remplis = tes mesures réelles (saisis dans le tracker ci-dessous)</div>
       <canvas id="weightChart" height="220"></canvas>
       <div class="chart-legend">
         <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> Poids total (projection)</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Masse musculaire (projection)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Masse maigre (projection)</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--blue);border:2px solid #fff;box-shadow:0 0 0 1.5px var(--blue);border-radius:50%"></div> Données réelles</div>
       </div>
     </div>
@@ -536,17 +542,17 @@ button, a, [onclick], input, select, label {
 <div class="section">
   <div class="section-label">Programme</div>
   <div class="section-title">Timeline par Bloc</div>
-  <div class="section-sub">Ton programme est divisé en blocs de 4 semaines. Chaque bloc a un objectif spécifique et une progression en charge.</div>
+  <div class="section-sub">Cycles de 13 semaines : 3 blocs de 4 semaines + 1 semaine de deload, répétés 4 fois dans l'année. Les exercices et fourchettes de reps restent les mêmes (voir Programme) — c'est l'effort (RIR) et la charge qui évoluent.</div>
 
   <div class="bloc-timeline reveal">
     <div class="bloc-item active">
       <div class="bloc-dot">B1</div>
-      <div class="bloc-label">Adaptation</div>
+      <div class="bloc-label">Apprentissage</div>
       <div class="bloc-weeks">Sem. 1-4</div>
     </div>
     <div class="bloc-item">
       <div class="bloc-dot">B2</div>
-      <div class="bloc-label">Hypertrophie</div>
+      <div class="bloc-label">Progression</div>
       <div class="bloc-weeks">Sem. 5-8</div>
     </div>
     <div class="bloc-item">
@@ -561,87 +567,87 @@ button, a, [onclick], input, select, label {
     </div>
     <div class="bloc-item">
       <div class="bloc-dot">B4</div>
-      <div class="bloc-label">Cycle 2</div>
-      <div class="bloc-weeks">Sem. 14+</div>
+      <div class="bloc-label">Cycles 2-4</div>
+      <div class="bloc-weeks">Sem. 14-52</div>
     </div>
   </div>
 
   <div class="week-tabs" id="weekTabs">
-    <button class="week-tab active" data-bloc="b1">Bloc 1 — Adaptation</button>
-    <button class="week-tab" data-bloc="b2">Bloc 2 — Hypertrophie</button>
+    <button class="week-tab active" data-bloc="b1">Bloc 1 — Apprentissage</button>
+    <button class="week-tab" data-bloc="b2">Bloc 2 — Progression</button>
     <button class="week-tab" data-bloc="b3">Bloc 3 — Intensification</button>
     <button class="week-tab" data-bloc="dl">Semaine Deload</button>
   </div>
 
-  <div class="week-content active" id="bloc-b1">
+    <div class="week-content active" id="bloc-b1">
     <div class="week-day-card push">
-      <div class="week-day-name push">Lundi 8h · Push A</div>
-      <div class="week-day-session">Pectoraux + Épaules + Triceps + finisher posture</div>
-      <div class="week-day-focus">4×12-15 reps · RIR 3-4 · Tempo 3-0-2-0 · Charge légère · Apprentissage mouvement · Face pull + Planche 10 min fin</div>
+      <div class="week-day-name push">Lundi 8h · Push</div>
+      <div class="week-day-session">Incliné 4×12-15 · Élévations 4×12-15 · Militaire 4×10-12 · Écarté 3×12-15 · Triceps corde 4×12-15 · Face pull 4×15-20 · Planche 3×30-60 s</div>
+      <div class="week-day-focus">Apprentissage · RIR 3 partout · Charges légères (voir logbook) · haut de la fourchette de reps · tempo strict · 1re semaine : réglages machines</div>
     </div>
     <div class="week-day-card pull">
-      <div class="week-day-name pull">Jeudi 8h · Pull A</div>
-      <div class="week-day-session">Dos + Biceps + Face pulls + finisher core</div>
-      <div class="week-day-focus">4×12-15 reps · RIR 3-4 · Tempo 3-1-2-0 · Connexion neuro-musculaire · Dead Bug + Bird Dog 10 min fin</div>
+      <div class="week-day-name pull">Jeudi 8h · Pull</div>
+      <div class="week-day-session">Tirage vertical 4×10-12 · Rowing haltère 4×10-12 · Oiseau 3×15-20 · Rowing câble 3×12-15 · Face pull 4×15-20 · Curl alterné 4×10-12 · Dead bug + Bird dog 3×10/côté</div>
+      <div class="week-day-focus">Apprentissage · RIR 3 partout · Charges légères (voir logbook) · haut de la fourchette de reps · tempo strict · 1re semaine : réglages machines</div>
     </div>
     <div class="week-day-card upper">
-      <div class="week-day-name upper">Samedi 11h · V-Shape A</div>
-      <div class="week-day-session">Épaules 3D + Dos + Bras + finisher core</div>
-      <div class="week-day-focus">4×12-15 reps · RIR 3-4 · Élévations latérales ×5 séries · Arnold Press · Pull-ups assistés · Hollow Body fin</div>
+      <div class="week-day-name upper">Samedi 11h · V-Shape</div>
+      <div class="week-day-session">Élévations 5×15 · Élévations câble 4×15 · Arnold 4×10-12 · Tractions 4×max · Curl EZ 3×10-12 + concentré 2×10-12 · Overhead 3×12 · Face pull 3×15 · Hollow body 3×20-30 s</div>
+      <div class="week-day-focus">Apprentissage · RIR 3 partout · Charges légères (voir logbook) · haut de la fourchette de reps · tempo strict · 1re semaine : réglages machines</div>
     </div>
   </div>
 
   <div class="week-content" id="bloc-b2">
     <div class="week-day-card push">
-      <div class="week-day-name push">Lundi 8h · Push B</div>
-      <div class="week-day-session">Pectoraux + Épaules + Triceps + finisher posture</div>
-      <div class="week-day-focus">4×8-12 reps · RIR 1-2 · Tempo 3-1-1-0 · +10-15% de charge vs B1 · Face pull + Planche 10 min fin</div>
+      <div class="week-day-name push">Lundi 8h · Push</div>
+      <div class="week-day-session">Incliné 4×12-15 · Élévations 4×12-15 · Militaire 4×10-12 · Écarté 3×12-15 · Triceps corde 4×12-15 · Face pull 4×15-20 · Planche 3×30-60 s</div>
+      <div class="week-day-focus">Progression · RIR 2 · Double progression : toutes les séries au haut de la fourchette → +1 palier (1-2 kg haltères, 2,5-5 kg machines)</div>
     </div>
     <div class="week-day-card pull">
-      <div class="week-day-name pull">Jeudi 8h · Pull B</div>
-      <div class="week-day-session">Dos + Biceps + Arrière épaules + finisher core</div>
-      <div class="week-day-focus">4×8-12 reps · RIR 1-2 · Stretchs prononcés · Oiseau incliné 3×15 · Dead Bug 10 min fin</div>
+      <div class="week-day-name pull">Jeudi 8h · Pull</div>
+      <div class="week-day-session">Tirage vertical 4×10-12 · Rowing haltère 4×10-12 · Oiseau 3×15-20 · Rowing câble 3×12-15 · Face pull 4×15-20 · Curl alterné 4×10-12 · Dead bug + Bird dog 3×10/côté</div>
+      <div class="week-day-focus">Progression · RIR 2 · Double progression : toutes les séries au haut de la fourchette → +1 palier (1-2 kg haltères, 2,5-5 kg machines)</div>
     </div>
     <div class="week-day-card upper">
-      <div class="week-day-name upper">Samedi 11h · V-Shape B</div>
-      <div class="week-day-session">Épaules + V-shape + Bras + finisher core</div>
-      <div class="week-day-focus">4×8-12 reps · Pull-ups 4×max · Extension overhead câble 3×10 · Curl concentré · Hollow Body fin</div>
+      <div class="week-day-name upper">Samedi 11h · V-Shape</div>
+      <div class="week-day-session">Élévations 5×15 · Élévations câble 4×15 · Arnold 4×10-12 · Tractions 4×max · Curl EZ 3×10-12 + concentré 2×10-12 · Overhead 3×12 · Face pull 3×15 · Hollow body 3×20-30 s</div>
+      <div class="week-day-focus">Progression · RIR 2 · Double progression : toutes les séries au haut de la fourchette → +1 palier (1-2 kg haltères, 2,5-5 kg machines)</div>
     </div>
   </div>
 
   <div class="week-content" id="bloc-b3">
     <div class="week-day-card push">
-      <div class="week-day-name push">Lundi 8h · Push C</div>
-      <div class="week-day-session">Pectoraux + Épaules + Triceps + finisher posture</div>
-      <div class="week-day-focus">5×6-8 reps · RIR 0-1 · Tempo 4-1-1-0 · Charges maximales du cycle · Face pull lourd fin</div>
+      <div class="week-day-name push">Lundi 8h · Push</div>
+      <div class="week-day-session">Incliné 4×12-15 · Élévations 4×12-15 · Militaire 4×10-12 · Écarté 3×12-15 · Triceps corde 4×12-15 · Face pull 4×15-20 · Planche 3×30-60 s</div>
+      <div class="week-day-focus">Intensification · RIR 2 polyarticulaires · RIR 1 isolations · Charges les plus lourdes du cycle · bas de fourchette accepté · jamais d'échec sur les développés (L5-S1 / épaules)</div>
     </div>
     <div class="week-day-card pull">
-      <div class="week-day-name pull">Jeudi 8h · Pull C</div>
-      <div class="week-day-session">Dos lourd + Biceps + Posture + finisher core</div>
-      <div class="week-day-focus">5×6-8 reps · RIR 0-1 · Rowing unilatéral 5×8 · Face pull 4×15 · Planche 3×60s fin</div>
+      <div class="week-day-name pull">Jeudi 8h · Pull</div>
+      <div class="week-day-session">Tirage vertical 4×10-12 · Rowing haltère 4×10-12 · Oiseau 3×15-20 · Rowing câble 3×12-15 · Face pull 4×15-20 · Curl alterné 4×10-12 · Dead bug + Bird dog 3×10/côté</div>
+      <div class="week-day-focus">Intensification · RIR 2 polyarticulaires · RIR 1 isolations · Charges les plus lourdes du cycle · bas de fourchette accepté · jamais d'échec sur les développés (L5-S1 / épaules)</div>
     </div>
     <div class="week-day-card upper">
-      <div class="week-day-name upper">Samedi 11h · V-Shape C</div>
-      <div class="week-day-session">Épaules lourdes + Dos + Bras + finisher core</div>
-      <div class="week-day-focus">5×6-8 reps · Pull-ups lestés · Curl barre EZ lourd · Hollow Body intensifié fin</div>
+      <div class="week-day-name upper">Samedi 11h · V-Shape</div>
+      <div class="week-day-session">Élévations 5×15 · Élévations câble 4×15 · Arnold 4×10-12 · Tractions 4×max · Curl EZ 3×10-12 + concentré 2×10-12 · Overhead 3×12 · Face pull 3×15 · Hollow body 3×20-30 s</div>
+      <div class="week-day-focus">Intensification · RIR 2 polyarticulaires · RIR 1 isolations · Charges les plus lourdes du cycle · bas de fourchette accepté · jamais d'échec sur les développés (L5-S1 / épaules)</div>
     </div>
   </div>
 
   <div class="week-content" id="bloc-dl">
     <div class="week-day-card" style="border-left:3px solid var(--gold)">
       <div class="week-day-name" style="color:var(--gold)">Lundi 8h · Deload Push</div>
-      <div class="week-day-session">Volume réduit 50%</div>
-      <div class="week-day-focus">2×12 reps · RIR 4-5 · 50% des charges du Bloc 3 · Focus technique pure</div>
+      <div class="week-day-session">Mêmes exercices, moitié des séries (2 au lieu de 4)</div>
+      <div class="week-day-focus">Charges −40 % · RIR 4+ · Focus technique pure</div>
     </div>
     <div class="week-day-card" style="border-left:3px solid var(--gold)">
       <div class="week-day-name" style="color:var(--gold)">Jeudi 8h · Deload Pull</div>
-      <div class="week-day-session">Récupération active</div>
-      <div class="week-day-focus">2×12 reps · RIR 4-5 · Étirements + mobilité 20 min post-séance</div>
+      <div class="week-day-session">Moitié des séries · récupération active</div>
+      <div class="week-day-focus">Charges −40 % · RIR 4+ · Dead hangs + mobilité 10 min post-séance</div>
     </div>
     <div class="week-day-card rest">
-      <div class="week-day-name">Samedi · Repos complet</div>
-      <div class="week-day-session">Pas de V-Shape cette semaine</div>
-      <div class="week-day-focus">Sommeil, nutrition, hydratation. Prépare le Cycle 2 qui repart avec +5% de charge globale.</div>
+      <div class="week-day-name">Samedi · V-Shape allégé ou repos</div>
+      <div class="week-day-session">Au choix selon la fatigue</div>
+      <div class="week-day-focus">Sommeil, nutrition, hydratation. Le cycle suivant repart en B1 avec des charges ~5 % plus lourdes qu'au cycle précédent.</div>
     </div>
   </div>
 </div>
@@ -671,7 +677,7 @@ button, a, [onclick], input, select, label {
 <div class="section">
   <div class="section-label">Simulation</div>
   <div class="section-title">Transformation Mois par Mois</div>
-  <div class="section-sub">Projection réaliste basée sur la recomposition : +217 kcal les jours d'entraînement, −333 kcal les jours de repos, avec 3 séances par semaine (lun/jeu/sam).</div>
+  <div class="section-sub">Projection réaliste en recomposition (+217 kcal les jours d'entraînement, −333 kcal au repos → moyenne ≈ −100 kcal/j) : le gras baisse d'environ 0,25 kg/mois pendant que la masse maigre monte, donc le poids bouge peu. Valeurs de fin de mois.</div>
 
   <div class="sim-grid" id="simGrid"></div>
 </div>
@@ -679,7 +685,7 @@ button, a, [onclick], input, select, label {
 <div class="section-divider"></div>
 
 <!-- SECTION 6 : TRACKER MENSURATIONS -->
-<div class="section">
+<div class="section" id="tracker">
   <div class="section-label">Suivi Personnel</div>
   <div class="section-title">Enregistre Tes Mesures</div>
   <div class="section-sub">Saisis tes mensurations chaque mois pour suivre ta transformation réelle. Données sauvegardées dans ton navigateur.</div>
@@ -691,35 +697,35 @@ button, a, [onclick], input, select, label {
       <div class="input-grid">
         <div class="input-group">
           <label>Poids (kg)</label>
-          <input type="number" id="in-weight" step="0.1" placeholder="71.0">
+          <input type="number" inputmode="decimal" id="in-weight" step="0.1" placeholder="71.0">
         </div>
         <div class="input-group">
           <label>% Masse Grasse</label>
-          <input type="number" id="in-bf" step="0.1" placeholder="20.5">
+          <input type="number" inputmode="decimal" id="in-bf" step="0.1" placeholder="20.5">
         </div>
         <div class="input-group">
           <label>Tour de taille (cm)</label>
-          <input type="number" id="in-waist" step="0.5" placeholder="86">
+          <input type="number" inputmode="decimal" id="in-waist" step="0.5" placeholder="86">
         </div>
         <div class="input-group">
           <label>Tour d'épaules (cm)</label>
-          <input type="number" id="in-shoulders" step="0.5" placeholder="115">
+          <input type="number" inputmode="decimal" id="in-shoulders" step="0.5" placeholder="115">
         </div>
         <div class="input-group">
           <label>Poitrine (cm)</label>
-          <input type="number" id="in-chest" step="0.5" placeholder="94">
+          <input type="number" inputmode="decimal" id="in-chest" step="0.5" placeholder="94">
         </div>
         <div class="input-group">
           <label>Biceps tendu (cm)</label>
-          <input type="number" id="in-bicep" step="0.5" placeholder="34">
+          <input type="number" inputmode="decimal" id="in-bicep" step="0.5" placeholder="34">
         </div>
         <div class="input-group">
           <label>Cuisse (cm)</label>
-          <input type="number" id="in-thigh" step="0.5" placeholder="54">
+          <input type="number" inputmode="decimal" id="in-thigh" step="0.5" placeholder="54">
         </div>
         <div class="input-group">
           <label>Hanches (cm)</label>
-          <input type="number" id="in-hips" step="0.5" placeholder="92">
+          <input type="number" inputmode="decimal" id="in-hips" step="0.5" placeholder="92">
         </div>
       </div>
       <button class="btn-save" id="saveMeasure">Enregistrer la mesure</button>
@@ -752,12 +758,12 @@ button, a, [onclick], input, select, label {
 <div class="section">
   <div class="section-label">Motivation</div>
   <div class="section-title">Ton Streak d'Entraînement</div>
-  <div class="section-sub">Coche tes jours d'entraînement. La régularité est le facteur #1 de ta transformation.</div>
+  <div class="section-sub">Les séances du logbook et du dashboard sont comptées automatiquement. Tu peux aussi cocher un jour à la main. La régularité est le facteur n°1.</div>
 
   <div class="streak-block reveal">
     <div class="streak-left">
-      <h2 id="streakCount">0 JOURS</h2>
-      <p>de streak actuel. La constance bat l'intensité. Quelqu'un qui s'entraîne 4× par semaine pendant 1 an dépasse toujours celui qui s'entraîne 6× pendant 3 mois puis abandonne.</p>
+      <h2 id="streakCount">0 SÉANCE</h2>
+      <p>de série en cours (elle tient tant qu'il n'y a pas plus de 4 jours entre deux séances). La constance bat l'intensité : 3 séances par semaine pendant 1 an valent mieux que 6 par semaine pendant 3 mois puis l'abandon.</p>
       <div class="streak-input-row">
         <input type="text" class="streak-input" id="streakNote" placeholder="Note de séance (optionnel)...">
         <button class="streak-btn" id="markToday">✓ Séance faite</button>
@@ -772,7 +778,7 @@ button, a, [onclick], input, select, label {
         </div>
         <div class="streak-stat">
           <div class="streak-stat-v" id="bestStreak">0</div>
-          <div class="streak-stat-l">Meilleur streak</div>
+          <div class="streak-stat-l">Meilleure série</div>
         </div>
         <div class="streak-stat">
           <div class="streak-stat-v" id="thisWeek">0</div>
@@ -784,7 +790,7 @@ button, a, [onclick], input, select, label {
 </div>
 
 <footer>
-  <span>ALLEZ — Suivi de Progression · 30 ans · 71 kg → 77 kg · Recomposition 12 mois</span>
+  <span>ALLEZ — Suivi de Progression · 71 → ~72,5 kg · 20,5 → 16 % · Recomposition 12 mois</span>
   <span>
     <a href="index.html">Accueil</a> &nbsp;·&nbsp;
     <a href="exercices.html">Exercices</a> &nbsp;·&nbsp;
@@ -798,67 +804,67 @@ button, a, [onclick], input, select, label {
 // DATA
 // ═══════════════════════════════════
 
-const MONTHS = ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc'];
+// Source unique : core.js (objectifs, projection, date de départ)
+const localISO = ALLEZ.localISO;
+const num = ALLEZ.num;
+const projectedData = { weight: ALLEZ.PROJ.weight, muscle: ALLEZ.PROJ.lean, bf: ALLEZ.PROJ.bf, waist: ALLEZ.PROJ.waist };
 
-// Date locale YYYY-MM-DD (toISOString = UTC : décale la date entre minuit et 2h en France)
-const localISO = d => { d = d || new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
-
-const projectedData = {
-  weight:  [71, 71.5, 72.0, 72.5, 73.0, 73.5, 74.0, 74.5, 75.0, 75.5, 76.0, 76.5, 77.0],
-  muscle:  [56.4, 57.0, 57.7, 58.3, 59.0, 59.6, 60.3, 60.9, 61.6, 62.2, 62.9, 63.5, 64.0],
-  bf:      [20.5, 20.2, 20.0, 19.7, 19.4, 19.2, 18.9, 18.6, 18.4, 18.1, 17.9, 17.5, 17.0],
-  waist:   [86, 85.5, 85.0, 84.5, 84.0, 83.5, 83.0, 82.5, 82.0, 81.5, 81.0, 80.5, 80.0]
-};
-
+// Charges indicatives : Bloc 1 (départ) → Bloc 2 → Bloc 3 (fin du cycle 1, ~3 mois) · 12 mois = objectif annuel
+// Mêmes points de départ que les indications du logbook ; lb = nom de l'exercice dans le logbook
 const strengthData = [
-  { name:'Développé incliné haltères', muscle:'Pectoraux sup · Deltoïde ant', cat:'push', b1:'14 kg × 12', b2:'18 kg × 10', b3:'22 kg × 8', prog:57 },
-  { name:'Élévations latérales', muscle:'Deltoïde médial', cat:'push', b1:'8 kg × 15', b2:'10 kg × 12', b3:'12 kg × 10', prog:50 },
-  { name:'Développé militaire assis', muscle:'Deltoïde ant · Triceps', cat:'push', b1:'12 kg × 12', b2:'15 kg × 10', b3:'18 kg × 8', prog:50 },
-  { name:'Écarté câble high-to-low', muscle:'Pectoraux · Deltoïde ant', cat:'push', b1:'15 kg × 15', b2:'20 kg × 12', b3:'25 kg × 10', prog:67 },
-  { name:'Extension triceps corde', muscle:'Triceps long · médial', cat:'push', b1:'20 kg × 15', b2:'27 kg × 12', b3:'33 kg × 10', prog:65 },
-  { name:'Tirage vertical prise large', muscle:'Grand dorsal · Biceps', cat:'pull', b1:'50 kg × 10', b2:'62 kg × 8', b3:'72 kg × 6', prog:44 },
-  { name:'Rowing unilatéral haltère', muscle:'Grand dorsal · Rhomboïdes', cat:'pull', b1:'20 kg × 12', b2:'26 kg × 10', b3:'32 kg × 8', prog:60 },
-  { name:'Rowing câble assis', muscle:'Grand dorsal · Trapèzes', cat:'pull', b1:'40 kg × 12', b2:'52 kg × 10', b3:'62 kg × 8', prog:55 },
-  { name:'Oiseau banc incliné', muscle:'Deltoïde post · Rhomboïdes', cat:'pull', b1:'10 kg × 15', b2:'13 kg × 12', b3:'16 kg × 10', prog:60 },
-  { name:'Curl biceps haltères alternes', muscle:'Biceps · Brachial', cat:'pull', b1:'10 kg × 12', b2:'13 kg × 10', b3:'16 kg × 8', prog:60 },
-  { name:'Curl marteau', muscle:'Brachial · Brachio-radial', cat:'pull', b1:'12 kg × 12', b2:'15 kg × 10', b3:'18 kg × 8', prog:50 },
-  { name:'Arnold Press', muscle:'Deltoïde 3 faisceaux', cat:'vshape', b1:'10 kg × 12', b2:'13 kg × 10', b3:'16 kg × 8', prog:60 },
-  { name:'Pull-ups / Tractions', muscle:'Grand dorsal · Biceps', cat:'vshape', b1:'Assisté × 8', b2:'Poids corps × 6', b3:'Lesté +5 kg × 5', prog:40 },
-  { name:'Curl barre EZ', muscle:'Biceps long · court', cat:'vshape', b1:'20 kg × 12', b2:'26 kg × 10', b3:'32 kg × 8', prog:60 },
-  { name:'Extension overhead câble', muscle:'Triceps long', cat:'vshape', b1:'15 kg × 12', b2:'20 kg × 10', b3:'25 kg × 8', prog:67 },
-  { name:'Curl concentré haltère', muscle:'Biceps (pic/contraction)', cat:'vshape', b1:'10 kg × 12', b2:'13 kg × 10', b3:'16 kg × 8', prog:40 },
-  { name:'Planche abdominale', muscle:'Transverse · Stabilisateurs', cat:'core', b1:'30 s × 3', b2:'45 s × 3', b3:'60 s × 4', prog:50 },
-  { name:'Pallof Press câble', muscle:'Obliques · Transverse', cat:'core', b1:'15 kg × 12', b2:'20 kg × 10', b3:'25 kg × 10', prog:67 },
+  { name:'Développé incliné haltères (kg/main)', lb:'Développé incliné haltères 30°', muscle:'Pectoraux sup · Deltoïde ant', cat:'push', b1:'14 × 12', b2:'16 × 12', b3:'18 × 10', y:'22 kg', s:14, e:18 },
+  { name:'Élévations latérales', lb:'Élévations latérales', muscle:'Deltoïde médial', cat:'push', b1:'5 × 15', b2:'6 × 14', b3:'7 × 12', y:'9-10 kg', s:5, e:7 },
+  { name:'Développé militaire assis (kg/main)', lb:'Développé militaire assis', muscle:'Deltoïde ant · Triceps', cat:'push', b1:'10 × 12', b2:'12 × 11', b3:'13 × 10', y:'18 kg', s:10, e:13 },
+  { name:'Écarté câble high-to-low (kg/côté)', lb:'Écarté câble high-to-low', muscle:'Pectoraux · Deltoïde ant', cat:'push', b1:'8 × 15', b2:'9 × 14', b3:'10 × 12', y:'15 kg', s:8, e:10 },
+  { name:'Extension triceps corde', lb:'Extension triceps corde', muscle:'Triceps latéral · médial', cat:'push', b1:'15 × 15', b2:'18 × 13', b3:'20 × 12', y:'30 kg', s:15, e:20 },
+  { name:'Tirage vertical prise large', lb:'Tirage vertical prise large', muscle:'Grand dorsal · Biceps', cat:'pull', b1:'45 × 12', b2:'50 × 11', b3:'55 × 10', y:'72 kg', s:45, e:55 },
+  { name:'Rowing unilatéral haltère', lb:'Rowing unilatéral haltère', muscle:'Grand dorsal · Rhomboïdes', cat:'pull', b1:'20 × 12', b2:'22 × 12', b3:'24 × 10', y:'32 kg', s:20, e:24 },
+  { name:'Rowing câble assis', lb:'Rowing câble assis prise large', muscle:'Rhomboïdes · Trapèzes', cat:'pull', b1:'30 × 15', b2:'35 × 13', b3:'40 × 12', y:'55 kg', s:30, e:40 },
+  { name:'Oiseau câble penché (kg/côté)', lb:'Oiseau câble penché', muscle:'Deltoïde post · Rhomboïdes', cat:'pull', b1:'4 × 20', b2:'5 × 18', b3:'5 × 20', y:'8 kg', s:4, e:5 },
+  { name:'Curl biceps alterné (kg/main)', lb:'Curl biceps haltères alternés', muscle:'Biceps · Brachial', cat:'pull', b1:'10 × 12', b2:'11 × 11', b3:'12 × 10', y:'16 kg', s:10, e:12 },
+  { name:'Arnold press (kg/main)', lb:'Arnold press', muscle:'Deltoïde 3 faisceaux', cat:'vshape', b1:'10 × 12', b2:'11 × 12', b3:'12 × 10', y:'16 kg', s:10, e:12 },
+  { name:'Tractions', lb:'Tractions / tirage vertical', muscle:'Grand dorsal · Biceps', cat:'vshape', b1:'Élastique × 8', b2:'PdC × 3-5', b3:'PdC × 6', y:'8-10 strictes', s:null, e:null },
+  { name:'Curl barre EZ', lb:'Curl barre EZ', muscle:'Biceps long · court', cat:'vshape', b1:'20 × 12', b2:'22 × 11', b3:'25 × 10', y:'32 kg', s:20, e:25 },
+  { name:'Extension overhead câble', lb:'Extension triceps overhead câble', muscle:'Triceps long', cat:'vshape', b1:'12 × 12', b2:'14 × 12', b3:'16 × 10', y:'22 kg', s:12, e:16 },
+  { name:'Curl concentré', lb:'Curl concentré', muscle:'Biceps (pic/contraction)', cat:'vshape', b1:'8 × 12', b2:'9 × 12', b3:'10 × 10', y:'14 kg', s:8, e:10 },
+  { name:'Planche', lb:'Planche', muscle:'Transverse · Stabilisateurs', cat:'core', b1:'3 × 30 s', b2:'3 × 45 s', b3:'3 × 60 s', y:'3 × 60 s + variantes', s:null, e:null },
+  { name:'Hollow body', lb:'Hollow body', muscle:'Grand droit · Transverse', cat:'core', b1:'3 × 20 s', b2:'3 × 25 s', b3:'3 × 30 s', y:'3 × 45 s', s:null, e:null },
+  { name:'Dead bug', lb:'Dead bug', muscle:'Transverse · anti-extension', cat:'core', b1:'3 × 8/côté', b2:'3 × 10/côté', b3:'3 × 12/côté lent', y:'version lestée légère', s:null, e:null },
 ];
 
-const simMonths = [
-  { n:1, label:'Juin', poids:71.5, bf:20.2, muscle:57.0, tour:85.5, focus:'Adaptation neuro-musculaire. Les gains de force viennent d\'abord du système nerveux, pas encore du muscle.', col:'var(--blue)' },
-  { n:2, label:'Juillet', poids:72.0, bf:20.0, muscle:57.7, tour:85.0, focus:'Début Bloc 2 — l\'hypertrophie réelle commence. Connexion neuro-musculaire en place, premières adaptations structurelles.', col:'var(--blue)' },
-  { n:3, label:'Août', poids:72.5, bf:19.7, muscle:58.3, tour:84.5, focus:'Bloc 3 — intensification, puis fin du cycle 1. Deload semaine 13 : récupération profonde, SNC reposé.', col:'var(--green)' },
-  { n:4, label:'Septembre', poids:73.0, bf:19.4, muscle:59.0, tour:84.0, focus:'Cycle 2 démarre avec +5% de charge. Épaules qui s\'élargissent, dos qui prend du volume. Transformation visible dans le miroir.', col:'var(--green)' },
-  { n:5, label:'Octobre', poids:73.5, bf:19.2, muscle:59.6, tour:83.5, focus:'Hypertrophie cycle 2. V-shape naissant visible de face. Séparation biceps/triceps perceptible.', col:'var(--green)' },
-  { n:6, label:'Novembre', poids:74.0, bf:18.9, muscle:60.3, tour:83.0, focus:'Fin du cycle 2 — mi-parcours : +3.9 kg de muscle, −1,6% BF. V-taper clairement photographiable.', col:'var(--purple)' },
-  { n:7, label:'Décembre', poids:74.5, bf:18.6, muscle:60.9, tour:82.5, focus:'Cycle 3. Densité musculaire accrue — muscles fermes même au repos. Pull-ups sans assistance.', col:'var(--purple)' },
-  { n:8, label:'Janvier', poids:75.0, bf:18.4, muscle:61.6, tour:82.0, focus:'Masse musculaire +5.2 kg depuis le début. BF% en baisse malgré légère prise de masse. Recomposition en cours.', col:'var(--purple)' },
-  { n:9, label:'Février', poids:75.5, bf:18.1, muscle:62.2, tour:81.5, focus:'Bilan 9 mois : +5.8 kg de muscle, −2,4% BF. V-taper prononcé, abdos hauts visibles. Corps athlétique.', col:'var(--gold)' },
-  { n:10, label:'Mars', poids:76.0, bf:17.9, muscle:62.9, tour:81.0, focus:'Dernier cycle (C4). L\'objectif n\'est plus de construire — sculpter et affiner ce qui a été bâti en 9 mois.', col:'var(--gold)' },
-  { n:11, label:'Avril', poids:76.5, bf:17.5, muscle:63.5, tour:80.5, focus:'Dernière phase de la première année. Corps sculpté, ratio taille/épaules transformé.', col:'var(--gold)' },
-  { n:12, label:'Mai', poids:77.0, bf:17.0, muscle:64.0, tour:80.0, focus:'Bilan 12 mois : +7.6 kg de masse musculaire, −3,5% BF, −6 cm de tour de taille. V-shape confirmé.', col:'var(--green)' },
+// Projection fin de mois (core.js) + repères qualitatifs réalistes
+const SIM_FOCUS = [
+  'Apprentissage moteur : la force monte vite (système nerveux), le miroir change peu. Créatine : +0,5 à 1 kg d\'eau intramusculaire, normal.',
+  'Les charges continuent de monter chaque semaine. Premiers vêtements un peu plus tendus aux épaules.',
+  'Fin du cycle 1 + deload. Bilan photos M3 : différence visible côte à côte, surtout épaules et bras.',
+  'Cycle 2 : charges ~5 % au-dessus du cycle 1. La taille commence à baisser au mètre ruban.',
+  'Le deltoïde médian se dessine sous bonne lumière. Tractions au poids du corps possibles (quelques reps).',
+  'Mi-parcours : ~+3 kg de masse maigre, ~−1,5 kg de gras. Différence nette sur photos M0 / M6.',
+  'Progression plus lente qu\'au début (normal). Régularité > intensité : c\'est là que beaucoup abandonnent.',
+  'Haut du corps nettement plus dense. Le pectus paraît moins marqué grâce aux pectoraux hauts.',
+  'Bilan 9 mois : ~17 % de MG, taille ~−3 cm. Silhouette en V lisible habillé.',
+  'Dernier cycle : consolider les charges, soigner la technique et le sommeil.',
+  'Le ventre est plus plat ; les abdos restent peu visibles à ~16-17 % (normal : il faut ~12 % pour les voir).',
+  'Bilan 12 mois : ~+4,5 kg de masse maigre, ~16 % MG, taille ~82 cm. Base solide pour une année 2 en prise de masse propre.',
 ];
+const simMonths = SIM_FOCUS.map((focus, i) => ({
+  n: i + 1, poids: ALLEZ.PROJ.weight[i + 1], bf: ALLEZ.PROJ.bf[i + 1], muscle: ALLEZ.PROJ.lean[i + 1], tour: ALLEZ.PROJ.waist[i + 1], focus,
+  col: i < 3 ? 'var(--blue)' : i < 6 ? 'var(--green)' : i < 9 ? 'var(--purple)' : 'var(--gold)'
+}));
 
 const achievements = [
   { icon:'🏁', name:'Premier pas', desc:'Enregistre ta première mesure de départ', locked:false },
-  { icon:'💪', name:'Première semaine', desc:'3 séances complétées en une semaine (lun/jeu/sam)', locked:true },
-  { icon:'📅', name:'Mois 1 validé', desc:'Bloc 1 terminé (4 semaines consécutives)', locked:true },
-  { icon:'⚡', name:'Force +10%', desc:'Augmentation de 10% sur un exercice principal', locked:true },
-  { icon:'🎯', name:'Poids cible M3', desc:'Atteindre 72 kg (mois 3)', locked:true },
+  { icon:'💪', name:'Première semaine', desc:'3 séances dans la même semaine (lun/jeu/sam)', locked:true },
+  { icon:'📅', name:'Mois 1 validé', desc:'12 séances (4 semaines × 3)', locked:true },
+  { icon:'⚡', name:'Force +10 %', desc:'+10 % de charge sur un exercice du logbook', locked:true },
+  { icon:'🎯', name:'−2 points de MG', desc:'Masse grasse ≤ 18,5 % (mesure)', locked:true },
   { icon:'📐', name:'Taille −2 cm', desc:'Tour de taille réduit de 2 cm', locked:true },
-  { icon:'🔥', name:'Streak 21 jours', desc:'Pas de semaine sans séance pendant 21 jours', locked:true },
-  { icon:'🏆', name:'6 mois complets', desc:'26 semaines de programme sans abandon', locked:true },
-  { icon:'💎', name:'Pull-ups maître', desc:'5 tractions sans assistance enchaînées', locked:true },
-  { icon:'🥇', name:'V-shape débloqué', desc:'Ratio épaules/taille > 1.42', locked:true },
-  { icon:'🌟', name:'Cycle 2 lancé', desc:'Semaine 14 atteinte avec +5% charge globale', locked:true },
-  { icon:'🦁', name:'12 mois complet', desc:'Transformation annuelle accomplie', locked:true },
+  { icon:'🔥', name:'3 semaines carrées', desc:'7 séances en 21 jours', locked:true },
+  { icon:'🏆', name:'6 mois complets', desc:'78 séances (26 semaines × 3)', locked:true },
+  { icon:'💎', name:'Tractions', desc:'5 tractions au poids du corps (logbook, 0 kg)', locked:true },
+  { icon:'🥇', name:'V-shape débloqué', desc:'Tour d\'épaules / tour de taille > 1,42', locked:true },
+  { icon:'🌟', name:'Cycle 2 lancé', desc:'39 séances (13 semaines × 3)', locked:true },
+  { icon:'🦁', name:'12 mois complets', desc:'156 séances — année entière', locked:true },
 ];
 
 // ═══════════════════════════════════
@@ -969,6 +975,7 @@ function drawLineChart(canvasId, datasets, labels, options = {}) {
 }
 
 function drawRealDataOverlay(canvasId, measures, field, color, opts) {
+  measures = measures.filter(m => m.iso);
   if (!measures.length) return;
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
@@ -977,8 +984,8 @@ function drawRealDataOverlay(canvasId, measures, field, color, opts) {
   const W = canvas.width / dpr, H = canvas.height / dpr;
   const pad = { top: 16, right: 20, bottom: 36, left: 48 };
   const chartW = W - pad.left - pad.right, chartH = H - pad.top - pad.bottom;
-  const xPos = i => pad.left + (i / 12) * chartW;
-  const yPos = v => pad.top + chartH - ((v - opts.min) / (opts.max - opts.min)) * chartH;
+  const xPos = iso => pad.left + (ALLEZ.monthPos(iso) / 12) * chartW;   // position = date réelle vs jour J
+  const yPos = v => pad.top + chartH - ((Math.max(opts.min, Math.min(opts.max, v)) - opts.min) / (opts.max - opts.min)) * chartH;
 
   const pts = [];
   measures.forEach((m, i) => {
@@ -988,7 +995,7 @@ function drawRealDataOverlay(canvasId, measures, field, color, opts) {
     } else if (m[field]) {
       val = parseFloat(m[field]);
     }
-    if (val !== null && !isNaN(val)) pts.push({ x: xPos(i), y: yPos(val) });
+    if (val !== null && !isNaN(val)) pts.push({ x: xPos(m.iso), y: yPos(val), iso: m.iso });
   });
   if (!pts.length) return;
 
@@ -1021,21 +1028,21 @@ function drawRealDataOverlay(canvasId, measures, field, color, opts) {
 }
 
 function initCharts() {
-  // Programme Juin → Mai : les labels démarrent au mois 6 (index 5)
-  const monthLabels = ['Départ', ...Array.from({ length: 12 }, (_, i) => MONTHS[(5 + i) % 12])];
-  const measures = JSON.parse(localStorage.getItem('px_measures') || '[]');
+  // Libellés = mois réels à partir du jour J (date choisie, sinon lundi prochain)
+  const monthLabels = ['J', ...Array.from({ length: 12 }, (_, i) => 'M' + (i + 1))];
+  const measures = ALLEZ.measures().sort((a, b) => (a.iso || '').localeCompare(b.iso || ''));
 
   drawLineChart('weightChart', [
     { data: projectedData.weight, color: 'rgb(21,96,212)', fill: true, lineWidth: 2.5 },
     { data: projectedData.muscle, color: 'rgb(10,158,82)', fill: true, lineWidth: 2.5 }
-  ], monthLabels, { height: 220, min: 54, max: 78 });
-  drawRealDataOverlay('weightChart', measures, 'weight', '#1560d4', { min: 54, max: 78 });
-  drawRealDataOverlay('weightChart', measures, 'muscle', '#0a9e52', { min: 54, max: 78 });
+  ], monthLabels, { height: 220, min: 54, max: 76 });
+  drawRealDataOverlay('weightChart', measures, 'weight', '#1560d4', { min: 54, max: 76 });
+  drawRealDataOverlay('weightChart', measures, 'muscle', '#0a9e52', { min: 54, max: 76 });
 
   drawLineChart('bfChart', [
     { data: projectedData.bf, color: 'rgb(124,16,212)', fill: true, lineWidth: 2.5 }
-  ], monthLabels, { height: 200, min: 16, max: 22, decimals: 1 });
-  drawRealDataOverlay('bfChart', measures, 'bf', '#7c10d4', { min: 16, max: 22 });
+  ], monthLabels, { height: 200, min: 14, max: 22, decimals: 1 });
+  drawRealDataOverlay('bfChart', measures, 'bf', '#7c10d4', { min: 14, max: 22 });
 
   drawLineChart('waistChart', [
     { data: projectedData.waist, color: 'rgb(232,150,10)', fill: true, lineWidth: 2.5 }
@@ -1047,10 +1054,15 @@ function initCharts() {
 // STRENGTH GRID
 // ═══════════════════════════════════
 
+function lbBest(name) {
+  let m = 0;
+  try { (JSON.parse(localStorage.getItem('px_logbook') || '{"sessions":[]}').sessions || []).forEach(s => (s.exercises || []).forEach(e => { if (e.name === name) (e.sets || []).forEach(st => { if ((st.kg || 0) > m) m = st.kg; }); })); } catch (e) {}
+  return m;
+}
 function renderStrength(cat = 'all') {
   const grid = document.getElementById('strengthGrid');
   const filtered = cat === 'all' ? strengthData : strengthData.filter(e => e.cat === cat);
-  grid.innerHTML = filtered.map(ex => `
+  grid.innerHTML = filtered.map(ex => { const best = ex.s ? lbBest(ex.lb) : 0; ex.prog = best ? Math.max(4, Math.min(100, Math.round((best - ex.s) / (ex.e - ex.s) * 100))) : 0; ex.rec = best ? 'Ton record : ' + num(best, best % 1 ? 1 : 0) + ' kg · objectif 12 mois : ' + ex.y : 'Objectif 12 mois : ' + ex.y; return `
     <div class="strength-card">
       <div class="strength-ex-name">${ex.name}</div>
       <div class="strength-ex-muscle">${ex.muscle}</div>
@@ -1071,8 +1083,9 @@ function renderStrength(cat = 'all') {
       <div class="strength-prog-bar">
         <div class="strength-prog-fill" style="width:${ex.prog}%"></div>
       </div>
+      <div class="strength-ex-muscle" style="margin-top:8px">${ex.rec}</div>
     </div>
-  `).join('');
+  `; }).join('');
 }
 
 document.getElementById('strFilter').addEventListener('click', e => {
@@ -1091,23 +1104,23 @@ renderStrength();
 document.getElementById('simGrid').innerHTML = simMonths.map((m, i) => `
   <div class="sim-month" style="transition-delay:${i * 60}ms">
     <div class="sim-month-num" style="color:${m.col}">M${m.n}</div>
-    <div class="sim-month-label" style="color:${m.col}">${m.label}</div>
+    <div class="sim-month-label" style="color:${m.col}">${ALLEZ.monthRange(m.n).label}</div>
     <div class="sim-stats">
       <div class="sim-stat-row">
         <span class="sim-stat-key">Poids</span>
-        <span class="sim-stat-v">${m.poids} kg</span>
+        <span class="sim-stat-v">${num(m.poids)} kg</span>
       </div>
       <div class="sim-stat-row">
         <span class="sim-stat-key">Masse grasse</span>
-        <span class="sim-stat-v">${m.bf}%</span>
+        <span class="sim-stat-v">${num(m.bf)} %</span>
       </div>
       <div class="sim-stat-row">
-        <span class="sim-stat-key">Masse musculaire</span>
-        <span class="sim-stat-v">${m.muscle} kg</span>
+        <span class="sim-stat-key">Masse maigre</span>
+        <span class="sim-stat-v">${num(m.muscle)} kg</span>
       </div>
       <div class="sim-stat-row">
         <span class="sim-stat-key">Tour de taille</span>
-        <span class="sim-stat-v">${m.tour} cm</span>
+        <span class="sim-stat-v">${num(m.tour)} cm</span>
       </div>
     </div>
     <div class="sim-focus" style="background:${m.col}15;border-left:3px solid ${m.col};color:var(--text-mid)">
@@ -1121,17 +1134,13 @@ document.getElementById('simGrid').innerHTML = simMonths.map((m, i) => `
 // ═══════════════════════════════════
 
 function renderAchievements() {
-  const measures = JSON.parse(localStorage.getItem('px_measures') || '[]');
+  const measures = ALLEZ.measures();
   let lbSessions = [];
   try { lbSessions = (JSON.parse(localStorage.getItem('px_logbook') || '{"sessions":[]}').sessions) || []; } catch(e) {}
   const dashSess = JSON.parse(localStorage.getItem('px_sessions_v2') || '[]');
   const streakSess = JSON.parse(localStorage.getItem('px_sessions') || '[]');
 
-  const allDates = new Set([
-    ...lbSessions.map(s => s.date),
-    ...dashSess.map(s => s.date),
-    ...streakSess
-  ]);
+  const allDates = new Set(ALLEZ.sessions().map(s => s.date));
   const totalSessions = allDates.size;
   const unlocked = new Set();
 
@@ -1167,8 +1176,8 @@ function renderAchievements() {
     return arr[arr.length-1].kg >= arr[0].kg * 1.1;
   })) unlocked.add(3);
 
-  // 4 — Poids cible M3 : poids ≥ 72 kg dans les mesures
-  if (measures.some(m => parseFloat(m.weight) >= 72)) unlocked.add(4);
+  // 4 — −2 points de masse grasse (≤ 18,5 %)
+  if (measures.some(m => m.bf && parseFloat(m.bf) <= 18.5)) unlocked.add(4);
 
   // 5 — Taille −2 cm : tour de taille réduit de 2 cm depuis la première mesure
   const waists = measures.filter(m => m.waist).map(m => parseFloat(m.waist));
@@ -1190,7 +1199,7 @@ function renderAchievements() {
   lbSessions.forEach(s => {
     (s.exercises||[]).forEach(e => {
       if (/pull.up|traction/i.test(e.name)) {
-        (e.sets||[]).forEach(st => { if ((st.reps||0) >= 5) unlocked.add(8); });
+        (e.sets||[]).forEach(st => { if ((st.reps||0) >= 5 && !(st.kg > 0) && st.done !== false) unlocked.add(8); });
       }
     });
   });
@@ -1202,8 +1211,8 @@ function renderAchievements() {
     if (parseFloat(last.shoulders) / parseFloat(last.waist) > 1.42) unlocked.add(9);
   }
 
-  // 10 — Cycle 2 lancé : 42+ séances (14 semaines × 3)
-  if (totalSessions >= 42) unlocked.add(10);
+  // 10 — Cycle 2 lancé : 39 séances (13 semaines × 3)
+  if (totalSessions >= 39) unlocked.add(10);
 
   // 11 — 12 mois complet : 156+ séances
   if (totalSessions >= 156) unlocked.add(11);
@@ -1236,7 +1245,7 @@ function renderHistory() {
       <div class="history-date">${entry.date}</div>
       <div class="history-vals">
         ${entry.weight ? `<span class="history-val-chip">⚖️ ${entry.weight} kg</span>` : ''}
-        ${entry.bf ? `<span class="history-val-chip">📊 ${entry.bf}% BF</span>` : ''}
+        ${entry.bf ? `<span class="history-val-chip">📊 ${entry.bf} % MG</span>` : ''}
         ${entry.waist ? `<span class="history-val-chip">📏 T. taille: ${entry.waist} cm</span>` : ''}
         ${entry.shoulders ? `<span class="history-val-chip">💪 Épaules: ${entry.shoulders} cm</span>` : ''}
         ${entry.chest ? `<span class="history-val-chip">Poitrine: ${entry.chest} cm</span>` : ''}
@@ -1261,6 +1270,7 @@ document.getElementById('saveMeasure').addEventListener('click', () => {
   const get = id => document.getElementById(id).value;
   const entry = {
     date: new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+    iso: localISO(),
     weight: get('in-weight'),
     bf: get('in-bf'),
     waist: get('in-waist'),
@@ -1280,6 +1290,7 @@ document.getElementById('saveMeasure').addEventListener('click', () => {
   ['in-weight','in-bf','in-waist','in-shoulders','in-chest','in-bicep','in-thigh','in-hips'].forEach(id => document.getElementById(id).value = '');
   renderHistory();
   initCharts();
+  renderMetrics();
   const btn = document.getElementById('saveMeasure');
   btn.textContent = '✓ Mesure enregistrée !';
   btn.style.background = 'linear-gradient(135deg, var(--green), var(--green-light))';
@@ -1309,12 +1320,13 @@ function getWeekDays() {
 const DAY_LABELS = ['LUN','MAR','MER','JEU','VEN','SAM','DIM'];
 
 function renderStreak() {
-  const sessions = JSON.parse(localStorage.getItem('px_sessions') || '[]');
+  const all = ALLEZ.sessions();
+  const dates = new Set(all.map(s => s.date));
   const todayStr = localISO();
-  const weekDays = getWeekDays();
+  const weekDays = ALLEZ.weekDates();
   const weekEl = document.getElementById('streakWeek');
   weekEl.innerHTML = weekDays.map((d, i) => `
-    <div class="streak-day ${sessions.includes(d) ? 'done' : ''} ${d === todayStr ? 'today' : ''}" data-date="${d}">
+    <div class="streak-day ${dates.has(d) ? 'done' : ''} ${d === todayStr ? 'today' : ''}" data-date="${d}" role="button">
       ${DAY_LABELS[i]}
     </div>
   `).join('');
@@ -1322,42 +1334,21 @@ function renderStreak() {
   weekEl.querySelectorAll('.streak-day').forEach(el => {
     el.addEventListener('click', () => {
       const date = el.getAttribute('data-date');
+      const src = (all.find(x => x.date === date) || {}).source;
+      if (src === 'logbook' || src === 'dashboard') { alert('Cette séance vient du ' + src + ' — modifie-la là-bas.'); return; }
       const s = JSON.parse(localStorage.getItem('px_sessions') || '[]');
       const idx = s.indexOf(date);
       if (idx >= 0) s.splice(idx, 1); else s.push(date);
       localStorage.setItem('px_sessions', JSON.stringify(s));
-      renderStreak();
+      renderStreak(); renderAchievements();
     });
   });
 
-  document.getElementById('totalSessions').textContent = sessions.length;
-  const thisWeekCount = weekDays.filter(d => sessions.includes(d)).length;
-  document.getElementById('thisWeek').textContent = thisWeekCount;
-
-  let best = 0, cur = 0;
-  const sorted = [...sessions].sort();
-  for (let i = 0; i < sorted.length; i++) {
-    if (i === 0) { cur = 1; }
-    else {
-      const prev = new Date(sorted[i - 1]);
-      const curr = new Date(sorted[i]);
-      const diff = (curr - prev) / (1000 * 60 * 60 * 24);
-      cur = diff <= 2 ? cur + 1 : 1;
-    }
-    if (cur > best) best = cur;
-  }
-  document.getElementById('bestStreak').textContent = best;
-
-  let streak = 0;
-  const today = new Date();
-  for (let i = 0; i < 90; i++) {
-    const d = new Date(today);
-    d.setDate(today.getDate() - i);
-    const ds = localISO(d);
-    if (sessions.includes(ds)) streak++;
-    else if (i > 0) break;
-  }
-  document.getElementById('streakCount').textContent = streak + (streak > 1 ? ' JOURS' : ' JOUR');
+  const sk = ALLEZ.streak([...dates]);
+  document.getElementById('totalSessions').textContent = sk.total;
+  document.getElementById('thisWeek').textContent = weekDays.filter(d => dates.has(d)).length;
+  document.getElementById('bestStreak').textContent = sk.best;
+  document.getElementById('streakCount').textContent = sk.cur + (sk.cur > 1 ? ' SÉANCES' : ' SÉANCE');
 }
 
 document.getElementById('markToday').addEventListener('click', () => {
@@ -1377,21 +1368,32 @@ renderStreak();
 // SEMAINE PROGRAMME (départ : lundi 1er juin 2026)
 // ═══════════════════════════════════
 
-(function(){
-  const start = new Date(2026, 5, 1);
-  const week = Math.min(52, Math.max(1, Math.floor((Date.now() - start.getTime()) / (86400000 * 7)) + 1));
-  const lbl = document.getElementById('prog-label');
-  const fill = document.getElementById('prog-fill');
-  if (lbl) lbl.textContent = 'Semaine ' + week + ' / 52';
-  if (fill) fill.setAttribute('data-w', Math.max(2, Math.round(week / 52 * 100)));
-  // Timeline blocs (cycle 1 détaillé, item 5 = cycles suivants)
-  const cw = ((week - 1) % 13) + 1;
-  const idx = week >= 14 ? 4 : (cw <= 4 ? 0 : cw <= 8 ? 1 : cw <= 12 ? 2 : 3);
+function renderMetrics() {
+  const st = ALLEZ.status(), G = ALLEZ.GOALS;
+  ALLEZ.renderStartCard(document.getElementById('startCard'), () => { renderMetrics(); initCharts(); document.getElementById('simGrid').querySelectorAll('.sim-month-label').forEach((el, i) => el.textContent = ALLEZ.monthRange(i + 1).label); });
+  const lbl = document.getElementById('prog-label'), fill = document.getElementById('prog-fill');
+  if (lbl) lbl.textContent = !st.set ? 'Date de départ à choisir' : !st.started ? 'Départ dans ' + st.daysUntil + ' j' : 'Semaine ' + st.week + ' / 52 · ' + st.block.code;
+  if (fill) fill.setAttribute('data-w', st.started ? Math.max(2, Math.round(st.week / 52 * 100)) : 0);
+  const idx = !st.started ? 0 : st.week >= 14 ? 4 : (st.cycleWeek <= 4 ? 0 : st.cycleWeek <= 8 ? 1 : st.cycleWeek <= 12 ? 2 : 3);
   document.querySelectorAll('.bloc-timeline .bloc-item').forEach((el, i) => {
     el.classList.toggle('active', i === idx);
-    el.classList.toggle('done', i < idx);
+    el.classList.toggle('done', st.started && i < idx);
   });
-})();
+  // Barres d'objectifs à partir des vraies mesures
+  const w = ALLEZ.lastMeasure('weight'), bf = ALLEZ.lastMeasure('bf'), waist = ALLEZ.lastMeasure('waist');
+  const pct = (c, a, b) => Math.max(0, Math.min(100, Math.round((c - a) / (b - a) * 100)));
+  const setBar = (id, cur, a, b, u) => {
+    const v = document.getElementById('pv-' + id), f = document.getElementById('pf-' + id);
+    if (cur === null) { f.setAttribute('data-w', 0); return; }
+    v.textContent = num(cur) + u + ' → objectif ' + num(b) + u;
+    f.setAttribute('data-w', Math.max(2, pct(cur, a, b)));
+  };
+  setBar('lean', (w && bf) ? w * (1 - bf / 100) : null, G.lean0, G.lean, ' kg');
+  setBar('bf', bf, G.bf0, G.bf, ' %');
+  setBar('waist', waist, G.waist0, G.waist, ' cm');
+  document.querySelectorAll('.progress-fill[data-w]').forEach(b => { if (b.style.width) b.style.width = b.getAttribute('data-w') + '%'; });
+}
+renderMetrics();
 
 // ═══════════════════════════════════
 // WEEK TABS

@@ -10,6 +10,8 @@
 <meta name="apple-mobile-web-app-title" content="ALLEZ">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Projection 12 Mois — ALLEZ</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<script src="core.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -418,16 +420,16 @@ button, a, [onclick], input, select, label {
         <div class="hero-stat-lbl">Poids départ</div>
       </div>
       <div>
-        <div class="hero-stat-val">77 kg</div>
+        <div class="hero-stat-val">~72,5 kg</div>
         <div class="hero-stat-lbl">Objectif 12 mois</div>
       </div>
       <div>
-        <div class="hero-stat-val">20,5%</div>
-        <div class="hero-stat-lbl">BF départ</div>
+        <div class="hero-stat-val">20,5 %</div>
+        <div class="hero-stat-lbl">MG départ</div>
       </div>
       <div>
-        <div class="hero-stat-val">17%</div>
-        <div class="hero-stat-lbl">BF objectif</div>
+        <div class="hero-stat-val">16 %</div>
+        <div class="hero-stat-lbl">MG objectif</div>
       </div>
     </div>
   </div>
@@ -436,23 +438,23 @@ button, a, [onclick], input, select, label {
 <!-- ── POINT DE DÉPART ── -->
 <div class="section">
   <div class="section-label">Baseline</div>
-  <div class="section-title">Point de Départ — Mai 2026</div>
-  <div class="section-sub">Photos de référence prises le 24 mai 2026. Toutes les comparaisons futures reviennent à ce point zéro. Même heure, même lumière, mêmes angles.</div>
+  <div class="section-title">Point de Départ</div>
+  <div class="section-sub">Mesures et photos de l'analyse du 24 mai 2026. <strong>À refaire le jour J</strong> (<span id="jDay">date à choisir sur le dashboard</span>) : c'est ce point zéro qui servira à toutes les comparaisons. Même heure, même lumière, mêmes angles.</div>
 
   <div class="start-card reveal">
     <div class="start-card-inner">
-      <div class="start-badge">M0 · DÉPART · 24 mai 2026</div>
+      <div class="start-badge">M0 · RÉFÉRENCE · analyse du 24 mai 2026</div>
       <div class="start-stats-row">
         <div class="start-stat">
           <span class="start-val">71 kg</span>
           <span class="start-lbl">Poids</span>
         </div>
         <div class="start-stat">
-          <span class="start-val">20,5%</span>
+          <span class="start-val">20,5 %</span>
           <span class="start-lbl">Masse grasse</span>
         </div>
         <div class="start-stat">
-          <span class="start-val">56.4 kg</span>
+          <span class="start-val">56,4 kg</span>
           <span class="start-lbl">Masse maigre</span>
         </div>
         <div class="start-stat">
@@ -470,21 +472,21 @@ button, a, [onclick], input, select, label {
             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
           </div>
           <div class="start-photo-label">Face</div>
-          <div class="start-photo-date">24 mai 2026</div>
+          <div class="start-photo-date">à refaire au jour J</div>
         </div>
         <div class="start-photo-slot">
           <div class="start-photo-check">
             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
           </div>
           <div class="start-photo-label">Profil</div>
-          <div class="start-photo-date">24 mai 2026</div>
+          <div class="start-photo-date">à refaire au jour J</div>
         </div>
         <div class="start-photo-slot">
           <div class="start-photo-check">
             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
           </div>
           <div class="start-photo-label">Dos</div>
-          <div class="start-photo-date">24 mai 2026</div>
+          <div class="start-photo-date">à refaire au jour J</div>
         </div>
       </div>
     </div>
@@ -497,20 +499,15 @@ button, a, [onclick], input, select, label {
 <div class="section">
   <div class="section-label">Timeline</div>
   <div class="section-title">Évolution Mois par Mois</div>
-  <div class="section-sub">Photos à prendre le 1er de chaque mois, le matin à jeun. Même position, même lumière naturelle. Les milestones M3 · M6 · M9 · M12 sont les bilans comparatifs officiels.</div>
+  <div class="section-sub">Photos à prendre à chaque date anniversaire du jour J, le matin à jeun. Même position, même lumière naturelle. Les milestones M3 · M6 · M9 · M12 sont les bilans comparatifs officiels.</div>
 
-  <div class="phase-bar reveal">
-    <div class="phase-seg blue">Cycle 1 · M1–M3<br>Jun–Août 2026</div>
-    <div class="phase-seg green">Cycle 2 · M4–M6<br>Sep–Nov 2026</div>
-    <div class="phase-seg purple">Cycle 3 · M7–M9<br>Déc 2026–Fév 2027</div>
-    <div class="phase-seg gold">Cycle 4 · M10–M12<br>Mar–Mai 2027</div>
-  </div>
+  <div class="phase-bar reveal" id="phaseBar"></div>
 
   <div class="tl" id="timeline"></div>
 </div>
 
 <footer>
-  <span>ALLEZ — Projection Physique 12 Mois · Mai 2026 → Mai 2027</span>
+  <span>ALLEZ — Projection Physique 12 Mois · Recomposition 71 → ~72,5 kg · 20,5 → 16 %</span>
   <span>
     <a href="index.html">Accueil</a> &nbsp;·&nbsp;
     <a href="progression.html">Progression</a> &nbsp;·&nbsp;
@@ -534,235 +531,216 @@ button, a, [onclick], input, select, label {
 
 const TIMELINE_DATA = [
   {
-    n: 1, cal: 'Juin 2026', weeks: 'Semaines 1–4',
-    phase: 'B1 · Adaptation', cycle: 1, color: 'blue',
-    poids: 71.5, bf: 20.2, muscle: 57.0, waist: 85.5,
+    n: 1, weeks: 'Semaines 1–4', phase: 'B1 · Apprentissage', cycle: 1, color: 'blue',
     sil: { sw: 46, ww: 34, hw: 42, at: 8.5 },
     strengths: [
-      'Biceps déjà le meilleur groupe — belle forme contractée confirmée',
-      'Taille naturellement fine — atout V-taper déjà présent',
-      'Pompe post-séance plus prononcée dès la 2e semaine',
+      'Biceps = ton meilleur groupe : il réagira vite',
+      'Taille naturellement fine — le levier V-taper est déjà là',
+      'Courbatures fortes la 1re semaine, puis nettement moins',
     ],
     changes: [
-      'Force +20–30% sur tous les mouvements (gain neurologique pur)',
-      'Aucune modification visible dans le miroir — normal et attendu',
-      'Légère rétention eau intramusculaire (+glycogène stocké)',
-      'Antéversion du bassin qui commence à se corriger (gainage daily)',
+      'Force en hausse rapide sur tous les exercices (surtout nerveux)',
+      'Presque rien de visible dans le miroir — normal et attendu',
+      'Poids +0,5 kg possible : eau + glycogène (créatine)',
+      'Technique et réglages machines calés : c\'est l\'objectif du mois',
     ],
-    insight: 'Le mois 1 ne se voit pas dans le miroir. Il se sent dans la séance : les charges augmentent, la technique s\'installe. C\'est la fondation de tout.',
+    insight: 'Le mois 1 ne se voit pas, il se sent : les charges montent chaque semaine. Tout ce qui suit repose sur ces 12 séances.',
     milestone: false
   },
   {
-    n: 2, cal: 'Juillet 2026', weeks: 'Semaines 5–8',
-    phase: 'B2 · Hypertrophie', cycle: 1, color: 'green',
-    poids: 72.0, bf: 20.0, muscle: 57.7, waist: 85.0,
-    sil: { sw: 47, ww: 34, hw: 42, at: 8.9 },
+    n: 2, weeks: 'Semaines 5–8', phase: 'B2 · Progression', cycle: 1, color: 'green',
+    sil: { sw: 46.5, ww: 34, hw: 42, at: 8.7 },
     strengths: [
-      'Biceps légèrement plus épais au repos — premier signe structural',
-      'Épaules plus carrées dans les vêtements (stabilité deltoïde médial)',
-      'Activation du grand dorsal améliorée — se sent dans le tirage',
+      'Bonne connexion muscle-cerveau sur les élévations et le tirage',
+      'Épaules un peu plus « remplies » dans les t-shirts',
+      'Double progression qui tourne : +1 palier toutes les 1-2 semaines',
     ],
     changes: [
-      'Premiers gains structuraux réels : +0.6 kg masse musculaire',
-      'Congestion dure 2–3h après séance (signe d\'hypertrophie active)',
-      'Tour de taille −0.5 cm (recomposition qui démarre)',
-      'BF légèrement en baisse — invisible mais les chiffres l\'indiquent',
+      'Premiers gains de masse maigre réels (~+1 kg cumulé avec l\'eau)',
+      'Tour de taille ~−0,5 à −1 cm',
+      'Congestion plus marquée en fin de séance',
+      'Posture : épaules un peu moins enroulées (face pulls)',
     ],
-    insight: 'La connexion neuro-musculaire est en place. Le corps peut maintenant recruter plus de fibres sur chaque rep — le vrai travail hypertrophique commence.',
+    insight: 'C\'est le mois où la régularité devient une habitude. Note chaque séance : la courbe de force est ta meilleure motivation.',
     milestone: false
   },
   {
-    n: 3, cal: 'Août 2026', weeks: 'Semaines 9–13',
-    phase: 'B3 · Intensification + Deload', cycle: 1, color: 'purple',
-    poids: 72.5, bf: 19.7, muscle: 58.3, waist: 84.5,
-    sil: { sw: 49, ww: 33.8, hw: 42, at: 9.4 },
+    n: 3, weeks: 'Semaines 9–13', phase: 'B3 · Intensification + Deload', cycle: 1, color: 'purple',
+    sil: { sw: 47, ww: 33.8, hw: 42, at: 8.9 },
     strengths: [
-      'Deltoïdes médiaux clairement plus épais — épaules visuellement plus larges',
-      'Bras plus volumineux dans les manches courtes',
-      'Dos "existe" — largeur perceptible quand les bras sont baissés',
+      'Deltoïdes plus ronds de face, sous bonne lumière',
+      'Bras légèrement plus épais au repos',
+      'Charges ~+20-25 % vs semaine 1 sur la plupart des exercices',
     ],
     changes: [
-      'Première photo avant/après comparatif possible (vs M0)',
-      'BF −0,8% vs départ → muscles existants plus visibles',
-      'Triceps donnent un premier galbe au dos du bras',
-      'Tour de taille −1.5 cm — ventre moins "mou"',
+      'Première comparaison photo M0 / M3 : différence visible côte à côte',
+      'Masse grasse ~−1 point vs départ',
+      'Tour de taille ~−1,5 cm',
+      'Deload en semaine 13 : fatigue évacuée avant le cycle 2',
     ],
-    insight: 'Fin de cycle 1. Le deload de la semaine 13 est obligatoire, pas optionnel : le SNC a besoin de récupérer pour exploser au cycle 2.',
+    insight: 'Fin du cycle 1. Le deload n\'est pas une perte de temps : c\'est lui qui permet de repartir plus fort au cycle 2.',
     milestone: true, milestoneLabel: 'BILAN FIN CYCLE 1'
   },
   {
-    n: 4, cal: 'Septembre 2026', weeks: 'Semaines 14–17',
-    phase: 'B1 · Adaptation C2', cycle: 2, color: 'blue',
-    poids: 73.0, bf: 19.4, muscle: 59.0, waist: 84.0,
-    sil: { sw: 51, ww: 33.5, hw: 42, at: 9.9 },
+    n: 4, weeks: 'Semaines 14–17', phase: 'B1 · Cycle 2', cycle: 2, color: 'blue',
+    sil: { sw: 47.6, ww: 33.6, hw: 42, at: 9.1 },
     strengths: [
-      'Ratio épaules/taille nettement amélioré — V-taper naissant visible',
-      'Dos plus large visible de face (écartement naturel des bras augmente)',
-      'Biceps avec pic visible sous contraction même légère',
+      'Ratio épaules / taille qui commence à bouger au mètre ruban',
+      'Grand dorsal mieux « senti » au tirage',
+      'Biceps : pic visible en contraction',
     ],
     changes: [
-      'L\'entourage remarque pour la première fois — changement "récent ?"',
-      'BF −1,1% vs départ → face plus fine, pommettes plus définies',
-      'Pectoraux hauts légèrement plus présents malgré PE (développé incliné DB)',
-      'Posture au quotidien corrigée — dos naturellement droit',
+      'Cycle 2 démarre ~5 % plus lourd que le cycle 1',
+      'Masse grasse ~19 %',
+      'Pectoraux hauts un peu plus présents (développé incliné)',
+      'Moins de lombalgies si le gainage est fait sérieusement (à surveiller)',
     ],
-    insight: 'Cycle 2 démarre avec +5% de charge globale. Le corps est désormais entraîné — il répondra plus vite à la stimulation qu\'au mois 1.',
+    insight: 'Le corps est maintenant entraîné : les progrès ralentissent un peu, c\'est normal. Reste sur la double progression.',
     milestone: false
   },
   {
-    n: 5, cal: 'Octobre 2026', weeks: 'Semaines 18–21',
-    phase: 'B2 · Hypertrophie C2', cycle: 2, color: 'green',
-    poids: 73.5, bf: 19.2, muscle: 59.6, waist: 83.5,
-    sil: { sw: 53, ww: 33.3, hw: 42, at: 10.4 },
+    n: 5, weeks: 'Semaines 18–21', phase: 'B2 · Cycle 2', cycle: 2, color: 'green',
+    sil: { sw: 48.2, ww: 33.4, hw: 42, at: 9.3 },
     strengths: [
-      'V-shape naissant visible de face, bras le long du corps',
-      'Séparation biceps/triceps perceptible à l\'œil et au toucher',
-      'Silhouette habillée différente — dos plus large sous les t-shirts',
+      'Haut du corps visiblement plus large habillé',
+      'Séparation épaule / bras perceptible',
+      'Premières tractions au poids du corps (quelques reps)',
     ],
     changes: [
-      'BF 19,2% → légère définition des pectoraux latéraux sous bonne lumière',
-      'Deltoïdes : faisceau antérieur, médial et postérieur commencent à se distinguer',
-      'Premier "WOW" en sortie de douche sous lumière directe',
-      'Pull-ups assistés avec −5 à −10 kg (progression vers non-assisté)',
+      'Masse maigre ~+2,5 kg cumulée',
+      'Tour de taille ~−2 cm',
+      'Gras du ventre en baisse lente mais régulière',
+      'Récupération plus rapide entre les séries',
     ],
-    insight: 'L\'effet combiné de la prise de muscle + la perte de gras commence à créer une transformation visible qui accélère — les deux courbes se croisent.',
+    insight: 'Prise de muscle + perte de gras en même temps : les deux effets s\'additionnent sur les photos, même si la balance bouge peu.',
     milestone: false
   },
   {
-    n: 6, cal: 'Novembre 2026', weeks: 'Semaines 22–26',
-    phase: 'B3 · Intensification C2', cycle: 2, color: 'purple',
-    poids: 74.0, bf: 18.9, muscle: 60.3, waist: 83.0,
-    sil: { sw: 55, ww: 33, hw: 42, at: 10.9 },
+    n: 6, weeks: 'Semaines 22–26', phase: 'B3 · Cycle 2 + Deload', cycle: 2, color: 'purple',
+    sil: { sw: 48.8, ww: 33.2, hw: 42, at: 9.5 },
     strengths: [
-      'V-taper clairement photographiable — transformation visible et indéniable',
-      'Épaules ~+2 cm de largeur (mesurable) vs M0',
-      'Bras ~+1.5 cm tendu (biceps ~35.5 cm)',
+      'V-taper amorcé et photographiable',
+      'Largeur d\'épaules ~+1,5 cm vs M0',
+      'Biceps ~+1 cm tendu',
     ],
     changes: [
-      'BF 18,9% → pectoraux hauts avec définition sous lumière directe',
-      'Corps plus "dense" — même poids paraît plus musclé qu\'à M1',
-      'Triceps galbe prononcé au dos du bras — bras plus équilibré',
-      'Photo M6 vs M0 : première vraie comparaison frappante',
+      'Masse grasse ~18 %',
+      'Ventre plus plat de profil',
+      'Photos M0 / M6 : première comparaison vraiment parlante',
+      'Re-mesure complète (poids, taille, épaules, bras)',
     ],
-    insight: 'Mi-parcours. +3.9 kg de masse musculaire, −1,6% BF. La recomposition fonctionne : le corps change sans que l\'alimentation soit une souffrance.',
+    insight: 'Mi-parcours : ~+3 kg de masse maigre et ~−1,5 kg de gras. Sans régime extrême — c\'est la recomposition qui fonctionne.',
     milestone: true, milestoneLabel: 'BILAN MI-PARCOURS — 6 MOIS'
   },
   {
-    n: 7, cal: 'Décembre 2026', weeks: 'Semaines 27–30',
-    phase: 'B1 · Adaptation C3', cycle: 3, color: 'blue',
-    poids: 74.5, bf: 18.6, muscle: 60.9, waist: 82.5,
-    sil: { sw: 56.5, ww: 32.8, hw: 42, at: 11.3 },
+    n: 7, weeks: 'Semaines 27–30', phase: 'B1 · Cycle 3', cycle: 3, color: 'blue',
+    sil: { sw: 49.4, ww: 33, hw: 42, at: 9.7 },
     strengths: [
-      'Densité musculaire accrue — muscles "fermes" au repos, plus seulement en pompe',
-      'Silhouette sous pull d\'hiver : épaules plus larges, dos plus épais',
-      'Pull-ups complets sans assistance — force sérieuse',
+      'Muscles plus fermes au repos, plus seulement en congestion',
+      'Dos plus épais de profil (rowings)',
+      'Tractions : séries de 5+ au poids du corps',
     ],
     changes: [
-      'BF 18,6% → obliques qui commencent à apparaître (taille fine = levier fort)',
-      'Veines légèrement visibles dans l\'avant-bras en pompe',
-      'Qualité musculaire prime : muscles moins "gonflés", plus "solides"',
-      'Posture entièrement corrigée — plus aucune antéversion perceptible',
+      'Masse grasse ~17,5 %',
+      'Gains plus lents qu\'au début : 0,3 kg de masse maigre/mois environ',
+      'Posture debout spontanément plus droite',
+      'C\'est la période où beaucoup décrochent : tiens le cap',
     ],
-    insight: 'Cycle 3. La densité musculaire évolue autant que le volume. Un muscle entraîné depuis 6 mois est qualitativement différent d\'un muscle de débutant.',
+    insight: 'Cycle 3. Les gains « débutant » ralentissent. La différence entre ceux qui réussissent et les autres se fait ici : la régularité.',
     milestone: false
   },
   {
-    n: 8, cal: 'Janvier 2027', weeks: 'Semaines 31–34',
-    phase: 'B2 · Hypertrophie C3', cycle: 3, color: 'green',
-    poids: 75.0, bf: 18.4, muscle: 61.6, waist: 82.0,
-    sil: { sw: 57.5, ww: 32.6, hw: 42, at: 11.7 },
+    n: 8, weeks: 'Semaines 31–34', phase: 'B2 · Cycle 3', cycle: 3, color: 'green',
+    sil: { sw: 50, ww: 32.9, hw: 42, at: 9.9 },
     strengths: [
-      'Transformation incontestable — les inconnus (pas seulement l\'entourage) le remarquent',
-      'Séparation nette biceps/triceps/deltoïde visible au repos',
-      'Pectoraux hauts avec volume — PE visuellement moins dominant',
+      'Haut du corps clairement plus dense qu\'au départ',
+      'Pectoraux hauts mieux remplis → pectus visuellement moins marqué',
+      'Bras ~35-36 cm tendu',
     ],
     changes: [
-      'BF 18,4% → abdominaux hauts en cours d\'apparition (éclairage favorable)',
-      'Biceps ~37–38 cm tendu (objectif de départ presque atteint)',
-      'Trapèzes et rhomboïdes visibles et épais de profil',
-      'Pull-ups lestés (+5 kg) — force mesurée',
+      'Masse grasse ~17 %',
+      'Tour de taille ~−2,5 cm',
+      'Charges ~+40 % vs semaine 1 sur les polyarticulaires',
+      'Vêtements : épaules plus serrées, taille plus lâche',
     ],
-    insight: '8 mois de programme continu sans coupure = le facteur #1. Ce résultat n\'est pas atteignable autrement. La régularité l\'emporte toujours sur l\'intensité.',
+    insight: '8 mois sans coupure longue : c\'est ça qui produit le résultat, bien plus que n\'importe quel exercice ou complément.',
     milestone: false
   },
   {
-    n: 9, cal: 'Février 2027', weeks: 'Semaines 35–39',
-    phase: 'B3 · Intensification C3', cycle: 3, color: 'purple',
-    poids: 75.5, bf: 18.1, muscle: 62.2, waist: 81.5,
-    sil: { sw: 59, ww: 32.3, hw: 42, at: 12.1 },
+    n: 9, weeks: 'Semaines 35–39', phase: 'B3 · Cycle 3 + Deload', cycle: 3, color: 'purple',
+    sil: { sw: 50.6, ww: 32.7, hw: 42, at: 10.1 },
     strengths: [
-      'V-taper prononcé et mesurable — ratio taille/épaules ~1.40',
-      'Abdominaux hauts visibles au repos sous lumière normale',
-      'Épaules 3D — trois faisceaux du deltoïde visuellement distincts',
+      'Silhouette en V lisible habillé',
+      'Épaules 3D : faisceaux du deltoïde distincts sous bonne lumière',
+      'Dos large de face, bras le long du corps',
     ],
     changes: [
-      'BF 18,1% → définition abdominale haute et milieu (tracé visible)',
-      'Corps "athlétique" — aucun observateur ne dirait débutant',
-      'Vascularité avant-bras permanente (plus seulement en pompe)',
-      'Photo M9 vs M0 : silhouette entièrement différente',
+      'Masse grasse ~17 %, taille ~−3 cm',
+      'Photos M0 / M9 : changement net de silhouette',
+      'Re-mesure complète + ajustement des calories si le poids dérive',
+      'Deload semaine 39',
     ],
-    insight: '9 mois, bilan officiel. +5.8 kg de muscle, −2,4% BF. La transformation est complète dans l\'esprit — le corps va continuer à suivre.',
+    insight: 'Bilan 9 mois : ~+3,9 kg de masse maigre et ~−2,3 kg de gras. La transformation est réelle et mesurable.',
     milestone: true, milestoneLabel: 'BILAN 9 MOIS'
   },
   {
-    n: 10, cal: 'Mars 2027', weeks: 'Semaines 40–43',
-    phase: 'B1 · Adaptation C4', cycle: 4, color: 'blue',
-    poids: 76.0, bf: 17.9, muscle: 62.9, waist: 81.0,
-    sil: { sw: 60, ww: 32, hw: 42, at: 12.6 },
+    n: 10, weeks: 'Semaines 40–43', phase: 'B1 · Cycle 4', cycle: 4, color: 'blue',
+    sil: { sw: 51.1, ww: 32.6, hw: 42, at: 10.3 },
     strengths: [
-      'Lignes musculaires claires de l\'épaule à l\'avant-bras',
-      'V-taper maximal — taille fine naturelle = levier spectaculaire',
-      'Dos en triangle inversé visible habillé (t-shirts serrés dans les épaules)',
+      'Lignes musculaires des épaules et bras visibles',
+      'Taille fine qui met le haut du corps en valeur',
+      'Technique solide sur tous les mouvements',
     ],
     changes: [
-      'BF 17,9% → obliques visibles + début définition abdominale complète',
-      'Veines avant-bras permanentes + légère vascularité bras en pompe',
-      'Corps "sec et plein" — recomposition presque aboutie',
-      'Connexion MMC totale : chaque rep se sent dans le muscle cible',
+      'Masse grasse ~16,5-17 %',
+      'Progression en charge plus lente : normal après 9 mois',
+      'Abdos encore peu visibles (il faut ~12 % de MG pour les voir)',
+      'Préparer la suite : année 2 en prise de masse propre',
     ],
-    insight: 'Dernier cycle. L\'objectif n\'est plus de construire — c\'est de sculpter et d\'affiner ce qui a été construit en 9 mois de travail régulier.',
+    insight: 'Dernier cycle. On consolide : charges, technique, sommeil. Pas de changement de programme maintenant.',
     milestone: false
   },
   {
-    n: 11, cal: 'Avril 2027', weeks: 'Semaines 44–47',
-    phase: 'B2 · Hypertrophie C4', cycle: 4, color: 'green',
-    poids: 76.5, bf: 17.5, muscle: 63.5, waist: 80.5,
-    sil: { sw: 60.5, ww: 31.8, hw: 42, at: 13.0 },
+    n: 11, weeks: 'Semaines 44–47', phase: 'B2 · Cycle 4', cycle: 4, color: 'green',
+    sil: { sw: 51.6, ww: 32.5, hw: 42, at: 10.4 },
     strengths: [
-      'Abdominaux hauts + milieu visibles au repos sous lumière directe',
-      'Ratio épaules/taille ~1.42 — seuil V-shape confirmé',
-      'Transformation annuelle presque complète — aucune ressemblance avec M0',
+      'Ratio tour d\'épaules / tour de taille proche de 1,42',
+      'Haut du corps nettement plus musclé qu\'à M0',
+      'Posture et lombaires plus stables',
     ],
     changes: [
-      'BF 17,5% → définition quasi-complète du haut du corps',
-      'Muscles présents même sans contraction active',
-      'Tour de taille −6 cm vs M0 (sans régime extrême)',
-      'Corps en phase sculpture finale avant bilan annuel',
+      'Masse grasse ~16,3 %',
+      'Tour de taille ~82 cm',
+      'Ventre plat de face, léger relief en haut des abdos sous lumière directe',
+      'Corps prêt pour un surplus calorique léger en année 2',
     ],
-    insight: 'Avant-dernier mois. Maintenir la régularité jusqu\'au bout est aussi difficile qu\'au début — mais les raisons de continuer sont maintenant visibles dans le miroir.',
+    insight: 'Avant-dernier mois. Les raisons de continuer sont maintenant visibles dans le miroir et dans le logbook.',
     milestone: false
   },
   {
-    n: 12, cal: 'Mai 2027', weeks: 'Semaines 48–52',
-    phase: 'B3 · Bilan Final', cycle: 4, color: 'gold',
-    poids: 77.0, bf: 17.0, muscle: 64.0, waist: 80.0,
-    sil: { sw: 61, ww: 31.5, hw: 42, at: 13.2 },
+    n: 12, weeks: 'Semaines 48–52', phase: 'B3 + Deload · Bilan', cycle: 4, color: 'gold',
+    sil: { sw: 52, ww: 32.4, hw: 42, at: 10.5 },
     strengths: [
-      '+7.6 kg de masse musculaire pure sur 12 mois',
-      'BF 17% — définition complète, abdos visibles en conditions normales',
-      'V-taper spectaculaire : taille fine + épaules larges + dos en V',
-      'Bras ~38–40 cm tendu — objectif de départ atteint ou dépassé',
+      '~+4,5 kg de masse maigre en 12 mois (eau de la créatine incluse)',
+      '~16 % de masse grasse, ~−3 kg de gras',
+      'V-taper visible : épaules ~+3 cm, taille ~−4 cm',
+      'Bras ~36-37 cm tendu',
     ],
     changes: [
-      'Photo avant/après M0 → M12 : transformation totale et indéniable',
-      'Nouvelle baseline physique pour définir les objectifs année 2',
-      'Corps prêt pour lean bulk ciblé ou continuation recomposition',
-      'Niveau de forme le plus élevé de ta vie — à partir d\'ici, tu construis sur du solide',
+      'Photos M0 / M12 : transformation nette',
+      'Nouvelle base pour l\'année 2 : prise de masse propre (~+150-250 kcal/j)',
+      'Objectif année 2 : pousser épaules, dos et bras sur cette base',
+      'Bilan médical lombaire si douleurs encore présentes',
     ],
-    insight: '12 mois. 52 semaines. ~144 séances. La seule variable qui déterminait tout : ne pas s\'arrêter.',
+    insight: '12 mois. 52 semaines. ~150 séances. Le seul facteur qui décidait de tout : ne pas s\'arrêter.',
     milestone: true, milestoneLabel: 'BILAN FINAL — 12 MOIS'
   }
 ];
+// Valeurs chiffrées et dates : source unique core.js (projection fin de mois + jour J)
+TIMELINE_DATA.forEach(m => {
+  m.poids = ALLEZ.PROJ.weight[m.n]; m.bf = ALLEZ.PROJ.bf[m.n]; m.muscle = ALLEZ.PROJ.lean[m.n]; m.waist = ALLEZ.PROJ.waist[m.n];
+  m.cal = 'Mois ' + m.n + ' · ' + ALLEZ.monthRange(m.n).label;
+});
 
 // ═══════════════════════════════════════════════════════
 // HELPERS
@@ -806,8 +784,8 @@ const COLOR_RAW = {
 function makeSilhouette(m) {
   const col = COLOR_RAW[m.color];
   const s   = m.sil;
-  // def = 0 au départ (20,5% BF), 1 à l'objectif (17% BF)
-  const def = Math.min(1, Math.max(0, (20.5 - m.bf) / 3.5));
+  // def = 0 au départ (20,5 % MG), 1 à l'objectif (16 % MG)
+  const def = Math.min(1, Math.max(0, (20.5 - m.bf) / 4.5));
 
   const cx = 50;
 
@@ -867,7 +845,7 @@ function makeSilhouette(m) {
   const strokeA = 0.38 + def * 0.5;
   const deltA   = Math.max(0, def - 0.12) * 0.55;  // dès M3
   const pecA    = Math.max(0, def - 0.20) * 0.40;  // dès M4 (latéral, adapté PE)
-  const absA    = Math.max(0, def - 0.38) * 0.65;  // dès M8
+  const absA    = Math.max(0, def - 0.85) * 0.5;   // très léger en fin d'année seulement (abdos visibles vers ~12 %)
 
   return `<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block" aria-label="Silhouette projection mois ${m.n}">
   <defs>
@@ -944,8 +922,8 @@ function renderTimeline() {
       </div>` : '';
 
     // Deltas vs départ
-    const deltaMuscle = (m.muscle - 56.4).toFixed(1);
-    const deltaBF     = (20.5 - m.bf).toFixed(1);
+    const deltaMuscle = ALLEZ.num(m.muscle - 56.4);
+    const deltaBF     = ALLEZ.num(20.5 - m.bf);
 
     // Strengths list
     const strengthsHTML = m.strengths.map(s => `
@@ -983,24 +961,24 @@ function renderTimeline() {
             <div class="tl-sil-content">
               <div class="tl-stats">
                 <div class="tl-stat">
-                  <div class="tl-stat-val">${m.poids} kg</div>
+                  <div class="tl-stat-val">${ALLEZ.num(m.poids)} kg</div>
                   <div class="tl-stat-key">Poids</div>
                 </div>
                 <div class="tl-stat">
-                  <div class="tl-stat-val">${m.bf}%</div>
-                  <div class="tl-stat-key">BF</div>
+                  <div class="tl-stat-val">${ALLEZ.num(m.bf)} %</div>
+                  <div class="tl-stat-key">Masse grasse</div>
                 </div>
                 <div class="tl-stat">
-                  <div class="tl-stat-val">${m.muscle} kg</div>
+                  <div class="tl-stat-val">${ALLEZ.num(m.muscle)} kg</div>
                   <div class="tl-stat-key">Masse maigre</div>
                 </div>
                 <div class="tl-stat">
                   <div class="tl-stat-val" style="color:var(--green)">+${deltaMuscle} kg</div>
-                  <div class="tl-stat-key">Muscle gagné</div>
+                  <div class="tl-stat-key">Masse maigre gagnée</div>
                 </div>
                 <div class="tl-stat">
                   <div class="tl-stat-val" style="color:${col}">−${deltaBF}%</div>
-                  <div class="tl-stat-key">BF perdu</div>
+                  <div class="tl-stat-key">MG perdue (pts)</div>
                 </div>
               </div>
             </div>
@@ -1060,6 +1038,15 @@ function renderTimeline() {
 }
 
 renderTimeline();
+// Bandeau des cycles + jour J (dates réelles)
+(function(){
+  const r = n => ALLEZ.monthRange(n), st = ALLEZ.status();
+  const seg = (c, i, a, b) => '<div class="phase-seg ' + c + '">Cycle ' + i + ' · M' + a + '–M' + b + '<br>' + r(a).from.toLocaleDateString('fr-FR',{month:'short',year:'2-digit'}) + ' → ' + r(b).to.toLocaleDateString('fr-FR',{month:'short',year:'2-digit'}) + '</div>';
+  const pb = document.getElementById('phaseBar');
+  if (pb) pb.innerHTML = seg('blue',1,1,3) + seg('green',2,4,6) + seg('purple',3,7,9) + seg('gold',4,10,12);
+  const j = document.getElementById('jDay');
+  if (j) j.textContent = st.set ? ALLEZ.fmtDate(st.start) : 'date provisoire : ' + ALLEZ.fmtDate(st.start) + ' — à confirmer sur le dashboard';
+})();
 
 // ═══════════════════════════════════════════════════════
 // INTERSECTION OBSERVER — reveal cards

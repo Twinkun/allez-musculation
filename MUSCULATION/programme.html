@@ -10,6 +10,8 @@
 <meta name="apple-mobile-web-app-title" content="ALLEZ">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Programme Complet — ALLEZ</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<script src="core.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 @page { margin: 12mm 13mm; size: A4; }
@@ -67,6 +69,7 @@ body{font-family:'Inter',Arial,sans-serif;color:#111827;background:#fff;font-siz
 /* MACRO BAR */
 .macro-bar{display:flex;background:#0b1020;border-radius:8px;padding:10px 16px;margin-bottom:14px;justify-content:space-around;align-items:center;gap:12px}
 .mb-item{text-align:center;color:#fff}
+@media screen and (max-width:600px){.macro-bar{flex-wrap:wrap;justify-content:center;padding:10px}.mb-item{flex:1 1 40%;min-width:0}}
 .mb-val{font-size:15pt;font-weight:900;color:#e8960a;line-height:1}
 .mb-lbl{font-size:6.5pt;text-transform:uppercase;letter-spacing:1px;opacity:.55;margin-top:2px}
 
@@ -388,25 +391,25 @@ button, a, [onclick], input, select, label {
       <div class="obj-lbl">Poids</div>
       <div class="obj-cur">71 kg</div>
       <div class="obj-arr">→</div>
-      <div class="obj-tgt">77 kg</div>
+      <div class="obj-tgt">~72,5 kg</div>
     </div>
     <div class="obj-card">
       <div class="obj-lbl">Masse maigre</div>
       <div class="obj-cur">56,4 kg</div>
       <div class="obj-arr">→</div>
-      <div class="obj-tgt">64 kg</div>
+      <div class="obj-tgt">60,9 kg</div>
     </div>
     <div class="obj-card">
       <div class="obj-lbl">Masse grasse</div>
       <div class="obj-cur">20,5%</div>
       <div class="obj-arr">→</div>
-      <div class="obj-tgt">17%</div>
+      <div class="obj-tgt">16 %</div>
     </div>
     <div class="obj-card">
       <div class="obj-lbl">Épaules / Taille</div>
       <div class="obj-cur">48 / 86 cm</div>
       <div class="obj-arr">→</div>
-      <div class="obj-tgt">53 / 80 cm</div>
+      <div class="obj-tgt">~51 / 82 cm</div>
     </div>
   </div>
 
@@ -433,7 +436,7 @@ button, a, [onclick], input, select, label {
 
   <div class="info-box blue">
     <h4>Stratégie recomposition (newbie gains)</h4>
-    <p>Débutant + 20,5% BF = prise musculaire et perte grasse simultanées. Surplus +217 kcal les jours d'entraînement, léger déficit au repos. Moyenne hebdomadaire : 2 336 kcal. Résultat attendu : +7,6 kg de masse maigre et −3,5% de BF en 12 mois.</p>
+    <p>Débutant + 20,5% BF = prise musculaire et perte grasse simultanées. Surplus +217 kcal les jours d'entraînement, léger déficit au repos. Moyenne hebdomadaire : 2 336 kcal. Moyenne ≈ −100 kcal/j sous la maintenance → le gras baisse (~0,25 kg/mois) pendant que le muscle se construit. Résultat attendu : ~+4,5 kg de masse maigre, 20,5 → 16 % de masse grasse (~−3 kg de gras), poids quasi stable (~72,5 kg).</p>
   </div>
 
   <div class="footer">ALLEZ · Programme Personnalisé 12 Mois · Fitness Park Carré Sénart</div>
@@ -618,7 +621,7 @@ button, a, [onclick], input, select, label {
   <div class="finisher">
     <div class="finisher-title">Finisher Posture</div>
     <div class="finisher-exs">
-      <span class="finisher-ex">Planche abdominale — 3 × 45-60 sec</span>
+      <span class="finisher-ex">Planche abdominale — 3 × 30-60 sec</span>
       <span class="finisher-ex">Repos 45 sec entre séries</span>
       <span class="finisher-ex">Corps en ligne droite · Abdos + fessiers serrés</span>
     </div>
@@ -769,7 +772,7 @@ button, a, [onclick], input, select, label {
     </div>
     <div class="ex-body">
       <div class="ex-stats">
-        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">4 × 15</div></div>
+        <div class="ex-s"><div class="ex-s-lbl">Séries × Reps</div><div class="ex-s-val">4 × 15-20</div></div>
         <div class="ex-s"><div class="ex-s-lbl">Repos</div><div class="ex-s-val">60 sec</div></div>
         <div class="ex-s"><div class="ex-s-lbl">Tempo</div><div class="ex-s-val">2-2-3-0</div></div>
         <div class="ex-s"><div class="ex-s-lbl">RIR</div><div class="ex-s-val">1</div></div>
@@ -942,7 +945,7 @@ button, a, [onclick], input, select, label {
         <li>Tirer jusqu'au menton au-dessus de la barre · Légère inclinaison arrière · Excentrique 3s</li>
         <li>Pas de balancement (kipping) — mouvements stricts uniquement</li>
       </ul>
-      <div class="alert-gold">Débutant : utiliser élastique de résistance si moins de 5 reps. Sinon faire le Tirage Vertical les 3 premiers mois. Objectif : 10 tractions strictes à 6 mois.</div>
+      <div class="alert-gold">Débutant : utiliser élastique de résistance si moins de 5 reps. Sinon faire le Tirage Vertical les 3 premiers mois. Objectif : ~5 tractions strictes vers 6 mois, 8-10 à 12 mois.</div>
     </div>
   </div>
 
@@ -1007,8 +1010,7 @@ button, a, [onclick], input, select, label {
   <div class="finisher">
     <div class="finisher-title">Finisher Core</div>
     <div class="finisher-exs">
-      <span class="finisher-ex">Hollow Body — 3 × 45 sec</span>
-      <span class="finisher-ex">Planche — 3 × 45 sec</span>
+      <span class="finisher-ex">Hollow Body — 3 × 20-30 sec</span>
       <span class="finisher-ex">Repos 45 sec entre exercices</span>
     </div>
   </div>
@@ -1330,7 +1332,7 @@ button, a, [onclick], input, select, label {
       <div class="supp-name">Collagène Peptides Type I + Vitamine C</div>
       <div class="supp-brand">Vital Proteins Collagen Peptides (ou Foodspring Collagène)</div>
       <div class="supp-row"><b>Dose :</b> 10–15 g de collagène + 200 mg vitamine C</div>
-      <div class="supp-row"><b>Timing :</b> 30–60 min AVANT la séance (fenêtre anabolique tendons)</div>
+      <div class="supp-row"><b>Timing :</b> 30–60 min AVANT la séance (la synthèse de collagène est stimulée par l'effort qui suit — Shaw 2017, effet modeste)</div>
       <div class="supp-row"><b>Pourquoi :</b> Spécifique PE + dos — renforce les tendons, ligaments et tissu conjonctif sous contrainte. Réduit le risque de blessure en début de programme.</div>
     </div>
     <div class="supp-card">
@@ -1339,7 +1341,7 @@ button, a, [onclick], input, select, label {
       <div class="supp-row"><b>Dose :</b> 600 mg d'extrait standardisé KSM-66 — TOUS les soirs</div>
       <div class="supp-row"><b>Timing :</b> Le soir avant de dormir · avec le stack ZMA</div>
       <div class="supp-row"><b>Cycle :</b> 8 semaines ON / 4 semaines OFF — ne pas prendre en continu</div>
-      <div class="supp-row"><b>Pourquoi :</b> Réduit le cortisol (−30%), améliore la testostérone, qualité du sommeil et récupération. Effet mesurable à 4–8 semaines.</div>
+      <div class="supp-row"><b>Pourquoi :</b> Peut réduire le cortisol (~−25 % dans certaines études), effet modeste sur la testostérone, améliore le sommeil et la récupération. Effet à 4–8 semaines.</div>
     </div>
   </div>
 
@@ -1363,7 +1365,7 @@ button, a, [onclick], input, select, label {
       </tr>
       <tr>
         <td><b>Tirage vertical</b></td>
-        <td class="t-start">50 kg</td>
+        <td class="t-start">45 kg</td>
         <td class="t-tgt">72 kg</td>
         <td><div class="pbar-wrap"><div class="pbar" style="width:24%"></div></div></td>
       </tr>
@@ -1401,7 +1403,7 @@ button, a, [onclick], input, select, label {
 
   <div class="info-box green" style="margin-top:10px">
     <h4>Lexique RIR &amp; Tempo</h4>
-    <p><b>RIR 2-3 :</b> Reps In Reserve — arrêter 2-3 reps avant l'échec musculaire. Idéal pour progresser sans se blesser. &nbsp;|&nbsp; <b>Tempo 3-1-2-0 :</b> 3s descente · 1s pause en bas · 2s montée · 0s pause en haut. Ne jamais sauter la phase excentrique (descente) — c'est là que le muscle grandit.</p>
+    <p><b>RIR</b> (Reps In Reserve) = répétitions gardées en réserve avant l'échec. Il évolue selon le bloc : <b>B1 = 3 · B2 = 2 · B3 = 2 (polyarticulaires) / 1 (isolations) · Deload = 4+</b>. Le logbook affiche la bonne valeur chaque semaine. &nbsp;|&nbsp; <b>Tempo 3-1-2-0 :</b> 3s descente · 1s pause en bas · 2s montée · 0s pause en haut. Ne jamais bâcler la phase excentrique (descente) : contrôlée, elle ajoute du stimulus et protège les articulations.</p>
   </div>
 
   <div class="footer">ALLEZ · Programme Complet · Fitness Park Carré Sénart · 12 mois de transformation</div>

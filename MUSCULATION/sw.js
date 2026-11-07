@@ -1,7 +1,8 @@
-const CACHE = 'allez-v62';
+const CACHE = 'allez-v63';
 
 const LOCAL_ASSETS = [
   './index.html',
+  './core.js',
   './dashboard.html',
   './exercices.html',
   './nutrition.html',
@@ -67,9 +68,7 @@ self.addEventListener('fetch', e => {
         return response;
       }).catch(() => {
         // Complètement hors ligne et pas en cache
-        return new Response('<h1>Hors ligne</h1><p>Ouvre l\'app depuis la page d\'accueil pour accéder au contenu mis en cache.</p>', {
-          headers: { 'Content-Type': 'text/html' }
-        });
+        return caches.match('./index.html').then(r => r || new Response('<h1>Hors ligne</h1>', { headers: { 'Content-Type': 'text/html; charset=utf-8' } }));
       });
     })
   );

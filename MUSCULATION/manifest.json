@@ -1,7 +1,7 @@
 {
   "name": "ALLEZ — Programme Musculation",
   "short_name": "ALLEZ",
-  "description": "Programme de musculation personnalisé 12 mois. Push · Pull · V-Shape.",
+  "description": "Programme de musculation personnalisé 12 mois. Push · Pull · V-Shape. Recomposition.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -9,7 +9,10 @@
   "background_color": "#0b1020",
   "theme_color": "#e8960a",
   "lang": "fr",
-  "categories": ["fitness", "health"],
+  "categories": [
+    "fitness",
+    "health"
+  ],
   "icons": [
     {
       "src": "icon.svg",
@@ -32,25 +35,52 @@
   ],
   "shortcuts": [
     {
+      "name": "Séance du jour",
+      "short_name": "Séance",
+      "description": "Logbook : séries, charges, minuteur",
+      "url": "./logbook.html",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
       "name": "Dashboard",
       "short_name": "Dashboard",
       "description": "Séances de la semaine",
       "url": "./dashboard.html",
-      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "Nutrition",
       "short_name": "Nutrition",
       "description": "Plan nutritionnel du jour",
       "url": "./nutrition.html",
-      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "Programme PDF",
       "short_name": "Programme",
       "description": "Guide complet imprimable",
       "url": "./programme.html",
-      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }

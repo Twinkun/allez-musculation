@@ -10,6 +10,8 @@
 <meta name="apple-mobile-web-app-title" content="ALLEZ">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Dashboard — ALLEZ</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<script src="core.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -115,6 +117,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
   background: var(--gold-g); color: #000; border: none;
   font-family: var(--font); font-size: .8rem; font-weight: 700; cursor: pointer; transition: all .2s;
 }
+a.btn-log { text-decoration:none; display:inline-flex; align-items:center; }
 .btn-log:hover { opacity: .88; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(232,150,10,.35); }
 .mobile-menu { display: none; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text); }
 
@@ -415,7 +418,7 @@ button, a, [onclick], input, select, label {
     <button class="nav-item" onclick="openModal()"><span class="nav-icon">➕</span>Logger une séance<span class="nav-badge">NEW</span></button>
   </nav>
   <div class="sidebar-user">
-    <div class="user-avatar">TX</div>
+    <div class="user-avatar">A</div>
     <div><div class="user-name">Mon Profil</div><div class="user-sub" id="userWeek">Débutant · Semaine 1</div></div>
     <div class="user-streak" id="sideStreak">🔥 0</div>
   </div>
@@ -430,7 +433,7 @@ button, a, [onclick], input, select, label {
   </div>
   <div class="topbar-right">
     <div class="topbar-clock" id="topbarClock">--:--</div>
-    <button class="btn-log" onclick="openModal()">＋ Logger séance</button>
+    <a class="btn-log" href="logbook.html">🏋️ Séance du jour</a>
   </div>
 </header>
 
@@ -466,6 +469,9 @@ button, a, [onclick], input, select, label {
     </div>
   </div>
 
+  <!-- DATE DE DÉPART (core.js) -->
+  <div id="startCard" style="margin-bottom:22px"></div>
+
   <!-- STAT CARDS -->
   <div class="section-heading">Vue d'ensemble</div>
   <div class="stats-row fade-up">
@@ -473,22 +479,22 @@ button, a, [onclick], input, select, label {
       <div class="stat-card-bar" style="background:var(--gold-g)"></div>
       <div class="sc-label">⚖️ Poids actuel</div>
       <div class="sc-val" id="sc-weight">71 <span class="sc-unit">kg</span></div>
-      <div class="sc-sub">Objectif → 77 kg en 12 mois</div>
+      <div class="sc-sub" id="sc-wgoal">Objectif → 72,5 kg (recomposition)</div>
       <div class="sc-trend up" id="sc-wtrend">+0 kg vs départ</div>
     </div>
     <div class="stat-card">
       <div class="stat-card-bar" style="background:linear-gradient(90deg,var(--purple),var(--purple-l))"></div>
       <div class="sc-label">📊 Masse grasse</div>
-      <div class="sc-val">20.5 <span class="sc-unit">%</span></div>
-      <div class="sc-sub">Objectif → 17%</div>
-      <div class="sc-trend dn">−3,5% projeté / 12 mois</div>
+      <div class="sc-val" id="sc-bf">20,5 <span class="sc-unit">%</span></div>
+      <div class="sc-sub">Objectif → 16 %</div>
+      <div class="sc-trend dn" id="sc-bftrend">−4,5 pts projetés / 12 mois</div>
     </div>
     <div class="stat-card">
       <div class="stat-card-bar" style="background:linear-gradient(90deg,var(--green),var(--green-l))"></div>
-      <div class="sc-label">💪 Masse musculaire</div>
-      <div class="sc-val">56.4 <span class="sc-unit">kg</span></div>
-      <div class="sc-sub">Objectif → 64 kg</div>
-      <div class="sc-trend up">+7.6 kg / 12 mois recomposition</div>
+      <div class="sc-label">💪 Masse maigre</div>
+      <div class="sc-val" id="sc-lean">56,4 <span class="sc-unit">kg</span></div>
+      <div class="sc-sub">Objectif → 60,9 kg</div>
+      <div class="sc-trend up" id="sc-leantrend">+4,5 kg visés / 12 mois</div>
     </div>
     <div class="stat-card">
       <div class="stat-card-bar" style="background:linear-gradient(90deg,var(--blue),var(--blue-l))"></div>
@@ -520,14 +526,14 @@ button, a, [onclick], input, select, label {
       <div class="card-head">
         <div class="card-head-left">
           <div class="card-title">Évolution du Poids — 12 mois (projection)</div>
-          <div class="card-sub">Poids total · Masse musculaire · BF% (axe secondaire)</div>
+          <div class="card-sub">Projection · points pleins = tes vraies mesures</div>
         </div>
         <a class="card-link" href="progression.html">Voir détails →</a>
       </div>
       <canvas id="weightChart" height="185"></canvas>
       <div class="chart-legend">
         <div class="leg"><div class="leg-dot" style="background:var(--blue)"></div>Poids total (kg)</div>
-        <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>Masse musculaire (kg)</div>
+        <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>Masse maigre (kg)</div>
         <div class="leg"><div class="leg-dot" style="background:var(--purple);opacity:.6"></div>BF% projeté</div>
       </div>
     </div>
@@ -536,7 +542,7 @@ button, a, [onclick], input, select, label {
       <div class="card-head">
         <div class="card-head-left">
           <div class="card-title">Macros du Jour</div>
-          <div class="card-sub">Jour training · 2 650 kcal</div>
+          <div class="card-sub" id="macroSub">Jour training · 2 650 kcal</div>
         </div>
       </div>
       <div class="donut-section">
@@ -551,7 +557,7 @@ button, a, [onclick], input, select, label {
           <div class="macro-chip"><div class="mc-val" style="color:var(--orange)">160g</div><div class="mc-lbl">Protéines</div></div>
           <div class="macro-chip"><div class="mc-val" style="color:var(--blue)">345g</div><div class="mc-lbl">Glucides</div></div>
           <div class="macro-chip"><div class="mc-val" style="color:var(--purple)">70g</div><div class="mc-lbl">Lipides</div></div>
-          <div class="macro-chip"><div class="mc-val" style="color:var(--teal)">3.5L</div><div class="mc-lbl">Eau / jour</div></div>
+          <div class="macro-chip"><div class="mc-val" style="color:var(--teal)">3–3,5 L</div><div class="mc-lbl">Eau / jour</div></div>
         </div>
       </div>
     </div>
@@ -581,9 +587,9 @@ button, a, [onclick], input, select, label {
       <div class="card-head">
         <div class="card-head-left">
           <div class="card-title">Progression Force</div>
-          <div class="card-sub">Charges Bloc 1 → Bloc 3</div>
+          <div class="card-sub">Départ → objectif 12 mois · barre = ton record</div>
         </div>
-        <a class="card-link" href="progression.html">Tout voir →</a>
+        <a class="card-link" href="logbook.html">Logbook →</a>
       </div>
       <div class="strength-list" id="strengthList"></div>
     </div>
@@ -654,6 +660,7 @@ button, a, [onclick], input, select, label {
           <option value="push">Push — Pec + Épaules + Tri (Lundi)</option>
           <option value="pull">Pull — Dos + Biceps (Jeudi)</option>
           <option value="upper">V-Shape — Épaules + Dos + Bras (Samedi)</option>
+          <option value="legs">Ping-pong · Cardio (Vendredi)</option>
           <option value="other">Autre</option>
         </select>
       </div>
@@ -684,41 +691,32 @@ button, a, [onclick], input, select, label {
 </div>
 
 <script>
-// ── DATA ──
+// ── DATA ── (source unique : core.js)
 const SK = 'px_sessions_v2';
 const MK = 'px_measures';
-// Date locale YYYY-MM-DD (toISOString = UTC : décale la date entre minuit et 2h en France)
-const localISO = d => { d = d || new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
-const getSess = () => {
-  const dash = JSON.parse(localStorage.getItem(SK)||'[]');
-  try {
-    const lb = JSON.parse(localStorage.getItem('px_logbook')||'{"sessions":[]}');
-    const lbs = (lb.sessions||[]).map(s => ({
-      date: s.date,
-      type: s.sessionName==='PUSH'?'push':s.sessionName==='PULL'?'pull':'upper',
-      duration:'', weight:'', feeling:'', note:''
-    }));
-    const lbDates = new Set(lbs.map(s => s.date));
-    return [...lbs, ...dash.filter(s => !lbDates.has(s.date))];
-  } catch(e) { return dash; }
-};
+const G = ALLEZ.GOALS;
+const localISO = ALLEZ.localISO;
+const num = ALLEZ.num;
+const getSess = () => ALLEZ.sessions();
 const saveSess = s => localStorage.setItem(SK, JSON.stringify(s));
+const esc = v => String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
 const TYPE_META = {
-  push:  { icon:'🔴', label:'Push — Pec · Épaules · Tri (Lundi)', cls:'si-push' },
-  pull:  { icon:'🔵', label:'Pull — Dos · Biceps (Jeudi)',         cls:'si-pull' },
-  legs:  { icon:'🟡', label:'Ping Pong · Cardio',                  cls:'si-legs' },
-  upper: { icon:'🟣', label:'V-Shape — Épaules · Dos · Bras (Samedi)', cls:'si-upper' },
+  push:  { icon:'🔴', label:'Push — Pec · Épaules · Tri', cls:'si-push' },
+  pull:  { icon:'🔵', label:'Pull — Dos · Biceps',         cls:'si-pull' },
+  legs:  { icon:'🟡', label:'Ping-pong · Cardio',          cls:'si-legs' },
+  upper: { icon:'🟣', label:'V-Shape — Épaules · Dos · Bras', cls:'si-upper' },
   other: { icon:'⚪', label:'Séance',                      cls:'si-other' },
 };
 
+// Programme canonique (identique à logbook / programme / exercices)
 const WORKOUTS = [
-  { day:'Lundi',    name:'PUSH · 8h00',  focus:'Pectoraux · Épaules · Triceps + finisher posture', type:'push', exs:[{n:'Développé incliné haltères 30°',s:'4×12-15 · RIR 3'},{n:'Élévations latérales ×5 séries',s:'5×15 · RIR 2'},{n:'Développé militaire assis',s:'4×12 · RIR 3'},{n:'Écarté câble high-to-low',s:'3×12-15 · RIR 3'},{n:'Extension triceps câble corde',s:'4×15 · RIR 3'},{n:'Finisher — Face pull + Planche',s:'4×15 · 3×60s'}] },
+  { day:'Lundi',    name:'PUSH · 8h00',  focus:'Pectoraux · Épaules · Triceps + finisher posture', type:'push', exs:[{n:'Développé incliné haltères 30°',s:'4×12-15'},{n:'Élévations latérales',s:'4×12-15'},{n:'Développé militaire assis',s:'4×10-12'},{n:'Écarté câble high-to-low',s:'3×12-15'},{n:'Extension triceps corde',s:'4×12-15'},{n:'Face pull câble ★',s:'4×15-20'},{n:'Finisher — Planche',s:'3×30-60 s'}] },
   { day:'Mardi',    name:'REPOS',        focus:null },
   { day:'Mercredi', name:'REPOS',        focus:null },
-  { day:'Jeudi',    name:'PULL · 8h00',  focus:'Dos · Biceps · Deltoïde post. + finisher core', type:'pull', exs:[{n:'Tirage vertical prise large',s:'4×10-12 · RIR 3'},{n:'Rowing unilatéral haltère',s:'4×12 · RIR 3'},{n:'Oiseau câble penché',s:'3×15-20 · RIR 2'},{n:'Rowing câble assis prise large',s:'3×12-15 · RIR 3'},{n:'Face pull câble',s:'4×15 · RIR 3'},{n:'Curl biceps alternés',s:'4×12 · RIR 3'},{n:'Finisher — Dead Bug + Bird Dog',s:'3×10/côté'}] },
-  { day:'Vendredi', name:'PING PONG',    focus:'Activité cardio · repos musculaire', type:'legs', exs:[] },
-  { day:'Samedi',   name:'V-SHAPE · 11h',focus:'Épaules 3D · Dos · Bras + finisher posture + core', type:'upper', exs:[{n:'Élévations latérales ×5 séries',s:'5×15 · RIR 2'},{n:'Élévations câble ×4 séries',s:'4×15 · RIR 2'},{n:'Arnold Press',s:'4×12 · RIR 3'},{n:'Pull-ups / Tractions',s:'4×max'},{n:'Curl barre EZ + concentré',s:'3×10-12 · RIR 2'},{n:'Extension triceps overhead',s:'3×12 · RIR 2'},{n:'Finisher Posture ★ — Face pull câble',s:'3×15 · corde haute · rétraction scapulaire'},{n:'Finisher Core — Hollow Body + Planche',s:'3×45s'}] },
+  { day:'Jeudi',    name:'PULL · 8h00',  focus:'Dos · Biceps · Deltoïde post. + finisher core', type:'pull', exs:[{n:'Tirage vertical prise large',s:'4×10-12'},{n:'Rowing unilatéral haltère',s:'4×10-12/côté'},{n:'Oiseau câble penché',s:'3×15-20'},{n:'Rowing câble assis prise large',s:'3×12-15'},{n:'Face pull câble ★',s:'4×15-20'},{n:'Curl biceps haltères alternés',s:'4×10-12'},{n:'Finisher — Dead bug + Bird dog',s:'3×10/côté'}] },
+  { day:'Vendredi', name:'PING-PONG',    focus:'Activité cardio · repos musculaire', type:'legs', exs:[] },
+  { day:'Samedi',   name:'V-SHAPE · 11h',focus:'Épaules 3D · Dos · Bras + finishers posture & core', type:'upper', exs:[{n:'Élévations latérales',s:'5×15'},{n:'Élévations latérales câble',s:'4×15'},{n:'Arnold press',s:'4×10-12'},{n:'Tractions / tirage vertical',s:'4×max'},{n:'Curl barre EZ + concentré',s:'3×10-12 + 2×10-12'},{n:'Extension triceps overhead câble',s:'3×12'},{n:'Finisher — Face pull ★',s:'3×15'},{n:'Finisher — Hollow body',s:'3×20-30 s'}] },
   { day:'Dimanche', name:'REPOS',        focus:null },
 ];
 
@@ -735,28 +733,28 @@ const QUOTES = [
   "Le meilleur entraînement est celui qu'on fait vraiment.",
 ];
 
+// Charges : départ → objectif 12 mois (mêmes valeurs que programme.html) · lb = nom dans le logbook
 const STRENGTH_D = [
-  { name:'Développé incliné',    b1:'14 kg', b3:'22 kg', pct:28, color:'linear-gradient(90deg,var(--orange),#f59a3a)' },
-  { name:'Tirage vertical',      b1:'50 kg', b3:'72 kg', pct:24, color:'linear-gradient(90deg,var(--blue),var(--blue-l))' },
-  { name:'Arnold Press',         b1:'10 kg', b3:'16 kg', pct:32, color:'linear-gradient(90deg,var(--green),var(--green-l))' },
-  { name:'Écarté câble',         b1:'8 kg',  b3:'15 kg', pct:22, color:'linear-gradient(90deg,var(--purple),var(--purple-l))' },
-  { name:'Rowing haltère',       b1:'20 kg', b3:'32 kg', pct:26, color:'linear-gradient(90deg,var(--teal),#12adc4)' },
-  { name:'Curl biceps',          b1:'10 kg', b3:'16 kg', pct:30, color:'var(--gold-g)' },
+  { name:'Développé incliné (kg/main)', lb:'Développé incliné haltères 30°', b1:14, b3:22, color:'linear-gradient(90deg,var(--orange),#f59a3a)' },
+  { name:'Tirage vertical',             lb:'Tirage vertical prise large',    b1:45, b3:72, color:'linear-gradient(90deg,var(--blue),var(--blue-l))' },
+  { name:'Arnold press (kg/main)',      lb:'Arnold press',                   b1:10, b3:16, color:'linear-gradient(90deg,var(--green),var(--green-l))' },
+  { name:'Écarté câble (kg/côté)',      lb:'Écarté câble high-to-low',       b1:8,  b3:15, color:'linear-gradient(90deg,var(--purple),var(--purple-l))' },
+  { name:'Rowing haltère',              lb:'Rowing unilatéral haltère',      b1:20, b3:32, color:'linear-gradient(90deg,var(--teal),#12adc4)' },
+  { name:'Curl alterné (kg/main)',      lb:'Curl biceps haltères alternés',  b1:10, b3:16, color:'var(--gold-g)' },
 ];
+function bestKg(name) {
+  let m = 0;
+  try { (JSON.parse(localStorage.getItem('px_logbook')||'{"sessions":[]}').sessions||[]).forEach(s => (s.exercises||[]).forEach(e => { if (e.name === name) (e.sets||[]).forEach(st => { if ((st.kg||0) > m) m = st.kg; }); })); } catch(e) {}
+  return m;
+}
+const pctOf = (cur, a, b) => Math.max(0, Math.min(100, Math.round((cur - a) / (b - a) * 100)));
 
-// Semaine de programme (départ : lundi 1er juin 2026)
-const PROG_WEEK = Math.min(52, Math.max(1, Math.floor((Date.now() - new Date(2026,5,1).getTime()) / (86400000*7)) + 1));
-
-const GOALS_D = [
-  { name:'Masse musculaire',  cur:'56.4 kg', tgt:'64 kg',   pct:5,  color:'var(--gold-g)',                               pctc:'var(--gold)'    },
-  { name:'Réduction BF%',     cur:'20,5%',   tgt:'17%',     pct:8,  color:'linear-gradient(90deg,var(--blue),var(--blue-l))',    pctc:'var(--blue)'    },
-  { name:'Largeur épaules',   cur:'48 cm',   tgt:'53 cm',   pct:10, color:'linear-gradient(90deg,var(--green),var(--green-l))', pctc:'var(--green)'   },
-  { name:'Tour de taille',    cur:'86 cm',   tgt:'80 cm',   pct:7,  color:'linear-gradient(90deg,var(--purple),var(--purple-l))',pctc:'var(--purple)'  },
-  { name:'Programme (sem.)',  cur:'S'+PROG_WEEK, tgt:'S52',  pct:Math.max(2,Math.round(PROG_WEEK/52*100)), color:'var(--gold-g)',                               pctc:'var(--gold)'    },
-];
-
-// ── SEMAINE PROFIL ──
-(function(){ const el=document.getElementById('userWeek'); if(el) el.textContent='Débutant · Semaine '+PROG_WEEK; })();
+// ── PROFIL / SEMAINE ──
+function renderProfile() {
+  const st = ALLEZ.status();
+  const el = document.getElementById('userWeek');
+  if (el) el.textContent = !st.set ? 'Départ à planifier' : !st.started ? 'Départ J-' + st.daysUntil : 'Semaine ' + st.week + ' · ' + st.block.code;
+}
 
 // ── CLOCK ──
 function tick() {
@@ -771,116 +769,117 @@ tick(); setInterval(tick, 10000);
 // ── WEEK ──
 const DAY_ABR = ['LUN','MAR','MER','JEU','VEN','SAM','DIM'];
 const PLANNED = [true,false,false,true,false,true,false];
-function getWeekDates() {
-  const t = new Date(), dow = (t.getDay()+6)%7;
-  const mon = new Date(t); mon.setDate(t.getDate()-dow);
-  return Array.from({length:7},(_,i)=>{ const d=new Date(mon); d.setDate(mon.getDate()+i); return localISO(d); });
-}
+const getWeekDates = () => ALLEZ.weekDates();
 function renderWeek() {
   const sess = getSess(), wk = getWeekDates(), today = localISO();
   const sdates = new Set(sess.map(s=>s.date));
-  document.getElementById('weekRange').textContent =
-    new Date(wk[0]).toLocaleDateString('fr-FR',{month:'short',day:'numeric'}) + ' — ' +
-    new Date(wk[6]).toLocaleDateString('fr-FR',{month:'short',day:'numeric'});
+  const f = d => ALLEZ.parseISO(d).toLocaleDateString('fr-FR',{month:'short',day:'numeric'});
+  document.getElementById('weekRange').textContent = f(wk[0]) + ' — ' + f(wk[6]) + ' · touche un jour pour le cocher';
   document.getElementById('weekGrid').innerHTML = wk.map((d,i) => {
     let cls='', inner='';
     if (sdates.has(d)) { cls='done'; inner='✓'; }
     else if (d===today) { cls='today'; inner='●'; }
     else if (!PLANNED[i]) { cls='rest'; inner='~'; }
-    return `<div class="wd"><div class="wd-lbl">${DAY_ABR[i]}</div><div class="wd-box ${cls}" onclick="toggleDay('${d}')">${inner}</div></div>`;
+    return `<div class="wd"><div class="wd-lbl">${DAY_ABR[i]}</div><div class="wd-box ${cls}" onclick="toggleDay('${d}')" role="button" aria-label="${DAY_ABR[i]} ${d}">${inner}</div></div>`;
   }).join('');
   const done = wk.filter(d=>sdates.has(d)).length;
   document.getElementById('ws-done').textContent = done;
   document.getElementById('ws-left').textContent = Math.max(0,3-done);
-  document.getElementById('ws-pct').textContent = Math.round((done/3)*100)+'%';
+  document.getElementById('ws-pct').textContent = Math.min(100,Math.round((done/3)*100))+'%';
 }
 window.toggleDay = d => {
-  // On ne modifie que px_sessions_v2 : les séances du logbook restent gérées par le logbook
+  // Les séances du logbook se gèrent dans le logbook ; ici on coche/décoche une séance « rapide »
+  const lb = (JSON.parse(localStorage.getItem('px_logbook')||'{"sessions":[]}').sessions||[]);
+  if (lb.some(s=>s.date===d)) { if (confirm('Cette séance vient du logbook. Ouvrir le logbook ?')) location.href='logbook.html'; return; }
   const dash = JSON.parse(localStorage.getItem(SK)||'[]');
   const idx = dash.findIndex(s=>s.date===d);
-  if(idx>=0) dash.splice(idx,1);
-  else if(!getSess().some(s=>s.date===d)) dash.push({date:d,type:'other',label:'',duration:'',feeling:'',note:''});
+  const ps = JSON.parse(localStorage.getItem('px_sessions')||'[]');
+  if (idx>=0 || ps.includes(d)) {
+    if (idx>=0) dash.splice(idx,1);
+    localStorage.setItem('px_sessions', JSON.stringify(ps.filter(x=>x!==d)));
+  } else dash.push({date:d,type:'other',duration:'',feeling:'',note:''});
   saveSess(dash); renderAll();
 };
 
 // ── STATS ──
 function renderStats() {
   const sess = getSess(), wk = new Set(getWeekDates());
-  const sdates = sess.map(s=>s.date);
   document.getElementById('sc-sessions').textContent = sess.length;
   const wkDone = sess.filter(s=>wk.has(s.date)).length;
   document.getElementById('sc-sstrand').textContent = `Cette semaine : ${wkDone} / 3`;
 
-  // ── STREAK basé séances : une série tient tant que l'écart entre 2 séances ≤ 4 jours ──
-  const GAP = 4;
-  const today = localISO();
-  const uniq = [...new Set(sdates)].sort();
-  // Record = plus longue série de séances enchaînées
-  let best=0, run=0;
-  for(let i=0;i<uniq.length;i++){
-    if(i===0){ run=1; }
-    else {
-      const g=(new Date(uniq[i]+'T12:00:00') - new Date(uniq[i-1]+'T12:00:00'))/86400000;
-      run = g<=GAP ? run+1 : 1;
-    }
-    if(run>best) best=run;
-  }
-  // Série en cours = chaîne se terminant à la dernière séance, vivante si ≤ 4 jours
-  let streak=0;
-  if(uniq.length){
-    const last=new Date(uniq[uniq.length-1]+'T12:00:00');
-    if((new Date(today+'T12:00:00')-last)/86400000<=GAP){
-      streak=1;
-      for(let i=uniq.length-1;i>0;i--){
-        const g=(new Date(uniq[i]+'T12:00:00') - new Date(uniq[i-1]+'T12:00:00'))/86400000;
-        if(g<=GAP) streak++; else break;
-      }
-    }
-  }
-  document.getElementById('sc-streak').innerHTML = streak + ' <span class="sc-unit">séances</span>';
-  document.getElementById('sideStreak').textContent = '🔥 '+streak;
-  document.getElementById('sm-streak').textContent = streak;
-  document.getElementById('sc-best').textContent = 'Record : '+best+' séance'+(best>1?'s':'');
-  document.getElementById('sm-best').textContent = best;
+  const sk = ALLEZ.streak(sess.map(s=>s.date));
+  document.getElementById('sc-streak').innerHTML = sk.cur + ' <span class="sc-unit">séance' + (sk.cur>1?'s':'') + '</span>';
+  document.getElementById('sideStreak').textContent = '🔥 '+sk.cur;
+  document.getElementById('sm-streak').textContent = sk.cur;
+  document.getElementById('sc-best').textContent = 'Record : '+sk.best+' séance'+(sk.best>1?'s':'');
+  document.getElementById('sm-best').textContent = sk.best;
   document.getElementById('sm-total').textContent = sess.length;
 
-  // Weight
-  const meas = JSON.parse(localStorage.getItem(MK)||'[]');
-  if(meas.length>0){
-    const last=meas[meas.length-1];
-    if(last.weight){
-      document.getElementById('sc-weight').innerHTML = last.weight+' <span class="sc-unit">kg</span>';
-      const diff=(parseFloat(last.weight)-71).toFixed(1);
-      const el=document.getElementById('sc-wtrend');
-      el.textContent=(diff>0?'↑ +':diff<0?'↓ ':'→ ')+diff+' kg vs départ';
-      el.className='sc-trend '+(diff>0?'up':diff<0?'dn':'neu');
-    }
+  // Mesures réelles (dernière valeur saisie) sinon valeurs de départ
+  const w = ALLEZ.lastMeasure('weight'), bf = ALLEZ.lastMeasure('bf');
+  if (w) {
+    document.getElementById('sc-weight').innerHTML = num(w) + ' <span class="sc-unit">kg</span>';
+    const diff = w - G.weight0, el = document.getElementById('sc-wtrend');
+    el.textContent = (diff>0?'↑ +':diff<0?'↓ ':'→ ') + num(diff) + ' kg vs départ';
+    el.className = 'sc-trend ' + (diff>0?'up':diff<0?'dn':'neu');
+  } else document.getElementById('sc-wtrend').textContent = 'Départ : 71 kg';
+  if (bf) {
+    document.getElementById('sc-bf').innerHTML = num(bf) + ' <span class="sc-unit">%</span>';
+    document.getElementById('sc-bftrend').textContent = (bf <= G.bf0 ? '↓ ' : '↑ +') + num(Math.abs(G.bf0 - bf)) + ' pt vs départ';
+  }
+  if (w && bf) {
+    const lean = w * (1 - bf/100);
+    document.getElementById('sc-lean').innerHTML = num(lean) + ' <span class="sc-unit">kg</span>';
+    const d = lean - G.lean0;
+    document.getElementById('sc-leantrend').textContent = (d>=0?'↑ +':'↓ ') + num(d) + ' kg vs départ';
   }
 }
 
-// ── STRENGTH ──
+// ── STRENGTH (objectifs + record réel du logbook) ──
 function renderStrength() {
-  document.getElementById('strengthList').innerHTML = STRENGTH_D.map(s=>`
-    <div class="str-item">
+  document.getElementById('strengthList').innerHTML = STRENGTH_D.map(s=>{
+    const best = bestKg(s.lb);
+    const pct = best ? Math.max(3, pctOf(best, s.b1, s.b3)) : 0;
+    return `<div class="str-item">
       <div class="str-head">
         <div class="str-name">${s.name}</div>
-        <div class="str-range">${s.b1} → ${s.b3}</div>
+        <div class="str-range">${s.b1} → ${s.b3} kg</div>
       </div>
-      <div class="str-bar"><div class="str-fill" data-w="${s.pct}" style="background:${s.color}"></div></div>
-    </div>`).join('');
+      <div class="str-bar"><div class="str-fill" data-w="${pct}" style="background:${s.color}"></div></div>
+      <div class="goal-detail">${best ? 'Record : ' + num(best, best%1?1:0) + ' kg' : 'Pas encore loggé'}</div>
+    </div>`; }).join('');
 }
 
-// ── GOALS ──
+// ── GOALS (progression réelle, calculée depuis tes mesures) ──
 function renderGoals() {
-  document.getElementById('goalsList').innerHTML = GOALS_D.map(g=>`
-    <div class="goal-item">
+  const st = ALLEZ.status();
+  const w = ALLEZ.lastMeasure('weight'), bf = ALLEZ.lastMeasure('bf'), waist = ALLEZ.lastMeasure('waist');
+  const lean = (w && bf) ? w*(1-bf/100) : null;
+  const goals = [
+    { name:'Masse maigre', cur: lean, a:G.lean0, b:G.lean, u:' kg', color:'var(--gold-g)', pctc:'var(--gold)' },
+    { name:'Masse grasse', cur: bf, a:G.bf0, b:G.bf, u:' %', color:'linear-gradient(90deg,var(--blue),var(--blue-l))', pctc:'var(--blue)' },
+    { name:'Tour de taille', cur: waist, a:G.waist0, b:G.waist, u:' cm', color:'linear-gradient(90deg,var(--purple),var(--purple-l))', pctc:'var(--purple)' },
+  ];
+  let html = goals.map(g => {
+    const has = g.cur !== null && g.cur !== undefined;
+    const pct = has ? pctOf(g.cur, g.a, g.b) : 0;
+    return `<div class="goal-item">
       <div class="goal-head">
         <div class="goal-name">${g.name}</div>
-        <div class="goal-pct" style="color:${g.pctc}">${g.cur} → ${g.tgt}</div>
+        <div class="goal-pct" style="color:${g.pctc}">${num(has?g.cur:g.a)}${g.u} → ${num(g.b)}${g.u}</div>
       </div>
-      <div class="goal-bar"><div class="goal-fill" data-w="${g.pct}" style="background:${g.color}"></div></div>
-      <div class="goal-detail">${g.pct}% complété</div>
-    </div>`).join('');
+      <div class="goal-bar"><div class="goal-fill" data-w="${pct}" style="background:${g.color}"></div></div>
+      <div class="goal-detail">${has ? pct + ' % du chemin' : 'Saisis tes mesures dans <a href="progression.html#tracker">Progression</a>'}</div>
+    </div>`;
+  }).join('');
+  const wk = st.started ? st.week : 0, wpct = Math.round(wk/52*100);
+  html += `<div class="goal-item">
+      <div class="goal-head"><div class="goal-name">Programme</div><div class="goal-pct" style="color:var(--gold)">${st.started ? 'S'+wk+' / 52' : (st.set ? 'J-'+st.daysUntil : 'à planifier')}</div></div>
+      <div class="goal-bar"><div class="goal-fill" data-w="${wpct}" style="background:var(--gold-g)"></div></div>
+      <div class="goal-detail">${st.started ? st.block.code + ' · ' + st.block.name : 'Choisis ta date de départ ci-dessus'}</div>
+    </div>`;
+  document.getElementById('goalsList').innerHTML = html;
 }
 
 // ── NEXT WORKOUT ──
@@ -900,26 +899,26 @@ function renderNext() {
         <div class="nw-ex-spec">${e.s}</div>
       </div>`).join('')}
     </div>
-    <button class="nw-btn" onclick="openModal()">✓ Marquer comme faite</button>`;
+    ${w.type==='legs' ? `<a class="nw-btn" href="pingpong.html" style="display:block;text-align:center;text-decoration:none">🏓 Ouvrir le suivi ping-pong</a>` : `<a class="nw-btn" href="logbook.html" style="display:block;text-align:center;text-decoration:none">▶ Lancer dans le logbook</a>`}`;
 }
 
 // ── SESSION LOG ──
 function renderLog() {
   const sess=getSess(), el=document.getElementById('sessionList');
   if(!sess.length){
-    el.innerHTML='<div class="sess-empty">Aucune séance enregistrée.<br>Clique sur <strong>+ Logger séance</strong> pour commencer.</div>';
+    el.innerHTML='<div class="sess-empty">Aucune séance enregistrée.<br>Lance ta séance dans le <a href="logbook.html"><strong>logbook</strong></a>.</div>';
     return;
   }
-  const esc=v=>String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   el.innerHTML=[...sess].reverse().slice(0,6).map(s=>{
     const m=TYPE_META[s.type]||TYPE_META.other;
-    const d=new Date(s.date).toLocaleDateString('fr-FR',{weekday:'short',month:'short',day:'numeric'});
-    const isPR=s.note&&s.note.toLowerCase().includes('pr');
+    const d=ALLEZ.parseISO(s.date).toLocaleDateString('fr-FR',{weekday:'short',month:'short',day:'numeric'});
+    const isPR=s.note&&/\bpr\b/i.test(s.note);
+    const nDone = s.exercises ? s.exercises.reduce((a,e)=>a+(e.sets||[]).filter(x=>x.done!==false).length,0) : 0;
     return `<div class="sess-item">
       <div class="sess-icon ${m.cls}">${m.icon}</div>
       <div class="sess-info">
         <div class="sess-name">${m.label}</div>
-        <div class="sess-meta">${d}${s.duration?' · '+esc(s.duration)+' min':''}${s.feeling?' · Ressenti '+esc(s.feeling)+'/10':''}</div>
+        <div class="sess-meta">${d}${s.source==='logbook'?' · logbook · '+nDone+' séries':''}${s.duration?' · '+esc(s.duration)+' min':''}${s.feeling?' · Ressenti '+esc(s.feeling)+'/10':''}</div>
         ${s.note?`<div class="sess-note">${esc(s.note)}</div>`:''}
       </div>
       ${isPR?'<span class="sess-pr">🏆 PR</span>':''}
@@ -933,7 +932,7 @@ function renderStreak() {
   document.getElementById('streakDots').innerHTML=Array.from({length:28},(_,i)=>{
     const d=new Date(); d.setDate(d.getDate()-(27-i));
     const ds=localISO(d), isT=ds===today, on=sdates.has(ds);
-    return `<div class="sdot ${isT?'cur':on?'on':''}" title="${ds}"></div>`;
+    return `<div class="sdot ${on?'on':isT?'cur':''}" title="${ds}"></div>`;
   }).join('');
 }
 
@@ -942,10 +941,12 @@ function renderQuote() {
   document.getElementById('dailyQuote').textContent = '"'+QUOTES[new Date().getDate()%QUOTES.length]+'"';
 }
 
-// ── MODAL ──
+// ── MODAL (séance rapide, sans détail des séries) ──
 window.openModal = () => {
   document.getElementById('modalOverlay').classList.add('open');
   ['log-dur','log-w','log-feel','log-note'].forEach(id=>document.getElementById(id).value='');
+  const t = {1:'push',4:'pull',5:'legs',6:'upper'}[new Date().getDay()];
+  if (t) document.getElementById('log-type').value = t;
 };
 window.closeModal = () => document.getElementById('modalOverlay').classList.remove('open');
 window.logSession = () => {
@@ -961,16 +962,13 @@ window.logSession = () => {
   saveSess(dash);
   if(w){
     const meas=JSON.parse(localStorage.getItem(MK)||'[]');
-    const today=new Date().toLocaleDateString('fr-FR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-    meas.push({date:today,weight:w}); localStorage.setItem(MK,JSON.stringify(meas));
+    const label=new Date().toLocaleDateString('fr-FR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    meas.push({date:label,iso:date,weight:w}); localStorage.setItem(MK,JSON.stringify(meas));
   }
   closeModal(); renderAll();
-  const b=document.querySelector('.btn-log'), orig=b.innerHTML;
-  b.innerHTML='✓ Enregistrée !'; b.style.background='linear-gradient(135deg,#0a9e52,#12c564)';
-  setTimeout(()=>{b.innerHTML=orig;b.style.background='';},2000);
 };
 document.getElementById('clearBtn').onclick=()=>{
-  if(confirm('Effacer tout l\'historique des séances ?')){saveSess([]);renderAll();}
+  if(confirm('Effacer les séances rapides du dashboard ?\n(Les séances du logbook ne sont pas touchées.)')){saveSess([]);renderAll();}
 };
 document.getElementById('modalOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
 
@@ -983,15 +981,12 @@ function drawWeight() {
   canvas.style.width=W+'px'; canvas.style.height=H+'px';
   const ctx=canvas.getContext('2d'); ctx.scale(dpr,dpr);
   const pad={t:12,r:16,b:30,l:38}, cW=W-pad.l-pad.r, cH=H-pad.t-pad.b;
-  const wData=[71,71.5,72.0,72.5,73.0,73.5,74.0,74.5,75.0,75.5,76.0,76.5,77.0];
-  const mData=[56.4,57.0,57.7,58.3,59.0,59.6,60.3,60.9,61.6,62.2,62.9,63.5,64.0];
-  const bData=[20.5,20.2,20.0,19.7,19.4,19.2,18.9,18.6,18.4,18.1,17.9,17.5,17.0];
+  const wData=ALLEZ.PROJ.weight, mData=ALLEZ.PROJ.lean, bData=ALLEZ.PROJ.bf;
   const labels=['Départ','M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'];
-  const yMn=54,yMx=78;
-  const xp=i=>pad.l+(i/(labels.length-1))*cW;
-  const yp=v=>pad.t+cH-((v-yMn)/(yMx-yMn))*cH;
+  const yMn=54,yMx=76;
+  const xp=i=>pad.l+(i/12)*cW;
+  const yp=v=>pad.t+cH-((Math.max(yMn,Math.min(yMx,v))-yMn)/(yMx-yMn))*cH;
   ctx.clearRect(0,0,W,H);
-  // Grid
   for(let i=0;i<=4;i++){
     const y=pad.t+(i/4)*cH;
     ctx.beginPath(); ctx.strokeStyle='#e5e7eb'; ctx.lineWidth=1;
@@ -999,46 +994,48 @@ function drawWeight() {
     const v=(yMx-(i/4)*(yMx-yMn)).toFixed(0);
     ctx.fillStyle='#9ca3af'; ctx.font='9px Inter'; ctx.textAlign='right'; ctx.fillText(v,pad.l-5,y+3);
   }
-  // X labels
   ctx.textAlign='center'; ctx.fillStyle='#9ca3af'; ctx.font='9px Inter';
   labels.forEach((l,i)=>{if(i%3===0||i===labels.length-1)ctx.fillText(l,xp(i),H-6);});
-  // Lines
-  function line(data,color,dashed=false){
+  function line(data,color){
     ctx.beginPath();
     data.forEach((v,i)=>i===0?ctx.moveTo(xp(i),yp(v)):ctx.lineTo(xp(i),yp(v)));
-    ctx.strokeStyle=color; ctx.lineWidth=2.2; ctx.lineJoin='round';
-    if(dashed)ctx.setLineDash([5,4]); else ctx.setLineDash([]);
-    ctx.stroke(); ctx.setLineDash([]);
-    // Fill
+    ctx.strokeStyle=color; ctx.lineWidth=2.2; ctx.lineJoin='round'; ctx.setLineDash([]); ctx.stroke();
     ctx.beginPath();
     data.forEach((v,i)=>i===0?ctx.moveTo(xp(i),yp(v)):ctx.lineTo(xp(i),yp(v)));
     ctx.lineTo(xp(data.length-1),pad.t+cH); ctx.lineTo(xp(0),pad.t+cH); ctx.closePath();
     const g=ctx.createLinearGradient(0,pad.t,0,pad.t+cH);
-    const c=color; g.addColorStop(0,c+'22'); g.addColorStop(1,c+'04');
+    g.addColorStop(0,color+'22'); g.addColorStop(1,color+'04');
     ctx.fillStyle=g; ctx.fill();
-    // Dots
-    data.forEach((v,i)=>{
-      if(i%3===0||i===data.length-1){
-        ctx.beginPath(); ctx.arc(xp(i),yp(v),3.5,0,Math.PI*2); ctx.fillStyle=color; ctx.fill();
-        ctx.beginPath(); ctx.arc(xp(i),yp(v),1.8,0,Math.PI*2); ctx.fillStyle='#fff'; ctx.fill();
-      }
-    });
   }
   line(wData,'#1560d4');
   line(mData,'#0a9e52');
-  // BF (dashed, secondary scale)
-  const bfYp=v=>pad.t+cH-((v-16)/(22-16))*cH;
+  const bfYp=v=>pad.t+cH-((v-15)/(21-15))*cH;
   ctx.beginPath();
   bData.forEach((v,i)=>i===0?ctx.moveTo(xp(i),bfYp(v)):ctx.lineTo(xp(i),bfYp(v)));
   ctx.strokeStyle='#7c10d4'; ctx.lineWidth=1.5; ctx.setLineDash([4,3]); ctx.lineJoin='round';
   ctx.globalAlpha=0.55; ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha=1;
+  // Vraies mesures (positionnées par date depuis le départ)
+  ALLEZ.measures().forEach(m=>{
+    if(!m.iso) return;
+    const x=xp(ALLEZ.monthPos(m.iso));
+    const dot=(v,c)=>{ctx.beginPath();ctx.arc(x,yp(v),4.5,0,Math.PI*2);ctx.fillStyle=c;ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();};
+    const w=parseFloat(m.weight), bf=parseFloat(m.bf);
+    if(w) dot(w,'#1560d4');
+    if(w&&bf) dot(w*(1-bf/100),'#0a9e52');
+  });
 }
 
 function drawDonut() {
   const canvas=document.getElementById('donutChart'); if(!canvas)return;
+  const train=[1,4,6].includes(new Date().getDay());
+  const M = train ? {k:2650,p:160,c:345,l:70} : {k:2100,p:160,c:197,l:75};
+  document.getElementById('macroSub').textContent = (train?'Jour training':'Jour repos') + ' · ' + M.k.toLocaleString('fr-FR') + ' kcal';
+  const chips=document.querySelectorAll('.macro-chip .mc-val');
+  if(chips.length>=3){ chips[0].textContent=M.p+'g'; chips[1].textContent=M.c+'g'; chips[2].textContent=M.l+'g'; }
+  const dv=document.querySelector('.donut-val'); if(dv) dv.textContent=M.k;
   const ctx=canvas.getContext('2d'), cx=75,cy=75,r=64,t=14;
   ctx.clearRect(0,0,150,150);
-  const slices=[{v:640,c:'#e05a1e'},{v:1380,c:'#1560d4'},{v:630,c:'#7c10d4'}];
+  const slices=[{v:M.p*4,c:'#e05a1e'},{v:M.c*4,c:'#1560d4'},{v:M.l*9,c:'#7c10d4'}];
   const total=slices.reduce((s,x)=>s+x.v,0);
   let angle=-Math.PI/2;
   slices.forEach(s=>{
@@ -1070,57 +1067,9 @@ document.querySelectorAll('.row-2-1').forEach(el=>chartObs.observe(el));
 window.addEventListener('resize',()=>drawWeight());
 
 // ── BACKUP / SÉCURITÉ DES DONNÉES ──
-function bk_dataCount(){
-  try{
-    var lb=JSON.parse(localStorage.getItem('px_logbook')||'{"sessions":[]}');
-    var s2=JSON.parse(localStorage.getItem('px_sessions_v2')||'[]');
-    var ms=JSON.parse(localStorage.getItem('px_measures')||'[]');
-    var s1=JSON.parse(localStorage.getItem('px_sessions')||'[]');
-    return (lb.sessions?lb.sessions.length:0)+s2.length+ms.length+s1.length;
-  }catch(e){return 0;}
-}
-function exportData(){
-  var data={
-    exported:new Date().toISOString(),
-    logbook:JSON.parse(localStorage.getItem('px_logbook')||'{"sessions":[]}'),
-    sessions_v2:JSON.parse(localStorage.getItem('px_sessions_v2')||'[]'),
-    measures:JSON.parse(localStorage.getItem('px_measures')||'[]'),
-    streak_sessions:JSON.parse(localStorage.getItem('px_sessions')||'[]'),
-    courses_sel:JSON.parse(localStorage.getItem('px_courses_sel')||'[]'),
-    pingpong_matches:JSON.parse(localStorage.getItem('px_pingpong_matches')||'[]'),
-    pingpong_obj:JSON.parse(localStorage.getItem('px_pingpong_obj')||'{}'),
-    pingpong_video:JSON.parse(localStorage.getItem('px_pingpong_video')||'{}')
-  };
-  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  var url=URL.createObjectURL(blob);
-  var a=document.createElement('a');a.href=url;
-  a.download='allez-backup-'+localISO()+'.json';
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  localStorage.setItem('px_last_backup',JSON.stringify({date:new Date().toISOString(),count:bk_dataCount()}));
-  renderBackup();
-}
-function importData(input){
-  var file=input.files[0]; if(!file)return;
-  var reader=new FileReader();
-  reader.onload=function(e){
-    try{
-      var data=JSON.parse(e.target.result);
-      if(!data.logbook&&!data.sessions_v2){alert('Fichier invalide — ne provient pas d\'ALLEZ.');input.value='';return;}
-      if(!confirm('Restaurer ces données ?\n\nL\'historique actuel sera remplacé.\nCette action est irréversible.')){input.value='';return;}
-      if(data.logbook)localStorage.setItem('px_logbook',JSON.stringify(data.logbook));
-      if(data.sessions_v2)localStorage.setItem('px_sessions_v2',JSON.stringify(data.sessions_v2));
-      if(data.measures)localStorage.setItem('px_measures',JSON.stringify(data.measures));
-      if(data.streak_sessions)localStorage.setItem('px_sessions',JSON.stringify(data.streak_sessions));
-      if(data.courses_sel)localStorage.setItem('px_courses_sel',JSON.stringify(data.courses_sel));
-      if(data.pingpong_matches)localStorage.setItem('px_pingpong_matches',JSON.stringify(data.pingpong_matches));
-      if(data.pingpong_obj)localStorage.setItem('px_pingpong_obj',JSON.stringify(data.pingpong_obj));
-      if(data.pingpong_video)localStorage.setItem('px_pingpong_video',JSON.stringify(data.pingpong_video));
-      location.reload();
-    }catch(e2){alert('Erreur : fichier JSON invalide.');input.value='';}
-  };
-  reader.readAsText(file);
-}
+function bk_dataCount(){ return ALLEZ.dataCount(); }
+function exportData(){ ALLEZ.exportData(); renderBackup(); }
+function importData(input){ ALLEZ.importData(input); }
 function renderBackup(){
   var card=document.getElementById('backupCard'); if(!card)return;
   var titleEl=document.getElementById('backupTitle'),descEl=document.getElementById('backupDesc'),icoEl=document.getElementById('backupIco');
@@ -1150,8 +1099,10 @@ function renderBackup(){
 
 // ── BOOT ──
 function renderAll(){
-  renderStats(); renderWeek(); renderStrength(); renderGoals();
+  ALLEZ.renderStartCard(document.getElementById('startCard'), renderAll);
+  renderProfile(); renderStats(); renderWeek(); renderStrength(); renderGoals();
   renderNext(); renderLog(); renderStreak(); renderQuote(); renderBackup();
+  drawDonut();
   setTimeout(()=>{
     document.querySelectorAll('[data-w]').forEach(el=>{el.style.width=el.getAttribute('data-w')+'%';});
   },400);

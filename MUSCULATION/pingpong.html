@@ -10,6 +10,8 @@
 <meta name="apple-mobile-web-app-title" content="ALLEZ">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Ping-Pong — Coaching & Progression — ALLEZ</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<script src="core.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -191,6 +193,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 40px;
 .tk-stat.rate .v { color: var(--pp); }
 .tk-stat .l { font-size:0.7rem; text-transform:uppercase; letter-spacing:.1em; color:var(--text-light); margin-top:6px; }
 .tk-form { display:grid; grid-template-columns: 1.4fr 1fr 0.9fr 0.9fr auto; gap:10px; margin-bottom:18px; }
+.tk-form > * { min-width:0; width:100%; box-sizing:border-box; }
 .tk-form input, .tk-form select { font-family: var(--font); font-size:0.88rem; padding:10px 12px; border:1px solid var(--border); border-radius:10px; background:#fff; color:var(--text); min-height:44px; }
 .tk-form input:focus, .tk-form select:focus { outline:2px solid var(--pp); outline-offset:1px; }
 .tk-add { background: var(--pp); color:#fff; border:none; border-radius:10px; font-weight:700; padding:10px 20px; cursor:pointer; min-height:44px; font-size:0.88rem; }

@@ -10,6 +10,8 @@
 <meta name="apple-mobile-web-app-title" content="ALLEZ">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Exercices — ALLEZ</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<script src="core.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -323,7 +325,7 @@ button, a, [onclick], input, select, label {
 
 <section class="section-area">
   <div class="sec-title">PROGRESSION <span>VISUELLE</span></div>
-  <div class="sec-sub">Résultats réalistes mois par mois avec le programme complet</div>
+  <div class="sec-sub">Projection réaliste fin de mois (recomposition) · masse maigre gagnée et masse grasse</div>
   <div class="prog-grid" id="pgrid"></div>
 </section>
 
@@ -544,7 +546,7 @@ const EX = [
    pec:null,scol:null},
 
   {id:17,name:"Curl Concentré Haltère",cat:"vshape",mg:"Biceps (pic/contraction)",diff:2,eff:3,icon:"🎯",svgKey:"curl",
-   sets:"3 × 12 / bras",rest:"60 sec",tempo:"2-2-3-0",equip:"Haltère + banc",
+   sets:"2 × 10-12 / bras",rest:"60 sec",tempo:"2-2-3-0",equip:"Haltère + banc",
    yt:"curl concentré haltère technique pic biceps concentration curl",
    muscles:{p:["biceps"],s:[]},
    steps:["Assis sur un banc, pied à plat, buste penché en avant","Coude contre l'intérieur de la cuisse — fixe tout le mouvement","Bras tendu, haltère en bas","Fléchissez lentement jusqu'à contraction maximale","Pause 2s en haut — supination complète, petit pincement supplémentaire","Descente lente 3s — étirement complet"],
@@ -568,7 +570,7 @@ const EX = [
    pec:null,scol:null},
 
   {id:22,name:"Planche Abdominale",cat:"core",mg:"Abdominaux + Stabilisateurs",diff:2,eff:4,icon:"⬛",svgKey:"plank",
-   sets:"4 × 30-60 sec",rest:"45 sec",tempo:"Statique",equip:"Sol / tapis",
+   sets:"3 × 30-60 sec",rest:"45 sec",tempo:"Statique",equip:"Sol / tapis",
    yt:"planche abdominale technique parfaite gainage statique débutant",
    muscles:{p:["abs","obliques"],s:["lower-back","glutes","quads"]},
    steps:["Avant-bras au sol, coudes sous les épaules, paumes à plat","Montez sur la pointe des pieds, corps en ligne DROITE de la tête aux talons","Engagez les abdominaux: 'rentrez le ventre vers la colonne'","Serrez les fessiers — aide à maintenir la ligne droite","Regardez le sol, 30-40 cm devant vous — tête dans l'axe","Respirez normalement, ne bloquez pas la respiration","Maintenez — si la hanche monte ou descend: ARRÊTEZ"],
@@ -1075,16 +1077,11 @@ document.getElementById('srch').addEventListener('input',e=>{sq=e.target.value;r
 // ─── PROGRESSION ──────────────────────────────────────────────────────────────
 // Valeurs FIN de mois — alignées sur progression.html / projection.html
 // Cycles de 13 semaines : B1 → B2 → B3 (+ deload en fin de cycle, mois 3/6/9/12)
-const PROG=[
-  {n:1,ph:"B1",w:"71.5 kg",m:"+0.6",bf:"20,2%"},{n:2,ph:"B2",w:"72.0 kg",m:"+1.3",bf:"20,0%"},
-  {n:3,ph:"B3",w:"72.5 kg",m:"+1.9",bf:"19,7%"},{n:4,ph:"B1",w:"73.0 kg",m:"+2.6",bf:"19,4%"},
-  {n:5,ph:"B2",w:"73.5 kg",m:"+3.2",bf:"19,2%"},{n:6,ph:"B3",w:"74.0 kg",m:"+3.9",bf:"18,9%"},
-  {n:7,ph:"B1",w:"74.5 kg",m:"+4.5",bf:"18,6%"},{n:8,ph:"B2",w:"75.0 kg",m:"+5.2",bf:"18,4%"},
-  {n:9,ph:"B3",w:"75.5 kg",m:"+5.8",bf:"18,1%"},{n:10,ph:"B1",w:"76.0 kg",m:"+6.5",bf:"17,9%"},
-  {n:11,ph:"B2",w:"76.5 kg",m:"+7.1",bf:"17,5%"},{n:12,ph:"DL",w:"77.0 kg",m:"+7.6",bf:"17,0%"}
-];
-const PC={'B1':'pb1','B2':'pb2','B3':'pb3','DL':'pdl'};
-document.getElementById('pgrid').innerHTML=PROG.map(p=>`<div class="pm"><div class="pm-lbl">Mois</div><div class="pm-n">${p.n}</div><div class="pm-w">${p.w}</div><div class="pm-m">${p.m} kg</div><div class="pm-bf">${p.bf} BF</div><span class="pm-phase ${PC[p.ph]}">${p.ph}</span></div>`).join('');
+// Valeurs FIN de mois — source unique core.js (identiques à progression.html / projection.html)
+// Cycle de 13 semaines : M1 ≈ B1, M2 ≈ B2, M3 ≈ B3 + deload (semaine 13), etc.
+const PROG=ALLEZ.PROJ.weight.slice(1).map((w,i)=>({n:i+1,ph:['B1','B2','B3'][i%3]+(i%3===2?'+DL':''),w:ALLEZ.num(w)+' kg',m:'+'+ALLEZ.num(ALLEZ.PROJ.lean[i+1]-ALLEZ.GOALS.lean0),bf:ALLEZ.num(ALLEZ.PROJ.bf[i+1])+' %'}));
+const PC={'B1':'pb1','B2':'pb2','B3':'pb3','B3+DL':'pb3','DL':'pdl'};
+document.getElementById('pgrid').innerHTML=PROG.map(p=>`<div class="pm"><div class="pm-lbl">Mois</div><div class="pm-n">${p.n}</div><div class="pm-w">${p.w}</div><div class="pm-m">${p.m} kg</div><div class="pm-bf">${p.bf} MG</div><span class="pm-phase ${PC[p.ph]}">${p.ph}</span></div>`).join('');
 
 // ─── BADGES ──────────────────────────────────────────────────────────────────
 const BDGS=[
@@ -1102,10 +1099,12 @@ const BDGS=[
   {icon:"🏆",name:"Programme Maîtrisé",desc:"156 séances — année parfaite",k:156}
 ];
 // Union des séances dashboard + logbook (mêmes sources que progression.html)
-const sess=JSON.parse(localStorage.getItem('px_sessions_v2')||'[]');
+// Séances : union logbook + dashboard + progression (core.js, mêmes règles partout)
+const allSess=ALLEZ.sessions();
+const cnt=allSess.length;
 let lbSess=[]; try{ lbSess=(JSON.parse(localStorage.getItem('px_logbook')||'{"sessions":[]}').sessions)||[]; }catch(e){}
-const cnt=new Set([...sess.map(s=>s.date),...lbSess.map(s=>s.date)]).size;
-const hasPR=sess.some(s=>s.pr||(s.note&&/\bpr\b/i.test(s.note)));
+// PR = une séance du logbook bat la meilleure charge précédente d'un exercice
+const hasPR=allSess.some(s=>s.note&&/\bpr\b/i.test(s.note))||(()=>{const best={};return lbSess.slice().sort((a,b)=>a.date.localeCompare(b.date)).some(s=>(s.exercises||[]).some(e=>{const m=Math.max(0,...(e.sets||[]).map(x=>x.kg||0));const hit=best[e.name]>0&&m>best[e.name];best[e.name]=Math.max(best[e.name]||0,m);return hit;}));})();
 document.getElementById('bgrid').innerHTML=BDGS.map(b=>{
   const on=b.k===-1?hasPR:cnt>=b.k;
   return `<div class="bdg${on?' on':''}"><div class="bdg-icon">${b.icon}</div><div class="bdg-name">${b.name}</div><div class="bdg-desc">${b.desc}</div></div>`;

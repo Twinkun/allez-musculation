@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fiche Raquette — Mon montage sur-mesure 🏓</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<script src="core.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -34,6 +36,7 @@
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   @media(max-width:560px){.grid2{grid-template-columns:1fr}}
   table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14.5px}
+  @media(max-width:600px){table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;font-size:13px}}
   th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
   th{color:var(--gold);font-size:13px;text-transform:uppercase;letter-spacing:.4px}
   .tot td{font-weight:700;color:var(--gold);border-top:2px solid var(--gold);font-size:16px}
