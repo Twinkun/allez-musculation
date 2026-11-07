@@ -790,6 +790,24 @@ nav {
   margin-top: 2px;
 }
 
+.supp-prio{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin:-4px 0 12px}
+.supp-prio-1{color:var(--text-light)}
+.supp-safety{background:#fff;color:#1a1a2e;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:16px;padding:18px 20px;margin-bottom:22px;box-shadow:var(--shadow)}
+.supp-safety-title{font-weight:800;font-size:.98rem;margin-bottom:12px}
+.supp-safety-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.supp-safety-grid>div{background:#f7f4ef;color:#1a1a2e;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;font-size:.82rem;line-height:1.4;min-width:0}
+.supp-safety-grid b{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-light)}
+.supp-safety-grid em{font-style:normal;font-size:.74rem;color:var(--green);font-weight:700}
+.supp-safety-note{margin-top:12px;font-size:.78rem;color:var(--text-mid);line-height:1.45}
+@media(max-width:768px){.supp-safety-grid{grid-template-columns:1fr}}
+.adjust-box{background:#fff;color:#1a1a2e;border:1px solid var(--border);border-radius:16px;padding:18px 20px;margin-bottom:22px;box-shadow:var(--shadow)}
+.adjust-title{font-weight:800;font-size:.98rem}
+.adjust-sub{font-size:.8rem;color:var(--text-light);margin:4px 0 12px}
+.adjust-row{display:grid;grid-template-columns:28px 1fr 1fr;gap:12px;align-items:start;padding:10px 0;border-top:1px solid var(--border);font-size:.84rem;line-height:1.45}
+.adjust-ico{font-size:1.1rem}
+.adjust-if{font-weight:600;color:var(--text)}
+.adjust-then{color:var(--text-mid)}
+@media(max-width:600px){.adjust-row{grid-template-columns:24px 1fr}.adjust-then{grid-column:2}}
 .supp-timing-tag.dose { background: rgba(232,150,10,0.15); color: var(--gold); }
 .supp-timing-tag.quand { background: rgba(10,158,82,0.12); color: var(--green); }
 .supp-timing-tag.tip { background: rgba(21,96,212,0.1); color: var(--carbs); }
@@ -1080,6 +1098,10 @@ footer a {
 /* ── MOBILE & ANDROID PWA ── */
 
 /* Touch optimisations globales */
+.plan-total{margin:8px 0 0 0;padding:16px 18px;border-radius:14px;background:var(--bg-dark,#0b1020);color:#fff}
+.plan-total-lbl{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.plan-total-val{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.04em;color:var(--gold);margin:4px 0}
+.plan-total-sub{font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.45}
 button, a, [onclick], .courses-meal-item, .plan-tab-btn {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
@@ -1373,7 +1395,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 <div class="section" id="sec-calories">
   <div class="section-label">Calories</div>
   <div class="section-title">Ton Budget Calorique</div>
-  <div class="section-sub">Calculé avec Mifflin-St Jeor × 1.45 (débutant 3x/sem). Stratégie recomposition : surplus +217 kcal en training, déficit modéré au repos — newbie gains + 20,5% BF de départ permettent prise musculaire et perte grasse simultanées.</div>
+  <div class="section-sub">Calculé avec Mifflin-St Jeor × 1,45 (3 séances + ping-pong, travail de bureau). C'est une estimation : ton vrai besoin peut varier de ±10 % — d'où le bilan toutes les 4 semaines (voir Conseils). Stratégie recomposition : +217 kcal les jours de séance, −333 kcal au repos.</div>
 
   <!-- FORMULE -->
   <div class="calorie-formula reveal">
@@ -1481,7 +1503,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 <div class="section" id="sec-macros">
   <div class="section-label">Macronutriments</div>
   <div class="section-title">Répartition des Macros</div>
-  <div class="section-sub">Basé sur les jours d'entraînement. Chaque macro a un rôle précis dans la construction musculaire et la santé.</div>
+  <div class="section-sub">Basé sur les jours d'entraînement. Les jours de repos : mêmes protéines, glucides réduits à 197 g, lipides 75 g.</div>
 
   <div class="macro-visual reveal">
     <div class="macro-card p">
@@ -1552,13 +1574,13 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 <div class="section" id="sec-aliments">
   <div class="section-label">Alimentation</div>
   <div class="section-title">Aliments Prioritaires</div>
-  <div class="section-sub">Les meilleurs choix pour chaque macro, optimisés pour la prise de masse propre et la santé digestive.</div>
+  <div class="section-sub">Les meilleurs choix pour chaque macro, adaptés à la recomposition et à la santé digestive.</div>
 
   <div class="foods-grid reveal">
     <div class="foods-card p">
       <div class="foods-card-title">Protéines</div>
       <ul class="foods-items">
-        <li>Blanc de poulet <span>31g P / 100g</span></li>
+        <li>Blanc de poulet <span>23g P / 100g cru (31 cuit)</span></li>
         <li>Thon au naturel <span>25g P / 100g</span></li>
         <li>Saumon <span>22g P / 100g</span></li>
         <li>Œufs entiers <span>13g P / 100g</span></li>
@@ -1584,7 +1606,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
     <div class="foods-card f">
       <div class="foods-card-title">Lipides</div>
       <ul class="foods-items">
-        <li>Huile d'olive vierge <span>100g L / 100ml</span></li>
+        <li>Huile d'olive vierge <span>10g L / c. à soupe</span></li>
         <li>Avocat <span>15g L / 100g</span></li>
         <li>Noix / Amandes <span>60g L / 100g</span></li>
         <li>Jaunes d'œufs <span>10g L / jaune</span></li>
@@ -1601,39 +1623,41 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 <!-- SECTION 4 : PLAN DE REPAS -->
 <div class="section" id="sec-repas">
   <div class="section-label">Exemple de Journée</div>
-  <div class="section-title">Plan Repas — Jour d'Entraînement</div>
-  <div class="section-sub">Deux plans adaptés à tes créneaux. La logique clé : repas léger pré-séance, shaker immédiat post-séance, vrai repas dans l'heure qui suit.</div>
+  <div class="section-title">Plan Repas — Journées Types</div>
+  <div class="section-sub">Trois journées types calculées au gramme près : les deux jours de séance (créneaux différents) et le jour de repos (4 jours sur 7). Les compléments sont placés au bon moment.</div>
 
   <div class="plan-toggle">
-    <button class="plan-tab-btn active" onclick="switchPlan('lj',this)">Lundi &amp; Jeudi — 8h00</button>
+    <button class="plan-tab-btn active" onclick="switchPlan('lj',this)">Lun &amp; Jeu — 8h00</button>
     <button class="plan-tab-btn" onclick="switchPlan('sam',this)">Samedi — 11h00</button>
+    <button class="plan-tab-btn" onclick="switchPlan('repos',this)">Jour de repos</button>
   </div>
 
-  <!-- ── PLAN LUNDI / JEUDI 8h ── -->
+  <!-- ── PLAN LJ (généré depuis le plan canonique) ── -->
   <div class="meal-timeline" id="plan-lj">
 
     <div class="meal-item">
       <div class="meal-time-col">
         <div class="meal-time-bubble green">6h30</div>
-        <div class="meal-time-label">Pré-workout</div>
+        <div class="meal-time-label">Pré-séance</div>
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">Pré-workout léger — 90 min avant la séance</div>
-          <div class="meal-kcal" style="color:var(--green)">~260 kcal<span class="meal-prix">~1.15€</span></div>
+          <div class="meal-name">Pré-séance léger — 90 min avant</div>
+          <div class="meal-kcal" style="color:var(--green)">~305 kcal<span class="meal-prix">~1.10€</span></div>
         </div>
         <div class="meal-macros-row">
-          <div class="meal-macro-pill p">P: 11g</div>
-          <div class="meal-macro-pill c">G: 43g</div>
-          <div class="meal-macro-pill f">L: 5g</div>
+          <div class="meal-macro-pill p">P: 12g</div>
+          <div class="meal-macro-pill c">G: 46g</div>
+          <div class="meal-macro-pill f">L: 8g</div>
         </div>
         <ul class="meal-foods">
-          <li>1 banane mûre (énergie rapide, facile à digérer)</li>
-          <li>30g flocons d'avoine sèche ou 2 galettes de riz</li>
-          <li>1 œuf dur (protéines légères)</li>
-          <li>5g Créatine ON Micronized dans un verre d'eau</li>
+          <li>1 banane mûre</li>
+          <li>30 g de flocons d'avoine (ou 2 galettes de riz)</li>
+          <li>1 œuf dur</li>
+          <li>5 g de créatine dans un verre d'eau</li>
+          <li>Collagène 10-15 g + vitamine C (½ orange ou 1 kiwi) — 30-60 min avant la séance</li>
         </ul>
-        <div class="meal-note">Intentionnellement léger — ventre trop plein à 6h30 = nausées pendant la séance. L'objectif est juste d'avoir du carburant, pas de te rassasier.</div>
+        <div class="meal-note">Volontairement léger : à 6h30, un estomac plein = nausées pendant la séance. Le collagène (~40 kcal) n'est pas compté dans les protéines : il ne sert pas à construire le muscle.</div>
       </div>
     </div>
 
@@ -1644,63 +1668,64 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">Pendant la Séance — Push / Pull / V-Shape</div>
+          <div class="meal-name">Pendant la séance</div>
           <div class="meal-kcal" style="color:var(--gold)">Hydratation</div>
         </div>
         <ul class="meal-foods">
-          <li>500–750ml d'eau plate pendant la séance (1h15 environ)</li>
-          <li>Sips réguliers toutes les 15–20 min — pas de grandes quantités d'un coup</li>
-          <li>Pas de shaker whey pendant la séance (inutile et digestivement lourd)</li>
+          <li>500–750 ml d'eau par petites gorgées (séance ~1h15)</li>
+          <li>Café noir 30-45 min avant si tu en as l'habitude (≤ 200 mg de caféine)</li>
+          <li>Pas de shaker pendant l'effort : inutile</li>
         </ul>
       </div>
     </div>
 
     <div class="meal-item">
       <div class="meal-time-col">
-        <div class="meal-time-bubble purple">9h30</div>
-        <div class="meal-time-label">Post-workout</div>
+        <div class="meal-time-bubble purple">9h20</div>
+        <div class="meal-time-label">Post-séance</div>
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">Shaker Post-Workout — Dans les 30 min</div>
-          <div class="meal-kcal" style="color:var(--fat)">~330 kcal<span class="meal-prix">~1.55€</span></div>
+          <div class="meal-name">Shaker post-séance</div>
+          <div class="meal-kcal" style="color:var(--fat)">~335 kcal<span class="meal-prix">~1.55€</span></div>
         </div>
         <div class="meal-macros-row">
           <div class="meal-macro-pill p">P: 32g</div>
           <div class="meal-macro-pill c">G: 40g</div>
-          <div class="meal-macro-pill f">L: 4g</div>
+          <div class="meal-macro-pill f">L: 5g</div>
         </div>
         <ul class="meal-foods">
-          <li>1 scoop ON Gold Standard Whey (24g protéines)</li>
-          <li>200ml lait demi-écrémé ou eau froide</li>
-          <li>1 banane — recharge glycogène immédiate</li>
+          <li>1 dose de whey (24 g de protéines)</li>
+          <li>200 ml de lait demi-écrémé (ou eau)</li>
+          <li>1 banane</li>
         </ul>
-        <div class="meal-note">Priorité absolue dès la sortie de la salle. La fenêtre post-workout est ouverte — profite-en. Prépare le shaker à l'avance.</div>
+        <div class="meal-note">Pratique, pas magique : ce qui compte surtout, c'est d'avoir ~30-40 g de protéines dans les 2 h autour de la séance. Prépare-le dans ton sac.</div>
       </div>
     </div>
 
     <div class="meal-item">
       <div class="meal-time-col">
-        <div class="meal-time-bubble green">11h00</div>
+        <div class="meal-time-bubble blue">11h00</div>
         <div class="meal-time-label">Petit-déj</div>
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">Vrai Petit-Déjeuner — Repas post-workout complet</div>
-          <div class="meal-kcal" style="color:var(--green)">~510 kcal<span class="meal-prix">~2.05€</span></div>
+          <div class="meal-name">Vrai petit-déjeuner</div>
+          <div class="meal-kcal" style="color:var(--carbs)">~520 kcal<span class="meal-prix">~2.20€</span></div>
         </div>
         <div class="meal-macros-row">
-          <div class="meal-macro-pill p">P: 28g</div>
-          <div class="meal-macro-pill c">G: 81g</div>
-          <div class="meal-macro-pill f">L: 8g</div>
+          <div class="meal-macro-pill p">P: 29g</div>
+          <div class="meal-macro-pill c">G: 72g</div>
+          <div class="meal-macro-pill f">L: 13g</div>
         </div>
         <ul class="meal-foods">
-          <li>60g flocons d'avoine (cuits à l'eau ou lait végétal)</li>
-          <li>150g skyr nature ou fromage blanc 0%</li>
-          <li>1 cuillère à café de miel + fruits rouges 80g</li>
-          <li>1 dose Opti-Men avec ce repas</li>
+          <li>70 g de flocons d'avoine (eau ou lait végétal)</li>
+          <li>150 g de skyr nature</li>
+          <li>1 c. à soupe de miel + 80 g de fruits rouges</li>
+          <li>15 g d'amandes ou de noix</li>
+          <li>Stack du matin avec ce repas (il contient des graisses) : D3+K2 · 2 caps Oméga-3 · 3 comprimés Opti-Men</li>
         </ul>
-        <div class="meal-note">Opti-Men ici : les vitamines liposolubles (A, D, E, K) s'absorbent avec les lipides du skyr. Ce repas complète la fenêtre post-workout ouverte à 9h30.</div>
+        <div class="meal-note">Les amandes apportent les graisses nécessaires pour absorber la vitamine D, la K2 et les vitamines de l'Opti-Men.</div>
       </div>
     </div>
 
@@ -1711,67 +1736,67 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">Déjeuner — Repas complet équilibré</div>
-          <div class="meal-kcal" style="color:var(--carbs)">~650 kcal<span class="meal-prix">~1.80–2.15€</span></div>
+          <div class="meal-name">Déjeuner complet</div>
+          <div class="meal-kcal" style="color:var(--carbs)">~655 kcal<span class="meal-prix">~2.00€</span></div>
         </div>
         <div class="meal-macros-row">
-          <div class="meal-macro-pill p">P: 42g</div>
-          <div class="meal-macro-pill c">G: 80g</div>
-          <div class="meal-macro-pill f">L: 18g</div>
+          <div class="meal-macro-pill p">P: 47g</div>
+          <div class="meal-macro-pill c">G: 88g</div>
+          <div class="meal-macro-pill f">L: 13g</div>
         </div>
         <ul class="meal-foods">
-          <li>150g blanc de poulet grillé (ou thon 120g)</li>
-          <li>90g riz basmati cru → ~225g cuit</li>
-          <li>200g légumes variés (haricots verts, courgettes, brocoli)</li>
-          <li>1 c. à soupe huile d'olive</li>
+          <li>150 g de blanc de poulet (ou 2 boîtes de thon)</li>
+          <li>100 g de riz basmati cru (~250 g cuit)</li>
+          <li>200 g de légumes (haricots verts, courgettes, brocoli)</li>
+          <li>1 c. à soupe d'huile d'olive</li>
         </ul>
-        <div class="meal-note">Mange lentement, mâche bien. Évite les boissons gazeuses — réduit le ballonnement abdominal (important pour le vacuum).</div>
+        <div class="meal-note">Mange lentement. Varie la protéine dans la semaine (poulet, thon, dinde, bœuf 5 %, œufs) — voir le Top 50.</div>
       </div>
     </div>
 
     <div class="meal-item">
       <div class="meal-time-col">
-        <div class="meal-time-bubble gold">16h30</div>
+        <div class="meal-time-bubble green">16h30</div>
         <div class="meal-time-label">Collation</div>
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">Collation Après-Midi</div>
-          <div class="meal-kcal" style="color:var(--gold)">~395 kcal<span class="meal-prix">~1.30€</span></div>
+          <div class="meal-name">Collation de l'après-midi</div>
+          <div class="meal-kcal" style="color:var(--green)">~375 kcal<span class="meal-prix">~1.30€</span></div>
         </div>
         <div class="meal-macros-row">
-          <div class="meal-macro-pill p">P: 23g</div>
-          <div class="meal-macro-pill c">G: 55g</div>
-          <div class="meal-macro-pill f">L: 9g</div>
+          <div class="meal-macro-pill p">P: 19g</div>
+          <div class="meal-macro-pill c">G: 48g</div>
+          <div class="meal-macro-pill f">L: 12g</div>
         </div>
         <ul class="meal-foods">
-          <li>100g cottage cheese</li>
-          <li>2 tranches pain complet</li>
-          <li>10g beurre de cacahuète (protéines + lipides sains)</li>
-          <li>1 pomme (glucides intermédiaires avant le dîner)</li>
+          <li>100 g de cottage cheese</li>
+          <li>2 tranches de pain complet</li>
+          <li>10 g de beurre de cacahuète</li>
+          <li>1 pomme ou poire</li>
         </ul>
       </div>
     </div>
 
     <div class="meal-item">
       <div class="meal-time-col">
-        <div class="meal-time-bubble blue">19h30</div>
+        <div class="meal-time-bubble purple">19h30</div>
         <div class="meal-time-label">Dîner</div>
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">Dîner — Récupération nocturne</div>
-          <div class="meal-kcal" style="color:var(--carbs)">~590 kcal<span class="meal-prix">~2.20–3.90€</span></div>
+          <div class="meal-name">Dîner</div>
+          <div class="meal-kcal" style="color:var(--fat)">~500 kcal<span class="meal-prix">~3.60€</span></div>
         </div>
         <div class="meal-macros-row">
           <div class="meal-macro-pill p">P: 34g</div>
-          <div class="meal-macro-pill c">G: 43g</div>
-          <div class="meal-macro-pill f">L: 31g</div>
+          <div class="meal-macro-pill c">G: 50g</div>
+          <div class="meal-macro-pill f">L: 18g</div>
         </div>
         <ul class="meal-foods">
-          <li>150g saumon ou maquereau (oméga-3 pour la récupération)</li>
-          <li>200g patate douce rôtie au four</li>
-          <li>Salade verte + 1 c. à soupe huile d'olive</li>
+          <li>150 g de saumon ou maquereau (2-3×/semaine — sinon 180 g de cabillaud ou poulet + 1 c. à soupe d'huile)</li>
+          <li>250 g de patate douce rôtie</li>
+          <li>Salade verte, vinaigrette citron-moutarde</li>
         </ul>
       </div>
     </div>
@@ -1783,37 +1808,41 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">ZMA — 30-60 min avant de dormir</div>
-          <div class="meal-kcal" style="color:var(--fat)">Compléments<span class="meal-prix">~0.20€</span></div>
+          <div class="meal-name">Compléments du soir</div>
+          <div class="meal-kcal" style="color:var(--fat)">Compléments<span class="meal-prix">~0.30€</span></div>
         </div>
         <ul class="meal-foods">
-          <li>ZMA MyProtein : dose selon étiquette (zinc + magnésium)</li>
-          <li>À prendre à jeun ou 2h après le dîner — loin de tout calcium</li>
-          <li>Le magnésium améliore la qualité du sommeil et la récupération musculaire</li>
+          <li>ZMA : 1 gélule (dose de l'étiquette — jamais plus)</li>
+          <li>Ashwagandha 600 mg (cycle 8 semaines ON / 4 OFF)</li>
+          <li>À prendre 2 h après le dîner, sans produit laitier (le calcium gêne l'absorption du zinc)</li>
         </ul>
-        <div class="meal-note">Le calcium inhibe l'absorption du zinc. ZMA + produits laitiers = perte d'efficacité. Respecte le timing.</div>
+        <div class="meal-note">Ne rajoute pas de magnésium ni de zinc en plus : avec l'Opti-Men, ton zinc est déjà couvert.</div>
       </div>
     </div>
 
+    <div class="plan-total">
+      <div class="plan-total-lbl">Total de la journée</div>
+      <div class="plan-total-val">≈ 2 690 kcal · P 173 g · G 344 g · L 69 g</div>
+      <div class="plan-total-sub">Cible 2 650 kcal · P 160 · G 345 · L 70 — écart < 2 % : dans la marge de précision des étiquettes.</div>
+    </div>
   </div><!-- /plan-lj -->
 
-  <!-- ── PLAN SAMEDI 11h ── -->
+  <!-- ── PLAN SAM (généré depuis le plan canonique) ── -->
   <div class="meal-timeline" id="plan-sam" style="display:none">
 
     <div class="meal-item">
       <div class="meal-time-col">
-        <div class="meal-time-bubble green">8h30</div>
+        <div class="meal-time-bubble gold">8h30</div>
         <div class="meal-time-label">Réveil</div>
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">Réveil — Hydratation + mise en route</div>
-          <div class="meal-kcal" style="color:var(--green)">Eau</div>
+          <div class="meal-name">Réveil</div>
+          <div class="meal-kcal" style="color:var(--gold)">Hydratation</div>
         </div>
         <ul class="meal-foods">
-          <li>500ml d'eau dès le réveil (réhydratation nocturne)</li>
-          <li>Café ou thé si habitude — sans sucre ni lait</li>
-          <li>Le vrai repas pré-workout est à 9h30 — ne grignote pas avant</li>
+          <li>500 ml d'eau</li>
+          <li>Café ou thé sans sucre si habitude</li>
         </ul>
       </div>
     </div>
@@ -1821,26 +1850,27 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
     <div class="meal-item">
       <div class="meal-time-col">
         <div class="meal-time-bubble green">9h30</div>
-        <div class="meal-time-label">Pré-workout</div>
+        <div class="meal-time-label">Petit-déj</div>
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">Petit-Déjeuner Pré-Workout — 90 min avant la séance</div>
-          <div class="meal-kcal" style="color:var(--green)">~625 kcal<span class="meal-prix">~2.55€</span></div>
+          <div class="meal-name">Petit-déjeuner pré-séance — 90 min avant</div>
+          <div class="meal-kcal" style="color:var(--green)">~675 kcal<span class="meal-prix">~2.70€</span></div>
         </div>
         <div class="meal-macros-row">
-          <div class="meal-macro-pill p">P: 40g</div>
-          <div class="meal-macro-pill c">G: 98g</div>
-          <div class="meal-macro-pill f">L: 8g</div>
+          <div class="meal-macro-pill p">P: 37g</div>
+          <div class="meal-macro-pill c">G: 100g</div>
+          <div class="meal-macro-pill f">L: 14g</div>
         </div>
         <ul class="meal-foods">
-          <li>80g flocons d'avoine (cuits à l'eau ou lait végétal)</li>
-          <li>200g skyr nature — protéines complètes</li>
-          <li>1 banane tranchée + 1 c. à soupe de miel</li>
-          <li>1 dose Opti-Men avec ce repas</li>
-          <li>5g Créatine ON Micronized dans un verre d'eau</li>
+          <li>80 g de flocons d'avoine</li>
+          <li>200 g de skyr nature</li>
+          <li>1 banane + 1 c. à soupe de miel</li>
+          <li>15 g d'amandes</li>
+          <li>Stack du matin avec ce repas (il contient des graisses) : D3+K2 · 2 caps Oméga-3 · 3 comprimés Opti-Men</li>
+          <li>5 g de créatine + collagène 10-15 g avec vitamine C</li>
         </ul>
-        <div class="meal-note">C'est le seul jour où tu peux prendre un vrai petit-déj pré-workout sans te lever à l'aube. Profite de ce confort — repas complet 90 min avant = performance optimale.</div>
+        <div class="meal-note">Seul jour avec un vrai repas complet avant la séance : profites-en, c'est la séance la plus longue.</div>
       </div>
     </div>
 
@@ -1851,38 +1881,38 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">V-Shape — Épaules 3D · Dos · Bras</div>
+          <div class="meal-name">Pendant la séance</div>
           <div class="meal-kcal" style="color:var(--gold)">Hydratation</div>
         </div>
         <ul class="meal-foods">
-          <li>500–750ml d'eau plate pendant la séance</li>
-          <li>Séance la plus longue de la semaine (~1h30) — hydrate bien</li>
-          <li>Pas de shaker whey pendant l'effort</li>
+          <li>500–750 ml d'eau par petites gorgées (séance ~1h30)</li>
+          <li>Café noir 30-45 min avant si tu en as l'habitude (≤ 200 mg de caféine)</li>
+          <li>Pas de shaker pendant l'effort : inutile</li>
         </ul>
       </div>
     </div>
 
     <div class="meal-item">
       <div class="meal-time-col">
-        <div class="meal-time-bubble purple">12h30</div>
-        <div class="meal-time-label">Post-workout</div>
+        <div class="meal-time-bubble purple">12h40</div>
+        <div class="meal-time-label">Post-séance</div>
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">Shaker Post-Workout — Dans les 30 min</div>
-          <div class="meal-kcal" style="color:var(--fat)">~350 kcal<span class="meal-prix">~2.55€</span></div>
+          <div class="meal-name">Shaker post-séance</div>
+          <div class="meal-kcal" style="color:var(--fat)">~335 kcal<span class="meal-prix">~1.55€</span></div>
         </div>
         <div class="meal-macros-row">
-          <div class="meal-macro-pill p">P: 48g</div>
-          <div class="meal-macro-pill c">G: 33g</div>
-          <div class="meal-macro-pill f">L: 3g</div>
+          <div class="meal-macro-pill p">P: 32g</div>
+          <div class="meal-macro-pill c">G: 40g</div>
+          <div class="meal-macro-pill f">L: 5g</div>
         </div>
         <ul class="meal-foods">
-          <li>2 scoops ON Gold Standard Whey</li>
-          <li>250ml eau froide</li>
-          <li>1 banane optionnelle si faim intense</li>
+          <li>1 dose de whey (24 g de protéines)</li>
+          <li>200 ml de lait demi-écrémé (ou eau)</li>
+          <li>1 banane</li>
         </ul>
-        <div class="meal-note">Fenêtre post-workout ouverte — shaker immédiat puis déjeuner complet 1h après. <strong>Note :</strong> le samedi tourne naturellement plus protéiné (~200g, à cause des 2 scoops + de la séance la plus longue) et un peu moins en glucides que Lun/Jeu — calories équivalentes (~2 600), répartition adaptée à la charge du jour.</div>
+        <div class="meal-note">Pratique, pas magique : ce qui compte surtout, c'est d'avoir ~30-40 g de protéines dans les 2 h autour de la séance. Prépare-le dans ton sac.</div>
       </div>
     </div>
 
@@ -1893,40 +1923,43 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">Déjeuner Post-Workout Complet</div>
-          <div class="meal-kcal" style="color:var(--carbs)">~650 kcal<span class="meal-prix">~1.80–2.15€</span></div>
+          <div class="meal-name">Déjeuner complet</div>
+          <div class="meal-kcal" style="color:var(--carbs)">~655 kcal<span class="meal-prix">~2.00€</span></div>
         </div>
         <div class="meal-macros-row">
-          <div class="meal-macro-pill p">P: 42g</div>
-          <div class="meal-macro-pill c">G: 80g</div>
-          <div class="meal-macro-pill f">L: 18g</div>
+          <div class="meal-macro-pill p">P: 47g</div>
+          <div class="meal-macro-pill c">G: 88g</div>
+          <div class="meal-macro-pill f">L: 13g</div>
         </div>
         <ul class="meal-foods">
-          <li>150g blanc de poulet ou thon 120g</li>
-          <li>90g riz basmati cru → ~225g cuit</li>
-          <li>200g légumes variés + 1 c. à soupe huile d'olive</li>
+          <li>150 g de blanc de poulet (ou 2 boîtes de thon)</li>
+          <li>100 g de riz basmati cru (~250 g cuit)</li>
+          <li>200 g de légumes (haricots verts, courgettes, brocoli)</li>
+          <li>1 c. à soupe d'huile d'olive</li>
         </ul>
+        <div class="meal-note">Mange lentement. Varie la protéine dans la semaine (poulet, thon, dinde, bœuf 5 %, œufs) — voir le Top 50.</div>
       </div>
     </div>
 
     <div class="meal-item">
       <div class="meal-time-col">
-        <div class="meal-time-bubble gold">17h00</div>
+        <div class="meal-time-bubble green">17h00</div>
         <div class="meal-time-label">Collation</div>
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">Collation Après-Midi</div>
-          <div class="meal-kcal" style="color:var(--gold)">~350 kcal<span class="meal-prix">~1.35€</span></div>
+          <div class="meal-name">Collation de l'après-midi</div>
+          <div class="meal-kcal" style="color:var(--green)">~375 kcal<span class="meal-prix">~1.30€</span></div>
         </div>
         <div class="meal-macros-row">
-          <div class="meal-macro-pill p">P: 25g</div>
-          <div class="meal-macro-pill c">G: 40g</div>
-          <div class="meal-macro-pill f">L: 9g</div>
+          <div class="meal-macro-pill p">P: 19g</div>
+          <div class="meal-macro-pill c">G: 48g</div>
+          <div class="meal-macro-pill f">L: 12g</div>
         </div>
         <ul class="meal-foods">
-          <li>100g cottage cheese</li>
-          <li>2 tranches pain complet + 15g beurre de cacahuète</li>
+          <li>100 g de cottage cheese</li>
+          <li>2 tranches de pain complet</li>
+          <li>10 g de beurre de cacahuète</li>
           <li>1 pomme ou poire</li>
         </ul>
       </div>
@@ -1934,24 +1967,24 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 
     <div class="meal-item">
       <div class="meal-time-col">
-        <div class="meal-time-bubble blue">20h00</div>
+        <div class="meal-time-bubble purple">20h00</div>
         <div class="meal-time-label">Dîner</div>
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">Dîner — Récupération &amp; Sommeil</div>
-          <div class="meal-kcal" style="color:var(--carbs)">~635 kcal<span class="meal-prix">~2.65–4.35€</span></div>
+          <div class="meal-name">Dîner</div>
+          <div class="meal-kcal" style="color:var(--fat)">~610 kcal<span class="meal-prix">~4.10€</span></div>
         </div>
         <div class="meal-macros-row">
-          <div class="meal-macro-pill p">P: 47g</div>
-          <div class="meal-macro-pill c">G: 44g</div>
-          <div class="meal-macro-pill f">L: 30g</div>
+          <div class="meal-macro-pill p">P: 46g</div>
+          <div class="meal-macro-pill c">G: 41g</div>
+          <div class="meal-macro-pill f">L: 29g</div>
         </div>
         <ul class="meal-foods">
-          <li>150g saumon ou maquereau (oméga-3 pour la récupération)</li>
-          <li>200g patate douce rôtie</li>
-          <li>Salade verte nature (vinaigrette citron)</li>
-          <li>2 œufs brouillés (protéines + graisses saines supplémentaires)</li>
+          <li>150 g de saumon ou maquereau</li>
+          <li>200 g de patate douce rôtie</li>
+          <li>2 œufs brouillés</li>
+          <li>Salade verte, vinaigrette citron</li>
         </ul>
       </div>
     </div>
@@ -1963,19 +1996,152 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
       </div>
       <div class="meal-card">
         <div class="meal-header">
-          <div class="meal-name">ZMA — 30-60 min avant de dormir</div>
-          <div class="meal-kcal" style="color:var(--fat)">Compléments<span class="meal-prix">~0.20€</span></div>
+          <div class="meal-name">Compléments du soir</div>
+          <div class="meal-kcal" style="color:var(--fat)">Compléments<span class="meal-prix">~0.30€</span></div>
         </div>
         <ul class="meal-foods">
-          <li>ZMA MyProtein : dose selon étiquette</li>
-          <li>À jeun ou 2h après le dîner — loin de tout calcium</li>
-          <li>Le magnésium améliore la qualité du sommeil et la récupération</li>
+          <li>ZMA : 1 gélule (dose de l'étiquette — jamais plus)</li>
+          <li>Ashwagandha 600 mg (cycle 8 semaines ON / 4 OFF)</li>
+          <li>À prendre 2 h après le dîner, sans produit laitier (le calcium gêne l'absorption du zinc)</li>
         </ul>
-        <div class="meal-note">Le calcium inhibe l'absorption du zinc. Respecte le timing.</div>
+        <div class="meal-note">Ne rajoute pas de magnésium ni de zinc en plus : avec l'Opti-Men, ton zinc est déjà couvert.</div>
       </div>
     </div>
 
+    <div class="plan-total">
+      <div class="plan-total-lbl">Total de la journée</div>
+      <div class="plan-total-val">≈ 2 650 kcal · P 181 g · G 317 g · L 73 g</div>
+      <div class="plan-total-sub">Cible 2 650 kcal · P 160 · G 345 · L 70 — le samedi tourne un peu plus protéiné et un peu moins glucidique : calories identiques, aucun souci.</div>
+    </div>
   </div><!-- /plan-sam -->
+
+  <!-- ── PLAN REPOS (généré depuis le plan canonique) ── -->
+  <div class="meal-timeline" id="plan-repos" style="display:none">
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble green">8h00</div>
+        <div class="meal-time-label">Petit-déj</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Petit-déjeuner</div>
+          <div class="meal-kcal" style="color:var(--green)">~505 kcal<span class="meal-prix">~2.40€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 39g</div>
+          <div class="meal-macro-pill c">G: 49g</div>
+          <div class="meal-macro-pill f">L: 17g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>250 g de skyr nature</li>
+          <li>50 g de flocons d'avoine</li>
+          <li>25 g d'amandes</li>
+          <li>80 g de fruits rouges</li>
+          <li>Stack du matin avec ce repas (il contient des graisses) : D3+K2 · 2 caps Oméga-3 · 3 comprimés Opti-Men</li>
+          <li>5 g de créatine (tous les jours, même au repos)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble blue">12h30</div>
+        <div class="meal-time-label">Déjeuner</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Déjeuner</div>
+          <div class="meal-kcal" style="color:var(--carbs)">~595 kcal<span class="meal-prix">~1.90€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 46g</div>
+          <div class="meal-macro-pill c">G: 74g</div>
+          <div class="meal-macro-pill f">L: 13g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>150 g de blanc de poulet (ou poisson, dinde, bœuf 5 %)</li>
+          <li>80 g de riz basmati cru (~200 g cuit)</li>
+          <li>250 g de légumes</li>
+          <li>1 c. à soupe d'huile d'olive</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble green">16h30</div>
+        <div class="meal-time-label">Collation</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Collation</div>
+          <div class="meal-kcal" style="color:var(--green)">~445 kcal<span class="meal-prix">~1.70€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 41g</div>
+          <div class="meal-macro-pill c">G: 39g</div>
+          <div class="meal-macro-pill f">L: 14g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>1 dose de whey dans l'eau</li>
+          <li>2 œufs durs</li>
+          <li>1 pomme</li>
+          <li>1 tranche de pain complet</li>
+        </ul>
+        <div class="meal-note">La whey n'est pas réservée aux jours de séance : elle sert ici à atteindre les 160 g de protéines sans exploser les calories.</div>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble purple">20h00</div>
+        <div class="meal-time-label">Dîner</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Dîner</div>
+          <div class="meal-kcal" style="color:var(--fat)">~565 kcal<span class="meal-prix">~3.90€</span></div>
+        </div>
+        <div class="meal-macros-row">
+          <div class="meal-macro-pill p">P: 44g</div>
+          <div class="meal-macro-pill c">G: 32g</div>
+          <div class="meal-macro-pill f">L: 29g</div>
+        </div>
+        <ul class="meal-foods">
+          <li>150 g de saumon ou maquereau (sinon 180 g de poisson blanc + 1 c. à soupe d'huile en plus)</li>
+          <li>100 g de lentilles cuites</li>
+          <li>250 g de légumes rôtis</li>
+          <li>1 c. à soupe d'huile d'olive</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="meal-item">
+      <div class="meal-time-col">
+        <div class="meal-time-bubble purple">22h30</div>
+        <div class="meal-time-label">Coucher</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">Compléments du soir</div>
+          <div class="meal-kcal" style="color:var(--fat)">Compléments<span class="meal-prix">~0.30€</span></div>
+        </div>
+        <ul class="meal-foods">
+          <li>ZMA : 1 gélule (dose de l'étiquette — jamais plus)</li>
+          <li>Ashwagandha 600 mg (cycle 8 semaines ON / 4 OFF)</li>
+          <li>À prendre 2 h après le dîner, sans produit laitier (le calcium gêne l'absorption du zinc)</li>
+        </ul>
+        <div class="meal-note">Ne rajoute pas de magnésium ni de zinc en plus : avec l'Opti-Men, ton zinc est déjà couvert.</div>
+      </div>
+    </div>
+
+    <div class="plan-total">
+      <div class="plan-total-lbl">Total de la journée</div>
+      <div class="plan-total-val">≈ 2 110 kcal · P 170 g · G 194 g · L 73 g</div>
+      <div class="plan-total-sub">Cible 2 100 kcal · P 160 · G 197 · L 75 — le vendredi (ping-pong) : ajoute 1 banane + 1 tranche de pain avant le club (~+150 kcal).</div>
+    </div>
+  </div><!-- /plan-repos -->
 
 </div>
 
@@ -1984,79 +2150,117 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 <!-- SECTION 5 : COMPLÉMENTS ALIMENTAIRES -->
 <div class="section" id="sec-complements">
   <div class="section-label">Compléments Alimentaires</div>
-  <div class="section-title">Tes Compléments Alimentaires</div>
-  <div class="section-sub">Doses, timing et protocoles précis pour maximiser l'efficacité de chaque complément tout en évitant les interactions.</div>
+  <div class="section-title">Tes 8 Compléments — Dans l'Ordre d'Importance</div>
+  <div class="section-sub">Doses vérifiées sur les étiquettes, timing et interactions. Les compléments ne représentent que quelques pourcents du résultat : entraînement, protéines, sommeil et régularité font le reste.</div>
+
+  <div class="supp-safety reveal">
+    <div class="supp-safety-title">🛡️ Bilan de sécurité de ton stack (par jour)</div>
+    <div class="supp-safety-grid">
+      <div><b>Vitamine D</b><span>Opti-Men ~1 500 UI + D3 2 000 UI = <strong>~3 500 UI</strong></span><em>Limite UE : 4 000 UI ✓</em></div>
+      <div><b>Zinc</b><span>Opti-Men 12-15 mg + ZMA 10 mg = <strong>~25 mg</strong> (+ ~10 mg via l'alimentation)</span><em>Limite USA 40 mg ✓ · repère UE 25 mg : ne rien ajouter de plus</em></div>
+      <div><b>Magnésium (compléments)</b><span>Opti-Men 80 mg + ZMA 150 mg = <strong>~230 mg</strong></span><em>Repère UE 250 mg ✓ — pas de magnésium en plus</em></div>
+    </div>
+    <div class="supp-safety-note">⚠️ Corrigé : l'ancienne version de l'app indiquait 3 gélules de ZMA (= 30 mg de zinc) et 3 000 UI de D3 en plus de l'Opti-Men — ce qui dépassait les limites de sécurité.</div>
+  </div>
 
   <div class="supp-grid reveal">
+
+    <div class="supp-card creatine">
+      <div class="supp-icon">⚡</div>
+      <div class="supp-brand">Optimum Nutrition</div>
+      <div class="supp-name">Créatine monohydrate</div>
+      <div class="supp-prio supp-prio-3">★★★<span style="opacity:.25"></span> Prioritaire</div>
+      <div class="supp-timing-list">
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag dose">Dose</span>
+          <div class="supp-timing-text">5 g par jour, <strong>tous les jours</strong> (repos compris). Pas de phase de charge nécessaire.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag quand">Quand</span>
+          <div class="supp-timing-text">N'importe quand — la régularité compte plus que l'horaire. Jours de séance : avec le pré-séance.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag tip">Effet</span>
+          <div class="supp-timing-text">Le complément le plus prouvé : +5 à 10 % de force et de volume d'entraînement en moyenne, donc plus de muscle à terme.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag warn">À savoir</span>
+          <div class="supp-timing-text">+0,5 à 1,5 kg sur la balance le 1er mois (eau dans le muscle) : normal, ce n'est pas du gras.</div>
+        </div>
+      </div>
+    </div>
 
     <div class="supp-card whey">
       <div class="supp-icon">🥤</div>
       <div class="supp-brand">Optimum Nutrition</div>
       <div class="supp-name">Gold Standard Whey</div>
+      <div class="supp-prio supp-prio-3">★★★<span style="opacity:.25"></span> Prioritaire</div>
       <div class="supp-timing-list">
         <div class="supp-timing-row">
           <span class="supp-timing-tag dose">Dose</span>
-          <div class="supp-timing-text">1 à 2 scoops (30-60g) selon les besoins du jour. 1 scoop = 24g protéines.</div>
+          <div class="supp-timing-text">1 dose (30 g = 24 g de protéines) par jour en général, 2 maximum.</div>
         </div>
         <div class="supp-timing-row">
           <span class="supp-timing-tag quand">Quand</span>
-          <div class="supp-timing-text"><strong>Post-workout obligatoire</strong> dans les 45 min. Optionnel au réveil si le petit-déj est léger.</div>
+          <div class="supp-timing-text">Après la séance les jours d'entraînement · en collation les jours de repos (voir plan).</div>
         </div>
         <div class="supp-timing-row">
-          <span class="supp-timing-tag tip">Conseil</span>
-          <div class="supp-timing-text">Shaker avec eau froide pour digestion rapide. Avec lait pour digestion plus lente (avant dodo si besoin).</div>
+          <span class="supp-timing-tag tip">Rôle</span>
+          <div class="supp-timing-text">Un aliment pratique, pas un produit magique : il sert à atteindre 160 g de protéines sans cuisiner plus.</div>
         </div>
         <div class="supp-timing-row">
           <span class="supp-timing-tag warn">Attention</span>
-          <div class="supp-timing-text">Ne remplace pas les repas solides. Complément, pas substitut. Max 2 shakers par jour.</div>
+          <div class="supp-timing-text">Ne remplace pas les repas solides. Lait = plus rassasiant, eau = plus léger.</div>
         </div>
       </div>
     </div>
 
-    <div class="supp-card creatine">
-      <div class="supp-icon">⚡</div>
-      <div class="supp-brand">Optimum Nutrition</div>
-      <div class="supp-name">Creatine Micronized</div>
+    <div class="supp-card opti">
+      <div class="supp-icon">☀️</div>
+      <div class="supp-brand">Nutri&Co</div>
+      <div class="supp-name">Vitamine D3 + K2</div>
+      <div class="supp-prio supp-prio-3">★★★<span style="opacity:.25"></span> Prioritaire</div>
       <div class="supp-timing-list">
         <div class="supp-timing-row">
           <span class="supp-timing-tag dose">Dose</span>
-          <div class="supp-timing-text">5g par jour — TOUS les jours sans exception. Pas besoin de phase de charge pour la monohydrate micronisée.</div>
+          <div class="supp-timing-text"><strong>2 000 UI de D3</strong> (+ K2) — et non 3 000 : l'Opti-Men en apporte déjà ~1 500 UI. Total ≈ 3 500 UI, sous la limite de sécurité européenne (4 000 UI/j).</div>
         </div>
         <div class="supp-timing-row">
           <span class="supp-timing-tag quand">Quand</span>
-          <div class="supp-timing-text">Pré ou post-workout les jours d'entraînement. N'importe quand les jours de repos. <strong>Quotidienneté = clé.</strong></div>
+          <div class="supp-timing-text">Au petit-déjeuner, avec le stack du matin (repas qui contient des graisses).</div>
         </div>
         <div class="supp-timing-row">
-          <span class="supp-timing-tag tip">Mécanisme</span>
-          <div class="supp-timing-text">Augmente les stocks de phosphocréatine dans les muscles → +5-15% force et volume d'entraînement. Effets visibles à 4 semaines.</div>
+          <span class="supp-timing-tag tip">Pourquoi</span>
+          <div class="supp-timing-text">La majorité des Français manquent de vitamine D en hiver. Corriger une carence aide la fonction musculaire, l'immunité et les os.</div>
         </div>
         <div class="supp-timing-row">
-          <span class="supp-timing-tag warn">À savoir</span>
-          <div class="supp-timing-text">Légère rétention d'eau intramusculaire possible (+1-2 kg sur la balance). C'est normal et souhaitable.</div>
+          <span class="supp-timing-tag warn">Idéal</span>
+          <div class="supp-timing-text">Un dosage sanguin de 25-OH vitamine D (prise de sang) permet d'ajuster la dose au lieu de deviner. En été avec du soleil : 1 000 UI suffisent.</div>
         </div>
       </div>
     </div>
 
     <div class="supp-card zma">
-      <div class="supp-icon">🌙</div>
-      <div class="supp-brand">MyProtein</div>
-      <div class="supp-name">Zinc & Magnesium</div>
+      <div class="supp-icon">🐟</div>
+      <div class="supp-brand">WHC</div>
+      <div class="supp-name">Oméga-3 UnoCardio 1000</div>
+      <div class="supp-prio supp-prio-2">★★<span style="opacity:.25">★</span> Utile</div>
       <div class="supp-timing-list">
         <div class="supp-timing-row">
           <span class="supp-timing-tag dose">Dose</span>
-          <div class="supp-timing-text">Selon étiquette MyProtein. Zinc ~10-15mg + Magnésium ~150-200mg par dose.</div>
+          <div class="supp-timing-text">2 capsules par jour (~2 g d'EPA + DHA).</div>
         </div>
         <div class="supp-timing-row">
           <span class="supp-timing-tag quand">Quand</span>
-          <div class="supp-timing-text">30 à 60 min avant de dormir, <strong>à jeun ou 2h après le repas</strong>. Loin de tout calcium.</div>
+          <div class="supp-timing-text">Au petit-déjeuner avec le stack du matin.</div>
         </div>
         <div class="supp-timing-row">
-          <span class="supp-timing-tag tip">Bénéfices</span>
-          <div class="supp-timing-text">Zinc → soutien de la testostérone et de l'immunité (surtout en cas de déficit). Magnésium → qualité du sommeil, récupération musculaire, réduction du cortisol.</div>
+          <span class="supp-timing-tag tip">Pourquoi</span>
+          <div class="supp-timing-text">Santé cardiovasculaire et articulaire. Utile surtout si tu manges moins de 2 poissons gras par semaine.</div>
         </div>
         <div class="supp-timing-row">
-          <span class="supp-timing-tag warn">Interaction</span>
-          <div class="supp-timing-text">Le calcium bloque l'absorption du zinc. Évite lait, fromage, yaourt 2h avant la prise. Zinc total (ZMA + Opti-Men) reste sous 40mg/j : sécuritaire.</div>
+          <span class="supp-timing-tag warn">Astuce</span>
+          <div class="supp-timing-text">Les semaines où tu manges du saumon/maquereau 3× ou plus, 1 capsule suffit.</div>
         </div>
       </div>
     </div>
@@ -2064,23 +2268,99 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
     <div class="supp-card opti">
       <div class="supp-icon">💊</div>
       <div class="supp-brand">Optimum Nutrition</div>
-      <div class="supp-name">Opti-Men Multivitamines</div>
+      <div class="supp-name">Opti-Men (multivitamines)</div>
+      <div class="supp-prio supp-prio-2">★★<span style="opacity:.25">★</span> Utile</div>
       <div class="supp-timing-list">
         <div class="supp-timing-row">
           <span class="supp-timing-tag dose">Dose</span>
-          <div class="supp-timing-text">3 comprimés par jour (dose recommandée Opti-Men). Peut être pris en 1 ou 2 prises.</div>
+          <div class="supp-timing-text">3 comprimés par jour (dose de l'étiquette).</div>
         </div>
         <div class="supp-timing-row">
           <span class="supp-timing-tag quand">Quand</span>
-          <div class="supp-timing-text"><strong>Obligatoirement avec un repas contenant des lipides</strong> (petit-déjeuner ou déjeuner). Vitamines A, D, E, K sont liposolubles.</div>
+          <div class="supp-timing-text">Au petit-déjeuner, avec des graisses (vitamines A, D, E, K liposolubles).</div>
         </div>
         <div class="supp-timing-row">
-          <span class="supp-timing-tag tip">Bénéfices</span>
-          <div class="supp-timing-text">Couvre les carences micronutritionnelles liées à l'entraînement intense : B6, B12, D3, magnésium, zinc, vitamine C, etc.</div>
+          <span class="supp-timing-tag tip">Rôle</span>
+          <div class="supp-timing-text">Une assurance contre les petits manques, pas un booster de performance.</div>
         </div>
         <div class="supp-timing-row">
-          <span class="supp-timing-tag warn">Doublons</span>
-          <div class="supp-timing-text">Opti-Men contient déjà zinc et magnésium. Combiné avec ZMA : total zinc ~25-28mg (sous la limite 40mg) et magnésium ~290-330mg (sous 350mg) — sécuritaire.</div>
+          <span class="supp-timing-tag warn">Contient déjà</span>
+          <div class="supp-timing-text">Zinc 12-15 mg (100 % des besoins), magnésium 80 mg, D3 ~1 500 UI — d'où les doses ajustées du ZMA et de la D3.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="supp-card zma">
+      <div class="supp-icon">🌙</div>
+      <div class="supp-brand">MyProtein</div>
+      <div class="supp-name">ZMA (zinc + magnésium + B6)</div>
+      <div class="supp-prio supp-prio-1">★<span style="opacity:.25">★★</span> Optionnel</div>
+      <div class="supp-timing-list">
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag dose">Dose</span>
+          <div class="supp-timing-text"><strong>1 gélule par soir</strong> = dose de l'étiquette (10 mg de zinc, 150 mg de magnésium). Jamais 3.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag quand">Quand</span>
+          <div class="supp-timing-text">30-60 min avant de dormir, 2 h après le dîner, sans produit laitier (le calcium gêne l'absorption du zinc).</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag tip">Effet</span>
+          <div class="supp-timing-text">Le magnésium peut aider le sommeil. Le zinc n'augmente la testostérone qu'en cas de carence — et l'Opti-Men la couvre déjà.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag warn">Conseil</span>
+          <div class="supp-timing-text">Quand le pot est fini : remplace-le par du <strong>magnésium bisglycinate seul</strong> (~150-200 mg) — ton zinc est déjà couvert.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="supp-card creatine">
+      <div class="supp-icon">🦴</div>
+      <div class="supp-brand">Vital Proteins</div>
+      <div class="supp-name">Collagène + vitamine C</div>
+      <div class="supp-prio supp-prio-1">★<span style="opacity:.25">★★</span> Optionnel</div>
+      <div class="supp-timing-list">
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag dose">Dose</span>
+          <div class="supp-timing-text">10-15 g de collagène + ~50-100 mg de vitamine C (½ orange ou 1 kiwi suffit).</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag quand">Quand</span>
+          <div class="supp-timing-text">30-60 min avant la séance.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag tip">Pourquoi</span>
+          <div class="supp-timing-text">Peut soutenir les tendons et ligaments (Shaw 2017, petite étude). Ne compte pas dans tes protéines « muscle ».</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag warn">Honnêtement</span>
+          <div class="supp-timing-text">Preuves encore limitées : optionnel. Si budget serré, c'est le premier à retirer.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="supp-card whey">
+      <div class="supp-icon">🌿</div>
+      <div class="supp-brand">Nutri&Co</div>
+      <div class="supp-name">Ashwagandha KSM-66</div>
+      <div class="supp-prio supp-prio-1">★<span style="opacity:.25">★★</span> Optionnel</div>
+      <div class="supp-timing-list">
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag dose">Dose</span>
+          <div class="supp-timing-text">600 mg par jour.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag quand">Quand</span>
+          <div class="supp-timing-text">Le soir. Cycle 8 semaines ON / 4 semaines OFF.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag tip">Effet</span>
+          <div class="supp-timing-text">Stress et sommeil améliorés dans plusieurs études (cortisol ~−25 %), effet modeste sur la force et la testostérone.</div>
+        </div>
+        <div class="supp-timing-row">
+          <span class="supp-timing-tag warn">Prudence</span>
+          <div class="supp-timing-text">À éviter en cas de problème de thyroïde ou de prise de médicaments sédatifs. Stoppe si troubles digestifs.</div>
         </div>
       </div>
     </div>
@@ -2094,12 +2374,12 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 <div class="section" id="sec-hydratation">
   <div class="section-label">Hydratation</div>
   <div class="section-title">L'Eau, Premier Complément</div>
-  <div class="section-sub">La déshydratation à 2% réduit la performance de 10-20%. L'eau est aussi essentielle que tes compléments.</div>
+  <div class="section-sub">Perdre ~2 % de son poids en eau suffit à faire baisser la performance (surtout l'endurance) et la concentration. Repère simple : urines jaune pâle.</div>
 
   <div class="hydration-block reveal">
     <div class="hydration-left">
-      <h3>3.5 L<br>par jour</h3>
-      <p>Objectif hydratation pour un athlète de 71 kg en recomposition avec 3 séances par semaine (lun/jeu/sam). Adapter selon la transpiration et la chaleur.</p>
+      <h3>3 à 3,5 L<br>par jour</h3>
+      <p>Boissons, pour 71 kg et 3 séances par semaine (lun/jeu/sam). Vise le haut de la fourchette les jours de séance et quand il fait chaud, le bas les jours de repos.</p>
       <br>
       <p style="color:rgba(255,255,255,0.5);font-size:0.82rem;">
         La créatine augmente légèrement les besoins en eau (elle retient l'eau intramusculaire). Une bonne hydratation accompagne donc sa prise quotidienne.
@@ -2147,64 +2427,74 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 <!-- SECTION 7 : CONSEILS LEAN BULK -->
 <div class="section" id="sec-conseils">
   <div class="section-label">Stratégie</div>
-  <div class="section-title">Conseils Prise de Masse Propre</div>
-  <div class="section-sub">À 20,5% de masse grasse avec newbie gains disponibles, la recomposition est la stratégie optimale : surplus contrôlé en training, déficit au repos. Prise musculaire et perte de gras simultanées.</div>
+  <div class="section-title">Conseils Recomposition</div>
+  <div class="section-sub">Débutant + 20,5 % de masse grasse = tu peux perdre du gras et construire du muscle en même temps. Conséquence : la balance bouge peu, il faut suivre les bons indicateurs.</div>
+
+  <div class="adjust-box reveal">
+    <div class="adjust-title">🎛️ Ajuster les calories — bilan toutes les 4 semaines</div>
+    <div class="adjust-sub">Compare la moyenne de poids de la semaine 4 à celle de la semaine 1, le tour de taille et ton logbook.</div>
+    <div class="adjust-row"><div class="adjust-ico">✅</div><div class="adjust-if">Taille ↓ · charges ↑ · poids stable (±0,5 kg/mois)</div><div class="adjust-then">Parfait. Ne change rien.</div></div>
+    <div class="adjust-row"><div class="adjust-ico">⬆️</div><div class="adjust-if">Poids qui monte de plus de 0,5 kg/mois ET taille qui ne baisse pas</div><div class="adjust-then">−150 kcal les jours de repos (≈ −35 g de glucides : 45 g de riz cru en moins).</div></div>
+    <div class="adjust-row"><div class="adjust-ico">⬇️</div><div class="adjust-if">Poids qui baisse de plus de 0,5 kg/mois, charges qui stagnent, faim forte</div><div class="adjust-then">+150 kcal les jours de séance (1 banane + 20 g d'avoine en plus).</div></div>
+    <div class="adjust-row"><div class="adjust-ico">⏸️</div><div class="adjust-if">Rien ne bouge depuis 4 semaines (poids, taille, charges)</div><div class="adjust-then">Avant de toucher aux calories : vérifie la pesée réelle des aliments (sous-estimation fréquente de 20-30 %), le sommeil et la régularité des séances.</div></div>
+    <div class="adjust-row"><div class="adjust-ico">🏁</div><div class="adjust-if">Masse grasse ≈ 16 % (fin d'année 1)</div><div class="adjust-then">Passe en prise de masse propre : +150 à 250 kcal/jour, objectif +0,25 à 0,5 kg/mois.</div></div>
+  </div>
 
   <div class="conseils-grid reveal">
     <div class="conseil-card">
       <div class="conseil-icon">⚖️</div>
       <div class="conseil-body">
-        <h4>Pèse-toi 1x/semaine, même jour</h4>
-        <p>Le mardi matin à jeun après les toilettes. Moyenne sur 4 semaines = tendance réelle. Le poids fluctue de ±2kg selon l'hydratation, le glycogène et le sel — ne pas paniquer.</p>
+        <h4>Pèse-toi souvent, juge la moyenne</h4>
+        <p>Idéalement chaque matin (à jeun, après les toilettes), au moins 3 fois par semaine. Ne regarde que la <strong>moyenne de la semaine</strong> : une pesée isolée varie de ±1-2 kg (eau, sel, glycogène, créatine).</p>
       </div>
     </div>
     <div class="conseil-card">
-      <div class="conseil-icon">📈</div>
+      <div class="conseil-icon">📏</div>
       <div class="conseil-body">
-        <h4>Objectif +0.3 à 0.5 kg/mois</h4>
-        <p>Au-delà de 0.5 kg/mois en débutant avancé, tu prends de la graisse. En dessous de 0.3 kg, tu progresses trop lentement. Zone verte = 3-6 kg/an maximum de muscle sec.</p>
+        <h4>Le mètre ruban compte plus que la balance</h4>
+        <p>En recomposition, le poids bouge peu (objectif ~+1,5 kg sur l'année). Mesure ton tour de taille au nombril 1×/semaine, même jour, même heure. Une taille qui baisse + des charges qui montent = ça marche.</p>
       </div>
     </div>
     <div class="conseil-card">
       <div class="conseil-icon">🕐</div>
       <div class="conseil-body">
-        <h4>Timing des glucides = autour des séances</h4>
-        <p>Concentre 60-70% de tes glucides journaliers sur le repas pré-workout et post-workout. Le matin aussi car tu es après le jeûne nocturne. Le soir : moins de glucides sauf post-workout.</p>
+        <h4>Glucides autour des séances</h4>
+        <p>Les jours de séance, la majorité des glucides se trouve dans les repas avant et après l'entraînement (c'est ce que fait ton plan). C'est surtout pratique pour la performance : le total de la journée reste le facteur principal.</p>
       </div>
     </div>
     <div class="conseil-card">
       <div class="conseil-icon">🥚</div>
       <div class="conseil-body">
-        <h4>4 sources de protéines par jour</h4>
-        <p>Répartis tes 160g en 4-5 prises de 30-40g. C'est surtout une question de praticité et de satiété : étaler l'apport maximise la stimulation de la synthèse protéique sur la journée. L'idée d'un « plafond strict de 40g par repas » est dépassée — l'organisme assimile bien les gros repas, simplement plus lentement.</p>
+        <h4>4 prises de 30-45 g de protéines</h4>
+        <p>Répartir les 160 g sur 4 repas optimise la synthèse musculaire sur la journée et la satiété. Il n'y a pas de « plafond de 30-40 g par repas » : un gros repas est simplement digéré plus lentement.</p>
       </div>
     </div>
     <div class="conseil-card">
       <div class="conseil-icon">🧘</div>
       <div class="conseil-body">
-        <h4>Vacuum abdominal = outil nutritionnel</h4>
-        <p>Pratique le vacuum à jeun le matin (5 séries × 20-30s). Renforce le transverse. Combiné à un déficit modéré les jours de repos, il réduit le tour de taille sans perte musculaire.</p>
+        <h4>Vacuum : posture, pas brûle-graisse</h4>
+        <p>Le vacuum renforce le transverse et aide à mieux « tenir » le ventre. Mais seule la perte de gras (léger déficit les jours de repos) réduit réellement le tour de taille.</p>
       </div>
     </div>
     <div class="conseil-card">
       <div class="conseil-icon">😴</div>
       <div class="conseil-body">
-        <h4>7-9h de sommeil = anabolisme naturel</h4>
-        <p>Une large part de la GH (Growth Hormone) est sécrétée pendant le sommeil profond. Le manque de sommeil chronique (moins de 6h) tend à élever le cortisol et à réduire la testostérone, ce qui freine la récupération. Le sommeil est un pilier à part entière.</p>
+        <h4>7-9 h de sommeil</h4>
+        <p>Dormir moins de 6 h de façon chronique augmente la faim, réduit la récupération et fait baisser la testostérone. Pour la recomposition, le sommeil pèse autant que la nutrition.</p>
       </div>
     </div>
     <div class="conseil-card">
       <div class="conseil-icon">🍽️</div>
       <div class="conseil-body">
-        <h4>Repas cheat 1x/semaine maximum</h4>
-        <p>Autorise-toi 1 repas plaisir par semaine (pas une journée entière). Ça maintient la leptine élevée et la santé mentale. Au-delà, ça détruit le surplus contrôlé sur la semaine.</p>
+        <h4>Un repas plaisir par semaine</h4>
+        <p>Un repas (pas une journée) : c'est surtout bon pour le moral et la régularité sur 12 mois. Garde une source de protéines dedans et reprends normalement au repas suivant.</p>
       </div>
     </div>
     <div class="conseil-card">
       <div class="conseil-icon">🚫</div>
       <div class="conseil-body">
-        <h4>Alcool = ennemi N°1 de la composition</h4>
-        <p>L'alcool réduit la synthèse protéique pendant plusieurs heures, abaisse la testostérone, dégrade la qualité du sommeil profond et est calorique (7 kcal/g). Même quelques verres amputent nettement la récupération de la nuit.</p>
+        <h4>Alcool : le plus gros frein</h4>
+        <p>L'alcool réduit la synthèse musculaire pendant plusieurs heures, dégrade le sommeil profond et ajoute 7 kcal/g. Jamais la veille ou le soir d'une séance ; ailleurs, 1-2 verres maximum.</p>
       </div>
     </div>
   </div>
@@ -2215,8 +2505,8 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 <!-- SECTION 8 : ERREURS -->
 <div class="section" id="sec-erreurs">
   <div class="section-label">À Éviter</div>
-  <div class="section-title">Erreurs Nutritionnelles Fatales</div>
-  <div class="section-sub">Les 8 erreurs qui sabotent 90% des programmes de prise de masse. Évite-les dès le départ.</div>
+  <div class="section-title">Erreurs Nutritionnelles à Éviter</div>
+  <div class="section-sub">Les 8 erreurs les plus fréquentes chez les débutants. Évite-les dès le départ.</div>
 
   <div class="erreurs-list">
 
@@ -2224,7 +2514,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
       <div class="erreur-x">✕</div>
       <div class="erreur-body">
         <h4>Manger "en bulk" sans compter les calories</h4>
-        <p>Le "je mange beaucoup" sans pesée = sur-estimation garantie. La plupart sous-estiment leur apport de 20-40%. Sans comptage les 3 premiers mois, tu navigues à l'aveugle.</p>
+        <p>Sans pesée, la plupart des gens se trompent de 20 à 40 % sur ce qu'ils mangent. Sans comptage les premières semaines, tu navigues à l'aveugle.</p>
         <div class="erreur-fix">✓ Solution : utilise MyFitnessPal ou Cronometer pendant 4-6 semaines pour calibrer ton instinct.</div>
       </div>
     </div>
@@ -2233,7 +2523,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
       <div class="erreur-x">✕</div>
       <div class="erreur-body">
         <h4>Ne pas manger assez de protéines</h4>
-        <p>Le piège le plus fréquent. 1g/kg (le minimum santé) ≠ 2.2g/kg (l'optimum hypertrophie). À 71 kg, il faut atteindre 155-165g/j. Sans ça, tu t'entraînes mais tu ne construis pas.</p>
+        <p>Le piège le plus fréquent. ~1,6 g/kg couvre l'essentiel des gains musculaires (méta-analyse Morton 2018) ; jusqu'à 2,2 g/kg reste utile en déficit et pour la satiété. Ton plan vise 160 g (2,25 g/kg) : volontairement confortable pour la recomposition.</p>
         <div class="erreur-fix">✓ Solution : priorise une source protéique à chaque repas. Vise 30-40g par repas, 4x/jour.</div>
       </div>
     </div>
@@ -2251,8 +2541,8 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
       <div class="erreur-x">✕</div>
       <div class="erreur-body">
         <h4>Surplus trop important (bulk classique)</h4>
-        <p>À 20,5% de BF, un surplus de +500 kcal ou plus ira en priorité dans les cellules adipeuses déjà remplies de ton abdomen. Tu vas prendre du muscle ET du gras au mauvais endroit.</p>
-        <div class="erreur-fix">✓ Solution : reste strictement à +200-250 kcal les jours d'entraînement, maintenance les jours de repos.</div>
+        <p>À 20,5 % de masse grasse, un surplus de +500 kcal ou plus fait surtout prendre du gras, en particulier au ventre. Le muscle ne se construit pas plus vite pour autant.</p>
+        <div class="erreur-fix">✓ Solution : comme ton plan — environ +200 kcal les jours de séance et un léger déficit les jours de repos.</div>
       </div>
     </div>
 
@@ -2260,8 +2550,8 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
       <div class="erreur-x">✕</div>
       <div class="erreur-body">
         <h4>Prendre ZMA avec des produits laitiers</h4>
-        <p>Zinc + calcium = compétition d'absorption au niveau intestinal. Le calcium gagne presque toujours. Résultat : tu prends ton ZMA pour rien. Erreur très commune.</p>
-        <div class="erreur-fix">✓ Solution : ZMA 2h minimum après tout produit laitier. Idéalement à jeun, 45 min avant de dormir.</div>
+        <p>Le calcium réduit l'absorption du zinc. Avec des produits laitiers, une bonne partie du ZMA est perdue.</p>
+        <div class="erreur-fix">✓ Solution : 1 gélule, 2 h après le dîner, sans laitage, 30-60 min avant de dormir.</div>
       </div>
     </div>
 
@@ -2269,7 +2559,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
       <div class="erreur-x">✕</div>
       <div class="erreur-body">
         <h4>Négliger les lipides "par peur de grossir"</h4>
-        <p>Les lipides alimentaires ne se stockent pas directement en graisses corporelles (c'est le surplus calorique global qui le fait). En dessous de 0.6g/kg, ta testostérone chute significativement.</p>
+        <p>Manger gras ne fait pas grossir en soi : c'est le surplus calorique global qui compte. Sous ~20 % des calories en lipides, la testostérone tend à baisser (~−10 à −15 %, Whittaker 2021).</p>
         <div class="erreur-fix">✓ Solution : maintiens minimum 60-70g de lipides/jour, surtout monoinsaturés (huile d'olive, avocat, noix).</div>
       </div>
     </div>
@@ -2278,7 +2568,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
       <div class="erreur-x">✕</div>
       <div class="erreur-body">
         <h4>Penser que plus de whey = plus de muscle</h4>
-        <p>Au-delà de tes besoins protéiques (~160g/j), les acides aminés supplémentaires sont oxydés comme énergie ou stockés comme graisse. 3 shakers par jour sans repas solides = erreur nutritionnelle.</p>
+        <p>Au-delà de tes besoins (~160 g/j), les protéines en plus servent surtout d'énergie : aucun muscle supplémentaire. 3 shakers par jour à la place des repas = moins de fibres, de vitamines et de satiété.</p>
         <div class="erreur-fix">✓ Solution : food first. La whey complète l'alimentation, elle ne la remplace pas.</div>
       </div>
     </div>
@@ -2312,7 +2602,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
         <div class="top10-macros">
           <div class="meal-macro-pill p">P 52g</div>
           <div class="meal-macro-pill c">C 75g</div>
-          <div class="meal-macro-pill f">F 10g</div>
+          <div class="meal-macro-pill f">F 15g</div>
           <span class="top10-kcal">650 kcal</span>
           <span class="top10-prix">~3.80€</span>
         </div>
@@ -2333,9 +2623,9 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
         <div class="top10-title">Pavé de Saumon · Quinoa · Avocat</div>
         <div class="top10-macros">
           <div class="meal-macro-pill p">P 48g</div>
-          <div class="meal-macro-pill c">C 50g</div>
-          <div class="meal-macro-pill f">F 28g</div>
-          <span class="top10-kcal">700 kcal</span>
+          <div class="meal-macro-pill c">C 46g</div>
+          <div class="meal-macro-pill f">F 40g</div>
+          <span class="top10-kcal">750 kcal</span>
           <span class="top10-prix">~5.85€</span>
         </div>
         <ul class="top10-ingr">
@@ -2345,7 +2635,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
           <li>Tomates cerises + concombre<span class="ingr-prix">~0.85€</span></li>
           <li>Vinaigrette : 1 CS huile d'olive, jus citron, moutarde<span class="ingr-prix">~0.25€</span></li>
         </ul>
-        <div class="top10-why">Oméga-3 du saumon (anti-inflammatoire, récupération) + acides aminés complets du quinoa. Idéal les soirs de repos. Les lipides sains t'aident à maintenir ta testostérone.</div>
+        <div class="top10-why">Oméga-3 du saumon (anti-inflammatoire, récupération) + acides aminés complets du quinoa. Idéal les soirs de repos. Repas plus calorique (~750 kcal) : garde-le pour un jour de séance ou réduis l'avocat les jours de repos.</div>
       </div>
     </div>
 
@@ -2411,7 +2701,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
           <li>Sauce : sauce soja + 1 cc huile de sésame + gingembre râpé<span class="ingr-prix">~0.60€</span></li>
           <li>Citron + graines de sésame<span class="ingr-prix">~0.30€</span></li>
         </ul>
-        <div class="top10-why">Repas le plus rapide de la liste (15 min). Ratio protéines/calories excellent (55g pour 520 kcal). Le brocoli apporte des composés soufrés qui soutiennent un métabolisme hormonal sain — utile en recomposition.</div>
+        <div class="top10-why">Repas le plus rapide de la liste (15 min). Ratio protéines/calories excellent (55g pour 520 kcal). Le brocoli apporte fibres, vitamine C et beaucoup de volume pour très peu de calories — idéal en recomposition.</div>
       </div>
     </div>
 
@@ -2499,7 +2789,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
           <li>Grosse poignée d'épinards frais (en fin de cuisson)<span class="ingr-prix">~0.55€</span></li>
           <li>Riz basmati 40g sec en accompagnement (optionnel)<span class="ingr-prix">~0.10€</span></li>
         </ul>
-        <div class="top10-why">Les lentilles corail = double protéine (végétale + animale) + fer + zinc. Le curcuma est anti-inflammatoire puissant — utile pour la récupération musculaire. Plat économique, rassasiant, très dense en micronutriments.</div>
+        <div class="top10-why">Les lentilles corail = double protéine (végétale + animale) + fer + zinc. Le curcuma apporte du goût et de la couleur (aux doses culinaires, son effet anti-inflammatoire reste modeste). Plat économique, rassasiant, très dense en micronutriments.</div>
       </div>
     </div>
 
@@ -2567,7 +2857,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
           <li>¼ concombre en julienne + ½ feuille nori coupée<span class="ingr-prix">~0.30€</span></li>
           <li>Graines de sésame + oignons verts + gingembre râpé<span class="ingr-prix">~0.20€</span></li>
         </ul>
-        <div class="top10-why">Les soba = index glycémique bas (≈55) vs pâtes classiques (≈70). Repas ultra-léger parfait les jours de repos. Le sarrasin contient de la rutine (anti-inflammatoire vasculaire) — bénéfique pour la circulation.</div>
+        <div class="top10-why">Les soba = index glycémique bas (≈55) vs pâtes classiques (≈70). Repas ultra-léger parfait les jours de repos. Le sarrasin est riche en fibres et en magnésium.</div>
       </div>
     </div>
 
@@ -2590,7 +2880,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
           <li>1 œuf mollet (6 min) posé au centre du bol<span class="ingr-prix">~0.30€</span></li>
           <li>Oignons verts ciselés — shichimi (7 épices) optionnel<span class="ingr-prix">~0.20€</span></li>
         </ul>
-        <div class="top10-why">Le plat populaire japonais par excellence. Le bœuf apporte créatine naturelle + zinc + fer héminique, les trois micronutriments les plus critiques pour un athlète débutant. L'œuf mollet ajoute un shot de protéines complet.</div>
+        <div class="top10-why">Le plat populaire japonais par excellence. Le bœuf apporte créatine naturelle + zinc + fer héminique, trois nutriments intéressants pour la performance. L'œuf mollet ajoute un shot de protéines complet.</div>
       </div>
     </div>
 
@@ -2601,7 +2891,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
         <div class="top10-macros">
           <div class="meal-macro-pill p">P 46g</div>
           <div class="meal-macro-pill c">C 70g</div>
-          <div class="meal-macro-pill f">F 14g</div>
+          <div class="meal-macro-pill f">F 20g</div>
           <span class="top10-kcal">640 kcal</span>
           <span class="top10-prix">~3.10€</span>
         </div>
@@ -2612,7 +2902,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
           <li>Graines de sésame blanc + oignons verts ciselés<span class="ingr-prix">~0.15€</span></li>
           <li>½ CS huile neutre pour la poêle (arachide ou tournesol)<span class="ingr-prix">~0.05€</span></li>
         </ul>
-        <div class="top10-why">Le mirin réduit légèrement la réponse glycémique vs sucre pur. La cuisse de poulet a plus de graisses intramusculaires que le blanc → plus de saveur, plus de satisfaction. Plat très facile à aimer et donc à manger régulièrement.</div>
+        <div class="top10-why">Le mirin donne la brillance et le goût sucré-salé typique. La cuisse de poulet a plus de graisses intramusculaires que le blanc → plus de saveur, plus de satisfaction. Plat très facile à aimer et donc à manger régulièrement.</div>
       </div>
     </div>
 
@@ -2636,7 +2926,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
           <li>45g riz japonica cuit à part, servi dans le bol<span class="ingr-prix">~0.15€</span></li>
           <li>Oignons verts + ½ cc huile de sésame pour finir<span class="ingr-prix">~0.20€</span></li>
         </ul>
-        <div class="top10-why">La pâte miso est un prébiotique fermenté — elle nourrit le microbiome intestinal, ce qui améliore l'absorption des protéines et des micronutriments. Repas chaud, réconfortant, idéal les soirs d'hiver ou les jours de repos.</div>
+        <div class="top10-why">La pâte miso est un aliment fermenté, intéressant pour la variété de l'alimentation (attention, elle est salée). Repas chaud, réconfortant, idéal les soirs d'hiver ou les jours de repos.</div>
       </div>
     </div>
 
@@ -2704,7 +2994,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
           <li>10 olives noires dénoyautées<span class="ingr-prix">~0.40€</span></li>
           <li>Vinaigrette : 1 CS huile d'olive + citron + 1 cc moutarde + basilic + anchois optionnel<span class="ingr-prix">~0.25€</span></li>
         </ul>
-        <div class="top10-why">Plat estival anti-gaspillage par excellence. Très riche en protéines (52g) avec peu de glucides — parfait les jours de repos pour rester en déficit léger. Les olives et l'huile d'olive apportent les graisses monoinsaturées critiques pour la testostérone.</div>
+        <div class="top10-why">Plat estival anti-gaspillage par excellence. Très riche en protéines (52g) avec peu de glucides — parfait les jours de repos pour rester en déficit léger. Les olives et l'huile d'olive apportent de bonnes graisses monoinsaturées.</div>
       </div>
     </div>
 
@@ -2793,7 +3083,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
           <li>½ avocat en dés + jus de citron vert<span class="ingr-prix">~0.60€</span></li>
           <li>50g maïs + ¼ poivron rouge + coriandre fraîche<span class="ingr-prix">~0.35€</span></li>
         </ul>
-        <div class="top10-why">Les haricots noirs complètent le profil d'acides aminés du poulet et doublent l'apport en fibres — satiété 4-5h garantie. Le cumin facilite la digestion des légumineuses. Parfait post-entraînement avec surplus glucidique naturel. Coloré, varié, anti-monotonie.</div>
+        <div class="top10-why">Les haricots noirs complètent le profil d'acides aminés du poulet et doublent l'apport en fibres — très rassasiant. Le cumin facilite la digestion des légumineuses. Parfait post-entraînement avec surplus glucidique naturel. Coloré, varié, anti-monotonie.</div>
       </div>
     </div>
 
@@ -2814,7 +3104,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
           <li>40g granola (sans sucre ajouté de préférence)<span class="ingr-prix">~0.40€</span></li>
           <li>1 filet de miel (5g) + zeste de citron jaune<span class="ingr-prix">~0.10€</span></li>
         </ul>
-        <div class="top10-why">34g de protéines en 5 minutes de préparation pour ~2.40€ — meilleur rapport qualité/prix/praticité de la liste. Le cottage cheese est riche en caséine native : digestion lente, idéal le matin ou avant de dormir. Les fruits rouges apportent des anthocyanines anti-inflammatoires et antioxydantes qui accélèrent la récupération musculaire.</div>
+        <div class="top10-why">34g de protéines en 5 minutes de préparation pour ~2.40€ — meilleur rapport qualité/prix/praticité de la liste. Le cottage cheese est riche en caséine native : digestion lente, idéal le matin ou avant de dormir. Les fruits rouges apportent fibres, vitamine C et antioxydants pour très peu de calories.</div>
       </div>
     </div>
 
@@ -2836,7 +3126,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
           <li>200g patate douce en frites au four (1 cc huile, 200°C 25 min)<span class="ingr-prix">~0.55€</span></li>
           <li>Sauce yaourt-moutarde-cornichon + salade, tomate, oignon rouge<span class="ingr-prix">~0.60€</span></li>
         </ul>
-        <div class="top10-why">Le burger version prise de masse propre : steak 5% + pain complet donnent 52g de protéines et de bons glucides pour 720 kcal seulement. Le goût « resto » vient de la réaction de Maillard — on écrase fort le steak sur une poêle brûlante pour créer la croûte. Les frites de patate douce au four remplacent la friture (index glycémique plus bas, vitamine A). La récompense des jours d'entraînement.</div>
+        <div class="top10-why">Le burger version recomposition : steak 5% + pain complet donnent 52g de protéines et de bons glucides pour 720 kcal seulement. Le goût « resto » vient de la réaction de Maillard — on écrase fort le steak sur une poêle brûlante pour créer la croûte. Les frites de patate douce au four remplacent la friture (index glycémique plus bas, vitamine A). La récompense des jours d'entraînement.</div>
       </div>
     </div>
 
@@ -2903,7 +3193,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
           <li>1 poivron rouge + 1 oignon + 2 gousses d'ail<span class="ingr-prix">~1.00€</span></li>
           <li>Épices : 1 cc harissa + 1 cc cumin + paprika fumé + sel<span class="ingr-prix">~0.25€</span></li>
         </ul>
-        <div class="top10-why">Plat nord-africain ultra-simple — tout dans une seule poêle en 20 minutes. Seulement 20g de glucides : parfait les jours de repos en déficit léger. La tomate cuite libère plus de lycopène qu'en cru — puissant antioxydant et anti-inflammatoire pour la récupération musculaire. Un classique à faire tourner chaque semaine.</div>
+        <div class="top10-why">Plat nord-africain ultra-simple — tout dans une seule poêle en 20 minutes. Seulement 20g de glucides : parfait les jours de repos en déficit léger. La tomate cuite libère plus de lycopène qu'en cru (antioxydant). Un classique à faire tourner chaque semaine.</div>
       </div>
     </div>
 
@@ -2949,7 +3239,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
           <li>Épices sauce : garam masala + coriandre moulue + paprika doux<span class="ingr-prix">~0.35€</span></li>
           <li>60g riz basmati sec<span class="ingr-prix">~0.16€</span></li>
         </ul>
-        <div class="top10-why">Le marinage yaourt attendrit la viande grâce aux acides lactiques — résultat identique à un restaurant indien. Le garam masala contient cardamome, cannelle, clou de girofle : tous anti-inflammatoires puissants. Prépare-en double le dimanche soir (10 min actifs + 40 min cuisson) — meilleur le lendemain quand les épices ont infusé toute la nuit.</div>
+        <div class="top10-why">Le marinage yaourt attendrit la viande grâce aux acides lactiques — résultat identique à un restaurant indien. Le garam masala contient cardamome, cannelle, clou de girofle : des épices très parfumées qui permettent de manger sain sans s'ennuyer. Prépare-en double le dimanche soir (10 min actifs + 40 min cuisson) — meilleur le lendemain quand les épices ont infusé toute la nuit.</div>
       </div>
     </div>
 
@@ -3229,7 +3519,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
           <li>Sauce teriyaki : soja + mirin + miel<span class="ingr-prix">~0.50€</span></li>
           <li>150g brocoli + sésame + oignon vert<span class="ingr-prix">~0.60€</span></li>
         </ul>
-        <div class="top10-why">Oméga-3 du saumon (anti-inflammatoires, récupération) + glucides du riz = repas post-entraînement parfait. La sauce teriyaki maison évite le sucre des versions industrielles. Le brocoli soutient un métabolisme hormonal sain.</div>
+        <div class="top10-why">Oméga-3 du saumon (anti-inflammatoires, récupération) + glucides du riz = repas post-entraînement parfait. La sauce teriyaki maison évite le sucre des versions industrielles. Le brocoli ajoute volume, fibres et vitamine C.</div>
       </div>
     </div>
 

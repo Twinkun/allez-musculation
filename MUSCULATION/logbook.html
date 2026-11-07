@@ -334,6 +334,7 @@ button, a, [onclick], input, select, label {
 .exo-target{font-size:.7rem;font-weight:800;letter-spacing:.03em;background:var(--bg-dark);color:#fff;padding:3px 10px;border-radius:100px;white-space:nowrap}
 .exo-rest{font-size:.66rem;font-weight:700;background:rgba(10,158,82,.08);border:1px solid rgba(10,158,82,.2);color:var(--green);padding:2px 8px;border-radius:100px;white-space:nowrap}
 .exo-card.exo-fin{border-style:dashed}
+.warmup{font-size:.78rem;line-height:1.5;color:var(--text-mid);background:rgba(232,150,10,.07);border:1px solid rgba(232,150,10,.25);border-radius:12px;padding:10px 14px;margin-bottom:16px}
 .rest-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
 .rest-actions .rest-next{margin-top:0;border:none;cursor:pointer;font-family:var(--f)}
 .rest-hist{display:inline-block;margin-top:18px;font-size:.8rem;font-weight:600;color:var(--text-light)}
@@ -434,7 +435,7 @@ var SESSIONS = {
     exercises: [
       { name: 'Tirage vertical prise large',    muscle: 'Grand dorsal',            sets: 4, reps: '10-12',      t: 'c', hint: '40-50 kg',      restTime: 90, tempo: '2-1-3-0' },
       { name: 'Rowing unilatéral haltère',      muscle: 'Grand dorsal · Rhomboïdes',sets: 4, reps: '10-12/côté', t: 'c', hint: '18-20 kg',      restTime: 75, tempo: '2-1-3-0' },
-      { name: 'Oiseau câble penché',            muscle: 'Deltoïde postérieur',     sets: 3, reps: '15-20',      t: 'i', hint: '3-5 kg/côté',   restTime: 60, tempo: '2-1-2-0' },
+      { name: 'Oiseau buste appuyé (banc incliné)', muscle: 'Deltoïde postérieur', sets: 3, reps: '15-20',      t: 'i', hint: '3-5 kg/main',   restTime: 60, tempo: '2-1-2-0' },
       { name: 'Rowing câble assis prise large', muscle: 'Rhomboïdes · Trapèzes',   sets: 3, reps: '12-15',      t: 'c', hint: '25-35 kg',      restTime: 75, tempo: '2-2-3-0' },
       { name: 'Face pull câble ★',              muscle: 'Posture · Arrière épaule',sets: 4, reps: '15-20',      t: 'p', hint: '8-10 kg',       restTime: 60, tempo: '2-2-3-0' },
       { name: 'Curl biceps haltères alternés',  muscle: 'Biceps',                  sets: 4, reps: '10-12/bras', t: 'i', hint: '8-10 kg/main',  restTime: 75, tempo: '2-1-3-0' },
@@ -445,10 +446,11 @@ var SESSIONS = {
   6: {
     name: 'V-SHAPE', label: 'Samedi',
     exercises: [
-      { name: 'Élévations latérales',           muscle: 'Deltoïde médial',         sets: 5, reps: '15',         t: 'i', hint: '4-6 kg',        restTime: 60,  tempo: '2-1-3-0' },
-      { name: 'Élévations latérales câble',     muscle: 'Deltoïde médial',         sets: 4, reps: '15',         t: 'i', hint: '2,5-5 kg/côté', restTime: 60,  tempo: '2-1-3-0' },
-      { name: 'Arnold press',                   muscle: 'Épaules · 3 faisceaux',   sets: 4, reps: '10-12',      t: 'c', hint: '8-10 kg/main',  restTime: 90,  tempo: '3-1-2-0' },
+      { name: 'Élévations latérales',           muscle: 'Deltoïde médial',         sets: 4, reps: '15',         t: 'i', hint: '4-6 kg',        restTime: 60,  tempo: '2-1-3-0' },
+      { name: 'Élévations latérales câble',     muscle: 'Deltoïde médial',         sets: 3, reps: '15',         t: 'i', hint: '2,5-5 kg/côté', restTime: 60,  tempo: '2-1-3-0' },
+      { name: 'Arnold press',                   muscle: 'Épaules (avant + milieu)',   sets: 4, reps: '10-12',      t: 'c', hint: '8-10 kg/main',  restTime: 90,  tempo: '3-1-2-0' },
       { name: 'Tractions / tirage vertical',    muscle: 'Grand dorsal',            sets: 4, reps: 'max (ou 10-12 au tirage)', t: 'c', hint: 'élastique ou 40-45 kg', restTime: 120, tempo: '2-1-3-0' },
+      { name: 'Développé incliné haltères 30°', muscle: 'Pectoraux hauts',         sets: 3, reps: '10-12',      t: 'c', hint: '14-16 kg/main', restTime: 90,  tempo: '3-1-2-0' },
       { name: 'Curl barre EZ',                  muscle: 'Biceps',                  sets: 3, reps: '10-12',      t: 'i', hint: '15-20 kg',      restTime: 75,  tempo: '2-1-3-0' },
       { name: 'Curl concentré',                 muscle: 'Biceps · pic',            sets: 2, reps: '10-12/bras', t: 'i', hint: '8-10 kg',       restTime: 60,  tempo: '2-2-3-0' },
       { name: 'Extension triceps overhead câble',muscle: 'Triceps long',           sets: 3, reps: '12',         t: 'i', hint: '10-15 kg',      restTime: 75,  tempo: '3-1-2-0' },
@@ -603,7 +605,7 @@ function renderSession() {
   var histMaxes  = {};
   actSess.exercises.forEach(function(e){ histMaxes[e.name] = getHistMax(e.name); });
 
-  var html = blockBanner() + sessPicker() + '<div class="sess-hd"><div>' +
+  var html = blockBanner() + sessPicker() + '<div class="warmup">🔥 <b>Échauffement 8-10 min</b> · 5 min rameur/vélo · respiration 90/90 (5 expirations, côtes basses) · 2×15 band pull-apart · 1 série légère de face pull · séries d\'approche : 50 % × 10 puis 75 % × 5 sur le 1er exercice</div>' + '<div class="sess-hd"><div>' +
     '<div class="sess-name">'+actSess.name+(forced?' <span class="sess-forced">rattrapage</span>':'')+'</div>' +
     '<div class="sess-date">'+todayLabel+'</div>' +
     '</div>' +

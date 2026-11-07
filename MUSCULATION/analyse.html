@@ -699,6 +699,14 @@
     button:active,a:active{opacity:.82;}
     .error-item:active,.phase-card:active,.zone-card:active{transform:scale(0.99);}
   }
+.ra-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.ra-card{background:#fff;border:1px solid #e5e0d5;border-radius:16px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,.05);border-top:4px solid #16a34a;color:#1a1a2e}
+.ra-card.new{border-top-color:#e8960a}.ra-card.act{border-top-color:#1560d4}
+.ra-h{font-weight:800;font-size:.95rem;margin-bottom:10px}
+.ra-card ul{list-style:none;display:flex;flex-direction:column;gap:9px;padding:0;margin:0}
+.ra-card li{font-size:.84rem;line-height:1.5;color:#374151}
+.ra-card li b{color:#1a1a2e}
+@media(max-width:900px){.ra-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -726,9 +734,9 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-label">Diagnostic complet · 24 mai 2026</div>
+  <div class="hero-label">Photos du 24 mai 2026 · ré-analysées le 7 nov. 2026 · radio du rachis 2020</div>
   <h1>TON PHYSIQUE<br><span>ANALYSÉ</span></h1>
-  <p class="hero-sub">Analyse honnête, objective et ultra-précise basée sur tes photos · 30 ans · 178 cm · 71 kg</p>
+  <p class="hero-sub">Analyse honnête basée sur tes 11 photos et ta radio du rachis · 30 ans · 178 cm · 71 kg</p>
   <div class="hero-stats">
     <div class="hero-stat">
       <div class="hero-stat-val">20,5%</div>
@@ -749,6 +757,44 @@
   </div>
 </section>
 
+<!-- RÉ-ANALYSE NOV. 2026 -->
+<div class="divider"></div>
+<div class="section reveal">
+  <div class="section-title">RÉ-ANALYSE <span class="gold">· 7 NOV. 2026</span></div>
+  <div class="section-sub">Les 11 photos (face, profil, dos, relâché et contracté) et la radio relues une par une. Ce qui est confirmé, ce qui est nouveau, et ce que ça change dans ton programme.</div>
+  <div class="ra-grid">
+    <div class="ra-card ok">
+      <div class="ra-h">✅ Confirmé</div>
+      <ul>
+        <li><b>Épaules</b> : deltoïdes latéraux quasi absents, épaules un peu tombantes → priorité n°1 inchangée.</li>
+        <li><b>Dos</b> : dorsaux sans largeur (vue de dos bras levés) → priorité n°2 inchangée.</li>
+        <li><b>Pectus excavatum léger</b> : petit creux en bas du sternum, visible de face et de profil. Le haut des pectoraux, lui, est pleinement développable.</li>
+        <li><b>Bras</b> : biceps = meilleur groupe (bon pic en contraction), triceps et avant-bras fins.</li>
+        <li><b>Radio</b> : pas de scoliose, pas de bascule du bassin, courbures normales — seule anomalie : petit pincement L5-S1.</li>
+      </ul>
+    </div>
+    <div class="ra-card new">
+      <div class="ra-h">🆕 Nouveau — jamais relevé avant</div>
+      <ul>
+        <li><b>Côtes basses qui ressortent (« rib flare »)</b>, plus marqué d'un côté — très fréquent avec un pectus excavatum. Avec un bassin qui part en avant, ça donne la posture « ciseaux ouverts ».</li>
+        <li><b>Le ventre de profil n'est pas que du gras</b> : gras sous le nombril + côtes ouvertes + sangle abdominale relâchée (+ photos prises en fin de journée). La taille réelle se mesure le matin, à jeun.</li>
+        <li><b>Haut du corps plutôt sec</b> (côtes visibles en contraction, bras et visage fins) : gras concentré sous le nombril. Fourchette honnête : 18-22 % — 20,5 % reste une bonne base de calcul.</li>
+        <li><b>Asymétrie</b> : pli de taille plus marqué d'un côté vue de dos, épaule à peine plus haute — musculaire/posturale (la radio exclut une scoliose).</li>
+        <li><b>Érecteurs lombaires déjà visibles</b> : ton bas du dos n'a pas besoin de travail lourd en plus (et L5-S1 l'interdit).</li>
+      </ul>
+    </div>
+    <div class="ra-card act">
+      <div class="ra-h">🔧 Ce que ça change dans ton programme</div>
+      <ul>
+        <li><b>Respiration 90/90</b> ajoutée à l'échauffement des 3 séances (2 min) : apprend à « ranger » les côtes et à replacer le bassin — la base pour le rib flare et pour soulager L5-S1.</li>
+        <li><b>Consigne « côtes basses »</b> ajoutée sur les exercices au-dessus de la tête et le gainage (développés, tractions, extension overhead, planche, hollow body, dead bug).</li>
+        <li><b>Rien d'autre à changer</b> : la structure actuelle (épaules + dos en priorité, haut des pecs 2×/semaine, face pull, core anti-mouvement, zéro flexion lombaire chargée) colle à ce que montrent les photos.</li>
+        <li><b>À refaire</b> : nouvelles photos au jour J (même lumière, même heure, à jeun), et un avis médical si les lombalgies persistent — la radio date de 2020.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 <!-- BILAN ACTUEL -->
 <div class="divider"></div>
 <div class="section reveal">
@@ -758,7 +804,7 @@
     <div class="stat-card" style="--accent:#dc2626">
       <div class="stat-card-label">Masse grasse estimée</div>
       <div class="stat-card-val">20,5%</div>
-      <div class="stat-card-note">~14,6 kg de graisse · estimation optimiste (réel ~22 % au vu du profil) · Objectif : 16 %</div>
+      <div class="stat-card-note">~14,6 kg de graisse · fourchette 18-22 % (haut du corps sec, gras sous le nombril) · Objectif : 16 %</div>
     </div>
     <div class="stat-card" style="--accent:#2563eb">
       <div class="stat-card-label">Masse maigre actuelle</div>
@@ -822,9 +868,9 @@
           <li>Épaules étroites sans développement deltoid visible — priorité absolue</li>
           <li>Pectoraux plats avec légère dépression centrale (PE léger — pecs surtout non travaillés)</li>
           <li>Ventre légèrement bombé — graisse abdominale concentrée</li>
-          <li>Bras longs, fins — insertion biceps plutôt longue (ventre du muscle long, peu de gap au coude) : favorable au volume et à l'épaisseur du bras → bonne base à remplir à l'entraînement</li>
+          <li>Bras longs et fins — biceps avec un bon pic en contraction (insertion moyenne) : bonne base à remplir, surtout côté triceps</li>
           <li>Hanches relativement étroites — excellent rapport taille/épaules potentiel</li>
-          <li>Trapèzes non développés, cou fin — fragilise la silhouette de face</li>
+          <li>Trapèzes supérieurs présents mais épaules tombantes — le deltoïde latéral manque pour « carrer » la silhouette</li>
         </ul>
       </div>
     </div>
@@ -836,11 +882,11 @@
         </div>
       </div>
       <div class="vue-body">
-        <div class="vue-highlight">Posture enroulée — crée une illusion négative corrigeable en 3 mois</div>
+        <div class="vue-highlight">Épaules légèrement enroulées et tête un peu en avant — corrigeable en quelques mois</div>
         <ul class="vue-list">
           <li>Épaules tombantes et antéversées — typique PE + sédentarité</li>
-          <li>Lordose lombaire modérée — renforce l'impression de ventre</li>
-          <li>Poitrine rentrée/creuse — signature PE, visible en silhouette</li>
+          <li>Côtes basses qui ressortent + bassin en avant (« ciseaux ouverts ») — renforce beaucoup l'impression de ventre</li>
+          <li>Creux en bas du sternum — signature du pectus léger, visible de profil</li>
           <li>Tête en avant (head-forward posture) — réduit hauteur apparente</li>
           <li>Peu de masse pectorale ou dorsale visible — profil plat</li>
           <li>Jambes fines mais structure longue et élancée — bon potentiel</li>
@@ -857,10 +903,10 @@
       <div class="vue-body">
         <div class="vue-highlight">Dos révèle le potentiel V-Shape le plus clairement</div>
         <ul class="vue-list">
-          <li>Légère asymétrie scapulaire (musculaire/posturale — radio 2020 : pas de scoliose) — perceptible mais pas défigurante</li>
+          <li>Légère asymétrie (pli de taille plus marqué d'un côté, épaule à peine plus haute) — musculaire/posturale, la radio exclut une scoliose</li>
           <li>Aucun développement latissimus visible — dos complètement plat</li>
           <li>Trapèzes inférieurs non développés — épaules remontent mal</li>
-          <li>Érecteurs spinaux inexistants — bas du dos sans relief</li>
+          <li>Érecteurs lombaires déjà visibles — inutile (et déconseillé avec L5-S1) de les charger en plus</li>
           <li>Bonne largeur interscapulaire potentielle — ossature favorable au V</li>
           <li>Fessiers et ischio-jambiers inexploités — jambes non prioritaires mais à ne pas négliger</li>
         </ul>
@@ -924,9 +970,9 @@
       <div class="zone-bar-wrap"><div class="zone-bar" data-w="25"></div></div>
       <ul class="zone-list">
         <li>Pectoraux plats avec dépression centrale (PE)</li>
-        <li>Partie basse exploitable mais partie haute limitée par PE</li>
+        <li>Le creux est en bas du sternum : le haut des pectoraux est pleinement développable</li>
         <li>Approche adaptée nécessaire — éviter développé couché lourd</li>
-        <li>Extensions overhead câble et écartés inclinés à prioriser</li>
+        <li>Développé incliné haltères 2×/semaine + écarté câble à prioriser</li>
       </ul>
     </div>
     <div class="zone-card" style="--zone-color:#e8b30a">
@@ -943,7 +989,7 @@
       <ul class="zone-list">
         <li>Un peu de tonus visible — meilleure zone actuelle</li>
         <li>Biceps meilleur groupe actuel — belle forme contractée</li>
-        <li>Insertion plutôt longue (peu de gap au coude) → favorable au volume et à l'épaisseur, à développer</li>
+        <li>Bon pic en contraction (insertion moyenne) — le volume du bras viendra surtout des triceps</li>
         <li>Avant-bras fins — développement attendu avec les compound</li>
       </ul>
     </div>
@@ -1002,7 +1048,7 @@
         <li>Hanches étroites — c'est ton vrai levier V-shape, plus que la carrure (largeur d'épaules osseuse moyenne)</li>
         <li>Grande taille (178 cm) — meilleur rendu visuel des muscles longs</li>
         <li>Le V se créera surtout par contraste : delts + lats à construire au-dessus d'une taille fine</li>
-        <li>Biceps à insertion longue (favorable au volume/épaisseur) — beau galbe contracté, volume à bâtir</li>
+        <li>Biceps : beau pic contracté — volume à bâtir</li>
         <li>Jambes longues et fines — silhouette naturellement athlétique</li>
         <li>Peau fine — la définition apparaîtra plus tôt que la moyenne quand la MG descendra sous ~15 %</li>
         <li>Débutant complet à 30 ans — récupération solide et « newbie gains » intacts : marge de progression maximale la 1ʳᵉ année</li>
@@ -1018,7 +1064,7 @@
         <li>Asymétrie posturale du dos + discopathie L5-S1 — déséquilibre musculaire, lombaires à protéger</li>
         <li>Épaules tombantes — posture antéversée, deltoid antérieur sur-sollicité</li>
         <li>Cou fin — fragilise la silhouette même avec du muscle partout</li>
-        <li>Insertion épaule potentiellement courte sur faisceau latéral</li>
+        <li>Côtes basses qui ressortent (rib flare) — à corriger par la respiration et le gainage</li>
         <li>Masse grasse répartie surtout au niveau abdominal — recomposition nécessaire</li>
         <li>Aucune base musculaire actuelle — courbe d'apprentissage à traverser</li>
       </ul>
@@ -1052,8 +1098,8 @@
         <ul class="impact-list">
           <li>Dépression sternale crée un creux visuel entre les pectoraux hauts</li>
           <li>Dans les formes marquées seulement, peut gêner l'expansion thoracique à l'effort — à évaluer médicalement si essoufflement anormal</li>
-          <li>Développé couché horizontal accentue visuellement le creux</li>
-          <li>Le sternum rentre à l'effort — illusion de pectoraux «écartés»</li>
+          <li>Le creux est surtout bas-sternal : le développer du haut des pecs le masque le mieux</li>
+          <li>Souvent associé à des côtes basses qui ressortent (présent chez toi, plus d'un côté)</li>
         </ul>
         <div class="struct-solutions">
           <div class="struct-solutions-title">Adaptations clés</div>
@@ -1061,7 +1107,7 @@
             <li>✓ Privilégier angles inclinés (30-45°) pour pectoraux hauts</li>
             <li>✓ Écartés câbles > haltères → tension constante</li>
             <li>✓ Éviter développé couché à barre horizontal lourd</li>
-            <li>✓ Expansion thoracique : respiration profonde, stretching</li>
+            <li>✓ Respiration 90/90 « côtes basses » + étirement des pectoraux</li>
           </ul>
         </div>
       </div>
@@ -1121,16 +1167,16 @@
         <ul class="impact-list">
           <li>Épaules antéversées — effacent visuellement la largeur</li>
           <li>Head-forward posture — cou semble plus court et plus fin</li>
-          <li>Lordose lombaire — accentue l'impression de ventre</li>
+          <li>Côtes ouvertes + bassin en avant — accentuent l'impression de ventre</li>
           <li>Fermeture thoracique — réduit expansion pectorale</li>
         </ul>
         <div class="struct-solutions">
-          <div class="struct-solutions-title">Correction 12 semaines</div>
+          <div class="struct-solutions-title">Correction progressive (8-16 semaines)</div>
           <ul class="sol-list">
             <li>✓ Face pulls 3×/semaine — rétraction scapulaire</li>
             <li>✓ Band pull-aparts quotidiens</li>
             <li>✓ Planche + dead bug pour core stabilisateur</li>
-            <li>✓ Activation fessiers — libère la lordose</li>
+            <li>✓ Respiration 90/90 + activation des fessiers — replace bassin et côtes</li>
             <li>✓ Étirement pectoraux/deltoïde antérieur quotidien</li>
           </ul>
         </div>
@@ -1151,12 +1197,12 @@
         <div class="contrast-title">Ce qui nuit à ton physique maintenant</div>
       </div>
       <ul class="contrast-list">
-        <li>Posture enroulée — efface 50% du potentiel visuel existant</li>
+        <li>Posture enroulée — efface une bonne partie de la largeur existante</li>
         <li>Épaules tombantes sans capping — silhouette rectangulaire de face</li>
         <li>Ventre légèrement proéminent à 20,5% BF — centre les regards</li>
-        <li>Pectus excavatum visible de face en profil — creux central pectoraux</li>
+        <li>Pectus excavatum léger — creux en bas du sternum, surtout de profil</li>
         <li>Bras et jambes très fins — accentue l'effet «peau sur os»</li>
-        <li>Cou fin sans trapèze — rend la tête trop grosse visuellement</li>
+        <li>Côtes basses qui ressortent + ventre relâché — grossissent le profil</li>
         <li>Dos plat — aucune largeur visible de dos</li>
         <li>Head-forward posture — réduit hauteur apparente et charisme</li>
       </ul>
@@ -1169,12 +1215,12 @@
       <ul class="contrast-list">
         <li>Taille fine séchée + delts/lats construits → V-shape net (par contraste)</li>
         <li>Grande taille (178) → chaque kilo de muscle se voit davantage</li>
-        <li>Insertion longue de biceps (favorable au volume) → bras épais et galbé une fois le volume construit</li>
+        <li>Biceps avec un bon pic → bras galbés une fois les triceps construits</li>
         <li>Dos travaillé → largeur construite (le relief viendra du muscle, le cadre osseux étant moyen)</li>
         <li>Hanches étroites → contraste épaules/taille maximal</li>
         <li>Peau fine → définition qui apparaît vers 14-15 % de MG, veines plus visibles en dessous</li>
         <li>Structure élancée → correspond au physique «athlète de natation»</li>
-        <li>Posture corrigée → transformation instantanée sans une once de muscle</li>
+        <li>Posture corrigée → silhouette nettement plus droite avant même de prendre du muscle</li>
       </ul>
     </div>
   </div>
@@ -1242,13 +1288,13 @@
       </div>
       <div class="ex-group-body">
         <ul class="ex-list">
-          <li>Élévations latérales haltères 3×15-20 — faisceau latéral pur</li>
-          <li>Arnold press haltères — 3 faisceaux simultanément</li>
-          <li>Face pulls câbles — rétraction + correction posture</li>
-          <li>Oiseau haltères / machine — deltoïde postérieur</li>
-          <li>Élévations frontales câbles — faisceau antérieur contrôlé</li>
+          <li>Élévations latérales haltères (lun 4×12-15 · sam 4×15) — faisceau latéral</li>
+          <li>Élévations latérales câble (sam 3×15) — tension constante</li>
+          <li>Arnold press (sam 4×10-12) — avant + milieu de l'épaule</li>
+          <li>Face pull câble (3 séances) — arrière d'épaule + posture</li>
+          <li>Oiseau buste appuyé sur banc incliné (jeu) — deltoïde postérieur, zéro charge lombaire</li>
         </ul>
-        <div class="ex-note">Faisceau latéral : 4-5 séries/semaine minimum. C'est lui qui crée la largeur.</div>
+        <div class="ex-note">Faisceau latéral : ~11 séries/semaine dans ton programme. C'est lui qui crée la largeur. Pas d'élévations frontales : l'avant de l'épaule travaille déjà dans tous les développés.</div>
       </div>
     </div>
     <div class="ex-group">
@@ -1260,11 +1306,11 @@
         <ul class="ex-list">
           <li>Tirage vertical poulie — mouvement roi des lats</li>
           <li>Rowing haltère unilatéral — corrige l'asymétrie, lombaires déchargées</li>
-          <li>Rowing câble assis prise neutre</li>
-          <li>Tirage horizontal buste penché</li>
-          <li>Pull-over câble debout — isolation lats en fin de séance</li>
+          <li>Rowing câble assis prise large — buste vertical et fixe</li>
+          <li>Tractions (assistées au début) — largeur maximale</li>
+          <li>Alternative : pull-over câble, si tu veux plus de dorsaux plus tard</li>
         </ul>
-        <div class="ex-note">Toujours commencer par le côté faible (asymétrie). Contracter les omoplates.</div>
+        <div class="ex-note">Toujours commencer par le côté faible (asymétrie). Pas de rowing buste penché libre (bras de levier sur L5-S1).</div>
       </div>
     </div>
     <div class="ex-group">
@@ -1276,9 +1322,9 @@
         <ul class="ex-list">
           <li>Développé incliné haltères 30-45° — priorité pectoraux hauts</li>
           <li>Écartés câbles inclinés — tension constante, aucune pression sternale</li>
-          <li>Pec-deck machine — fin de séance, isolation sécurisée</li>
+          <li>Alternative : pec-deck machine si les câbles sont pris</li>
         </ul>
-        <div class="ex-note">Éviter développé couché horizontal à barre — accentue le creux PE visuellement.</div>
+        <div class="ex-note">Le développé incliné passe à 2 séances/semaine (lun + sam) : le haut des pecs est ta priorité pectorale.</div>
       </div>
     </div>
     <div class="ex-group">
@@ -1290,10 +1336,10 @@
         <ul class="ex-list">
           <li>Pushdown câble — chef latéral, définition</li>
           <li>Extensions overhead câble / haltère — chef long (masse)</li>
-          <li>Kickback haltère — finition et séparation</li>
-          <li>Extensions overhead câble barre droite — masse globale triceps</li>
+          <li>Les développés (incliné, militaire, Arnold) font aussi travailler les triceps</li>
+          <li>Alternative : barre au front à la poulie si les coudes le tolèrent</li>
         </ul>
-        <div class="ex-note">Extensions overhead surtout — chef long (70% du triceps) est le plus visible.</div>
+        <div class="ex-note">Le chef long est le plus gros des trois chefs : l'extension au-dessus de la tête (bras étirés) le cible le mieux.</div>
       </div>
     </div>
     <div class="ex-group">
@@ -1305,26 +1351,26 @@
         <ul class="ex-list">
           <li>Curl haltères alterné — base, permet la supination</li>
           <li>Curl concentré — isolation, contraction maximale</li>
-          <li>Curl câble bas — tension constante sur toute l'amplitude</li>
+          <li>Curl barre EZ (sam) — volume</li>
           <li>Curl marteau — chef externe + brachioradial (avant-bras)</li>
         </ul>
-        <div class="ex-note">Insertion longue → ne forcer la supination qu'en haut du mouvement pour le pic.</div>
+        <div class="ex-note">Biceps = ton meilleur groupe : pas besoin de plus de volume, la priorité des bras est le triceps.</div>
       </div>
     </div>
     <div class="ex-group">
       <div class="ex-group-header">
         <div class="ex-group-icon">🛡</div>
-        <div class="ex-group-name">Core / Posture (samedi)</div>
+        <div class="ex-group-name">Core / Posture (3 séances)</div>
       </div>
       <div class="ex-group-body">
         <ul class="ex-list">
           <li>Planche (isométrique) — anti-extension, core profond</li>
           <li>Dead bug — dissociation membres, stabilisateur</li>
           <li>Bird dog — érecteurs + fessiers + coordination</li>
-          <li>Band pull-aparts — rétraction quotidienne</li>
+          <li>Respiration 90/90 — côtes basses, bassin replacé (échauffement)</li>
           <li>Hollow body hold — corps entier sous tension</li>
         </ul>
-        <div class="ex-note">Aucun crunch. Objectif : posture neutre, non six-pack pour l'instant.</div>
+        <div class="ex-note">Aucun crunch chargé (L5-S1). Objectif : côtes basses et bassin neutre, pas le six-pack pour l'instant.</div>
       </div>
     </div>
   </div>
@@ -1340,7 +1386,7 @@
       <div class="error-x">✗</div>
       <div class="error-body">
         <div class="error-title">Développé couché horizontal lourd</div>
-        <div class="error-desc">Accentue visuellement le creux pectus excavatum, sur-sollicite les épaules antéversées.</div>
+        <div class="error-desc">Pas dangereux pour un pectus léger, mais moins utile pour toi que l'incliné et plus exigeant pour des épaules enroulées.</div>
         <div class="error-fix">→ Remplacer par développé incliné 30-45° haltères ou écartés câbles</div>
       </div>
     </div>
@@ -1357,7 +1403,7 @@
       <div class="error-body">
         <div class="error-title">Négliger les élévations latérales</div>
         <div class="error-desc">Le muscle le plus transformateur de ta silhouette. Beaucoup se concentrent sur le développé et oublient le faisceau latéral.</div>
-        <div class="error-fix">→ Minimum 4-5 séries de latérales par semaine, toujours en séance</div>
+        <div class="error-fix">→ Les ~11 séries de latérales de la semaine sont non négociables</div>
       </div>
     </div>
     <div class="error-item">
@@ -1373,15 +1419,15 @@
       <div class="error-body">
         <div class="error-title">Sauter les séances posture/core</div>
         <div class="error-desc">Sans correction posturale, les muscles se développent sur une mauvaise base → déséquilibres aggravés, blessures, esthétique gâchée.</div>
-        <div class="error-fix">→ Samedi core est non-négociable, face pulls à chaque séance upper body obligatoires</div>
+        <div class="error-fix">→ Finishers core des 3 séances et face pulls non négociables</div>
       </div>
     </div>
     <div class="error-item">
       <div class="error-x">✗</div>
       <div class="error-body">
         <div class="error-title">Cardio excessif en début de transformation</div>
-        <div class="error-desc">À 20,5% BF débutant, la recomposition est plus efficace que cardio. Le cardio excessif mange les gains musculaires (newbie gains).</div>
-        <div class="error-fix">→ Marche 8000 pas/jour maximum en cardio, conserver énergie pour la fonte</div>
+        <div class="error-desc">Un gros volume de cardio intense gêne la récupération. La marche, elle, aide la perte de gras et soulage souvent le bas du dos.</div>
+        <div class="error-fix">→ Vise 7 000 à 10 000 pas/jour + le ping-pong du vendredi : c'est suffisant</div>
       </div>
     </div>
   </div>
@@ -1421,12 +1467,12 @@
       </div>
       <div class="ms-body">
         <div class="ms-rows">
-          <div class="ms-row"><span class="ms-key">Poids cible</span><span class="ms-val">80–83 kg</span></div>
-          <div class="ms-row"><span class="ms-key">BF cible</span><span class="ms-val">14–15%</span></div>
-          <div class="ms-row"><span class="ms-key">Masse maigre</span><span class="ms-val">~69 kg (+12 kg)</span></div>
+          <div class="ms-row"><span class="ms-key">Poids cible</span><span class="ms-val">75–77 kg</span></div>
+          <div class="ms-row"><span class="ms-key">MG cible</span><span class="ms-val">14–15 %</span></div>
+          <div class="ms-row"><span class="ms-key">Masse maigre</span><span class="ms-val">~64-65 kg (+7-8 kg)</span></div>
           <div class="ms-row"><span class="ms-key">Niveau musculaire</span><span class="ms-val">6–6.5/10</span></div>
         </div>
-        <div class="ms-highlight">Définition visible. Veines sur avant-bras. Épaules capping. V-shape évident de face et de dos. Compliments réguliers, silhouette athlète confirmée.</div>
+        <div class="ms-highlight">Année 2 en prise de masse propre : épaules arrondies, dos large, V-shape évident de face et de dos.</div>
       </div>
     </div>
     <div class="milestone">
@@ -1439,12 +1485,12 @@
       </div>
       <div class="ms-body">
         <div class="ms-rows">
-          <div class="ms-row"><span class="ms-key">Poids cible</span><span class="ms-val">80–84 kg</span></div>
-          <div class="ms-row"><span class="ms-key">BF cible</span><span class="ms-val">12–13%</span></div>
-          <div class="ms-row"><span class="ms-key">Masse maigre</span><span class="ms-val">~70 kg (+13–14 kg)</span></div>
+          <div class="ms-row"><span class="ms-key">Poids cible</span><span class="ms-val">78–82 kg</span></div>
+          <div class="ms-row"><span class="ms-key">MG cible</span><span class="ms-val">12–13 %</span></div>
+          <div class="ms-row"><span class="ms-key">Masse maigre</span><span class="ms-val">~68-70 kg (+11-13 kg)</span></div>
           <div class="ms-row"><span class="ms-key">Niveau musculaire</span><span class="ms-val">7/10</span></div>
         </div>
-        <div class="ms-highlight">Excellent physique naturel : abdos visibles, V-shape net, bras ~40 cm. Tes articulations fines (poignets/chevilles étroits) orientent vers un rendu sec et esthétique type « athlète » plutôt que massif — c'est ton style optimal, pas une limite.</div>
+        <div class="ms-highlight">Excellent physique naturel : abdos visibles, V-shape net, bras ~38-39 cm. Tes articulations fines (poignets/chevilles étroits) orientent vers un rendu sec et esthétique type « athlète » plutôt que massif — c'est ton style optimal, pas une limite.</div>
       </div>
     </div>
   </div>
@@ -1477,9 +1523,9 @@
       <ul class="phase-list">
         <li>Augmenter progressivement les charges (surcharge progressive)</li>
         <li>Specialisation épaules et dos — volume supplémentaire</li>
-        <li>Introduire techniques d'intensification (drop sets, rest-pause)</li>
+        <li>Bloc 3 de chaque cycle : charges les plus lourdes (RIR 1-2), sans échec sur les développés</li>
         <li>Prises de mesures mensuelles — ajustement nutrition si stagnation</li>
-        <li>Objectif : −2% BF supplémentaire, +4-5 kg lean</li>
+        <li>Objectif : environ −2 points de MG et +2 kg de masse maigre en plus</li>
       </ul>
     </div>
     <div class="phase-card p3">
@@ -1515,15 +1561,15 @@
     <div class="absol-item">
       <div class="absol-num">3</div>
       <div class="absol-text">
-        <div class="absol-title">Élévations latérales 4-5 séries par semaine</div>
+        <div class="absol-title">Élévations latérales ~11 séries par semaine</div>
         <div class="absol-detail">Le muscle transformateur numéro 1. Chaque mm de deltoïde latéral change ton rapport épaules/taille. Ne jamais skipper ce mouvement.</div>
       </div>
     </div>
     <div class="absol-item">
       <div class="absol-num">4</div>
       <div class="absol-text">
-        <div class="absol-title">Face pulls + band pull-aparts quotidiens</div>
-        <div class="absol-detail">Correction posturale non-négociable. Tes épaules tombantes annulent visuellement ton potentiel. La posture se corrige en 8-12 semaines avec de la consistance.</div>
+        <div class="absol-title">Face pulls + respiration 90/90</div>
+        <div class="absol-detail">Correction posturale non négociable : épaules enroulées et côtes qui ressortent cachent une partie de ton potentiel. Ça se corrige en 8-16 semaines de régularité.</div>
       </div>
     </div>
     <div class="absol-item">
@@ -1542,7 +1588,7 @@
       <div class="chemin-step">
         <div class="chemin-step-num">01</div>
         <div class="chemin-step-title">Corriger la posture d'abord</div>
-        <div class="chemin-step-desc">Avant même de construire du muscle, redresser la posture transforme instantanément ta silhouette. C'est 0 euro, 0 muscle, résultat immédiat en 6-8 semaines. Face pulls + band pull-aparts + activation fessiers tous les jours.</div>
+        <div class="chemin-step-desc">Avant même de construire du muscle, redresser la posture change nettement ta silhouette en 6-12 semaines : face pulls à chaque séance, respiration 90/90 côtes basses, gainage, et étirement des pectoraux.</div>
       </div>
       <div class="chemin-step">
         <div class="chemin-step-num">02</div>

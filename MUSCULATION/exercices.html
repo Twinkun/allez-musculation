@@ -84,7 +84,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,16,32,0.9
 .card-head{padding:16px 18px 12px;display:flex;align-items:flex-start;gap:12px;border-left:4px solid var(--cat-c,var(--gold))}
 .card-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:var(--bg-inner)}
 .card-head-info{flex:1;min-width:0}
-.card-tags{display:flex;gap:6px;align-items:center;margin-bottom:3px}
+.card-tags{display:flex;gap:6px;align-items:center;margin-bottom:3px;flex-wrap:wrap}
+.prog-tag{font-size:10px;font-weight:800;letter-spacing:.03em;padding:2px 8px;border-radius:100px;background:var(--bg-dark,#0b1020);color:#fff;white-space:nowrap}
+.prog-tag.alt{background:transparent;color:var(--text-light);border:1px dashed var(--border);font-weight:600;white-space:normal}
+.filter-btn.prog{border-color:var(--gold);color:var(--gold);font-weight:800}
+.filter-btn.prog.active{background:var(--bg-dark,#0b1020);border-color:var(--bg-dark,#0b1020);color:var(--gold)}
 .cat-tag{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:2px 8px;border-radius:4px;color:#fff}
 .push .cat-tag{background:var(--push)}
 .pull .cat-tag{background:var(--pull)}
@@ -299,7 +303,7 @@ button, a, [onclick], input, select, label {
   <h1>LES <span>26 EXERCICES</span><br>DU PROGRAMME</h1>
   <p>Technique parfaite, muscles ciblés, erreurs à éviter — tout ce qu'un débutant doit savoir pour progresser sans se blesser.</p>
   <div class="hero-stats">
-    <div class="hstat"><div class="hstat-num">26</div><div class="hstat-label">Exercices</div></div>
+    <div class="hstat"><div class="hstat-num">28</div><div class="hstat-label">Exercices</div></div>
     <div class="hstat"><div class="hstat-num">4</div><div class="hstat-label">Catégories</div></div>
     <div class="hstat"><div class="hstat-num">5</div><div class="hstat-label">Onglets / exercice</div></div>
     <div class="hstat"><div class="hstat-num">12</div><div class="hstat-label">Mois de progression</div></div>
@@ -308,11 +312,12 @@ button, a, [onclick], input, select, label {
 
 <section class="filters-section">
   <div class="filters-row">
-    <button class="filter-btn active" data-f="all">Tous (26)</button>
+    <button class="filter-btn prog" data-f="prog">⭐ Mon programme (22)</button>
+    <button class="filter-btn active" data-f="all">Tous (28)</button>
     <button class="filter-btn push" data-f="push">🔴 Push (6)</button>
     <button class="filter-btn pull" data-f="pull">🔵 Pull (8)</button>
-    <button class="filter-btn vshape" data-f="vshape">🟣 V-Shape (5)</button>
-    <button class="filter-btn core" data-f="core">🟢 Core (7)</button>
+    <button class="filter-btn vshape" data-f="vshape">🟣 V-Shape (6)</button>
+    <button class="filter-btn core" data-f="core">🟢 Core (8)</button>
     <div class="search-wrap">
       <span class="search-icon">🔍</span>
       <input type="text" id="srch" placeholder="Rechercher…">
@@ -345,25 +350,25 @@ const EX = [
    sets:"4 × 12-15",rest:"90 sec",tempo:"3-1-2-0",equip:"Haltères + banc incliné 30°",
    yt:"développé incliné haltères 30 degrés technique musculation débutant",
    muscles:{p:["chest"],s:["front-delt","triceps"]},
-   steps:["Réglez le banc à exactement 30° — ni 45° (delts) ni moins (pecto moyen)","Saisissez les haltères, asseyez-vous au bord, remontez les genoux pour vous allonger","Omoplates SERRÉES et ENFONCÉES dans le banc — maintenez cette position tout le set","Descendez lentement en 3 secondes, coudes à 70-75° du corps (jamais à 90° en croix)","Pause 1 seconde en bas — ressentez l'étirement du pectoral supérieur","Expirez et poussez vers le haut-intérieur, haltères qui se rapprochent légèrement","Arrêtez avant de verrouiller les coudes — gardez la tension musculaire continue"],
+   steps:["Réglez le banc à exactement 30° — ni 45° (delts) ni moins (pecto moyen)","Saisissez les haltères, asseyez-vous au bord, remontez les genoux pour vous allonger","Omoplates SERRÉES et ENFONCÉES dans le banc — maintenez cette position tout le set","Descendez lentement en 3 secondes, coudes à 45-60° du buste (jamais à 90° en croix)","Pause 1 seconde en bas — ressentez l'étirement du pectoral supérieur","Expirez et poussez vers le haut-intérieur, haltères qui se rapprochent légèrement","Arrêtez avant de verrouiller les coudes — gardez la tension musculaire continue"],
    breath:"⬇ Inspirez lentement en descendant → ⏸ Pause 1s → ⬆ Expirez fort en poussant",
    amp:"Coudes légèrement sous l'épaule en bas — haltères proches (sans se toucher) en haut",
    posture:["Pieds à plat au sol, jambes stables","Dos en contact complet avec le banc","Omoplates serrées + enfoncées (tenue constante)","Poignets neutres — ni fléchis ni hyperétendus","Cou détendu, tête posée"],
-   errors:[{b:"Banc à 45° ou plus",g:"30° précis — angle optimal pour le chef claviculaire du pecto"},{b:"Coudes en croix à 90°",g:"75° max — protège les rotateurs de l'épaule"},{b:"Rebondir en bas",g:"Pause contrôlée 1s — stretch reflex sécurisé"},{b:"Dos qui décolle du banc",g:"Contact constant — empêche la compensation lombaire"}],
-   injury:["Pectus excavatum: réduire l'amplitude de 10-15% si inconfort sternal — ne jamais forcer","Douleur d'épaule: vérifier l'angle des coudes (75° max) et réduire le poids","Poignets: légère rotation externe des haltères améliore le confort articulaire"],
-   pec:"Exercice PRIORITAIRE — remplace le développé plat qui comprime le sternum. La position 30° est idéale pour votre morphologie.",scol:null},
+   errors:[{b:"Banc à 45° ou plus",g:"30° précis — angle optimal pour le chef claviculaire du pecto"},{b:"Coudes en croix à 90°",g:"45-60° — protège l'avant de l'épaule"},{b:"Rebondir en bas",g:"Pause contrôlée 1s — stretch reflex sécurisé"},{b:"Dos qui décolle du banc",g:"Contact constant — empêche la compensation lombaire"}],
+   injury:["Pectus excavatum: réduire l'amplitude de 10-15% si inconfort sternal — ne jamais forcer","Douleur d'épaule: vérifier l'angle des coudes (45-60°) et réduire le poids","Poignets: légère rotation externe des haltères améliore le confort articulaire"],
+   pec:"Exercice PRIORITAIRE — il cible le haut des pectoraux, la zone qui masque le mieux visuellement le creux du pectus. (Le développé plat n'est pas dangereux pour un pectus léger, il est juste moins utile esthétiquement pour toi.)",scol:null},
 
   {id:2,name:"Élévations Latérales Haltères",cat:"push",mg:"Deltoïdes latéraux",diff:3,eff:5,icon:"💪",svgKey:"lateral_raise",
    sets:"4 × 12-15",rest:"60 sec",tempo:"2-1-3-0",equip:"Haltères légers (4-8 kg)",
    yt:"élévations latérales haltères technique parfaite deltoïdes latéraux",
    muscles:{p:["side-delt"],s:["traps","front-delt"]},
-   steps:["Debout, haltères le long du corps, légère flexion des coudes (15°)","Engagez les abdominaux pour stabiliser le tronc — pas d'élan","Montez les bras sur les côtés jusqu'à l'horizontale EXACTE — pas plus haut","Légère rotation interne: le pouce légèrement vers le bas (comme verser un verre)","Contrôlez la descente en 3 secondes — c'est là que le muscle se développe","Pause en bas sans balancer — pas d'élan, répétition stricte"],
+   steps:["Debout, haltères le long du corps, légère flexion des coudes (15°)","Engagez les abdominaux pour stabiliser le tronc — pas d'élan","Montez les bras sur les côtés jusqu'à l'horizontale EXACTE — pas plus haut","Pouce neutre et bras légèrement devant le corps (dans l'axe de l'omoplate) — pas de « verre qu'on verse »","Contrôlez la descente en 3 secondes — sans laisser retomber les bras","Pause en bas sans balancer — pas d'élan, répétition stricte"],
    breath:"⬆ Expirez en montant → ⬇ Inspirez lentement en descendant (3s)",
    amp:"De la hanche jusqu'à l'horizontale exacte — au-dessus l'épaule prend le relais",
    posture:["Tronc légèrement penché en avant (10°) pour le faisceau médial","Coudes légèrement fléchis tout le long","Épaules basses — ne pas hausser pendant le mouvement","Pas d'élan du corps ni de la tête"],
-   errors:[{b:"Monter au-dessus de l'horizontale",g:"Exactement à l'horizontale — cible le deltoïde médial de façon optimale"},{b:"Utiliser l'élan du corps",g:"Mouvement strict — même si le poids est plus léger"},{b:"Paumes en supination (vers le haut)",g:"Rotation interne légère (pouce vers le bas) — chef médial activé"},{b:"Trop lourd = compensation trapèzes",g:"Léger et strict > lourd et compensé"}],
+   errors:[{b:"Monter au-dessus de l'horizontale",g:"Exactement à l'horizontale — cible le deltoïde médial de façon optimale"},{b:"Utiliser l'élan du corps",g:"Mouvement strict — même si le poids est plus léger"},{b:"Paumes en supination (vers le haut)",g:"Pouce neutre : le « verre qu'on verse » (rotation interne) augmente le risque de conflit à l'épaule"},{b:"Trop lourd = compensation trapèzes",g:"Léger et strict > lourd et compensé"}],
    injury:["Douleur sous-acromiale: réduire l'amplitude, s'arrêter à 80° si pincement","Commencer très léger (4-6 kg max) — l'isolation exige de la légèreté","Volume élevé recommandé: 4×15 léger > 4×8 lourd pour les épaules"],
-   pec:"Excellent pour ouvrir la cage thoracique et élargir les épaules. Priorité dans votre programme V-Shape.",scol:null},
+   pec:"Élargit le haut du corps : plus d'épaules = le pectus attire moins l'œil. Priorité dans votre programme V-Shape.",scol:null},
 
   {id:3,name:"Développé Militaire Haltères Assis",cat:"push",mg:"Deltoïdes antérieurs",diff:3,eff:4,icon:"⬆️",svgKey:"overhead_press",
    sets:"4 × 10-12",rest:"90 sec",tempo:"2-1-2-0",equip:"Haltères + banc droit",
@@ -372,10 +377,10 @@ const EX = [
    steps:["Assis sur un banc droit (dossier 90°), pieds à plat, dos en contact","Haltères au niveau des oreilles, coudes à 90°, paumes vers l'avant","Poussez verticalement jusqu'à quasi-extension — pas de verrouillage","Légère convergence des haltères en haut — ils ne se touchent pas","Descendez lentement jusqu'à ce que les coudes soient à l'horizontale","Gardez les abdominaux engagés — ne pas cambrer le bas du dos"],
    breath:"⬆ Expirez fort en poussant → ⬇ Inspirez en contrôlant la descente",
    amp:"Coudes à l'horizontale en bas — bras quasi-tendus (non verrouillés) en haut",
-   posture:["Dos droit collé au dossier en permanence","Lombaires neutres — pas d'hyperlordose","Poignets alignés avec les avant-bras","Regard droit devant, pas vers le haut"],
+   posture:["Côtes basses : expire et « range » les côtes avant chaque poussée — pas de cambrure pour finir la rep","Dos droit collé au dossier en permanence","Lombaires neutres — pas d'hyperlordose","Poignets alignés avec les avant-bras","Regard droit devant, pas vers le haut"],
    errors:[{b:"Cambrer violemment le dos",g:"Dos plat contre dossier — abdos engagés"},{b:"Descendre trop bas (sous les oreilles)",g:"Coudes à l'horizontale maximum en bas"},{b:"Verrouiller les coudes en haut",g:"Légère flexion maintenue — tension continue"},{b:"Poignets fléchis",g:"Poignets neutres — dans l'axe des avant-bras"}],
    injury:["Épaule instable: passer en unilatéral pour corriger les déséquilibres","Jamais derrière la nuque — stress cervical inutile","Assis = plus stable pour apprendre le mouvement"],
-   pec:"Exercice sans compression sternale — excellent pour votre morphologie.",scol:null},
+   pec:"Exercice sans compression sternale — excellent pour votre morphologie.",scol:"Dossier à 75-85° plutôt que 90° : plus confortable pour les lombaires. Le dos reste collé au dossier, pas de cambrure pour finir les dernières reps."},
 
   {id:4,name:"Écarté Câble High-to-Low",cat:"push",mg:"Pectoraux (chef sternal)",diff:3,eff:4,icon:"🔗",svgKey:"cable_fly",
    sets:"3 × 12-15",rest:"75 sec",tempo:"2-1-3-0",equip:"Machine à câbles — poulies hautes",
@@ -385,9 +390,9 @@ const EX = [
    breath:"⬆ Expirez en rapprochant les bras → ⬇ Inspirez en revenant lentement",
    amp:"Grand arc de cercle du haut vers le bas-avant — croisement des mains en fin",
    posture:["Un pied devant l'autre pour la stabilité","Légère inclinaison du tronc 10-15°","Épaules basses, pas de haussement","Poignets neutres tout le mouvement"],
-   errors:[{b:"Plier excessivement les coudes",g:"15-20° fixes — ce n'est pas un rowing"},{b:"Balancer le tronc",g:"Mouvement isolé des bras"},{b:"Relâcher sans contrôle",g:"Excentrique 3s — c'est là que le pecto se développe"},{b:"Câbles qui montent en fin",g:"Maintenir la direction bas-avant jusqu'à la fin"}],
+   errors:[{b:"Plier excessivement les coudes",g:"15-20° fixes — ce n'est pas un rowing"},{b:"Balancer le tronc",g:"Mouvement isolé des bras"},{b:"Relâcher sans contrôle",g:"Retour contrôlé en 3 s — tension gardée tout le long"},{b:"Câbles qui montent en fin",g:"Maintenir la direction bas-avant jusqu'à la fin"}],
    injury:["Câbles > haltères pour le fly — tension constante sur toute l'amplitude","Douleur de coude: vérifier l'angle des coudes, utiliser des poignées rotatives"],
-   pec:"EXERCICE CLÉ pour vous — les câbles maintiennent une tension constante sans comprimer le sternum. Priorité sur les dumbbell flyes.",scol:null},
+   pec:"EXERCICE CLÉ pour vous — les câbles gardent une tension constante et une trajectoire confortable pour le sternum. Priorité sur les dumbbell flyes.",scol:null},
 
   {id:5,name:"Extension Triceps Câble Corde",cat:"push",mg:"Triceps — chef latéral & médial",diff:2,eff:3,icon:"💥",svgKey:"pushdown",
    sets:"4 × 12-15",rest:"60 sec",tempo:"2-0-2-0",equip:"Machine à câbles + corde (poulie haute)",
@@ -397,7 +402,7 @@ const EX = [
    breath:"⬇ Expirez en poussant → ⬆ Inspirez lentement en remontant",
    amp:"Avant-bras à 90°+ en haut — extension complète avec écartement des cordes en bas",
    posture:["Coudes fixes aux flancs — règle n°1","Poignets neutres (ni fléchis ni étendus)","Légère inclinaison du buste en avant","Ne pas se pencher avec le tronc pour aider"],
-   errors:[{b:"Coudes qui s'écartent ou remontent",g:"Coudes fixes = isolation triceps pure"},{b:"Ne pas écarter la corde en bas",g:"L'écartement = contraction maximale du chef long"},{b:"Amplitude réduite (50%)",g:"Extension COMPLÈTE — les triceps ont besoin de la pleine amplitude"},{b:"Trop lourd + tronc qui aide",g:"Léger et strict — isolation pure"}],
+   errors:[{b:"Coudes qui s'écartent ou remontent",g:"Coudes fixes = isolation triceps pure"},{b:"Ne pas écarter la corde en bas",g:"L'écartement en bas = contraction maximale (chefs latéral et médial)"},{b:"Amplitude réduite (50%)",g:"Extension COMPLÈTE — les triceps ont besoin de la pleine amplitude"},{b:"Trop lourd + tronc qui aide",g:"Léger et strict — isolation pure"}],
    injury:["Douleur de coude: coudes ne bougent pas, réduire le poids","La corde est moins stressante pour les coudes que la barre droite","Variante: barre en V pour coudes sensibles"],
    pec:null,scol:null},
 
@@ -410,8 +415,8 @@ const EX = [
    amp:"Bras quasi-tendus au départ — corde au niveau du visage avec coudes hauts en contraction",
    posture:["Légère inclinaison arrière (10-15°) — normale","Poitrine sortie, omoplates qui se rapprochent en fin","Coudes HAUTS (à hauteur des yeux) en fin de mouvement","Ne pas tirer vers le bas ni vers la poitrine"],
    errors:[{b:"Tirer vers le bas (comme un rowing)",g:"Tirer VERS LE VISAGE avec rotation externe"},{b:"Coudes bas pendant le mouvement",g:"Coudes à hauteur des yeux — active les delts postérieurs"},{b:"Trop lourd = compensation trapèzes",g:"Léger et avec rotation externe complète"},{b:"Amplitude réduite, pas de rotation",g:"La rotation externe EST l'exercice — sans elle, ça ne sert à rien"}],
-   injury:["Essentiel pour la santé des épaules — à faire EN DÉBUT de chaque séance upper body","Prévient l'impingement et rééquilibre l'épaule interne","Si douleur d'épaule: réduire le poids et vérifier la rotation externe"],
-   pec:"EXERCICE THÉRAPEUTIQUE PRIORITAIRE — le face pull ouvre la cage thoracique et corrige la cyphose. Ne sautez JAMAIS cet exercice.",scol:null},
+   injury:["1 série très légère en échauffement, puis les séries de travail en fin de séance (comme dans ton programme)","Prévient l'impingement et rééquilibre l'épaule interne","Si douleur d'épaule: réduire le poids et vérifier la rotation externe"],
+   pec:"EXERCICE THÉRAPEUTIQUE PRIORITAIRE — le face pull renforce l'arrière des épaules et aide à corriger les épaules enroulées (posture), ce qui met mieux le thorax en valeur. Ne sautez JAMAIS cet exercice.",scol:null},
 
   {id:7,name:"Tirage Vertical Prise Large",cat:"pull",mg:"Grand dorsal (largeur)",diff:3,eff:5,icon:"⬇️",svgKey:"pulldown",
    sets:"4 × 10-12",rest:"90 sec",tempo:"2-1-3-0",equip:"Machine lat pulldown",
@@ -433,7 +438,7 @@ const EX = [
    breath:"⬆ Expirez en tirant → ⬇ Inspirez en descendant lentement",
    amp:"Bras tendu en bas — coude au-dessus du niveau du dos en haut",
    posture:["Dos parallèle au sol, neutre","Épaule de support stable, pas enfoncée","Haltère tiré vers la HANCHE, pas l'épaule","Tête dans l'alignement du dos — regard vers le sol"],
-   errors:[{b:"Tirer vers l'épaule",g:"Tirer vers la hanche — cible les lats, pas les biceps"},{b:"Arrondir le dos",g:"Dos plat horizontal — protège les lombaires"},{b:"Trop de rotation du torse",g:"Légère rotation naturelle OK — évitez l'exagération"},{b:"Descendre sans contrôle",g:"Excentrique 3s = là que les lats grandissent"}],
+   errors:[{b:"Tirer vers l'épaule",g:"Tirer vers la hanche — cible les lats, pas les biceps"},{b:"Arrondir le dos",g:"Dos plat horizontal — protège les lombaires"},{b:"Trop de rotation du torse",g:"Légère rotation naturelle OK — évitez l'exagération"},{b:"Descendre sans contrôle",g:"Descente contrôlée en 3 s — étirement complet du dorsal"}],
    injury:["Commencer TOUJOURS côté GAUCHE (côté le plus faible) puis faire le droit","Si côté droit plus fort: ajouter 1 série extra côté gauche","Poignet: utiliser des sangles de traction si besoin"],
    pec:null,scol:"Asymétrie posturale (radio 2020 : pas de scoliose structurelle) : commencez TOUJOURS par le côté GAUCHE, le plus faible. Si déséquilibre détecté, 1 série supplémentaire à gauche. Bonus discopathie L5-S1 : la main sur le banc décharge complètement les lombaires — dos plat obligatoire."},
 
@@ -441,23 +446,23 @@ const EX = [
    sets:"3 × 12-15",rest:"75 sec",tempo:"2-2-3-0",equip:"Machine à câbles poulie basse + barre large",
    yt:"rowing câble assis prise large rhomboïdes trapèzes technique dos",
    muscles:{p:["rhomboids","traps"],s:["lats","rear-delt","biceps"]},
-   steps:["Assis face à la poulie basse, pieds sur les appuis, légère flexion des genoux","Saisissez la barre large en pronation (paumes vers le bas), largeur épaules","Dos droit, légère inclinaison avant du buste (25°)","Tirez en ramenant les coudes EN ARRIÈRE ET EN BAS — les omoplates se rapprochent","Pause 2s en contraction: omoplates serrées, poitrine vers la machine","Contrôlez le retour en 3s — ne vous laissez pas emporter par le câble","Permettez une légère rotation du torse vers l'avant en fin de retour (stretch)"],
+   steps:["Assis face à la poulie basse, pieds sur les appuis, légère flexion des genoux","Saisissez la barre large en pronation (paumes vers le bas), largeur épaules","Dos droit, légère inclinaison avant du buste (25°)","Tirez en ramenant les coudes EN ARRIÈRE ET EN BAS — les omoplates se rapprochent","Pause 2s en contraction: omoplates serrées, poitrine vers la machine","Contrôlez le retour en 3s — ne vous laissez pas emporter par le câble","Buste FIXE et vertical au retour : l'étirement vient des omoplates qui s'écartent, jamais du dos qui s'enroule (L5-S1)"],
    breath:"⬆ Expirez en tirant → ⏸ 2s pause → ⬇ Inspirez en revenant lentement",
    amp:"Bras quasi-tendus en départ — omoplates complètement serrées en fin de tirage",
    posture:["Dos droit, 25° en avant (pas arrondi)","Coudes à hauteur du torse (ni trop hauts ni trop bas)","Omoplates actives — pincement en fin de mouvement","Épaules basses, pas de haussement"],
    errors:[{b:"Balancer le dos",g:"Dos quasi-fixe — c'est le dos qui travaille, pas l'élan"},{b:"Tirer avec les bras, omoplates passives",g:"Initier le mouvement avec les OMOPLATES"},{b:"Coudes collés au corps (cible les lats)",g:"Coudes écartés à hauteur du torse — rhomboïdes et trapèzes moyens ciblés"},{b:"Relâcher sans contrôle",g:"3s retour contrôlé — stretch clé pour la posture"}],
    injury:["Excellent exercice pour corriger la cyphose thoracique","Prise large pour rhomboïdes — prise serrée cible plus les lats","Si douleur lombaire: réduire l'inclinaison avant du buste"],
-   pec:"Exercice thérapeutique posture — renforce les muscles qui ouvrent la cage thoracique.",scol:"Concentrez-vous sur une contraction SYMÉTRIQUE des deux côtés du dos à chaque répétition."},
+   pec:"Exercice thérapeutique posture — renforce les muscles qui ouvrent la cage thoracique.",scol:"Contraction SYMÉTRIQUE des deux côtés du dos à chaque répétition. Discopathie L5-S1 : buste vertical et fixe du début à la fin — l'étirement vient des omoplates, jamais du bas du dos qui s'enroule."},
 
   {id:10,name:"Oiseau sur Banc Incliné",cat:"pull",mg:"Deltoïdes postérieurs",diff:3,eff:4,icon:"🦅",svgKey:"rear_fly",
-   sets:"3 × 12-15",rest:"60 sec",tempo:"2-1-3-0",equip:"Haltères légers + banc incliné",
+   sets:"3 × 15-20",rest:"60 sec",tempo:"2-1-2-0",equip:"Haltères légers (3-5 kg) + banc incliné 30-45°",
    yt:"oiseau haltères banc incliné deltoïdes postérieurs technique rear delt fly",
    muscles:{p:["rear-delt"],s:["rhomboids","traps"]},
    steps:["Banc à 30-45°, allongé face vers le bas (ventre sur le banc)","Haltères pendants, bras quasi-tendus, légère flexion des coudes","Montez les haltères sur les côtés en arc de cercle — comme des ailes","Guidez les COUDES (pas les mains) vers le plafond","En fin: petite rotation externe (pouces vers le haut) pour la contraction","Pause 1s en contraction — ressentez les delts postérieurs","Descendez LENTEMENT en 3s — l'excentrique est clé pour cet exercice"],
    breath:"⬆ Expirez en montant → ⬇ Inspirez lentement en descendant (3s)",
    amp:"Haltères pendants (bras vers le sol) — bras à l'horizontale ou légèrement au-dessus",
    posture:["Tête dans l'alignement du dos (regarder le sol)","Épaules basses, pas de haussement de trapèzes","Front/poitrine en contact avec le banc","Légère flexion des coudes fixe tout le mouvement"],
-   errors:[{b:"Monter trop haut (trapèzes)",g:"Arrêter à l'horizontale — delts postérieurs ciblés"},{b:"Haltères trop lourds",g:"Très léger (4-8 kg) — isolation pure"},{b:"Lever le torse du banc",g:"Poitrine reste collée au banc tout le mouvement"},{b:"Descente sans contrôle",g:"Excentrique 3s = croissance maximale"}],
+   errors:[{b:"Monter trop haut (trapèzes)",g:"Arrêter à l'horizontale — delts postérieurs ciblés"},{b:"Haltères trop lourds",g:"Très léger (4-8 kg) — isolation pure"},{b:"Lever le torse du banc",g:"Poitrine reste collée au banc tout le mouvement"},{b:"Descente sans contrôle",g:"Descente lente en 3 s, tension constante"}],
    injury:["Un des exercices les plus importants pour la santé des épaules","Commencer TRÈS léger (4 kg max) — la résistance de l'air suffit au départ","Rotation externe en fin = sécurité articulaire"],
    pec:"Exercice correctif prioritaire — renforce les antagonistes du pectus et améliore l'ouverture thoracique.",scol:null},
 
@@ -481,7 +486,7 @@ const EX = [
    breath:"⬆ Expirez en fléchissant → ⬇ Inspirez en descendant (3s)",
    amp:"Bras tendu en bas — haltère à hauteur de l'épaule en haut",
    posture:["Coudes fixes aux flancs — règle absolue","Tronc stable, pas de balancement","Épaules basses, pas de haussement en fin de mouvement"],
-   errors:[{b:"Coudes qui avancent en haut",g:"Coudes fixes — si ils avancent, c'est trop lourd"},{b:"Pas de supination",g:"La supination = activation maximale du biceps"},{b:"Se balancer pour aider",g:"Strict = efficace — l'élan bypass le biceps"},{b:"Descente trop rapide",g:"3s de descente = deux fois plus de croissance"}],
+   errors:[{b:"Coudes qui avancent en haut",g:"Coudes fixes — si ils avancent, c'est trop lourd"},{b:"Pas de supination",g:"La supination = activation maximale du biceps"},{b:"Se balancer pour aider",g:"Strict = efficace — l'élan bypass le biceps"},{b:"Descente trop rapide",g:"Descente contrôlée en 3 s — plus de tension, moins d'élan"}],
    injury:["Douleur de coude: utiliser grip neutre (marteau) — moins de stress","Éviter les haltères trop lourds — la forme prime sur le poids"],
    pec:null,scol:null},
 
@@ -509,41 +514,52 @@ const EX = [
    injury:["Exercice d'échauffement et de santé d'épaule idéal avant le travail de poussée","Antidote direct aux épaules enroulées et à la cyphose — renforce ce que la position assise affaiblit"],
    pec:"Excellent pour ouvrir la cage et contrer l'enroulement des épaules — bénéfique avec un pectus excavatum.",scol:"Veille à une tension SYMÉTRIQUE des deux mains — si un côté tire plus, ralentis et égalise."},
 
-  {id:14,name:"Arnold Press",cat:"vshape",mg:"Deltoïdes (3 faisceaux)",diff:4,eff:4,icon:"🏅",svgKey:"overhead_press",
+  {id:14,name:"Arnold Press",cat:"vshape",mg:"Deltoïdes (antérieur + moyen)",diff:4,eff:4,icon:"🏅",svgKey:"overhead_press",
    sets:"4 × 10-12",rest:"90 sec",tempo:"3-1-2-0",equip:"Haltères + banc droit",
    yt:"arnold press technique haltères deltoïdes 3 faisceaux rotation",
    muscles:{p:["front-delt","side-delt"],s:["traps","triceps"]},
-   steps:["Assis sur banc droit, haltères en haut d'un curl (devant le visage, coudes 90°, paumes vers vous)","Commencez à pousser vers le haut EN TOURNANT progressivement les paumes vers l'extérieur","À mi-chemin, paumes face en avant (position standard militaire)","Continuez jusqu'à extension quasi-complète — paumes face avant, coudes légèrement fléchis","Revenez en inversant: tendez puis tournez les paumes vers vous","La rotation doit être LENTE et CONTRÔLÉE — elle active les 3 faisceaux"],
+   steps:["Assis sur banc droit, haltères en haut d'un curl (devant le visage, coudes 90°, paumes vers vous)","Commencez à pousser vers le haut EN TOURNANT progressivement les paumes vers l'extérieur","À mi-chemin, paumes face en avant (position standard militaire)","Continuez jusqu'à extension quasi-complète — paumes face avant, coudes légèrement fléchis","Revenez en inversant: tendez puis tournez les paumes vers vous","La rotation doit être LENTE et CONTRÔLÉE — elle augmente l'amplitude pour l'avant et le milieu de l'épaule"],
    breath:"⬆ Expirez en poussant et tournant → ⬇ Inspirez en revenant",
    amp:"Haltères devant le visage (paumes vers vous) → bras quasi-tendus (paumes en avant)",
-   posture:["Dos droit contre le dossier","Abdos engagés, pas de cambrure","Rotation continue et fluide pendant tout le mouvement","Coudes qui montent de 90° pendant le mouvement"],
-   errors:[{b:"Rotation trop rapide ou partielle",g:"Rotation complète et lente = activation des 3 faisceaux"},{b:"Cambrer le dos",g:"Dos plat et abdos serrés"},{b:"Trop lourd = perte de la rotation",g:"Léger et technique — la rotation est l'exercice"}],
+   posture:["Côtes basses pendant toute la série (tes côtes ont tendance à ressortir bras en l'air)","Dos droit contre le dossier","Abdos engagés, pas de cambrure","Rotation continue et fluide pendant tout le mouvement","Coudes qui montent de 90° pendant le mouvement"],
+   errors:[{b:"Rotation trop rapide ou partielle",g:"Rotation complète et lente — amplitude maximale"},{b:"Cambrer le dos",g:"Dos plat et abdos serrés"},{b:"Trop lourd = perte de la rotation",g:"Léger et technique — la rotation est l'exercice"}],
    injury:["Exercice technique — commencer léger pour maîtriser la rotation","Si douleur d'épaule: séparer en presse standard sans rotation au début"],
-   pec:"Excellent pour développer les 3 faisceaux deltoïdes sans compression sternale.",scol:null},
+   pec:"Bon développé d'épaules (avant + milieu), aucune contrainte sur le sternum.",scol:null},
 
+  {id:27,name:"Élévations Latérales Câble",cat:"vshape",mg:"Deltoïdes latéraux (tension constante)",diff:3,eff:5,icon:"〽️",svgKey:"lateral_raise",
+   sets:"3 × 15",rest:"60 sec",tempo:"2-1-3-0",equip:"Machine à câbles — poulie basse",
+   yt:"élévation latérale poulie basse câble technique deltoïde",
+   muscles:{p:["side-delt"],s:["traps"]},
+   steps:["Poulie basse réglée tout en bas, poignée simple, debout de profil à la machine","Saisis la poignée avec la main la plus éloignée : le câble passe devant toi","Coude légèrement fléchi (15°) et FIXE pendant toute la série","Monte le bras sur le côté en arc de cercle jusqu'à l'horizontale — pas plus haut","Pouce neutre, bras légèrement devant le corps (dans l'axe de l'omoplate)","Redescends en 3 secondes en résistant au câble, sans relâcher la tension en bas","Fais toutes les reps d'un côté, puis l'autre — commence par le côté GAUCHE"],
+   breath:"⬆ Expirez en montant → ⬇ Inspirez en descendant lentement (3s)",
+   amp:"Bras le long du corps (câble déjà tendu) → bras à l'horizontale",
+   posture:["Buste droit, abdos gainés, pas de balancier","Épaule basse, loin de l'oreille","Légère inclinaison du buste à l'opposé de la machine possible pour plus d'amplitude","Coude fixe — ce n'est pas un curl"],
+   errors:[{b:"Coude qui se plie (curl latéral)",g:"Flexion légère et fixe du coude"},{b:"Monter au-dessus de l'horizontale",g:"S'arrêter à l'horizontale — sinon les trapèzes prennent le relais"},{b:"Trop lourd, élan du buste",g:"Très léger (2,5-5 kg) et strict"}],
+   injury:["Avantage du câble : la tension reste présente en bas du mouvement, là où l'haltère « décharge »","Gêne sous l'acromion : réduire l'amplitude (s'arrêter vers 70-80°) et la charge","Complète les élévations aux haltères : 11 séries/semaine au total pour le deltoïde moyen"],
+   pec:"Élargit le haut du corps : plus d'épaules = le pectus attire moins l'œil.",scol:"Exercice unilatéral : commence par le côté GAUCHE (le plus faible) et fais le même nombre de reps des deux côtés."},
   {id:15,name:"Pull-ups / Tractions",cat:"vshape",mg:"Grand dorsal (largeur maximale)",diff:5,eff:5,icon:"🔝",svgKey:"pullup",
    sets:"4 × max reps",rest:"120 sec",tempo:"2-1-3-0",equip:"Barre de tractions",
    yt:"tractions pull ups technique grand dorsal débutant progression bande élastique",
    muscles:{p:["lats","biceps"],s:["rhomboids","abs","rear-delt"]},
-   steps:["Prise pronation (paumes vers l'avant), largeur légèrement supérieure aux épaules","Bras tendus en départ — DÉPRIMER les épaules (les baisser) avant de plier les coudes","Tirez le menton au-dessus de la barre en guidant les coudes vers les hanches","Légère inclinaison arrière pour que la poitrine touche la barre en haut","Pause 1s en haut — lats contractés, chest fier","Descendez LENTEMENT en 3s — stretch complet des lats","Si impossibles: utiliser l'élastique ou le tirage vertical comme base"],
+   steps:["Prise pronation (paumes vers l'avant), largeur légèrement supérieure aux épaules","Bras tendus en départ — DÉPRIMER les épaules (les baisser) avant de plier les coudes","Tirez le menton au-dessus de la barre en guidant les coudes vers les hanches","Légère inclinaison arrière pour que la poitrine touche la barre en haut","Pause 1 s en haut — dorsaux contractés, poitrine fière","Descendez LENTEMENT en 3s — stretch complet des lats","Si impossibles: utiliser l'élastique ou le tirage vertical comme base"],
    breath:"⬆ Expirez en montant → ⬇ Inspirez lentement en descendant (3s)",
    amp:"Bras COMPLÈTEMENT tendus en bas — menton au-dessus de la barre en haut",
-   posture:["Dépression des épaules avant tout","Légère inclinaison arrière du corps en haut","Pas de balancement ni d'élan","Poitrine tendue vers la barre"],
+   posture:["Côtes basses et fessiers serrés : le corps reste gainé, sans cambrer","Dépression des épaules avant tout","Légère inclinaison arrière du corps en haut","Pas de balancement ni d'élan","Poitrine tendue vers la barre"],
    errors:[{b:"Demi-répétitions (bras non tendus en bas)",g:"Extension COMPLÈTE — la plus grande marge de progression"},{b:"Épaules haussées (oreilles collées)",g:"Dépression d'abord — épaules loin des oreilles"},{b:"Se balancer (kipping)",g:"Mouvements stricts — moins de reps, plus de muscle"},{b:"Descente rapide",g:"3s de descente = recrutement maximal des lats"}],
-   injury:["Débutant: commencer avec tirage vertical, passer aux tractions après 3 mois","Élastique si moins de 5 reps — aide sans enlever le travail musculaire","Douleur d'épaule: vérifier dépression des épaules au départ"],
-   pec:"Exercise roi pour la largeur des lats et l'ouverture thoracique. Objectif: 10 tractions strictes d'ici 6 mois.",scol:null},
+   injury:["Moins de 3 tractions strictes : tractions assistées (élastique/machine) ou tirage vertical + 2 négatives (descente 5 s)","Dès 5 tractions strictes : tractions libres","Douleur d'épaule: vérifier dépression des épaules au départ"],
+   pec:"Exercice roi pour la largeur du dos. Objectif : ~5 tractions strictes vers 6 mois, 8-10 à 12 mois.",scol:null},
 
   {id:16,name:"Curl Barre EZ",cat:"vshape",mg:"Biceps (volume bilatéral)",diff:2,eff:3,icon:"🏗️",svgKey:"curl",
    sets:"3 × 10-12",rest:"75 sec",tempo:"2-1-3-0",equip:"Barre EZ",
    yt:"curl barre EZ technique biceps volume bilatéral",
    muscles:{p:["biceps"],s:["forearms"]},
-   steps:["Debout, prise semi-supinée sur la barre EZ (positions intérieures ou extérieures)","Barre contre les cuisses en position départ, coudes collés aux flancs","Fléchissez les deux bras simultanément jusqu'au menton","Pause 1s en haut — contraction maximale","Descente lente en 3s — résistez à la gravité jusqu'à extension complète"],
+   steps:["Debout, prise semi-supinée sur la barre EZ (positions intérieures ou extérieures)","Barre contre les cuisses en position départ, coudes collés aux flancs","Fléchissez les deux bras jusqu'à hauteur des épaules — les coudes ne bougent pas","Pause 1s en haut — contraction maximale","Descente lente en 3s — résistez à la gravité jusqu'à extension complète"],
    breath:"⬆ Expirez en fléchissant → ⬇ Inspirez en descendant (3s)",
    amp:"Extension complète en bas — barre au niveau du menton en haut",
    posture:["Coudes fixes aux flancs","Tronc stable (légère inclinaison OK)","Poignets dans l'axe de la barre EZ"],
-   errors:[{b:"Se pencher en arrière pour aider",g:"Tronc fixe — si vous penchez, c'est trop lourd"},{b:"Amplitude réduite",g:"Extension complète = recrutement complet"},{b:"Descente trop rapide",g:"Excentrique 3s — le muscle grandit dans la descente"}],
+   errors:[{b:"Se pencher en arrière pour aider",g:"Tronc fixe — si vous penchez, c'est trop lourd"},{b:"Amplitude réduite",g:"Extension complète = recrutement complet"},{b:"Descente trop rapide",g:"Descente contrôlée en 3 s jusqu'à l'extension complète"}],
    injury:["La barre EZ est plus confortable que la barre droite pour les poignets","Coudes sensibles: vérifier la prise (largeur et angle)"],
-   pec:null,scol:null},
+   pec:null,scol:"Debout, la tentation est de cambrer pour monter la barre : fessiers serrés, côtes basses. Si tu cambres, c'est trop lourd (L5-S1)."},
 
   {id:17,name:"Curl Concentré Haltère",cat:"vshape",mg:"Biceps (pic/contraction)",diff:2,eff:3,icon:"🎯",svgKey:"curl",
    sets:"2 × 10-12 / bras",rest:"60 sec",tempo:"2-2-3-0",equip:"Haltère + banc",
@@ -554,7 +570,7 @@ const EX = [
    amp:"Extension complète en bas — haltère quasi-contre l'épaule en haut",
    posture:["Coude FIXE contre la cuisse — ne bouge pas","Tronc stable, ne pas se lever pour aider","Supination maximale en haut"],
    errors:[{b:"Coude qui se déplace (monte)",g:"Coude FIXE = isolation pure du biceps"},{b:"Pas de pause en haut",g:"2s de contraction = connexion musculaire optimale"}],
-   injury:["Exercice d'isolation pure — utilisation faible à modérée","Technique parfaite prioritaire — la forme prime toujours"],
+   injury:["Isolation pure — charge légère à modérée","Technique parfaite prioritaire — la forme prime toujours"],
    pec:null,scol:null},
 
   {id:18,name:"Extension Triceps Overhead Câble",cat:"vshape",mg:"Triceps (chef long — étirement)",diff:3,eff:4,icon:"☝️",svgKey:"overhead_ext",
@@ -564,10 +580,10 @@ const EX = [
    steps:["Poulie basse, corde, tournez le dos à la machine","Un pied en avant pour la stabilité, maintenez la corde derrière la tête","Coudes pointant vers le plafond — FIXES pendant tout le mouvement","Étendez les bras vers le haut en dépliant les coudes","Extension complète — pause 1s, contraction chef long","Descendez lentement en 3s — étirement maximum du chef long","Résistez à l'envie de laisser les coudes s'écarter"],
    breath:"⬆ Expirez en étendant → ⬇ Inspirez en descendant lentement (3s)",
    amp:"Coudes fléchis max derrière la tête — bras complètement tendus en haut",
-   posture:["Coudes pointant vers le plafond — fixes","Tronc légèrement incliné en avant","Abdos engagés pour stabiliser","Poignets neutres"],
+   posture:["Côtes basses : bras en l'air = tendance à cambrer et à ouvrir les côtes","Coudes pointant vers le plafond — fixes","Tronc légèrement incliné en avant","Abdos engagés pour stabiliser","Poignets neutres"],
    errors:[{b:"Coudes qui s'écartent et descendent",g:"Coudes hauts et fixes = chef long ciblé"},{b:"Balancer le tronc",g:"Mouvement isolé aux avant-bras uniquement"},{b:"Amplitude réduite",g:"Extension COMPLÈTE — le chef long a besoin de la pleine amplitude"}],
    injury:["Exercice optimal pour le chef long (2/3 du volume du triceps) — étirement unique","Douleur de coude: réduire l'amplitude de retour"],
-   pec:null,scol:null},
+   pec:null,scol:"Bras au-dessus de la tête = tendance à cambrer : fente avant, fessiers serrés, côtes basses. Variante encore plus sûre : à genoux, dos à la poulie."},
 
   {id:22,name:"Planche Abdominale",cat:"core",mg:"Abdominaux + Stabilisateurs",diff:2,eff:4,icon:"⬛",svgKey:"plank",
    sets:"3 × 30-60 sec",rest:"45 sec",tempo:"Statique",equip:"Sol / tapis",
@@ -576,9 +592,9 @@ const EX = [
    steps:["Avant-bras au sol, coudes sous les épaules, paumes à plat","Montez sur la pointe des pieds, corps en ligne DROITE de la tête aux talons","Engagez les abdominaux: 'rentrez le ventre vers la colonne'","Serrez les fessiers — aide à maintenir la ligne droite","Regardez le sol, 30-40 cm devant vous — tête dans l'axe","Respirez normalement, ne bloquez pas la respiration","Maintenez — si la hanche monte ou descend: ARRÊTEZ"],
    breath:"Respirez normalement tout au long — pas de blocage respiratoire pendant la planche",
    amp:"Position statique — fessiers à hauteur du corps (ni trop hauts ni trop bas)",
-   posture:["Corps en ligne droite de la tête aux talons","Abdos rentrés activement","Fessiers contractés","Coudes sous les épaules (pas devant)"],
+   posture:["Côtes basses : expire à fond en début de série et garde cette position (rib flare)","Corps en ligne droite de la tête aux talons","Abdos rentrés activement","Fessiers contractés","Coudes sous les épaules (pas devant)"],
    errors:[{b:"Fessiers trop hauts (position A)",g:"Corps en ligne droite — fessiers alignés avec les épaules"},{b:"Hanches qui s'affaissent",g:"Abdos ET fessiers contractés pour maintenir la ligne"},{b:"Tenir trop longtemps avec mauvaise forme",g:"30s parfaits > 90s effondrés"},{b:"Bloquer la respiration",g:"Respiration normale — le core peut travailler en respirant"}],
-   injury:["Aucun risque si forme correcte — exercice anti-traumatique","Lombaires: si douleur, vérifier l'alignement et réduire la durée","Progression: 30s → 45s → 60s → 90s"],
+   injury:["Très sûr si la forme est correcte","Lombaires: si douleur, vérifier l'alignement et réduire la durée","Progression : 30 s → 45 s → 60 s, puis rendre plus difficile (coudes plus loin devant, planche RKC 10-20 s) plutôt que tenir plus longtemps"],
    pec:"Renforce le transverse sans compression sternale — excellent pour votre morphologie.",scol:"Concentrez-vous sur une activation SYMÉTRIQUE des deux côtés du core."},
 
   {id:23,name:"Dead Bug",cat:"core",mg:"Transverse + Stabilisation spinale",diff:3,eff:5,icon:"🐛",svgKey:"dead_bug",
@@ -588,7 +604,7 @@ const EX = [
    steps:["Allongez-vous sur le dos, bras tendus vers le plafond, hanches et genoux à 90°","APPLIQUEZ votre bas du dos au sol — maintenez ce contact TOUT le mouvement","Inspirez profondément en position de départ","En expirant: tendez le bras DROIT vers l'arrière et la jambe GAUCHE vers l'avant","Les deux membres vont jusqu'à quasi-horizontaux — sans que le bas du dos se décolle","Revenez à la position de départ en inspirant","Répétez côté opposé: bras gauche + jambe droite"],
    breath:"⬇ Inspirez en position départ → ⬆ Expirez en étendant les membres opposés",
    amp:"Membres quasi-horizontaux sans décollement du bas du dos",
-   posture:["Bas du dos COLLÉ au sol en permanence — règle absolue","Mouvement lent et contrôlé","Membres CONTROLATÉRAUX (bras droit + jambe gauche)","Tête posée sur le sol, pas soulevée"],
+   posture:["Expire à fond à chaque extension : les côtes basses descendent vers le bassin","Bas du dos COLLÉ au sol en permanence — règle absolue","Mouvement lent et contrôlé","Membres CONTROLATÉRAUX (bras droit + jambe gauche)","Tête posée sur le sol, pas soulevée"],
    errors:[{b:"Bas du dos qui se décolle",g:"Réduire l'amplitude — le bas du dos DOIT rester au sol"},{b:"Mouvement trop rapide",g:"Lent et contrôlé — c'est l'anti-mouvement qui compte"},{b:"Même côté bras et jambe",g:"Côtés OPPOSÉS — bras droit + jambe gauche"}],
    injury:["Exercice le plus sûr pour le core — prescrit en rééducation lombaire","Renforce le transverse = corset naturel = protection spinale optimale"],
    pec:null,scol:"EXERCICE PRIORITAIRE pour ton dos — renforce le transverse, corset naturel qui protège la charnière L5-S1 (discopathie radio 2020). Ne jamais supprimer."},
@@ -602,7 +618,7 @@ const EX = [
    amp:"Poignée contre la poitrine → bras complètement tendus devant",
    posture:["Corps perpendiculaire à la machine","Hanches carrées — ne pas les tourner","Genoux légèrement fléchis","Épaules basses et stables"],
    errors:[{b:"Tourner les hanches vers la machine",g:"Hanches carrées — c'est l'anti-rotation qui compte"},{b:"Trop lourd = compensation dos",g:"Léger et strict — la résistance à la rotation est clé"},{b:"Bras trop hauts ou trop bas",g:"Poignée au niveau du nombril, bras horizontaux"}],
-   injury:["Exercice roi pour la stabilisation du tronc","Réduit significativement le risque de blessures lombaires"],
+   injury:["Exercice roi pour la stabilisation du tronc","Renforce le tronc sans flexion — bien toléré avec des lombaires sensibles"],
    pec:null,scol:"EXERCICE CORRECTIF prioritaire — l'anti-rotation rééquilibre les forces musculaires asymétriques du tronc ET renforce le core sans aucune flexion lombaire : idéal avec ta discopathie L5-S1."},
 
   {id:25,name:"Vacuum Abdominal",cat:"core",mg:"Transverse abdominal (corset profond)",diff:3,eff:4,icon:"🌀",svgKey:"vacuum",
@@ -629,6 +645,18 @@ const EX = [
    injury:["Câble > crunchs au sol — résistance constante sur toute l'amplitude","Cervicales: la corde est tenue par les mains, pas tirée avec le cou","Charge modérée obligatoire — cet exercice est le seul du programme avec une flexion de tronc chargée"],
    pec:null,scol:"⚠️ DISCOPATHIE L5-S1 (radio 2020) : la flexion lombaire sous charge est exactement ce que ton disque tolère le moins. Version adaptée obligatoire : enroulement THORACIQUE uniquement, lombaires neutres, charge modérée. À la moindre gêne lombaire, remplace définitivement par Pallof Press, Planche ou Dead Bug — mêmes bénéfices core, zéro flexion."},
 
+  {id:28,name:"Respiration 90/90 (Côtes Basses)",cat:"core",mg:"Diaphragme + Transverse (position des côtes et du bassin)",diff:1,eff:4,icon:"🫁",svgKey:"dead_bug",
+   sets:"5 respirations",rest:"—",tempo:"Inspire 4 s · Expire 6-8 s",equip:"Sol + un mur",
+   yt:"90 90 breathing rib flare respiration diaphragmatique pieds au mur",
+   muscles:{p:["abs"],s:["obliques"]},
+   steps:["Allonge-toi sur le dos, pieds à plat contre un mur, hanches et genoux pliés à 90°","Pousse légèrement les talons dans le mur : le bas du dos se pose au sol, sans forcer","Mains sur les côtes basses pour sentir leur mouvement","Inspire par le nez 4 s : le ventre et les CÔTÉS des côtes se gonflent, pas les épaules","Expire longuement par la bouche (6-8 s) jusqu'au bout de l'air : sens les côtes basses descendre et se refermer","Garde les côtes « rangées » pendant l'inspiration suivante — c'est tout l'exercice","5 respirations, puis relève-toi doucement"],
+   breath:"Inspire 4 s (nez) → Expire 6-8 s (bouche, jusqu'au bout) → petite pause",
+   amp:"Pas de mouvement visible : c'est la position des côtes et du bassin qui change",
+   posture:["Pieds au mur, hanches et genoux à 90°","Bas du dos posé, sans écraser","Épaules et nuque relâchées","Côtes basses qui « rentrent » à l'expiration"],
+   errors:[{b:"Respirer avec les épaules",g:"Ventre et côtés des côtes — épaules immobiles"},{b:"Expirer à moitié",g:"Expirer jusqu'au bout : c'est la fin de l'expiration qui ramène les côtes"},{b:"Creuser le dos",g:"Bas du dos posé grâce aux talons dans le mur"}],
+   injury:["Aucun risque — exercice de rééducation","Repéré sur tes photos : côtes basses qui ressortent (rib flare), plus d'un côté","À faire en échauffement des 3 séances + 1 série le soir"],
+   pec:"Le rib flare accompagne souvent le pectus excavatum : « ranger » les côtes améliore le profil du torse et l'aspect du ventre.",
+   scol:"Replace le bassin et les côtes au-dessus l'un de l'autre : moins de cambrure, donc moins de contrainte sur la charnière L5-S1."},
   {id:20,name:"Bird Dog",cat:"core",mg:"Stabilisation spinale + Fessiers",diff:2,eff:4,icon:"🐦",svgKey:"bird_dog",
    sets:"3 × 10 / côté",rest:"45 sec",tempo:"Lent et contrôlé",equip:"Sol / tapis",
    yt:"bird dog exercice gainage lombaire stabilisation dos technique débutant",
@@ -648,7 +676,7 @@ const EX = [
    steps:["Allongé sur le dos, bras tendus au-dessus de la tête, jambes tendues","COLLEZ le bas du dos au sol en rentrant le nombril — c'est la clé de l'exercice","Décollez simultanément les épaules et les jambes du sol","Le corps forme une 'banane' légère : seul le bas du dos reste en contact","Plus les jambes sont basses, plus c'est dur — monte-les pour faciliter au début","Maintiens la position en respirant — le bas du dos ne doit JAMAIS se décoller","Si le bas du dos se décolle : remonte les bras/jambes ou plie les genoux"],
    breath:"Respiration courte et continue — ne jamais bloquer ; le gainage reste constant",
    amp:"Position statique en légère flexion ('banane'), bas du dos plaqué au sol",
-   posture:["Bas du dos COLLÉ au sol — règle absolue","Épaules et jambes décollées simultanément","Menton légèrement rentré, nuque relâchée","Régression : genoux pliés et/ou bras le long du corps"],
+   posture:["Côtes basses : c'est la clé — si les côtes remontent, remonte les jambes","Bas du dos COLLÉ au sol — règle absolue","Épaules et jambes décollées simultanément","Menton légèrement rentré, nuque relâchée","Régression : genoux pliés et/ou bras le long du corps"],
    errors:[{b:"Le bas du dos qui se creuse / décolle",g:"Réduis l'amplitude (jambes plus hautes, genoux pliés) jusqu'à garder le dos au sol"},{b:"Bloquer la respiration",g:"Respiration continue — le transverse travaille en respirant"},{b:"Tirer sur la nuque",g:"Nuque relâchée, le travail vient des abdominaux profonds"}],
    injury:["Renforce le rectus et le transverse en protégeant la colonne (dos plaqué = pas de cisaillement lombaire)","Progression : genoux pliés → une jambe tendue → deux jambes tendues → bras tendus"],
    pec:"Renforce la sangle abdominale sans aucune compression sternale — sûr avec un pectus excavatum.",scol:"Cherche une contraction SYMÉTRIQUE — si le corps part en torsion d'un côté, réduis l'amplitude."}
@@ -990,7 +1018,7 @@ function renderCard(ex) {
 <div class="card-head" onclick="tog(${ex.id})">
   <div class="card-icon">${ex.icon}</div>
   <div class="card-head-info">
-    <div class="card-tags"><span class="cat-tag">${catLbl(ex.cat)}</span></div>
+    <div class="card-tags"><span class="cat-tag">${catLbl(ex.cat)}</span>${progTag(ex)}</div>
     <div class="card-ratings"><span class="rating-lbl">Technique</span><span class="diff-stars">${stars(ex.diff)}</span><span class="rating-sep"> · </span><span class="rating-lbl">Efficacité</span><span class="diff-stars">${stars(ex.eff)}</span></div>
     <div class="card-title">${ex.name}</div>
     <div class="card-muscle">${ex.mg}</div>
@@ -1057,11 +1085,21 @@ function tab(e,id,idx){
   card.querySelectorAll('.tab-panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
 }
 
+
+// ─── PLACE DANS TON PROGRAMME (identique au logbook / programme.html) ────────
+const MYPROG={1:["Lun · 4×12-15","Sam · 3×10-12"],2:["Lun · 4×12-15","Sam · 4×15"],3:["Lun · 4×10-12"],4:["Lun · 3×12-15"],5:["Lun · 4×12-15"],6:["Lun · 4×15-20","Jeu · 4×15-20","Sam · 3×15"],
+  7:["Jeu · 4×10-12"],8:["Jeu · 4×10-12/côté"],9:["Jeu · 3×12-15"],10:["Jeu · 3×15-20"],12:["Jeu · 4×10-12"],
+  14:["Sam · 4×10-12"],15:["Sam · 4×max"],16:["Sam · 3×10-12"],17:["Sam · 2×10-12"],18:["Sam · 3×12"],27:["Sam · 3×15"],
+  22:["Lun · 3×30-60 s"],28:["Échauffement des 3 séances"],23:["Jeu · 3×10/côté"],20:["Jeu · 3×10/côté"],21:["Sam · 3×20-30 s"]};
+const ALT={11:"Alternative à l'oiseau buste appuyé (plus de charge lombaire)",13:"Alternative / variante du curl (poignets sensibles)",19:"Échauffement des épaules avant chaque séance",24:"Alternative core (anti-rotation)",25:"Quotidien, à la maison",26:"Alternative core — version adaptée L5-S1"};
+const progTag=ex=>MYPROG[ex.id]?MYPROG[ex.id].map(t=>`<span class="prog-tag">📅 ${t}</span>`).join(''):`<span class="prog-tag alt">${ALT[ex.id]||'Alternative'}</span>`;
+
 // ─── FILTER + SEARCH ─────────────────────────────────────────────────────────
 let cf='all',sq='';
 function renderGrid(){
   const q=sq.toLowerCase();
-  const f=EX.filter(e=>(cf==='all'||e.cat===cf)&&(!q||e.name.toLowerCase().includes(q)||e.mg.toLowerCase().includes(q)));
+  const f=EX.filter(e=>(cf==='all'||(cf==='prog'?!!MYPROG[e.id]:e.cat===cf))&&(!q||e.name.toLowerCase().includes(q)||e.mg.toLowerCase().includes(q)));
+  if(cf==='prog'){const k=e=>{const t=MYPROG[e.id][0];const d=({Éch:-1,Lun:0,Jeu:1,Sam:2})[t.slice(0,3)];return (d===undefined?3:d)*100+EX.indexOf(e);};f.sort((a,b)=>k(a)-k(b));}
   document.getElementById('grid').innerHTML=f.map(renderCard).join('');
   document.getElementById('rcount').textContent=`${f.length} exercice${f.length>1?'s':''} affiché${f.length>1?'s':''}`;
 }
