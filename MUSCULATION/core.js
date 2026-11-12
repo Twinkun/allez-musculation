@@ -157,7 +157,8 @@
       chest0: s.chest, chest: r1(s.chest + MODEL.dChest),
       // écarts utiles à l'affichage
       dWeight: r1(proj.weight[n] - s.weight), dBf: r1(proj.bf[n] - s.bf), dFat: r1(r1(proj.weight[n] - proj.lean[n]) - r1(s.weight - lean0)),
-      dWaist: r1(proj.waist[n] - s.waist), dShoulders: MODEL.dShoulders, dChest: MODEL.dChest
+      dWaist: r1(proj.waist[n] - s.waist), dShoulders: MODEL.dShoulders, dChest: MODEL.dChest,
+      leanPct0: r1(100 - s.bf), bmi0: r1(s.weight / Math.pow(p.height / 100, 2))
     };
   }
   function goals() { compute(); return cache.goals; }

@@ -36,67 +36,67 @@
   // type : c = polyarticulaire · i = isolation · p = posture · k = core
   // unit : 'reps' (défaut) ou 'sec' · bw : poids du corps, pas de charge à saisir
   // lombaires : niveau de sécurité pour un dos sensible — 'sur' | 'prudence' | 'eviter' (+ consigne)
-  // fiche : numéro de la fiche technique (data/fiches.js) · aliases : anciens noms (l'historique suit l'identifiant)
+  // fiche : numéro de la fiche technique (data/fiches.js) · short : nom court pour les listes · aliases : anciens noms (l'historique suit l'identifiant)
   // charges : repères indicatifs par bloc [kg, reps] et à 12 mois
   var EXERCISES = {
-    'dev-incline': { fiche: 1, name: 'Développé incliné haltères 30°', muscle: 'Pectoraux hauts', type: 'c', tempo: '3-1-2-0', direct: ['pectoraux'], indirect: ['delt-ant', 'triceps'],
+    'dev-incline': { fiche: 1, name: 'Développé incliné haltères 30°', short: 'Incliné', muscle: 'Pectoraux hauts', type: 'c', tempo: '3-1-2-0', direct: ['pectoraux'], indirect: ['delt-ant', 'triceps'],
       lombaires: 'sur', consigne: 'Dos en contact complet avec le banc, pieds à plat.', subs: ['dev-incline-machine'], aliases: ['Développé incliné haltères'],
       charges: { unit: 'kg/main', b1: [14, 12], b2: [16, 12], b3: [18, 10], an1: 22 } },
-    'elev-lat': { fiche: 2, name: 'Élévations latérales', muscle: 'Deltoïde médial', type: 'i', tempo: '2-1-3-0', direct: ['delt-med'], indirect: [],
+    'elev-lat': { fiche: 2, name: 'Élévations latérales', short: 'Élévations', muscle: 'Deltoïde médial', type: 'i', tempo: '2-1-3-0', direct: ['delt-med'], indirect: [],
       lombaires: 'sur', consigne: 'Debout, abdos engagés, aucun élan du buste.', subs: ['elev-lat-cable'], aliases: ['Élévations latérales haltères'],
       charges: { unit: 'kg', b1: [5, 15], b2: [6, 14], b3: [7, 12], an1: '9-10' } },
-    'dev-militaire': { fiche: 3, name: 'Développé militaire assis', muscle: 'Épaules · Triceps', type: 'c', tempo: '2-1-2-0', direct: ['delt-ant'], indirect: ['delt-med', 'triceps'],
+    'dev-militaire': { fiche: 3, name: 'Développé militaire assis', short: 'Militaire', muscle: 'Épaules · Triceps', type: 'c', tempo: '2-1-2-0', direct: ['delt-ant'], indirect: ['delt-med', 'triceps'],
       lombaires: 'prudence', consigne: 'Charge au-dessus de la tête : dossier indispensable, dos collé, pas de cambrure pour finir la répétition.', subs: ['arnold-press', 'dev-epaules-machine'], aliases: ['Développé militaire haltères assis'],
       charges: { unit: 'kg/main', b1: [10, 12], b2: [12, 11], b3: [13, 10], an1: 18 } },
-    'ecarte-cable': { fiche: 4, name: 'Écarté câble high-to-low', muscle: 'Pectoraux', type: 'i', tempo: '2-1-3-0', direct: ['pectoraux'], indirect: ['delt-ant'],
+    'ecarte-cable': { fiche: 4, name: 'Écarté câble high-to-low', short: 'Écarté', muscle: 'Pectoraux', type: 'i', tempo: '2-1-3-0', direct: ['pectoraux'], indirect: ['delt-ant'],
       lombaires: 'sur', consigne: 'Un pied devant l\'autre, buste gainé.', subs: ['pec-deck'], aliases: [],
       charges: { unit: 'kg/côté', b1: [8, 15], b2: [9, 14], b3: [10, 12], an1: 15 } },
-    'ext-triceps': { fiche: 5, name: 'Extension triceps corde', muscle: 'Triceps', type: 'i', tempo: '2-0-2-0', direct: ['triceps'], indirect: [],
+    'ext-triceps': { fiche: 5, name: 'Extension triceps corde', short: 'Triceps corde', muscle: 'Triceps', type: 'i', tempo: '2-0-2-0', direct: ['triceps'], indirect: [],
       lombaires: 'sur', consigne: 'Buste fixe, coudes aux flancs.', subs: ['ext-triceps-barre-v'], aliases: ['Extension triceps câble corde'],
       charges: { unit: 'kg', b1: [15, 15], b2: [18, 13], b3: [20, 12], an1: 30 } },
-    'face-pull': { fiche: 6, name: 'Face pull câble', muscle: 'Posture · Arrière épaule', type: 'p', tempo: '2-2-3-0', star: true, direct: ['delt-post'], indirect: ['haut-dos'],
+    'face-pull': { fiche: 6, name: 'Face pull câble', short: 'Face pull', muscle: 'Posture · Arrière épaule', type: 'p', tempo: '2-2-3-0', star: true, direct: ['delt-post'], indirect: ['haut-dos'],
       lombaires: 'sur', consigne: 'Charge légère, buste stable.', subs: ['oiseau-incline', 'band-pull-apart'], aliases: ['Face pull câble ★', 'Face pull', 'Face pull ★'] },
-    'tirage-vertical': { fiche: 7, name: 'Tirage vertical prise large', muscle: 'Grand dorsal', type: 'c', tempo: '2-1-3-0', direct: ['dorsal'], indirect: ['biceps', 'haut-dos', 'delt-post'],
+    'tirage-vertical': { fiche: 7, name: 'Tirage vertical prise large', short: 'Tirage vertical', muscle: 'Grand dorsal', type: 'c', tempo: '2-1-3-0', direct: ['dorsal'], indirect: ['biceps', 'haut-dos', 'delt-post'],
       lombaires: 'sur', consigne: 'Cuisses calées, légère inclinaison fixe du buste, sans balancier.', subs: ['tirage-vertical-neutre', 'tractions'], aliases: [],
       charges: { unit: 'kg', b1: [45, 12], b2: [50, 11], b3: [55, 10], an1: 72 } },
-    'rowing-unilateral': { fiche: 8, name: 'Rowing unilatéral haltère', muscle: 'Grand dorsal · Rhomboïdes', type: 'c', tempo: '2-1-3-0', side: true, direct: ['dorsal'], indirect: ['haut-dos', 'biceps', 'delt-post'],
+    'rowing-unilateral': { fiche: 8, name: 'Rowing unilatéral haltère', short: 'Rowing haltère', muscle: 'Grand dorsal · Rhomboïdes', type: 'c', tempo: '2-1-3-0', side: true, direct: ['dorsal'], indirect: ['haut-dos', 'biceps', 'delt-post'],
       lombaires: 'sur', consigne: 'Main et genou en appui sur le banc : le dos est déchargé. Dos plat obligatoire.', subs: ['rowing-machine'], aliases: [],
       charges: { unit: 'kg', b1: [20, 12], b2: [22, 12], b3: [24, 10], an1: 32 } },
-    'rowing-cable': { fiche: 9, name: 'Rowing câble assis prise large', muscle: 'Rhomboïdes · Trapèzes', type: 'c', tempo: '2-2-3-0', direct: ['haut-dos'], indirect: ['dorsal', 'delt-post', 'biceps'],
+    'rowing-cable': { fiche: 9, name: 'Rowing câble assis prise large', short: 'Rowing câble', muscle: 'Rhomboïdes · Trapèzes', type: 'c', tempo: '2-2-3-0', direct: ['haut-dos'], indirect: ['dorsal', 'delt-post', 'biceps'],
       lombaires: 'prudence', consigne: 'Buste vertical et fixe : l\'étirement vient des omoplates, jamais du bas du dos qui s\'enroule.', subs: ['rowing-machine'], aliases: ['Rowing câble assis'],
       charges: { unit: 'kg', b1: [30, 15], b2: [35, 13], b3: [40, 12], an1: 55 } },
-    'oiseau-incline': { fiche: 10, name: 'Oiseau buste appuyé (banc incliné)', muscle: 'Deltoïde postérieur', type: 'i', tempo: '2-1-2-0', direct: ['delt-post'], indirect: ['haut-dos'],
+    'oiseau-incline': { fiche: 10, name: 'Oiseau buste appuyé (banc incliné)', short: 'Oiseau buste appuyé', muscle: 'Deltoïde postérieur', type: 'i', tempo: '2-1-2-0', direct: ['delt-post'], indirect: ['haut-dos'],
       lombaires: 'sur', consigne: 'Poitrine soutenue par le banc : aucune charge sur le bas du dos.', subs: ['face-pull', 'pec-deck-inverse'], aliases: ['Oiseau sur banc incliné'],
       charges: { unit: 'kg/main', b1: [4, 18], b2: [5, 16], b3: [6, 15], an1: 8 } },
-    'curl-alternes': { fiche: 12, name: 'Curl biceps haltères alternés', muscle: 'Biceps', type: 'i', tempo: '2-1-3-0', side: true, direct: ['biceps'], indirect: [],
+    'curl-alternes': { fiche: 12, name: 'Curl biceps haltères alternés', short: 'Curl alterné', muscle: 'Biceps', type: 'i', tempo: '2-1-3-0', side: true, direct: ['biceps'], indirect: [],
       lombaires: 'sur', consigne: 'Debout ou assis, sans balancer le buste.', subs: ['curl-marteau', 'curl-poulie'], aliases: ['Curl biceps alternés', 'Curl biceps alterné'],
       charges: { unit: 'kg/main', b1: [10, 12], b2: [11, 11], b3: [12, 10], an1: 16 } },
-    'arnold-press': { fiche: 14, name: 'Arnold press', muscle: 'Épaules (avant + milieu)', type: 'c', tempo: '3-1-2-0', direct: ['delt-ant'], indirect: ['delt-med', 'triceps'],
+    'arnold-press': { fiche: 14, name: 'Arnold press', short: 'Arnold', muscle: 'Épaules (avant + milieu)', type: 'c', tempo: '3-1-2-0', direct: ['delt-ant'], indirect: ['delt-med', 'triceps'],
       lombaires: 'prudence', consigne: 'Charge au-dessus de la tête : dossier indispensable, côtes basses, pas de cambrure.', subs: ['dev-militaire', 'dev-epaules-machine'], aliases: [],
       charges: { unit: 'kg/main', b1: [10, 12], b2: [11, 12], b3: [12, 10], an1: 16 } },
-    'elev-lat-cable': { fiche: 27, name: 'Élévations latérales câble', muscle: 'Deltoïde médial', type: 'i', tempo: '2-1-3-0', direct: ['delt-med'], indirect: [],
+    'elev-lat-cable': { fiche: 27, name: 'Élévations latérales câble', short: 'Élévations câble', muscle: 'Deltoïde médial', type: 'i', tempo: '2-1-3-0', direct: ['delt-med'], indirect: [],
       lombaires: 'sur', consigne: 'Buste droit, abdos gainés, pas de balancier.', subs: ['elev-lat'], aliases: ['Élévations câble'] },
-    'tractions': { fiche: 15, name: 'Tractions / tirage vertical', muscle: 'Grand dorsal', type: 'c', tempo: '2-1-3-0', direct: ['dorsal'], indirect: ['biceps', 'haut-dos', 'delt-post'],
+    'tractions': { fiche: 15, name: 'Tractions / tirage vertical', short: 'Tractions', muscle: 'Grand dorsal', type: 'c', tempo: '2-1-3-0', direct: ['dorsal'], indirect: ['biceps', 'haut-dos', 'delt-post'],
       lombaires: 'sur', consigne: 'Corps gainé, côtes basses, sans cambrer ni se balancer.', subs: ['tirage-vertical'], aliases: ['Pull-ups / Tractions', 'Tractions'],
       chargesTxt: { b1: 'Élastique × 8', b2: 'PdC × 3-5', b3: 'PdC × 6', an1: '8-10 strictes' } },
-    'curl-ez': { fiche: 16, name: 'Curl barre EZ', muscle: 'Biceps', type: 'i', tempo: '2-1-3-0', direct: ['biceps'], indirect: [],
+    'curl-ez': { fiche: 16, name: 'Curl barre EZ', short: 'Curl EZ', muscle: 'Biceps', type: 'i', tempo: '2-1-3-0', direct: ['biceps'], indirect: [],
       lombaires: 'prudence', consigne: 'Debout : fessiers serrés, côtes basses. Si tu cambres ou balances, c\'est trop lourd.', subs: ['curl-alternes', 'curl-poulie'], aliases: [],
       charges: { unit: 'kg', b1: [20, 12], b2: [22, 11], b3: [25, 10], an1: 32 } },
-    'curl-concentre': { fiche: 17, name: 'Curl concentré', muscle: 'Biceps · pic', type: 'i', tempo: '2-2-3-0', side: true, direct: ['biceps'], indirect: [],
+    'curl-concentre': { fiche: 17, name: 'Curl concentré', short: 'Curl concentré', muscle: 'Biceps · pic', type: 'i', tempo: '2-2-3-0', side: true, direct: ['biceps'], indirect: [],
       lombaires: 'prudence', consigne: 'Posture penchée : dos plat, coude en appui sur la cuisse, charge légère.', subs: ['curl-marteau', 'curl-poulie'], aliases: ['Curl concentré haltère'],
       charges: { unit: 'kg', b1: [8, 12], b2: [9, 12], b3: [10, 10], an1: 14 } },
-    'ext-overhead': { fiche: 18, name: 'Extension triceps overhead câble', muscle: 'Triceps long', type: 'i', tempo: '3-1-2-0', direct: ['triceps'], indirect: [],
+    'ext-overhead': { fiche: 18, name: 'Extension triceps overhead câble', short: 'Overhead', muscle: 'Triceps long', type: 'i', tempo: '3-1-2-0', direct: ['triceps'], indirect: [],
       lombaires: 'prudence', consigne: 'Bras au-dessus de la tête : fente avant, fessiers serrés, côtes basses. Plus sûr encore : à genoux, dos à la poulie.', subs: ['ext-triceps'], aliases: ['Extension triceps overhead', 'Extension overhead câble'],
       charges: { unit: 'kg', b1: [12, 12], b2: [14, 12], b3: [16, 10], an1: 22 } },
-    'planche': { fiche: 22, name: 'Planche', muscle: 'Finisher · Gainage', type: 'k', unit: 'sec', tempo: 'Statique', direct: ['core'], indirect: [],
+    'planche': { fiche: 22, name: 'Planche', short: 'Planche', muscle: 'Finisher · Gainage', type: 'k', unit: 'sec', tempo: 'Statique', direct: ['core'], indirect: [],
       lombaires: 'sur', consigne: 'Corps aligné ; si le bassin tombe, la série est finie.', subs: ['dead-bug'], aliases: ['Planche abdominale', 'Finisher — Planche'],
       chargesTxt: { b1: '3 × 30 s', b2: '3 × 45 s', b3: '3 × 60 s', an1: '3 × 60 s + variantes' } },
-    'dead-bug': { fiche: 23, name: 'Dead bug', muscle: 'Finisher · Core', type: 'k', bw: true, side: true, tempo: 'Lent', direct: ['core'], indirect: [],
+    'dead-bug': { fiche: 23, name: 'Dead bug', short: 'Dead bug', muscle: 'Finisher · Core', type: 'k', bw: true, side: true, tempo: 'Lent', direct: ['core'], indirect: [],
       lombaires: 'sur', consigne: 'Bas du dos en contact avec le sol pendant tout le mouvement.', subs: ['planche'], aliases: [],
       chargesTxt: { b1: '3 × 8/côté', b2: '3 × 10/côté', b3: '3 × 12/côté lent', an1: 'version lestée légère' } },
-    'bird-dog': { fiche: 20, name: 'Bird dog', muscle: 'Finisher · Core', type: 'k', bw: true, side: true, tempo: 'Lent', direct: ['core'], indirect: [],
+    'bird-dog': { fiche: 20, name: 'Bird dog', short: 'Bird dog', muscle: 'Finisher · Core', type: 'k', bw: true, side: true, tempo: 'Lent', direct: ['core'], indirect: [],
       lombaires: 'sur', consigne: 'Bassin immobile, dos neutre, jambe à hauteur du bassin.', subs: ['planche-laterale'], aliases: [] },
-    'planche-laterale': { fiche: 29, name: 'Planche latérale', muscle: 'Finisher · Core', type: 'k', unit: 'sec', side: true, tempo: 'Statique', direct: ['core'], indirect: [],
+    'planche-laterale': { fiche: 29, name: 'Planche latérale', short: 'Planche latérale', muscle: 'Finisher · Core', type: 'k', unit: 'sec', side: true, tempo: 'Statique', direct: ['core'], indirect: [],
       lombaires: 'sur', consigne: 'Colonne neutre, corps aligné de la tête aux pieds ; genoux au sol pour débuter.', subs: ['pallof-press'], aliases: [],
       chargesTxt: { b1: '3 × 20 s/côté', b2: '3 × 25 s/côté', b3: '3 × 30 s/côté', an1: '3 × 45 s/côté' } },
     // — Hors séances : échauffement, alternatives et substitutions —
@@ -220,6 +220,8 @@
   // Séance prévue un jour donné (0 = dimanche) ou null
   function sessionForDay(dayNum) { return BY_DAY[dayNum] ? SESSIONS[BY_DAY[dayNum]] : null; }
   function sessionsOf(exId) { return ORDER.filter(function (sid) { return SESSIONS[sid].items.some(function (it) { return it.ex === exId; }); }); }
+  // Résumé d'une séance sur une ligne : « Incliné 4×12-15 · Élévations 4×12-15 · … »
+  function compact(sid, code) { return SESSIONS[sid].items.map(function (it) { var e = EXERCISES[it.ex]; return (e.short || e.name) + ' ' + prescription(it, code); }).join(' · '); }
   function warmupText() { return '<b>Échauffement ' + WARMUP.duree + '</b> · ' + WARMUP.etapes.map(function (e) { return e.txt; }).join(' · '); }
 
   // Vue au format historique du logbook : { 1: {name, label, exercises:[…]}, 4: …, 6: … }
@@ -252,7 +254,7 @@
     BLOCKS: BLOCKS, MUSCLES: MUSCLES, EXERCISES: EXERCISES, SESSIONS: SESSIONS, ORDER: ORDER, byDay: BY_DAY, otherDays: OTHER_DAYS, DAY_NAMES: DAY_NAMES, WARMUP: WARMUP,
     exercise: exercise, findByName: findByName, displayName: displayName, block: block, currentBlockCode: currentBlockCode,
     setsFor: setsFor, rirFor: rirFor, repsLabel: repsLabel, prescription: prescription,
-    volume: volume, totals: totals, duration: duration, sessionForDay: sessionForDay, sessionsOf: sessionsOf, warmupText: warmupText,
+    volume: volume, totals: totals, duration: duration, sessionForDay: sessionForDay, sessionsOf: sessionsOf, warmupText: warmupText, compact: compact,
     legacySessions: legacySessions, summary: summary
   };
 })(typeof window !== 'undefined' ? window : globalThis);
