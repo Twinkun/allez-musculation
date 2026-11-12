@@ -16,3 +16,11 @@ MUSCULATION/PROMPTS.md
 *.jpeg
 *.pdf
 *.mp4
+
+# Audit prive (phase 1 refonte) - ne jamais publier
+MUSCULATION/AUDIT.md
+AUDIT.md
+
+# Dossier prive de travail (table CIQUAL source, tests Playwright, profil de depart, rapports) - ne jamais publier
+_prive/
+node_modules/
