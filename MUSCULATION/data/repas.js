@@ -313,7 +313,7 @@
             "{MATIN}"
           ],
           "prix": 2.2,
-          "note": "Les amandes apportent les graisses nécessaires pour absorber la vitamine D, la K2 et les vitamines de l'Opti-Men.",
+          "note": "Les amandes apportent les graisses nécessaires pour absorber les vitamines liposolubles de tes compléments du matin.",
           "compo": [
             [
               "avoine",
@@ -451,7 +451,7 @@
             "{SOIR}"
           ],
           "prix": 0.3,
-          "note": "Ne rajoute pas de magnésium ni de zinc en plus : avec l'Opti-Men, ton zinc est déjà couvert.",
+          "note": "Ne rajoute ni magnésium ni zinc en plus : le cumul de tes compléments est déjà contrôlé dans la section Compléments.",
           "tag": "Compléments"
         }
       ],
@@ -667,7 +667,7 @@
             "{SOIR}"
           ],
           "prix": 0.3,
-          "note": "Ne rajoute pas de magnésium ni de zinc en plus : avec l'Opti-Men, ton zinc est déjà couvert.",
+          "note": "Ne rajoute ni magnésium ni zinc en plus : le cumul de tes compléments est déjà contrôlé dans la section Compléments.",
           "tag": "Compléments"
         }
       ],
@@ -828,7 +828,7 @@
             "{SOIR}"
           ],
           "prix": 0.3,
-          "note": "Ne rajoute pas de magnésium ni de zinc en plus : avec l'Opti-Men, ton zinc est déjà couvert.",
+          "note": "Ne rajoute ni magnésium ni zinc en plus : le cumul de tes compléments est déjà contrôlé dans la section Compléments.",
           "tag": "Compléments"
         }
       ],
