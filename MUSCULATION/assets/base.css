@@ -1,0 +1,78 @@
+/* ═══════════════════════════════════════════════════════════════════
+   ALLEZ — assets/base.css · styles communs à toutes les pages
+   Chargé AVANT le <style> de chaque page (qui garde la priorité).
+   1. Jetons de couleur de l'identité (or, nuit, crème)
+   2. Composants injectés par core.js (carte de départ, barre d'onglets,
+      bandeaux, boîte de dialogue, notification)
+   3. Animations des schémas d'exercices (data/fiches.js)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── 1. JETONS ───────────────────────────────────────────────────── */
+:root {
+  --az-or: #e8960a;            /* fonds, titres sur fond nuit (7,9:1 sur nuit) */
+  --az-or-clair: #f5b02a;
+  --az-or-texte: #8a5800;      /* texte or sur fond clair : 5,1:1 sur crème, 6,0:1 sur blanc (AA) */
+  --az-nuit: #0b1020;          /* fond sombre, texte sur bouton or (7,9:1) */
+  --az-creme: #f0ece3;
+  --az-carte: #ffffff;
+  --az-fond-doux: #f7f4ef;
+  --az-texte: #1a1a2e;
+  --az-texte-moyen: #374151;
+  --az-texte-leger: #5b6270;   /* 5,2:1 sur crème (AA) */
+  --az-bord: #e5e0d5;
+  --az-vert: #0a9e52;
+  --az-rouge: #c62828;
+  --az-police-titre: 'Bebas Neue', 'Arial Narrow', Impact, sans-serif;
+  --az-police-texte: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+[hidden] { display: none !important; }
+
+/* ── 2. COMPOSANTS DE core.js ────────────────────────────────────── */
+.az-start { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: #fff; border: 1px solid var(--az-bord); border-left: 4px solid var(--az-or); border-radius: 14px; padding: 14px 18px; box-shadow: 0 2px 12px rgba(0,0,0,.05); font-family: var(--az-police-texte); color: var(--az-texte); }
+.az-start-ico { font-size: 1.5rem; line-height: 1; }
+.az-start-txt { flex: 1; min-width: 200px; }
+.az-start-t { font-weight: 700; font-size: .95rem; }
+.az-start-s { font-size: .8rem; color: var(--az-texte-leger); margin-top: 2px; line-height: 1.4; }
+.az-start-f { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.az-start input[type=date] { font: inherit; font-size: .85rem; padding: 8px 10px; border: 1px solid var(--az-bord); border-radius: 10px; background: var(--az-fond-doux); color: var(--az-texte); min-height: 44px; }
+.az-btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--az-police-texte); font-size: .8rem; font-weight: 700; line-height: 1.2; padding: 9px 16px; border-radius: 100px; border: 1px solid var(--az-or); background: var(--az-or); color: var(--az-nuit); cursor: pointer; min-height: 44px; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+.az-btn.ghost { background: #fff; color: var(--az-texte-moyen); border-color: var(--az-bord); }
+.az-btn.danger { background: var(--az-rouge); border-color: var(--az-rouge); color: #fff; }
+.az-btn:focus-visible { outline: 2px solid var(--az-nuit); outline-offset: 2px; }
+.az-pill { display: inline-block; font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; background: rgba(232,150,10,.12); color: var(--az-or-texte); margin-left: 6px; vertical-align: middle; }
+
+/* Barre de navigation mobile */
+.az-tabbar { display: none; }
+@media (max-width: 768px) {
+  .az-tabbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 900; background: rgba(11,16,32,.97); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-top: 1px solid rgba(255,255,255,.08); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); }
+  .az-tabbar a { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 2px; min-height: 48px; justify-content: center; color: rgba(255,255,255,.62); text-decoration: none; font: 600 10px/1.1 Inter, system-ui, sans-serif; letter-spacing: .02em; border-radius: 10px; -webkit-tap-highlight-color: transparent; }
+  .az-tabbar a .i { font-size: 19px; line-height: 1; }
+  .az-tabbar a.on { color: var(--az-or); background: rgba(232,150,10,.10); }
+  body.az-has-tabbar { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+}
+
+/* Bandeaux (profil à renseigner, rappel de sauvegarde) */
+.az-banner { position: relative; z-index: 5; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 10px auto; max-width: 1100px; width: calc(100% - 24px); background: #fff8e8; border: 1px solid rgba(232,150,10,.45); border-left: 4px solid var(--az-or); border-radius: 12px; padding: 10px 14px; font-family: var(--az-police-texte); font-size: .82rem; line-height: 1.4; color: var(--az-texte); box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+.az-banner-t { flex: 1; min-width: 180px; }
+body > .az-banner:first-child, body > .az-banner + .az-banner { margin-top: 74px; }
+body > .az-banner + .az-banner { margin-top: 10px; }
+
+/* Boîte de dialogue et notification */
+.az-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 18px; background: rgba(11,16,32,.62); font-family: var(--az-police-texte); }
+.az-modal-box { width: 100%; max-width: 460px; max-height: 86vh; overflow: auto; background: #fff; color: var(--az-texte); border-radius: 16px; padding: 20px; box-shadow: 0 18px 60px rgba(0,0,0,.35); }
+.az-modal-t { font-weight: 800; font-size: 1.05rem; margin-bottom: 8px; }
+.az-modal-p { font-size: .85rem; line-height: 1.5; color: var(--az-texte-moyen); margin: 0 0 10px; }
+.az-modal-l { margin: 0 0 14px; padding-left: 18px; font-size: .85rem; line-height: 1.55; color: var(--az-texte); }
+.az-modal-b { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+.az-toast { position: fixed; left: 50%; bottom: calc(84px + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 2100; max-width: calc(100% - 32px); background: var(--az-nuit); color: #fff; font: 600 .85rem/1.4 var(--az-police-texte); padding: 11px 18px; border-radius: 100px; box-shadow: 0 8px 30px rgba(0,0,0,.3); transition: opacity .35s; }
+.az-toast.out { opacity: 0; }
+
+/* Formulaires communs (profil) */
+.az-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+.az-field { display: flex; flex-direction: column; gap: 4px; font-family: var(--az-police-texte); font-size: .78rem; font-weight: 600; color: var(--az-texte-moyen); }
+.az-field input, .az-field select { font: inherit; font-size: 1rem; font-weight: 500; padding: 10px 12px; min-height: 44px; border: 1px solid var(--az-bord); border-radius: 10px; background: #fff; color: var(--az-texte); }
+.az-field input:focus-visible, .az-field select:focus-visible { outline: 2px solid var(--az-or); outline-offset: 1px; }
+.az-note { font-size: .78rem; line-height: 1.5; color: var(--az-texte-leger); }
+
+@media print { .az-tabbar, .az-banner, .az-modal, .az-toast { display: none !important; } }
+@media (prefers-reduced-motion: reduce) { .az-toast { transition: none; } }
