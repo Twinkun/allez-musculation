@@ -43,32 +43,40 @@
   // unite : ce que représente « 1 » dans le stack · nutriments : apport par unité (mêmes clés que UL)
   // effets : ce que le produit fait ou non, avec le niveau de preuve
   var PRODUCTS = {
-    creatine: { marque: 'Optimum Nutrition', nom: 'Créatine monohydrate', priorite: 3, unite: '5 g', nutriments: {},
+    creatine: { icone: '⚗️', titre: 'CRÉATINE', court: 'Créatine 5 g', moment: 'pre', quand: 'Tous les jours, repos compris', resume: 'Force et volume d\'entraînement',
+      marque: 'Optimum Nutrition', nom: 'Créatine monohydrate', priorite: 3, unite: '5 g', nutriments: {},
       dose: '5 g par jour, tous les jours (repos compris). Pas de phase de charge nécessaire.',
       effets: [{ effet: 'Force et volume d\'entraînement (environ +8 % de force et +14 % de répétitions contre placebo)', preuve: 'A', refs: ['rawson2003', 'kreider2017'] }] },
-    whey: { marque: 'Optimum Nutrition', nom: 'Gold Standard Whey', priorite: 3, unite: '1 dose (30 g, 24 g de protéines)', nutriments: {},
+    whey: { icone: '🥛', titre: 'GOLD WHEY', court: 'Whey 1 dose', moment: 'post', quand: 'Après la séance, ou en collation', resume: '24 g de protéines par dose',
+      marque: 'Optimum Nutrition', nom: 'Gold Standard Whey', priorite: 3, unite: '1 dose (30 g, 24 g de protéines)', nutriments: {},
       dose: '1 dose par jour en général, 2 au maximum.',
       effets: [{ effet: 'Atteindre l\'apport en protéines (un aliment pratique, pas un produit magique)', preuve: 'A', refs: ['morton2018'] }] },
-    d3: { marque: 'Nutri&Co', nom: 'Vitamine D3', priorite: 3, unite: '2 000 UI (50 µg)', nutriments: { vitd: 50 },
+    d3: { icone: '☀️', titre: 'VITAMINE D3', court: 'D3 2 000 UI', moment: 'matin', quand: 'Matin, avec le petit-déjeuner', resume: 'Os et muscle en cas d\'apport insuffisant',
+      marque: 'Nutri&Co', nom: 'Vitamine D3', priorite: 3, unite: '2 000 UI (50 µg)', nutriments: { vitd: 50 },
       dose: '2 000 UI (50 µg) par jour.', aVerifier: 'Le produit « D3 + K2 » n\'apparaît pas sur le site de la marque (D3 en gouttes : 1 goutte = 1 000 UI). À confirmer sur le flacon.',
       effets: [
         { effet: 'Os et fonction musculaire, en cas d\'apport insuffisant', preuve: 'A', refs: ['ue432'] },
         { effet: 'Testostérone', preuve: 'C', verdict: 'Non démontré : un essai positif chez des hommes carencés et en surpoids, deux essais sans effet.', refs: ['pilz2011', 'lerchbaum2017', 'lerchbaum2019'] }] },
-    omega3: { marque: 'WHC', nom: 'UnoCardio 1000 + Vitamin D 1000', priorite: 2, unite: '1 capsule', nutriments: { vitd: 25 }, autres: 'EPA 675 mg + DHA 400 à 460 mg par capsule',
+    omega3: { icone: '🐟', titre: 'OMÉGA-3', court: 'Oméga-3', parUnite: 'capsule', moment: 'matin', quand: 'Matin, avec un repas contenant des graisses', resume: 'EPA + DHA · fonction cardiaque',
+      marque: 'WHC', nom: 'UnoCardio 1000 + Vitamin D 1000', priorite: 2, unite: '1 capsule', nutriments: { vitd: 25 }, autres: 'EPA 675 mg + DHA 400 à 460 mg par capsule',
       dose: 'Dose de l\'étiquette : 1 capsule par jour.',
       effets: [{ effet: 'Fonction cardiaque normale (dès 250 mg d\'EPA + DHA par jour)', preuve: 'A', refs: ['ue432'] }] },
-    optimen: { marque: 'Optimum Nutrition', nom: 'Opti-Men (multivitamines, version UE)', priorite: 2, unite: '3 comprimés', nutriments: { vitd: 10, zinc: 12, mg: 80, b6: 5.4 }, autres: 'cuivre 2 mg',
+    optimen: { icone: '💊', titre: 'OPTI-MEN', court: 'Opti-Men', moment: 'matin', quand: 'Matin, avec le petit-déjeuner', resume: 'Filet de sécurité en vitamines et minéraux',
+      marque: 'Optimum Nutrition', nom: 'Opti-Men (multivitamines, version UE)', priorite: 2, unite: '3 comprimés', nutriments: { vitd: 10, zinc: 12, mg: 80, b6: 5.4 }, autres: 'cuivre 2 mg',
       dose: '3 comprimés par jour (dose de l\'étiquette).',
       effets: [{ effet: 'Filet de sécurité contre les petits manques ; aucune allégation de performance retenue', preuve: 'C', refs: [] }] },
-    zma: { marque: 'MyProtein', nom: 'ZMA (zinc + magnésium + B6)', priorite: 1, unite: '1 gélule', nutriments: { zinc: 10, mg: 150, b6: 3.5 },
+    zma: { icone: '🌙', titre: 'ZMA', court: 'ZMA 1 gélule', moment: 'soir', quand: 'Soir, 2 h après le dîner, sans laitage', resume: 'Zinc, magnésium, B6 · effet non démontré',
+      marque: 'MyProtein', nom: 'ZMA (zinc + magnésium + B6)', priorite: 1, unite: '1 gélule', nutriments: { zinc: 10, mg: 150, b6: 3.5 },
       dose: '1 gélule le soir (dose de l\'étiquette), jamais plus.',
       effets: [
         { effet: 'Sommeil', preuve: 'C', verdict: 'Pas d\'effet démontré.', refs: [] },
         { effet: 'Testostérone, force', preuve: 'C', verdict: 'Aucun effet chez des pratiquants sans carence.', refs: ['wilborn2004'] }] },
-    collagene: { marque: 'Vital Proteins', nom: 'Collagène + vitamine C', priorite: 1, unite: '10-15 g', nutriments: {},
+    collagene: { icone: '🦴', titre: 'COLLAGÈNE', court: 'Collagène 10-15 g + vit. C', moment: 'pre', quand: '30 à 60 min avant la séance', resume: 'Tendons et ligaments · preuves limitées',
+      marque: 'Vital Proteins', nom: 'Collagène + vitamine C', priorite: 1, unite: '10-15 g', nutriments: {},
       dose: '10-15 g avec 50-100 mg de vitamine C, 30 à 60 min avant la séance.',
       effets: [{ effet: 'Tendons et ligaments', preuve: 'C', verdict: 'Une petite étude (8 sujets) sur un marqueur sanguin. Ne compte pas dans les protéines utiles au muscle.', refs: ['shaw2017'] }] },
-    ashwagandha: { marque: 'Nutri&Co', nom: 'Ashwagandha KSM-66', priorite: 1, unite: '600 mg', nutriments: {},
+    ashwagandha: { icone: '🌿', titre: 'ASHWAGANDHA', court: 'Ashwagandha 600 mg (8 sem. / 4 d\'arrêt)', moment: 'soir', quand: 'Soir · cycle 8 semaines, puis 4 d\'arrêt', resume: 'Stress et sommeil',
+      marque: 'Nutri&Co', nom: 'Ashwagandha KSM-66', priorite: 1, unite: '600 mg', nutriments: {},
       dose: '600 mg par jour, le soir. Cycle 8 semaines, puis 4 semaines d\'arrêt.',
       prudence: 'Déconseillé en cas de trouble thyroïdien, hépatique ou cardiaque, et avec des médicaments sédatifs.',
       effets: [
@@ -122,8 +130,16 @@
     SUMMARY = { actuel: cumul(STACKS.actuel), actuelSansVitD: cumul(STACKS.actuel, { omega3SansVitD: true }), proposition: cumul(STACKS.proposition), dose: dose, ul: UL, nb: Object.keys(STACKS[ACTIF]).filter(function (id) { return STACKS[ACTIF][id] > 0; }).length };
     return SUMMARY;
   }
+  // Produits pris (quantité > 0) dans le stack actif
+  function active(stack) { stack = stack || STACKS[ACTIF]; return Object.keys(stack).filter(function (id) { return stack[id] > 0 && PRODUCTS[id]; }).map(function (id) { return PRODUCTS[id]; }); }
+  // Dose affichée : « 2 capsules », « 2 000 UI (50 µg) »…
+  function doseText(id, stack) { var p = PRODUCTS[id], n = (stack || STACKS[ACTIF])[id] || 0; return p.parUnite ? n + ' ' + p.parUnite + (n > 1 ? 's' : '') : p.unite; }
+  // Libellé d'un moment de prise : « D3 2 000 UI · Oméga-3 (2 capsules) · Opti-Men »
+  function stackLabel(moment, stack) {
+    return active(stack).filter(function (p) { return p.moment === moment; }).map(function (p) { return p.court + (p.parUnite ? ' (' + doseText(p.id, stack) + ')' : ''); }).join(' · ');
+  }
   function refText(id) { var r = REF[id]; return r ? r.txt + (r.doi ? ' · DOI ' + r.doi : '') : ''; }
   function refUrl(id) { var r = REF[id]; return r && r.doi ? 'https://doi.org/' + r.doi : null; }
 
-  A.SUPPLEMENTS = { UL: UL, FOOD: FOOD, REF: REF, PRODUCTS: PRODUCTS, STACKS: STACKS, ACTIF: ACTIF, cumul: cumul, alerts: alerts, summary: summary, refText: refText, refUrl: refUrl };
+  A.SUPPLEMENTS = { UL: UL, FOOD: FOOD, REF: REF, PRODUCTS: PRODUCTS, STACKS: STACKS, ACTIF: ACTIF, cumul: cumul, alerts: alerts, summary: summary, active: active, doseText: doseText, stackLabel: stackLabel, refText: refText, refUrl: refUrl };
 })(typeof window !== 'undefined' ? window : globalThis);

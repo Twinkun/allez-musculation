@@ -135,7 +135,10 @@
     dLean:   [0, 0.8, 1.4, 1.9, 2.3, 2.7, 3.0, 3.3, 3.6, 3.9, 4.1, 4.3, 4.5],
     dWaist:  [0, -0.5, -1, -1.5, -1.5, -2, -2.5, -2.5, -3, -3.5, -3.5, -4, -4],
     leanGainLow: 2.5, leanGainHigh: 4.5,
-    dShoulders: 3, dBiceps: [2, 3], dChest: 5
+    dShoulders: 3, dBiceps: [2, 3], dChest: 5,
+    // Horizons plus lointains : fourchettes d'écart par rapport au départ (pratiquant naturel régulier)
+    an2: { weight: [4, 6], lean: [7, 8], biceps: [3, 4], chest: [8, 11], bf: [-6.5, -5.5] },
+    an5: { weight: [7, 11], lean: [11, 13], biceps: [4, 5], chest: [13, 17], bf: [-8.5, -7.5] }
   };
   function compute() {
     var p = profile(); if (cache.goals) return;
@@ -158,8 +161,15 @@
       // écarts utiles à l'affichage
       dWeight: r1(proj.weight[n] - s.weight), dBf: r1(proj.bf[n] - s.bf), dFat: r1(r1(proj.weight[n] - proj.lean[n]) - r1(s.weight - lean0)),
       dWaist: r1(proj.waist[n] - s.waist), dShoulders: MODEL.dShoulders, dChest: MODEL.dChest,
-      leanPct0: r1(100 - s.bf), bmi0: r1(s.weight / Math.pow(p.height / 100, 2))
+      leanPct0: r1(100 - s.bf), bmi0: r1(s.weight / Math.pow(p.height / 100, 2)),
+      dBicepsTxt: '+' + MODEL.dBiceps[0] + '-' + MODEL.dBiceps[1]
     };
+    // Fourchettes à 2 et 5 ans : « 75–77 », « +7 à 8 »…
+    var rg = function (base, d) { var f = function (x) { return String(Math.round(x * 2) / 2).replace('.', ','); }; return f(base + d[0]) + '–' + f(base + d[1]); };
+    ['an2', 'an5'].forEach(function (h) {
+      var M = MODEL[h];
+      cache.goals[h] = { weight: rg(s.weight, M.weight), lean: '+' + M.lean[0] + ' à ' + M.lean[1], biceps: rg(s.biceps, M.biceps), chest: rg(s.chest, M.chest), bf: rg(s.bf, M.bf) };
+    });
   }
   function goals() { compute(); return cache.goals; }
   function proj() { compute(); return cache.proj; }
