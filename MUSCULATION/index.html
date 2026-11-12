@@ -1065,7 +1065,7 @@
         <ul class="pil-list">
           <li><span><span data-az="nutrition.train.kcal|int"></span> kcal jours d'entraînement</span></li>
           <li><span><span data-az="nutrition.rest.kcal|int"></span> kcal jours de repos</span></li>
-          <li><span><span data-az="nutrition.proteines"></span> g de protéines/jour — non négociable</span></li>
+          <li><span><span data-az="nutrition.proteines"></span> g de protéines/jour (1,6 g/kg couvre l'essentiel, le reste est une marge)</span></li>
           <li>Glucides concentrés autour des séances</li>
           <li>Lipides maintenus pour la testostérone</li>
         </ul>
@@ -1079,7 +1079,7 @@
           <li>Mobilité thoracique quotidienne 10 min</li>
           <li>Vacuum abdominal chaque jour</li>
           <li>Repos actif (marche) jours off</li>
-          <li>ZMA avant le coucher pour le sommeil</li>
+          <li>Écrans coupés 30 min avant le coucher</li>
         </ul>
       </div>
     </div>
@@ -1380,7 +1380,7 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'💼', period:'APRÈS-MIDI',   title:'Travail profond · 90 min',             detail:'Notifs off · téléphone retourné · une seule tâche' },
     { icon:'🚶', period:'SOIR',         title:'Marche · 20 min',                      detail:'Sans téléphone · aide à faire redescendre le stress de la journée' },
     { icon:'🍽️', period:'SOIR',         title:'Dîner · ~40 g de protéines',              detail:'Poisson ou viande + féculent + légumes · voir plan Nutrition · pas d\'alcool' },
-    { icon:'💊', period:'SOIR',         title:'Stack du soir',                        detail: STACK_SOIR + ' · 2 h après le dîner, sans laitage' },
+    { icon:'💊', period:'SOIR',         title:'Compléments du soir',                  detail: STACK_SOIR + ' · ' + SUP.momentText('soir') },
     { icon:'📝', period:'COUCHER',      title:'Journaling · 5 min',                   detail:'3 réussites · 1 amélioration demain · ferme le livre' },
     { icon:'📵', period:'COUCHER',      title:'Zéro écran · 30 min',                  detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
     { icon:'🛏️', period:'COUCHER',      title:'Lumières éteintes',                    detail:'Avant minuit — le sommeil construit le physique' },
@@ -1402,7 +1402,7 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'💼', period:'APRÈS-MIDI',   title:'Travail profond · 90 min',             detail:'Notifs off · téléphone retourné · une seule tâche' },
     { icon:'🚶', period:'SOIR',         title:'Marche · 20 min',                      detail:'Sans téléphone · aide à faire redescendre le stress de la journée' },
     { icon:'🍽️', period:'SOIR',         title:'Dîner · ~40 g de protéines',              detail:'Poisson ou viande + féculent + légumes · voir plan Nutrition · pas d\'alcool' },
-    { icon:'💊', period:'SOIR',         title:'Stack du soir',                        detail: STACK_SOIR + ' · 2 h après le dîner, sans laitage' },
+    { icon:'💊', period:'SOIR',         title:'Compléments du soir',                  detail: STACK_SOIR + ' · ' + SUP.momentText('soir') },
     { icon:'📝', period:'COUCHER',      title:'Journaling · 5 min',                   detail:'3 réussites · 1 amélioration demain · ferme le livre' },
     { icon:'📵', period:'COUCHER',      title:'Zéro écran · 30 min',                  detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
     { icon:'🛏️', period:'COUCHER',      title:'Lumières éteintes',                    detail:'Avant minuit — le sommeil construit le physique' },
@@ -1425,7 +1425,7 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'👥', period:'APRÈS-MIDI',   title:'Connexion sociale',                    detail:'Temps de qualité avec proches — richesse humaine réelle' },
     { icon:'📚', period:'SOIR',         title:'Lecture · 30 min',                     detail:'Livre physique · week-end = investir dans ton mental' },
     { icon:'🍽️', period:'SOIR',         title:'Dîner · ~40 g de protéines',              detail:'Poisson ou viande + féculent + légumes · voir plan Nutrition · pas d\'alcool' },
-    { icon:'💊', period:'SOIR',         title:'Stack du soir',                        detail: STACK_SOIR + ' · 2 h après le dîner, sans laitage' },
+    { icon:'💊', period:'SOIR',         title:'Compléments du soir',                  detail: STACK_SOIR + ' · ' + SUP.momentText('soir') },
     { icon:'📝', period:'COUCHER',      title:'Journaling hebdo · 10 min',            detail:'3 victoires de la semaine · 1 objectif clé semaine prochaine' },
     { icon:'📵', period:'COUCHER',      title:'Zéro écran · 30 min',                  detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
     { icon:'🛏️', period:'COUCHER',      title:'Lumières éteintes',                    detail:'Avant minuit — récupération optimale pour la semaine' },
@@ -1445,7 +1445,7 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'📚', period:'JOURNÉE',        title:'Lecture · 20 min',                      detail:'Livre physique · pas d\'article, pas d\'écran' },
     { icon:'💼', period:'JOURNÉE',        title:'Travail profond · 90 min',              detail:'Notifs off · téléphone retourné · une seule tâche' },
     { icon:'🍽️', period:'SOIR',           title:'Dîner · ~40 g de protéines',               detail:'Poisson ou viande + féculent + légumes · voir plan Nutrition · pas d\'alcool' },
-    { icon:'💊', period:'SOIR',           title:'Stack du soir',                         detail: STACK_SOIR + ' · 2 h après le dîner, sans laitage' },
+    { icon:'💊', period:'SOIR',           title:'Compléments du soir',                   detail: STACK_SOIR + ' · ' + SUP.momentText('soir') },
     { icon:'🧘', period:'SOIR',           title:'Étirements posture · 10 min',           detail:'Ouverture poitrine · pso-iliaque · dos — doux et lent' },
     { icon:'📝', period:'COUCHER',        title:'Journaling · 5 min',                    detail:'3 réussites · 1 amélioration demain · ferme le livre' },
     { icon:'📵', period:'COUCHER',        title:'Zéro écran · 30 min',                   detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
@@ -1467,7 +1467,7 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'💼', period:'JOURNÉE',        title:'Travail profond · 90 min',              detail:'Notifs off · téléphone retourné · une seule tâche' },
     { icon:'🎯', period:'SOIR',           title:'Visualisation séance jeudi · 5 min',    detail:'Imagine Pull A exécuté parfaitement — mental aussi important' },
     { icon:'🍽️', period:'SOIR',           title:'Dîner · ~40 g de protéines',               detail:'Poisson ou viande + féculent + légumes · voir plan Nutrition · pas d\'alcool' },
-    { icon:'💊', period:'SOIR',           title:'Stack du soir',                         detail: STACK_SOIR + ' · 2 h après le dîner, sans laitage' },
+    { icon:'💊', period:'SOIR',           title:'Compléments du soir',                   detail: STACK_SOIR + ' · ' + SUP.momentText('soir') },
     { icon:'📝', period:'COUCHER',        title:'Journaling · 5 min',                    detail:'3 réussites · 1 amélioration demain · ferme le livre' },
     { icon:'📵', period:'COUCHER',        title:'Zéro écran · 30 min',                   detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
     { icon:'🛏️', period:'COUCHER',        title:'Lumières éteintes',                     detail:'Avant minuit — le sommeil construit le physique' },
@@ -1487,7 +1487,7 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'💼', period:'JOURNÉE',        title:'Bilan semaine · 15 min',                detail:'Objectifs atteints · nutrition · séances · mindset — évaluer' },
     { icon:'🎒', period:'SOIR',           title:'Préparer sac sport samedi',             detail:'Tenue · serviette · eau · créatine · écouteurs — tout prêt ce soir' },
     { icon:'🍽️', period:'SOIR',           title:'Dîner · ~40 g de protéines',               detail:'Poisson ou viande + féculent + légumes · voir plan Nutrition · pas d\'alcool' },
-    { icon:'💊', period:'SOIR',           title:'Stack du soir',                         detail: STACK_SOIR + ' · 2 h après le dîner, sans laitage' },
+    { icon:'💊', period:'SOIR',           title:'Compléments du soir',                   detail: STACK_SOIR + ' · ' + SUP.momentText('soir') },
     { icon:'📝', period:'COUCHER',        title:'Journaling · 5 min',                    detail:'3 réussites de la semaine · intention pour le week-end' },
     { icon:'📵', period:'COUCHER',        title:'Zéro écran · 30 min',                   detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
     { icon:'🛏️', period:'COUCHER',        title:'Lumières éteintes',                     detail:'Avant minuit — récupération avant la séance samedi' },
@@ -1507,7 +1507,7 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'🙏', period:'APRÈS-MIDI',     title:'Gratitude · 5 min',                     detail:'Écrire 5 choses pour lesquelles tu es reconnaissant aujourd\'hui' },
     { icon:'🎒', period:'APRÈS-MIDI',     title:'Préparer sac sport lundi',              detail:'Tenue · serviette · eau · créatine · écouteurs — tout prêt' },
     { icon:'🍽️', period:'SOIR',           title:'Dîner léger & convivial',              detail:'Repas calme · bonne compagnie · pas d\'excès — récupération' },
-    { icon:'💊', period:'SOIR',           title:'Stack du soir',                         detail: STACK_SOIR + ' · 2 h après le dîner, sans laitage' },
+    { icon:'💊', period:'SOIR',           title:'Compléments du soir',                   detail: STACK_SOIR + ' · ' + SUP.momentText('soir') },
     { icon:'📝', period:'COUCHER',        title:'Journaling · 5 min',                    detail:'Intention et engagement fort pour la semaine qui commence' },
     { icon:'📵', period:'COUCHER',        title:'Zéro écran · 30 min',                   detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
     { icon:'🛏️', period:'COUCHER',        title:'Lumières éteintes · tôt',               detail:'22h30 max — le dimanche soir prépare le lundi victorieux' },

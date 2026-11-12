@@ -1674,44 +1674,44 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 
   <div class="hydration-block reveal">
     <div class="hydration-left">
-      <h3>3 à 3,5 L<br>par jour</h3>
-      <p>Boissons, pour 3 séances par semaine. Vise le haut de la fourchette les jours de séance et quand il fait chaud, le bas les jours de repos.</p>
+      <h3>2 à 2,5 L<br>à boire</h3>
+      <p>Repère de l'EFSA pour un homme : 2,5 L d'eau totale par jour, aliments compris, soit environ 2 L de boissons. Les jours de séance ou de chaleur, ajoute 0,5 à 1 L.</p>
       <br>
       <p style="color:rgba(255,255,255,0.5);font-size:0.82rem;">
-        La créatine augmente légèrement les besoins en eau (elle retient l'eau intramusculaire). Une bonne hydratation accompagne donc sa prise quotidienne.
+        La créatine fait entrer un peu d'eau dans le muscle, mais aucune étude ne montre qu'elle augmente les besoins en eau ou qu'elle déshydrate (Kreider 2017). Source du repère : EFSA 2010, DOI 10.2903/j.efsa.2010.1459.
       </p>
     </div>
     <div class="hydration-right" style="flex:1">
       <div class="hydration-bottles">
         <div class="hydration-row">
           <div class="hydration-label">Réveil (à jeun)</div>
-          <div class="hydration-bar"><div class="hydration-fill" data-w="20"></div></div>
-          <div class="hydration-val">500ml</div>
+          <div class="hydration-bar"><div class="hydration-fill" data-w="12"></div></div>
+          <div class="hydration-val">300 ml</div>
         </div>
         <div class="hydration-row">
           <div class="hydration-label">Matin (repas)</div>
-          <div class="hydration-bar"><div class="hydration-fill" data-w="30"></div></div>
-          <div class="hydration-val">750ml</div>
+          <div class="hydration-bar"><div class="hydration-fill" data-w="16"></div></div>
+          <div class="hydration-val">400 ml</div>
         </div>
         <div class="hydration-row">
           <div class="hydration-label">Déjeuner</div>
-          <div class="hydration-bar"><div class="hydration-fill" data-w="20"></div></div>
-          <div class="hydration-val">500ml</div>
+          <div class="hydration-bar"><div class="hydration-fill" data-w="16"></div></div>
+          <div class="hydration-val">400 ml</div>
         </div>
         <div class="hydration-row">
           <div class="hydration-label">Pendant séance</div>
-          <div class="hydration-bar"><div class="hydration-fill" data-w="28"></div></div>
-          <div class="hydration-val">700ml</div>
+          <div class="hydration-bar"><div class="hydration-fill" data-w="24"></div></div>
+          <div class="hydration-val">600 ml</div>
         </div>
         <div class="hydration-row">
-          <div class="hydration-label">Post-workout</div>
-          <div class="hydration-bar"><div class="hydration-fill" data-w="24"></div></div>
-          <div class="hydration-val">600ml</div>
+          <div class="hydration-label">Après la séance</div>
+          <div class="hydration-bar"><div class="hydration-fill" data-w="16"></div></div>
+          <div class="hydration-val">400 ml</div>
         </div>
         <div class="hydration-row">
           <div class="hydration-label">Soirée</div>
-          <div class="hydration-bar"><div class="hydration-fill" data-w="18"></div></div>
-          <div class="hydration-val">450ml</div>
+          <div class="hydration-bar"><div class="hydration-fill" data-w="16"></div></div>
+          <div class="hydration-val">400 ml</div>
         </div>
       </div>
     </div>
@@ -1845,9 +1845,9 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
     <div class="erreur-item">
       <div class="erreur-x">✕</div>
       <div class="erreur-body">
-        <h4>Prendre ZMA avec des produits laitiers</h4>
-        <p>Le calcium réduit l'absorption du zinc. Avec des produits laitiers, une bonne partie du ZMA est perdue.</p>
-        <div class="erreur-fix">✓ Solution : 1 gélule, 2 h après le dîner, sans laitage, 30-60 min avant de dormir.</div>
+        <h4>Empiler les compléments sans faire le total</h4>
+        <p>Zinc, vitamine D et vitamine B6 se retrouvent dans plusieurs produits (multivitamines, oméga-3 enrichis, ZMA, gouttes de D3). Additionnés à l'alimentation, ils dépassent vite les limites de sécurité de l'EFSA : c'était le cas de ton ancien stack.</p>
+        <div class="erreur-fix">✓ Solution : avant d'ajouter un produit, refais le cumul (section Compléments) avec son étiquette.</div>
       </div>
     </div>
 
@@ -3090,27 +3090,22 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
   const cu = S.cumul(), al = S.alerts(), keys = Object.keys(cu);
   const ST = { ok: ['', '✓ sous la limite'], limite: ['lim', '⚠️ limite atteinte'], depasse: ['ko', '✕ limite dépassée'] };
   const cell = x => {
-    const src = x.detail.length ? x.detail.map(d => esc(S.PRODUCTS[d.id].court.split(' ')[0]) + ' ' + virg(d.apport)).join(' + ') + ' = ' : '';
+    const src = x.detail.length ? x.detail.map(d => esc((S.PRODUCTS[d.id] || S.RETIRES[d.id]).court.split(' ')[0]) + ' ' + virg(d.apport)).join(' + ') + ' = ' : '';
     const tot = x.scope === 'total' ? `<strong>${virg(x.supp)} ${x.unit}</strong> en compléments, soit ${virg(x.min)} à ${virg(x.max)} ${x.unit} avec l'alimentation` : `<strong>${virg(x.supp)} ${x.unit}</strong> en compléments`;
     return `<div><b>${x.label}</b><span>${src}${tot}</span><em class="${ST[x.statut][0]}">Limite ${x.ul} ${x.unit}/j${x.scope === 'total' ? ', toutes sources' : ', compléments seuls'} · ${ST[x.statut][1]}</em></div>`;
   };
-  // Proposition : écarts entre le stack actuel et le stack proposé, et cumul obtenu
-  const act = S.STACKS.actuel, pro = S.STACKS.proposition, cp = S.cumul(pro);
-  const diff = Object.keys(act).filter(id => act[id] !== pro[id]).map(id => {
-    const p = S.PRODUCTS[id];
-    return pro[id] ? `${p.court} : ${S.doseText(id, pro)} au lieu de ${S.doseText(id, act)}` : `${p.court.split(' ')[0]} : retiré`;
-  });
-  const apres = keys.map(n => `${minus(cp[n].label)} ${cp[n].scope === 'total' ? virg(cp[n].min) + ' à ' + virg(cp[n].max) : virg(cp[n].supp)} ${cp[n].unit}`).join(' · ');
-  const resteKo = keys.filter(n => cp[n].statut !== 'ok').length;
-  document.getElementById('suppSafety').innerHTML = `<div class="supp-safety reveal${al.length ? ' alerte' : ''}">
-    <div class="supp-safety-title">${al.length ? '⚠️ Cumul à corriger' : '🛡️ Bilan de sécurité'} — ton stack actuel, par jour</div>
+  // Rappel du changement : ancien stack (vitamine D et zinc dépassés) → stack actuel
+  const an = S.cumul(S.STACKS.ancien), anKo = keys.filter(n => an[n].statut !== 'ok');
+  const avant = anKo.map(n => `${minus(an[n].label)} ${virg(an[n].min)} à ${virg(an[n].max)} ${an[n].unit}`).join(', ');
+  document.getElementById('suppSafety').innerHTML = `<div class="supp-safety reveal${al.length ? ' alerte' : ' ok'}">
+    <div class="supp-safety-title">${al.length ? '⚠️ Cumul à corriger' : '🛡️ Bilan de sécurité : tout est sous les limites'} — ton stack actuel, par jour</div>
     <div class="supp-safety-grid n${keys.length}">${keys.map(n => cell(cu[n])).join('')}</div>
-    ${diff.length ? `<div class="supp-safety-note"><b>Correction la plus simple (à toi de décider) :</b> ${diff.join(' · ')}. Résultat : ${apres}${resteKo ? '' : ' — tout repasse sous les limites'}.</div>` : ''}
-    <div class="supp-safety-note">Limites supérieures de sécurité de l'EFSA. Apports alimentaires calculés sur le plan repas avec la table Ciqual 2025. Vérifie les compositions sur tes propres étiquettes.</div>
+    ${anKo.length ? `<div class="supp-safety-note"><b>Ce qui a changé :</b> UnoCardio 1 capsule par jour (dose de l'étiquette) au lieu de 2, D3 séparée et ZMA retirés. Avant, avec l'alimentation : ${avant}, au-dessus des limites.</div>` : ''}
+    <div class="supp-safety-note">Limites supérieures de sécurité de l'EFSA. Apports alimentaires calculés sur le plan repas avec la table Ciqual 2025. Vérifie les compositions sur tes propres étiquettes. N'ajoute ni zinc, ni vitamine D, ni magnésium sans refaire ce calcul.</div>
   </div>`;
 
   // ── Compléments : fiches ──
-  const CARD = { creatine: 'creatine', whey: 'whey', d3: 'opti', omega3: 'zma', optimen: 'opti', zma: 'zma', collagene: 'creatine', ashwagandha: 'whey' };
+  const CARD = { creatine: 'creatine', whey: 'whey', omega3: 'zma', optimen: 'opti', collagene: 'creatine', ashwagandha: 'whey' };
   const PRIO = { 3: ['★★★', '', 'Prioritaire'], 2: ['★★', '★', 'Utile'], 1: ['★', '★★', 'Optionnel'] };
   const row = (cls, tag, html) => `<div class="supp-timing-row"><span class="supp-timing-tag ${cls}">${tag}</span><div class="supp-timing-text">${html}</div></div>`;
   const refs = ids => { const L = (ids || []).map(id => { const u = S.refUrl(id), t = esc(S.refText(id)); return u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${t}</a>` : t; }).filter(Boolean); return L.length ? `<span class="supp-refs">${L.join(' ; ')}</span>` : ''; };

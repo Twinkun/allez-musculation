@@ -25,29 +25,39 @@ test('nutrition : femme → constante −161 ; changement de profil → recalcul
   assert.equal(ALLEZ.NUTRITION.current().bmr - f, 166);
 });
 
-test('compléments : cumul du stack actuel (UnoCardio avec vitamine D, 2 capsules)', () => {
-  const { ALLEZ } = load({}); const S = ALLEZ.SUPPLEMENTS, c = plain(S.cumul(S.STACKS.actuel));
-  assert.equal(c.vitd.supp, 110);                       // Opti-Men 10 + D3 50 + UnoCardio 2 × 25
-  assert.equal(c.vitd.min, 112.1); assert.equal(c.vitd.max, 120.5); assert.equal(c.vitd.statut, 'depasse');
+test('compléments : le stack actuel (1 UnoCardio, sans D3 ni ZMA) est sous toutes les limites EFSA', () => {
+  const { ALLEZ } = load({}); const S = ALLEZ.SUPPLEMENTS, c = plain(S.cumul());
+  assert.equal(c.vitd.supp, 35); assert.equal(c.vitd.min, 37.1); assert.equal(c.vitd.max, 45.5);   // Opti-Men 10 + UnoCardio 25
+  assert.equal(c.zinc.supp, 12); assert.equal(c.zinc.min, 21); assert.equal(c.zinc.max, 22.3);      // Opti-Men seul
+  assert.equal(c.b6.supp, 5.4); assert.equal(c.b6.max, 8.9);
+  assert.equal(c.mg.supp, 80);
+  Object.values(c).forEach(x => assert.equal(x.statut, 'ok', x.label));
+  assert.equal(S.alerts().length, 0);
+  assert.equal(plain(S.summary()).nb, 6);
+});
+
+test('compléments : D3 séparée et ZMA ne sont plus des produits ; UnoCardio à 1 capsule', () => {
+  const { ALLEZ } = load({}); const S = ALLEZ.SUPPLEMENTS;
+  assert.equal(S.PRODUCTS.d3, undefined); assert.equal(S.PRODUCTS.zma, undefined);
+  assert.equal(S.STACKS.actuel.omega3, 1);
+  assert.deepEqual(plain(S.active().map(p => p.id)).sort(), ['ashwagandha', 'collagene', 'creatine', 'omega3', 'optimen', 'whey']);
+  assert.ok(!/D3 |ZMA/.test(S.stackLabel('matin') + S.stackLabel('soir') + S.stackLabel('pre')));
+});
+
+test('compléments : l\'ancien stack (2 capsules + D3 + ZMA) dépassait vitamine D et zinc', () => {
+  const { ALLEZ } = load({}); const S = ALLEZ.SUPPLEMENTS, c = plain(S.cumul(S.STACKS.ancien));
+  assert.equal(c.vitd.supp, 110); assert.equal(c.vitd.min, 112.1); assert.equal(c.vitd.max, 120.5); assert.equal(c.vitd.statut, 'depasse');
   assert.equal(c.zinc.supp, 22); assert.equal(c.zinc.min, 31); assert.equal(c.zinc.max, 32.3); assert.equal(c.zinc.statut, 'depasse');
-  assert.equal(c.b6.supp, 8.9); assert.equal(c.b6.min, 11.4); assert.equal(c.b6.max, 12.4); assert.equal(c.b6.statut, 'limite');
-  assert.equal(c.mg.supp, 230); assert.equal(c.mg.max, 230); assert.equal(c.mg.statut, 'ok');   // limite sur les compléments seuls
-  assert.deepEqual(plain(S.alerts(S.STACKS.actuel)).map(a => a.nutriment + ':' + a.statut), ['vitd:depasse', 'zinc:depasse', 'b6:limite']);
+  assert.equal(c.b6.supp, 8.9); assert.equal(c.b6.statut, 'limite'); assert.equal(c.mg.supp, 230);
 });
 
-test('compléments : même stack avec un oméga-3 sans vitamine D', () => {
-  const { ALLEZ } = load({}); const S = ALLEZ.SUPPLEMENTS, c = plain(S.cumul(S.STACKS.actuel, { omega3SansVitD: true }));
-  assert.equal(c.vitd.supp, 60); assert.equal(c.vitd.min, 62.1); assert.equal(c.vitd.max, 70.5); assert.equal(c.vitd.statut, 'ok');
-  assert.equal(c.zinc.statut, 'depasse');
-});
-
-test('compléments : la proposition passe sous toutes les limites', () => {
-  const { ALLEZ } = load({}); const S = ALLEZ.SUPPLEMENTS, c = plain(S.cumul(S.STACKS.proposition));
-  assert.equal(c.vitd.supp, 35); assert.equal(c.vitd.max, 45.5);
-  assert.equal(c.zinc.supp, 12); assert.equal(c.zinc.max, 22.3);
-  assert.equal(c.b6.max, 8.9); assert.equal(c.mg.supp, 80);
-  Object.values(c).forEach(x => assert.equal(x.statut, 'ok'));
-  assert.equal(S.alerts(S.STACKS.proposition).length, 0);
+test('compléments : ashwagandha en deux prises de 300 mg, matin et soir, avec un repas (schéma des essais)', () => {
+  const { ALLEZ } = load({}); const S = ALLEZ.SUPPLEMENTS, a = S.PRODUCTS.ashwagandha;
+  assert.ok(S.hasMoment(a, 'matin') && S.hasMoment(a, 'soir'));
+  assert.match(S.stackLabel('matin'), /Ashwagandha 300 mg/); assert.match(S.stackLabel('soir'), /Ashwagandha 300 mg/);
+  assert.equal(S.momentText('soir'), 'avec le dîner');
+  assert.match(a.dose, /Chandrasekhar 2012, Wankhede 2015/);
+  assert.ok(!/2 h après|laitage/.test(a.quand + a.dose));
 });
 
 test('compléments : chaque effet a un niveau de preuve, chaque référence citée existe', () => {
@@ -56,7 +66,7 @@ test('compléments : chaque effet a un niveau de preuve, chaque référence cit�
     assert.ok(p.effets.length >= 1, p.id);
     p.effets.forEach(e => { assert.ok(['A', 'B', 'C'].includes(e.preuve), p.id); (e.refs || []).forEach(r => assert.ok(S.REF[r], p.id + ' → ' + r)); });
   });
-  const testo = id => S.PRODUCTS[id].effets.find(e => /Testostérone/.test(e.effet));
-  assert.equal(testo('d3').preuve, 'C'); assert.equal(testo('ashwagandha').preuve, 'C'); assert.equal(testo('zma').preuve, 'C');
+  const testo = id => S.PRODUCTS[id].effets.find(e => /[Tt]estostérone/.test(e.effet));
+  assert.equal(testo('omega3').preuve, 'C'); assert.equal(testo('ashwagandha').preuve, 'C');
   assert.equal(S.UL.vitd.ul, 100); assert.equal(S.UL.zinc.ul, 25); assert.equal(S.UL.b6.ul, 12); assert.equal(S.UL.mg.ul, 250);
 });

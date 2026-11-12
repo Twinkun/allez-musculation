@@ -414,6 +414,7 @@
           "couleur": "purple",
           "nom": "Dîner",
           "aliments": [
+            "{SOIR}",
             "150 g de saumon ou maquereau (2-3×/semaine — sinon 180 g de cabillaud ou poulet + 1 c. à soupe d'huile)",
             "250 g de patate douce rôtie",
             "Salade verte, vinaigrette citron-moutarde"
@@ -441,18 +442,6 @@
               5.0
             ]
           ]
-        },
-        {
-          "offset": 870,
-          "label": "Coucher",
-          "couleur": "purple",
-          "nom": "Compléments du soir",
-          "aliments": [
-            "{SOIR}"
-          ],
-          "prix": 0.3,
-          "note": "Ne rajoute ni magnésium ni zinc en plus : le cumul de tes compléments est déjà contrôlé dans la section Compléments.",
-          "tag": "Compléments"
         }
       ],
       "remarque": "écart < 2 % : dans la marge de précision des étiquettes."
@@ -629,6 +618,7 @@
           "couleur": "purple",
           "nom": "Dîner",
           "aliments": [
+            "{SOIR}",
             "150 g de saumon ou maquereau",
             "200 g de patate douce rôtie",
             "2 œufs brouillés",
@@ -657,18 +647,6 @@
               15.0
             ]
           ]
-        },
-        {
-          "offset": 690,
-          "label": "Coucher",
-          "couleur": "purple",
-          "nom": "Compléments du soir",
-          "aliments": [
-            "{SOIR}"
-          ],
-          "prix": 0.3,
-          "note": "Ne rajoute ni magnésium ni zinc en plus : le cumul de tes compléments est déjà contrôlé dans la section Compléments.",
-          "tag": "Compléments"
         }
       ],
       "remarque": "le samedi tourne un peu plus protéiné et un peu moins glucidique : calories identiques, aucun souci."
@@ -790,6 +768,7 @@
           "couleur": "purple",
           "nom": "Dîner",
           "aliments": [
+            "{SOIR}",
             "150 g de saumon ou maquereau (sinon 180 g de poisson blanc + 1 c. à soupe d'huile en plus)",
             "100 g de lentilles cuites",
             "250 g de légumes rôtis",
@@ -818,18 +797,6 @@
               13.5
             ]
           ]
-        },
-        {
-          "offset": 870,
-          "label": "Coucher",
-          "couleur": "purple",
-          "nom": "Compléments du soir",
-          "aliments": [
-            "{SOIR}"
-          ],
-          "prix": 0.3,
-          "note": "Ne rajoute ni magnésium ni zinc en plus : le cumul de tes compléments est déjà contrôlé dans la section Compléments.",
-          "tag": "Compléments"
         }
       ],
       "remarque": "le vendredi (ping-pong) : ajoute 1 banane + 1 tranche de pain avant le club (~+150 kcal)."
@@ -862,10 +829,10 @@
   function foodLines(m) {
     var S = A.SUPPLEMENTS, out = [];
     m.aliments.forEach(function (x) {
-      if (x === '{MATIN}') { var a = S.stackLabel('matin'); if (a) out.push('Stack du matin avec ce repas (il contient des graisses) : ' + a); }
+      if (x === '{MATIN}') { var a = S.stackLabel('matin'); if (a) out.push('Compléments du matin avec ce repas (il contient des graisses) : ' + a); }
       else if (x === '{PRE}') { var b = S.stackLabel('pre'); if (b) out.push(b + ' — 30 à 60 min avant la séance'); }
       else if (x === '{CREATINE}') { if (S.STACKS[S.ACTIF].creatine) out.push('Créatine 5 g (tous les jours, même au repos)'); }
-      else if (x === '{SOIR}') { S.active().filter(function (p) { return p.moment === 'soir'; }).forEach(function (p) { out.push(p.court); }); out.push('À prendre 2 h après le dîner, sans produit laitier'); }
+      else if (x === '{SOIR}') { var s = S.stackLabel('soir'); if (s) out.push('Compléments ' + S.momentText('soir') + ' : ' + s); }
       else out.push(x);
     });
     return out;
