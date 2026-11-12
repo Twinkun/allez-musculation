@@ -513,6 +513,8 @@ document.getElementById('nbTitre').textContent=EX.length;
 document.getElementById('nbFiches').textContent=EX.length;
 document.querySelectorAll('.filter-btn').forEach(b=>{const f=b.dataset.f,n=f==='all'?EX.length:f==='prog'?EX.filter(inProg).length:EX.filter(e=>e.cat===f).length;b.textContent=b.dataset.label+' ('+n+')';});
 renderGrid();
+// Lien direct (programme.html → exercices.html#ex12) : ouvre la fiche demandée
+(function(){const m=/^#ex(\d+)$/.exec(location.hash);if(!m)return;const el=document.getElementById('ex'+m[1]);if(el){el.classList.add('open');setTimeout(()=>el.scrollIntoView({block:'start'}),250);}})();
 </script>
 <script>
 const _hbg = document.getElementById('navHbg');
