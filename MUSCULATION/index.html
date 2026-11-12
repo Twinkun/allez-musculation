@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#e8960a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -11,7 +12,12 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <title>ALLEZ — Transformation Physique Premium</title>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
+<script src="data/programme.js"></script>
+<script src="data/nutrition.js"></script>
+<script src="data/supplements.js"></script>
+<script src="data/fiches.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -515,6 +521,9 @@
     }
     .supp-dose { font-family: var(--font-display); font-size: 2rem; color: var(--text); margin-bottom: 0.25rem; }
     .supp-dose-lbl { font-size: 0.6875rem; color: var(--text-light); }
+    .supp-alert { margin: 0 0 1.5rem; padding: .875rem 1rem; border-radius: 12px; background: #fff8e8; border: 1px solid rgba(232,150,10,.45); border-left: 4px solid var(--gold); font-size: .8125rem; line-height: 1.5; color: var(--text); }
+    .supp-alert a { color: #8a5800; font-weight: 700; }
+    .split-ex .split-rx { margin-left: auto; padding-left: .5rem; font-size: .6875rem; font-weight: 700; opacity: .7; white-space: nowrap; }
 
     /* ─── CTA (dark — contraste intentionnel) ─── */
     .cta-wrap { max-width: 1400px; margin: 0 auto; }
@@ -787,7 +796,7 @@
     <p class="hero-sub">
       Programme <strong>sur mesure</strong> conçu pour ta morphologie exacte.
       V-shape, épaules 3D, dos massif, bras imposants.
-      <strong>Adapté</strong> au pectus excavatum et à tes lombaires (discopathie L5-S1).
+      <span data-prive="index.hero" data-prive-garder><strong>Adapté</strong> à ton profil et à tes contraintes.</span>
     </p>
     <div class="hero-btns">
       <a href="#programme" class="btn-gold">
@@ -805,19 +814,19 @@
     </div>
     <div class="hero-ticker">
       <div class="ticker-item">
-        <div class="ticker-val" data-count="71">0</div>
+        <div class="ticker-val" data-count-az="goals.weight0">0</div>
         <div class="ticker-lbl">kg actuels</div>
       </div>
       <div class="ticker-item">
-        <div class="ticker-val" data-count="178">0</div>
+        <div class="ticker-val" data-count-az="profile.height">0</div>
         <div class="ticker-lbl">cm de taille</div>
       </div>
       <div class="ticker-item">
-        <div class="ticker-val">3</div>
+        <div class="ticker-val"><span data-az="programme.seances"></span></div>
         <div class="ticker-lbl">séances / semaine</div>
       </div>
       <div class="ticker-item">
-        <div class="ticker-val">13</div>
+        <div class="ticker-val"><span data-az="programme.cycleSemaines"></span></div>
         <div class="ticker-lbl">semaines / cycle</div>
       </div>
     </div>
@@ -845,51 +854,51 @@
           <div class="circ">
             <svg width="120" height="120" viewBox="0 0 120 120">
               <circle class="circ-track" cx="60" cy="60" r="54"/>
-              <circle class="circ-fill" cx="60" cy="60" r="54" data-progress="79"/>
+              <circle class="circ-fill" cx="60" cy="60" r="54" data-progress-az="goals.leanPct0"/>
             </svg>
             <div class="circ-text">
-              <div class="circ-val">20,5</div>
+              <div class="circ-val"><span data-az="goals.bf0|n"></span></div>
               <div class="circ-unit">% graisse</div>
             </div>
           </div>
           <div class="bf-info">
-            <h3>56,4 kg <em>de masse maigre</em></h3>
-            <p>Recomposition ciblée : +217 kcal surplus les jours d'entraînement, déficit modéré au repos (−333 kcal). Moyenne hebdo ≈ −100 kcal/j sous la maintenance. Débutant + 20,5 % de gras = recomposition : on perd du gras tout en construisant du muscle. Objectif an 1 : 16 % de MG et ~+4,5 kg de masse maigre, à poids quasi stable.</p>
+            <h3><span data-az="goals.lean0|1"></span> kg <em>de masse maigre</em></h3>
+            <p>Recomposition ciblée : <span data-az="nutrition.train.delta|+int"></span> kcal de surplus les jours d'entraînement, déficit modéré au repos (<span data-az="nutrition.rest.delta|+int"></span> kcal). Moyenne hebdo ≈ <span data-az="nutrition.ecartMoyen|+int"></span> kcal/j par rapport à la maintenance. Débutant + <span data-az="goals.bf0|n"></span> % de gras = recomposition : on perd du gras tout en construisant du muscle. Objectif an 1 : <span data-az="goals.bf|n"></span> % de MG et <span data-az="goals.leanGainLow|+n"></span> à <span data-az="goals.leanGainHigh|+n"></span> kg de masse maigre, à poids quasi stable.</p>
           </div>
         </div>
       </div>
 
       <div class="card reveal">
         <div class="card-head"><div class="card-lbl">Poids corporel</div><div class="badge badge-ok">Actuel</div></div>
-        <div class="card-vals"><div class="val-now">71 <span class="val-unit">kg</span></div><div class="val-target">→ ~72,5 <span class="val-unit">kg</span></div></div>
+        <div class="card-vals"><div class="val-now"><span data-az="goals.weight0|n"></span> <span class="val-unit">kg</span></div><div class="val-target">→ ~<span data-az="goals.weight|n"></span> <span class="val-unit">kg</span></div></div>
         <div class="pbar-wrap"><div class="pbar" data-w="0"></div></div>
         <div class="pbar-foot"><span>Départ</span><strong>Objectif an 1</strong></div>
       </div>
 
       <div class="card reveal d1">
         <div class="card-head"><div class="card-lbl">Largeur d'épaules</div><div class="badge badge-ok">Actuel</div></div>
-        <div class="card-vals"><div class="val-now">48 <span class="val-unit">cm</span></div><div class="val-target">→ ~51 <span class="val-unit">cm</span></div></div>
+        <div class="card-vals"><div class="val-now"><span data-az="goals.shoulders0|n"></span> <span class="val-unit">cm</span></div><div class="val-target">→ ~<span data-az="goals.shoulders|n"></span> <span class="val-unit">cm</span></div></div>
         <div class="pbar-wrap"><div class="pbar" data-w="0"></div></div>
         <div class="pbar-foot"><span>Départ</span><strong>Objectif an 1</strong></div>
       </div>
 
       <div class="card reveal d2">
         <div class="card-head"><div class="card-lbl">Tour de poitrine</div><div class="badge badge-ok">Actuel</div></div>
-        <div class="card-vals"><div class="val-now">87 <span class="val-unit">cm</span></div><div class="val-target">→ ~92 <span class="val-unit">cm</span></div></div>
+        <div class="card-vals"><div class="val-now"><span data-az="goals.chest0|n"></span> <span class="val-unit">cm</span></div><div class="val-target">→ ~<span data-az="goals.chest|n"></span> <span class="val-unit">cm</span></div></div>
         <div class="pbar-wrap"><div class="pbar" data-w="0"></div></div>
-        <div class="pbar-foot"><span>Expansion : 91 cm</span><strong>Objectif an 1</strong></div>
+        <div class="pbar-foot"><span>Mesuré au repos</span><strong>Objectif an 1</strong></div>
       </div>
 
       <div class="card reveal">
         <div class="card-head"><div class="card-lbl">Tour de biceps</div><div class="badge badge-ok">Actuel</div></div>
-        <div class="card-vals"><div class="val-now">34 <span class="val-unit">cm</span></div><div class="val-target">→ 36-37 <span class="val-unit">cm</span></div></div>
+        <div class="card-vals"><div class="val-now"><span data-az="goals.biceps0|n"></span> <span class="val-unit">cm</span></div><div class="val-target">→ <span data-az="goals.biceps"></span> <span class="val-unit">cm</span></div></div>
         <div class="pbar-wrap"><div class="pbar" data-w="0"></div></div>
-        <div class="pbar-foot"><span>Tendu (33 au repos)</span><strong>Objectif an 1</strong></div>
+        <div class="pbar-foot"><span>Bras contracté</span><strong>Objectif an 1</strong></div>
       </div>
 
       <div class="card reveal d1">
         <div class="card-head"><div class="card-lbl">Tour de taille</div><div class="badge badge-target">À réduire</div></div>
-        <div class="card-vals"><div class="val-now">86 <span class="val-unit">cm</span></div><div class="val-target">→ 80 <span class="val-unit">cm</span></div></div>
+        <div class="card-vals"><div class="val-now"><span data-az="goals.waist0|n"></span> <span class="val-unit">cm</span></div><div class="val-target">→ <span data-az="goals.waist|n"></span> <span class="val-unit">cm</span></div></div>
         <div class="pbar-wrap"><div class="pbar danger" data-w="38"></div></div>
         <div class="pbar-foot"><span>Recomposition + core</span><strong>Objectif an 1</strong></div>
       </div>
@@ -911,8 +920,8 @@
           <h3 class="obj-title">V-SHAPE MARQUÉ</h3>
           <p class="obj-desc">Ratio épaules/taille visuellement contrasté. Élargir les épaules, développer le grand dorsal, affiner la taille via le core et la nutrition recomposition. Taille naturellement fine = atout #1.</p>
           <div class="obj-nums">
-            <div><div class="obj-num-val">~+3 cm</div><div class="obj-num-lbl">Largeur épaules</div></div>
-            <div><div class="obj-num-val">−4 cm</div><div class="obj-num-lbl">Tour de taille</div></div>
+            <div><div class="obj-num-val">~<span data-az="goals.dShoulders|+n"></span> cm</div><div class="obj-num-lbl">Largeur épaules</div></div>
+            <div><div class="obj-num-val"><span data-az="goals.dWaist|+n"></span> cm</div><div class="obj-num-lbl">Tour de taille</div></div>
           </div>
         </div>
       </div>
@@ -922,8 +931,8 @@
           <h3 class="obj-title">ÉPAULES 3D</h3>
           <p class="obj-desc">Développement des 3 faisceaux du deltoïde. Le médial est la priorité absolue — seul muscle qui élargit structurellement la silhouette.</p>
           <div class="obj-nums">
-            <div><div class="obj-num-val">11 séries</div><div class="obj-num-lbl">Directes/semaine</div></div>
-            <div><div class="obj-num-val">3×/sem</div><div class="obj-num-lbl">Fréquence</div></div>
+            <div><div class="obj-num-val"><span data-az="programme.volume.delt-med.direct"></span> séries</div><div class="obj-num-lbl">Directes/semaine</div></div>
+            <div><div class="obj-num-val"><span data-az="programme.volume.delt-med.freq"></span>×/sem</div><div class="obj-num-lbl">Fréquence</div></div>
           </div>
         </div>
       </div>
@@ -933,8 +942,8 @@
           <h3 class="obj-title">DOS MASSIF</h3>
           <p class="obj-desc">Grand dorsal large et épais, trapèzes puissants, rhomboïdes solides. La largeur du dos est le second pilier du V-shape après les épaules.</p>
           <div class="obj-nums">
-            <div><div class="obj-num-val">~+5 cm</div><div class="obj-num-lbl">Tour poitrine</div></div>
-            <div><div class="obj-num-val">15 séries</div><div class="obj-num-lbl">Directes/semaine</div></div>
+            <div><div class="obj-num-val">~<span data-az="goals.dChest|+n"></span> cm</div><div class="obj-num-lbl">Tour poitrine</div></div>
+            <div><div class="obj-num-val"><span data-az="programme.volume.dorsal.direct"></span> séries</div><div class="obj-num-lbl">Directes/semaine</div></div>
           </div>
         </div>
       </div>
@@ -944,8 +953,8 @@
           <h3 class="obj-title">BRAS IMPOSANTS</h3>
           <p class="obj-desc">Biceps avec peak développé, triceps volumineux (2/3 de la masse du bras), brachial qui pousse le peak vers le haut.</p>
           <div class="obj-nums">
-            <div><div class="obj-num-val">+2-3 cm</div><div class="obj-num-lbl">Tour de bras</div></div>
-            <div><div class="obj-num-val">2-3×/sem</div><div class="obj-num-lbl">Fréquence</div></div>
+            <div><div class="obj-num-val"><span data-az="goals.dBicepsTxt"></span> cm</div><div class="obj-num-lbl">Tour de bras</div></div>
+            <div><div class="obj-num-val"><span data-az="programme.volume.biceps.freq"></span>×/sem</div><div class="obj-num-lbl">Fréquence</div></div>
           </div>
         </div>
       </div>
@@ -958,74 +967,12 @@
   <div class="container">
     <div class="eyebrow">Structure hebdomadaire</div>
     <h2 class="sh">MON <span>PROGRAMME</span></h2>
-    <p class="sp">3 séances optimisées — Lun 8h · Jeu 8h · Sam 11h. Muscles prioritaires stimulés 2-3×/semaine. Core et posture intégrés 10 min en fin de chaque séance. Programme 100 % haut du corps (choix assumé) : les jambes travaillent au ping-pong du vendredi.</p>
-    <div class="split-grid">
-      <div class="split-card is-hero reveal">
-        <div class="split-day">Lundi · 8h00</div>
-        <div class="split-name">PUSH</div>
-        <div class="split-focus">Pectoraux · Épaules · Triceps</div>
-        <div class="split-list">
-          <div class="split-ex" data-ex="dev-incline">Développé incliné haltères 30°</div>
-          <div class="split-ex" data-ex="elev-lat">Élévations latérales ×4 séries</div>
-          <div class="split-ex" data-ex="dev-militaire">Développé militaire assis</div>
-          <div class="split-ex" data-ex="ecarte-cable">Écarté câble high-to-low</div>
-          <div class="split-ex" data-ex="ext-triceps">Extension triceps corde</div>
-          <div class="split-ex" data-ex="face-pull">Face pull ×4 séries</div>
-        </div>
-        <div class="split-foot">
-          <div class="split-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>70-80 min</div>
-          <div class="split-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/></svg>6 exercices</div>
-        </div>
-      </div>
-      <div class="split-card reveal d1">
-        <div class="split-day">Jeudi · 8h00</div>
-        <div class="split-name">PULL</div>
-        <div class="split-focus">Dos · Biceps · Deltoïdes post.</div>
-        <div class="split-list">
-          <div class="split-ex" data-ex="tirage-vertical">Tirage vertical prise large</div>
-          <div class="split-ex" data-ex="rowing-unilateral">Rowing unilatéral haltère</div>
-          <div class="split-ex" data-ex="oiseau-incline">Oiseau buste appuyé</div>
-          <div class="split-ex" data-ex="rowing-cable">Rowing câble assis</div>
-          <div class="split-ex" data-ex="face-pull">Face pull ×4 séries</div>
-          <div class="split-ex" data-ex="curl-alternes">Curl biceps alternés</div>
-        </div>
-        <div class="split-foot">
-          <div class="split-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>70-80 min</div>
-          <div class="split-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/></svg>6 exercices</div>
-        </div>
-      </div>
-      <div class="split-card reveal d2">
-        <div class="split-day">Samedi · 11h00</div>
-        <div class="split-name">V-SHAPE</div>
-        <div class="split-focus">Épaules 3D · Dos · Bras</div>
-        <div class="split-list">
-          <div class="split-ex" data-ex="elev-lat">Élévations latérales ×4 séries</div>
-          <div class="split-ex" data-ex="elev-cable">Élévations câble ×3 séries</div>
-          <div class="split-ex" data-ex="arnold-press">Arnold Press</div>
-          <div class="split-ex" data-ex="pull-ups">Pull-ups / Tractions</div>
-          <div class="split-ex" data-ex="dev-incline">Développé incliné ×3 séries</div>
-          <div class="split-ex" data-ex="curl-ez">Curl barre EZ + concentré</div>
-          <div class="split-ex" data-ex="ext-overhead">Extension triceps overhead</div>
-          <div class="split-ex" data-ex="face-pull">Face pull ×3 séries</div>
-        </div>
-        <div class="split-foot">
-          <div class="split-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>85-95 min</div>
-          <div class="split-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/></svg>8 exercices</div>
-        </div>
-      </div>
-    </div>
+    <p class="sp"><span id="progJours"></span> Muscles prioritaires stimulés 2-3×/semaine. Core et posture intégrés 10 min en fin de chaque séance. Programme 100 % haut du corps (choix assumé) : les jambes travaillent au ping-pong du vendredi.</p>
+    <div class="split-grid" id="splitGrid"></div>
     <div class="vol-box reveal">
       <div class="vol-title">VOLUME HEBDOMADAIRE PAR GROUPE MUSCULAIRE</div>
-      <p style="font-size:.8rem;color:var(--text-light);margin:-1.25rem 0 1.5rem">Séries directes par semaine, calculées sur le programme réel. Les développés et tirages ajoutent du travail indirect (triceps, biceps, pectoraux).</p>
-      <div class="vol-grid">
-        <div class="vol-row"><div class="vol-lbl">Épaules (médial)</div><div class="vol-bar-wrap"><div class="vol-bar p" data-w="66"></div></div><div class="vol-count">11 séries</div></div>
-        <div class="vol-row"><div class="vol-lbl">Grand dorsal</div><div class="vol-bar-wrap"><div class="vol-bar h" data-w="90"></div></div><div class="vol-count">15 séries</div></div>
-        <div class="vol-row"><div class="vol-lbl">Épaules (post.)</div><div class="vol-bar-wrap"><div class="vol-bar h" data-w="84"></div></div><div class="vol-count">14 séries</div></div>
-        <div class="vol-row"><div class="vol-lbl">Core / Posture</div><div class="vol-bar-wrap"><div class="vol-bar m" data-w="72"></div></div><div class="vol-count">12 séries</div></div>
-        <div class="vol-row"><div class="vol-lbl">Biceps</div><div class="vol-bar-wrap"><div class="vol-bar h" data-w="54"></div></div><div class="vol-count">9 séries</div></div>
-        <div class="vol-row"><div class="vol-lbl">Pectoraux</div><div class="vol-bar-wrap"><div class="vol-bar m" data-w="60"></div></div><div class="vol-count">10 séries</div></div>
-        <div class="vol-row"><div class="vol-lbl">Triceps</div><div class="vol-bar-wrap"><div class="vol-bar m" data-w="42"></div></div><div class="vol-count">7 séries</div></div>
-      </div>
+      <p style="font-size:.8rem;color:var(--text-light);margin:-1.25rem 0 1.5rem">Séries directes par semaine, calculées sur le programme complet (blocs 2 et 3) ; entre parenthèses, les séries indirectes. Les développés et tirages ajoutent du travail indirect (triceps, biceps, pectoraux).</p>
+      <div class="vol-grid" id="volGrid"></div>
     </div>
   </div>
 </section>
@@ -1035,18 +982,18 @@
   <div class="container">
     <div class="eyebrow">Projection réaliste</div>
     <h2 class="sh">MA <span>PROGRESSION</span></h2>
-    <p class="sp">Projection basée sur les données en hypertrophie naturelle et ton profil (ossature fine, potentiel à vie estimé ~80-84 kg / bras 38-39 cm). An 1 = recomposition, an 2 = prise de masse propre.</p>
+    <p class="sp" data-prive="index.progression" data-prive-garder>Projection basée sur les données en hypertrophie naturelle. An 1 = recomposition, an 2 = prise de masse propre.</p>
     <div class="tl">
       <div class="ms reveal">
         <div class="ms-num">1</div>
         <div class="ms-period">1 AN</div>
         <div class="ms-sub">Fondations & premiers résultats</div>
         <div class="ms-stats">
-          <div class="ms-row"><div class="ms-row-lbl">Poids</div><div class="ms-row-val">~72,5 kg</div></div>
-          <div class="ms-row"><div class="ms-row-lbl">Masse maigre</div><div class="ms-row-val">~+4,5 kg</div></div>
-          <div class="ms-row"><div class="ms-row-lbl">Biceps</div><div class="ms-row-val">36–37 cm</div></div>
-          <div class="ms-row"><div class="ms-row-lbl">Poitrine</div><div class="ms-row-val">~92 cm</div></div>
-          <div class="ms-row"><div class="ms-row-lbl">BF estimé</div><div class="ms-row-val">~16 %</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">Poids</div><div class="ms-row-val">~<span data-az="goals.weight|n"></span> kg</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">Masse maigre</div><div class="ms-row-val"><span data-az="goals.leanGainLow|+n"></span> à <span data-az="goals.leanGainHigh|+n"></span> kg</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">Biceps</div><div class="ms-row-val"><span data-az="goals.biceps"></span> cm</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">Poitrine</div><div class="ms-row-val">~<span data-az="goals.chest|n"></span> cm</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">BF estimé</div><div class="ms-row-val">~<span data-az="goals.bf|n"></span> %</div></div>
         </div>
         <div class="ms-chip">↑ V-shape naissant et visible</div>
       </div>
@@ -1055,24 +1002,24 @@
         <div class="ms-period">2 ANS</div>
         <div class="ms-sub">Développement & confirmation</div>
         <div class="ms-stats">
-          <div class="ms-row"><div class="ms-row-lbl">Poids</div><div class="ms-row-val">75–77 kg</div></div>
-          <div class="ms-row"><div class="ms-row-lbl">Masse maigre</div><div class="ms-row-val">+7 à 8 kg</div></div>
-          <div class="ms-row"><div class="ms-row-lbl">Biceps</div><div class="ms-row-val">37–38 cm</div></div>
-          <div class="ms-row"><div class="ms-row-lbl">Poitrine</div><div class="ms-row-val">95–98 cm</div></div>
-          <div class="ms-row"><div class="ms-row-lbl">BF estimé</div><div class="ms-row-val">14–15 %</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">Poids</div><div class="ms-row-val"><span data-az="goals.an2.weight"></span> kg</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">Masse maigre</div><div class="ms-row-val"><span data-az="goals.an2.lean"></span> kg</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">Biceps</div><div class="ms-row-val"><span data-az="goals.an2.biceps"></span> cm</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">Poitrine</div><div class="ms-row-val"><span data-az="goals.an2.chest"></span> cm</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">BF estimé</div><div class="ms-row-val"><span data-az="goals.an2.bf"></span> %</div></div>
         </div>
-        <div class="ms-chip">↑ V-shape établi, pectus compensé visuellement</div>
+        <div class="ms-chip">↑ V-shape établi</div>
       </div>
       <div class="ms reveal d2">
         <div class="ms-num">★</div>
         <div class="ms-period">5 ANS</div>
         <div class="ms-sub">Potentiel naturel atteint</div>
         <div class="ms-stats">
-          <div class="ms-row"><div class="ms-row-lbl">Poids</div><div class="ms-row-val">78–82 kg</div></div>
-          <div class="ms-row"><div class="ms-row-lbl">Masse maigre</div><div class="ms-row-val">+11 à 13 kg</div></div>
-          <div class="ms-row"><div class="ms-row-lbl">Biceps</div><div class="ms-row-val">38–39 cm</div></div>
-          <div class="ms-row"><div class="ms-row-lbl">Poitrine</div><div class="ms-row-val">100–104 cm</div></div>
-          <div class="ms-row"><div class="ms-row-lbl">BF optimal</div><div class="ms-row-val">12–13 %</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">Poids</div><div class="ms-row-val"><span data-az="goals.an5.weight"></span> kg</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">Masse maigre</div><div class="ms-row-val"><span data-az="goals.an5.lean"></span> kg</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">Biceps</div><div class="ms-row-val"><span data-az="goals.an5.biceps"></span> cm</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">Poitrine</div><div class="ms-row-val"><span data-az="goals.an5.chest"></span> cm</div></div>
+          <div class="ms-row"><div class="ms-row-lbl">BF optimal</div><div class="ms-row-val"><span data-az="goals.an5.bf"></span> %</div></div>
         </div>
         <div class="ms-chip">★ Physique athlète naturel accompli</div>
       </div>
@@ -1085,73 +1032,9 @@
   <div class="container">
     <div class="eyebrow">Stack personnel</div>
     <h2 class="sh">MES <span>COMPLÉMENTS</span></h2>
-    <p class="sp">8 compléments ciblés, timing précis, dosage optimal. Pas de superflu — chaque produit a un rôle clair dans ta transformation.</p>
-    <div class="supp-grid">
-      <div class="supp-card reveal">
-        <div class="supp-ico">🥛</div>
-        <div class="supp-name">GOLD WHEY</div>
-        <div class="supp-brand">Optimum Nutrition</div>
-        <div class="supp-timing">Post-workout · 30-60 min</div>
-        <div class="supp-dose">1 scoop</div>
-        <div class="supp-dose-lbl">24g de protéines par dose</div>
-      </div>
-      <div class="supp-card reveal d1">
-        <div class="supp-ico">⚗️</div>
-        <div class="supp-name">CRÉATINE</div>
-        <div class="supp-brand">ON Micronized</div>
-        <div class="supp-timing">Quotidien · 7j/7</div>
-        <div class="supp-dose">5 g</div>
-        <div class="supp-dose-lbl">Dans le shaker ou un repas</div>
-      </div>
-      <div class="supp-card reveal d2">
-        <div class="supp-ico">🌙</div>
-        <div class="supp-name">ZMA</div>
-        <div class="supp-brand">Zinc & Magnesium MyProtein</div>
-        <div class="supp-timing">Soir · 30 min avant coucher</div>
-        <div class="supp-dose">1 gél.</div>
-        <div class="supp-dose-lbl">À jeun, loin des laitages</div>
-      </div>
-      <div class="supp-card reveal d3">
-        <div class="supp-ico">💊</div>
-        <div class="supp-name">OPTI-MEN</div>
-        <div class="supp-brand">Optimum Nutrition</div>
-        <div class="supp-timing">Matin · Avec petit-déjeuner</div>
-        <div class="supp-dose">3 tabs</div>
-        <div class="supp-dose-lbl">Vitamines A, D, E, K + zinc</div>
-      </div>
-      <div class="supp-card reveal">
-        <div class="supp-ico">🐟</div>
-        <div class="supp-name">OMÉGA-3</div>
-        <div class="supp-brand">WHC UnoCardio 1000 ★</div>
-        <div class="supp-timing">Matin · Avec repas gras</div>
-        <div class="supp-dose">2 caps</div>
-        <div class="supp-dose-lbl">EPA+DHA · Anti-inflammatoire · Joints</div>
-      </div>
-      <div class="supp-card reveal">
-        <div class="supp-ico">☀️</div>
-        <div class="supp-name">D3 + K2 MK-7</div>
-        <div class="supp-brand">Nutri&amp;Co D3+K2</div>
-        <div class="supp-timing">Matin · Avec petit-déjeuner</div>
-        <div class="supp-dose">2 000 UI</div>
-        <div class="supp-dose-lbl">Densité osseuse · Testostérone · Force</div>
-      </div>
-      <div class="supp-card reveal">
-        <div class="supp-ico">🦴</div>
-        <div class="supp-name">COLLAGÈNE</div>
-        <div class="supp-brand">Vital Proteins Peptides</div>
-        <div class="supp-timing">Pré-workout · 30–60 min avant</div>
-        <div class="supp-dose">10–15 g</div>
-        <div class="supp-dose-lbl">Tendons · Ligaments · PE + dos</div>
-      </div>
-      <div class="supp-card reveal">
-        <div class="supp-ico">🌿</div>
-        <div class="supp-name">ASHWAGANDHA</div>
-        <div class="supp-brand">Nutri&amp;Co KSM-66</div>
-        <div class="supp-timing">Soir · Avec le stack ZMA</div>
-        <div class="supp-dose">600 mg</div>
-        <div class="supp-dose-lbl">Cortisol ↓ · Testostérone ↑ · Sommeil — Cycler 8 sem on / 4 off</div>
-      </div>
-    </div>
+    <p class="sp"><span data-az="supp.nb"></span> compléments, chacun avec son niveau de preuve (A solide, B modéré, C faible). Ils ne représentent que quelques pourcents du résultat.</p>
+    <div id="suppAlert"></div>
+    <div class="supp-grid" id="suppGrid"></div>
   </div>
 </section>
 
@@ -1160,7 +1043,7 @@
   <div class="container">
     <div class="eyebrow">La méthode</div>
     <h2 class="sh">LES 3 <span>PILIERS</span></h2>
-    <p class="sp">Un programme de transformation repose sur trois piliers inséparables. En négliger un seul divise les résultats par trois.</p>
+    <p class="sp">Un programme de transformation repose sur trois piliers inséparables.</p>
     <div class="pil-grid">
       <div class="pil-card reveal">
         <div class="pil-ico">🏋️</div>
@@ -1171,7 +1054,7 @@
           <li>Tempo contrôlé — excentrique priorisé</li>
           <li>RIR calculé pour chaque bloc</li>
           <li>Face pull obligatoire à chaque séance upper</li>
-          <li>Adapté pectus excavatum & discopathie L5-S1</li>
+          <li><span data-prive="index.pilier" data-prive-garder>Adapté à ton profil et à tes contraintes</span></li>
         </ul>
       </div>
       <div class="pil-card reveal d1">
@@ -1179,9 +1062,9 @@
         <div class="pil-title">NUTRITION</div>
         <p class="pil-desc">Recomposition calculée sur ta maintenance réelle. Cyclisation calorique intelligente entre jours d'entraînement et de repos.</p>
         <ul class="pil-list">
-          <li>2 650 kcal jours d'entraînement</li>
-          <li>2 100 kcal jours de repos</li>
-          <li>160g de protéines/jour — non négociable</li>
+          <li><span><span data-az="nutrition.train.kcal|int"></span> kcal jours d'entraînement</span></li>
+          <li><span><span data-az="nutrition.rest.kcal|int"></span> kcal jours de repos</span></li>
+          <li><span><span data-az="nutrition.proteines"></span> g de protéines/jour — non négociable</span></li>
           <li>Glucides concentrés autour des séances</li>
           <li>Lipides maintenus pour la testostérone</li>
         </ul>
@@ -1224,7 +1107,7 @@
 <!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="foot-logo">AL<span>L</span>EZ</div>
-  <div class="foot-copy">Programme personnel · Fitness Park Carré Sénart · 2026–2027</div>
+  <div class="foot-copy">Programme personnel</div>
   <div class="foot-copy">Construit pour ta morphologie exacte</div>
 </footer>
 
@@ -1265,6 +1148,35 @@
 
 <script>
 /* ─── NAV SCROLL ─── */
+
+/* ─── SECTIONS LIÉES AUX DONNÉES (core.js + data/*.js) ─── */
+const P = ALLEZ.PROGRAM, SUP = ALLEZ.SUPPLEMENTS, FUI = ALLEZ.FICHES_UI;
+const BLK = P.currentBlockCode();
+// Compteurs et anneau : valeurs du profil
+document.querySelectorAll('[data-count-az]').forEach(el => el.setAttribute('data-count', Math.round(ALLEZ.value(el.getAttribute('data-count-az')))));
+document.querySelectorAll('[data-progress-az]').forEach(el => el.setAttribute('data-progress', Math.round(ALLEZ.value(el.getAttribute('data-progress-az')))));
+// Jours de séance (l'heure est une donnée privée, saisie dans le profil)
+(function () {
+  const hh = X => { const h = ALLEZ.hourText(X.slot + ':0'); return h ? ' ' + h : ''; };
+  document.getElementById('progJours').textContent = P.ORDER.length + ' séances optimisées — ' + P.ORDER.map(sid => P.SESSIONS[sid].label + hh(P.SESSIONS[sid])).join(' · ') + '.';
+  const ICO_T = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>';
+  const ICO_L = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/></svg>';
+  document.getElementById('splitGrid').innerHTML = P.ORDER.map((sid, i) => {
+    const X = P.SESSIONS[sid], h = ALLEZ.hourText(X.slot + ':0');
+    return '<div class="split-card' + (i === 0 ? ' is-hero' : '') + ' reveal' + (i ? ' d' + i : '') + '">' +
+      '<div class="split-day">' + X.label + (h ? ' · ' + h : '') + '</div><div class="split-name">' + X.name + '</div><div class="split-focus">' + X.focus + '</div>' +
+      '<div class="split-list">' + X.items.map(it => '<div class="split-ex" data-ex="' + it.ex + '">' + P.displayName(P.EXERCISES[it.ex]) + '<span class="split-rx">' + P.prescription(it, BLK) + '</span></div>').join('') + '</div>' +
+      '<div class="split-foot"><div class="split-meta">' + ICO_T + '≈ ' + P.duration(sid, BLK) + ' min</div><div class="split-meta">' + ICO_L + X.items.length + ' exercices</div></div></div>';
+  }).join('');
+  // Volume hebdomadaire calculé (programme complet)
+  const v = P.volume('B2'), ids = Object.keys(v).sort((a, b) => v[b].direct - v[a].direct), max = Math.max.apply(null, ids.map(m => v[m].direct));
+  document.getElementById('volGrid').innerHTML = ids.map(m => '<div class="vol-row"><div class="vol-lbl">' + v[m].label + '</div><div class="vol-bar-wrap"><div class="vol-bar ' + (m === 'delt-med' ? 'p' : v[m].direct >= 12 ? 'h' : 'm') + '" data-w="' + Math.round(v[m].direct / max * 90) + '"></div></div><div class="vol-count">' + v[m].direct + ' séries' + (v[m].indirect ? ' (+' + v[m].indirect + ')' : '') + '</div></div>').join('');
+  // Compléments : stack actif, niveau de preuve, alerte de cumul (limites EFSA)
+  document.getElementById('suppGrid').innerHTML = SUP.active().map((p, i) => '<div class="supp-card reveal' + (i % 4 ? ' d' + (i % 4) : '') + '"><div class="supp-ico">' + p.icone + '</div><div class="supp-name">' + p.titre + '</div><div class="supp-brand">' + p.marque + '</div><div class="supp-timing">' + p.quand + '</div><div class="supp-dose">' + SUP.doseText(p.id) + '</div><div class="supp-dose-lbl">' + p.resume + ' · preuve ' + p.effets[0].preuve + '</div></div>').join('');
+  const al = SUP.alerts();
+  document.getElementById('suppAlert').innerHTML = al.length ? '<div class="supp-alert">⚠️ <strong>Cumul à corriger.</strong> ' + al.map(a => a.texte).join(' ') + ' <a href="nutrition.html#supplements">Voir le détail</a></div>' : '';
+})();
+
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 50); }, { passive: true });
 
@@ -1354,1191 +1266,41 @@ const bIO = new IntersectionObserver(entries => {
 document.querySelectorAll('.pbar, .vol-bar').forEach(el => bIO.observe(el));
 
 /* ─── EXERCISE MODAL ─── */
-const MUS_DESC = {
-  'Pectoraux sup.':'Adduction horizontale inclinée — développe le haut de la poitrine',
-  'Pectoraux (chef st.)':'Adduction sternal — épaisseur centrale de la poitrine',
-  'Deltoïde ant.':'Flexion et poussée d\'épaule — visible de face',
-  'Deltoïde ant./méd.':'Poussée + élargissement — synergie des deux faisceaux',
-  'Deltoïde médial':'Abduction pure — seul muscle qui élargit vraiment la silhouette',
-  'Deltoïde post.':'Extension horizontale + rotation externe — clé pour la posture',
-  'Deltoïdes (ant. + moyen)':'Avant et milieu de l\'épaule — rondeur et largeur des épaules.',
-  'Deltoïdes (3 faisceaux)':'Tous les faisceaux — développement complet des épaules',
-  'Triceps':'Extension du coude — 2/3 du volume du bras',
-  'Triceps (3 chefs)':'Tous les chefs — volume complet du bras arrière',
-  'Triceps (chef long)':'Chef long bi-articulaire — seul stimulé en position overhead',
-  'Triceps (chef lat.)':'Chef latéral — définition externe du bras',
-  'Grand dorsal':'Adduction et extension d\'épaule — largeur du dos',
-  'Biceps':'Flexion du coude — volume frontal du bras',
-  'Biceps brachial':'Flexion + supination — peak et volume du bras',
-  'Brachial ant.':'Flexion pure du coude — sous le biceps, pousse le peak vers le haut',
-  'Brachioradial':'Flexion en prise neutre — épaisseur de l\'avant-bras',
-  'Rhomboïdes':'Rétraction des omoplates — posture et santé d\'épaule',
-  'Trapèze sup.':'Élévation de l\'épaule — assiste les élévations latérales',
-  'Trapèze':'Stabilisation scapulaire — support global du mouvement',
-  'Trapèze moy.':'Rétraction des omoplates — posture thoracique',
-  'Trapèze inf.':'Dépression des omoplates — stabilisation inférieure',
-  'Teres major':'Adduction + rotation interne — renforcement du grand dorsal',
-  'Rotateurs ext.':'Rotation externe — prévient l\'impingement d\'épaule',
-};
-
-const EXDATA = {
-  'dev-incline': {
-    tag: 'PUSH · LUNDI & V-SHAPE · SAMEDI',
-    name: 'Développé incliné haltères 30°',
-    muscles: [
-      { label: 'Pectoraux sup.', type: 'p' },
-      { label: 'Deltoïde ant.', type: 's' },
-      { label: 'Triceps', type: 's' },
-    ],
-    svgMuscles: { p: ['chest'], s: ['front-delt', 'triceps'] },
-    svgKey: 'press_incline',
-    stats: [
-      { val: '4×12-15', lbl: 'Séries × Reps' },
-      { val: '3-1-2-0', lbl: 'Tempo' },
-      { val: 'RIR 3', lbl: 'Proximité échec' },
-      { val: '90s', lbl: 'Repos' },
-    ],
-    equip: 'Haltères + banc incliné 30°',
-    steps: [
-      'Réglez le banc à exactement 30° — ni 45° (delts) ni moins (pecto moyen)',
-      'Saisissez les haltères, asseyez-vous au bord, remontez les genoux pour vous allonger',
-      'Omoplates SERRÉES et ENFONCÉES dans le banc — maintenez cette position tout le set',
-      'Descendez lentement en 3 secondes, coudes à 45-60° du buste (jamais à 90° en croix)',
-      'Pause 1 seconde en bas — ressentez l\'étirement du pectoral supérieur',
-      'Expirez et poussez vers le haut-intérieur, haltères qui se rapprochent légèrement',
-      'Arrêtez avant de verrouiller les coudes — gardez la tension musculaire continue',
-    ],
-    breath: '⬇ Inspirez lentement en descendant → ⏸ Pause 1s → ⬆ Expirez fort en poussant',
-    amp: 'Coudes légèrement sous l\'épaule en bas — haltères proches (sans se toucher) en haut',
-    tech: [
-      'Angle 30° : cible le chef claviculaire sans surcharger l\'épaule',
-      'Coudes à 45-60° du corps — ni trop ouverts ni trop fermés',
-      'Descendre jusqu\'à la poitrine, étirement complet sans rebond',
-      'Excentrique 3 secondes — la croissance musculaire se passe en descente',
-      'Haltères recommandés pour corriger les asymétries bilatérales',
-    ],
-    posture: 'Inclinaison 30° réduit la pression directe sur le sternum (pectus excavatum). Les haltères permettent à chaque bras de suivre sa propre trajectoire, compensant tes asymétries gauche/droite.',
-    injury: [
-      'Pectus excavatum: réduire l\'amplitude de 10-15% si inconfort sternal — ne jamais forcer',
-      'Douleur d\'épaule: vérifier l\'angle des coudes (45-60°) et réduire le poids',
-      'Poignets: légère rotation externe des haltères améliore le confort articulaire',
-    ],
-    pec: 'Exercice PRIORITAIRE — il cible le haut des pectoraux, la zone qui masque le mieux visuellement le creux du pectus. (Le développé plat n\'est pas dangereux pour un pectus léger, il est juste moins utile esthétiquement pour toi.)',
-    scol: null,
-    errors: [
-      {bad:'Banc à 45° ou plus',fix:'30° précis — angle optimal pour le chef claviculaire du pecto'},
-      {bad:'Coudes en croix à 90°',fix:'45-60° — protège l\'avant de l\'épaule'},
-      {bad:'Rebondir en bas',fix:'Pause contrôlée 1s — stretch reflex sécurisé'},
-      {bad:'Dos qui décolle du banc',fix:'Contact constant — empêche la compensation lombaire'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Allongé à 30°, haltères au-dessus de la poitrine bras quasi-tendus, omoplates serrées et enfoncées dans le banc'},
-      {lbl:'Descente — 3 secondes',txt:'Écarter les haltères lentement, coudes à 45-60° du buste, descendre jusqu\'à l\'étirement du pectoral supérieur — pause 1s'},
-      {lbl:'Poussée & contraction',txt:'Expirer fort, pousser vers le haut-intérieur, haltères se rapprochent légèrement — arrêt avant verrouillage'},
-    ],
-  },
-  'elev-lat': {
-    tag: 'PUSH · LUNDI & V-SHAPE · SAMEDI',
-    name: 'Élévations latérales',
-    muscles: [
-      { label: 'Deltoïde médial', type: 'p' },
-      { label: 'Trapèze sup.', type: 's' },
-      { label: 'Deltoïde ant.', type: 's' },
-    ],
-    svgMuscles: { p: ['side-delt'], s: ['traps', 'front-delt'] },
-    svgKey: 'lateral_raise',
-    stats: [
-      { val: '4×12-15', lbl: 'Séries × Reps' },
-      { val: '2-1-3-0', lbl: 'Tempo' },
-      { val: 'RIR 2', lbl: 'Proximité échec' },
-      { val: '60s', lbl: 'Repos' },
-    ],
-    equip: 'Haltères légers (4-8 kg)',
-    steps: [
-      'Debout, haltères le long du corps, légère flexion des coudes (15°)',
-      'Engagez les abdominaux pour stabiliser le tronc — pas d\'élan',
-      'Montez les bras sur les côtés jusqu\'à l\'horizontale EXACTE — pas plus haut',
-      'Pouce neutre et bras légèrement devant le corps (dans l\'axe de l\'omoplate) — pas de « verre qu\'on verse »',
-      'Contrôlez la descente en 3 secondes — sans laisser retomber les bras',
-      'Pause en bas sans balancer — pas d\'élan, répétition stricte',
-    ],
-    breath: '⬆ Expirez en montant → ⬇ Inspirez lentement en descendant (3s)',
-    amp: 'De la hanche jusqu\'à l\'horizontale exacte — au-dessus l\'épaule prend le relais',
-    tech: [
-      'Buste légèrement penché en avant (10-15°) pour cibler le médial',
-      'Pouce légèrement vers le bas — "vider la bouteille"',
-      'Monter jusqu\'à parallèle au sol — pas au-delà',
-      'Excentrique contrôlé : 3 secondes en descente',
-      'Si tu dois te balancer, le poids est trop lourd — allège',
-    ],
-    posture: 'Le deltoïde médial est LE muscle qui élargit structurellement la silhouette. Mouvement symétrique et sans charge sur le dos.',
-    injury: [
-      'Douleur sous-acromiale : réduire l\'amplitude, s\'arrêter à 80° si pincement',
-      'Commencer très léger (4-6 kg max) — l\'isolation exige de la légèreté',
-      'Volume élevé recommandé : 4×15 léger > 4×8 lourd pour les épaules',
-    ],
-    pec: 'Élargit le haut du corps : plus d\'épaules = le pectus attire moins l\'œil. Priorité dans votre programme V-Shape.',
-    scol: null,
-    errors: [
-      {bad:'Monter au-dessus de l\'horizontale',fix:'Exactement à l\'horizontale — cible le deltoïde médial de façon optimale'},
-      {bad:'Utiliser l\'élan du corps',fix:'Mouvement strict — même si le poids est plus léger'},
-      {bad:'Paumes en supination (vers le haut)',fix:'Pouce neutre : le « verre qu\'on verse » (rotation interne) augmente le risque de conflit à l\'épaule'},
-      {bad:'Trop lourd = compensation trapèzes',fix:'Léger et strict > lourd et compensé'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Debout, haltères le long des cuisses, légère flexion des coudes (15°), buste légèrement penché en avant (10°)'},
-      {lbl:'Montée — 2 secondes',txt:'Lever les bras sur les côtés en arc, pouce neutre, jusqu\'à la parallèle au sol — pas au-delà'},
-      {lbl:'Retour — 3 secondes',txt:'Descendre lentement en résistant à la gravité — c\'est là que le muscle se développe'},
-    ],
-  },
-  'dev-militaire': {
-    tag: 'PUSH · LUNDI',
-    name: 'Développé militaire assis',
-    muscles: [
-      { label: 'Deltoïde ant./méd.', type: 'p' },
-      { label: 'Triceps', type: 's' },
-      { label: 'Trapèze', type: 's' },
-    ],
-    svgMuscles: { p: ['front-delt', 'side-delt'], s: ['traps', 'triceps'] },
-    svgKey: 'overhead_press',
-    stats: [
-      { val: '4×10-12', lbl: 'Séries × Reps' },
-      { val: '2-1-2-0', lbl: 'Tempo' },
-      { val: 'RIR 2-3', lbl: 'Proximité échec' },
-      { val: '90s', lbl: 'Repos' },
-    ],
-    equip: 'Haltères + banc droit',
-    steps: [
-      'Assis sur un banc droit (dossier 90°), pieds à plat, dos en contact',
-      'Haltères au niveau des oreilles, coudes à 90°, paumes vers l\'avant',
-      'Poussez verticalement jusqu\'à quasi-extension — pas de verrouillage',
-      'Légère convergence des haltères en haut — ils ne se touchent pas',
-      'Descendez lentement jusqu\'à ce que les coudes soient à l\'horizontale',
-      'Gardez les abdominaux engagés — ne pas cambrer le bas du dos',
-    ],
-    breath: '⬆ Expirez fort en poussant → ⬇ Inspirez en contrôlant la descente',
-    amp: 'Coudes à l\'horizontale en bas — bras quasi-tendus (non verrouillés) en haut',
-    tech: [
-      'Assis pour neutraliser les compensations lombaires',
-      'Descendre jusqu\'à hauteur du menton ou des clavicules',
-      'Dos contre le dossier — pas d\'hyperlordose',
-      'Haltères préférés pour la symétrie et l\'amplitude naturelle',
-      'Expirer en poussant, inspirer contrôlé en descente',
-    ],
-    posture: 'Version assise avec dossier = protection directe de la charnière L5-S1. Haltères recommandés pour corriger tes déséquilibres gauche/droite.',
-    injury: [
-      'Épaule instable : passer en unilatéral pour corriger les déséquilibres',
-      'Jamais derrière la nuque — stress cervical inutile',
-      'Assis = plus stable pour apprendre le mouvement',
-    ],
-    pec: 'Exercice sans compression sternale — excellent pour votre morphologie.',
-    scol: null,
-    errors: [
-      {bad:'Cambrer violemment le dos',fix:'Dos plat contre dossier — abdos engagés'},
-      {bad:'Descendre trop bas (sous les oreilles)',fix:'Coudes à l\'horizontale maximum en bas'},
-      {bad:'Verrouiller les coudes en haut',fix:'Légère flexion maintenue — tension continue'},
-      {bad:'Poignets fléchis',fix:'Poignets neutres — dans l\'axe des avant-bras'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Assis, dos droit collé au dossier, haltères à hauteur des oreilles, coudes à 90°, paumes vers l\'avant'},
-      {lbl:'Poussée — 2 secondes',txt:'Pousser vers le haut, légère convergence des haltères, quasi-extension sans verrouiller les coudes'},
-      {lbl:'Descente — 2 secondes',txt:'Contrôler la descente jusqu\'à hauteur du menton, inspirer, épaules actives'},
-    ],
-  },
-  'ecarte-cable': {
-    tag: 'PUSH · LUNDI',
-    name: 'Écarté câble high-to-low',
-    muscles: [
-      { label: 'Pectoraux (chef st.)', type: 'p' },
-      { label: 'Deltoïde ant.', type: 's' },
-    ],
-    svgMuscles: { p: ['chest'], s: ['front-delt'] },
-    svgKey: 'cable_fly',
-    stats: [
-      { val: '3×12-15', lbl: 'Séries × Reps' },
-      { val: '2-1-3-0', lbl: 'Tempo' },
-      { val: 'RIR 2-3', lbl: 'Proximité échec' },
-      { val: '75s', lbl: 'Repos' },
-    ],
-    equip: 'Machine à câbles — poulies hautes',
-    steps: [
-      'Positionnez les poulies en position haute (au-dessus de la tête)',
-      'Un pied en avant pour la stabilité, légère inclinaison du tronc en avant',
-      'Légère flexion des coudes (15-20°) maintenue tout le mouvement',
-      'Tirez les câbles vers le bas-devant en arc de cercle, comme embrasser un arbre',
-      'Croisez légèrement les mains en fin pour la contraction maximale du sternum',
-      'Contrôlez le retour en 3 secondes — résistez à l\'ouverture progressive',
-    ],
-    breath: '⬆ Expirez en rapprochant les bras → ⬇ Inspirez en revenant lentement',
-    amp: 'Grand arc de cercle du haut vers le bas-avant — croisement des mains en fin',
-    tech: [
-      'Câbles réglés en position haute, tirer vers le bas et le centre',
-      'Légère flexion des coudes maintenue constante tout au long',
-      'Étirement maximal bras écartés, contraction forte en bas',
-      'Croiser légèrement les mains en bas pour maximiser la contraction',
-      'Tension constante grâce aux câbles — zéro point mort',
-    ],
-    posture: 'Mouvement d\'isolation sans compression du sternum. Idéal pour le pectus : tension continue, aucun pic de pression.',
-    injury: [
-      'Câbles > haltères pour le fly — tension constante sur toute l\'amplitude',
-      'Douleur de coude : vérifier l\'angle des coudes, utiliser des poignées rotatives',
-    ],
-    pec: 'EXERCICE CLÉ pour vous — les câbles gardent une tension constante et une trajectoire confortable pour le sternum. Priorité sur les dumbbell flyes.',
-    scol: null,
-    errors: [
-      {bad:'Plier excessivement les coudes',fix:'15-20° fixes — ce n\'est pas un rowing'},
-      {bad:'Balancer le tronc',fix:'Mouvement isolé des bras'},
-      {bad:'Relâcher sans contrôle',fix:'Retour contrôlé en 3 s — tension gardée tout le long'},
-      {bad:'Câbles qui montent en fin',fix:'Maintenir la direction bas-avant jusqu\'à la fin'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Face à la machine, câbles en position haute, bras écartés en légère ouverture, légère flexion des coudes fixe'},
-      {lbl:'Adduction — arc de cercle',txt:'Ramener les bras vers le bas-avant-centre, comme embrasser un arbre géant'},
-      {lbl:'Contraction & retour',txt:'Légère croisure des mains en bas, pause 1s, puis retour lent 3s en résistant à l\'ouverture'},
-    ],
-  },
-  'ext-triceps': {
-    tag: 'PUSH · LUNDI',
-    name: 'Extension triceps corde',
-    muscles: [
-      { label: 'Triceps (3 chefs)', type: 'p' },
-    ],
-    svgMuscles: { p: ['triceps'], s: [] },
-    svgKey: 'pushdown',
-    stats: [
-      { val: '4×12-15', lbl: 'Séries × Reps' },
-      { val: '2-0-2-0', lbl: 'Tempo' },
-      { val: 'RIR 2', lbl: 'Proximité échec' },
-      { val: '60s', lbl: 'Repos' },
-    ],
-    equip: 'Machine à câbles + corde (poulie haute)',
-    steps: [
-      'Poulie haute, attachment corde, face à la machine, légère inclinaison avant',
-      'Pieds écartés largeur épaules, coudes COLLÉS aux flancs — règle absolue',
-      'Partez avec les avant-bras à l\'horizontale ou légèrement au-dessus',
-      'Poussez la corde vers le bas et ÉCARTEZ les extrémités en fin de mouvement',
-      'Contraction maximale bras tendus — pause 1s, visualisez vos triceps',
-      'Revenez lentement à la position de départ en contrôlant',
-    ],
-    breath: '⬇ Expirez en poussant → ⬆ Inspirez lentement en remontant',
-    amp: 'Avant-bras à 90°+ en haut — extension complète avec écartement des cordes en bas',
-    tech: [
-      'Se pencher légèrement en avant, coudes serrés près du corps',
-      'Écarter la corde en bas pour activer les 3 chefs simultanément',
-      'Seuls les avant-bras bougent — coudes fixes comme des pivots',
-      'Extension complète jusqu\'à la cuisse, amplitude maximale',
-      'Contraction 1s en bas avant de remonter',
-    ],
-    posture: 'Exercice d\'isolation sans stress sur les épaules ou la colonne. Excellent finisher en fin de séance push.',
-    injury: [
-      'Douleur de coude : coudes ne bougent pas, réduire le poids',
-      'La corde est moins stressante pour les coudes que la barre droite',
-      'Variante : barre en V pour coudes sensibles',
-    ],
-    pec: null,
-    scol: null,
-    errors: [
-      {bad:'Coudes qui s\'écartent ou remontent',fix:'Coudes fixes = isolation triceps pure'},
-      {bad:'Ne pas écarter la corde en bas',fix:'L\'écartement en bas = contraction maximale (chefs latéral et médial)'},
-      {bad:'Amplitude réduite (50%)',fix:'Extension COMPLÈTE — les triceps ont besoin de la pleine amplitude'},
-      {bad:'Trop lourd + tronc qui aide',fix:'Léger et strict — isolation pure'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Face au câble, légèrement penché, avant-bras à l\'horizontale, coudes collés aux flancs'},
-      {lbl:'Extension vers le bas',txt:'Étendre les avant-bras vers le bas, coudes FIXES, amplitude maximale'},
-      {lbl:'Contraction & écartement',txt:'Écarter la corde en bas, pause 1s bras tendus, puis remontée lente 2s'},
-    ],
-  },
-  'face-pull': {
-    tag: 'PUSH · LUNDI & PULL · JEUDI & V-SHAPE · SAMEDI',
-    name: 'Face pull',
-    muscles: [
-      { label: 'Deltoïde post.', type: 'p' },
-      { label: 'Rhomboïdes', type: 'p' },
-      { label: 'Rotateurs ext.', type: 's' },
-    ],
-    svgMuscles: { p: ['rear-delt', 'rhomboids'], s: ['traps', 'side-delt'] },
-    svgKey: 'face_pull',
-    stats: [
-      { val: '4×15-20', lbl: 'Séries × Reps' },
-      { val: '2-2-3-0', lbl: 'Tempo' },
-      { val: 'RIR 2', lbl: 'Proximité échec' },
-      { val: '60s', lbl: 'Repos' },
-    ],
-    equip: 'Machine à câbles + corde (poulie haute)',
-    steps: [
-      'Poulie à hauteur du visage ou légèrement au-dessus, attachment corde',
-      'Reculez suffisamment pour avoir une tension constante sur le câble',
-      'Prenez la corde en pronation (paumes vers le bas), légère inclinaison arrière',
-      'Tirez la corde vers votre visage en écartant les mains vers les oreilles',
-      'Rotation EXTERNE des épaules : coudes à la hauteur des yeux, paumes finissent vers le haut',
-      'Pause 2 secondes en contraction — sentez les delts postérieurs et rhomboïdes',
-      'Revenez lentement en 3 secondes — ne laissez pas les câbles vous tirer',
-    ],
-    breath: '⬆ Expirez en tirant → ⏸ Pause 2s → ➡ Inspirez en revenant lentement',
-    amp: 'Bras quasi-tendus au départ — corde au niveau du visage avec coudes hauts en contraction',
-    tech: [
-      'Câble à hauteur des yeux ou légèrement au-dessus',
-      'Tirer vers le visage en écartant les coudes vers le haut et l\'extérieur',
-      'Rotation externe maximale en fin de mouvement',
-      'Maintenir la contraction 2 secondes en position finale',
-      'Poids léger — exercice postural, pas de force brute',
-    ],
-    posture: 'OBLIGATOIRE à chaque séance upper. Rééquilibre les rotateurs externes face aux muscles internes surinvestis.',
-    injury: [
-      '1 série très légère en échauffement, puis les séries de travail en fin de séance (comme dans ton programme)',
-      'Prévient l\'impingement et rééquilibre l\'épaule interne',
-      'Si douleur d\'épaule : réduire le poids et vérifier la rotation externe',
-    ],
-    pec: 'EXERCICE THÉRAPEUTIQUE PRIORITAIRE — le face pull renforce l\'arrière des épaules et aide à corriger les épaules enroulées (posture), ce qui met mieux le thorax en valeur. Ne sautez JAMAIS cet exercice.',
-    scol: null,
-    errors: [
-      {bad:'Tirer vers le bas (comme un rowing)',fix:'Tirer VERS LE VISAGE avec rotation externe'},
-      {bad:'Coudes bas pendant le mouvement',fix:'Coudes à hauteur des yeux — active les delts postérieurs'},
-      {bad:'Trop lourd = compensation trapèzes',fix:'Léger et avec rotation externe complète'},
-      {bad:'Amplitude réduite, pas de rotation',fix:'La rotation externe EST l\'exercice — sans elle, ça ne sert à rien'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Face au câble (hauteur des yeux), bras quasi-tendus, prise corde en pronation, léger recul'},
-      {lbl:'Tirage vers le visage',txt:'Tirer vers le visage, coudes qui montent vers le haut-extérieur, paumes commencent à tourner'},
-      {lbl:'Rotation externe',txt:'Paumes finissent vers le haut, coudes à hauteur des yeux — pause 2s en contraction'},
-    ],
-  },
-  'tirage-vertical': {
-    tag: 'PULL · JEUDI',
-    name: 'Tirage vertical prise large',
-    muscles: [
-      { label: 'Grand dorsal', type: 'p' },
-      { label: 'Biceps', type: 's' },
-      { label: 'Teres major', type: 's' },
-    ],
-    svgMuscles: { p: ['lats'], s: ['biceps', 'rear-delt', 'rhomboids'] },
-    svgKey: 'pulldown',
-    stats: [
-      { val: '4×10-12', lbl: 'Séries × Reps' },
-      { val: '2-1-3-0', lbl: 'Tempo' },
-      { val: 'RIR 2-3', lbl: 'Proximité échec' },
-      { val: '90s', lbl: 'Repos' },
-    ],
-    equip: 'Machine lat pulldown',
-    steps: [
-      'Asseyez-vous, calage de cuisses bien serré, pieds à plat',
-      'Prise large pronation (paumes vers l\'avant), largeur 1.5× épaules',
-      'Légère inclinaison arrière du tronc (15-20°) — gardez-la tout le set',
-      'Amorce : DÉPRIMEZ les épaules (baissez-les) AVANT de plier les coudes',
-      'Tirez la barre vers le haut de la poitrine en guidant les coudes vers les hanches',
-      'Pause 1s en contraction — ressentez les lats contractés',
-      'Contrôlez la montée en 3 secondes — stretch complet des lats en haut',
-    ],
-    breath: '⬇ Expirez en tirant → ⬆ Inspirez en remontant avec contrôle (3s)',
-    amp: 'Bras quasi-tendus en haut (stretch maximal) — barre au niveau de la clavicule en bas',
-    tech: [
-      'Prise large, légèrement au-delà de la largeur des épaules',
-      'Léger recul du buste (15-20°) pour mieux aligner le tirage',
-      'Tirer vers le haut de la poitrine, pas sous le menton',
-      'Rétracter les omoplates avant de tirer avec les bras',
-      'Descente complète — amplitude maximale pour étirer le grand dorsal',
-    ],
-    posture: 'La prise large maximise l\'abduction du grand dorsal = largeur du dos.',
-    injury: [
-      'Si douleur d\'épaule : vérifier que les épaules s\'abaissent AVANT la flexion des coudes',
-      'Prise mixte possible si douleur de poignet',
-      'Commencer léger — la technique prime sur le poids',
-    ],
-    pec: 'Excellent pour développer les lats et améliorer l\'ouverture thoracique. Vision V-Shape prioritaire.',
-    scol: null,
-    errors: [
-      {bad:'Tirer avec les bras d\'abord',fix:'Initier avec les ÉPAULES BAISSÉES puis plier les coudes'},
-      {bad:'Tirer derrière la nuque',fix:'Toujours devant — derrière = stress cervical sans bénéfice'},
-      {bad:'Se balancer avec le tronc',fix:'Légère inclinaison fixe — pas de mouvement pendant le set'},
-      {bad:'Lâcher sans contrôle vers le haut',fix:'Excentrique 3s = la moitié du travail des lats'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Assis, cuisses calées, prise large pronation, bras TENDUS, légère inclinaison arrière du buste'},
-      {lbl:'Tirage',txt:'Abaisser les épaules d\'abord, puis tirer la barre vers le haut de la poitrine, coudes vers les hanches'},
-      {lbl:'Contraction & retour',txt:'Barre à la clavicule, pause 1s, lats contractés, retour contrôlé 3s'},
-    ],
-  },
-  'rowing-unilateral': {
-    tag: 'PULL · JEUDI',
-    name: 'Rowing unilatéral haltère',
-    muscles: [
-      { label: 'Grand dorsal', type: 'p' },
-      { label: 'Rhomboïdes', type: 'p' },
-      { label: 'Trapèze moy.', type: 's' },
-      { label: 'Biceps', type: 's' },
-    ],
-    svgMuscles: { p: ['lats', 'rhomboids'], s: ['biceps', 'rear-delt'] },
-    svgKey: 'row',
-    stats: [
-      { val: '4×10-12/côté', lbl: 'Séries × Reps' },
-      { val: '2-1-3-0', lbl: 'Tempo' },
-      { val: 'RIR 2', lbl: 'Proximité échec' },
-      { val: '75s', lbl: 'Repos' },
-    ],
-    equip: 'Haltère + banc plat',
-    steps: [
-      'Genou et main gauches sur le banc, dos parallèle au sol',
-      'Pied droit à plat, haltère dans la main droite — bras tendu',
-      'Dos PLAT — ni arrondi, ni hyperlordosé. Visez horizontal',
-      'Tirez l\'haltère vers la HANCHE (pas l\'épaule) en guidant le coude vers le plafond',
-      'Légère rotation du torse en haut — naturelle et souhaitée',
-      'Pause 1s en haut — coude au-dessus du dos, lat contracté',
-      'Descendez lentement en 3s — étirement complet du lat',
-    ],
-    breath: '⬆ Expirez en tirant → ⬇ Inspirez en descendant lentement',
-    amp: 'Bras tendu en bas — coude au-dessus du niveau du dos en haut',
-    tech: [
-      'Appui un genou + une main sur le banc pour stabiliser le dos',
-      'Tirer le coude vers le haut et l\'arrière — pas seulement vers le haut',
-      'Amener l\'haltère jusqu\'à la hanche, pas jusqu\'au ventre',
-      'Épaule libre — ne pas bloquer le trapèze en position haute',
-      'Contrôle total en descente — 3 secondes vers le bas',
-    ],
-    posture: 'Exercice unilatéral idéal pour ton asymétrie dorsale : chaque côté travaille indépendamment. La main sur le banc décharge les lombaires (L5-S1).',
-    injury: [
-      'Commencer TOUJOURS côté GAUCHE (côté le plus faible) puis faire le droit',
-      'Si côté droit plus fort : ajouter 1 série extra côté gauche',
-      'Poignet : utiliser des sangles de traction si besoin',
-    ],
-    pec: null,
-    scol: 'Asymétrie posturale (radio 2020 : pas de scoliose structurelle) : commencez TOUJOURS par le côté GAUCHE, le plus faible. Si déséquilibre détecté, 1 série supplémentaire à gauche. Bonus discopathie L5-S1 : la main sur le banc décharge complètement les lombaires — dos plat obligatoire.',
-    errors: [
-      {bad:'Tirer vers l\'épaule',fix:'Tirer vers la hanche — cible les lats, pas les biceps'},
-      {bad:'Arrondir le dos',fix:'Dos plat horizontal — protège les lombaires'},
-      {bad:'Trop de rotation du torse',fix:'Légère rotation naturelle OK — évitez l\'exagération'},
-      {bad:'Descendre sans contrôle',fix:'Descente contrôlée en 3 s — étirement complet du dorsal'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Appui genou + main sur le banc, dos parallèle au sol, bras tendu, haltère pendant vers le sol'},
-      {lbl:'Tirage vers la hanche',txt:'Tirer le coude vers le plafond ET vers l\'arrière jusqu\'à la hauteur de la hanche'},
-      {lbl:'Contraction & descente',txt:'Pause 1s coude au-dessus du dos, lat contracté, puis descente lente 3s'},
-    ],
-  },
-  'oiseau-cable': {
-    tag: 'PULL · JEUDI',
-    name: 'Oiseau câble penché',
-    muscles: [
-      { label: 'Deltoïde post.', type: 'p' },
-      { label: 'Rhomboïdes', type: 's' },
-      { label: 'Trapèze inf.', type: 's' },
-    ],
-    svgMuscles: { p: ['rear-delt'], s: ['rhomboids'] },
-    svgKey: 'lateral_raise',
-    stats: [
-      { val: '3×15-20', lbl: 'Séries × Reps' },
-      { val: '2-1-2-0', lbl: 'Tempo' },
-      { val: 'RIR 2', lbl: 'Proximité échec' },
-      { val: '60s', lbl: 'Repos' },
-    ],
-    equip: 'Machine à câbles — poulie basse',
-    steps: [
-      'Poulie basse à droite, saisissez avec la main GAUCHE (câble croisé devant vous)',
-      'Inclinaison du buste à 45° — dos plat, neutre',
-      'Bras quasi-tendu, tirez vers le haut-côté en arc de cercle',
-      'Guidez le coude vers le plafond — pensez à l\'oiseau',
-      'Pause 1s en haut — delt postérieur contracté',
-      'Retour lent en 2s — recommencez',
-    ],
-    breath: '⬆ Expirez en tirant → ⬇ Inspirez en revenant',
-    amp: 'Bras bas (quasi-vertical) — coude à hauteur du dos ou légèrement au-dessus',
-    tech: [
-      'Penché à 45°, buste stable pendant tout le mouvement',
-      'Câble croisé pour tension constante sur toute l\'amplitude',
-      'Maintenir la contraction 1s en position étendue',
-      'Coudes légèrement fléchis — pas de verrouillage articulaire',
-      'Garder le regard vers le sol pour protéger la nuque',
-    ],
-    posture: 'Renforce le deltoïde postérieur souvent faible avec le pectus. Position penchée réduit la compensation des trapèzes.',
-    injury: [
-      'Préférer le câble à l\'haltère — tension constante sur toute l\'amplitude = meilleure hypertrophie',
-      'Correctif postural majeur : renforce les antagonistes, ouvre le thorax',
-    ],
-    pec: 'Correctif prioritaire — renforce les deltoïdes postérieurs et rhomboïdes, antagonistes directs du pectoral. Améliore la posture et l\'ouverture thoracique.',
-    scol: '⚠️ Discopathie L5-S1 : buste penché non soutenu = bras de levier sur les lombaires. Charge TRÈS légère, dos neutre verrouillé, gainage actif. Si fatigue ou gêne lombaire, préférer l\'Oiseau sur Banc Incliné : poitrine soutenue, zéro charge lombaire.',
-    errors: [
-      {bad:'Câble direct (pas croisé)',fix:'Câble croisé pour tension constante sur toute l\'amplitude'},
-      {bad:'Trop de trapèze (hausse d\'épaule)',fix:'Très léger et isolation delt postérieur — contrôle total'},
-      {bad:'Pas de pause en contraction',fix:'1s maintenu en haut — connexion musculaire optimale'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Penché à 45°, dos plat, câble croisé depuis la poulie basse opposée, bras légèrement fléchi'},
-      {lbl:'Arc de cercle vers l\'extérieur',txt:'Tirer en arc vers le haut-côté, coude qui guide le mouvement vers le plafond'},
-      {lbl:'Contraction & retour',txt:'Pause 1s en position étendue, delt postérieur contracté, retour lent 2s'},
-    ],
-  },
-  'oiseau-incline': {
-    tag: 'PULL · JEUDI',
-    name: 'Oiseau buste appuyé (banc incliné)',
-    muscles: [
-      { label: 'Deltoïde post.', type: 'p' },
-      { label: 'Rhomboïdes', type: 's' },
-      { label: 'Trapèze moyen', type: 's' },
-    ],
-    svgMuscles: { p: ['rear-delt'], s: ['rhomboids', 'traps'] },
-    svgKey: 'rear_fly',
-    stats: [
-      { val: '3×15-20', lbl: 'Séries × Reps' },
-      { val: '2-1-2-0', lbl: 'Tempo' },
-      { val: 'RIR 3·2·1', lbl: 'Selon le bloc' },
-      { val: '60s', lbl: 'Repos' },
-    ],
-    equip: 'Haltères légers (3-5 kg) + banc incliné à 30-45°',
-    steps: [
-      'Règle le banc à 30-45° et allonge-toi ventre contre le dossier, pieds au sol',
-      'Haltères pendants sous les épaules, bras quasi-tendus, coudes légèrement fléchis',
-      'Monte les bras sur les côtés en arc de cercle, en guidant avec les coudes',
-      'Arrête à l\'horizontale — pas plus haut (sinon les trapèzes prennent le relais)',
-      'Pause 1 s en haut, omoplates légèrement rapprochées',
-      'Redescends lentement en 2 s, sans relâcher la tension',
-    ],
-    breath: '⬆ Expirez en montant → ⬇ Inspirez en descendant',
-    amp: 'Bras pendants vers le sol → bras à l\'horizontale',
-    tech: [
-      'Poitrine collée au banc tout le long : le dos ne porte rien',
-      'Coudes légèrement fléchis et fixes',
-      'Épaules basses, loin des oreilles',
-      'Regard vers le sol, nuque dans l\'axe',
-      'Très léger : c\'est un petit muscle, la technique prime',
-    ],
-    posture: 'Renforce l\'arrière des épaules, souvent faible chez les débutants aux épaules enroulées : les épaules se replacent, le thorax est mieux mis en valeur.',
-    injury: [
-      'Version choisie pour toi : zéro charge sur les lombaires (discopathie L5-S1)',
-      'Si gêne à l\'épaule : réduis l\'amplitude et la charge',
-    ],
-    pec: 'Renforce les antagonistes des pectoraux : aide à corriger les épaules enroulées qui accentuent visuellement le pectus.',
-    scol: 'Poitrine appuyée = aucune charge lombaire. C\'est pour ça qu\'il remplace l\'oiseau penché au câble dans ton programme.',
-    errors: [
-      {bad:'Lever la poitrine du banc',fix:'Poitrine collée : sinon le dos compense'},
-      {bad:'Monter au-dessus de l\'horizontale',fix:'S\'arrêter à l\'horizontale'},
-      {bad:'Trop lourd, élan',fix:'3-5 kg, mouvement lent et contrôlé'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Ventre sur le banc incliné, bras pendants, haltères légers'},
-      {lbl:'Ouverture',txt:'Arc de cercle sur les côtés jusqu\'à l\'horizontale, coudes qui guident'},
-      {lbl:'Contraction & retour',txt:'Pause 1 s, descente lente en 2 s'},
-    ],
-  },
-  'rowing-cable': {
-    tag: 'PULL · JEUDI',
-    name: 'Rowing câble assis',
-    muscles: [
-      { label: 'Grand dorsal', type: 'p' },
-      { label: 'Rhomboïdes', type: 'p' },
-      { label: 'Trapèze moy.', type: 's' },
-      { label: 'Biceps', type: 's' },
-    ],
-    svgMuscles: { p: ['rhomboids', 'traps'], s: ['lats', 'rear-delt', 'biceps'] },
-    svgKey: 'row',
-    stats: [
-      { val: '3×12-15', lbl: 'Séries × Reps' },
-      { val: '2-2-3-0', lbl: 'Tempo' },
-      { val: 'RIR 2', lbl: 'Proximité échec' },
-      { val: '75s', lbl: 'Repos' },
-    ],
-    equip: 'Machine à câbles poulie basse + barre large',
-    steps: [
-      'Assis face à la poulie basse, pieds sur les appuis, légère flexion des genoux',
-      'Saisissez la barre large en pronation (paumes vers le bas), largeur épaules',
-      'Dos droit, légère inclinaison avant du buste (25°)',
-      'Tirez en ramenant les coudes EN ARRIÈRE ET EN BAS — les omoplates se rapprochent',
-      'Pause 2s en contraction : omoplates serrées, poitrine vers la machine',
-      'Contrôlez le retour en 3s — ne vous laissez pas emporter par le câble',
-    ],
-    breath: '⬆ Expirez en tirant → ⏸ 2s pause → ⬇ Inspirez en revenant lentement',
-    amp: 'Bras quasi-tendus en départ — omoplates complètement serrées en fin de tirage',
-    tech: [
-      'Dos droit, poitrine haute — ne pas arrondir sous la charge',
-      'Rétracter les omoplates avant de ramener les coudes',
-      'Tirer la poignée vers le nombril, pas vers la poitrine',
-      'Prise large en pronation pour cibler rhomboïdes et trapèzes',
-      'Phase d\'étirement complète en avant — laisser le dos s\'étirer',
-    ],
-    posture: 'Exercice bilatéral : surveiller que les deux côtés tirent également.',
-    injury: [
-      'Excellent exercice pour corriger la cyphose thoracique',
-      'Prise large pour rhomboïdes — prise serrée cible plus les lats',
-      'Si douleur lombaire : réduire l\'inclinaison avant du buste',
-    ],
-    pec: 'Exercice thérapeutique posture — renforce les muscles qui ouvrent la cage thoracique.',
-    scol: 'Concentrez-vous sur une contraction SYMÉTRIQUE des deux côtés du dos à chaque répétition.',
-    errors: [
-      {bad:'Balancer le dos',fix:'Dos quasi-fixe — c\'est le dos qui travaille, pas l\'élan'},
-      {bad:'Tirer avec les bras, omoplates passives',fix:'Initier le mouvement avec les OMOPLATES'},
-      {bad:'Coudes trop hauts',fix:'Coudes à hauteur des hanches — rhomboïdes ciblés'},
-      {bad:'Relâcher sans contrôle',fix:'3s retour contrôlé — stretch clé pour la posture'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Assis, dos droit légèrement incliné (25°), bras tendus, barre large en pronation'},
-      {lbl:'Tirage',txt:'Rétracter les omoplates d\'abord, puis ramener les coudes vers les hanches'},
-      {lbl:'Contraction & retour',txt:'Omoplates serrées, pause 2s, poitrine haute, retour contrôlé 3s'},
-    ],
-  },
-  'curl-alternes': {
-    tag: 'PULL · JEUDI',
-    name: 'Curl biceps alternés',
-    muscles: [
-      { label: 'Biceps brachial', type: 'p' },
-      { label: 'Brachial ant.', type: 's' },
-      { label: 'Brachioradial', type: 's' },
-    ],
-    svgMuscles: { p: ['biceps'], s: ['forearms', 'front-delt'] },
-    svgKey: 'curl',
-    stats: [
-      { val: '4×10-12/bras', lbl: 'Séries × Reps' },
-      { val: '2-1-3-0', lbl: 'Tempo' },
-      { val: 'RIR 2', lbl: 'Proximité échec' },
-      { val: '75s', lbl: 'Repos' },
-    ],
-    equip: 'Haltères',
-    steps: [
-      'Debout ou assis, haltères le long du corps, paumes vers l\'intérieur (neutre)',
-      'Coudes COLLÉS aux flancs — ils ne bougent pas pendant tout le mouvement',
-      'Fléchissez un bras en SUPINANT (tournez la paume vers le haut pendant le mouvement)',
-      'En haut : paume complètement vers le haut, petite contraction supplémentaire',
-      'Descendez lentement en 3s avec léger retour en pronation',
-      'Alternez les bras sans pause entre les côtés',
-    ],
-    breath: '⬆ Expirez en fléchissant → ⬇ Inspirez en descendant (3s)',
-    amp: 'Bras tendu en bas — haltère à hauteur de l\'épaule en haut',
-    tech: [
-      'Supination complète en haut — tourner la paume vers le plafond',
-      'Alterner les bras sans se précipiter pour maintenir le contrôle',
-      'Coude fixe le long du corps — seul l\'avant-bras bouge',
-      'Pas de balancement du buste pour aider la montée',
-      'Descente lente et contrôlée — 3 secondes en excentrique',
-    ],
-    posture: 'Haltères alternés = correction parfaite des différences de force entre les deux bras, réelles chez toi.',
-    injury: [
-      'Douleur de coude : utiliser grip neutre (marteau) — moins de stress',
-      'Éviter les haltères trop lourds — la forme prime sur le poids',
-    ],
-    pec: null,
-    scol: null,
-    errors: [
-      {bad:'Coudes qui avancent en haut',fix:'Coudes fixes — si ils avancent, c\'est trop lourd'},
-      {bad:'Pas de supination',fix:'La supination = activation maximale du biceps'},
-      {bad:'Se balancer pour aider',fix:'Strict = efficace — l\'élan bypass le biceps'},
-      {bad:'Descente trop rapide',fix:'Descente contrôlée en 3 s — plus de tension, moins d\'élan'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Debout ou assis, haltères en prise neutre le long du corps, coudes aux flancs'},
-      {lbl:'Flexion + supination',txt:'Fléchir un bras en tournant progressivement la paume vers le haut, coude fixe'},
-      {lbl:'Contraction & descente',txt:'Pause 1s en haut paume vers le plafond, descente lente 3s en résistant'},
-    ],
-  },
-  'elev-cable': {
-    tag: 'V-SHAPE · SAMEDI',
-    name: 'Élévations câble',
-    muscles: [
-      { label: 'Deltoïde médial', type: 'p' },
-    ],
-    svgMuscles: { p: ['side-delt'], s: ['traps'] },
-    svgKey: 'lateral_raise',
-    stats: [
-      { val: '3×15', lbl: 'Séries × Reps' },
-      { val: '2-1-3-0', lbl: 'Tempo' },
-      { val: 'RIR 2', lbl: 'Proximité échec' },
-      { val: '60s', lbl: 'Repos' },
-    ],
-    equip: 'Machine à câbles — poulie basse',
-    steps: [
-      'Câble bas du côté opposé au bras qui travaille (câble croisé devant soi)',
-      'Debout, légère flexion du coude fixe (15°) — ne bougera pas',
-      'Engagez les abdominaux pour stabiliser le tronc',
-      'Montez le bras sur le côté en arc jusqu\'à l\'horizontale EXACTE — pas plus haut',
-      'Pouce neutre, bras légèrement devant le corps',
-      'Contrôlez la descente en 2 secondes — résistez à la tension du câble',
-    ],
-    breath: '⬆ Expirez en montant → ⬇ Inspirez en descendant (2s)',
-    amp: 'Bras le long du corps en bas — bras à l\'horizontale exacte en haut',
-    tech: [
-      'Câble bas placé du côté opposé au bras qui travaille',
-      'Tension constante tout au long — avantage clé sur les haltères',
-      'Monter jusqu\'à parallèle, coude légèrement fléchi',
-      'Un bras à la fois pour maximiser la concentration',
-      'Parfait finisher : isolation pure du médial en fin de séance',
-    ],
-    posture: 'Tension continue du câble = pas de point mort en bas comme avec les haltères. Exercice symétrique et non contraignant pour le dos.',
-    injury: [
-      'Douleur sous-acromiale : réduire l\'amplitude, s\'arrêter à 80° si pincement',
-      'Commencer très léger — l\'isolation exige de la légèreté',
-      'Câble > haltère : tension constante = stimulus optimal pour le médial',
-    ],
-    pec: 'Élargit le haut du corps : plus d\'épaules = le pectus attire moins l\'œil. Priorité absolue dans votre programme V-Shape.',
-    scol: null,
-    errors: [
-      {bad:'Coude trop fléchi (curl latéral)',fix:'Légère flexion fixe — pas de curl'},
-      {bad:'Monter au-dessus de l\'horizontale',fix:'S\'arrêter à l\'horizontale — deltoïde médial ciblé'},
-      {bad:'Poids trop lourd et compensation',fix:'Très léger — isolation pure du médial'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Debout, câble bas du côté opposé, bras tendu avec légère flexion du coude fixe'},
-      {lbl:'Élévation — 2 secondes',txt:'Lever le bras sur le côté en arc jusqu\'à l\'horizontale, coude légèrement fléchi maintenu'},
-      {lbl:'Retour — excentrique 2s',txt:'Descendre lentement en résistant à la tension du câble — tension constante tout au long'},
-    ],
-  },
-  'arnold-press': {
-    tag: 'V-SHAPE · SAMEDI',
-    name: 'Arnold Press',
-    muscles: [
-      { label: 'Deltoïdes (ant. + moyen)', type: 'p' },
-      { label: 'Trapèze', type: 's' },
-      { label: 'Triceps', type: 's' },
-    ],
-    svgMuscles: { p: ['front-delt', 'side-delt'], s: ['traps', 'triceps'] },
-    svgKey: 'overhead_press',
-    stats: [
-      { val: '4×10-12', lbl: 'Séries × Reps' },
-      { val: '3-1-2-0', lbl: 'Tempo' },
-      { val: 'RIR 2-3', lbl: 'Proximité échec' },
-      { val: '90s', lbl: 'Repos' },
-    ],
-    equip: 'Haltères + banc droit',
-    steps: [
-      'Assis sur banc droit, haltères en haut d\'un curl (devant le visage, coudes 90°, paumes vers vous)',
-      'Commencez à pousser vers le haut EN TOURNANT progressivement les paumes vers l\'extérieur',
-      'À mi-chemin, paumes face en avant (position standard militaire)',
-      'Continuez jusqu\'à extension quasi-complète — paumes face avant, coudes légèrement fléchis',
-      'Revenez en inversant : tendez puis tournez les paumes vers vous',
-      'La rotation doit être LENTE et CONTRÔLÉE — elle augmente l\'amplitude pour l\'avant et le milieu de l\'épaule',
-    ],
-    breath: '⬆ Expirez en poussant et tournant → ⬇ Inspirez en revenant',
-    amp: 'Haltères devant le visage (paumes vers vous) → bras quasi-tendus (paumes en avant)',
-    tech: [
-      'Départ paumes face à soi (position fin de curl) à hauteur des épaules',
-      'Rotation progressive en montant — paumes vers l\'avant en haut',
-      'Amplitude complète : bras tendus en haut, coudes fléchis en bas',
-      'Mouvement continu et fluide entre rotation et push',
-      'Aller plus lentement qu\'un développé classique — contrôle > vitesse',
-    ],
-    posture: 'La rotation augmente l\'amplitude de travail de l\'avant et du milieu de l\'épaule (le faisceau arrière travaille peu). Idéal pour équilibrer les asymétries d\'épaule gauche/droite.',
-    injury: [
-      'Exercice technique — commencer léger pour maîtriser la rotation',
-      'Si douleur d\'épaule : séparer en presse standard sans rotation au début',
-    ],
-    pec: 'Bon développé d\'épaules (avant + milieu), aucune contrainte sur le sternum.',
-    scol: null,
-    errors: [
-      {bad:'Rotation trop rapide ou partielle',fix:'Rotation complète et lente — amplitude maximale'},
-      {bad:'Cambrer le dos',fix:'Dos plat et abdos serrés'},
-      {bad:'Trop lourd = perte de la rotation',fix:'Léger et technique — la rotation est l\'exercice'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Assis, haltères devant le visage, paumes vers soi (fin de curl), coudes à 90°'},
-      {lbl:'Poussée + rotation',txt:'Pousser vers le haut en tournant progressivement les paumes vers l\'extérieur'},
-      {lbl:'Contraction & retour',txt:'Bras quasi-tendus en haut, paumes vers l\'avant, retour inverse contrôlé en 2s'},
-    ],
-  },
-  'pull-ups': {
-    tag: 'V-SHAPE · SAMEDI',
-    name: 'Pull-ups / Tractions',
-    muscles: [
-      { label: 'Grand dorsal', type: 'p' },
-      { label: 'Biceps', type: 's' },
-      { label: 'Brachial ant.', type: 's' },
-      { label: 'Teres major', type: 's' },
-    ],
-    svgMuscles: { p: ['lats', 'biceps'], s: ['rhomboids', 'abs', 'rear-delt'] },
-    svgKey: 'pullup',
-    stats: [
-      { val: '4×max reps', lbl: 'Séries × Reps' },
-      { val: '2-1-3-0', lbl: 'Tempo' },
-      { val: 'RIR 1-2', lbl: 'Proximité échec' },
-      { val: '120s', lbl: 'Repos' },
-    ],
-    equip: 'Barre de tractions',
-    steps: [
-      'Prise pronation (paumes vers l\'avant), largeur légèrement supérieure aux épaules',
-      'Bras tendus en départ — DÉPRIMER les épaules (les baisser) avant de plier les coudes',
-      'Tirez le menton au-dessus de la barre en guidant les coudes vers les hanches',
-      'Légère inclinaison arrière pour que la poitrine touche la barre en haut',
-      'Pause 1s en haut — lats contractés, poitrine fière',
-      'Descendez LENTEMENT en 3s — stretch complet des lats',
-      'Si impossibles : utiliser l\'élastique ou le tirage vertical comme base',
-    ],
-    breath: '⬆ Expirez en montant → ⬇ Inspirez lentement en descendant (3s)',
-    amp: 'Bras COMPLÈTEMENT tendus en bas — menton au-dessus de la barre en haut',
-    tech: [
-      'Prise supination pour plus de biceps, pronation pour plus de dos',
-      'Descente complète à chaque rep — amplitude maximale obligatoire',
-      'Monter jusqu\'au menton au-dessus de la barre',
-      'Rétracter les épaules avant de monter pour protéger les tendons',
-      'Élastique si nécessaire — progresser en amplitude d\'abord',
-    ],
-    posture: 'Exercice roi pour la largeur du grand dorsal. Amplitude complète prioritaire sur le nombre de reps.',
-    injury: [
-      'Débutant : commencer avec tirage vertical, passer aux tractions après 3 mois',
-      'Dès 5 tractions strictes : tractions libres',
-      'Douleur d\'épaule : vérifier dépression des épaules au départ',
-    ],
-    pec: 'Exercise roi pour la largeur des lats et l\'ouverture thoracique. Objectif : 10 tractions strictes d\'ici 6 mois.',
-    scol: null,
-    errors: [
-      {bad:'Demi-répétitions (bras non tendus en bas)',fix:'Extension COMPLÈTE — la plus grande marge de progression'},
-      {bad:'Épaules haussées (oreilles collées)',fix:'Dépression d\'abord — épaules loin des oreilles'},
-      {bad:'Se balancer (kipping)',fix:'Mouvements stricts — moins de reps, plus de muscle'},
-      {bad:'Descente rapide',fix:'3s de descente = recrutement maximal des lats'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Prise sur la barre, bras COMPLÈTEMENT tendus, épaules abaissées (pas haussées)'},
-      {lbl:'Montée',txt:'Tirer le menton au-dessus de la barre, légère inclinaison arrière, poitrine vers la barre'},
-      {lbl:'Descente — 3 secondes',txt:'Contrôler la descente jusqu\'à extension complète — stretch maximal des lats'},
-    ],
-  },
-  'curl-ez': {
-    tag: 'V-SHAPE · SAMEDI',
-    name: 'Curl barre EZ + concentré',
-    muscles: [
-      { label: 'Biceps brachial', type: 'p' },
-      { label: 'Brachial ant.', type: 's' },
-    ],
-    svgMuscles: { p: ['biceps'], s: ['forearms'] },
-    svgKey: 'curl',
-    stats: [
-      { val: '3×10-12', lbl: 'EZ (Séries×Reps)' },
-      { val: '2×10-12/bras', lbl: 'Concentré' },
-      { val: 'RIR 2', lbl: 'Proximité échec' },
-      { val: '75s', lbl: 'Repos' },
-    ],
-    equip: 'Barre EZ + haltère + banc',
-    steps: [
-      'Debout, prise semi-supinée sur la barre EZ (positions intérieures ou extérieures)',
-      'Barre contre les cuisses en position départ, coudes collés aux flancs',
-      'Fléchissez les deux bras jusqu\'à hauteur des épaules — les coudes ne bougent pas',
-      'Pause 1s en haut — contraction maximale',
-      'Descente lente en 3s — résistez à la gravité jusqu\'à extension complète',
-      'Curl concentré : assis, coude contre l\'intérieur de la cuisse — FIXE',
-      'Fléchissez lentement, pause 2s en haut, descente 3s — isolation pure du pic biceps',
-    ],
-    breath: '⬆ Expirez en fléchissant → ⬇ Inspirez en descendant (3s)',
-    amp: 'Extension complète en bas — barre au niveau du menton en haut',
-    tech: [
-      'Barre EZ : prise semi-supinée pour réduire le stress sur les poignets',
-      'Coudes fixes le long du corps — ne pas les avancer pour tricher',
-      'Curl concentré (3 séries) : coude appuyé contre la cuisse, isolation totale',
-      'Le concentré maximise le peak biceps — finisher idéal',
-      'Pause 1s (EZ) et 2s (concentré) en contraction pour maximiser la tension',
-    ],
-    posture: 'Exercice d\'isolation sans risque postural. Le curl concentré corrige les asymétries de biceps gauche/droite.',
-    injury: [
-      'La barre EZ est plus confortable que la barre droite pour les poignets',
-      'Coudes sensibles : vérifier la prise (largeur et angle)',
-    ],
-    pec: null,
-    scol: null,
-    errors: [
-      {bad:'Se pencher en arrière pour aider',fix:'Tronc fixe — si vous penchez, c\'est trop lourd'},
-      {bad:'Amplitude réduite',fix:'Extension complète = recrutement complet'},
-      {bad:'Descente trop rapide',fix:'Descente contrôlée en 3 s jusqu\'à l\'extension complète'},
-      {bad:'Coude concentré qui se déplace',fix:'Coude FIXE contre la cuisse = isolation pure du biceps'},
-    ],
-    schema: [
-      {lbl:'Barre EZ — 3 séries',txt:'Debout, prise semi-supinée, coudes aux flancs, fléchir jusqu\'au menton — pause 1s, descente 3s'},
-      {lbl:'Curl concentré — 3 séries/bras',txt:'Assis, coude fixe contre la cuisse, fléchir lentement — pause 2s, descente 3s'},
-      {lbl:'Clé de l\'exercice',txt:'EZ = volume bilatéral — Concentré = pic biceps et correction asymétrie'},
-    ],
-  },
-  'ext-overhead': {
-    tag: 'V-SHAPE · SAMEDI',
-    name: 'Extension triceps overhead',
-    muscles: [
-      { label: 'Triceps (chef long)', type: 'p' },
-      { label: 'Triceps (chef lat.)', type: 's' },
-    ],
-    svgMuscles: { p: ['triceps'], s: [] },
-    svgKey: 'overhead_ext',
-    stats: [
-      { val: '3×12', lbl: 'Séries × Reps' },
-      { val: '3-1-2-0', lbl: 'Tempo' },
-      { val: 'RIR 2', lbl: 'Proximité échec' },
-      { val: '75s', lbl: 'Repos' },
-    ],
-    equip: 'Machine à câbles poulie basse + corde',
-    steps: [
-      'Poulie basse, corde, tournez le dos à la machine',
-      'Un pied en avant pour la stabilité, maintenez la corde derrière la tête',
-      'Coudes pointant vers le plafond — FIXES pendant tout le mouvement',
-      'Étendez les bras vers le haut en dépliant les coudes',
-      'Extension complète — pause 1s, contraction chef long',
-      'Descendez lentement en 3s — étirement maximum du chef long',
-    ],
-    breath: '⬆ Expirez en étendant → ⬇ Inspirez en descendant lentement (3s)',
-    amp: 'Coudes fléchis max derrière la tête — bras complètement tendus en haut',
-    tech: [
-      'Bras au-dessus de la tête, coudes pointant vers le plafond',
-      'Descendre la corde derrière la tête — amplitude maximale',
-      'Le chef long est le seul bi-articulaire du triceps — overhead obligatoire',
-      'Coudes fixes, seuls les avant-bras bougent',
-      'Câble pour tension constante sur toute l\'amplitude',
-    ],
-    posture: 'Le chef long = environ 60% du volume du triceps. Sans extension overhead, il ne sera jamais pleinement développé.',
-    injury: [
-      'Exercice optimal pour le chef long (2/3 du volume du triceps) — étirement unique',
-      'Douleur de coude : réduire l\'amplitude de retour',
-    ],
-    pec: null,
-    scol: null,
-    errors: [
-      {bad:'Coudes qui s\'écartent et descendent',fix:'Coudes hauts et fixes = chef long ciblé'},
-      {bad:'Balancer le tronc',fix:'Mouvement isolé aux avant-bras uniquement'},
-      {bad:'Amplitude réduite',fix:'Extension COMPLÈTE — le chef long a besoin de la pleine amplitude'},
-    ],
-    schema: [
-      {lbl:'Position départ',txt:'Dos à la machine (poulie basse), corde derrière la tête, coudes pointant vers le plafond'},
-      {lbl:'Extension — 3 secondes',txt:'Étendre les avant-bras vers le haut, coudes FIXES, amplitude maximale'},
-      {lbl:'Descente — contrôlée',txt:'Pause 1s bras tendus, descente lente derrière la tête — étirement chef long'},
-    ],
-  },
-};
-
+/* ─── MODALE D'EXERCICE : fiches partagées (data/fiches.js) + prescription du programme ─── */
 const exOverlay = document.getElementById('exOverlay');
 const exClose = document.getElementById('exClose');
 
-const SVGBG='#0b1020',SVGST='#e8e3d9',SVGGO='#e8960a',SVGDUR='2s';
-function svgWrapEX(content,label='mouvement'){
-  return `<svg viewBox="0 0 160 100" width="200" height="125" xmlns="http://www.w3.org/2000/svg"><rect width="160" height="100" fill="${SVGBG}" rx="8"/>${content}<text x="80" y="96" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="rgba(232,150,10,0.6)" font-weight="700" letter-spacing="1.5">${label.toUpperCase()}</text></svg>`;
-}
-function svgStickEX(extra=''){return`<circle cx="80" cy="16" r="8" fill="${SVGGO}"/><line x1="80" y1="24" x2="80" y2="55" stroke="${SVGST}" stroke-width="2.5" stroke-linecap="round"/><line x1="80" y1="55" x2="68" y2="82" stroke="${SVGST}" stroke-width="2" stroke-linecap="round"/><line x1="80" y1="55" x2="92" y2="82" stroke="${SVGST}" stroke-width="2" stroke-linecap="round"/>${extra}`;}
-const EXANIM = {
-  rear_fly: ()=>svgWrapEX(`
-<circle cx="80" cy="30" r="8" fill="${SVGGO}"/>
-<line x1="80" y1="38" x2="80" y2="62" stroke="${SVGST}" stroke-width="2.5" stroke-linecap="round" transform="rotate(40,80,38)"/>
-<line x1="80" y1="62" x2="68" y2="80" stroke="${SVGST}" stroke-width="2" stroke-linecap="round" transform="rotate(40,80,38)"/>
-<line x1="80" y1="62" x2="92" y2="80" stroke="${SVGST}" stroke-width="2" stroke-linecap="round" transform="rotate(40,80,38)"/>
-<g style="transform-origin:70px 48px;animation:arm-lat-l ${SVGDUR} ease-in-out infinite">
-  <line x1="70" y1="48" x2="50" y2="52" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>
-<g style="transform-origin:90px 48px;animation:arm-lat-r ${SVGDUR} ease-in-out infinite">
-  <line x1="90" y1="48" x2="110" y2="52" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>`,'oiseau buste appuyé'),
-
-  lateral_raise: ()=>svgWrapEX(svgStickEX(`
-<g style="transform-origin:65px 32px;animation:arm-lat-l ${SVGDUR} ease-in-out infinite">
-  <line x1="65" y1="32" x2="52" y2="52" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>
-<g style="transform-origin:95px 32px;animation:arm-lat-r ${SVGDUR} ease-in-out infinite">
-  <line x1="95" y1="32" x2="108" y2="52" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>`),'élévations latérales'),
-  overhead_press: ()=>svgWrapEX(svgStickEX(`
-<g style="transform-origin:65px 32px;animation:arm-oh ${SVGDUR} ease-in-out infinite">
-  <line x1="65" y1="32" x2="52" y2="52" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>
-<g style="transform-origin:95px 32px;animation:arm-oh-r ${SVGDUR} ease-in-out infinite">
-  <line x1="95" y1="32" x2="108" y2="52" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>`),'press overhead'),
-  pushdown: ()=>svgWrapEX(svgStickEX(`
-<line x1="65" y1="32" x2="52" y2="42" stroke="${SVGST}" stroke-width="2.5" stroke-linecap="round"/>
-<line x1="95" y1="32" x2="108" y2="42" stroke="${SVGST}" stroke-width="2.5" stroke-linecap="round"/>
-<g style="transform-origin:52px 42px;animation:arm-pd-l ${SVGDUR} ease-in-out infinite">
-  <line x1="52" y1="42" x2="40" y2="58" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>
-<g style="transform-origin:108px 42px;animation:arm-pd-r ${SVGDUR} ease-in-out infinite">
-  <line x1="108" y1="42" x2="120" y2="58" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>`),'poussée vers le bas'),
-  pulldown: ()=>svgWrapEX(svgStickEX(`
-<g style="transform-origin:65px 32px;animation:arm-pull-l ${SVGDUR} ease-in-out infinite">
-  <line x1="65" y1="32" x2="52" y2="52" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>
-<g style="transform-origin:95px 32px;animation:arm-pull-r ${SVGDUR} ease-in-out infinite">
-  <line x1="95" y1="32" x2="108" y2="52" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>
-<line x1="30" y1="8" x2="130" y2="8" stroke="rgba(232,150,10,0.3)" stroke-width="2"/>
-<line x1="80" y1="8" x2="80" y2="18" stroke="rgba(232,150,10,0.3)" stroke-width="1.5"/>`),'tirage vertical'),
-  row: ()=>svgWrapEX(`
-<circle cx="80" cy="22" r="8" fill="${SVGGO}"/>
-<line x1="80" y1="30" x2="80" y2="58" stroke="${SVGST}" stroke-width="2.5" stroke-linecap="round" transform="rotate(45,80,30)"/>
-<line x1="80" y1="30" x2="68" y2="72" stroke="${SVGST}" stroke-width="2" stroke-linecap="round" transform="rotate(45,80,30)"/>
-<line x1="80" y1="30" x2="92" y2="72" stroke="${SVGST}" stroke-width="2" stroke-linecap="round" transform="rotate(45,80,30)"/>
-<line x1="65" y1="38" x2="52" y2="55" stroke="${SVGST}" stroke-width="2.5" stroke-linecap="round" transform="rotate(45,80,30)"/>
-<g style="transform-origin:95px 38px;animation:arm-row-r ${SVGDUR} ease-in-out infinite">
-  <line x1="95" y1="38" x2="115" y2="50" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round" transform="rotate(45,80,30)"/>
-</g>`,'rowing'),
-  curl: ()=>svgWrapEX(svgStickEX(`
-<line x1="65" y1="32" x2="52" y2="42" stroke="${SVGST}" stroke-width="2.5" stroke-linecap="round"/>
-<line x1="95" y1="32" x2="108" y2="42" stroke="${SVGST}" stroke-width="2.5" stroke-linecap="round"/>
-<g style="transform-origin:52px 42px;animation:arm-curl-l ${SVGDUR} ease-in-out infinite">
-  <line x1="52" y1="42" x2="40" y2="62" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>
-<g style="transform-origin:108px 42px;animation:arm-curl-r ${SVGDUR} ease-in-out infinite">
-  <line x1="108" y1="42" x2="120" y2="62" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>`),'curl biceps'),
-  cable_fly: ()=>svgWrapEX(svgStickEX(`
-<g style="transform-origin:65px 32px;animation:arm-fly-l ${SVGDUR} ease-in-out infinite">
-  <line x1="65" y1="32" x2="45" y2="42" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>
-<g style="transform-origin:95px 32px;animation:arm-fly-r ${SVGDUR} ease-in-out infinite">
-  <line x1="95" y1="32" x2="115" y2="42" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>`),'écarté câble'),
-  face_pull: ()=>svgWrapEX(svgStickEX(`
-<g style="transform-origin:65px 32px;animation:arm-fp-l ${SVGDUR} ease-in-out infinite">
-  <line x1="65" y1="32" x2="45" y2="22" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>
-<g style="transform-origin:95px 32px;animation:arm-fp-r ${SVGDUR} ease-in-out infinite">
-  <line x1="95" y1="32" x2="115" y2="22" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>
-<line x1="20" y1="20" x2="35" y2="20" stroke="rgba(232,150,10,0.3)" stroke-width="1.5"/>
-<line x1="125" y1="20" x2="140" y2="20" stroke="rgba(232,150,10,0.3)" stroke-width="1.5"/>`),'face pull'),
-  press_incline: ()=>svgWrapEX(`
-<circle cx="50" cy="48" r="8" fill="${SVGGO}"/>
-<line x1="57" y1="52" x2="100" y2="72" stroke="${SVGST}" stroke-width="2.5" stroke-linecap="round"/>
-<line x1="100" y1="72" x2="112" y2="88" stroke="${SVGST}" stroke-width="2" stroke-linecap="round"/>
-<rect x="30" y="68" width="90" height="6" rx="3" fill="rgba(232,150,10,0.2)"/>
-<g style="transform-origin:70px 55px;animation:arm-inc-l ${SVGDUR} ease-in-out infinite">
-  <line x1="70" y1="55" x2="55" y2="42" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>
-<g style="transform-origin:82px 60px;animation:arm-inc-r ${SVGDUR} ease-in-out infinite">
-  <line x1="82" y1="60" x2="97" y2="47" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>`,'développé incliné'),
-  pullup: ()=>svgWrapEX(`
-<line x1="30" y1="12" x2="130" y2="12" stroke="rgba(232,150,10,0.35)" stroke-width="3" stroke-linecap="round"/>
-<g style="animation:arm-dip ${SVGDUR} ease-in-out infinite">
-  <line x1="80" y1="12" x2="65" y2="25" stroke="${SVGGO}" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="80" y1="12" x2="95" y2="25" stroke="${SVGGO}" stroke-width="2.5" stroke-linecap="round"/>
-  <circle cx="80" cy="34" r="8" fill="${SVGGO}"/>
-  <line x1="80" y1="42" x2="80" y2="70" stroke="${SVGST}" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="80" y1="60" x2="70" y2="82" stroke="${SVGST}" stroke-width="2" stroke-linecap="round"/>
-  <line x1="80" y1="60" x2="90" y2="82" stroke="${SVGST}" stroke-width="2" stroke-linecap="round"/>
-</g>`,'tractions'),
-  overhead_ext: ()=>svgWrapEX(svgStickEX(`
-<line x1="65" y1="32" x2="65" y2="18" stroke="${SVGST}" stroke-width="2.5" stroke-linecap="round"/>
-<line x1="95" y1="32" x2="95" y2="18" stroke="${SVGST}" stroke-width="2.5" stroke-linecap="round"/>
-<g style="transform-origin:65px 18px;animation:arm-ext-oh ${SVGDUR} ease-in-out infinite">
-  <line x1="65" y1="18" x2="65" y2="6" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>
-<g style="transform-origin:95px 18px;animation:arm-ext-oh ${SVGDUR} ease-in-out infinite">
-  <line x1="95" y1="18" x2="95" y2="6" stroke="${SVGGO}" stroke-width="3" stroke-linecap="round"/>
-</g>`),'extension overhead'),
-};
-
-function svgMapEX(muscles) {
-  const pp = muscles.p || [], ss = muscles.s || [];
-  const c = id => pp.includes(id)?'mp':ss.includes(id)?'ms':'mi';
-  const oc = id => pp.includes(id)?'#e8960a':ss.includes(id)?'#1560d4':'#dde1ea';
-  return `<div class="exsvg"><svg viewBox="0 0 290 285" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:290px;display:block;margin:0 auto">
-<text x="68" y="11" text-anchor="middle" font-family="Inter" font-size="8" fill="#aaa" font-weight="700" letter-spacing="1">AVANT</text>
-<text x="222" y="11" text-anchor="middle" font-family="Inter" font-size="8" fill="#aaa" font-weight="700" letter-spacing="1">ARRIÈRE</text>
-<line x1="145" y1="4" x2="145" y2="278" stroke="#e5e0d5" stroke-width="1" stroke-dasharray="4,3"/>
-<circle cx="68" cy="26" r="14" fill="#f0ece3" stroke="#c8c0b4" stroke-width="1.5"/>
-<rect x="63" y="40" width="10" height="7" rx="3" fill="#e5e0d5"/>
-<path d="M49,50 Q68,46 87,50 L89,61 Q68,57 47,61Z" class="${c('traps')}"/>
-<path d="M45,60 Q68,55 91,60 Q89,75 68,72 Q47,75 45,60Z" class="${c('chest')}"/>
-<path d="M45,72 Q68,69 91,72 Q89,92 68,89 Q47,92 45,72Z" class="${c('chest')}"/>
-<ellipse cx="35" cy="63" rx="11" ry="9" class="${c('front-delt')}"/>
-<ellipse cx="101" cy="63" rx="11" ry="9" class="${c('front-delt')}"/>
-<ellipse cx="24" cy="71" rx="8" ry="8" class="${c('side-delt')}"/>
-<ellipse cx="112" cy="71" rx="8" ry="8" class="${c('side-delt')}"/>
-<ellipse cx="18" cy="96" rx="8" ry="17" class="${c('biceps')}"/>
-<ellipse cx="118" cy="96" rx="8" ry="17" class="${c('biceps')}"/>
-<ellipse cx="28" cy="96" rx="6" ry="14" class="${c('triceps')}"/>
-<ellipse cx="108" cy="96" rx="6" ry="14" class="${c('triceps')}"/>
-<ellipse cx="14" cy="124" rx="6" ry="13" class="${c('forearms')}"/>
-<ellipse cx="122" cy="124" rx="6" ry="13" class="${c('forearms')}"/>
-<rect x="57" y="93" width="22" height="45" rx="5" class="${c('abs')}"/>
-<path d="M57,99 Q47,117 49,139" stroke-width="9" stroke-linecap="round" fill="none" stroke="${oc('obliques')}"/>
-<path d="M79,99 Q89,117 87,139" stroke-width="9" stroke-linecap="round" fill="none" stroke="${oc('obliques')}"/>
-<path d="M52,140 Q68,145 84,140 L86,151 Q68,147 50,151Z" fill="#e8e3d9"/>
-<ellipse cx="53" cy="193" rx="17" ry="33" class="${c('quads')}"/>
-<ellipse cx="83" cy="193" rx="17" ry="33" class="${c('quads')}"/>
-<circle cx="53" cy="229" r="8" fill="#e5e0d5"/>
-<circle cx="83" cy="229" r="8" fill="#e5e0d5"/>
-<ellipse cx="51" cy="252" rx="10" ry="17" class="${c('calves')}"/>
-<ellipse cx="85" cy="252" rx="10" ry="17" class="${c('calves')}"/>
-<circle cx="222" cy="26" r="14" fill="#f0ece3" stroke="#c8c0b4" stroke-width="1.5"/>
-<rect x="217" y="40" width="10" height="7" rx="3" fill="#e5e0d5"/>
-<path d="M199,50 Q222,44 245,50 L247,71 Q222,65 197,71Z" class="${c('traps')}"/>
-<ellipse cx="185" cy="66" rx="12" ry="9" class="${c('rear-delt')}"/>
-<ellipse cx="259" cy="66" rx="12" ry="9" class="${c('rear-delt')}"/>
-<path d="M197,72 Q185,106 187,136 Q197,132 201,106 Q201,88 197,72Z" class="${c('lats')}"/>
-<path d="M247,72 Q259,106 257,136 Q247,132 243,106 Q243,88 247,72Z" class="${c('lats')}"/>
-<ellipse cx="222" cy="97" rx="17" ry="15" class="${c('rhomboids')}"/>
-<ellipse cx="174" cy="96" rx="7" ry="15" class="${c('triceps')}"/>
-<ellipse cx="270" cy="96" rx="7" ry="15" class="${c('triceps')}"/>
-<rect x="209" y="135" width="26" height="19" rx="5" class="${c('lower-back')}"/>
-<ellipse cx="208" cy="173" rx="18" ry="19" class="${c('glutes')}"/>
-<ellipse cx="236" cy="173" rx="18" ry="19" class="${c('glutes')}"/>
-<ellipse cx="207" cy="213" rx="15" ry="28" class="${c('hamstrings')}"/>
-<ellipse cx="237" cy="213" rx="15" ry="28" class="${c('hamstrings')}"/>
-<circle cx="207" cy="243" r="7" fill="#e5e0d5"/>
-<circle cx="237" cy="243" r="7" fill="#e5e0d5"/>
-<ellipse cx="205" cy="253" rx="10" ry="17" class="${c('calves')}"/>
-<ellipse cx="239" cy="253" rx="10" ry="17" class="${c('calves')}"/>
-<circle cx="10" cy="278" r="5" fill="#e8960a"/>
-<text x="18" y="282" font-family="Inter" font-size="8" fill="#888">Primaire</text>
-<circle cx="73" cy="278" r="5" fill="#1560d4"/>
-<text x="81" y="282" font-family="Inter" font-size="8" fill="#888">Secondaire</text>
-<circle cx="148" cy="278" r="5" fill="#dde1ea"/>
-<text x="156" y="282" font-family="Inter" font-size="8" fill="#888">Inactif</text>
-</svg></div>`;
-}
-
-function openExModal(id) {
-  const d = EXDATA[id];
-  if (!d) return;
-  document.getElementById('exTag').textContent = d.tag;
-  document.getElementById('exName').textContent = d.name;
-  // Global tab — muscles + stats
-  document.getElementById('exMuscles').innerHTML = d.muscles.map(m =>
-    `<span class="ex-muscle ${m.type}">${m.label}</span>`).join('');
-  document.getElementById('exStats').innerHTML = d.stats.map(s =>
-    `<div class="ex-stat"><div class="ex-stat-val">${s.val}</div><div class="ex-stat-lbl">${s.lbl}</div></div>`).join('');
-  // Equipment line
-  document.getElementById('exEquipLine').innerHTML = d.equip
-    ? `<div class="ex-equip-line">🏋️ ${d.equip}</div>` : '';
-  // Respiration + Amplitude blocks
+const LOMB = { sur: ['🟢', 'sûr'], prudence: ['🟠', 'prudence'], eviter: ['🔴', 'à éviter'] };
+function openExModal(key) {
+  const f = ALLEZ.fiche(key), e = P.EXERCISES[key];
+  if (!f || !e) return;
+  const esc = ALLEZ.esc, MN = FUI.muscleNames, sids = P.sessionsOf(key);
+  const it = sids.length ? P.SESSIONS[sids[0]].items.find(x => x.ex === key) : null;
+  const muscles = (f.muscles.p || []).map(m => ({ label: MN[m] || m, type: 'p' })).concat((f.muscles.s || []).map(m => ({ label: MN[m] || m, type: 's' })));
+  const rir = P.rirFor(e, BLK);
+  const stats = [{ val: it ? P.prescription(it, BLK) : '—', lbl: 'Séries × Reps' }, { val: e.tempo, lbl: 'Tempo' }]
+    .concat(rir ? [{ val: 'RIR ' + rir, lbl: 'Proximité échec' }] : []).concat(it ? [{ val: it.rest + 's', lbl: 'Repos' }] : []);
+  document.getElementById('exTag').textContent = sids.map(sid => P.SESSIONS[sid].name + ' · ' + P.SESSIONS[sid].label.toUpperCase()).join(' & ');
+  document.getElementById('exName').textContent = P.displayName(e);
+  document.getElementById('exMuscles').innerHTML = muscles.map(m => `<span class="ex-muscle ${m.type}">${m.label}</span>`).join('');
+  document.getElementById('exStats').innerHTML = stats.map(x => `<div class="ex-stat"><div class="ex-stat-val">${x.val}</div><div class="ex-stat-lbl">${x.lbl}</div></div>`).join('');
+  document.getElementById('exEquipLine').innerHTML = f.equip ? `<div class="ex-equip-line">🏋️ ${f.equip}</div>` : '';
   document.getElementById('exBreathAmp').innerHTML =
-    (d.breath ? `<div class="ex-breath"><span class="ex-breath-lbl">💨 Respiration ·</span> ${d.breath}</div>` : '') +
-    (d.amp ? `<div class="ex-amp"><span class="ex-amp-lbl">📐 Amplitude ·</span> ${d.amp}</div>` : '');
-  // Steps (numbered) or bullet tips
-  const tc = document.getElementById('exTechContent');
-  if (d.steps) {
-    tc.innerHTML = d.steps.map((s, i) =>
-      `<div class="ex-step"><div class="ex-step-num">${i + 1}</div><div class="ex-step-txt">${s}</div></div>`
-    ).join('');
-  } else {
-    tc.innerHTML = `<ul class="ex-tips">${d.tech.map(t => `<li>${t}</li>`).join('')}</ul>`;
-  }
-  // Muscles tab — SVG map if available, else text list
-  const musTab = document.getElementById('exMusclesTab');
-  if (d.svgMuscles) {
-    musTab.innerHTML = svgMapEX(d.svgMuscles) + d.muscles.map(m => {
-      const desc = MUS_DESC[m.label] || '';
-      return `<div class="ex-mus-row" style="margin-top:.625rem"><div class="ex-mus-dot ${m.type}"></div><div><div class="ex-mus-name">${m.label}</div>${desc ? `<div class="ex-mus-role">${desc}</div>` : ''}</div></div>`;
-    }).join('');
-  } else {
-    musTab.innerHTML = d.muscles.map(m => {
-      const desc = MUS_DESC[m.label] || '';
-      return `<div class="ex-mus-row"><div class="ex-mus-dot ${m.type}"></div><div><div class="ex-mus-name">${m.label}</div>${desc ? `<div class="ex-mus-role">${desc}</div>` : ''}</div></div>`;
-    }).join('') + `<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)"><div style="font-size:.625rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--text-light);margin-bottom:.625rem">Légende</div><div style="display:flex;gap:.75rem"><span style="display:flex;align-items:center;gap:.375rem;font-size:.75rem;color:var(--text-mid)"><span style="width:10px;height:10px;border-radius:50%;background:var(--gold);display:inline-block"></span>Muscle primaire</span><span style="display:flex;align-items:center;gap:.375rem;font-size:.75rem;color:var(--text-mid)"><span style="width:10px;height:10px;border-radius:50%;background:#9ca3af;display:inline-block"></span>Muscle secondaire</span></div></div>`;
-  }
-  // Erreurs tab
-  document.getElementById('exErrorsTab').innerHTML = (d.errors || []).map(e =>
-    `<div class="ex-err-card"><div class="ex-err-bad"><div class="ex-err-lbl">❌ À éviter</div><div class="ex-err-txt">${e.bad}</div></div><div class="ex-err-good"><div class="ex-err-lbl">✅ À faire</div><div class="ex-err-txt">${e.fix}</div></div></div>`
-  ).join('');
-  // Protection tab — injury list + pec/scol blocks if available, else generic block
-  let protHTML = '';
-  const hasRich = (d.injury && d.injury.length) || d.pec || d.scol;
-  if (hasRich) {
-    if (d.injury && d.injury.length)
-      protHTML += `<ul class="ex-injury-list">${d.injury.map(i => `<li class="ex-inj-item">⚠ ${i}</li>`).join('')}</ul>`;
-    if (d.pec) protHTML += `<div class="ex-prot-blk ex-prot-pec"><div class="ex-prot-blk-hd">🫁 Pectus Excavatum</div><p class="ex-prot-txt">${d.pec}</p></div>`;
-    if (d.scol) protHTML += `<div class="ex-prot-blk ex-prot-scol"><div class="ex-prot-blk-hd">🔄 Dos & Lombaires</div><p class="ex-prot-txt">${d.scol}</p></div>`;
-  } else {
-    protHTML = d.posture
-      ? `<div class="ex-posture"><div class="ex-posture-hd">⚡ Adaptation Pectus / Dos</div><p>${d.posture}</p></div>`
-      : `<div class="ex-posture"><div class="ex-posture-hd">Protection générale</div><p>Aucune adaptation spécifique requise. Appliquer les règles générales de technique et rester à l'écoute de son corps.</p></div>`;
-  }
-  document.getElementById('exProtTab').innerHTML = protHTML;
-  // Schéma tab — animation SVG + text steps
-  let schHTML = '';
-  if (d.svgKey && EXANIM[d.svgKey]) {
-    schHTML += `<div class="ex-anim-wrap">${EXANIM[d.svgKey]()}${d.equip ? `<div style="font-size:.6875rem;color:rgba(232,150,10,0.6);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-top:.5rem">🏋️ ${d.equip}</div>` : ''}</div>`;
-  }
-  schHTML += (d.schema || []).map((s, i) =>
-    `<div class="ex-sch-step"><div class="ex-sch-lbl">${['①','②','③'][i] || (i+1)} ${s.lbl}</div><div class="ex-sch-txt">${s.txt}</div></div>`
-  ).join('');
-  document.getElementById('exSchemaTab').innerHTML = schHTML;
-  // Reset to first tab
+    (f.breath ? `<div class="ex-breath"><span class="ex-breath-lbl">💨 Respiration ·</span> ${f.breath}</div>` : '') +
+    (f.amp ? `<div class="ex-amp"><span class="ex-amp-lbl">📐 Amplitude ·</span> ${f.amp}</div>` : '');
+  document.getElementById('exTechContent').innerHTML = f.steps.map((t, i) => `<div class="ex-step"><div class="ex-step-num">${i + 1}</div><div class="ex-step-txt">${t}</div></div>`).join('');
+  document.getElementById('exMusclesTab').innerHTML = FUI.muscleMap(f.muscles) + muscles.map(m => `<div class="ex-mus-row" style="margin-top:.625rem"><div class="ex-mus-dot ${m.type}"></div><div><div class="ex-mus-name">${m.label}</div></div></div>`).join('');
+  document.getElementById('exErrorsTab').innerHTML = (f.errors || []).map(x =>
+    `<div class="ex-err-card"><div class="ex-err-bad"><div class="ex-err-lbl">❌ À éviter</div><div class="ex-err-txt">${x.b}</div></div><div class="ex-err-good"><div class="ex-err-lbl">✅ À faire</div><div class="ex-err-txt">${x.g}</div></div></div>`).join('');
+  // Protection : sécurité du bas du dos (programme), précautions (fiche), notes personnelles (contenu privé de l'appareil)
+  const pec = ALLEZ.prive('fiche.' + f.id + '.pec'), scol = ALLEZ.prive('fiche.' + f.id + '.scol');
+  document.getElementById('exProtTab').innerHTML =
+    `<ul class="ex-injury-list"><li class="ex-inj-item">${LOMB[e.lombaires][0]} Bas du dos — ${LOMB[e.lombaires][1]} : ${e.consigne}</li>${(f.injury || []).map(t => `<li class="ex-inj-item">⚠ ${t}</li>`).join('')}</ul>` +
+    (pec ? `<div class="ex-prot-blk ex-prot-pec"><div class="ex-prot-blk-hd">🔒 Note personnelle · thorax</div><p class="ex-prot-txt">${esc(pec)}</p></div>` : '') +
+    (scol ? `<div class="ex-prot-blk ex-prot-scol"><div class="ex-prot-blk-hd">🔒 Note personnelle · dos</div><p class="ex-prot-txt">${esc(scol)}</p></div>` : '');
+  document.getElementById('exSchemaTab').innerHTML =
+    (FUI.hasAnim(f.svgKey) ? `<div class="ex-anim-wrap">${FUI.anim(f.svgKey)}${f.equip ? `<div style="font-size:.6875rem;color:rgba(232,150,10,0.6);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-top:.5rem">🏋️ ${f.equip}</div>` : ''}</div>` : '') +
+    (f.schema || []).map((x, i) => `<div class="ex-sch-step"><div class="ex-sch-lbl">${['①', '②', '③'][i] || (i + 1)} ${x.lbl}</div><div class="ex-sch-txt">${x.txt}</div></div>`).join('');
   const card = document.getElementById('exCard');
   card.querySelectorAll('.ex-tab').forEach((t, i) => t.classList.toggle('active', i === 0));
   card.querySelectorAll('.ex-tp').forEach((p, i) => p.classList.toggle('active', i === 0));
@@ -2583,6 +1345,23 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
 <!-- ─── DAY PLANNER ─── -->
 <script>
 (function() {
+  // Données partagées : séance (data/programme.js), compléments (data/supplements.js), heures (contenu privé)
+  var P = ALLEZ.PROGRAM, SUP = ALLEZ.SUPPLEMENTS;
+  var STACK_MATIN = SUP.stackLabel('matin'), STACK_SOIR = SUP.stackLabel('soir'), STACK_PRE = SUP.stackLabel('pre');
+  function H(spec) { var t = ALLEZ.hourText(spec); return t ? ' · ' + t : ''; }
+  // Tâches de la séance : échauffement, un écran par exercice, retour au calme
+  function seanceTasks(sid) {
+    var X = P.SESSIONS[sid], blk = P.currentBlockCode(), out = [];
+    out.push({ icon:'🔥', period:'SÉANCE', title:'Échauffement · ' + P.WARMUP.duree, detail: P.WARMUP.etapes.map(function (e) { return e.txt; }).join(' · ') });
+    X.items.forEach(function (it) {
+      var e = P.EXERCISES[it.ex];
+      out.push({ icon: e.type === 'k' ? '🧱' : e.type === 'p' ? '🎯' : '🏋️', period:'SÉANCE', title: P.displayName(e) + ' · ' + P.prescription(it, blk), detail: e.cue + ' · ' + it.rest + ' s de repos' });
+    });
+    out.push({ icon:'🧘', period:'SÉANCE', title:'Retour au calme · 5 min', detail:'Respiration lente, étirements doux · pas de douche froide juste après la muscu (elle peut freiner l\'hypertrophie)' });
+    return out;
+  }
+  function expand(tasks) { var out = []; tasks.forEach(function (t) { if (t.seance) out = out.concat(seanceTasks(t.seance)); else out.push(t); }); return out; }
+
   // ── Task arrays ──
   var T_LUNDI = [
     { icon:'🌅', period:'MATIN',        title:'Réveil sans snooze',                  detail:'Lumière naturelle immédiate — debout maintenant' },
@@ -2590,25 +1369,17 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'📵', period:'MATIN',        title:'Téléphone en mode avion',              detail:'30 min sans écran — dopamine intacte au réveil' },
     { icon:'🧘', period:'MATIN',        title:'Box breathing · 5 cycles',             detail:'4 inspire · 4 hold · 4 expire · 4 hold — répète 5×' },
     { icon:'✍️', period:'MATIN',        title:'3 priorités du jour',                  detail:'Par écrit — une seule priorité absolue numérotée 1' },
-    { icon:'🍌', period:'MATIN',        title:'Pré-séance léger · 6h30',              detail:'1 banane + 30 g d\'avoine + 1 œuf dur · 90 min avant · volontairement léger' },
+    { icon:'🍌', period:'MATIN',        title:'Pré-séance léger' + H('A:-90'),              detail:'1 banane + 30 g d\'avoine + 1 œuf dur · 90 min avant · volontairement léger' },
     { icon:'☕', period:'PRÉ-SÉANCE',   title:'Caféine 200mg',                        detail:'30–45 min avant la séance · optionnel si déjà éveillé' },
-    { icon:'💊', period:'PRÉ-SÉANCE',   title:'Créatine 5 g + collagène',              detail:'Créatine 5 g (régularité > timing) · Collagène 10-15 g + vit. C 30-60 min avant' },
-    { icon:'🔥', period:'SÉANCE',       title:'Échauffement · 8 min',                 detail:'Rameur ou vélo léger · mobilité épaules · rotations bras · respiration 90/90 (côtes basses) · séries d\'approche' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Développé incliné haltères 30° · 4×12-15', detail:'Banc 30° · coudes à 45-60° · pectoraux hauts · 90 s repos' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Élévations latérales · 4×12-15',          detail:'Haltères légers · pas d\'élan · monter à l\'horizontale · 60 s repos' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Développé militaire assis · 4×10-12',     detail:'Haltères · dos collé au dossier · abdos engagés · 90 s repos' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Écarté câble high-to-low · 3×12-15',      detail:'Poulies hautes · arc du haut vers le bas · 75 s repos' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Extension triceps corde · 4×12-15',       detail:'Coudes fixes aux flancs · écarter la corde en bas · 60 s repos' },
-    { icon:'🎯', period:'SÉANCE',       title:'Face pull câble ★ · 4×15-20',             detail:'Hauteur du visage · rotation externe · NE PAS SAUTER · 60 s repos' },
-    { icon:'🧱', period:'SÉANCE',       title:'Finisher · Planche 3×30-60 s',          detail:'Corps gainé de la tête aux talons · fessiers serrés · 45 s repos' },
-    { icon:'🧘', period:'SÉANCE',       title:'Retour au calme · 5 min',              detail:'Dead hang 2×20-30 s (décompression lombaire) + respiration lente · pas de douche froide après la muscu (peut freiner l\'hypertrophie)' },
+    { icon:'💊', period:'PRÉ-SÉANCE',   title:'Compléments avant la séance',           detail: STACK_PRE + ' · 30 à 60 min avant' },
+    { seance: 'push' },
     { icon:'🥛', period:'POST-SÉANCE',  title:'Whey · 1 dose',                        detail:'Avec 200 ml de lait + 1 banane · dans les 2 h après la séance' },
-    { icon:'🥣', period:'POST-SÉANCE',  title:'Vrai petit-déj · 11h + stack du matin', detail:'Avoine + skyr + fruits rouges + amandes · D3+K2, Oméga-3, Opti-Men avec ce repas' },
+    { icon:'🥣', period:'POST-SÉANCE',  title:'Vrai petit-déj' + H('A:180') + ' + stack du matin', detail:'Avoine + skyr + fruits rouges + amandes · ' + STACK_MATIN + ' avec ce repas' },
     { icon:'📚', period:'APRÈS-MIDI',   title:'Lecture · 20 min',                     detail:'Livre physique · pas d\'article, pas d\'écran' },
     { icon:'💼', period:'APRÈS-MIDI',   title:'Travail profond · 90 min',             detail:'Notifs off · téléphone retourné · une seule tâche' },
     { icon:'🚶', period:'SOIR',         title:'Marche · 20 min',                      detail:'Sans téléphone · aide à faire redescendre le stress de la journée' },
     { icon:'🍽️', period:'SOIR',         title:'Dîner · ~40 g de protéines',              detail:'Poisson ou viande + féculent + légumes · voir plan Nutrition · pas d\'alcool' },
-    { icon:'💊', period:'SOIR',         title:'Stack du soir',                        detail:'ZMA 1 gélule · Ashwagandha 600 mg (8 sem. ON / 4 OFF) · 2 h après le dîner, sans laitage' },
+    { icon:'💊', period:'SOIR',         title:'Stack du soir',                        detail: STACK_SOIR + ' · 2 h après le dîner, sans laitage' },
     { icon:'📝', period:'COUCHER',      title:'Journaling · 5 min',                   detail:'3 réussites · 1 amélioration demain · ferme le livre' },
     { icon:'📵', period:'COUCHER',      title:'Zéro écran · 30 min',                  detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
     { icon:'🛏️', period:'COUCHER',      title:'Lumières éteintes',                    detail:'Avant minuit — le sommeil construit le physique' },
@@ -2620,25 +1391,17 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'📵', period:'MATIN',        title:'Téléphone en mode avion',              detail:'30 min sans écran — dopamine intacte au réveil' },
     { icon:'🧘', period:'MATIN',        title:'Box breathing · 5 cycles',             detail:'4 inspire · 4 hold · 4 expire · 4 hold — répète 5×' },
     { icon:'✍️', period:'MATIN',        title:'3 priorités du jour',                  detail:'Par écrit — une seule priorité absolue numérotée 1' },
-    { icon:'🍌', period:'MATIN',        title:'Pré-séance léger · 6h30',              detail:'1 banane + 30 g d\'avoine + 1 œuf dur · 90 min avant · volontairement léger' },
+    { icon:'🍌', period:'MATIN',        title:'Pré-séance léger' + H('A:-90'),              detail:'1 banane + 30 g d\'avoine + 1 œuf dur · 90 min avant · volontairement léger' },
     { icon:'☕', period:'PRÉ-SÉANCE',   title:'Caféine 200mg',                        detail:'30–45 min avant la séance · optionnel si déjà éveillé' },
-    { icon:'💊', period:'PRÉ-SÉANCE',   title:'Créatine 5 g + collagène',              detail:'Créatine 5 g (régularité > timing) · Collagène 10-15 g + vit. C 30-60 min avant' },
-    { icon:'🔥', period:'SÉANCE',       title:'Échauffement · 8 min',                 detail:'Rameur ou tirage léger · mobilité omoplate · rotations bras · respiration 90/90 (côtes basses) · séries d\'approche' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Tirage vertical prise large · 4×10-12',   detail:'Prise 1,5× épaules · coudes vers les hanches · 90 s repos' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Rowing unilatéral haltère · 4×10-12/côté',     detail:'Côté gauche en premier · main sur le banc (lombaires) · 75 s repos' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Oiseau buste appuyé · 3×15-20',           detail:'Ventre sur banc incliné · haltères 3-5 kg · zéro charge lombaire · 60 s' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Rowing câble assis prise large · 3×12-15', detail:'Omoplates serrées · buste droit, pas de balancier · 75 s repos' },
-    { icon:'🎯', period:'SÉANCE',       title:'Face pull câble ★ · 4×15-20',          detail:'Hauteur du visage · rotation externe · NE PAS SAUTER · 60 s repos' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Curl biceps haltères alternés · 4×10-12', detail:'Supination en haut · excentrique 3 s · coudes fixes · 75 s repos' },
-    { icon:'🧱', period:'SÉANCE',       title:'Finisher · Dead bug + Bird dog',        detail:'3×10/côté chacun · lent · bas du dos plaqué au sol · 45 s repos' },
-    { icon:'🧘', period:'SÉANCE',       title:'Retour au calme · 5 min',              detail:'Dead hang 2×20-30 s (décompression lombaire) + respiration lente · pas de douche froide après la muscu (peut freiner l\'hypertrophie)' },
+    { icon:'💊', period:'PRÉ-SÉANCE',   title:'Compléments avant la séance',           detail: STACK_PRE + ' · 30 à 60 min avant' },
+    { seance: 'pull' },
     { icon:'🥛', period:'POST-SÉANCE',  title:'Whey · 1 dose',                        detail:'Avec 200 ml de lait + 1 banane · dans les 2 h après la séance' },
-    { icon:'🥣', period:'POST-SÉANCE',  title:'Vrai petit-déj · 11h + stack du matin', detail:'Avoine + skyr + fruits rouges + amandes · D3+K2, Oméga-3, Opti-Men avec ce repas' },
+    { icon:'🥣', period:'POST-SÉANCE',  title:'Vrai petit-déj' + H('A:180') + ' + stack du matin', detail:'Avoine + skyr + fruits rouges + amandes · ' + STACK_MATIN + ' avec ce repas' },
     { icon:'📚', period:'APRÈS-MIDI',   title:'Lecture · 20 min',                     detail:'Livre physique · pas d\'article, pas d\'écran' },
     { icon:'💼', period:'APRÈS-MIDI',   title:'Travail profond · 90 min',             detail:'Notifs off · téléphone retourné · une seule tâche' },
     { icon:'🚶', period:'SOIR',         title:'Marche · 20 min',                      detail:'Sans téléphone · aide à faire redescendre le stress de la journée' },
     { icon:'🍽️', period:'SOIR',         title:'Dîner · ~40 g de protéines',              detail:'Poisson ou viande + féculent + légumes · voir plan Nutrition · pas d\'alcool' },
-    { icon:'💊', period:'SOIR',         title:'Stack du soir',                        detail:'ZMA 1 gélule · Ashwagandha 600 mg (8 sem. ON / 4 OFF) · 2 h après le dîner, sans laitage' },
+    { icon:'💊', period:'SOIR',         title:'Stack du soir',                        detail: STACK_SOIR + ' · 2 h après le dîner, sans laitage' },
     { icon:'📝', period:'COUCHER',      title:'Journaling · 5 min',                   detail:'3 réussites · 1 amélioration demain · ferme le livre' },
     { icon:'📵', period:'COUCHER',      title:'Zéro écran · 30 min',                  detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
     { icon:'🛏️', period:'COUCHER',      title:'Lumières éteintes',                    detail:'Avant minuit — le sommeil construit le physique' },
@@ -2649,29 +1412,19 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'💧', period:'MATIN',        title:'Hydratation réveil',                   detail:'500ml eau + pincée de sel · journée bien démarrée' },
     { icon:'📵', period:'MATIN',        title:'Téléphone en mode avion',              detail:'45 min sans écran — week-end = ressourcement' },
     { icon:'🧘', period:'MATIN',        title:'Méditation · 10 min',                  detail:'Assis · yeux fermés · focus sur la respiration — pleine présence' },
-    { icon:'☀️', period:'MATIN',        title:'Stack du matin',                       detail:'D3+K2 · Oméga-3 (2 caps) · Opti-Men — avec le petit-déj (repas qui contient des graisses)' },
+    { icon:'☀️', period:'MATIN',        title:'Stack du matin',                       detail: STACK_MATIN + ' — avec le petit-déj (repas qui contient des graisses)' },
     { icon:'✍️', period:'MATIN',        title:'Bilan de la semaine',                  detail:'Ce qui a bien marché · ce qui change la semaine prochaine' },
-    { icon:'🥣', period:'MATIN',        title:'Petit-déj pré-séance · 9h30',          detail:'Avoine + skyr + banane + miel + amandes · 90 min avant la séance' },
+    { icon:'🥣', period:'MATIN',        title:'Petit-déj pré-séance' + H('B:-90'),          detail:'Avoine + skyr + banane + miel + amandes · 90 min avant la séance' },
     { icon:'☕', period:'PRÉ-SÉANCE',   title:'Caféine 200mg',                        detail:'30–45 min avant la séance · optionnel si déjà éveillé' },
-    { icon:'💊', period:'PRÉ-SÉANCE',   title:'Créatine 5 g + collagène',              detail:'Créatine 5 g (régularité > timing) · Collagène 10-15 g + vit. C 30-60 min avant' },
-    { icon:'🔥', period:'SÉANCE',       title:'Échauffement · 10 min',                detail:'Mobilité totale · épaules · chevilles · rameur léger · respiration 90/90 (côtes basses) · séries d\'approche' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Élévations latérales · 4×15', detail:'Haltères 4-6 kg · horizontal exact · pas d\'élan · 60 s repos' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Élévations latérales câble · 3×15',   detail:'Poulie basse · tension constante · chaque côté · 60 s repos' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Arnold press · 4×10-12',                  detail:'Rotation lente des paumes · dos collé au dossier · 90 s repos' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Tractions / tirage vertical · 4×max',         detail:'Élastique si < 5 reps (ou tirage 4×10-12) · excentrique 3 s · 120 s' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Développé incliné haltères · 3×10-12', detail:'2e séance pecs de la semaine · coudes à 45-60° · 90 s repos' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Curl barre EZ 3×10-12 + concentré 2×10-12', detail:'EZ debout (tronc fixe) puis concentré assis · 75 s repos' },
-    { icon:'🏋️', period:'SÉANCE',       title:'Extension triceps overhead câble · 3×12',    detail:'Coudes hauts fixes · chef long · extension complète · 75 s repos' },
-    { icon:'🎯', period:'SÉANCE',       title:'Face pull câble ★ · 3×15 (finisher)',  detail:'Hauteur du visage · rotation externe · NE PAS SAUTER · 45s repos' },
-    { icon:'🧱', period:'SÉANCE',       title:'Finisher · Hollow body 3×20-30 s',       detail:'Bas du dos COLLÉ au sol · genoux pliés si besoin · 60 s repos' },
-    { icon:'🧘', period:'SÉANCE',       title:'Retour au calme · 5 min',              detail:'Dead hang 2×20-30 s (décompression lombaire) + respiration lente · pas de douche froide après la muscu (peut freiner l\'hypertrophie)' },
+    { icon:'💊', period:'PRÉ-SÉANCE',   title:'Compléments avant la séance',           detail: STACK_PRE + ' · 30 à 60 min avant' },
+    { seance: 'vshape' },
     { icon:'🥛', period:'POST-SÉANCE',  title:'Whey · 1 dose',                        detail:'Avec 200 ml de lait + 1 banane · dans les 2 h après la séance' },
-    { icon:'🍗', period:'POST-SÉANCE',  title:'Déjeuner complet · 14h',               detail:'Poulet ou thon + riz + légumes · repas plaisir équilibré possible aujourd\'hui' },
+    { icon:'🍗', period:'POST-SÉANCE',  title:'Déjeuner complet' + H('B:180'),               detail:'Poulet ou thon + riz + légumes · repas plaisir équilibré possible aujourd\'hui' },
     { icon:'🌿', period:'APRÈS-MIDI',   title:'Nature · 45 min',                      detail:'Marche sans téléphone · parc ou forêt · cortisol en chute' },
     { icon:'👥', period:'APRÈS-MIDI',   title:'Connexion sociale',                    detail:'Temps de qualité avec proches — richesse humaine réelle' },
     { icon:'📚', period:'SOIR',         title:'Lecture · 30 min',                     detail:'Livre physique · week-end = investir dans ton mental' },
     { icon:'🍽️', period:'SOIR',         title:'Dîner · ~40 g de protéines',              detail:'Poisson ou viande + féculent + légumes · voir plan Nutrition · pas d\'alcool' },
-    { icon:'💊', period:'SOIR',         title:'Stack du soir',                        detail:'ZMA 1 gélule · Ashwagandha 600 mg (8 sem. ON / 4 OFF) · 2 h après le dîner, sans laitage' },
+    { icon:'💊', period:'SOIR',         title:'Stack du soir',                        detail: STACK_SOIR + ' · 2 h après le dîner, sans laitage' },
     { icon:'📝', period:'COUCHER',      title:'Journaling hebdo · 10 min',            detail:'3 victoires de la semaine · 1 objectif clé semaine prochaine' },
     { icon:'📵', period:'COUCHER',      title:'Zéro écran · 30 min',                  detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
     { icon:'🛏️', period:'COUCHER',      title:'Lumières éteintes',                    detail:'Avant minuit — récupération optimale pour la semaine' },
@@ -2682,7 +1435,7 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'💧', period:'MATIN',          title:'Hydratation réveil',                    detail:'500ml eau + pincée de sel · vider la bouteille entière' },
     { icon:'📵', period:'MATIN',          title:'Téléphone en mode avion',               detail:'30 min sans écran — dopamine intacte au réveil' },
     { icon:'🧘', period:'MATIN',          title:'Box breathing · 5 cycles',              detail:'4 inspire · 4 hold · 4 expire · 4 hold — répète 5×' },
-    { icon:'☀️', period:'MATIN',        title:'Stack du matin',                       detail:'D3+K2 · Oméga-3 (2 caps) · Opti-Men + Créatine 5 g (7j/7) — avec le petit-déj' },
+    { icon:'☀️', period:'MATIN',        title:'Stack du matin',                       detail: STACK_MATIN + ' + créatine 5 g (7j/7) — avec le petit-déj' },
     { icon:'✍️', period:'MATIN',          title:'3 priorités du jour',                   detail:'Par écrit — une seule priorité absolue numérotée 1' },
     { icon:'🥗', period:'MATIN',          title:'Petit-déjeuner protéiné',               detail:'40–50g protéines · œufs · fromage blanc · avoine' },
     { icon:'🤸', period:'RÉCUPÉRATION',   title:'Étirements épaules & triceps · 10 min', detail:'Ciblé Push A du lundi · maintiens 30 sec par position' },
@@ -2691,7 +1444,7 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'📚', period:'JOURNÉE',        title:'Lecture · 20 min',                      detail:'Livre physique · pas d\'article, pas d\'écran' },
     { icon:'💼', period:'JOURNÉE',        title:'Travail profond · 90 min',              detail:'Notifs off · téléphone retourné · une seule tâche' },
     { icon:'🍽️', period:'SOIR',           title:'Dîner · ~40 g de protéines',               detail:'Poisson ou viande + féculent + légumes · voir plan Nutrition · pas d\'alcool' },
-    { icon:'💊', period:'SOIR',           title:'Stack du soir',                         detail:'ZMA 1 gélule · Ashwagandha 600 mg (8 sem. ON / 4 OFF) · 2 h après le dîner, sans laitage' },
+    { icon:'💊', period:'SOIR',           title:'Stack du soir',                         detail: STACK_SOIR + ' · 2 h après le dîner, sans laitage' },
     { icon:'🧘', period:'SOIR',           title:'Étirements posture · 10 min',           detail:'Ouverture poitrine · pso-iliaque · dos — doux et lent' },
     { icon:'📝', period:'COUCHER',        title:'Journaling · 5 min',                    detail:'3 réussites · 1 amélioration demain · ferme le livre' },
     { icon:'📵', period:'COUCHER',        title:'Zéro écran · 30 min',                   detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
@@ -2703,17 +1456,17 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'💧', period:'MATIN',          title:'Hydratation réveil',                    detail:'500ml eau + pincée de sel · vider la bouteille entière' },
     { icon:'📵', period:'MATIN',          title:'Téléphone en mode avion',               detail:'30 min sans écran — dopamine intacte au réveil' },
     { icon:'🧘', period:'MATIN',          title:'Box breathing · 5 cycles',              detail:'4 inspire · 4 hold · 4 expire · 4 hold — répète 5×' },
-    { icon:'☀️', period:'MATIN',        title:'Stack du matin',                       detail:'D3+K2 · Oméga-3 (2 caps) · Opti-Men + Créatine 5 g (7j/7) — avec le petit-déj' },
+    { icon:'☀️', period:'MATIN',        title:'Stack du matin',                       detail: STACK_MATIN + ' + créatine 5 g (7j/7) — avec le petit-déj' },
     { icon:'✍️', period:'MATIN',          title:'3 priorités du jour',                   detail:'Par écrit — une seule priorité absolue numérotée 1' },
     { icon:'🥗', period:'MATIN',          title:'Petit-déjeuner protéiné',               detail:'40–50g protéines · œufs · fromage blanc · avoine' },
-    { icon:'🤸', period:'RÉCUPÉRATION',   title:'Gainage & mobilité · 15 min',           detail:'Planche 3×30 sec · rotations hanche · dos chat-vache — doux' },
+    { icon:'🤸', period:'RÉCUPÉRATION',   title:'Gainage & mobilité · 15 min',           detail:'Planche courte · rotations de hanche · dos chat-vache — doux' },
     { icon:'💆', period:'RÉCUPÉRATION',   title:'Stretching corps complet · 10 min',     detail:'Ischios · pso-iliaque · épaules · thoracique — 30 sec chaque' },
     { icon:'📊', period:'JOURNÉE',        title:'Suivi progression · 10 min',            detail:'ALLEZ app · poids · mesures · tendance de la semaine' },
     { icon:'📚', period:'JOURNÉE',        title:'Lecture · 20 min',                      detail:'Livre physique · pas d\'article, pas d\'écran' },
     { icon:'💼', period:'JOURNÉE',        title:'Travail profond · 90 min',              detail:'Notifs off · téléphone retourné · une seule tâche' },
     { icon:'🎯', period:'SOIR',           title:'Visualisation séance jeudi · 5 min',    detail:'Imagine Pull A exécuté parfaitement — mental aussi important' },
     { icon:'🍽️', period:'SOIR',           title:'Dîner · ~40 g de protéines',               detail:'Poisson ou viande + féculent + légumes · voir plan Nutrition · pas d\'alcool' },
-    { icon:'💊', period:'SOIR',           title:'Stack du soir',                         detail:'ZMA 1 gélule · Ashwagandha 600 mg (8 sem. ON / 4 OFF) · 2 h après le dîner, sans laitage' },
+    { icon:'💊', period:'SOIR',           title:'Stack du soir',                         detail: STACK_SOIR + ' · 2 h après le dîner, sans laitage' },
     { icon:'📝', period:'COUCHER',        title:'Journaling · 5 min',                    detail:'3 réussites · 1 amélioration demain · ferme le livre' },
     { icon:'📵', period:'COUCHER',        title:'Zéro écran · 30 min',                   detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
     { icon:'🛏️', period:'COUCHER',        title:'Lumières éteintes',                     detail:'Avant minuit — le sommeil construit le physique' },
@@ -2724,7 +1477,7 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'💧', period:'MATIN',          title:'Hydratation réveil',                    detail:'500ml eau + pincée de sel · vider la bouteille entière' },
     { icon:'📵', period:'MATIN',          title:'Téléphone en mode avion',               detail:'30 min sans écran — dopamine intacte au réveil' },
     { icon:'🧘', period:'MATIN',          title:'Box breathing · 5 cycles',              detail:'4 inspire · 4 hold · 4 expire · 4 hold — répète 5×' },
-    { icon:'☀️', period:'MATIN',        title:'Stack du matin',                       detail:'D3+K2 · Oméga-3 (2 caps) · Opti-Men + Créatine 5 g (7j/7) — avec le petit-déj' },
+    { icon:'☀️', period:'MATIN',        title:'Stack du matin',                       detail: STACK_MATIN + ' + créatine 5 g (7j/7) — avec le petit-déj' },
     { icon:'✍️', period:'MATIN',          title:'3 priorités du jour',                   detail:'Par écrit — une seule priorité absolue numérotée 1' },
     { icon:'🥗', period:'MATIN',          title:'Petit-déjeuner protéiné',               detail:'40–50g protéines · œufs · fromage blanc · avoine' },
     { icon:'🤸', period:'RÉCUPÉRATION',   title:'Étirements dos & biceps · 10 min',      detail:'Ciblé Pull A du jeudi · grand dorsal · biceps — 30 sec chaque' },
@@ -2733,7 +1486,7 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'💼', period:'JOURNÉE',        title:'Bilan semaine · 15 min',                detail:'Objectifs atteints · nutrition · séances · mindset — évaluer' },
     { icon:'🎒', period:'SOIR',           title:'Préparer sac sport samedi',             detail:'Tenue · serviette · eau · créatine · écouteurs — tout prêt ce soir' },
     { icon:'🍽️', period:'SOIR',           title:'Dîner · ~40 g de protéines',               detail:'Poisson ou viande + féculent + légumes · voir plan Nutrition · pas d\'alcool' },
-    { icon:'💊', period:'SOIR',           title:'Stack du soir',                         detail:'ZMA 1 gélule · Ashwagandha 600 mg (8 sem. ON / 4 OFF) · 2 h après le dîner, sans laitage' },
+    { icon:'💊', period:'SOIR',           title:'Stack du soir',                         detail: STACK_SOIR + ' · 2 h après le dîner, sans laitage' },
     { icon:'📝', period:'COUCHER',        title:'Journaling · 5 min',                    detail:'3 réussites de la semaine · intention pour le week-end' },
     { icon:'📵', period:'COUCHER',        title:'Zéro écran · 30 min',                   detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
     { icon:'🛏️', period:'COUCHER',        title:'Lumières éteintes',                     detail:'Avant minuit — récupération avant la séance samedi' },
@@ -2744,7 +1497,7 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'💧', period:'MATIN',          title:'Hydratation réveil',                    detail:'500ml eau + pincée de sel · journée bien démarrée' },
     { icon:'📵', period:'MATIN',          title:'Téléphone en mode avion · 1h',          detail:'Une heure sans écran — journée de ressourcement total' },
     { icon:'🧘', period:'MATIN',          title:'Méditation · 15 min',                   detail:'Pleine présence · scan corporel · intention pour la semaine' },
-    { icon:'☀️', period:'MATIN',        title:'Stack du matin',                       detail:'D3+K2 · Oméga-3 (2 caps) · Opti-Men + Créatine 5 g (7j/7) — avec le petit-déj' },
+    { icon:'☀️', period:'MATIN',        title:'Stack du matin',                       detail: STACK_MATIN + ' + créatine 5 g (7j/7) — avec le petit-déj' },
     { icon:'✍️', period:'MATIN',          title:'Planning semaine · 10 min',             detail:'Objectifs lundi–samedi · séances · priorités pro — sur papier' },
     { icon:'🥗', period:'MATIN',          title:'Brunch protéiné · tranquille',           detail:'Pas de précipitation · 50g+ protéines · bonnes graisses' },
     { icon:'🍳', period:'JOURNÉE',        title:'Meal prep · 45 min',                    detail:'Préparer repas de la semaine · protéines cuites · légumes rôtis' },
@@ -2753,7 +1506,7 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'🙏', period:'APRÈS-MIDI',     title:'Gratitude · 5 min',                     detail:'Écrire 5 choses pour lesquelles tu es reconnaissant aujourd\'hui' },
     { icon:'🎒', period:'APRÈS-MIDI',     title:'Préparer sac sport lundi',              detail:'Tenue · serviette · eau · créatine · écouteurs — tout prêt' },
     { icon:'🍽️', period:'SOIR',           title:'Dîner léger & convivial',              detail:'Repas calme · bonne compagnie · pas d\'excès — récupération' },
-    { icon:'💊', period:'SOIR',           title:'Stack du soir',                         detail:'ZMA 1 gélule · Ashwagandha 600 mg (8 sem. ON / 4 OFF) · 2 h après le dîner, sans laitage' },
+    { icon:'💊', period:'SOIR',           title:'Stack du soir',                         detail: STACK_SOIR + ' · 2 h après le dîner, sans laitage' },
     { icon:'📝', period:'COUCHER',        title:'Journaling · 5 min',                    detail:'Intention et engagement fort pour la semaine qui commence' },
     { icon:'📵', period:'COUCHER',        title:'Zéro écran · 30 min',                   detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
     { icon:'🛏️', period:'COUCHER',        title:'Lumières éteintes · tôt',               detail:'22h30 max — le dimanche soir prépare le lundi victorieux' },
@@ -2772,7 +1525,7 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
 
   var todayNum   = new Date().getDay();
   var activePlan = PLAN[todayNum];
-  var TASKS      = activePlan.tasks;
+  var TASKS      = expand(activePlan.tasks);
   var TOTAL      = TASKS.length;
   var KEY        = 'px_day_plan_' + todayNum;
 

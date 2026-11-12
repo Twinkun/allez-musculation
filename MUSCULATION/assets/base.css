@@ -76,3 +76,39 @@ body > .az-banner + .az-banner { margin-top: 10px; }
 
 @media print { .az-tabbar, .az-banner, .az-modal, .az-toast { display: none !important; } }
 @media (prefers-reduced-motion: reduce) { .az-toast { transition: none; } }
+
+/* ── 3. SCHÉMAS D'EXERCICES (data/fiches.js) ─────────────────────── */
+:root { --az-mp: #e8960a; --az-ms: #1560d4; --az-mi: #dde1ea; }
+.az-mp { fill: var(--az-mp); opacity: .9; }
+.az-ms { fill: var(--az-ms); opacity: .7; }
+.az-mi { fill: var(--az-mi); opacity: .5; }
+@keyframes arm-curl-l{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-100deg)}}
+@keyframes arm-curl-r{0%,100%{transform:rotate(0deg)}50%{transform:rotate(100deg)}}
+@keyframes arm-dip{0%,100%{transform:translateY(0px)}50%{transform:translateY(14px)}}
+@keyframes arm-ext-oh{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-70deg)}}
+@keyframes arm-fly-l{0%,100%{transform:rotate(-60deg)}50%{transform:rotate(10deg)}}
+@keyframes arm-fly-r{0%,100%{transform:rotate(60deg)}50%{transform:rotate(-10deg)}}
+@keyframes arm-fp-l{0%,100%{transform:rotate(-40deg)}50%{transform:rotate(-90deg)}}
+@keyframes arm-fp-r{0%,100%{transform:rotate(40deg)}50%{transform:rotate(90deg)}}
+@keyframes arm-inc-l{0%,100%{transform:rotate(-30deg)}50%{transform:rotate(-90deg)}}
+@keyframes arm-inc-r{0%,100%{transform:rotate(30deg)}50%{transform:rotate(90deg)}}
+@keyframes arm-lat-l{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-82deg)}}
+@keyframes arm-lat-r{0%,100%{transform:rotate(0deg)}50%{transform:rotate(82deg)}}
+@keyframes arm-oh{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-140deg)}}
+@keyframes arm-oh-r{0%,100%{transform:rotate(0deg)}50%{transform:rotate(140deg)}}
+@keyframes arm-pd-l{0%,100%{transform:rotate(0deg)}50%{transform:rotate(70deg)}}
+@keyframes arm-pd-r{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-70deg)}}
+@keyframes arm-po{0%,100%{transform:rotate(-60deg)}50%{transform:rotate(50deg)}}
+@keyframes arm-pull-l{0%,100%{transform:rotate(-100deg)}50%{transform:rotate(-20deg)}}
+@keyframes arm-pull-r{0%,100%{transform:rotate(100deg)}50%{transform:rotate(20deg)}}
+@keyframes arm-row-r{0%,100%{transform:rotate(20deg)}50%{transform:rotate(-40deg)}}
+@keyframes band-l{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-55deg)}}
+@keyframes band-r{0%,100%{transform:rotate(0deg)}50%{transform:rotate(55deg)}}
+@keyframes bug-arm{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-80deg)}}
+@keyframes bug-leg{0%,100%{transform:rotate(0deg)}50%{transform:rotate(70deg)}}
+@keyframes crunch-trunk{0%,100%{transform:rotate(0deg)}50%{transform:rotate(40deg)}}
+@keyframes leg-curl{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-90deg)}}
+@keyframes leg-press{0%,100%{transform:rotate(55deg)}50%{transform:rotate(10deg)}}
+@keyframes pallof-arms{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-30deg)}}
+@keyframes plank-pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+@media (prefers-reduced-motion: reduce) { svg [style*="animation"] { animation: none !important; } }

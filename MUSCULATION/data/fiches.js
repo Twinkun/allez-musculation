@@ -845,8 +845,8 @@ const MN = {chest:"Pectoraux","front-delt":"Delts antérieurs","side-delt":"Delt
 
 function svgMap(muscles) {
   const pp = muscles.p || [], ss = muscles.s || [];
-  const c = id => pp.includes(id)?'mp':ss.includes(id)?'ms':'mi';
-  const oc = id => pp.includes(id)?'var(--mp)':ss.includes(id)?'var(--ms)':'var(--mi)';
+  const c = id => pp.includes(id)?'az-mp':ss.includes(id)?'az-ms':'az-mi';
+  const oc = id => pp.includes(id)?'var(--az-mp)':ss.includes(id)?'var(--az-ms)':'var(--az-mi)';
   return `<svg viewBox="0 0 290 285" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:290px;display:block;margin:0 auto">
 <text x="68" y="11" text-anchor="middle" font-family="Inter" font-size="8" fill="#aaa" font-weight="700" letter-spacing="1">AVANT</text>
 <text x="222" y="11" text-anchor="middle" font-family="Inter" font-size="8" fill="#aaa" font-weight="700" letter-spacing="1">ARRIÈRE</text>
@@ -898,11 +898,11 @@ function svgMap(muscles) {
 <ellipse cx="205" cy="253" rx="10" ry="17" class="${c('calves')}"/>
 <ellipse cx="239" cy="253" rx="10" ry="17" class="${c('calves')}"/>
 <!-- Legend -->
-<circle cx="10" cy="278" r="5" fill="var(--mp)"/>
+<circle cx="10" cy="278" r="5" fill="var(--az-mp)"/>
 <text x="18" y="282" font-family="Inter" font-size="8" fill="#888">Primaire</text>
-<circle cx="73" cy="278" r="5" fill="var(--ms)"/>
+<circle cx="73" cy="278" r="5" fill="var(--az-ms)"/>
 <text x="81" y="282" font-family="Inter" font-size="8" fill="#888">Secondaire</text>
-<circle cx="148" cy="278" r="5" fill="var(--mi)"/>
+<circle cx="148" cy="278" r="5" fill="var(--az-mi)"/>
 <text x="156" y="282" font-family="Inter" font-size="8" fill="#888">Inactif</text>
 </svg>`;
 }

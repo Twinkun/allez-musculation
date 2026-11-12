@@ -48,11 +48,11 @@
       dose: '5 g par jour, tous les jours (repos compris). Pas de phase de charge nécessaire.',
       effets: [{ effet: 'Force et volume d\'entraînement (environ +8 % de force et +14 % de répétitions contre placebo)', preuve: 'A', refs: ['rawson2003', 'kreider2017'] }] },
     whey: { icone: '🥛', titre: 'GOLD WHEY', court: 'Whey 1 dose', moment: 'post', quand: 'Après la séance, ou en collation', resume: '24 g de protéines par dose',
-      marque: 'Optimum Nutrition', nom: 'Gold Standard Whey', priorite: 3, unite: '1 dose (30 g, 24 g de protéines)', nutriments: {},
+      marque: 'Optimum Nutrition', nom: 'Gold Standard Whey', priorite: 3, unite: '1 dose', nutriments: {},
       dose: '1 dose par jour en général, 2 au maximum.',
       effets: [{ effet: 'Atteindre l\'apport en protéines (un aliment pratique, pas un produit magique)', preuve: 'A', refs: ['morton2018'] }] },
     d3: { icone: '☀️', titre: 'VITAMINE D3', court: 'D3 2 000 UI', moment: 'matin', quand: 'Matin, avec le petit-déjeuner', resume: 'Os et muscle en cas d\'apport insuffisant',
-      marque: 'Nutri&Co', nom: 'Vitamine D3', priorite: 3, unite: '2 000 UI (50 µg)', nutriments: { vitd: 50 },
+      marque: 'Nutri&Co', nom: 'Vitamine D3', priorite: 3, unite: '2 000 UI', nutriments: { vitd: 50 },
       dose: '2 000 UI (50 µg) par jour.', aVerifier: 'Le produit « D3 + K2 » n\'apparaît pas sur le site de la marque (D3 en gouttes : 1 goutte = 1 000 UI). À confirmer sur le flacon.',
       effets: [
         { effet: 'Os et fonction musculaire, en cas d\'apport insuffisant', preuve: 'A', refs: ['ue432'] },
