@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#e8960a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -11,6 +12,7 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Projection 12 Mois — ALLEZ</title>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -416,19 +418,19 @@ button, a, [onclick], input, select, label {
     <p>Timeline visuelle mois par mois. Photographies mensuelles + métriques projetées pour documenter et comparer l'évolution réelle de ta transformation.</p>
     <div class="hero-stats">
       <div>
-        <div class="hero-stat-val">71 kg</div>
+        <div class="hero-stat-val"><span data-az="goals.weight0|n"></span> kg</div>
         <div class="hero-stat-lbl">Poids départ</div>
       </div>
       <div>
-        <div class="hero-stat-val">~72,5 kg</div>
+        <div class="hero-stat-val">~<span data-az="goals.weight|n"></span> kg</div>
         <div class="hero-stat-lbl">Objectif 12 mois</div>
       </div>
       <div>
-        <div class="hero-stat-val">20,5 %</div>
+        <div class="hero-stat-val"><span data-az="goals.bf0|n"></span> %</div>
         <div class="hero-stat-lbl">MG départ</div>
       </div>
       <div>
-        <div class="hero-stat-val">16 %</div>
+        <div class="hero-stat-val"><span data-az="goals.bf|n"></span> %</div>
         <div class="hero-stat-lbl">MG objectif</div>
       </div>
     </div>
@@ -439,30 +441,30 @@ button, a, [onclick], input, select, label {
 <div class="section">
   <div class="section-label">Baseline</div>
   <div class="section-title">Point de Départ</div>
-  <div class="section-sub">Mesures et photos de l'analyse du 24 mai 2026. <strong>À refaire le jour J</strong> (<span id="jDay">date à choisir sur le dashboard</span>) : c'est ce point zéro qui servira à toutes les comparaisons. Même heure, même lumière, mêmes angles.</div>
+  <div class="section-sub">Tes mesures de départ (profil). <strong>À refaire le jour J</strong> (<span id="jDay">date à choisir sur le dashboard</span>) : c'est ce point zéro qui servira à toutes les comparaisons. Même heure, même lumière, mêmes angles.</div>
 
   <div class="start-card reveal">
     <div class="start-card-inner">
-      <div class="start-badge">M0 · RÉFÉRENCE · analyse du 24 mai 2026</div>
+      <div class="start-badge">M0 · RÉFÉRENCE</div>
       <div class="start-stats-row">
         <div class="start-stat">
-          <span class="start-val">71 kg</span>
+          <span class="start-val"><span data-az="goals.weight0|n"></span> kg</span>
           <span class="start-lbl">Poids</span>
         </div>
         <div class="start-stat">
-          <span class="start-val">20,5 %</span>
+          <span class="start-val"><span data-az="goals.bf0|n"></span> %</span>
           <span class="start-lbl">Masse grasse</span>
         </div>
         <div class="start-stat">
-          <span class="start-val">56,4 kg</span>
+          <span class="start-val"><span data-az="goals.lean0|1"></span> kg</span>
           <span class="start-lbl">Masse maigre</span>
         </div>
         <div class="start-stat">
-          <span class="start-val">34 cm</span>
-          <span class="start-lbl">Biceps tendu (33 au repos)</span>
+          <span class="start-val"><span data-az="goals.biceps0|n"></span> cm</span>
+          <span class="start-lbl">Biceps tendu</span>
         </div>
         <div class="start-stat">
-          <span class="start-val">178 cm</span>
+          <span class="start-val"><span data-az="profile.height|n"></span> cm</span>
           <span class="start-lbl">Taille</span>
         </div>
       </div>
@@ -507,7 +509,7 @@ button, a, [onclick], input, select, label {
 </div>
 
 <footer>
-  <span>ALLEZ — Projection Physique 12 Mois · Recomposition 71 → ~72,5 kg · 20,5 → 16 %</span>
+  <span>ALLEZ — Projection Physique 12 Mois · Recomposition <span data-az="goals.weight0|n"></span> → ~<span data-az="goals.weight|n"></span> kg · <span data-az="goals.bf0|n"></span> → <span data-az="goals.bf|n"></span> %</span>
   <span>
     <a href="index.html">Accueil</a> &nbsp;·&nbsp;
     <a href="progression.html">Progression</a> &nbsp;·&nbsp;
@@ -519,8 +521,8 @@ button, a, [onclick], input, select, label {
 <script>
 // ═══════════════════════════════════════════════════════
 // DATA — 12 mois · projection physique détaillée
-// Profil : 30 ans · 178 cm · 71 kg · 20,5% BF
-// Débutant · 3x/sem · Recomposition · PE + discopathie L5-S1
+// Les jetons {bf} {dWaist} {waist} {dLean} {dLeanLow} {dFat} {dShoulders} {biceps} sont remplacés par les valeurs
+// du mois, calculées depuis le profil (ALLEZ.PROJ / ALLEZ.GOALS). Aucun chiffre personnel ici.
 //
 // sil = silhouette SVG (viewBox 0 0 100 200)
 //   sw : largeur épaules totale (unités SVG)
@@ -556,8 +558,8 @@ const TIMELINE_DATA = [
       'Double progression qui tourne : +1 palier toutes les 1-2 semaines',
     ],
     changes: [
-      'Premiers gains de masse maigre réels (~+1 kg cumulé avec l\'eau)',
-      'Tour de taille ~−0,5 à −1 cm',
+      'Premiers gains de masse maigre réels (~{dLean} kg cumulé avec l\'eau)',
+      'Tour de taille ~{dWaist} cm',
       'Congestion plus marquée en fin de séance',
       'Posture : épaules un peu moins enroulées (face pulls)',
     ],
@@ -574,8 +576,8 @@ const TIMELINE_DATA = [
     ],
     changes: [
       'Première comparaison photo M0 / M3 : différence visible côte à côte',
-      'Masse grasse ~−1 point vs départ',
-      'Tour de taille ~−1,5 cm',
+      'Masse grasse ~{bf} %',
+      'Tour de taille ~{dWaist} cm',
       'Deload en semaine 13 : fatigue évacuée avant le cycle 2',
     ],
     insight: 'Fin du cycle 1. Le deload n\'est pas une perte de temps : c\'est lui qui permet de repartir plus fort au cycle 2.',
@@ -591,9 +593,9 @@ const TIMELINE_DATA = [
     ],
     changes: [
       'Cycle 2 démarre ~5 % plus lourd que le cycle 1',
-      'Masse grasse ~19 %',
+      'Masse grasse ~{bf} %',
       'Pectoraux hauts un peu plus présents (développé incliné)',
-      'Moins de lombalgies si le gainage est fait sérieusement (à surveiller)',
+      'Bas du dos plus stable si le gainage est fait sérieusement',
     ],
     insight: 'Le corps est maintenant entraîné : les progrès ralentissent un peu, c\'est normal. Reste sur la double progression.',
     milestone: false
@@ -607,8 +609,8 @@ const TIMELINE_DATA = [
       'Premières tractions au poids du corps (quelques reps)',
     ],
     changes: [
-      'Masse maigre ~+2,5 kg cumulée',
-      'Tour de taille ~−2 cm',
+      'Masse maigre : {dLeanLow} à {dLean} kg cumulés',
+      'Tour de taille ~{dWaist} cm',
       'Gras du ventre en baisse lente mais régulière',
       'Récupération plus rapide entre les séries',
     ],
@@ -624,12 +626,12 @@ const TIMELINE_DATA = [
       'Biceps ~+1 cm tendu',
     ],
     changes: [
-      'Masse grasse ~18 %',
+      'Masse grasse ~{bf} %',
       'Ventre plus plat de profil',
       'Photos M0 / M6 : première comparaison vraiment parlante',
       'Re-mesure complète (poids, taille, épaules, bras)',
     ],
-    insight: 'Mi-parcours : ~+3 kg de masse maigre et ~−1,5 kg de gras. Sans régime extrême — c\'est la recomposition qui fonctionne.',
+    insight: 'Mi-parcours : {dLeanLow} à {dLean} kg de masse maigre et ~{dFat} kg de gras. Sans régime extrême — c\'est la recomposition qui fonctionne.',
     milestone: true, milestoneLabel: 'BILAN MI-PARCOURS — 6 MOIS'
   },
   {
@@ -641,7 +643,7 @@ const TIMELINE_DATA = [
       'Tractions : séries de 5+ au poids du corps',
     ],
     changes: [
-      'Masse grasse ~17,5 %',
+      'Masse grasse ~{bf} %',
       'Gains plus lents qu\'au début : 0,3 kg de masse maigre/mois environ',
       'Posture debout spontanément plus droite',
       'C\'est la période où beaucoup décrochent : tiens le cap',
@@ -654,12 +656,12 @@ const TIMELINE_DATA = [
     sil: { sw: 50, ww: 32.9, hw: 42, at: 9.9 },
     strengths: [
       'Haut du corps clairement plus dense qu\'au départ',
-      'Pectoraux hauts mieux remplis → pectus visuellement moins marqué',
-      'Bras ~35-36 cm tendu',
+      'Pectoraux hauts mieux remplis',
+      'Bras ~+1 à 2 cm tendu vs M0',
     ],
     changes: [
-      'Masse grasse ~17 %',
-      'Tour de taille ~−2,5 cm',
+      'Masse grasse ~{bf} %',
+      'Tour de taille ~{dWaist} cm',
       'Charges ~+40 % vs semaine 1 sur les polyarticulaires',
       'Vêtements : épaules plus serrées, taille plus lâche',
     ],
@@ -675,12 +677,12 @@ const TIMELINE_DATA = [
       'Dos large de face, bras le long du corps',
     ],
     changes: [
-      'Masse grasse ~17 %, taille ~−3 cm',
+      'Masse grasse ~{bf} %, taille ~{dWaist} cm',
       'Photos M0 / M9 : changement net de silhouette',
       'Re-mesure complète + ajustement des calories si le poids dérive',
       'Deload semaine 39',
     ],
-    insight: 'Bilan 9 mois : ~+3,9 kg de masse maigre et ~−2,3 kg de gras. La transformation est réelle et mesurable.',
+    insight: 'Bilan 9 mois : {dLeanLow} à {dLean} kg de masse maigre et ~{dFat} kg de gras. La transformation est réelle et mesurable.',
     milestone: true, milestoneLabel: 'BILAN 9 MOIS'
   },
   {
@@ -692,7 +694,7 @@ const TIMELINE_DATA = [
       'Technique solide sur tous les mouvements',
     ],
     changes: [
-      'Masse grasse ~16,5-17 %',
+      'Masse grasse ~{bf} %',
       'Progression en charge plus lente : normal après 9 mois',
       'Abdos encore peu visibles (il faut ~12 % de MG pour les voir)',
       'Préparer la suite : année 2 en prise de masse propre',
@@ -709,8 +711,8 @@ const TIMELINE_DATA = [
       'Posture et lombaires plus stables',
     ],
     changes: [
-      'Masse grasse ~16,3 %',
-      'Tour de taille ~82 cm',
+      'Masse grasse ~{bf} %',
+      'Tour de taille ~{waist} cm',
       'Ventre plat de face, léger relief en haut des abdos sous lumière directe',
       'Corps prêt pour un surplus calorique léger en année 2',
     ],
@@ -721,10 +723,10 @@ const TIMELINE_DATA = [
     n: 12, weeks: 'Semaines 48–52', phase: 'B3 + Deload · Bilan', cycle: 4, color: 'gold',
     sil: { sw: 52, ww: 32.4, hw: 42, at: 10.5 },
     strengths: [
-      '~+4,5 kg de masse maigre en 12 mois (eau de la créatine incluse)',
-      '~16 % de masse grasse, ~−3 kg de gras',
-      'V-taper visible : épaules ~+3 cm, taille ~−4 cm',
-      'Bras ~36-37 cm tendu',
+      '{dLeanLow} à {dLean} kg de masse maigre en 12 mois (eau de la créatine incluse)',
+      '~{bf} % de masse grasse, ~{dFat} kg de gras',
+      'V-taper visible : épaules ~{dShoulders} cm, taille ~{dWaist} cm',
+      'Bras ~{biceps} cm tendu',
     ],
     changes: [
       'Photos M0 / M12 : transformation nette',
@@ -740,6 +742,15 @@ const TIMELINE_DATA = [
 TIMELINE_DATA.forEach(m => {
   m.poids = ALLEZ.PROJ.weight[m.n]; m.bf = ALLEZ.PROJ.bf[m.n]; m.muscle = ALLEZ.PROJ.lean[m.n]; m.waist = ALLEZ.PROJ.waist[m.n];
   m.cal = 'Mois ' + m.n + ' · ' + ALLEZ.monthRange(m.n).label;
+  // Jetons des textes → valeurs du mois
+  const G = ALLEZ.GOALS, PJ = ALLEZ.PROJ, f = ALLEZ.fmt;
+  const T = {
+    bf: f(m.bf, 'n'), waist: f(m.waist, 'n'), dWaist: f(m.waist - G.waist0, '+n'),
+    dLean: f(m.muscle - G.lean0, '+n'), dLeanLow: f(PJ.leanLow[m.n] - G.lean0, '+n'),
+    dFat: f((m.poids - m.muscle) - G.fat0, '+n'), dShoulders: f(G.dShoulders, '+n'), biceps: G.biceps
+  };
+  const tpl = t => String(t).replace(/\{(\w+)\}/g, (x, k) => k in T ? T[k] : x);
+  m.strengths = m.strengths.map(tpl); m.changes = m.changes.map(tpl); m.insight = tpl(m.insight);
 });
 
 // ═══════════════════════════════════════════════════════
@@ -784,8 +795,8 @@ const COLOR_RAW = {
 function makeSilhouette(m) {
   const col = COLOR_RAW[m.color];
   const s   = m.sil;
-  // def = 0 au départ (20,5 % MG), 1 à l'objectif (16 % MG)
-  const def = Math.min(1, Math.max(0, (20.5 - m.bf) / 4.5));
+  // def = 0 au départ, 1 à l'objectif de masse grasse
+  const def = Math.min(1, Math.max(0, (ALLEZ.GOALS.bf0 - m.bf) / Math.max(0.1, -ALLEZ.GOALS.dBf)));
 
   const cx = 50;
 
@@ -922,8 +933,8 @@ function renderTimeline() {
       </div>` : '';
 
     // Deltas vs départ
-    const deltaMuscle = ALLEZ.num(m.muscle - 56.4);
-    const deltaBF     = ALLEZ.num(20.5 - m.bf);
+    const deltaMuscle = ALLEZ.num(m.muscle - ALLEZ.GOALS.lean0);
+    const deltaBF     = ALLEZ.num(ALLEZ.GOALS.bf0 - m.bf);
 
     // Strengths list
     const strengthsHTML = m.strengths.map(s => `
