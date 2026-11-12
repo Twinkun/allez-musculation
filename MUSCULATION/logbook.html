@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#e8960a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -11,7 +12,9 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Logbook — ALLEZ</title>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
+<script src="data/programme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -334,6 +337,7 @@ button, a, [onclick], input, select, label {
 .exo-target{font-size:.7rem;font-weight:800;letter-spacing:.03em;background:var(--bg-dark);color:#fff;padding:3px 10px;border-radius:100px;white-space:nowrap}
 .exo-rest{font-size:.66rem;font-weight:700;background:rgba(10,158,82,.08);border:1px solid rgba(10,158,82,.2);color:var(--green);padding:2px 8px;border-radius:100px;white-space:nowrap}
 .exo-card.exo-fin{border-style:dashed}
+.exo-safe{width:100%;font-size:.72rem;line-height:1.4;color:#8a5800;background:rgba(232,150,10,.09);border-radius:8px;padding:5px 9px;margin-top:2px}
 .warmup{font-size:.78rem;line-height:1.5;color:var(--text-mid);background:rgba(232,150,10,.07);border:1px solid rgba(232,150,10,.25);border-radius:12px;padding:10px 14px;margin-bottom:16px}
 .rest-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
 .rest-actions .rest-next{margin-top:0;border:none;cursor:pointer;font-family:var(--f)}
@@ -414,53 +418,14 @@ button, a, [onclick], input, select, label {
 
 <script>
 /* ── CONFIG ─────────────────────────────────────── */
-/* PROGRAMME CANONIQUE — identique à programme.html et exercices.html.
-   reps = cible · t = type (c = polyarticulaire, i = isolation, p = posture, k = core)
-   unit 'sec' = exercice chronométré · bw = poids du corps (pas de charge) */
-var SESSIONS = {
-  1: {
-    name: 'PUSH', label: 'Lundi',
-    exercises: [
-      { name: 'Développé incliné haltères 30°', muscle: 'Pectoraux hauts',         sets: 4, reps: '12-15',      t: 'c', hint: '12-14 kg/main', restTime: 90, tempo: '3-1-2-0' },
-      { name: 'Élévations latérales',           muscle: 'Deltoïde médial',         sets: 4, reps: '12-15',      t: 'i', hint: '4-6 kg',        restTime: 60, tempo: '2-1-3-0' },
-      { name: 'Développé militaire assis',      muscle: 'Épaules · Triceps',       sets: 4, reps: '10-12',      t: 'c', hint: '10 kg/main',    restTime: 90, tempo: '2-1-2-0' },
-      { name: 'Écarté câble high-to-low',       muscle: 'Pectoraux',               sets: 3, reps: '12-15',      t: 'i', hint: '6-8 kg/côté',   restTime: 75, tempo: '2-1-3-0' },
-      { name: 'Extension triceps corde',        muscle: 'Triceps',                 sets: 4, reps: '12-15',      t: 'i', hint: '12-15 kg',      restTime: 60, tempo: '2-0-2-0' },
-      { name: 'Face pull câble ★',              muscle: 'Posture · Arrière épaule',sets: 4, reps: '15-20',      t: 'p', hint: '8-10 kg',       restTime: 60, tempo: '2-2-3-0' },
-      { name: 'Planche',                        muscle: 'Finisher · Gainage',      sets: 3, reps: '30-60 s',    t: 'k', unit: 'sec', restTime: 45, tempo: 'Statique' }
-    ]
-  },
-  4: {
-    name: 'PULL', label: 'Jeudi',
-    exercises: [
-      { name: 'Tirage vertical prise large',    muscle: 'Grand dorsal',            sets: 4, reps: '10-12',      t: 'c', hint: '40-50 kg',      restTime: 90, tempo: '2-1-3-0' },
-      { name: 'Rowing unilatéral haltère',      muscle: 'Grand dorsal · Rhomboïdes',sets: 4, reps: '10-12/côté', t: 'c', hint: '18-20 kg',      restTime: 75, tempo: '2-1-3-0' },
-      { name: 'Oiseau buste appuyé (banc incliné)', muscle: 'Deltoïde postérieur', sets: 3, reps: '15-20',      t: 'i', hint: '3-5 kg/main',   restTime: 60, tempo: '2-1-2-0' },
-      { name: 'Rowing câble assis prise large', muscle: 'Rhomboïdes · Trapèzes',   sets: 3, reps: '12-15',      t: 'c', hint: '25-35 kg',      restTime: 75, tempo: '2-2-3-0' },
-      { name: 'Face pull câble ★',              muscle: 'Posture · Arrière épaule',sets: 4, reps: '15-20',      t: 'p', hint: '8-10 kg',       restTime: 60, tempo: '2-2-3-0' },
-      { name: 'Curl biceps haltères alternés',  muscle: 'Biceps',                  sets: 4, reps: '10-12/bras', t: 'i', hint: '8-10 kg/main',  restTime: 75, tempo: '2-1-3-0' },
-      { name: 'Dead bug',                       muscle: 'Finisher · Core',         sets: 3, reps: '10/côté',    t: 'k', bw: true, restTime: 45, tempo: 'Lent' },
-      { name: 'Bird dog',                       muscle: 'Finisher · Core',         sets: 3, reps: '10/côté',    t: 'k', bw: true, restTime: 45, tempo: 'Lent' }
-    ]
-  },
-  6: {
-    name: 'V-SHAPE', label: 'Samedi',
-    exercises: [
-      { name: 'Élévations latérales',           muscle: 'Deltoïde médial',         sets: 4, reps: '15',         t: 'i', hint: '4-6 kg',        restTime: 60,  tempo: '2-1-3-0' },
-      { name: 'Élévations latérales câble',     muscle: 'Deltoïde médial',         sets: 3, reps: '15',         t: 'i', hint: '2,5-5 kg/côté', restTime: 60,  tempo: '2-1-3-0' },
-      { name: 'Arnold press',                   muscle: 'Épaules (avant + milieu)',   sets: 4, reps: '10-12',      t: 'c', hint: '8-10 kg/main',  restTime: 90,  tempo: '3-1-2-0' },
-      { name: 'Tractions / tirage vertical',    muscle: 'Grand dorsal',            sets: 4, reps: 'max (ou 10-12 au tirage)', t: 'c', hint: 'élastique ou 40-45 kg', restTime: 120, tempo: '2-1-3-0' },
-      { name: 'Développé incliné haltères 30°', muscle: 'Pectoraux hauts',         sets: 3, reps: '10-12',      t: 'c', hint: '14-16 kg/main', restTime: 90,  tempo: '3-1-2-0' },
-      { name: 'Curl barre EZ',                  muscle: 'Biceps',                  sets: 3, reps: '10-12',      t: 'i', hint: '15-20 kg',      restTime: 75,  tempo: '2-1-3-0' },
-      { name: 'Curl concentré',                 muscle: 'Biceps · pic',            sets: 2, reps: '10-12/bras', t: 'i', hint: '8-10 kg',       restTime: 60,  tempo: '2-2-3-0' },
-      { name: 'Extension triceps overhead câble',muscle: 'Triceps long',           sets: 3, reps: '12',         t: 'i', hint: '10-15 kg',      restTime: 75,  tempo: '3-1-2-0' },
-      { name: 'Face pull câble ★',              muscle: 'Posture · Arrière épaule',sets: 3, reps: '15',         t: 'p', hint: '8-10 kg',       restTime: 45,  tempo: '2-2-3-0' },
-      { name: 'Hollow body',                    muscle: 'Finisher · Core',         sets: 3, reps: '20-30 s',    t: 'k', unit: 'sec', restTime: 60, tempo: 'Statique' }
-    ]
-  }
-};
-var PLANNED = { 1: 1, 4: 4, 6: 6 };            // jour de semaine → séance prévue
-var NEXT_TRAIN = { 0: 1, 2: 4, 3: 4, 5: 6 };   // jour de repos → prochaine séance
+/* Programme : source unique data/programme.js (ALLEZ.PROGRAM).
+   Vue { 1: PUSH, 4: PULL, 6: V-SHAPE } ; chaque exercice porte son identifiant stable (id). */
+var SESSIONS = ALLEZ.PROGRAM.legacySessions();
+var TRAIN_DAYS = Object.keys(SESSIONS).map(Number);
+var PLANNED = {}; TRAIN_DAYS.forEach(function(d){ PLANNED[d] = d; });           // jour de semaine → séance prévue
+var NEXT_TRAIN = {};                                                             // jour de repos → prochaine séance
+for (var _d = 0; _d < 7; _d++) { if (!PLANNED[_d]) { var _k = _d; while (!PLANNED[_k]) _k = (_k + 1) % 7; NEXT_TRAIN[_d] = _k; } }
+var DAY_OF = {}; TRAIN_DAYS.forEach(function(d){ DAY_OF[SESSIONS[d].id] = d; });   // identifiant de séance → jour
 var DRAFT_KEY = 'px_logbook_draft';
 
 function localISO(d) { return ALLEZ.localISO(d); }
@@ -486,11 +451,12 @@ var actDay, actSess;
 function isActive() { return isPlannedDay || forced; }
 
 /* ── STORAGE ─────────────────────────────────────── */
+function exKey(e) { return e.exId || ALLEZ.PROGRAM.findByName(e.name) || e.name; }   // identifiant stable (les anciens noms sont des alias)
 function lb_load() {
-  try { return JSON.parse(localStorage.getItem('px_logbook') || '{"sessions":[]}'); }
-  catch(e) { return { sessions: [] }; }
+  return { sessions: ALLEZ.store.sessions('muscu').filter(function(s){ return s.exercises.length; }).map(function(s){
+    return { id: s.id, date: s.date, dayNum: DAY_OF[s.seance] || null, sessionName: s.name, exercises: s.exercises };
+  }) };
 }
-function lb_save(data) { localStorage.setItem('px_logbook', JSON.stringify(data)); }
 function lb_draft() { try { return JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); } catch(e) { return null; } }
 
 function getLastSess(dayNum) {
@@ -501,11 +467,11 @@ function getLastSess(dayNum) {
 function getTodaySess() {
   return lb_load().sessions.find(function(s){ return s.date === todayKey; }) || null;
 }
-function getHistMax(exoName) {
+function getHistMax(exo) {
   var max = 0;
   lb_load().sessions.filter(function(s){ return s.date !== todayKey; }).forEach(function(s) {
     (s.exercises || []).forEach(function(e) {
-      if (e.name === exoName) (e.sets || []).forEach(function(st){ if ((st.kg||0) > max) max = st.kg; });
+      if (exKey(e) === exo.id) (e.sets || []).forEach(function(st){ if ((st.kg||0) > max) max = st.kg; });
     });
   });
   return max;
@@ -554,20 +520,13 @@ function blockBanner() {
   else txt = '<b>Semaine ' + st.week + '/52 · ' + b.code + ' ' + b.name + '</b> — ' + b.desc;
   return '<div class="blk-banner blk-' + (st.started ? b.code : 'B1') + '">' + txt + '</div>';
 }
-function rirFor(exo) {
-  var st = ALLEZ.status(), b = st.started ? st.block : ALLEZ.BLOCKS.B1;
-  if (exo.t === 'k') return null;
-  if (exo.t === 'p') return '2-3';
-  return exo.t === 'c' ? b.rirC : b.rirI;
-}
-function setsFor(exo) {
-  var st = ALLEZ.status();
-  return (st.started && st.block.code === 'DL') ? Math.max(2, Math.ceil(exo.sets / 2)) : exo.sets;
-}
+function blockCode() { var st = ALLEZ.status(); return st.started ? st.block.code : 'B1'; }
+function rirFor(exo) { return ALLEZ.PROGRAM.rirFor({ type: exo.t }, blockCode()); }
+function setsFor(exo) { return ALLEZ.PROGRAM.setsFor(exo, blockCode()); }
 
 /* ── SESSION RENDER ─────────────────────────────── */
 function sessPicker() {
-  return '<div class="sess-pick" role="group" aria-label="Choisir la séance">' + [1,4,6].map(function(k){
+  return '<div class="sess-pick" role="group" aria-label="Choisir la séance">' + TRAIN_DAYS.map(function(k){
     return '<button class="sp-btn'+(k===actDay?' on':'')+'" onclick="pickSess('+k+')">'+SESSIONS[k].name+'<span>'+SESSIONS[k].label+'</span></button>';
   }).join('') + '</div>';
 }
@@ -591,7 +550,7 @@ function renderSession() {
         '<div class="rest-ico">💤</div>' +
         '<div class="rest-title">Jour de repos</div>' +
         '<div class="rest-sub">Récupération · Prochaine séance : <strong>'+actSess.name+' ('+actSess.label+')</strong><br>Séance décalée ? Lance-la quand même :</div>' +
-        '<div class="rest-actions">' + [1,4,6].map(function(k){ return '<button class="rest-next" onclick="pickSess('+k+')">'+SESSIONS[k].name+'</button>'; }).join('') + '</div>' +
+        '<div class="rest-actions">' + TRAIN_DAYS.map(function(k){ return '<button class="rest-next" onclick="pickSess('+k+')">'+SESSIONS[k].name+'</button>'; }).join('') + '</div>' +
         '<a class="rest-hist" href="#" onclick="showTab(\'historique\');return false;">Voir l\'historique →</a>' +
       '</div>';
     return;
@@ -603,9 +562,9 @@ function renderSession() {
   var draft = lb_draft();
   if (!draft || draft.date !== todayKey || draft.dayNum !== actDay) draft = null;
   var histMaxes  = {};
-  actSess.exercises.forEach(function(e){ histMaxes[e.name] = getHistMax(e.name); });
+  actSess.exercises.forEach(function(e){ histMaxes[e.id] = getHistMax(e); });
 
-  var html = blockBanner() + sessPicker() + '<div class="warmup">🔥 <b>Échauffement 8-10 min</b> · 5 min rameur/vélo · respiration 90/90 (5 expirations, côtes basses) · 2×15 band pull-apart · 1 série légère de face pull · séries d\'approche : 50 % × 10 puis 75 % × 5 sur le 1er exercice</div>' + '<div class="sess-hd"><div>' +
+  var html = blockBanner() + sessPicker() + '<div class="warmup">🔥 ' + ALLEZ.PROGRAM.warmupText() + '</div>' + '<div class="sess-hd"><div>' +
     '<div class="sess-name">'+actSess.name+(forced?' <span class="sess-forced">rattrapage</span>':'')+'</div>' +
     '<div class="sess-date">'+todayLabel+'</div>' +
     '</div>' +
@@ -617,8 +576,8 @@ function renderSession() {
   actSess.exercises.forEach(function(exo, ei) {
     var isT = isTimeEx(exo);
     var nSets = setsFor(exo);
-    var lastExo = lastSess ? (lastSess.exercises||[]).find(function(e){ return e.name===exo.name; }) : null;
-    var savedExo = todaySaved ? (todaySaved.exercises||[]).find(function(e){ return e.name===exo.name; }) : null;
+    var lastExo = lastSess ? (lastSess.exercises||[]).find(function(e){ return exKey(e)===exo.id; }) : null;
+    var savedExo = todaySaved ? (todaySaved.exercises||[]).find(function(e){ return exKey(e)===exo.id; }) : null;
 
     var dSets = [];
     if (draft && draft.sets && draft.sets[ei] && draft.sets[ei].length) {
@@ -652,6 +611,7 @@ function renderSession() {
         (rir ? '<span class="exo-rir" title="Reps In Reserve : répétitions gardées en réserve">RIR '+rir+'</span>' : '') +
         (exo.hint ? '<span class="exo-hint" title="Charge indicative pour débuter">'+exo.hint+'</span>' : '') +
       '</div>' +
+      (exo.lombaires === 'prudence' ? '<div class="exo-safe">🟠 Bas du dos : '+exo.consigne+'</div>' : '') +
       '</div>';
     if (lastStr) html += '<div class="exo-last">Dernière fois : <strong>'+lastStr+'</strong></div>';
     html += '<div class="sets-wrap">' +
@@ -740,7 +700,7 @@ function toggleDone(ei, si) {
 }
 
 function checkPR(ei) {
-  var hist = getHistMax(actSess.exercises[ei].name);
+  var hist = getHistMax(actSess.exercises[ei]);
   var container = document.getElementById('rows'+ei);
   if (!container) return;
   var maxNow = 0;
@@ -765,17 +725,17 @@ function saveSession() {
   if (!isActive()) return;
   var doneCount = document.querySelectorAll('#viewS .set-row.done').length;
   if (!doneCount && !confirm('Aucune série cochée. Sauvegarder quand même ?')) return;
-  var lb = lb_load();
   var exercises = [];
   var sets = collectSets();
   actSess.exercises.forEach(function(exo, ei) {
     if (!sets[ei]) return;
-    exercises.push({ name: exo.name, muscle: exo.muscle, unit: isTimeEx(exo) ? 'sec' : 'reps', sets: sets[ei] });
+    exercises.push({ exId: exo.id, name: exo.name, muscle: exo.muscle, unit: isTimeEx(exo) ? 'sec' : 'reps', sets: sets[ei] });
   });
-
-  lb.sessions = lb.sessions.filter(function(s){ return s.date !== todayKey; });
-  lb.sessions.push({ date: todayKey, dayNum: actDay, sessionName: actSess.name, exercises: exercises });
-  lb_save(lb);
+  // Une séance de musculation par jour ; durée, poids et note déjà saisis ailleurs sont conservés
+  var prev = ALLEZ.store.get(todayKey + '_muscu') || {};
+  var ok = ALLEZ.store.upsert({ date: todayKey, kind: 'muscu', seance: actSess.id, name: actSess.name, exercises: exercises,
+    duration: prev.duration, bodyWeight: prev.bodyWeight, feeling: prev.feeling, note: prev.note });
+  if (!ok) { alert('La sauvegarde a échoué (stockage plein ou bloqué). Ton brouillon est conservé.'); return; }
   clearDraft();
 
   var btn = document.getElementById('saveBtn');
@@ -831,9 +791,7 @@ function toggleHist(idx) { document.getElementById('hs'+idx).classList.toggle('o
 function delSess(date, e) {
   e.stopPropagation();
   if (!confirm('Supprimer cette séance ?')) return;
-  var lb = lb_load();
-  lb.sessions = lb.sessions.filter(function(s){ return s.date !== date; });
-  lb_save(lb);
+  ALLEZ.store.remove(date + '_muscu');
   renderHistory();
   renderStats();
 }
@@ -1071,12 +1029,11 @@ function showTab(tab) {
 function renderCurveView() {
   var view = document.getElementById('viewC');
   var html = '<div class="curve-filters">';
-  [1, 4, 6].forEach(function(dayNum) {
+  TRAIN_DAYS.forEach(function(dayNum) {
     var sess = SESSIONS[dayNum];
     html += '<div class="curve-section-lbl">'+sess.name+' — '+sess.label+'</div><div class="curve-btns">';
     sess.exercises.forEach(function(exo) {
-      var safe = exo.name.replace(/"/g, '&quot;');
-      html += '<button class="curve-btn" data-exo="'+safe+'" onclick="selectCurve(this.getAttribute(\'data-exo\'))">'+exo.name+'</button>';
+      html += '<button class="curve-btn" data-exo="'+exo.id+'" onclick="selectCurve(this.getAttribute(\'data-exo\'))">'+exo.name+'</button>';
     });
     html += '</div>';
   });
@@ -1090,14 +1047,15 @@ function renderCurveView() {
   view.innerHTML = html;
 }
 
-function selectCurve(exoName) {
+function selectCurve(exoId) {
+  var exoName = ALLEZ.PROGRAM.displayName(ALLEZ.PROGRAM.exercise(exoId));
   document.querySelectorAll('.curve-btn').forEach(function(b) {
-    b.classList.toggle('active', b.getAttribute('data-exo') === exoName);
+    b.classList.toggle('active', b.getAttribute('data-exo') === exoId);
   });
   var lb = lb_load();
   var pts = [];
   lb.sessions.forEach(function(s) {
-    var exo = (s.exercises||[]).find(function(e){ return e.name === exoName; });
+    var exo = (s.exercises||[]).find(function(e){ return exKey(e) === exoId; });
     if (!exo) return;
     var vals = (exo.sets||[]).map(function(st){ return st.kg||0; }).filter(function(v){ return v > 0; });
     if (!vals.length) return;
