@@ -510,13 +510,13 @@
     for (var i = 1; i < parts.length && o !== null && o !== undefined; i++) o = o[parts[i]];
     return o;
   }
-  // Formats : '0' '1' '2' (décimales) · 'int' (2 650) · '+0' '+1' (signe) · absent = texte brut
+  // Formats : '0' '1' '2' (décimales) · 'n' (1 décimale au plus : 16 ou 17,5) · 'int' (2 650) · préfixe '+' = signe affiché · absent = texte brut
   function fmt(v, f) {
     if (v === undefined || v === null || v === '') return '—';
     if (!f || typeof v !== 'number') return typeof v === 'number' ? String(v).replace('.', ',') : String(v);
     if (f === 'int') return int(v);
-    var sign = f.charAt(0) === '+', dec = +(sign ? f.slice(1) : f) || 0;
-    var s = num(Math.abs(v), dec);
+    var sign = f.charAt(0) === '+', k = sign ? f.slice(1) : f;
+    var s = k === 'n' ? num(Math.abs(v), 1).replace(/,0$/, '') : k === 'int' ? int(Math.abs(v)) : num(Math.abs(v), +k || 0);
     return (v < 0 ? '−' : sign ? '+' : '') + s;
   }
   function prive(key) { var p = lsGet('px_prive', null); var v = p && p.blocs ? p.blocs[key] : null; return typeof v === 'string' ? v : null; }

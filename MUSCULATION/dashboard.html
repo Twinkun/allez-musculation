@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#e8960a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -11,7 +12,10 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Dashboard — ALLEZ</title>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
+<script src="data/programme.js"></script>
+<script src="data/nutrition.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -478,23 +482,23 @@ button, a, [onclick], input, select, label {
     <div class="stat-card">
       <div class="stat-card-bar" style="background:var(--gold-g)"></div>
       <div class="sc-label">⚖️ Poids actuel</div>
-      <div class="sc-val" id="sc-weight">71 <span class="sc-unit">kg</span></div>
-      <div class="sc-sub" id="sc-wgoal">Objectif → 72,5 kg (recomposition)</div>
+      <div class="sc-val" id="sc-weight"><span data-az="goals.weight0|n"></span> <span class="sc-unit">kg</span></div>
+      <div class="sc-sub" id="sc-wgoal">Objectif → <span data-az="goals.weight|n"></span> kg (recomposition)</div>
       <div class="sc-trend up" id="sc-wtrend">+0 kg vs départ</div>
     </div>
     <div class="stat-card">
       <div class="stat-card-bar" style="background:linear-gradient(90deg,var(--purple),var(--purple-l))"></div>
       <div class="sc-label">📊 Masse grasse</div>
-      <div class="sc-val" id="sc-bf">20,5 <span class="sc-unit">%</span></div>
-      <div class="sc-sub">Objectif → 16 %</div>
-      <div class="sc-trend dn" id="sc-bftrend">−4,5 pts projetés / 12 mois</div>
+      <div class="sc-val" id="sc-bf"><span data-az="goals.bf0|n"></span> <span class="sc-unit">%</span></div>
+      <div class="sc-sub">Objectif → <span data-az="goals.bf|n"></span> %</div>
+      <div class="sc-trend dn" id="sc-bftrend"><span><span data-az="goals.dBf|+n"></span> pts projetés / 12 mois</span></div>
     </div>
     <div class="stat-card">
       <div class="stat-card-bar" style="background:linear-gradient(90deg,var(--green),var(--green-l))"></div>
       <div class="sc-label">💪 Masse maigre</div>
-      <div class="sc-val" id="sc-lean">56,4 <span class="sc-unit">kg</span></div>
-      <div class="sc-sub">Objectif → 60,9 kg</div>
-      <div class="sc-trend up" id="sc-leantrend">+4,5 kg visés / 12 mois</div>
+      <div class="sc-val" id="sc-lean"><span data-az="goals.lean0|1"></span> <span class="sc-unit">kg</span></div>
+      <div class="sc-sub">Objectif → <span data-az="goals.leanLow|1"></span> à <span data-az="goals.lean|1"></span> kg</div>
+      <div class="sc-trend up" id="sc-leantrend"><span><span data-az="goals.leanGainLow|+n"></span> à <span data-az="goals.leanGainHigh|+n"></span> kg visés / 12 mois</span></div>
     </div>
     <div class="stat-card">
       <div class="stat-card-bar" style="background:linear-gradient(90deg,var(--blue),var(--blue-l))"></div>
@@ -513,9 +517,9 @@ button, a, [onclick], input, select, label {
     <div class="stat-card">
       <div class="stat-card-bar" style="background:linear-gradient(90deg,var(--teal),#12adc4)"></div>
       <div class="sc-label">🥗 Calories cibles</div>
-      <div class="sc-val">2 650 <span class="sc-unit">kcal</span></div>
+      <div class="sc-val"><span data-az="nutrition.train.kcal|int"></span> <span class="sc-unit">kcal</span></div>
       <div class="sc-sub">Jours training (recomposition)</div>
-      <div class="sc-trend neu">2 100 kcal les jours repos</div>
+      <div class="sc-trend neu"><span><span data-az="nutrition.rest.kcal|int"></span> kcal les jours repos</span></div>
     </div>
   </div>
 
@@ -542,21 +546,21 @@ button, a, [onclick], input, select, label {
       <div class="card-head">
         <div class="card-head-left">
           <div class="card-title">Macros du Jour</div>
-          <div class="card-sub" id="macroSub">Jour training · 2 650 kcal</div>
+          <div class="card-sub" id="macroSub"></div>
         </div>
       </div>
       <div class="donut-section">
         <div class="donut-center">
           <canvas id="donutChart" width="150" height="150"></canvas>
           <div class="donut-info">
-            <div class="donut-val">2650</div>
+            <div class="donut-val"></div>
             <div class="donut-lbl">kcal</div>
           </div>
         </div>
         <div class="macro-chips">
-          <div class="macro-chip"><div class="mc-val" style="color:var(--orange)">160g</div><div class="mc-lbl">Protéines</div></div>
-          <div class="macro-chip"><div class="mc-val" style="color:var(--blue)">345g</div><div class="mc-lbl">Glucides</div></div>
-          <div class="macro-chip"><div class="mc-val" style="color:var(--purple)">70g</div><div class="mc-lbl">Lipides</div></div>
+          <div class="macro-chip"><div class="mc-val" style="color:var(--orange)"></div><div class="mc-lbl">Protéines</div></div>
+          <div class="macro-chip"><div class="mc-val" style="color:var(--blue)"></div><div class="mc-lbl">Glucides</div></div>
+          <div class="macro-chip"><div class="mc-val" style="color:var(--purple)"></div><div class="mc-lbl">Lipides</div></div>
           <div class="macro-chip"><div class="mc-val" style="color:var(--teal)">3–3,5 L</div><div class="mc-lbl">Eau / jour</div></div>
         </div>
       </div>
@@ -692,13 +696,13 @@ button, a, [onclick], input, select, label {
 
 <script>
 // ── DATA ── (source unique : core.js)
-const SK = 'px_sessions_v2';
-const MK = 'px_measures';
+const P = ALLEZ.PROGRAM, N = ALLEZ.NUTRITION.current();
 const G = ALLEZ.GOALS;
 const localISO = ALLEZ.localISO;
 const num = ALLEZ.num;
-const getSess = () => ALLEZ.sessions();
-const saveSess = s => localStorage.setItem(SK, JSON.stringify(s));
+const getSess = () => ALLEZ.sessions();                      // toutes les séances du journal (musculation + ping-pong)
+const muscu = () => getSess().filter(s => s.kind === 'muscu');
+const PER_WEEK = P.ORDER.length;                             // séances de musculation prévues par semaine
 const esc = v => String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
 const TYPE_META = {
@@ -709,16 +713,14 @@ const TYPE_META = {
   other: { icon:'⚪', label:'Séance',                      cls:'si-other' },
 };
 
-// Programme canonique (identique à logbook / programme / exercices)
-const WORKOUTS = [
-  { day:'Lundi',    name:'PUSH · 8h00',  focus:'Pectoraux · Épaules · Triceps + finisher posture', type:'push', exs:[{n:'Développé incliné haltères 30°',s:'4×12-15'},{n:'Élévations latérales',s:'4×12-15'},{n:'Développé militaire assis',s:'4×10-12'},{n:'Écarté câble high-to-low',s:'3×12-15'},{n:'Extension triceps corde',s:'4×12-15'},{n:'Face pull câble ★',s:'4×15-20'},{n:'Finisher — Planche',s:'3×30-60 s'}] },
-  { day:'Mardi',    name:'REPOS',        focus:null },
-  { day:'Mercredi', name:'REPOS',        focus:null },
-  { day:'Jeudi',    name:'PULL · 8h00',  focus:'Dos · Biceps · Deltoïde post. + finisher core', type:'pull', exs:[{n:'Tirage vertical prise large',s:'4×10-12'},{n:'Rowing unilatéral haltère',s:'4×10-12/côté'},{n:'Oiseau buste appuyé (banc incliné)',s:'3×15-20'},{n:'Rowing câble assis prise large',s:'3×12-15'},{n:'Face pull câble ★',s:'4×15-20'},{n:'Curl biceps haltères alternés',s:'4×10-12'},{n:'Finisher — Dead bug + Bird dog',s:'3×10/côté'}] },
-  { day:'Vendredi', name:'PING-PONG',    focus:'Activité cardio · repos musculaire', type:'legs', exs:[] },
-  { day:'Samedi',   name:'V-SHAPE · 11h',focus:'Épaules 3D · Dos · Bras + finishers posture & core', type:'upper', exs:[{n:'Élévations latérales',s:'4×15'},{n:'Élévations latérales câble',s:'3×15'},{n:'Arnold press',s:'4×10-12'},{n:'Tractions / tirage vertical',s:'4×max'},{n:'Développé incliné haltères',s:'3×10-12'},{n:'Curl barre EZ + concentré',s:'3×10-12 + 2×10-12'},{n:'Extension triceps overhead câble',s:'3×12'},{n:'Finisher — Face pull ★',s:'3×15'},{n:'Finisher — Hollow body',s:'3×20-30 s'}] },
-  { day:'Dimanche', name:'REPOS',        focus:null },
-];
+// Semaine type : calculée depuis data/programme.js (lundi → dimanche). L'heure de séance est privée (profil).
+const TYPE_OF = { push: 'push', pull: 'pull', vshape: 'upper' };
+const WORKOUTS = [1, 2, 3, 4, 5, 6, 0].map(dn => {
+  const S = P.sessionForDay(dn), o = P.otherDays[dn], day = P.DAY_NAMES[dn];
+  if (S) { const h = ALLEZ.hourText(S.slot + ':0'); return { day, name: S.name + (h ? ' · ' + h : ''), focus: S.focus, type: TYPE_OF[S.id], exs: S.items.map(it => ({ n: P.displayName(P.EXERCISES[it.ex]), s: P.prescription(it, P.currentBlockCode()) })) }; }
+  if (o) return { day, name: o.name, focus: o.focus, type: 'legs', exs: [] };
+  return { day, name: 'REPOS', focus: null };
+});
 
 const QUOTES = [
   "La transformation physique commence par une décision, mais elle se construit séance après séance.",
@@ -733,20 +735,13 @@ const QUOTES = [
   "Le meilleur entraînement est celui qu'on fait vraiment.",
 ];
 
-// Charges : départ → objectif 12 mois (mêmes valeurs que programme.html) · lb = nom dans le logbook
-const STRENGTH_D = [
-  { name:'Développé incliné (kg/main)', lb:'Développé incliné haltères 30°', b1:14, b3:22, color:'linear-gradient(90deg,var(--orange),#f59a3a)' },
-  { name:'Tirage vertical',             lb:'Tirage vertical prise large',    b1:45, b3:72, color:'linear-gradient(90deg,var(--blue),var(--blue-l))' },
-  { name:'Arnold press (kg/main)',      lb:'Arnold press',                   b1:10, b3:16, color:'linear-gradient(90deg,var(--green),var(--green-l))' },
-  { name:'Écarté câble (kg/côté)',      lb:'Écarté câble high-to-low',       b1:8,  b3:15, color:'linear-gradient(90deg,var(--purple),var(--purple-l))' },
-  { name:'Rowing haltère',              lb:'Rowing unilatéral haltère',      b1:20, b3:32, color:'linear-gradient(90deg,var(--teal),#12adc4)' },
-  { name:'Curl alterné (kg/main)',      lb:'Curl biceps haltères alternés',  b1:10, b3:16, color:'var(--gold-g)' },
-];
-function bestKg(name) {
-  let m = 0;
-  try { (JSON.parse(localStorage.getItem('px_logbook')||'{"sessions":[]}').sessions||[]).forEach(s => (s.exercises||[]).forEach(e => { if (e.name === name) (e.sets||[]).forEach(st => { if ((st.kg||0) > m) m = st.kg; }); })); } catch(e) {}
-  return m;
-}
+// Charges : départ → repère à 12 mois (data/programme.js) · record réel lu dans le journal par identifiant stable
+const STR_COLORS = ['linear-gradient(90deg,var(--orange),#f59a3a)', 'linear-gradient(90deg,var(--blue),var(--blue-l))', 'linear-gradient(90deg,var(--green),var(--green-l))', 'linear-gradient(90deg,var(--purple),var(--purple-l))', 'linear-gradient(90deg,var(--teal),#12adc4)', 'var(--gold-g)'];
+const STRENGTH_D = ['dev-incline', 'tirage-vertical', 'arnold-press', 'ecarte-cable', 'rowing-unilateral', 'curl-alternes'].map((id, i) => {
+  const e = P.EXERCISES[id], c = e.charges;
+  return { id, name: e.name + (c.unit.indexOf('/') > 0 ? ' (' + c.unit + ')' : ''), b1: c.b1[0], b3: c.an1, color: STR_COLORS[i] };
+});
+const bestKg = id => ALLEZ.bestKg(id);
 const pctOf = (cur, a, b) => Math.max(0, Math.min(100, Math.round((cur - a) / (b - a) * 100)));
 
 // ── PROFIL / SEMAINE ──
@@ -768,7 +763,7 @@ tick(); setInterval(tick, 10000);
 
 // ── WEEK ──
 const DAY_ABR = ['LUN','MAR','MER','JEU','VEN','SAM','DIM'];
-const PLANNED = [true,false,false,true,false,true,false];
+const PLANNED = [1, 2, 3, 4, 5, 6, 0].map(dn => !!P.byDay[dn]);
 const getWeekDates = () => ALLEZ.weekDates();
 function renderWeek() {
   const sess = getSess(), wk = getWeekDates(), today = localISO();
@@ -782,33 +777,28 @@ function renderWeek() {
     else if (!PLANNED[i]) { cls='rest'; inner='~'; }
     return `<div class="wd"><div class="wd-lbl">${DAY_ABR[i]}</div><div class="wd-box ${cls}" onclick="toggleDay('${d}')" role="button" aria-label="${DAY_ABR[i]} ${d}">${inner}</div></div>`;
   }).join('');
-  const done = wk.filter(d=>sdates.has(d)).length;
+  const mdates = new Set(muscu().map(s=>s.date));
+  const done = wk.filter(d=>mdates.has(d)).length;
   document.getElementById('ws-done').textContent = done;
-  document.getElementById('ws-left').textContent = Math.max(0,3-done);
-  document.getElementById('ws-pct').textContent = Math.min(100,Math.round((done/3)*100))+'%';
+  document.getElementById('ws-left').textContent = Math.max(0,PER_WEEK-done);
+  document.getElementById('ws-pct').textContent = Math.min(100,Math.round((done/PER_WEEK)*100))+'%';
 }
 window.toggleDay = d => {
-  // Les séances du logbook se gèrent dans le logbook ; ici on coche/décoche une séance « rapide »
-  const lb = (JSON.parse(localStorage.getItem('px_logbook')||'{"sessions":[]}').sessions||[]);
-  if (lb.some(s=>s.date===d)) { if (confirm('Cette séance vient du logbook. Ouvrir le logbook ?')) location.href='logbook.html'; return; }
-  const dash = JSON.parse(localStorage.getItem(SK)||'[]');
-  const idx = dash.findIndex(s=>s.date===d);
-  const ps = JSON.parse(localStorage.getItem('px_sessions')||'[]');
-  if (idx>=0 || ps.includes(d)) {
-    if (idx>=0) dash.splice(idx,1);
-    localStorage.setItem('px_sessions', JSON.stringify(ps.filter(x=>x!==d)));
-  } else dash.push({date:d,type:'other',duration:'',feeling:'',note:''});
-  saveSess(dash); renderAll();
+  // Une séance détaillée se gère dans le logbook ; ici on coche ou décoche une séance « rapide »
+  const cur = ALLEZ.store.get(d + '_muscu');
+  if (cur && cur.exercises.length) { if (confirm('Cette séance vient du logbook. Ouvrir le logbook ?')) location.href='logbook.html'; return; }
+  if (cur) ALLEZ.store.remove(cur.id); else ALLEZ.store.upsert({ date: d, kind: 'muscu' });
+  renderAll();
 };
 
 // ── STATS ──
 function renderStats() {
-  const sess = getSess(), wk = new Set(getWeekDates());
+  const sess = muscu(), wk = new Set(getWeekDates());
   document.getElementById('sc-sessions').textContent = sess.length;
   const wkDone = sess.filter(s=>wk.has(s.date)).length;
-  document.getElementById('sc-sstrand').textContent = `Cette semaine : ${wkDone} / 3`;
+  document.getElementById('sc-sstrand').textContent = `Cette semaine : ${wkDone} / ${PER_WEEK}`;
 
-  const sk = ALLEZ.streak(sess.map(s=>s.date));
+  const sk = ALLEZ.streak();
   document.getElementById('sc-streak').innerHTML = sk.cur + ' <span class="sc-unit">séance' + (sk.cur>1?'s':'') + '</span>';
   document.getElementById('sideStreak').textContent = '🔥 '+sk.cur;
   document.getElementById('sm-streak').textContent = sk.cur;
@@ -823,7 +813,7 @@ function renderStats() {
     const diff = w - G.weight0, el = document.getElementById('sc-wtrend');
     el.textContent = (diff>0?'↑ +':diff<0?'↓ ':'→ ') + num(diff) + ' kg vs départ';
     el.className = 'sc-trend ' + (diff>0?'up':diff<0?'dn':'neu');
-  } else document.getElementById('sc-wtrend').textContent = 'Départ : 71 kg';
+  } else document.getElementById('sc-wtrend').textContent = 'Départ : ' + ALLEZ.fmt(G.weight0, 'n') + ' kg';
   if (bf) {
     document.getElementById('sc-bf').innerHTML = num(bf) + ' <span class="sc-unit">%</span>';
     document.getElementById('sc-bftrend').textContent = (bf <= G.bf0 ? '↓ ' : '↑ +') + num(Math.abs(G.bf0 - bf)) + ' pt vs départ';
@@ -839,7 +829,7 @@ function renderStats() {
 // ── STRENGTH (objectifs + record réel du logbook) ──
 function renderStrength() {
   document.getElementById('strengthList').innerHTML = STRENGTH_D.map(s=>{
-    const best = bestKg(s.lb);
+    const best = bestKg(s.id);
     const pct = best ? Math.max(3, pctOf(best, s.b1, s.b3)) : 0;
     return `<div class="str-item">
       <div class="str-head">
@@ -857,7 +847,7 @@ function renderGoals() {
   const w = ALLEZ.lastMeasure('weight'), bf = ALLEZ.lastMeasure('bf'), waist = ALLEZ.lastMeasure('waist');
   const lean = (w && bf) ? w*(1-bf/100) : null;
   const goals = [
-    { name:'Masse maigre', cur: lean, a:G.lean0, b:G.lean, u:' kg', color:'var(--gold-g)', pctc:'var(--gold)' },
+    { name:'Masse maigre (haut de fourchette)', cur: lean, a:G.lean0, b:G.lean, u:' kg', color:'var(--gold-g)', pctc:'var(--gold)' },
     { name:'Masse grasse', cur: bf, a:G.bf0, b:G.bf, u:' %', color:'linear-gradient(90deg,var(--blue),var(--blue-l))', pctc:'var(--blue)' },
     { name:'Tour de taille', cur: waist, a:G.waist0, b:G.waist, u:' cm', color:'linear-gradient(90deg,var(--purple),var(--purple-l))', pctc:'var(--purple)' },
   ];
@@ -928,7 +918,7 @@ function renderLog() {
 
 // ── STREAK DOTS ──
 function renderStreak() {
-  const sess=getSess(), sdates=new Set(sess.map(s=>s.date)), today=localISO();
+  const sess=muscu(), sdates=new Set(sess.map(s=>s.date)), today=localISO();
   document.getElementById('streakDots').innerHTML=Array.from({length:28},(_,i)=>{
     const d=new Date(); d.setDate(d.getDate()-(27-i));
     const ds=localISO(d), isT=ds===today, on=sdates.has(ds);
@@ -945,7 +935,7 @@ function renderQuote() {
 window.openModal = () => {
   document.getElementById('modalOverlay').classList.add('open');
   ['log-dur','log-w','log-feel','log-note'].forEach(id=>document.getElementById(id).value='');
-  const t = {1:'push',4:'pull',5:'legs',6:'upper'}[new Date().getDay()];
+  const dn = new Date().getDay(), t = P.byDay[dn] ? TYPE_OF[P.byDay[dn]] : (P.otherDays[dn] ? 'legs' : null);
   if (t) document.getElementById('log-type').value = t;
 };
 window.closeModal = () => document.getElementById('modalOverlay').classList.remove('open');
@@ -956,19 +946,21 @@ window.logSession = () => {
   const feel=document.getElementById('log-feel').value;
   const note=document.getElementById('log-note').value;
   const date=localISO();
-  const dash=JSON.parse(localStorage.getItem(SK)||'[]');
-  const idx=dash.findIndex(s=>s.date===date); if(idx>=0)dash.splice(idx,1);
-  dash.push({date,type,duration:dur,weight:w,feeling:feel,note});
-  saveSess(dash);
-  if(w){
-    const meas=JSON.parse(localStorage.getItem(MK)||'[]');
+  const kind = type==='legs' ? 'pingpong' : 'muscu';
+  const seance = { push:'push', pull:'pull', upper:'vshape' }[type] || null;
+  // On complète la séance du jour si elle existe déjà (le détail saisi dans le logbook est conservé)
+  const prev = ALLEZ.store.get(date + '_' + kind) || { date, kind };
+  ALLEZ.store.upsert(Object.assign({}, prev, { seance: prev.seance || seance, duration: dur, bodyWeight: w, feeling: feel, note }));
+  const wNum = parseFloat(String(w).replace(',', '.'));
+  if(isFinite(wNum) && wNum > 0){
+    const meas=ALLEZ.lsGet('px_measures', []);
     const label=new Date().toLocaleDateString('fr-FR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-    meas.push({date:label,iso:date,weight:w}); localStorage.setItem(MK,JSON.stringify(meas));
+    meas.push({date:label,iso:date,weight:wNum}); ALLEZ.lsSet('px_measures', meas);
   }
   closeModal(); renderAll();
 };
 document.getElementById('clearBtn').onclick=()=>{
-  if(confirm('Effacer les séances rapides du dashboard ?\n(Les séances du logbook ne sont pas touchées.)')){saveSess([]);renderAll();}
+  if(confirm('Effacer les séances rapides (sans détail des séries) ?\n(Les séances détaillées du logbook ne sont pas touchées.)')){getSess().filter(s=>!s.exercises.length).forEach(s=>ALLEZ.store.remove(s.id));renderAll();}
 };
 document.getElementById('modalOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
 
@@ -983,7 +975,7 @@ function drawWeight() {
   const pad={t:12,r:16,b:30,l:38}, cW=W-pad.l-pad.r, cH=H-pad.t-pad.b;
   const wData=ALLEZ.PROJ.weight, mData=ALLEZ.PROJ.lean, bData=ALLEZ.PROJ.bf;
   const labels=['Départ','M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'];
-  const yMn=54,yMx=76;
+  const yMn=Math.floor(Math.min.apply(null,mData)-2), yMx=Math.ceil(Math.max.apply(null,wData)+3);
   const xp=i=>pad.l+(i/12)*cW;
   const yp=v=>pad.t+cH-((Math.max(yMn,Math.min(yMx,v))-yMn)/(yMx-yMn))*cH;
   ctx.clearRect(0,0,W,H);
@@ -1027,8 +1019,8 @@ function drawWeight() {
 
 function drawDonut() {
   const canvas=document.getElementById('donutChart'); if(!canvas)return;
-  const train=[1,4,6].includes(new Date().getDay());
-  const M = train ? {k:2650,p:160,c:345,l:70} : {k:2100,p:160,c:197,l:75};
+  const train=!!P.byDay[new Date().getDay()];
+  const D = train ? N.train : N.rest, M = {k:D.kcal,p:D.p,c:D.g,l:D.l};
   document.getElementById('macroSub').textContent = (train?'Jour training':'Jour repos') + ' · ' + M.k.toLocaleString('fr-FR') + ' kcal';
   const chips=document.querySelectorAll('.macro-chip .mc-val');
   if(chips.length>=3){ chips[0].textContent=M.p+'g'; chips[1].textContent=M.c+'g'; chips[2].textContent=M.l+'g'; }
@@ -1073,7 +1065,7 @@ function importData(input){ ALLEZ.importData(input); }
 function renderBackup(){
   var card=document.getElementById('backupCard'); if(!card)return;
   var titleEl=document.getElementById('backupTitle'),descEl=document.getElementById('backupDesc'),icoEl=document.getElementById('backupIco');
-  var lb=null; try{lb=JSON.parse(localStorage.getItem('px_last_backup')||'null');}catch(e){}
+  var lb=ALLEZ.lsGet('px_last_backup', null);
   var count=bk_dataCount();
   if(count===0){
     card.className='backup-card';icoEl.textContent='💾';

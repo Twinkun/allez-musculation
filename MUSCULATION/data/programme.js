@@ -122,8 +122,9 @@
 
   // ── SÉANCES ───────────────────────────────────────────────────────
   // sets = séries du programme complet (blocs 2 et 3) · rest en secondes · hint = charge indicative pour débuter
+  // slot = journée type (A ou B) : l'heure de séance est une donnée privée, saisie dans le profil
   var SESSIONS = {
-    push: { id: 'push', name: 'PUSH', day: 1, label: 'Lundi', focus: 'Pectoraux · Épaules · Triceps + finisher posture', items: [
+    push: { id: 'push', name: 'PUSH', day: 1, label: 'Lundi', slot: 'A', focus: 'Pectoraux · Épaules · Triceps + finisher posture', items: [
       { ex: 'dev-incline', sets: 4, reps: '12-15', rest: 90, hint: '12-14 kg/main' },
       { ex: 'elev-lat', sets: 4, reps: '12-15', rest: 60, hint: '4-6 kg' },
       { ex: 'dev-militaire', sets: 4, reps: '10-12', rest: 90, hint: '10 kg/main' },
@@ -132,7 +133,7 @@
       { ex: 'face-pull', sets: 4, reps: '15-20', rest: 60, hint: '8-10 kg' },
       { ex: 'planche', sets: 3, reps: '30-60 s', rest: 45 }
     ] },
-    pull: { id: 'pull', name: 'PULL', day: 4, label: 'Jeudi', focus: 'Dos · Biceps · Deltoïde post. + finisher core', items: [
+    pull: { id: 'pull', name: 'PULL', day: 4, label: 'Jeudi', slot: 'A', focus: 'Dos · Biceps · Deltoïde post. + finisher core', items: [
       { ex: 'tirage-vertical', sets: 4, reps: '10-12', rest: 90, hint: '40-50 kg' },
       { ex: 'rowing-unilateral', sets: 4, reps: '10-12/côté', rest: 75, hint: '18-20 kg' },
       { ex: 'oiseau-incline', sets: 3, reps: '15-20', rest: 60, hint: '3-5 kg/main' },
@@ -142,7 +143,7 @@
       { ex: 'dead-bug', sets: 3, reps: '10/côté', rest: 45 },
       { ex: 'bird-dog', sets: 3, reps: '10/côté', rest: 45 }
     ] },
-    vshape: { id: 'vshape', name: 'V-SHAPE', day: 6, label: 'Samedi', focus: 'Épaules 3D · Dos · Bras + finishers posture & core', items: [
+    vshape: { id: 'vshape', name: 'V-SHAPE', day: 6, label: 'Samedi', slot: 'B', focus: 'Épaules 3D · Dos · Bras + finishers posture & core', items: [
       { ex: 'elev-lat', sets: 4, reps: '15', rest: 60, hint: '4-6 kg' },
       { ex: 'elev-lat-cable', sets: 3, reps: '15', rest: 60, hint: '2,5-5 kg/côté' },
       { ex: 'arnold-press', sets: 4, reps: '10-12', rest: 90, hint: '8-10 kg/main' },
