@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#e8960a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -11,7 +12,9 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Recettes — ALLEZ</title>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
+<script src="data/nutrition.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -201,9 +204,10 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
   <div class="hero-tag">🍳 Cuisine haute performance</div>
   <h1>RECETTES <span>PRO</span></h1>
   <p class="hero-sub">Les 50 meilleures recettes — préparées comme un cuisinier, dosées comme un athlète. Instructions étape par étape, techniques précises.</p>
+  <p class="hero-sub" style="margin-top:10px;color:#f5b02a">⚠️ Calories et macros affichées en cours de recalcul avec la table Ciqual 2025 : elles sont aujourd'hui sous-estimées, d'environ 20 % en moyenne. Pèse tes ingrédients et garde une marge.</p>
   <div class="hero-stats">
     <div class="hero-stat"><div class="hstat-v">50</div><div class="hstat-l">Recettes</div></div>
-    <div class="hero-stat"><div class="hstat-v">160g</div><div class="hstat-l">Protéines / jour</div></div>
+    <div class="hero-stat"><div class="hstat-v"><span data-az="nutrition.proteines"></span>g</div><div class="hstat-l">Protéines / jour</div></div>
     <div class="hero-stat"><div class="hstat-v">~4€</div><div class="hstat-l">Prix moyen</div></div>
     <div class="hero-stat"><div class="hstat-v">40min</div><div class="hstat-l">Max cuisson</div></div>
   </div>

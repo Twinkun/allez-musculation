@@ -46,6 +46,7 @@
     creatine: { icone: '⚗️', titre: 'CRÉATINE', court: 'Créatine 5 g', moment: 'pre', quand: 'Tous les jours, repos compris', resume: 'Force et volume d\'entraînement',
       marque: 'Optimum Nutrition', nom: 'Créatine monohydrate', priorite: 3, unite: '5 g', nutriments: {},
       dose: '5 g par jour, tous les jours (repos compris). Pas de phase de charge nécessaire.',
+      aSavoir: 'Environ +1 kg sur la balance les premières semaines : de l\'eau retenue dans le muscle, pas du gras.',
       effets: [{ effet: 'Force et volume d\'entraînement (environ +8 % de force et +14 % de répétitions contre placebo)', preuve: 'A', refs: ['rawson2003', 'kreider2017'] }] },
     whey: { icone: '🥛', titre: 'GOLD WHEY', court: 'Whey 1 dose', moment: 'post', quand: 'Après la séance, ou en collation', resume: '24 g de protéines par dose',
       marque: 'Optimum Nutrition', nom: 'Gold Standard Whey', priorite: 3, unite: '1 dose', nutriments: {},
