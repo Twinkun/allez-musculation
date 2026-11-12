@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e8960a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ALLEZ">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Profil — ALLEZ</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/base.css">
+<script src="core.js"></script>
+<script src="data/programme.js"></script>
+<script src="data/nutrition.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+html { overflow-x: hidden; scroll-behavior: smooth; }
+body { margin: 0; background: var(--az-creme); color: var(--az-texte); font-family: var(--az-police-texte); line-height: 1.5; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+.top { background: var(--az-nuit); color: #fff; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.top a.logo { font-family: var(--az-police-titre); font-size: 1.6rem; letter-spacing: .08em; color: var(--az-or); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+.top a.back { color: #fff; font-size: .85rem; font-weight: 600; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 6px; }
+main { max-width: 860px; margin: 0 auto; padding: 24px 16px 40px; }
+h1 { font-family: var(--az-police-titre); font-size: clamp(2.2rem, 7vw, 3.2rem); letter-spacing: .03em; line-height: 1.05; margin: 8px 0 6px; font-weight: 400; }
+h1 em { font-style: normal; color: var(--az-or-texte); }
+.lead { color: var(--az-texte-moyen); font-size: .95rem; margin: 0 0 22px; max-width: 60ch; }
+.carte { background: var(--az-carte); border: 1px solid var(--az-bord); border-radius: 16px; padding: 20px; margin-bottom: 18px; box-shadow: 0 2px 12px rgba(0,0,0,.05); }
+.carte h2 { font-family: var(--az-police-titre); font-weight: 400; font-size: 1.5rem; letter-spacing: .04em; margin: 0 0 4px; }
+.carte > p { font-size: .88rem; color: var(--az-texte-moyen); margin: 0 0 14px; }
+.barre { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; align-items: center; }
+.etat { display: inline-block; vertical-align: middle; font-family: var(--az-police-texte); font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; background: rgba(10,158,82,.12); color: #06713a; }
+.etat.non { background: rgba(232,150,10,.14); color: var(--az-or-texte); }
+.erreurs { margin: 12px 0 0; padding: 10px 14px 10px 30px; border-radius: 10px; background: #fdecea; color: #8c1c13; font-size: .85rem; }
+.erreurs:empty { display: none; }
+.resume { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 14px; }
+.resume div { background: var(--az-fond-doux); border-radius: 12px; padding: 12px; }
+.resume b { display: block; font-family: var(--az-police-titre); font-weight: 400; font-size: 1.6rem; letter-spacing: .03em; color: var(--az-texte); line-height: 1.1; }
+.resume div > span { font-size: .72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--az-texte-leger); }
+.lignes { list-style: none; margin: 0; padding: 0; font-size: .88rem; }
+.lignes li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--az-bord); }
+.lignes li:last-child { border-bottom: 0; }
+.lignes li span:last-child { font-weight: 700; text-align: right; }
+input[type=file] { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+label.az-btn { cursor: pointer; }
+label.az-btn:focus-within { outline: 2px solid var(--az-nuit); outline-offset: 2px; }
+</style>
+</head>
+<body data-no-rappels>
+<header class="top">
+  <a class="logo" href="index.html" aria-label="ALLEZ — accueil">ALLEZ</a>
+  <a class="back" href="dashboard.html">← Suivi</a>
+</header>
+
+<main>
+  <h1>MON <em>PROFIL</em></h1>
+  <p class="lead">Tes mesures restent sur cet appareil : elles ne sont jamais écrites dans le site publié ni envoyées ailleurs. Toutes les cibles de l'app (calories, objectifs, projection) sont calculées à partir d'elles.</p>
+
+  <!-- Profil -->
+  <section class="carte" aria-labelledby="t-profil">
+    <h2 id="t-profil">Mesures de départ <span class="etat" id="etatProfil"></span></h2>
+    <p>À prendre le matin à jeun. La masse grasse est une estimation : à ±2 points près, les cibles changent peu.</p>
+    <form id="formProfil" novalidate>
+      <div class="az-form" id="champs"></div>
+      <ul class="erreurs" id="erreurs" role="alert"></ul>
+      <div class="barre">
+        <button class="az-btn" type="submit">Enregistrer</button>
+        <button class="az-btn ghost" type="button" id="btnEffacerProfil">Revenir au profil d'exemple</button>
+      </div>
+    </form>
+    <div class="resume" aria-live="polite">
+      <div><b><span data-az="nutrition.train.kcal|int"></span></b><span>kcal jour de séance</span></div>
+      <div><b><span data-az="nutrition.rest.kcal|int"></span></b><span>kcal jour de repos</span></div>
+      <div><b><span data-az="nutrition.proteines"></span> g</b><span>protéines par jour</span></div>
+      <div><b><span data-az="goals.lean0|1"></span> kg</b><span>masse maigre de départ</span></div>
+      <div><b><span data-az="goals.bf|n"></span> %</b><span>masse grasse visée à 12 mois</span></div>
+      <div><b><span data-az="goals.leanGainLow|+n"></span> à <span data-az="goals.leanGainHigh|+n"></span> kg</b><span>masse maigre visée</span></div>
+    </div>
+  </section>
+
+  <!-- Date de départ -->
+  <section class="carte" aria-labelledby="t-date">
+    <h2 id="t-date">Date de départ</h2>
+    <p>Les semaines, les blocs et la projection se calent sur ce jour.</p>
+    <div id="startCard"></div>
+  </section>
+
+  <!-- Horaires -->
+  <section class="carte" aria-labelledby="t-horaires">
+    <h2 id="t-horaires">Mes horaires</h2>
+    <p>Facultatif. Sans horaire, le plan repas affiche des repères relatifs (« 90 min avant la séance »). Avec, il affiche les heures.</p>
+    <div class="az-form" id="horaires"></div>
+    <div class="barre"><button class="az-btn" type="button" id="btnHoraires">Enregistrer les horaires</button></div>
+  </section>
+
+  <!-- Contenu privé -->
+  <section class="carte" aria-labelledby="t-prive">
+    <h2 id="t-prive">Contenu personnel <span class="etat" id="etatPrive"></span></h2>
+    <p>Ton analyse physique et les remarques liées à ta morphologie ne sont pas dans le site publié. Elles sont dans ton fichier privé (<code>profil-prive-allez.json</code>), à importer une fois par appareil. Ce fichier contient aussi ton profil et tes horaires.</p>
+    <div class="barre">
+      <label class="az-btn">Importer mon fichier privé<input type="file" id="filePrive" accept=".json,application/json"></label>
+      <button class="az-btn ghost" type="button" id="btnEffacerPrive">Retirer de cet appareil</button>
+    </div>
+  </section>
+
+  <!-- Sauvegarde -->
+  <section class="carte" aria-labelledby="t-sauv">
+    <h2 id="t-sauv">Sauvegarde</h2>
+    <p>Tes séances et tes mesures ne vivent que dans ce navigateur. Une sauvegarde est un fichier que tu gardes où tu veux ; elle se réimporte ici ou sur un autre appareil.</p>
+    <ul class="lignes" id="etatSauv"></ul>
+    <div class="barre">
+      <button class="az-btn" type="button" id="btnExport">Sauvegarder maintenant</button>
+      <label class="az-btn ghost">Importer une sauvegarde<input type="file" id="fileBackup" accept=".json,application/json"></label>
+      <button class="az-btn ghost" type="button" id="btnPersist">Protéger le stockage</button>
+    </div>
+    <p class="az-note" style="margin-top:12px">Sur iPhone, Safari peut effacer les données d'un site resté longtemps sans visite : installe l'app sur l'écran d'accueil et sauvegarde régulièrement.</p>
+  </section>
+</main>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id), esc = ALLEZ.esc;
+  const virg = v => v === null || v === undefined ? '' : String(v).replace('.', ',');
+
+  // ── Profil ──
+  function renderProfil() {
+    const p = ALLEZ.profile(), set = ALLEZ.profileIsSet();
+    const champ = (id, f, val) => `<label class="az-field">${esc(f[0])} (${esc(f[3])})<input id="${id}" name="${id}" inputmode="decimal" autocomplete="off" value="${set ? esc(virg(val)) : ''}" placeholder="${esc(virg(val))}"></label>`;
+    $('champs').innerHTML = `<label class="az-field">Sexe (pour la formule de dépense)<select id="p_sex" name="p_sex"><option value="m"${p.sex === 'm' ? ' selected' : ''}>Homme</option><option value="f"${p.sex === 'f' ? ' selected' : ''}>Femme</option></select></label>`
+      + Object.keys(ALLEZ.PROFILE_FIELDS).map(k => champ('p_' + k, ALLEZ.PROFILE_FIELDS[k], p[k])).join('')
+      + Object.keys(ALLEZ.START_FIELDS).map(k => champ('s_' + k, ALLEZ.START_FIELDS[k], p.start[k])).join('');
+    $('etatProfil').textContent = set ? 'Renseigné' : 'Exemple'; $('etatProfil').className = 'etat' + (set ? '' : ' non');
+    $('btnEffacerProfil').hidden = !set;
+    ALLEZ.bind(document);
+  }
+  $('formProfil').addEventListener('submit', e => {
+    e.preventDefault();
+    const p = { sex: $('p_sex').value, start: {} };
+    Object.keys(ALLEZ.PROFILE_FIELDS).forEach(k => { p[k] = $('p_' + k).value; });
+    Object.keys(ALLEZ.START_FIELDS).forEach(k => { p.start[k] = $('s_' + k).value; });
+    const r = ALLEZ.setProfile(p);
+    $('erreurs').innerHTML = r.ok ? '' : r.errors.map(x => '<li>' + esc(x) + '</li>').join('');
+    if (r.ok) { renderProfil(); ALLEZ.ui.toast('Profil enregistré : les cibles sont recalculées.'); }
+  });
+  $('btnEffacerProfil').addEventListener('click', () => {
+    ALLEZ.ui.dialog({ title: 'Effacer ton profil de cet appareil ?', intro: 'L\'app affichera de nouveau les valeurs d\'exemple. Tes séances et tes mesures ne sont pas touchées.', ok: 'Effacer', danger: true })
+      .then(yes => { if (yes) { ALLEZ.clearProfile(); $('erreurs').innerHTML = ''; renderProfil(); } });
+  });
+
+  // ── Horaires (dans le contenu privé de l'appareil) ──
+  const SLOTS = {};
+  ALLEZ.PROGRAM.ORDER.forEach(sid => { const X = ALLEZ.PROGRAM.SESSIONS[sid]; (SLOTS[X.slot] = SLOTS[X.slot] || []).push(X.label); });
+  const prive = () => ALLEZ.lsGet('px_prive', null) || { schemaVersion: 1, blocs: {}, horaires: {} };
+  function renderHoraires() {
+    const h = prive().horaires || {};
+    $('horaires').innerHTML = Object.keys(SLOTS).map(k => `<label class="az-field">Séance — ${esc(SLOTS[k].join(' et '))}<input type="time" id="h_${k}" value="${esc(h[k] || '')}"></label>`).join('')
+      + `<label class="az-field">Petit-déjeuner les jours de repos<input type="time" id="h_C" value="${esc(h.C || '')}"></label>`;
+  }
+  $('btnHoraires').addEventListener('click', () => {
+    const p = prive(); p.horaires = {};
+    Object.keys(SLOTS).concat(['C']).forEach(k => { const v = $('h_' + k).value; if (/^\d{2}:\d{2}$/.test(v)) p.horaires[k] = v; });
+    ALLEZ.lsSet('px_prive', p); ALLEZ.ui.toast('Horaires enregistrés.');
+  });
+
+  // ── Contenu privé ──
+  function renderPrive() {
+    const n = Object.keys(prive().blocs || {}).length;
+    $('etatPrive').textContent = n ? n + ' éléments importés' : 'Non importé'; $('etatPrive').className = 'etat' + (n ? '' : ' non');
+    $('btnEffacerPrive').hidden = !n;
+  }
+  $('filePrive').addEventListener('change', e => ALLEZ.importData(e.target));
+  $('btnEffacerPrive').addEventListener('click', () => {
+    ALLEZ.ui.dialog({ title: 'Retirer le contenu personnel de cet appareil ?', intro: 'Tes horaires sont conservés. Tu pourras réimporter ton fichier privé quand tu veux.', ok: 'Retirer', danger: true })
+      .then(yes => { if (!yes) return; const p = prive(); p.blocs = {}; ALLEZ.lsSet('px_prive', p); renderPrive(); });
+  });
+
+  // ── Sauvegarde ──
+  function renderSauv(persist) {
+    const last = ALLEZ.lsGet('px_last_backup', null), due = ALLEZ.backup.due();
+    const L = [
+      ['Séances enregistrées', ALLEZ.store.sessions().length],
+      ['Mesures enregistrées', ALLEZ.measures().length],
+      ['Dernière sauvegarde', last && last.date ? new Date(last.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + (due.due ? ' — à refaire' : '') : 'jamais'],
+      ['Stockage protégé', persist === null ? 'non disponible sur ce navigateur' : persist ? 'oui' : 'non']
+    ];
+    $('etatSauv').innerHTML = L.map(x => `<li><span>${esc(x[0])}</span><span>${esc(x[1])}</span></li>`).join('');
+    $('btnPersist').hidden = persist !== false;
+  }
+  function etatPersist() {
+    const st = navigator.storage;
+    return st && st.persisted ? st.persisted().catch(() => null) : Promise.resolve(null);
+  }
+  $('btnExport').addEventListener('click', () => { ALLEZ.exportData(); etatPersist().then(renderSauv); });
+  $('fileBackup').addEventListener('change', e => ALLEZ.importData(e.target));
+  $('btnPersist').addEventListener('click', () => {
+    ALLEZ.requestPersist().then(ok => { renderSauv(ok); ALLEZ.ui.toast(ok ? 'Stockage protégé.' : 'Le navigateur a refusé : installe l\'app sur l\'écran d\'accueil, puis réessaie.'); });
+  });
+
+  renderProfil(); renderHoraires(); renderPrive();
+  ALLEZ.renderStartCard($('startCard'));
+  etatPersist().then(renderSauv);
+})();
+</script>
+<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(function(){});</script>
+</body>
+</html>

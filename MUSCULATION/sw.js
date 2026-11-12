@@ -1,23 +1,29 @@
-const CACHE = 'allez-v65';
+const CACHE = 'allez-v66';
 
 const LOCAL_ASSETS = [
   './index.html',
   './core.js',
+  './assets/base.css',
+  './data/fiches.js',
+  './data/nutrition.js',
+  './data/programme.js',
+  './data/repas.js',
+  './data/supplements.js',
+  './analyse.html',
+  './comparatif-raquettes.html',
   './dashboard.html',
   './exercices.html',
-  './nutrition.html',
-  './progression.html',
-  './analyse.html',
-  './posture.html',
-  './projection.html',
+  './fiche-raquette-pingpong.html',
   './lifestyle.html',
   './logbook.html',
-  './programme.html',
-  './recettes.html',
-  './recettes2.html',
+  './nutrition.html',
   './pingpong.html',
-  './comparatif-raquettes.html',
-  './fiche-raquette-pingpong.html',
+  './posture.html',
+  './profil.html',
+  './programme.html',
+  './progression.html',
+  './projection.html',
+  './recettes.html',
   './manifest.json',
   './icon.svg',
   './icon-192.png',
@@ -57,7 +63,7 @@ self.addEventListener('fetch', e => {
   }
 
   e.respondWith(
-    caches.match(e.request).then(cached => {
+    caches.match(e.request, { ignoreSearch: true }).then(cached => {
       if (cached) return cached;
       // Pas en cache : charger depuis le réseau et mettre en cache
       return fetch(e.request).then(response => {
