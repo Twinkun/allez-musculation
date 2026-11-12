@@ -225,6 +225,15 @@ footer { background: var(--bg-dark); color: rgba(255,255,255,0.45); padding: 36p
 footer a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
 footer a:hover { color: var(--gold); }
 
+/* ── SOURCES ── */
+.proto-impact a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.src-list { margin: 0 0 16px 1.2em; display: flex; flex-direction: column; gap: 8px; font-size: 0.82rem; color: var(--text-mid); line-height: 1.5; }
+.src-list li { scroll-margin-top: 80px; }
+.src-list li:target { background: rgba(232,150,10,0.12); border-radius: 6px; }
+.src-list a, .src-note a, .supp-timing a { color: inherit; text-decoration: underline; overflow-wrap: anywhere; }
+.src-note { font-size: 0.82rem; color: var(--text-light); margin-bottom: 48px; }
+@media (max-width: 768px) { .proto-impact { text-align: left; white-space: normal; } }
+
 /* ── REVEAL ── */
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -293,9 +302,9 @@ button, a, [onclick], input, select, label {
 <!-- HERO -->
 <div class="hero">
   <div class="hero-content">
-    <div class="hero-tag">⚡ Optimisation masculine complète</div>
+    <div class="hero-tag">⚡ Hygiène de vie, version sourcée</div>
     <h1>LIFESTYLE<br><span>&amp; BIEN-ÊTRE</span></h1>
-    <p>Hormones, discipline mentale, voix, énergie vitale. Le physique se construit à la salle — mais c'est ton mode de vie entier qui détermine qui tu deviens.</p>
+    <p>Sommeil, hormones, compléments, habitudes. Seulement ce qui a une source — la liste est en bas de page.</p>
     <div class="hero-stats">
       <div class="hstat"><div class="hstat-val">5</div><div class="hstat-label">Piliers</div></div>
       <div class="hstat"><div class="hstat-val">7-9 h</div><div class="hstat-label">De sommeil par nuit</div></div>
@@ -305,484 +314,230 @@ button, a, [onclick], input, select, label {
 </div>
 
 <!-- ═══════════════════════════════════════════ -->
-<!--  SECTION 1 — TESTOSTÉRONE NATURELLE        -->
+<!--  Règle de cette page : chaque affirmation   -->
+<!--  renvoie à une source (liste en bas de page) -->
 <!-- ═══════════════════════════════════════════ -->
 <div class="page-wrap">
 
   <div class="sec-head reveal">
     <div class="sec-tag gold">🔥 Pilier 1</div>
     <h2 class="sec-title">TESTOSTÉRONE <span>NATURELLE</span></h2>
-    <p class="sec-sub">La testostérone n'est pas réservée aux bodybuilders sous stéroïdes. C'est ton carburant principal — énergie, muscle, libido, confiance, clarté mentale. Tu peux l'entretenir naturellement : sommeil, gras corporel, alimentation et stress.</p>
+    <p class="sec-sub">Ce qui est établi chez un homme en bonne santé tient en peu de choses : dormir assez, s'entraîner, manger assez de graisses, limiter l'alcool. Chaque point renvoie à sa source, listée en bas de page.</p>
   </div>
 
-  <!-- Protocole -->
   <div class="proto-list reveal">
 
     <div class="proto-item">
       <div class="proto-num">01</div>
       <div>
-        <div class="proto-content-title">Sommeil 7–9h — priorité absolue</div>
-        <div class="proto-content-body">La testostérone est produite surtout pendant le sommeil : une semaine à 5 h par nuit l'a fait baisser de 10-15 % chez des hommes jeunes (Leproult & Van Cauter, 2011). Couche-toi avant minuit, chambre fraîche (18–20°C), zéro écran 30 min avant.</div>
+        <div class="proto-content-title">Sommeil 7–9 h</div>
+        <div class="proto-content-body">Une semaine à 5 h de sommeil par nuit a fait baisser la testostérone de journée de 10 à 15 % chez dix hommes jeunes en bonne santé.</div>
       </div>
-      <div class="proto-impact">Impact ★★★★★</div>
+      <div class="proto-impact"><a href="#src-leproult2011">Leproult 2011</a></div>
     </div>
 
     <div class="proto-item">
       <div class="proto-num">02</div>
       <div>
-        <div class="proto-content-title">Entraînement en force — squats, soulevés, développés</div>
-        <div class="proto-content-body">Le pic de testostérone après une séance est bref et n'explique pas la prise de muscle (West 2010) : inutile de chercher des séries très lourdes pour ça. Ce qui compte, c'est la régularité et la progression des charges dans tes fourchettes de reps.<span data-prive="lifestyle.01" hidden></span> Un volume de cardio très élevé peut gêner la récupération — le ping-pong du vendredi suffit largement.</div>
+        <div class="proto-content-title">Entraînement en force : régularité et progression</div>
+        <div class="proto-content-body">Le pic de testostérone qui suit une séance est bref et n'explique pas la prise de muscle : inutile de choisir des exercices « pour les hormones ». Ce qui compte, c'est la régularité et la progression des charges dans tes fourchettes de répétitions.<span data-prive="lifestyle.01" hidden></span></div>
       </div>
-      <div class="proto-impact">Impact ★★★★★</div>
+      <div class="proto-impact"><a href="#src-west2010">West 2010</a></div>
     </div>
 
     <div class="proto-item">
       <div class="proto-num">03</div>
       <div>
-        <div class="proto-content-title">Zinc et vitamine D — utiles seulement en cas de manque</div>
-        <div class="proto-content-body">Le zinc et la vitamine D ne soutiennent la testostérone que si tu en manques : un essai positif chez des hommes carencés (Pilz 2011), aucun effet chez des hommes sans carence (Lerchbaum 2017). Sources alimentaires de zinc : huîtres, viande rouge, graines de courge. Vitamine D : soleil l'été, poissons gras. Doses et cumul de tes compléments : <a href="nutrition.html#sec-complements" style="color:inherit">voir Nutrition</a>.</div>
+        <div class="proto-content-title">Zinc et vitamine D : utiles seulement en cas de manque</div>
+        <div class="proto-content-body">Un essai a montré une hausse de la testostérone avec la vitamine D chez des hommes carencés et en surpoids ; deux autres essais, chez des hommes à testostérone normale puis basse, n'ont montré aucun effet. Tes doses et leur cumul avec l'alimentation sont contrôlés dans <a href="nutrition.html#sec-complements" style="color:inherit">Nutrition</a>.</div>
       </div>
-      <div class="proto-impact">Impact ★★★★☆</div>
+      <div class="proto-impact"><a href="#src-pilz2011">Pilz 2011</a> · <a href="#src-lerchbaum2017">Lerchbaum 2017</a> · <a href="#src-lerchbaum2019">2019</a></div>
     </div>
 
     <div class="proto-item">
       <div class="proto-num">04</div>
       <div>
-        <div class="proto-content-title">Graisses saturées et mono-insaturées — ne les évite pas</div>
-        <div class="proto-content-body">La testostérone est synthétisée à partir du cholestérol. Un régime trop pauvre en graisses fait chuter les androgènes. Inclus : œufs entiers (2–4/jour), huile d'olive, avocats, viande rouge 2–3x/semaine, beurre de qualité. La peur des graisses = erreur majeure.</div>
+        <div class="proto-content-title">Ne descends pas trop bas en graisses</div>
+        <div class="proto-content-body">Dans une méta-analyse d'essais, les régimes pauvres en graisses s'accompagnent d'une testostérone plus basse que les régimes plus riches en graisses. Ton plan vise environ 25 à 30 % des calories en lipides. Garde les graisses saturées sous le repère de l'Anses (12 % des calories au plus) : privilégie huile d'olive, avocat, noix et poissons gras.</div>
       </div>
-      <div class="proto-impact">Impact ★★★★☆</div>
+      <div class="proto-impact"><a href="#src-whittaker2021">Whittaker 2021</a> · <a href="#src-anses2011">Anses 2011</a></div>
     </div>
 
     <div class="proto-item">
       <div class="proto-num">05</div>
       <div>
-        <div class="proto-content-title">Gestion du cortisol — l'ennemi silencieux</div>
-        <div class="proto-content-body">Un cortisol élevé en continu (stress chronique, manque de sommeil) tend à faire baisser la testostérone. Protocole : méditation 10 min/jour (voir section Bien-être), pas de surentraînement, exposition au soleil le matin, limiter la caféine après 14h.</div>
+        <div class="proto-content-title">Alcool : surtout les grosses soirées</div>
+        <div class="proto-content-body">Une forte prise d'alcool a fait baisser la testostérone d'environ 20 à 25 % le lendemain. Après une séance, l'alcool réduit aussi la synthèse des protéines musculaires, même avec des protéines dans le repas. Règle simple : pas d'alcool le soir d'une séance ni la veille.</div>
       </div>
-      <div class="proto-impact">Impact ★★★★★</div>
+      <div class="proto-impact"><a href="#src-valimaki1984">Välimäki 1984</a> · <a href="#src-parr2014">Parr 2014</a></div>
     </div>
 
     <div class="proto-item">
       <div class="proto-num">06</div>
       <div>
-        <div class="proto-content-title">Expositions au froid — douches froides & ice bath</div>
-        <div class="proto-content-body">Une immersion d'1 h dans l'eau à 14 °C a augmenté la dopamine plasmatique de 250 % (Šrámek 2000) — une douche froide de 90 s produit un effet bien plus modeste, mais réel sur la vigilance. ⚠️ En revanche, il n'existe pas de preuve solide d'un effet direct sur la testostérone : n'en attends pas un boost hormonal. Protocole : finir chaque douche sur 90 sec d'eau froide. Ice bath 10–15°C pendant 3–5 min — mais <strong>pas juste après une séance de muscu</strong> (le froid post-effort peut freiner la prise de muscle) : réserve-le aux jours de repos ou à distance de l'entraînement. L'inconfort est le signal.</div>
+        <div class="proto-content-title">Froid : pour la vigilance, pas pour les hormones</div>
+        <div class="proto-content-body">Une immersion d'1 h dans l'eau à 14 °C a multiplié la noradrénaline et augmenté la dopamine sanguine d'environ 250 %. Une douche froide de 90 s n'a pas été étudiée de la même façon, et aucun effet sur la testostérone n'est démontré. Le froid juste après la séance réduit les gains de muscle sur 12 semaines : garde-le pour les jours de repos.</div>
       </div>
-      <div class="proto-impact">Impact ★★★☆☆</div>
-    </div>
-
-    <div class="proto-item">
-      <div class="proto-num">07</div>
-      <div>
-        <div class="proto-content-title">Maintenir un bodyfat entre 10–18%</div>
-        <div class="proto-content-body">La graisse viscérale contient l'enzyme aromatase qui convertit la testostérone en œstrogène. À 20%+ BF, ce processus s'accélère. C'est une raison supplémentaire pour suivre ta recomposition — chaque % de BF en moins = meilleur profil hormonal. Objectif <span data-az="goals.bf|n"></span> % en 12 mois.</div>
-      </div>
-      <div class="proto-impact">Impact ★★★★☆</div>
-    </div>
-
-    <div class="proto-item">
-      <div class="proto-num">08</div>
-      <div>
-        <div class="proto-content-title">Alcool — le saboteur hormonal le plus sous-estimé</div>
-        <div class="proto-content-body">Une forte alcoolisation (≈ 6-8 verres) peut abaisser la testostérone d'environ 20-25 % pendant ~24 h ; même 2-4 verres dégradent le sommeil et la récupération. L'éthanol active l'aromatase (conversion T → œstrogène), perturbe les phases NREM du sommeil, et réduit la synthèse protéique musculaire et la récupération post-séance. Règle minimale : zéro alcool la veille d'une séance, zéro après 21h, et si tu consommes — verre de vin rouge sec plutôt que bière (le houblon contient des phyto-œstrogènes).</div>
-      </div>
-      <div class="proto-impact">Impact ★★★★☆</div>
+      <div class="proto-impact"><a href="#src-sramek2000">Šrámek 2000</a> · <a href="#src-roberts2015">Roberts 2015</a></div>
     </div>
 
   </div>
 
-  <!-- Dark banner testo -->
-  <div class="dark-banner reveal">
+  <div class="dark-banner reveal" style="grid-template-columns:1fr">
     <div>
       <div class="dark-banner-title">TON PROFIL <span>HORMONAL</span></div>
-      <p class="dark-banner-body">Aucune étude ne montre un gain chiffré de testostérone avec ce type de protocole chez un homme jeune de poids normal. Ce qui est établi : dormir assez (Leproult &amp; Van Cauter 2011), s'entraîner régulièrement, ne pas manger trop peu de graisses (Whittaker 2021) et perdre le gras en excès entretiennent un profil hormonal sain.</p>
-    </div>
-    <div class="dark-banner-stats">
-      <div class="dstat">
-        <div class="dstat-label">Sommeil</div>
-        <div class="dstat-bar-wrap"><div class="dstat-bar" data-w="90" style="width:0%;background:var(--gold)"></div></div>
-        <div class="dstat-val">★★★★★</div>
-      </div>
-      <div class="dstat">
-        <div class="dstat-label">Entraînement</div>
-        <div class="dstat-bar-wrap"><div class="dstat-bar" data-w="85" style="width:0%;background:var(--blue-light)"></div></div>
-        <div class="dstat-val">★★★★★</div>
-      </div>
-      <div class="dstat">
-        <div class="dstat-label">Zinc + D3 (si manque)</div>
-        <div class="dstat-bar-wrap"><div class="dstat-bar" data-w="70" style="width:0%;background:var(--green)"></div></div>
-        <div class="dstat-val">★★★★☆</div>
-      </div>
-      <div class="dstat">
-        <div class="dstat-label">Gestion cortisol</div>
-        <div class="dstat-bar-wrap"><div class="dstat-bar" data-w="80" style="width:0%;background:var(--purple)"></div></div>
-        <div class="dstat-val">★★★★★</div>
-      </div>
-      <div class="dstat">
-        <div class="dstat-label">Body fat</div>
-        <div class="dstat-bar-wrap"><div class="dstat-bar" data-w="65" style="width:0%;background:var(--teal)"></div></div>
-        <div class="dstat-val">★★★★☆</div>
-      </div>
+      <p class="dark-banner-body">Aucune étude ne montre un gain chiffré de testostérone avec ce type de protocole chez un homme jeune de poids normal. Ce qui est établi : dormir assez, s'entraîner régulièrement, ne pas manger trop peu de graisses et limiter l'alcool entretiennent un profil hormonal normal.</p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- ═══════════════════════════════════════════ -->
-  <!--  SECTION 2 — COMPLÉMENTATION               -->
-  <!-- ═══════════════════════════════════════════ -->
-
+  <!-- ═══════════════ PILIER 2 — COMPLÉMENTS ═══════════════ -->
   <div class="sec-head reveal">
     <div class="sec-tag blue">💊 Pilier 2</div>
-    <h2 class="sec-title">COMPLÉMENTATION <span>MASCULINE</span></h2>
-    <p class="sec-sub">Alimentation d'abord. Chaque complément est présenté avec son niveau de preuve (A solide, B modéré, C faible ou non démontré). Le cumul face aux limites de sécurité européennes est détaillé dans <a href="nutrition.html#sec-complements" style="color:inherit">Nutrition</a>.</p>
+    <h2 class="sec-title">COMPLÉMENTS</h2>
+    <p class="sec-sub">L'alimentation d'abord. Chaque complément est présenté avec son niveau de preuve (A solide, B modéré, C faible ou non démontré). Le cumul face aux limites de sécurité européennes est détaillé dans <a href="nutrition.html#sec-complements" style="color:inherit">Nutrition</a>.</p>
   </div>
 
   <div id="suppAlerte"></div>
   <div class="supp-grid reveal" id="suppGrid">
     <div class="supp-card">
-      <div class="supp-dot" style="background:var(--teal)"></div>
+      <div class="supp-dot" style="background:var(--green)"></div>
       <div>
-        <div class="supp-name">Caféine pré-workout</div>
-        <div class="supp-dose">Café noir (1-2 espressos) ou Matcha (1 c. à café) — pas de comprimés</div>
-        <div class="supp-body">Améliore la performance de 10–15%. <strong>Matcha = meilleur choix</strong> : la L-théanine naturellement présente synergise avec la caféine pour une énergie stable, un focus accru et zéro crash. Café noir = parfaitement suffisant avec les antioxydants en bonus. Les comprimés caféine n'ont aucun avantage sur ces deux sources naturelles. Tolérance rapide — alterne café/matcha et fais une pause 2 semaines/2 mois. Jamais après 14h.</div>
-        <div class="supp-timing">⏱ 30–45 min avant la séance · à jeun ou avec très peu de nourriture</div>
-      </div>
-    </div>
-    <div class="supp-card">
-      <div class="supp-dot" style="background:var(--red)"></div>
-      <div>
-        <div class="supp-name">À éviter</div>
-        <div class="supp-dose">Compléments inutiles ou risqués</div>
-        <div class="supp-body">BCAA (inutiles avec <span data-az="nutrition.proteines"></span> g de protéines par jour), boosters de testostérone "naturels" (souvent arnaques), pré-workouts proprietary blend (doses inconnues), fat burners avec éphédrine ou synéphrine, multivitamines cheap (mauvaises formes).</div>
-        <div class="supp-timing">⏱ Économise ton argent sur ce qui n'a pas de preuve</div>
+        <div class="supp-name">Caféine avant la séance</div>
+        <div class="supp-dose">3 à 6 mg par kg de poids, environ 60 min avant — un café suffit souvent pour la dose basse</div>
+        <div class="supp-body"><strong>Preuve A</strong> · Gain modeste de force, de puissance et d'endurance musculaire (méta-analyses). <strong>Sommeil</strong> : 400 mg pris 6 h avant le coucher réduisent encore le sommeil d'environ 1 h ; pour une séance le soir, passe-toi de caféine.</div>
+        <div class="supp-timing">⏱ <a href="#src-grgic2020">Grgic 2020</a> · <a href="#src-guest2021">Guest 2021</a> · <a href="#src-drake2013">Drake 2013</a></div>
       </div>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- ═══════════════════════════════════════════ -->
-  <!--  SECTION 3 — ABSTINENCE & ÉNERGIE VITALE   -->
-  <!-- ═══════════════════════════════════════════ -->
-
+  <!-- ═══════════════ PILIER 3 — ABSTINENCE ═══════════════ -->
   <div class="sec-head reveal">
     <div class="sec-tag purple">⚡ Pilier 3</div>
-    <h2 class="sec-title">ÉNERGIE VITALE <span>&amp; ABSTINENCE</span></h2>
-    <p class="sec-sub">La rétention séminale et la limitation de la masturbation sont pratiquées depuis des siècles dans de nombreuses traditions — et de plus en plus étudiées scientifiquement. Ce n'est pas un dogme : c'est un outil à tester sur toi-même.</p>
+    <h2 class="sec-title">ABSTINENCE <span>&amp; HABITUDES</span></h2>
+    <p class="sec-sub">Les preuves sont minces. Ce qui suit sépare le peu qui a été mesuré de ce qui relève de l'hygiène d'habitudes.</p>
   </div>
 
-  <!-- Mythes / vérités -->
-  <h3 style="font-family:var(--font-head);font-size:1.4rem;letter-spacing:0.04em;margin-bottom:20px;" class="reveal">Mythes vs Réalité</h3>
   <div class="myth-grid reveal">
     <div class="myth-card mythe">
-      <div class="myth-label m">✗ Mythe</div>
-      <div class="myth-text">"La masturbation augmente la testostérone." Les études sur le sujet sont contradictoires et souvent confondues avec des effets à court terme. L'effet s'efface en quelques heures.</div>
+      <div class="myth-label m">✗ Non démontré</div>
+      <div class="myth-text">« L'abstinence fait monter durablement la testostérone. » La seule étude citée habituellement (28 hommes) observe un pic d'environ +45 % au 7ᵉ jour, puis un retour au niveau de départ.</div>
     </div>
     <div class="myth-card verite">
-      <div class="myth-label v">✓ Réalité</div>
-      <div class="myth-text">Une petite étude (Jiang 2003, 28 hommes) a observé un pic ponctuel de testostérone (~+45 %) au 7e jour d'abstinence, qui retombe ensuite. Effet transitoire, sans bénéfice démontré sur le muscle.</div>
-    </div>
-    <div class="myth-card mythe">
-      <div class="myth-label m">✗ Mythe</div>
-      <div class="myth-text">"La pornographie est inoffensive, c'est juste du divertissement." Elle modifie les circuits dopaminergiques de la même façon que d'autres comportements addictifs, avec un seuil de stimulation qui monte progressivement.</div>
-    </div>
-    <div class="myth-card verite">
-      <div class="myth-label v">✓ Réalité</div>
-      <div class="myth-text">La suppression du contenu pornographique réduit la sensibilité de désensibilisation dopaminergique. Tu redeviens plus sensible aux récompenses de la vie réelle : accomplissement, connexion humaine, effort physique.</div>
+      <div class="myth-label v">✓ Ce qu'on peut en retenir</div>
+      <div class="myth-text">Un effet transitoire, sans bénéfice démontré sur le muscle (<a href="#src-jiang2003">Jiang 2003</a>). Réduire la pornographie ou les écrans est une question d'habitudes et de temps disponible, pas un « reset » hormonal ou dopaminergique prouvé.</div>
     </div>
   </div>
 
-  <!-- Bénéfices rapportés -->
-  <h3 style="font-family:var(--font-head);font-size:1.4rem;letter-spacing:0.04em;margin-bottom:20px;" class="reveal">Bénéfices rapportés après 30–90 jours</h3>
-  <div class="card-grid reveal">
-    <div class="card">
-      <div class="card-icon">🔋</div>
-      <div class="badge badge-gold">Énergie</div>
-      <div class="card-title">Niveau d'énergie global</div>
-      <div class="card-body">Les utilisateurs rapportent une énergie plus stable et soutenue sur la journée, notamment en matinée. Moins de léthargie post-orgasme. Plus de drive pour initier des tâches difficiles.</div>
-    </div>
-    <div class="card">
-      <div class="card-icon">🧠</div>
-      <div class="badge badge-blue">Mental</div>
-      <div class="card-title">Clarté mentale & focus</div>
-      <div class="card-body">Brouillard mental réduit, meilleure concentration sur les tâches exigeantes. Le cerveau cesse de chercher la stimulation facile et retrouve sa tolérance à l'effort cognitif.</div>
-    </div>
-    <div class="card">
-      <div class="card-icon">🦁</div>
-      <div class="badge badge-gold">Confiance</div>
-      <div class="card-title">Confiance & présence sociale</div>
-      <div class="card-body">Beaucoup rapportent un regard plus direct et moins d'anxiété sociale. Ce sont des témoignages, pas des effets mesurés : la testostérone ne reste pas durablement plus haute avec l'abstinence.</div>
-    </div>
-    <div class="card">
-      <div class="card-icon">💪</div>
-      <div class="badge badge-green">Physique</div>
-      <div class="card-title">Récupération & entraînement</div>
-      <div class="card-body">Certains athlètes pratiquent la rétention en phase de compétition. La motivation à l'entraînement augmente, la frustration créative se canalise vers l'effort physique.</div>
-    </div>
-    <div class="card">
-      <div class="card-icon">😴</div>
-      <div class="badge badge-green">Sommeil</div>
-      <div class="card-title">Qualité du sommeil</div>
-      <div class="card-body">Aucun effet démontré sur le sommeil — la prolactine libérée après l'orgasme favorise même plutôt l'endormissement. Le vrai levier sommeil reste l'horaire, l'obscurité et zéro écran.</div>
-    </div>
-    <div class="card">
-      <div class="card-icon">🎯</div>
-      <div class="badge badge-blue">Motivation</div>
-      <div class="card-title">Drive & ambition</div>
-      <div class="card-body">La frustration sexuelle, bien canalisée, devient un carburant puissant. De nombreux créateurs, athlètes et entrepreneurs de haut niveau utilisent cette tension comme source d'énergie créatrice.</div>
-    </div>
-  </div>
-
-  <!-- Protocole pratique -->
   <div class="checklist-wrap reveal">
-    <div class="checklist-title">PROTOCOLE PRATIQUE — PAR OÙ COMMENCER</div>
+    <div class="checklist-title">SI TU VEUX CHANGER UNE HABITUDE — MÉTHODE SIMPLE</div>
     <div class="checklist-cols">
-      <div class="check-item"><div class="check-box"></div>Commence par 30 jours sans masturbation ni pornographie</div>
-      <div class="check-item"><div class="check-box"></div>Note tes niveaux d'énergie, focus, humeur chaque soir (1–10)</div>
-      <div class="check-item"><div class="check-box"></div>Supprime l'accès facile (désinstalle les applications, active des filtres)</div>
-      <div class="check-item"><div class="check-box"></div>Remplace l'impulsion par une action physique immédiate (20 pompes)</div>
-      <div class="check-item"><div class="check-box"></div>Occupe les moments à risque : oisiveté nocturne, réveil du matin</div>
-      <div class="check-item"><div class="check-box"></div>Si rechute : pas de spirale de honte — reprends le compte à zéro</div>
-      <div class="check-item"><div class="check-box"></div>Après 30 jours, évalue objectivement les changements ressentis</div>
-      <div class="check-item"><div class="check-box"></div>Continue si les bénéfices sont réels pour toi — c'est ton expérience</div>
+      <div class="check-item"><div class="check-box"></div>Choisis une seule habitude et une durée d'essai (30 jours)</div>
+      <div class="check-item"><div class="check-box"></div>Rends l'accès plus difficile (applications, filtres, téléphone hors de la chambre)</div>
+      <div class="check-item"><div class="check-box"></div>Note chaque soir ton énergie et ton humeur (1 à 10)</div>
+      <div class="check-item"><div class="check-box"></div>Après un écart, reprends le lendemain, sans tout recommencer</div>
+      <div class="check-item"><div class="check-box"></div>À la fin, compare tes notes et décide si tu continues</div>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- ═══════════════════════════════════════════ -->
-  <!--  SECTION 3 — VOIX PLUS GRAVE               -->
-  <!-- ═══════════════════════════════════════════ -->
-
+  <!-- ═══════════════ PILIER 4 — VOIX ═══════════════ -->
   <div class="sec-head reveal">
     <div class="sec-tag teal">🎙 Pilier 4</div>
-    <h2 class="sec-title">VOIX PLUS <span>GRAVE</span></h2>
-    <p class="sec-sub">La voix est l'un des premiers signaux d'autorité et d'attractivité perçus. La bonne nouvelle : la hauteur et la qualité de ta voix peuvent être améliorées significativement — sans chirurgie, sans gadget.</p>
+    <h2 class="sec-title">VOIX <span>POSÉE</span></h2>
+    <p class="sec-sub">Exercices de technique vocale, à tester et à juger sur tes propres enregistrements. Aucune étude ne chiffre un gain de gravité avec ces exercices : il n'y a donc ni promesse ni délai ici.</p>
   </div>
 
-  <!-- Comprendre -->
-  <div class="card-grid reveal" style="grid-template-columns: repeat(auto-fill, minmax(320px,1fr));">
-    <div class="card">
-      <div class="card-icon">🔬</div>
-      <div class="card-title">Pourquoi ta voix peut changer</div>
-      <div class="card-body">À l'âge adulte, la profondeur "anatomique" de ta voix est déjà fixée par la puberté — la testostérone ne la fera plus baisser. Mais la majorité des hommes parlent bien au-dessus de leur grave naturel, par habitude et par tension. En travaillant la résonance, le placement et la détente, tu peux récupérer ce grave naturel et gagner en autorité perçue.</div>
-    </div>
-    <div class="card">
-      <div class="card-icon">📍</div>
-      <div class="card-title">Ton point de départ</div>
-      <div class="card-body">Enregistre-toi en lisant un texte 30 sec. Écoute. La majorité des gens parlent dans le tiers supérieur de leur registre vocal — habitude sociale, pas limite physiologique. Ton "vrai" registre naturel est souvent 20–30% plus grave.</div>
-    </div>
-  </div>
-
-  <h3 style="font-family:var(--font-head);font-size:1.4rem;letter-spacing:0.04em;margin-bottom:20px;" class="reveal">Exercices & Habitudes</h3>
   <div class="voice-grid reveal">
     <div class="voice-card">
-      <div class="voice-card-label">Exercice quotidien</div>
-      <div class="voice-card-title">Humming — le bourdonnement</div>
-      <div class="voice-card-body">Bouche fermée, produis un "mmmmm" grave et soutenu. Sens les vibrations dans ta poitrine, pas dans ton nez. 5 min matin. Cela entraîne les cordes à opérer plus bas et réchauffe les muscles laryngés.</div>
-    </div>
-    <div class="voice-card">
-      <div class="voice-card-label">Exercice quotidien</div>
-      <div class="voice-card-title">Parler depuis le coffre</div>
-      <div class="voice-card-body">Place la main sur ta poitrine. Parle jusqu'à sentir des vibrations sous ta paume. Ce n'est pas forcer — c'est placer la résonance au bon endroit. Pratique avec des phrases courtes, enregistre-toi pour valider.</div>
-    </div>
-    <div class="voice-card">
-      <div class="voice-card-label">Exercice quotidien</div>
-      <div class="voice-card-title">Lecture à voix haute grave</div>
-      <div class="voice-card-body">10 min de lecture quotidienne à voix haute dans ton registre grave naturel. Pas exagéré — juste 1 ton plus bas que ta voix habituelle. C'est un entraînement musculaire progressif. Résultats perceptibles en 4–6 semaines.</div>
-    </div>
-    <div class="voice-card">
-      <div class="voice-card-label">Habitude</div>
-      <div class="voice-card-title">Hydratation — 2,5L minimum</div>
-      <div class="voice-card-body">Les cordes vocales doivent être hydratées pour fonctionner. La déshydratation rend la voix plus aiguë et cassante. L'eau froide resserre — préfère l'eau à température ambiante. Évite la caféine excessive avant une prise de parole.</div>
-    </div>
-    <div class="voice-card">
-      <div class="voice-card-label">Habitude</div>
-      <div class="voice-card-title">Parler lentement</div>
-      <div class="voice-card-body">Le débit rapide pousse la voix vers les aigus et trahit le stress. Ralentis consciemment — 20% plus lent que tu ne l'imagines. Les silences ne sont pas un vide à combler : ils donnent du poids à ce que tu dis. Autorité = lenteur.</div>
-    </div>
-    <div class="voice-card">
-      <div class="voice-card-label">À éviter</div>
-      <div class="voice-card-title">Ce qui tue ta voix</div>
-      <div class="voice-card-body">Tabac (cordes irritées et enflées = voix nasillarde), alcool excessif (déshydratation), crier régulièrement (crispation chronique), montée en fin de phrase (intonation question = manque de conviction). Évite aussi de te racler la gorge — fais avaler à la place.</div>
-    </div>
-    <div class="voice-card">
-      <div class="voice-card-label">Posture</div>
-      <div class="voice-card-title">Chin tuck + épaules ouvertes</div>
-      <div class="voice-card-body">Le forward head posture compresse le larynx et nasillise la voix. Le chin tuck (menton rentré, cou aligné) ouvre la trachée. Associé à des épaules en arrière et une cage thoracique haute, ta voix descend naturellement de 1 à 2 tons.</div>
-    </div>
-    <div class="voice-card">
-      <div class="voice-card-label">Biologie</div>
-      <div class="voice-card-title">Testostérone : déjà jouée à la puberté</div>
-      <div class="voice-card-body">La testostérone a façonné ta voix à l'adolescence (larynx plus bas, cordes épaissies) — mais à l'âge adulte ce socle est acquis et l'optimiser ne descendra pas davantage ta voix. Le vrai levier aujourd'hui, c'est la technique : résonance, placement, posture et détente. L'hygiène de vie (sommeil, zéro tabac) sert surtout à <em>préserver</em> ta voix, pas à la rendre plus grave.</div>
-    </div>
-    <div class="voice-card">
-      <div class="voice-card-label">Outil</div>
+      <div class="voice-card-label">Mesure</div>
       <div class="voice-card-title">Enregistre-toi chaque semaine</div>
-      <div class="voice-card-body">Le cerveau ne perçoit pas sa propre voix objectivement. Enregistre 30 sec de parole normale chaque semaine. Écoute les différences sur 30–60 jours. C'est souvent là que tu réalises les vrais progrès — imperceptibles au jour le jour.</div>
+      <div class="voice-card-body">30 s de lecture du même texte, même pièce, même téléphone. Compare les enregistrements toutes les 4 semaines plutôt qu'au jour le jour.</div>
+    </div>
+    <div class="voice-card">
+      <div class="voice-card-label">Exercice</div>
+      <div class="voice-card-title">Bourdonnement</div>
+      <div class="voice-card-body">Bouche fermée, un « mmm » confortable et soutenu pendant 2 à 5 min, sans forcer vers le grave.</div>
+    </div>
+    <div class="voice-card">
+      <div class="voice-card-label">Exercice</div>
+      <div class="voice-card-title">Lecture à voix haute</div>
+      <div class="voice-card-body">10 min à voix haute, débit lent, pauses en fin de phrase. Arrête si la gorge tire ou si la voix se voile.</div>
+    </div>
+    <div class="voice-card">
+      <div class="voice-card-label">Hygiène</div>
+      <div class="voice-card-title">Eau et tabac</div>
+      <div class="voice-card-body">Bois régulièrement dans la journée (repère d'eau totale ci-dessous) et évite le tabac. Une voix enrouée plus de 3 semaines se montre à un médecin.</div>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- ═══════════════════════════════════════════ -->
-  <!--  SECTION 4 — BIEN-ÊTRE & ÉPANOUISSEMENT    -->
-  <!-- ═══════════════════════════════════════════ -->
-
+  <!-- ═══════════════ PILIER 5 — BIEN-ÊTRE ═══════════════ -->
   <div class="sec-head reveal">
     <div class="sec-tag green">🌱 Pilier 5</div>
-    <h2 class="sec-title">BIEN-ÊTRE <span>&amp; ÉPANOUISSEMENT</span></h2>
-    <p class="sec-sub">Le physique est une fondation, pas une finalité. L'homme accompli combine corps, mental, relations et sens. Ces pratiques transforment durablement la qualité de vie — pas juste l'apparence.</p>
+    <h2 class="sec-title">BIEN-ÊTRE <span>&amp; RÉCUPÉRATION</span></h2>
+    <p class="sec-sub">Des habitudes simples. Les effets chiffrés ont leur source ; le reste est présenté comme une organisation, pas comme un résultat garanti.</p>
   </div>
 
   <div class="bw-grid reveal">
     <div class="bw-card">
       <div class="bw-card-header">
-        <div class="bw-icon gold">☀️</div>
-        <div class="bw-card-title">Routine matinale — les 90 premières minutes</div>
+        <div class="bw-icon teal">💧</div>
+        <div class="bw-card-title">Eau</div>
       </div>
       <ul class="bw-list">
-        <li>Réveil sans alarme si possible — ou alarme unique, pas snooze</li>
-        <li>Zéro téléphone pendant 30 min après le réveil (dopamine intacte)</li>
-        <li>Exposition à la lumière naturelle dans les 10 premières minutes (cortisol sain + mélatonine calibrée)</li>
-        <li>Verre d'eau de 500ml avec une pincée de sel non raffiné</li>
-        <li>Mouvement immédiat : 10 min de stretching ou marche</li>
-        <li>Intentionnalité : 3 priorités du jour par écrit avant d'agir</li>
-      </ul>
-    </div>
-    <div class="bw-card">
-      <div class="bw-card-header">
-        <div class="bw-icon blue">🧘</div>
-        <div class="bw-card-title">Méditation — calme le cortisol, booste la clarté</div>
-      </div>
-      <ul class="bw-list">
-        <li>10 min/jour suffisent — la régularité prime sur la durée</li>
-        <li>Méthode box breathing : 4 sec inspire, 4 hold, 4 expire, 4 hold. Répète 5 fois</li>
-        <li>Observer les pensées sans les suivre — l'entraînement de l'attention</li>
-        <li>Le matin à jeun ou après l'entraînement sont les meilleurs moments</li>
-        <li>Apps recommandées : Wim Hof Method, Insight Timer</li>
-        <li>Résultats perceptibles en 2 semaines : stress basal diminué, réponses moins réactives</li>
-      </ul>
-    </div>
-    <div class="bw-card">
-      <div class="bw-card-header">
-        <div class="bw-icon purple">📚</div>
-        <div class="bw-card-title">Lecture & croissance intellectuelle</div>
-      </div>
-      <ul class="bw-list">
-        <li>20–30 min/jour = 12+ livres par an. Remplace une session de scroll</li>
-        <li>Préfère les livres de fond (biographies, développement, philosophie stoïcienne)</li>
-        <li>Epictète, Marc Aurèle, Seneca — pensée stoïcienne appliquée au quotidien</li>
-        <li>Un livre à la fois, lu jusqu'au bout — pas de collectionnisme de non-lus</li>
-        <li>Prends 3 notes après chaque chapitre : ce que tu retiens, ce que tu vas changer</li>
-        <li>L'homme qui lit largement développe une façon de penser qui attire le respect</li>
-      </ul>
-    </div>
-    <div class="bw-card">
-      <div class="bw-card-header">
-        <div class="bw-icon teal">❄️</div>
-        <div class="bw-card-title">Exposition au froid & dopamine durable</div>
-      </div>
-      <ul class="bw-list">
-        <li>Douche froide quotidienne — finir 90 sec en eau froide minimum</li>
-        <li>Effet « coup de fouet » sur la vigilance pendant quelques heures (à faire les jours de repos ou loin de la séance)</li>
-        <li>Crée une tolérance à l'inconfort volontaire — compétence transférable partout</li>
-        <li>Ice bath 10–15°C, 3–5 min, 2–3x/semaine si accessible (baignoire + glaçons)</li>
-        <li>Wim Hof breathing en option — hyperventilation contrôlée + rétention</li>
-        <li>Effet cumulatif : meilleure humeur basale, moins de sensibilité au froid social</li>
-      </ul>
-    </div>
-    <div class="bw-card">
-      <div class="bw-card-header">
-        <div class="bw-icon green">🎯</div>
-        <div class="bw-card-title">Discipline & système personnel</div>
-      </div>
-      <ul class="bw-list">
-        <li>La motivation fluctue — le système reste. Structure ta journée comme un athlète</li>
-        <li>Blocage horaire : entraînement, nutrition, travail profond, récupération — pas négociables</li>
-        <li>Éliminer les décisions inutiles (tenues, repas standardisés) libère du cortex préfrontal</li>
-        <li>Un seul objectif trimestriel prioritaire — tout le reste est secondaire</li>
-        <li>Journaling du soir : 3 choses réussies, 1 amélioration demain — 5 min max</li>
-        <li>La discipline est de la confiance en soi différée : chaque engagement tenu te prouve que tu es fiable</li>
-      </ul>
-    </div>
-    <div class="bw-card">
-      <div class="bw-card-header">
-        <div class="bw-icon gold">👥</div>
-        <div class="bw-card-title">Environnement social & énergie humaine</div>
-      </div>
-      <ul class="bw-list">
-        <li>Tu es la moyenne des 5 personnes avec qui tu passes le plus de temps — c'est littéral</li>
-        <li>Coupe progressivement les relations purement drainantes, sans drama</li>
-        <li>Cherche des hommes qui font — pas qui commentent. Trouve ton environnement de référence</li>
-        <li>Réduire le temps passé sur les réseaux sociaux de 50% libère énergie + estime de soi</li>
-        <li>La connexion humaine réelle (en présence) est irremplaçable pour le cortisol et la sérotonine</li>
-        <li>Apprends à recevoir et donner des compliments directement — clarté sociale</li>
-      </ul>
-    </div>
-    <div class="bw-card">
-      <div class="bw-card-header">
-        <div class="bw-icon gold">⏰</div>
-        <div class="bw-card-title">Jeûne intermittent 16:8 — optionnel, pas prioritaire pour toi</div>
-      </div>
-      <ul class="bw-list">
-        <li>À calories et protéines égales, le 16:8 ne fait pas perdre plus de gras qu'une alimentation classique (essais TREAT 2020, Liu 2022)</li>
-        <li>La hausse de GH pendant le jeûne n'a pas d'effet démontré sur la prise de muscle</li>
-        <li>Peu compatible avec des séances tôt le matin (pré-séance + 4 prises de protéines) : ton plan repas actuel est meilleur pour la recomposition</li>
-        <li>Si tu aimes ce format les jours de repos : fenêtre de 10-12 h, 3 repas, <span data-az="nutrition.proteines"></span> g de protéines quand même</li>
-        <li>Pendant le jeûne : eau, café noir, thé — sans sucre</li>
+        <li>Repère de l'EFSA pour un homme : 2,5 L d'eau totale par jour, aliments compris (environ 2 L à boire)</li>
+        <li>Les jours de séance, ajoute l'eau perdue en transpirant (0,5 à 1 L)</li>
+        <li>Repère pratique : des urines jaune pâle — <a href="#src-efsa2010">EFSA 2010</a></li>
       </ul>
     </div>
     <div class="bw-card">
       <div class="bw-card-header">
         <div class="bw-icon green">🌲</div>
-        <div class="bw-card-title">Nature & récupération mentale</div>
+        <div class="bw-card-title">Marche en nature</div>
       </div>
       <ul class="bw-list">
-        <li>20 min de marche en nature réduisent le cortisol de 15% (shinrin-yoku — études japonaises)</li>
-        <li>La lumière naturelle calibre le rythme circadien mieux que tout complément de mélatonine</li>
-        <li>L'exposition à la vastitude ("awe") réduit l'anxiété et l'obsession de soi</li>
-        <li>Remplace une heure d'écran par une marche sans téléphone — bénéfice sur l'humeur en 7 jours</li>
-        <li>Marche sans écouteurs parfois : observe, écoute, laisse le cerveau défragmenter</li>
-        <li>Le trajet vers la salle à pied quand c'est possible — chaque pas compte</li>
+        <li>Dans des essais japonais, le cortisol salivaire était environ 12 % plus bas après une marche en forêt qu'après la même marche en ville — <a href="#src-park2010">Park 2010</a></li>
+        <li>Les jours de repos : 20 à 30 min de marche, sans téléphone si possible</li>
       </ul>
     </div>
-  </div>
-
-  <!-- Dopamine reset -->
-  <div class="dark-banner reveal">
-    <div>
-      <div class="dark-banner-title">DOPAMINE <span>DÉTOX</span></div>
-      <p class="dark-banner-body">Réseaux sociaux, pornographie, jeux, notifications, fast-food, scroll infini — toutes ces sources hyper-stimulent le système dopaminergique jusqu'à le désensibiliser. Le résultat : les vrais accomplissements (entraînement, travail, connexion humaine) ne procurent plus de plaisir. Le reset est une période de 1 à 7 jours de suppression totale des stimulations artificielles.</p>
+    <div class="bw-card">
+      <div class="bw-card-header">
+        <div class="bw-icon gold">⏰</div>
+        <div class="bw-card-title">Jeûne 16:8 : optionnel, pas prioritaire</div>
+      </div>
+      <ul class="bw-list">
+        <li>À calories égales, manger sur 8 h ne fait pas perdre plus de poids ni de gras qu'une restriction classique — <a href="#src-liu2022">Liu 2022</a></li>
+        <li>Sans contrôle des calories, le 16:8 n'a pas fait mieux qu'un horaire libre sur 12 semaines — <a href="#src-lowe2020">Lowe 2020 (TREAT)</a></li>
+        <li>Ton plan à 4 prises de protéines par jour reste plus simple à tenir avec des séances</li>
+      </ul>
     </div>
-    <div class="dark-banner-stats">
-      <div class="dstat">
-        <div class="dstat-label">Supprimer</div>
-        <div class="dstat-bar-wrap"><div class="dstat-bar" data-w="100" style="width:0%;background:var(--red)"></div></div>
-        <div class="dstat-val">Porno</div>
+    <div class="bw-card">
+      <div class="bw-card-header">
+        <div class="bw-icon blue">🧘</div>
+        <div class="bw-card-title">Respiration</div>
       </div>
-      <div class="dstat">
-        <div class="dstat-label">Réduire</div>
-        <div class="dstat-bar-wrap"><div class="dstat-bar" data-w="70" style="width:0%;background:var(--gold)"></div></div>
-        <div class="dstat-val">Réseaux</div>
+      <ul class="bw-list">
+        <li>Respiration carrée : 4 s d'inspiration, 4 s de pause, 4 s d'expiration, 4 s de pause, 5 cycles</li>
+        <li>Les méthodes d'hyperventilation (type Wim Hof) peuvent faire perdre connaissance : jamais dans l'eau, debout ou au volant</li>
+      </ul>
+    </div>
+    <div class="bw-card">
+      <div class="bw-card-header">
+        <div class="bw-icon purple">📚</div>
+        <div class="bw-card-title">Organisation</div>
       </div>
-      <div class="dstat">
-        <div class="dstat-label">Réduire</div>
-        <div class="dstat-bar-wrap"><div class="dstat-bar" data-w="60" style="width:0%;background:var(--gold)"></div></div>
-        <div class="dstat-val">Jeux vidéo</div>
-      </div>
-      <div class="dstat">
-        <div class="dstat-label">Remplacer par</div>
-        <div class="dstat-bar-wrap"><div class="dstat-bar" data-w="90" style="width:0%;background:var(--green)"></div></div>
-        <div class="dstat-val">Nature</div>
-      </div>
-      <div class="dstat">
-        <div class="dstat-label">Remplacer par</div>
-        <div class="dstat-bar-wrap"><div class="dstat-bar" data-w="95" style="width:0%;background:var(--green)"></div></div>
-        <div class="dstat-val">Effort</div>
-      </div>
+      <ul class="bw-list">
+        <li>Bloque tes séances dans l'agenda comme des rendez-vous</li>
+        <li>Un objectif prioritaire par trimestre</li>
+        <li>Le soir, 5 min : 3 choses faites, 1 chose à améliorer demain</li>
+        <li>Remplace un temps d'écran par 20 min de lecture</li>
+      </ul>
     </div>
   </div>
 
@@ -790,67 +545,46 @@ button, a, [onclick], input, select, label {
 
   <!-- Checklist globale -->
   <div class="checklist-wrap reveal">
-    <div class="checklist-title">CHECKLIST QUOTIDIENNE — L'HOMME QUI PROGRESSE</div>
+    <div class="checklist-title">CHECKLIST QUOTIDIENNE</div>
     <div class="checklist-cols">
-      <div class="check-item"><div class="check-box"></div>Lever sans snooze · lumière naturelle dans les 10 premières minutes</div>
-      <div class="check-item"><div class="check-box"></div>500ml d'eau à jeun au réveil · pincée de sel non raffiné</div>
-      <div class="check-item"><div class="check-box"></div>Zéro téléphone les 30 premières minutes</div>
+      <div class="check-item"><div class="check-box"></div>7 à 9 h de sommeil, horaires réguliers</div>
       <div class="check-item"><div class="check-box"></div>Entraînement ou mouvement (même 20 min de marche)</div>
       <div class="check-item"><div class="check-box"></div><span data-az="nutrition.proteines"></span> g de protéines atteints dans la journée</div>
       <div class="check-item"><div class="check-box"></div>Compléments du matin avec le petit-déjeuner : <span id="chkMatin"></span></div>
-      <div class="check-item"><div class="check-box"></div>Créatine 5 g · le soir : <span id="chkSoir"></span> (rien à ajouter en plus)</div>
-      <div class="check-item"><div class="check-box"></div>Douche froide 90 s (jours de repos, ou à distance de la séance)</div>
-      <div class="check-item"><div class="check-box"></div>10 min de méditation ou box breathing</div>
-      <div class="check-item"><div class="check-box"></div>20 min de lecture (livre, pas article)</div>
-      <div class="check-item"><div class="check-box"></div>Zéro pornographie · Zéro alcool si séance demain</div>
-      <div class="check-item"><div class="check-box"></div>Scroll limité à 30 min max, en bloc, pas en dispersion</div>
-      <div class="check-item"><div class="check-box"></div>Journaling 5 min : 3 réussites + 1 amélioration demain</div>
-      <div class="check-item"><div class="check-box"></div>En lit avant minuit — 7h30 minimum de sommeil</div>
+      <div class="check-item"><div class="check-box"></div>Compléments du soir avec le dîner : <span id="chkSoir"></span> (rien à ajouter en plus)</div>
+      <div class="check-item"><div class="check-box"></div>Environ 2 L d'eau bue, plus les jours de séance</div>
+      <div class="check-item"><div class="check-box"></div>Pas de caféine dans les 6 h avant le coucher</div>
+      <div class="check-item"><div class="check-box"></div>Pas d'alcool le soir d'une séance ni la veille</div>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- ═══════════════════════════════════════════ -->
-  <!--  SYNERGIES ALLEZ                           -->
-  <!-- ═══════════════════════════════════════════ -->
-
+  <!-- ═══════════════ SYNERGIES ═══════════════ -->
   <div class="sec-head reveal">
     <div class="sec-tag gold">🔗 Intégration</div>
-    <h2 class="sec-title">SYNERGIES <span>ALLEZ</span></h2>
-    <p class="sec-sub">Le lifestyle ne fonctionne pas en silo. Chaque pilier de cette page amplifie directement une autre section du programme. Voici les connexions clés.</p>
+    <h2 class="sec-title">ET DANS <span>ALLEZ</span></h2>
+    <p class="sec-sub">Où retrouver chaque point dans le reste de l'app.</p>
   </div>
 
   <div class="syn-grid reveal">
     <a href="exercices.html" class="syn-card">
       <div class="syn-icon">💪</div>
       <div class="syn-title">EXERCICES</div>
-      <div class="syn-body">Les polyarticulaires (tirages, développés) sont le cœur de ta séance. Téléphone en mode silencieux pendant l'entraînement — plus de focus, de meilleures séries.</div>
-      <div class="syn-link">Voir les 28 exercices →</div>
+      <div class="syn-body">La technique de chaque exercice du programme, avec ses consignes de sécurité.</div>
+      <div class="syn-link">Voir les fiches →</div>
     </a>
     <a href="nutrition.html" class="syn-card">
       <div class="syn-icon">🥗</div>
       <div class="syn-title">NUTRITION</div>
-      <div class="syn-body">Ton plan <span data-az="nutrition.train.kcal|int"></span> / <span data-az="nutrition.rest.kcal|int"></span> kcal en 4-5 repas suffit — le jeûne n'est pas nécessaire. Des lipides suffisants (~25-30 % des calories, jamais un régime pauvre en graisses) et le zinc alimentaire comptent plus que n'importe quel complément pour ta testostérone.</div>
+      <div class="syn-body">Ton plan <span data-az="nutrition.train.kcal|int"></span> / <span data-az="nutrition.rest.kcal|int"></span> kcal, avec assez de lipides, et le bilan de sécurité de tes compléments.</div>
       <div class="syn-link">Voir le plan nutrition →</div>
-    </a>
-    <a href="posture.html" class="syn-card">
-      <div class="syn-icon">🎯</div>
-      <div class="syn-title">POSTURE</div>
-      <div class="syn-body">Le chin tuck corrige le forward head ET ouvre la trachée pour une voix plus grave. Les exercices posturo-correctifs réduisent l'antéversion du bassin qui comprime la respiration abdominale.</div>
-      <div class="syn-link">Voir les exercices posture →</div>
     </a>
     <a href="progression.html" class="syn-card">
       <div class="syn-icon">📈</div>
       <div class="syn-title">PROGRESSION</div>
-      <div class="syn-body">Note tes érections matinales (indicateur hormonal objectif), ton énergie et ton humeur en parallèle des métriques physiques. Ce sont les premiers signes que ton profil de testostérone s'améliore.</div>
-      <div class="syn-link">Voir le suivi progression →</div>
-    </a>
-    <a href="projection.html" class="syn-card">
-      <div class="syn-icon">🗓</div>
-      <div class="syn-title">PROJECTION</div>
-      <div class="syn-body">En descendant vers <span data-az="goals.bf|n"></span> % de MG (ton objectif à 12 mois), le profil hormonal s'améliore. La silhouette que tu vises au bout de la première année inclut des épaules plus larges, une taille fine, et une présence portée par ta testostérone optimisée.</div>
-      <div class="syn-link">Voir la projection 12 mois →</div>
+      <div class="syn-body">Poids, tour de taille et charges : les indicateurs qui montrent si la recomposition avance.</div>
+      <div class="syn-link">Voir le suivi →</div>
     </a>
     <a href="analyse.html" class="syn-card">
       <div class="syn-icon">🔬</div>
@@ -859,6 +593,34 @@ button, a, [onclick], input, select, label {
       <div class="syn-link">Voir l'analyse physique →</div>
     </a>
   </div>
+
+  <!-- ═══════════════ SOURCES ═══════════════ -->
+  <div class="sec-head reveal" id="sources">
+    <div class="sec-tag blue">📚 Sources</div>
+    <h2 class="sec-title">RÉFÉRENCES</h2>
+  </div>
+  <ol class="src-list reveal">
+    <li id="src-leproult2011">Leproult R, Van Cauter E. Effect of 1 week of sleep restriction on testosterone levels in young healthy men. <i>JAMA</i> 2011. <a href="https://doi.org/10.1001/jama.2011.710" target="_blank" rel="noopener noreferrer">DOI 10.1001/jama.2011.710</a></li>
+    <li id="src-west2010">West DWD et al. Elevations in ostensibly anabolic hormones with resistance exercise enhance neither training-induced muscle hypertrophy nor strength. <i>J Appl Physiol</i> 2010. <a href="https://doi.org/10.1152/japplphysiol.01147.2009" target="_blank" rel="noopener noreferrer">DOI 10.1152/japplphysiol.01147.2009</a></li>
+    <li id="src-pilz2011">Pilz S et al. Effect of vitamin D supplementation on testosterone levels in men. <i>Horm Metab Res</i> 2011. <a href="https://doi.org/10.1055/s-0030-1269854" target="_blank" rel="noopener noreferrer">DOI 10.1055/s-0030-1269854</a></li>
+    <li id="src-lerchbaum2017">Lerchbaum E et al. Vitamin D and testosterone in healthy men: a randomized controlled trial. <i>J Clin Endocrinol Metab</i> 2017. <a href="https://doi.org/10.1210/jc.2017-01428" target="_blank" rel="noopener noreferrer">DOI 10.1210/jc.2017-01428</a></li>
+    <li id="src-lerchbaum2019">Lerchbaum E et al. Effects of vitamin D supplementation on androgens in men with low testosterone levels: a randomized controlled trial. <i>Eur J Nutr</i> 2019. <a href="https://doi.org/10.1007/s00394-018-1858-z" target="_blank" rel="noopener noreferrer">DOI 10.1007/s00394-018-1858-z</a></li>
+    <li id="src-whittaker2021">Whittaker J, Wu K. Low-fat diets and testosterone in men: systematic review and meta-analysis of intervention studies. <i>J Steroid Biochem Mol Biol</i> 2021. <a href="https://doi.org/10.1016/j.jsbmb.2021.105878" target="_blank" rel="noopener noreferrer">DOI 10.1016/j.jsbmb.2021.105878</a></li>
+    <li id="src-anses2011">Anses. Actualisation des apports nutritionnels conseillés pour les acides gras, 2011 (acides gras saturés : 12 % de l'énergie au plus).</li>
+    <li id="src-valimaki1984">Välimäki M et al. Sex hormones and adrenocortical steroids in men acutely intoxicated with ethanol. <i>Alcohol</i> 1984. <a href="https://doi.org/10.1016/0741-8329(84)90043-0" target="_blank" rel="noopener noreferrer">DOI 10.1016/0741-8329(84)90043-0</a></li>
+    <li id="src-parr2014">Parr EB et al. Alcohol ingestion impairs maximal post-exercise rates of myofibrillar protein synthesis. <i>PLoS One</i> 2014. <a href="https://doi.org/10.1371/journal.pone.0088384" target="_blank" rel="noopener noreferrer">DOI 10.1371/journal.pone.0088384</a></li>
+    <li id="src-sramek2000">Šrámek P et al. Human physiological responses to immersion into water of different temperatures. <i>Eur J Appl Physiol</i> 2000. <a href="https://doi.org/10.1007/s004210050065" target="_blank" rel="noopener noreferrer">DOI 10.1007/s004210050065</a></li>
+    <li id="src-roberts2015">Roberts LA et al. Post-exercise cold water immersion attenuates acute anabolic signalling and long-term adaptations in muscle to strength training. <i>J Physiol</i> 2015. <a href="https://doi.org/10.1113/JP270570" target="_blank" rel="noopener noreferrer">DOI 10.1113/JP270570</a></li>
+    <li id="src-grgic2020">Grgic J et al. Wake up and smell the coffee: caffeine supplementation and exercise performance — an umbrella review of 21 published meta-analyses. <i>Br J Sports Med</i> 2020. <a href="https://doi.org/10.1136/bjsports-2018-100278" target="_blank" rel="noopener noreferrer">DOI 10.1136/bjsports-2018-100278</a></li>
+    <li id="src-guest2021">Guest NS et al. International Society of Sports Nutrition position stand: caffeine and exercise performance. <i>J Int Soc Sports Nutr</i> 2021. <a href="https://doi.org/10.1186/s12970-020-00383-4" target="_blank" rel="noopener noreferrer">DOI 10.1186/s12970-020-00383-4</a></li>
+    <li id="src-drake2013">Drake C et al. Caffeine effects on sleep taken 0, 3, or 6 hours before going to bed. <i>J Clin Sleep Med</i> 2013. <a href="https://doi.org/10.5664/jcsm.3170" target="_blank" rel="noopener noreferrer">DOI 10.5664/jcsm.3170</a></li>
+    <li id="src-jiang2003">Jiang M et al. Periodic changes in serum testosterone levels after ejaculation in men. <i>J Zhejiang Univ Sci</i> 2003. <a href="https://doi.org/10.1631/jzus.2003.0236" target="_blank" rel="noopener noreferrer">DOI 10.1631/jzus.2003.0236</a></li>
+    <li id="src-efsa2010">EFSA. Scientific Opinion on Dietary reference values for water. <i>EFSA Journal</i> 2010. <a href="https://doi.org/10.2903/j.efsa.2010.1459" target="_blank" rel="noopener noreferrer">DOI 10.2903/j.efsa.2010.1459</a></li>
+    <li id="src-park2010">Park BJ et al. The physiological effects of Shinrin-yoku (forest bathing). <i>Environ Health Prev Med</i> 2010. <a href="https://doi.org/10.1007/s12199-009-0086-9" target="_blank" rel="noopener noreferrer">DOI 10.1007/s12199-009-0086-9</a></li>
+    <li id="src-liu2022">Liu D et al. Calorie restriction with or without time-restricted eating in weight loss. <i>N Engl J Med</i> 2022. <a href="https://doi.org/10.1056/NEJMoa2114833" target="_blank" rel="noopener noreferrer">DOI 10.1056/NEJMoa2114833</a></li>
+    <li id="src-lowe2020">Lowe DA et al. Effects of time-restricted eating on weight loss (essai TREAT). <i>JAMA Intern Med</i> 2020. <a href="https://doi.org/10.1001/jamainternmed.2020.4153" target="_blank" rel="noopener noreferrer">DOI 10.1001/jamainternmed.2020.4153</a></li>
+  </ol>
+  <p class="src-note reveal">Compléments (créatine, oméga-3, ashwagandha…) : niveaux de preuve et références dans les fiches ci-dessus et dans <a href="nutrition.html#sec-complements">Nutrition</a>.</p>
 
 </div><!-- end page-wrap -->
 
@@ -878,6 +640,7 @@ button, a, [onclick], input, select, label {
 // Compléments : lus dans ALLEZ.SUPPLEMENTS (stack actif, niveau de preuve, alertes de cumul)
 (function () {
   const S = ALLEZ.SUPPLEMENTS, esc = ALLEZ.esc, COL = { A: 'var(--green)', B: 'var(--gold)', C: 'var(--text-light)' };
+  const refs = ids => { const L = (ids || []).map(id => { const u = S.refUrl(id), x = esc(S.refText(id).split(' · ')[0]); return u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${x}</a>` : x; }).filter(Boolean); return L.length ? ' <span style="opacity:.75">(' + L.join(' ; ') + ')</span>' : ''; };
   const cards = S.active().filter(p => p.id !== 'whey').sort((a, b) => b.priorite - a.priorite).map(p => {
     const best = p.effets.map(e => e.preuve).sort()[0];
     return `<div class="supp-card">
@@ -885,7 +648,7 @@ button, a, [onclick], input, select, label {
       <div>
         <div class="supp-name">${esc(p.nom)}</div>
         <div class="supp-dose">${esc(p.dose)}</div>
-        <div class="supp-body">${p.effets.map(e => `<strong>Preuve ${e.preuve}</strong> · ${esc(e.effet)}${e.verdict ? ' — ' + esc(e.verdict) : ''}`).join('<br>')}${p.prudence ? '<br>⚠️ ' + esc(p.prudence) : ''}</div>
+        <div class="supp-body">${p.effets.map(e => `<strong>Preuve ${e.preuve}</strong> · ${esc(e.effet)}${e.verdict ? ' — ' + esc(e.verdict) : ''}${refs(e.refs)}`).join('<br>')}${p.prudence ? '<br>⚠️ ' + esc(p.prudence) + refs(p.refsPrudence) : ''}</div>
         <div class="supp-timing">⏱ ${esc(p.quand)}</div>
       </div>
     </div>`;
@@ -893,7 +656,7 @@ button, a, [onclick], input, select, label {
   document.getElementById('suppGrid').insertAdjacentHTML('afterbegin', cards);
   const al = S.alerts();
   if (al.length) document.getElementById('suppAlerte').innerHTML = `<div class="supp-card" style="margin-bottom:16px;border-left:4px solid var(--red)"><div><div class="supp-name">⚠️ Cumul à corriger (limites EFSA, toutes sources)</div><div class="supp-body">${al.map(a => esc(a.texte)).join(' ')} Détail et correction la plus simple dans <a href="nutrition.html#sec-complements" style="color:inherit">Nutrition</a>.</div></div></div>`;
-  const noms = m => S.active().filter(p => p.moment === m).map(p => p.court.split(' ')[0]).join(' · ') || 'aucun';
+  const noms = m => S.active().filter(p => S.hasMoment(p, m)).map(p => p.court.split(' ')[0]).join(' · ') || 'aucun';
   document.getElementById('chkMatin').textContent = noms('matin');
   document.getElementById('chkSoir').textContent = noms('soir');
 })();
