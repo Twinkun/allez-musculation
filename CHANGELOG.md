@@ -1,5 +1,37 @@
 # Journal des changements — ALLEZ
 
+## v2 — phase 4 « Logbook » (branche `refonte-v2`, non publiée)
+
+Objectif : un logbook utilisable à une main en 30 secondes entre deux séries. Déjà en place avant la phase et non refait : séance du jour détectée, rattrapage, brouillon enregistré à chaque saisie, brouillon d'un autre jour récupérable, deload en semaine 13 (moitié des séries, charges × 0,6), record au 1RM d'Epley, colonne RIR, minuteur basé sur l'heure de fin.
+
+### Charge suggérée (`data/programme.js` : `suggest`)
+- « Dernière fois : 3×12 @ 14 kg, RIR 2 » (séries identiques regroupées, fourchette de RIR si elle varie).
+- Règles, dans cet ordre : deload → charge × 0,6 ; **deux séances de suite sous le bas de la fourchette à la même charge → −10 %** ; toutes les séries au haut de la fourchette → + 1 palier, répétitions au bas de la fourchette ; sinon même charge. Les séries sont préremplies avec la charge suggérée.
+- Palier selon le matériel (repère courant, à ajuster selon la salle) : haltères 1 kg jusqu'à 10 kg puis 2 kg, câble, machine et barre 2,5 kg.
+- Les séances de deload ne servent plus de base : la reprise après la semaine 13 repart des charges d'avant (le deload n'est plus appliqué deux fois).
+
+### Records
+- 1RM estimé d'Epley et de Brzycki (Brzycki 1993, DOI 10.1080/07303084.1993.10606684), meilleur volume d'une séance (reps × kg), affichés sur chaque exercice et dans les courbes.
+- Badge « Record » : 1RM ou volume battu, sur les séries **cochées** seulement (une ligne préremplie avec la charge suggérée ne déclenche plus de faux record).
+
+### Substitution en un tap
+- Bouton « ⇄ Remplacer » : les remplaçants du programme (`subs`), jamais un exercice déconseillé pour le bas du dos. Séries, repos et fourchette du créneau gardés ; fourchette du remplaçant si l'unité change (planche → dead bug).
+- Conservée dans le brouillon, dans la séance sauvegardée (champ `remplace`, gardé par le journal et la sauvegarde) et dans l'historique (« ⇄ à la place de… ») ; courbe propre pour l'exercice de remplacement.
+
+### Saisie et brouillon
+- Mode focus : boutons − / + (répétitions, charge au palier) et puces RIR 0 à 4+ de 48 px. Valeurs préremplies : RIR puis « Série terminée » = 2 taps.
+- Brouillon : identifiants d'exercices et substitutions enregistrés, relu par identifiant ; enregistré aussi à `pagehide` ; alerte visible si le stockage refuse l'écriture. Quitter l'appli après « Sauvegarder » ne recrée plus de brouillon (la séance réapparaissait le lendemain comme « non sauvegardée »).
+- Minuteur : le contexte audio est créé au tap qui coche la série, puis réutilisé à la fin du repos (le son était créé hors geste et pouvait être bloqué). Vibration : Android seulement.
+- Service worker `allez-v68`.
+
+### Vérifié
+- 58 tests Node (50 + 8 nouveaux ; un test de la phase 3 adapté : la logique de charge passe par `suggest`).
+- Scénario navigateur phase 4 : 33/33 (suggestion, −10 %, records, substitution, rechargement en pleine séance, 2 taps, deload semaine 13, jour de repos, bureau). Phase 3 rejouée : 33/33 (scénario du record adapté : série cochée).
+- 64 rendus (16 pages × mobile et bureau × sans profil et avec le profil privé) : 0 erreur console. Hors ligne : 19 pages servies par le cache `allez-v68` (seules les polices Google échouent, phase 5).
+
+### Reste à faire (phase 5)
+- Minuteur écran verrouillé sur iPhone (notification), polices hébergées, accessibilité, navigation, bandeau de mise à jour, procédure de publication.
+
 ## v2 — phase 3 « Corrections » (branche `refonte-v2`, non publiée)
 
 Objectif : corriger les erreurs encore ouvertes de l'audit, sans publier.

@@ -5,6 +5,7 @@ PWA de suivi de musculation. HTML/CSS/JS sans build ni dépendance, servie par G
 ## Règles
 - **Ce dépôt est public.** Rien de personnel dans `MUSCULATION/` : pas d'information médicale, de mensuration, d'horaire, de nom de salle. Le personnel vit dans `_prive/` (ignoré par git) et dans le localStorage de l'appareil.
 - **Une seule source par donnée.** Programme, fiches, cibles, compléments, plan repas, recettes : `MUSCULATION/data/*.js`. `data/recettes.js` est généré (`_prive/gen/gen_recettes.py` puis `gen_recettes_js.js`) : ne pas l'éditer à la main. Profil, objectifs, journal, sauvegarde : `MUSCULATION/core.js`. Une page n'écrit jamais un chiffre du programme ou une cible en dur : elle lit `window.ALLEZ` (`data-az="chemin|format"` ou script).
+- **Logbook.** Règles de charge (`suggest` : deload, −10 % après deux échecs, palier), records (`records` : Epley, Brzycki, volume), résumé « 3×12 @ 14 kg » et substitutions (`subsOf`, `substitute`) vivent dans `data/programme.js`, testés dans `tests/logbook.test.js`. Une substitution est enregistrée avec `exId` = exercice fait et `remplace` = exercice du programme.
 - **Zéro invention.** Un chiffre est calculé ou sourcé (DOI). Compléments : limites EFSA, toutes sources.
 - **Dos.** Aucun exercice à charge axiale ni en flexion lombaire chargée dans le programme.
 - Identité visuelle : or `#e8960a`, nuit `#0b1020`, crème `#f0ece3`, Bebas Neue + Inter (jetons dans `assets/base.css`).
