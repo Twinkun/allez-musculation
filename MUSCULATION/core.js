@@ -20,6 +20,12 @@
     d = d || new Date();
     return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
   }
+  // Page laissée ouverte après minuit : recharge au retour sur la page si le jour a changé (AUDIT §3 n° 18)
+  function reloadOnNewDay() {
+    if (!doc || !doc.addEventListener) return;
+    var jour = localISO();
+    doc.addEventListener('visibilitychange', function () { if (doc.visibilityState === 'visible' && localISO() !== jour && w.location) w.location.reload(); });
+  }
   function parseISO(s) { return new Date(s + 'T12:00:00'); }
   function isISO(s) { return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && !isNaN(parseISO(s).getTime()); }
   function lsRaw(k) { try { return w.localStorage.getItem(k); } catch (e) { return null; } }
@@ -658,7 +664,7 @@
 
   var A = {
     VERSION: '2.0.0',
-    localISO: localISO, parseISO: parseISO, isISO: isISO, nextMonday: nextMonday, num: num, int: int, esc: esc, fmt: fmt, lsGet: lsGet, lsSet: lsSet,
+    localISO: localISO, reloadOnNewDay: reloadOnNewDay, parseISO: parseISO, isISO: isISO, nextMonday: nextMonday, num: num, int: int, esc: esc, fmt: fmt, lsGet: lsGet, lsSet: lsSet,
     getStartISO: getStartISO, setStartISO: setStartISO, startDate: startDate, status: status, blockCodeForCycleWeek: blockCodeForCycleWeek,
     MOIS: MOIS, MOIS_L: MOIS_L, monthRange: monthRange, fmtDate: fmtDate, monthPos: monthPos,
     profile: profile, profileIsSet: profileIsSet, setProfile: setProfile, clearProfile: clearProfile, validateProfile: validateProfile,

@@ -930,7 +930,7 @@
         <div class="obj-icon">⚡</div>
         <div class="obj-body">
           <h3 class="obj-title">ÉPAULES 3D</h3>
-          <p class="obj-desc">Développement des 3 faisceaux du deltoïde. Le médial est la priorité absolue — seul muscle qui élargit structurellement la silhouette.</p>
+          <p class="obj-desc">Développement des 3 faisceaux du deltoïde. Le médial est la priorité : avec le grand dorsal, c'est lui qui élargit la silhouette.</p>
           <div class="obj-nums">
             <div><div class="obj-num-val"><span data-az="programme.volume.delt-med.direct"></span> séries</div><div class="obj-num-lbl">Directes/semaine</div></div>
             <div><div class="obj-num-val"><span data-az="programme.volume.delt-med.freq"></span>×/sem</div><div class="obj-num-lbl">Fréquence</div></div>
@@ -968,7 +968,7 @@
   <div class="container">
     <div class="eyebrow">Structure hebdomadaire</div>
     <h2 class="sh">MON <span>PROGRAMME</span></h2>
-    <p class="sp"><span id="progJours"></span> Muscles prioritaires stimulés 2-3×/semaine. Core et posture intégrés 10 min en fin de chaque séance. Programme 100 % haut du corps (choix assumé) : les jambes travaillent au ping-pong du vendredi.</p>
+    <p class="sp"><span id="progJours"></span> Muscles prioritaires stimulés 2-3×/semaine. Core et posture intégrés 10 min en fin de chaque séance. Programme 100 % haut du corps (choix assumé). Le ping-pong du vendredi fait bouger les jambes, mais ce n'est pas un travail de force.</p>
     <div class="split-grid" id="splitGrid"></div>
     <div class="vol-box reveal">
       <div class="vol-title">VOLUME HEBDOMADAIRE PAR GROUPE MUSCULAIRE</div>
@@ -1152,6 +1152,7 @@
 
 /* ─── SECTIONS LIÉES AUX DONNÉES (core.js + data/*.js) ─── */
 const P = ALLEZ.PROGRAM, SUP = ALLEZ.SUPPLEMENTS, FUI = ALLEZ.FICHES_UI;
+ALLEZ.reloadOnNewDay();   // plan du jour : recalculé si la page est restée ouverte après minuit
 const BLK = P.currentBlockCode();
 // Compteurs et anneau : valeurs du profil
 document.querySelectorAll('[data-count-az]').forEach(el => el.setAttribute('data-count', Math.round(ALLEZ.value(el.getAttribute('data-count-az')))));

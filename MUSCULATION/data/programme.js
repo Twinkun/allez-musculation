@@ -169,7 +169,7 @@
       { ex: 'elev-lat', sets: 4, reps: '15', rest: 60, hint: '4-6 kg' },
       { ex: 'elev-lat-cable', sets: 3, reps: '15', rest: 60, hint: '2,5-5 kg/côté' },
       { ex: 'arnold-press', sets: 4, reps: '10-12', rest: 90, hint: '8-10 kg/main' },
-      { ex: 'tractions', sets: 4, reps: 'max (ou 10-12 au tirage)', rest: 120, hint: 'élastique ou 40-45 kg' },
+      { ex: 'tractions', sets: 4, reps: '5-8, arrêt à 1-2 reps de l\'échec (élastique si besoin)', rest: 120, hint: 'élastique ou 40-45 kg' },
       { ex: 'dev-incline', sets: 3, reps: '10-12', rest: 90, hint: '14-16 kg/main' },
       { ex: 'curl-ez', sets: 3, reps: '10-12', rest: 75, hint: '15-20 kg' },
       { ex: 'curl-concentre', sets: 2, reps: '10-12/bras', rest: 60, hint: '8-10 kg' },

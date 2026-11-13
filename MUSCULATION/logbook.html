@@ -436,6 +436,7 @@ var NEXT_TRAIN = {};                                                            
 for (var _d = 0; _d < 7; _d++) { if (!PLANNED[_d]) { var _k = _d; while (!PLANNED[_k]) _k = (_k + 1) % 7; NEXT_TRAIN[_d] = _k; } }
 var DAY_OF = {}; TRAIN_DAYS.forEach(function(d){ DAY_OF[SESSIONS[d].id] = d; });   // identifiant de séance → jour
 var DRAFT_KEY = 'px_logbook_draft';
+ALLEZ.reloadOnNewDay();   // le brouillon est enregistré à chaque saisie : rien n'est perdu au rechargement
 
 function localISO(d) { return ALLEZ.localISO(d); }
 function esc(v) { return String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -1122,10 +1123,11 @@ function selectCurve(exoId) {
     b.classList.toggle('active', b.getAttribute('data-exo') === exoId);
   });
   var lb = lb_load();
-  var pts = [];
+  var pts = [], nSans = 0;
   lb.sessions.forEach(function(s) {
     var exo = (s.exercises||[]).find(function(e){ return exKey(e) === exoId; });
     if (!exo) return;
+    nSans++;
     var vals = (exo.sets||[]).map(function(st){ return st.kg||0; }).filter(function(v){ return v > 0; });
     if (!vals.length) return;
     pts.push({ date: s.date, kg: Math.max.apply(null, vals) });
@@ -1138,7 +1140,9 @@ function selectCurve(exoId) {
   var statRow = document.getElementById('curveStatRow');
 
   if (!pts.length) {
-    empty.textContent = 'Aucune séance enregistrée pour cet exercice — lance ta première séance et sauvegarde-la.';
+    empty.textContent = nSans
+      ? 'Exercice sans charge : ' + nSans + ' séance' + (nSans > 1 ? 's' : '') + ' enregistrée' + (nSans > 1 ? 's' : '') + '. Ta progression se lit en répétitions ou en secondes, dans l\'onglet Historique.'
+      : 'Aucune séance enregistrée pour cet exercice — lance ta première séance et sauvegarde-la.';
     empty.style.display = 'block';
     titleRow.style.display = 'none'; canvas.style.display = 'none'; statRow.style.display = 'none';
     return;
