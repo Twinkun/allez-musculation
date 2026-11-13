@@ -742,7 +742,15 @@
     });
     ov.appendChild(box);
     ov.addEventListener('click', function (e) { if (e.target === ov) closePlus(); });
-    doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePlus(); });
+    doc.addEventListener('keydown', function (e) {
+      if (ov.hidden) return;
+      if (e.key === 'Escape') { closePlus(); return; }
+      if (e.key !== 'Tab') return;   // fenêtre modale : la tabulation tourne dans le panneau
+      var f = [].slice.call(box.querySelectorAll('a, button')); if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && doc.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && doc.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
     doc.body.appendChild(ov);
   }
   function injectNav() {
