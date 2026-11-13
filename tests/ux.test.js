@@ -3,7 +3,7 @@ const test = require('node:test'), assert = require('node:assert/strict');
 const fs = require('fs'), path = require('path');
 const { load, plain, ROOT } = require('./helpers');
 const PAGES = fs.readdirSync(ROOT).filter(f => f.endsWith('.html'));
-const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
+const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8').replace(/\r\n/g, '\n');
 
 test('navigation unique : 4 onglets + « Plus », en français, chaque lien existe, toutes les pages atteignables', () => {
   const { ALLEZ } = load({});
@@ -61,7 +61,7 @@ test('actions déclaratives : chaque data-action / data-change d\'une page est d
 
 test('polices hébergées : plus de Google Fonts, @font-face local, fichiers et licences présents', () => {
   PAGES.forEach(p => assert.ok(!/fonts\.(googleapis|gstatic)\.com/.test(read(p)), p));
-  const css = fs.readFileSync(path.join(ROOT, 'assets/base.css'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'assets/base.css'), 'utf8').replace(/\r\n/g, '\n');
   ['inter-latin-400.woff2', 'inter-latin-500.woff2', 'inter-latin-600.woff2', 'inter-latin-700.woff2', 'inter-latin-800.woff2', 'bebas-neue-latin-400.woff2'].forEach(f => {
     assert.ok(css.includes("url('fonts/" + f + "')"), f + ' dans base.css');
     const buf = fs.readFileSync(path.join(ROOT, 'assets/fonts', f)); assert.equal(buf.slice(0, 4).toString(), 'wOF2', f + ' est un woff2');
@@ -94,7 +94,7 @@ test('manifeste installable : nom, start_url, display standalone, icônes 192 et
 });
 
 test('mouvements réduits : règle globale dans base.css, compteurs animés court-circuités', () => {
-  assert.ok(/@media \(prefers-reduced-motion: reduce\) \{\n  \*, \*::before, \*::after \{ animation-duration: \.01ms !important;/.test(fs.readFileSync(path.join(ROOT, 'assets/base.css'), 'utf8')));
+  assert.ok(/@media \(prefers-reduced-motion: reduce\) \{\n  \*, \*::before, \*::after \{ animation-duration: \.01ms !important;/.test(fs.readFileSync(path.join(ROOT, 'assets/base.css'), 'utf8').replace(/\r\n/g, '\n')));
   assert.ok(read('nutrition.html').includes('ALLEZ.reduceMotion() ? 1 :'));
   assert.equal((read('progression.html').match(/ALLEZ\.reduceMotion\(\) \? 1 :/g) || []).length, 2);
 });

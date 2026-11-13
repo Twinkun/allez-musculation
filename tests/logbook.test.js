@@ -45,7 +45,7 @@ test('sauvegarde : le brouillon mis de côté (jour précédent) fait partie de 
 });
 
 test('logbook.html : brouillon d\'un autre jour signalé et récupérable, record au 1RM estimé, colonne RIR, recopie de la charge', () => {
-  const t = fs.readFileSync(path.join(ROOT, 'logbook.html'), 'utf8');
+  const t = fs.readFileSync(path.join(ROOT, 'logbook.html'), 'utf8').replace(/\r\n/g, '\n');
   ['px_logbook_draft_prev', 'data-action="staleResolve" data-args="true"', 'data-action="staleResolve" data-args="false"', 'ALLEZ.PROGRAM.best(', 'P.suggest(', 'data-t="rir"', 'function propagateKg'].forEach(s => assert.ok(t.includes(s), s));
   assert.ok(!/getHistMax/.test(t));
 });
@@ -129,7 +129,7 @@ test('phase 4 · journal : la substitution est conservée (champ « remplace »)
 });
 
 test('phase 4 · logbook.html : suggestion, records, substitution, saisie en 2 taps, brouillon robuste, son débloqué au tap', () => {
-  const t = fs.readFileSync(path.join(ROOT, 'logbook.html'), 'utf8');
+  const t = fs.readFileSync(path.join(ROOT, 'logbook.html'), 'utf8').replace(/\r\n/g, '\n');
   ['P.suggest(', 'P.resume(', 'P.records(', 'isDeloadDate(', 'function pickSub', 'P.subsOf(', 'exo.remplace', 'function fBump', 'function fSetRir',
    'function draftSetsFor', 'ids: EXS.map', "addEventListener('pagehide', flushDraft)", 'id="draftWarn"', 'function audioUnlock', 'volumeSets('].forEach(s => assert.ok(t.includes(s), s));
   assert.ok(!/getLastSess|actSess\.exercises\[ei\]\.restTime/.test(t));

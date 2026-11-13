@@ -2,7 +2,7 @@
 const test = require('node:test'), assert = require('node:assert/strict');
 const fs = require('fs'), path = require('path');
 const { load, plain, ROOT } = require('./helpers');
-const page = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
+const page = f => fs.readFileSync(path.join(ROOT, f), 'utf8').replace(/\r\n/g, '\n');
 
 test('recettes : 50 fiches, chaque aliment compté a une source et des valeurs complètes', () => {
   const R = load({}).ALLEZ.RECETTES;

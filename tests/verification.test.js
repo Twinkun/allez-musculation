@@ -5,7 +5,7 @@ const { load, PROFIL_TEST, ROOT } = require('./helpers');
 const REPO = path.join(ROOT, '..');
 const PAGES = fs.readdirSync(ROOT).filter(f => f.endsWith('.html'));
 const SOURCES = PAGES.concat(['core.js', 'sw.js', 'manifest.json', 'assets/base.css']);
-const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
+const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8').replace(/\r\n/g, '\n');
 
 test('grep : le programme (séries × répétitions, charges indicatives) n\'est écrit que dans data/programme.js', () => {
   // Doublon = un dosage du programme écrit sur la même ligne que le nom (ou l'identifiant) de son exercice
@@ -55,7 +55,7 @@ test('confidentialité : aucune information médicale, mensuration, horaire, sal
   const fichiers = [];
   const walk = d => fs.readdirSync(d, { withFileTypes: true }).forEach(e => { const p = path.join(d, e.name); if (e.isDirectory()) walk(p); else if (/\.(html|js|css|json|md|txt|svg)$/.test(e.name)) fichiers.push(p); });
   walk(ROOT); ['CHANGELOG.md', 'CLAUDE.md', '.gitignore'].forEach(f => fichiers.push(path.join(REPO, f)));
-  const trouves = fichiers.filter(f => INTERDIT.test(fs.readFileSync(f, 'utf8'))).map(f => path.relative(REPO, f));
+  const trouves = fichiers.filter(f => INTERDIT.test(fs.readFileSync(f, 'utf8').replace(/\r\n/g, '\n'))).map(f => path.relative(REPO, f));
   assert.deepEqual(trouves, []);
   // aucune image ni vidéo hors des icônes
   const medias = []; const w2 = d => fs.readdirSync(d, { withFileTypes: true }).forEach(e => { const p = path.join(d, e.name); if (e.isDirectory()) w2(p); else if (/\.(jpe?g|png|gif|webp|mp4|mov|pdf)$/i.test(e.name)) medias.push(e.name); });
