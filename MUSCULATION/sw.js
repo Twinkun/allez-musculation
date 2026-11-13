@@ -1,4 +1,4 @@
-const CACHE = 'allez-v66';
+const CACHE = 'allez-v67';
 
 const LOCAL_ASSETS = [
   './index.html',
@@ -7,6 +7,7 @@ const LOCAL_ASSETS = [
   './data/fiches.js',
   './data/nutrition.js',
   './data/programme.js',
+  './data/recettes.js',
   './data/repas.js',
   './data/supplements.js',
   './analyse.html',

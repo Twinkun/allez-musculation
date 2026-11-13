@@ -273,7 +273,29 @@
     return SUMMARY;
   }
 
+  // ── PERFORMANCE (logbook) ─────────────────────────────────────────
+  // 1RM estimé, formule d'Epley : charge × (1 + reps / 30). Repère de comparaison entre séries, pas une mesure.
+  function e1rm(kg, reps) { kg = +kg || 0; reps = +reps || 0; return kg > 0 && reps > 0 ? Math.round(kg * (1 + reps / 30) * 10) / 10 : 0; }
+  // Meilleure performance d'une liste de séries : 1RM estimé si chargé, sinon répétitions (ou secondes). Séries décochées ignorées.
+  function best(sets) {
+    var b = { e1rm: 0, reps: 0 };
+    (sets || []).forEach(function (s) { if (s.done === false) return; var x = e1rm(s.kg, s.reps); if (x > b.e1rm) b.e1rm = x; if ((+s.reps || 0) > b.reps && !(+s.kg > 0)) b.reps = +s.reps; });
+    return b;
+  }
+  // Haut de la fourchette : « 12-15 » → 15, « 15 » → 15, « 10-12/côté » → 12, « max (…) » → null
+  function repsMax(reps) { var s = String(reps || ''); if (/^\s*max/i.test(s)) return null; var m = s.match(/(\d+)\s*(?:-\s*(\d+))?/); return m ? +(m[2] || m[1]) : null; }
+  // Double progression : toutes les séries faites au haut de la fourchette, à charge identique → monter d'un palier
+  function toutAuHaut(sets, reps) {
+    var top = repsMax(reps), faites = (sets || []).filter(function (s) { return s.done !== false && (+s.reps || 0) > 0; });
+    if (!top || !faites.length) return false;
+    var kg0 = +faites[0].kg || 0;
+    return faites.every(function (s) { return (+s.reps || 0) >= top && (+s.kg || 0) === kg0; });
+  }
+  // Charge proposée selon le bloc : en deload, charge × load (0,6), arrondie au 0,5 kg
+  function chargeBloc(kg, code) { kg = +kg || 0; var l = block(code).load; return kg > 0 && l !== 1 ? Math.round(kg * l * 2) / 2 : kg; }
+
   A.PROGRAM = {
+    e1rm: e1rm, best: best, repsMax: repsMax, toutAuHaut: toutAuHaut, chargeBloc: chargeBloc,
     BLOCKS: BLOCKS, MUSCLES: MUSCLES, EXERCISES: EXERCISES, SESSIONS: SESSIONS, ORDER: ORDER, byDay: BY_DAY, otherDays: OTHER_DAYS, DAY_NAMES: DAY_NAMES, WARMUP: WARMUP,
     exercise: exercise, findByName: findByName, displayName: displayName, block: block, currentBlockCode: currentBlockCode,
     setsFor: setsFor, rirFor: rirFor, repsLabel: repsLabel, prescription: prescription,

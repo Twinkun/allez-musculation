@@ -367,8 +367,8 @@
   }
 
   // ── SAUVEGARDE / RESTAURATION ─────────────────────────────────────
-  var SIMPLE = [['measures', 'px_measures'], ['courses_sel', 'px_courses_sel'], ['pingpong_matches', 'px_pingpong_matches'], ['pingpong_obj', 'px_pingpong_obj'], ['pingpong_video', 'px_pingpong_video'], ['logbook_draft', 'px_logbook_draft']];
-  var SIMPLE_TYPE = { measures: 'array', courses_sel: 'array', pingpong_matches: 'array', pingpong_obj: 'object', pingpong_video: 'object', logbook_draft: 'object' };
+  var SIMPLE = [['measures', 'px_measures'], ['courses_sel', 'px_courses_sel'], ['pingpong_matches', 'px_pingpong_matches'], ['pingpong_obj', 'px_pingpong_obj'], ['pingpong_video', 'px_pingpong_video'], ['logbook_draft', 'px_logbook_draft'], ['logbook_draft_prev', 'px_logbook_draft_prev']];
+  var SIMPLE_TYPE = { measures: 'array', courses_sel: 'array', pingpong_matches: 'array', pingpong_obj: 'object', pingpong_video: 'object', logbook_draft: 'object', logbook_draft_prev: 'object' };
   function dataCount() { return store.sessions().length + measuresRaw().length; }
   function buildBackup() {
     var data = { app: 'ALLEZ', format: 2, exported: new Date().toISOString(), start_date: getStartISO(), profile: lsGet(PROFILE_KEY, null), prive: lsGet('px_prive', null), journal: store.load() };
