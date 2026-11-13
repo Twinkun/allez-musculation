@@ -1,5 +1,65 @@
 # Journal des changements — ALLEZ
 
+## v2 — phase 5 « Interface, accessibilité, performance, service worker » (branche `refonte-v2`, non publiée)
+
+### Navigation unique, en français
+- `ALLEZ.NAV` (core.js) : **Accueil · Séance · Nutrition · Progrès · Plus**. Barre du haut sur ordinateur, barre d'onglets en bas sur mobile, panneau « Plus » (10 pages, regroupées) : fenêtre modale, focus géré, Échap, tabulation contenue.
+- Les 16 menus écrits en dur (barres, hamburgers, barre latérale du tableau de bord, barre du programme) sont remplacés par un conteneur vide rempli par core.js. Sous-pages raquette rattachées à Ping-pong.
+- Libellés français : « Tableau de bord », « Carnet de séance », « Hygiène de vie », « onglet Séance » au lieu de logbook/dashboard/lifestyle.
+
+### Accessibilité
+- Chaque page : lien « Aller au contenu », un seul `<main id="contenu">`, un `h1`, titres sans saut de niveau (pingpong, nutrition, progression, programme), modales nommées (accueil), zones défilantes atteignables au clavier.
+- **Contraste WCAG AA** : axe-core passe de 1 137 nœuds en échec à **0** sur les 16 pages. Texte or sur fond clair → or foncé `#8a5800`, texte sur fond or → nuit `#0b1020`, gris éclaircis foncés, badges « verrouillés » sans transparence, étiquettes de catégorie (Push, Core) assombries.
+- **Cibles tactiles ≥ 44 px** : 418 → 5 (les 5 restantes sont des citations dans une phrase, exemptées par WCAG 2.5.8). Boutons du mode focus portés à 44 px.
+- `prefers-reduced-motion` : règle globale dans `base.css` (pages sans règle comprises), compteurs animés affichés directement.
+- `onclick` / `onchange` en ligne (58) et propriétés `.onclick =` (6) → délégation `data-action` + `ALLEZ.actions`. Éléments `role="button"` activables au clavier.
+- `alert()` supprimés (notifications), `confirm()` non destructifs → fenêtre maison ; `confirm()` natif gardé pour les 4 actions destructrices (supprimer une séance, effacer les séances rapides, remplacer des séries cochées, changer de séance).
+- Données saisies (notes de séance, adversaires de ping-pong) affichées avec `textContent`.
+
+### Performance
+- **Polices hébergées** (Inter 400-800, Bebas Neue, licence OFL, `assets/fonts/`) : plus de Google Fonts, rendu identique hors ligne. La version variable d'Inter a été écartée : son rendu coûtait plusieurs secondes sur processeur lent.
+- Bandeaux (profil, sauvegarde) placés avant le premier affichage : plus de décalage de mise en page (CLS accueil 0,239 → 0, recettes 0,209 → 0).
+- Exercices : le corps des 29 fiches (6 onglets, schémas) est construit à la première ouverture (6 200 → 1 330 nœuds au chargement). Recettes : fiches remplies à l'approche de l'écran, filtre « Protéines+ » lu dans les données. `content-visibility` sur les blocs longs (recettes, ping-pong).
+
+### Service worker
+- **Stale-while-revalidate** pour tous les fichiers locaux (pages, scripts, styles, données) : réponse immédiate du cache, mise à jour en arrière-plan.
+- **Bandeau « Nouvelle version disponible »** : la nouvelle version attend l'accord (« Mettre à jour » → `SKIP_WAITING` → rechargement). Enregistrement centralisé dans core.js, après `load`. Correction en cours de phase : la première installation ne recharge plus la page.
+- Cache `allez-v69`, polices en précache.
+
+### Minuteur (iPhone)
+- Un minuteur web ne peut pas sonner écran verrouillé sans serveur de notifications. L'écran reste allumé pendant le repos (Wake Lock, aussi hors mode focus), et si l'appli revient au premier plan après la fin du repos, un message l'indique en plus du son.
+
+### Inchangé, vérifié
+- `programme.html` imprimable en A4 : barre, onglets et boutons masqués, 13 pages comme avant.
+
+### Vérifié
+- 68 tests Node (58 + 10 de `tests/ux.test.js`).
+- Scénarios navigateur : phase 5 30/30 (navigation, clavier, hors ligne et polices, bandeau de mise à jour, stale-while-revalidate, installable, mouvements réduits, impression A4), phase 4 33/33, phase 3 33/33.
+- axe-core (WCAG 2.1 A/AA + bonnes pratiques) : 0 violation sur les 16 pages. 32 rendus (mobile + bureau) : 0 erreur console, 0 débordement.
+
+### Lighthouse mobile — mesure incomplète
+Conditions : serveur local gzip (comme GitHub Pages), émulation mobile. Cette machine (Intel i5-10210U, indice Lighthouse ≈ 300) est elle-même dans la catégorie « mobile milieu de gamme » : la documentation Lighthouse prescrit alors un ralentissement CPU ×1 (le ×4 par défaut vise un ordinateur haut de gamme et y gonfle le TBT de plusieurs secondes, y compris sur l'ancienne version).
+La série finale (avant/après, ×1 et ×4) a été **interrompue par manque de mémoire** de la machine après 9 pages « avant ». Chiffres disponibles (Performance · Accessibilité · Bonnes pratiques) :
+
+| Page | Avant ×1 | Après ×1 |
+|---|---|---|
+| analyse | 72 · 95 · 100 | 98 · 100 · 100 ¹ |
+| comparatif-raquettes | 94 · 100 · 100 | — |
+| dashboard | 91 · 95 · 100 | 93 · 100 · 100 ¹ |
+| exercices | 82 · 91 · 96 | 95 · 100 · 96 |
+| fiche-raquette | 93 · 100 · 100 | — |
+| index | 78 · 91 · 100 | 96 · 100 · 100 |
+| lifestyle | 87 · 95 · 100 | 99 · 100 · 100 ¹ |
+| logbook | 80 · 95 · 100 | — |
+| nutrition | 91 · 95 · 100 | 94 · 100 · 100 ¹ |
+| pingpong | — | 98 · 100 · 100 |
+| recettes | — | 90 · 100 · 100 |
+| posture, profil, programme, progression, projection | — | — |
+
+¹ mesuré avant les deux derniers réglages (bandeaux avant le 1er affichage, piège de focus), qui ne peuvent que réduire le CLS.
+Référence complète de la phase 1 (×4, sans gzip, 16 pages) : `_prive/tests/out/lh-avant/`. SEO à 50 partout : voulu (`noindex`).
+**À refaire** : la série complète `LH_CPU=1 node lh.js …` sur les 16 pages avant/après, machine peu chargée.
+
 ## v2 — phase 4 « Logbook » (branche `refonte-v2`, non publiée)
 
 Objectif : un logbook utilisable à une main en 30 secondes entre deux séries. Déjà en place avant la phase et non refait : séance du jour détectée, rattrapage, brouillon enregistré à chaque saisie, brouillon d'un autre jour récupérable, deload en semaine 13 (moitié des séries, charges × 0,6), record au 1RM d'Epley, colonne RIR, minuteur basé sur l'heure de fin.

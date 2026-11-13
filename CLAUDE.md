@@ -11,9 +11,19 @@ PWA de suivi de musculation. HTML/CSS/JS sans build ni dépendance, servie par G
 - Identité visuelle : or `#e8960a`, nuit `#0b1020`, crème `#f0ece3`, Bebas Neue + Inter (jetons dans `assets/base.css`).
 - Les anciennes clés `px_logbook`, `px_sessions_v2`, `px_sessions` ne sont jamais supprimées ni réécrites ; le journal `px_journal` les fusionne à chaque chargement.
 
+## Interface (phase 5)
+- **Navigation unique** : `ALLEZ.NAV` dans `core.js` (Accueil · Séance · Nutrition · Progrès + panneau « Plus »). Une page ne contient qu'un conteneur vide `<nav class="az-topnav" data-az-nav …></nav>` (ou `data-az-nav="sidebar"`) ; core.js construit la barre du haut, la barre d'onglets du bas (mobile) et le panneau. Nouvelle page = l'ajouter à `NAV.plus` (ou à `NAV.parent` si c'est une sous-page).
+- **Structure de page** : `<body>` → lien `.az-skip` → `<div class="az-banners" data-az-banners></div><script>ALLEZ.rappels()</script>` (bandeaux avant le 1er affichage, sans décalage) → barre → un seul `<main id="contenu">` → un `h1`, titres sans saut de niveau.
+- **Événements** : jamais de `onclick=`/`onchange=` ni `.onclick =`. Boutons : `data-action="nom" data-args="a|b"` (ou `data-change`), fonctions déclarées en bas de page avec `ALLEZ.actions({ nom: … })`. `role="button"` répond aussi à Entrée/Espace.
+- **Messages** : `ALLEZ.ui.toast` / `ALLEZ.ui.dialog`. `confirm()` natif réservé aux actions destructrices. Données saisies par l'utilisateur affichées avec `textContent`.
+- **Accessibilité** : contraste AA (texte or sur fond clair = `#8a5800`, texte sur fond or = nuit), cibles tactiles ≥ 44 px. Blocs `<style id="az-contraste">` / `az-cibles` / `az-perf` en tête de page (générés par `_prive/gen/phase5_*.js`, retouchables à la main). Vérifier avec `_prive/tests/p5axe.js` et `p5cibles.js`.
+- **Polices** : hébergées dans `assets/fonts/` (Inter 400-800 statiques, Bebas Neue ; licence OFL). Pas de police variable : son rendu coûtait plusieurs secondes sur mobile lent.
+- **Service worker** : stale-while-revalidate ; une nouvelle version attend l'accord de l'utilisateur (bandeau « Nouvelle version disponible » → `SKIP_WAITING`). Enregistré par core.js après `load`.
+
 ## Vérifier
-- `node --test tests/*.test.js` (noyau, programme, nutrition, compléments, recettes, logbook, corrections de contenu).
-- Tests navigateur (Playwright, Edge) : dans `_prive/tests/`, hors dépôt.
+- `node --test tests/*.test.js` (noyau, programme, nutrition, compléments, recettes, logbook, corrections de contenu, interface).
+- Tests navigateur (Playwright, Edge) : dans `_prive/tests/`, hors dépôt (`phase3.js`, `phase4.js`, `phase5.js`, `p5axe.js`, `p5cibles.js`, `p5shots.js`).
+- Lighthouse : `LH_CPU=1 node lh.js <racine> <sortie> <pages>` (serveur gzip comme GitHub Pages). Sur cette machine (indice CPU ≈ 300, catégorie « mobile milieu de gamme »), la documentation Lighthouse prescrit un multiplicateur ×1 ; le ×4 par défaut vise un ordinateur haut de gamme.
 - Après une modification du site : incrémenter `CACHE` dans `sw.js` et tenir la liste `LOCAL_ASSETS` à jour.
 
 ## Publier
