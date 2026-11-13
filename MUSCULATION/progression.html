@@ -16,9 +16,8 @@
 <script src="core.js"></script>
 <script src="data/programme.js"></script>
 <script src="data/nutrition.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 :root {
   --bg: #f0ece3;
@@ -224,7 +223,7 @@ canvas { width: 100% !important; display: block; }
 /* ── MENSURATION TRACKER ── */
 .tracker-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .tracker-form { background: var(--bg-card); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); border: 1px solid var(--border); }
-.tracker-form h3 { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+.tracker-form h2 { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
 .tracker-form-sub { font-size: 0.8rem; color: var(--text-light); margin-bottom: 24px; }
 .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
 .tracker-layout > *, .input-grid > * { min-width: 0; }
@@ -382,29 +381,26 @@ button, a, [onclick], input, select, label {
   .chart-card:active,.stat-card:active{transform:scale(0.99);}
 }
 </style>
+<style id="az-contraste">
+/* Contraste WCAG AA (phase 5, généré par _prive/gen/phase5_contraste.js) */
+.section-label { color: #8a5800 !important; }
+.section-sub { color: #626784 !important; }
+span[data-az="nutrition.train.kcal|int"] { color: #626784 !important; }
+span[data-az="nutrition.rest.kcal|int"] { color: #626784 !important; }
+button[data-bloc="b1"] { color: #0b1020 !important; }
+</style>
+<style id="az-cibles">
+/* Cibles tactiles ≥ 44 px (phase 5) */
+.tracker-form input, .input-grid input { min-height: 44px !important; }
+.streak-day { width: 44px !important; height: 44px !important; }
+</style>
 </head>
 <body>
+<a class="az-skip" href="#contenu">Aller au contenu</a>
+<div class="az-banners" data-az-banners></div><script>ALLEZ.rappels()</script>
 
-<nav>
-  <a href="index.html" class="nav-logo">ALLEZ</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Accueil</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="nutrition.html">Nutrition</a></li>
-    <li><a href="logbook.html">Logbook</a></li>
-    <li><a href="progression.html" class="active">Progression</a></li>
-    <li><a href="exercices.html">Exercices</a></li>
-    <li><a href="programme.html">Programme</a></li>
-    <li><a href="analyse.html">Analyse</a></li>
-    <li><a href="posture.html">Posture</a></li>
-    <li><a href="projection.html">Projection</a></li>
-    <li><a href="lifestyle.html">Lifestyle</a></li>
-    <li><a href="recettes.html">Recettes</a></li>
-    <li><a href="pingpong.html">Ping-Pong</a></li>
-    <li><a href="profil.html">Profil</a></li>
-  </ul>
-  <button class="nav-hamburger" id="navHbg" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
+<nav class="az-topnav" data-az-nav aria-label="Navigation principale"></nav>
+<main id="contenu">
 
 <!-- HERO -->
 <div class="hero">
@@ -435,7 +431,7 @@ button, a, [onclick], input, select, label {
 
 <!-- SECTION 1 : DASHBOARD -->
 <div class="section">
-  <div class="section-label">Dashboard</div>
+  <div class="section-label">Tableau de bord</div>
   <div class="section-title">Tes Métriques Actuelles</div>
   <div class="section-sub">Point de départ de ta transformation. Chaque mesure sera réévaluée toutes les 4 semaines.</div>
   <div id="startCard" style="margin-bottom:24px"></div>
@@ -549,7 +545,7 @@ button, a, [onclick], input, select, label {
   <div class="section-title">Timeline par Bloc</div>
   <div class="section-sub">Cycles de 13 semaines : 3 blocs de 4 semaines + 1 semaine de deload, répétés 4 fois dans l'année. Les exercices et fourchettes de reps restent les mêmes (voir Programme) — c'est l'effort (RIR) et la charge qui évoluent.</div>
 
-  <div class="bloc-timeline reveal">
+  <div class="bloc-timeline reveal" tabindex="0" role="region" aria-label="Blocs du cycle (défilement horizontal)">
     <div class="bloc-item active">
       <div class="bloc-dot">B1</div>
       <div class="bloc-label">Apprentissage</div>
@@ -627,7 +623,7 @@ button, a, [onclick], input, select, label {
 
   <div class="tracker-layout reveal">
     <div class="tracker-form">
-      <h3>Nouvelle Mesure</h3>
+      <h2>Nouvelle mesure</h2>
       <div class="tracker-form-sub">Prends tes mesures le matin à jeun, avant de manger et après les toilettes.</div>
       <div class="input-grid">
         <div class="input-group">
@@ -697,7 +693,7 @@ button, a, [onclick], input, select, label {
 <div class="section">
   <div class="section-label">Motivation</div>
   <div class="section-title">Ton Streak d'Entraînement</div>
-  <div class="section-sub">Les séances du logbook et du dashboard sont comptées automatiquement. Tu peux aussi cocher un jour à la main. La régularité est le facteur n°1.</div>
+  <div class="section-sub">Les séances de l’onglet Séance et du tableau de bord sont comptées automatiquement. Tu peux aussi cocher un jour à la main. La régularité est le facteur n°1.</div>
 
   <div class="streak-block reveal">
     <div class="streak-left">
@@ -727,6 +723,7 @@ button, a, [onclick], input, select, label {
     </div>
   </div>
 </div>
+</main>
 
 <footer>
   <span>ALLEZ — Suivi de Progression · <span data-az="goals.weight0|n"></span> → ~<span data-az="goals.weight|n"></span> kg · <span data-az="goals.bf0|n"></span> → <span data-az="goals.bf|n"></span> % · Recomposition 12 mois</span>
@@ -794,12 +791,12 @@ const achievements = [
   { icon:'🏁', name:'Premier pas', desc:'Enregistre ta première mesure de départ', locked:false },
   { icon:'💪', name:'Première semaine', desc:P.ORDER.length + ' séances dans la même semaine', locked:true },
   { icon:'📅', name:'Mois 1 validé', desc:'12 séances (4 semaines × 3)', locked:true },
-  { icon:'⚡', name:'Force +10 %', desc:'+10 % de charge sur un exercice du logbook', locked:true },
+  { icon:'⚡', name:'Force +10 %', desc:'+10 % de charge sur un exercice (onglet Séance)', locked:true },
   { icon:'🎯', name:'−2 points de MG', desc:'Masse grasse ≤ ' + ALLEZ.fmt(ALLEZ.GOALS.bf0 - 2, 'n') + ' % (mesure)', locked:true },
   { icon:'📐', name:'Taille −2 cm', desc:'Tour de taille réduit de 2 cm', locked:true },
   { icon:'🔥', name:'3 semaines carrées', desc:'7 séances en 21 jours', locked:true },
   { icon:'🏆', name:'6 mois complets', desc:'78 séances (26 semaines × 3)', locked:true },
-  { icon:'💎', name:'Tractions', desc:'5 tractions au poids du corps (logbook, 0 kg)', locked:true },
+  { icon:'💎', name:'Tractions', desc:'5 tractions au poids du corps (onglet Séance, 0 kg)', locked:true },
   { icon:'🥇', name:'V-shape débloqué', desc:'Tour d\'épaules / tour de taille > 1,42', locked:true },
   { icon:'🌟', name:'Cycle 2 lancé', desc:'39 séances (13 semaines × 3)', locked:true },
   { icon:'🦁', name:'12 mois complets', desc:'156 séances — année entière', locked:true },
@@ -1172,7 +1169,7 @@ function renderHistory() {
   }
   list.innerHTML = [...data].reverse().map((entry, i) => `
     <div class="history-entry">
-      <button class="tracker-delete" onclick="deleteMeasure(${data.length - 1 - i})" title="Supprimer">×</button>
+      <button class="tracker-delete" data-action="deleteMeasure" data-args="${data.length - 1 - i}" title="Supprimer" aria-label="Supprimer cette mesure">×</button>
       <div class="history-date">${entry.date}</div>
       <div class="history-vals">
         ${entry.weight ? `<span class="history-val-chip">⚖️ ${entry.weight} kg</span>` : ''}
@@ -1214,7 +1211,7 @@ document.getElementById('saveMeasure').addEventListener('click', () => {
     hips: get('in-hips')
   };
   if (!entry.weight && !entry.waist && !entry.bf) {
-    alert('Remplis au moins le poids ou le tour de taille.');
+    ALLEZ.ui.toast('Remplis au moins le poids ou le tour de taille.');
     return;
   }
   const data = ALLEZ.lsGet('px_measures', []);
@@ -1269,7 +1266,7 @@ function renderStreak() {
       const date = el.getAttribute('data-date');
       if (date > todayStr) return;                                   // on ne coche pas un jour à venir
       const cur = ALLEZ.store.get(date + '_muscu');
-      if (cur && cur.exercises.length) { alert('Cette séance est détaillée dans le logbook — modifie-la là-bas.'); return; }
+      if (cur && cur.exercises.length) { ALLEZ.ui.toast('Cette séance est détaillée dans l’onglet Séance : modifie-la là-bas.'); return; }
       if (cur) ALLEZ.store.remove(cur.id); else ALLEZ.store.upsert({ date: date, kind: 'muscu' });
       renderStreak(); renderAchievements();
     });
@@ -1373,7 +1370,7 @@ const statObs = new IntersectionObserver(entries => {
           const dur = 1400;
           const start = performance.now();
           function tick(now) {
-            const p = Math.min((now - start) / dur, 1);
+            const p = ALLEZ.reduceMotion() ? 1 : Math.min((now - start) / dur, 1);
             const ease = 1 - Math.pow(1 - p, 3);
             const val = target * ease;
             valEl.textContent = (isFloat ? val.toFixed(1) : Math.round(val)) + suffix;
@@ -1396,7 +1393,7 @@ document.querySelectorAll('.stat-grid').forEach(el => statObs.observe(el));
   const dur = 1600;
   const start = performance.now();
   function tick(now) {
-    const p = Math.min((now - start) / dur, 1);
+    const p = ALLEZ.reduceMotion() ? 1 : Math.min((now - start) / dur, 1);
     el.textContent = Math.round(52 * (1 - Math.pow(1 - p, 3)));
     if (p < 1) requestAnimationFrame(tick);
   }
@@ -1422,12 +1419,12 @@ window.addEventListener('resize', () => {
 });
 </script>
 <script>
-const _hbg = document.getElementById('navHbg');
-const _nav = document.querySelector('nav');
-_hbg.addEventListener('click', () => { _hbg.classList.toggle('open'); _nav.classList.toggle('open'); });
-document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => { _hbg.classList.remove('open'); _nav.classList.remove('open'); }); });
-document.addEventListener('click', e => { if (_nav.classList.contains('open') && !_nav.contains(e.target)) { _hbg.classList.remove('open'); _nav.classList.remove('open'); } });
 </script>
-<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
+<script>
+// Actions des boutons (délégation : core.js)
+ALLEZ.actions({
+  deleteMeasure: function (i) { deleteMeasure(i); }
+});
+</script>
 </body>
 </html>

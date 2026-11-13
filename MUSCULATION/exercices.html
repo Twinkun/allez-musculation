@@ -16,8 +16,8 @@
 <script src="core.js"></script>
 <script src="data/programme.js"></script>
 <script src="data/fiches.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 :root {
   --bg: #f0ece3;
@@ -279,29 +279,35 @@ button, a, [onclick], input, select, label {
   .filter-btn:active,.tab-btn:active{transform:scale(0.96);}
 }
 </style>
+<style id="az-contraste">
+/* Contraste WCAG AA (phase 5, généré par _prive/gen/phase5_contraste.js) */
+.prog { color: #8a5800 !important; }
+button[data-f] { color: #0b1020 !important; }
+#rcount { color: #626875 !important; }
+.cat-tag { color: #fff !important; }
+.push .cat-tag { background: #b5380b !important; }
+.core .cat-tag { background: #087a40 !important; }
+.sec-title span { color: #8a5800 !important; }
+.sec-sub { color: #626875 !important; }
+.pm-m { color: #088646 !important; }
+.pm-n { color: #8a5800 !important; }
+.bdg { opacity: 1 !important; }
+.bdg:not(.on) .bdg-icon { opacity: .45; }
+.bdg-name { color: #1a1a2e !important; }
+.bdg-desc { color: #5b6270 !important; }
+</style>
+<style id="az-cibles">
+/* Cibles tactiles ≥ 44 px (phase 5) */
+.tab-btn, .yt-btn { min-height: 44px !important; display: inline-flex !important; align-items: center; }
+.search-wrap input, input[type=search], #search { min-height: 44px !important; }
+</style>
 </head>
 <body>
+<a class="az-skip" href="#contenu">Aller au contenu</a>
+<div class="az-banners" data-az-banners></div><script>ALLEZ.rappels()</script>
 
-<nav>
-  <a class="nav-logo" href="index.html">ALLEZ</a>
-  <div class="nav-links">
-    <a href="index.html">Accueil</a>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="nutrition.html">Nutrition</a>
-    <a href="logbook.html">Logbook</a>
-    <a href="progression.html">Progression</a>
-    <a href="exercices.html" class="active">Exercices</a>
-    <a href="programme.html">Programme</a>
-    <a href="analyse.html">Analyse</a>
-    <a href="posture.html">Posture</a>
-    <a href="projection.html">Projection</a>
-    <a href="lifestyle.html">Lifestyle</a>
-    <a href="recettes.html">Recettes</a>
-    <a href="pingpong.html">Ping-Pong</a>
-    <a href="profil.html">Profil</a>
-  </div>
-  <button class="nav-hamburger" id="navHbg" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
+<nav class="az-topnav" data-az-nav aria-label="Navigation principale"></nav>
+<main id="contenu">
 
 <header class="hero">
   <div class="hero-tag">📚 Guide Pédagogique Complet</div>
@@ -331,7 +337,7 @@ button, a, [onclick], input, select, label {
 </section>
 <div class="results-count" id="rcount"></div>
 
-<main class="exercises-grid" id="grid"></main>
+<div class="exercises-grid" id="grid"></div>
 
 <section class="section-area">
   <div class="sec-title">PROGRESSION <span>VISUELLE</span></div>
@@ -341,12 +347,13 @@ button, a, [onclick], input, select, label {
 
 <section class="badges-area">
   <div class="sec-title">BADGES <span>MOTIVATION</span></div>
-  <div class="sec-sub">Débloque tes badges en enregistrant tes séances dans le logbook</div>
+  <div class="sec-sub">Débloque tes badges en enregistrant tes séances (onglet Séance)</div>
   <div class="bdg-grid" id="bgrid"></div>
 </section>
 
+</main>
 <footer>
-  <p>Programme personnalisé • <a href="dashboard.html">Dashboard</a> · <a href="progression.html">Suivi</a> · <a href="posture.html">Posture</a></p>
+  <p>Programme personnalisé • <a href="dashboard.html">Tableau de bord</a> · <a href="progression.html">Progrès</a> · <a href="posture.html">Posture</a></p>
 </footer>
 
 <script>
@@ -373,6 +380,9 @@ const inProg = ex => ex.prog.length > 0 || ex.warm;
 function stars(d){let h='';for(let i=1;i<=5;i++)h+=`<span class="star${i<=d?' on':''}">★</span>`;return h}
 function catLbl(c){return{push:'Push',pull:'Pull',vshape:'V-Shape',core:'Core'}[c]||c}
 
+// Corps des fiches : construit à la première ouverture (BODY[id] → HTML)
+const BODY = {};
+function fillBody(id){const cb=document.getElementById('cb'+id);if(cb&&!cb.firstChild&&BODY[id])cb.innerHTML=BODY[id]();}
 function renderCard(ex) {
   const stepsH = ex.steps.map((s,i)=>`<li><span class="snum">${i+1}</span>${s}</li>`).join('');
   const postH = ex.posture.map(p=>`<li>${p}</li>`).join('');
@@ -382,34 +392,17 @@ function renderCard(ex) {
   const scolH = ex.scol?`<div class="note-blk dos-blk"><div class="note-blk-t">🔒 NOTE PERSONNELLE · DOS</div>${ALLEZ.esc(ex.scol)}</div>`:'';
   const primL = (ex.muscles.p||[]).map(m=>`<span class="mlbl mp">${MN[m]||m}</span>`).join('');
   const secL = (ex.muscles.s||[]).map(m=>`<span class="mlbl ms">${MN[m]||m}</span>`).join('');
-  return `<div class="ex-card ${ex.cat}" id="ex${ex.id}" style="animation-delay:${(ex.id%6)*0.05}s">
-<div class="card-head" onclick="tog(${ex.id})">
-  <div class="card-icon">${ex.icon}</div>
-  <div class="card-head-info">
-    <div class="card-tags"><span class="cat-tag">${catLbl(ex.cat)}</span>${progTag(ex)}</div>
-    <div class="card-ratings"><span class="rating-lbl">Technique</span><span class="diff-stars">${stars(ex.diff)}</span><span class="rating-sep"> · </span><span class="rating-lbl">Efficacité</span><span class="diff-stars">${stars(ex.eff)}</span></div>
-    <div class="card-title">${ex.name}</div>
-    <div class="card-muscle">${ex.mg}</div>
-  </div>
-  <div class="expand-arrow">▼</div>
-</div>
-<div class="card-quick">
-  <div class="qi"><span class="qi-val">${ex.sets}</span><span class="qi-key">Séries</span></div>
-  <div class="qi"><span class="qi-val">${ex.rest}</span><span class="qi-key">Repos</span></div>
-  <div class="qi"><span class="qi-val">${ex.tempo}</span><span class="qi-key">Tempo</span></div>
-</div>
-<div class="card-body">
-  <div class="yt-zone">
-    <a class="yt-btn" href="https://www.youtube.com/results?search_query=${encodeURIComponent(ex.yt)}" target="_blank" onclick="event.stopPropagation()">▶ Voir démonstration</a>
+  BODY[ex.id] = () => `  <div class="yt-zone">
+    <a class="yt-btn" href="https://www.youtube.com/results?search_query=${encodeURIComponent(ex.yt)}" target="_blank" rel="noopener">▶ Voir démonstration</a>
     <span class="equip-tag">🏋️ ${ex.equip}</span>
   </div>
   <div class="card-tabs">
-    <button class="tab-btn active" onclick="tab(event,${ex.id},0)">Global</button>
-    <button class="tab-btn" onclick="tab(event,${ex.id},1)">Technique</button>
-    <button class="tab-btn" onclick="tab(event,${ex.id},2)">Muscles</button>
-    <button class="tab-btn" onclick="tab(event,${ex.id},3)">Erreurs</button>
-    <button class="tab-btn" onclick="tab(event,${ex.id},4)">Protection</button>
-    <button class="tab-btn" onclick="tab(event,${ex.id},5)">Schéma</button>
+    <button class="tab-btn active" data-action="onglet" data-args="${ex.id}|0">Global</button>
+    <button class="tab-btn" data-action="onglet" data-args="${ex.id}|1">Technique</button>
+    <button class="tab-btn" data-action="onglet" data-args="${ex.id}|2">Muscles</button>
+    <button class="tab-btn" data-action="onglet" data-args="${ex.id}|3">Erreurs</button>
+    <button class="tab-btn" data-action="onglet" data-args="${ex.id}|4">Protection</button>
+    <button class="tab-btn" data-action="onglet" data-args="${ex.id}|5">Schéma</button>
   </div>
   <div class="tab-panel active" id="tp${ex.id}_0">
     <div style="display:flex;align-items:center;gap:11px;margin-bottom:13px">
@@ -440,12 +433,29 @@ function renderCard(ex) {
   <div class="tab-panel" id="tp${ex.id}_3"><div class="errors-wrap">${errH}</div></div>
   <div class="tab-panel" id="tp${ex.id}_4"><ul class="injury-list">${injH}</ul>${pecH}${scolH}</div>
   <div class="tab-panel" id="tp${ex.id}_5"><div class="svg-anim-wrap">${UI.anim(ex.svgKey)}<div class="svg-anim-label" style="margin-top:8px">${ex.equip}</div></div></div>
+`;
+  return `<div class="ex-card ${ex.cat}" id="ex${ex.id}" style="animation-delay:${(ex.id%6)*0.05}s">
+<div class="card-head" data-action="tog" data-args="${ex.id}" role="button" tabindex="0" aria-controls="cb${ex.id}" aria-expanded="false">
+  <div class="card-icon">${ex.icon}</div>
+  <div class="card-head-info">
+    <div class="card-tags"><span class="cat-tag">${catLbl(ex.cat)}</span>${progTag(ex)}</div>
+    <div class="card-ratings"><span class="rating-lbl">Technique</span><span class="diff-stars">${stars(ex.diff)}</span><span class="rating-sep"> · </span><span class="rating-lbl">Efficacité</span><span class="diff-stars">${stars(ex.eff)}</span></div>
+    <div class="card-title">${ex.name}</div>
+    <div class="card-muscle">${ex.mg}</div>
+  </div>
+  <div class="expand-arrow">▼</div>
 </div>
+<div class="card-quick">
+  <div class="qi"><span class="qi-val">${ex.sets}</span><span class="qi-key">Séries</span></div>
+  <div class="qi"><span class="qi-val">${ex.rest}</span><span class="qi-key">Repos</span></div>
+  <div class="qi"><span class="qi-val">${ex.tempo}</span><span class="qi-key">Tempo</span></div>
+</div>
+<div class="card-body" id="cb${ex.id}"></div>
 </div>`;
 }
 
 // ─── INTERACTIONS ─────────────────────────────────────────────────────────────
-function tog(id){document.getElementById('ex'+id).classList.toggle('open')}
+function tog(id){fillBody(id);const c=document.getElementById('ex'+id);c.classList.toggle('open');const h=c.querySelector('.card-head');if(h)h.setAttribute('aria-expanded',c.classList.contains('open'));}
 function tab(e,id,idx){
   e.stopPropagation();
   const card=document.getElementById('ex'+id);
@@ -515,15 +525,15 @@ document.getElementById('nbFiches').textContent=EX.length;
 document.querySelectorAll('.filter-btn').forEach(b=>{const f=b.dataset.f,n=f==='all'?EX.length:f==='prog'?EX.filter(inProg).length:EX.filter(e=>e.cat===f).length;b.textContent=b.dataset.label+' ('+n+')';});
 renderGrid();
 // Lien direct (programme.html → exercices.html#ex12) : ouvre la fiche demandée
-(function(){const m=/^#ex(\d+)$/.exec(location.hash);if(!m)return;const el=document.getElementById('ex'+m[1]);if(el){el.classList.add('open');setTimeout(()=>el.scrollIntoView({block:'start'}),250);}})();
+(function(){const m=/^#ex(\d+)$/.exec(location.hash);if(!m)return;const el=document.getElementById('ex'+m[1]);if(el){fillBody(+m[1]);el.classList.add('open');setTimeout(()=>el.scrollIntoView({block:'start'}),250);}})();
 </script>
 <script>
-const _hbg = document.getElementById('navHbg');
-const _nav = document.querySelector('nav');
-_hbg.addEventListener('click', () => { _hbg.classList.toggle('open'); _nav.classList.toggle('open'); });
-document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => { _hbg.classList.remove('open'); _nav.classList.remove('open'); }); });
-document.addEventListener('click', e => { if (_nav.classList.contains('open') && !_nav.contains(e.target)) { _hbg.classList.remove('open'); _nav.classList.remove('open'); } });
 </script>
-<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
+<script>
+// Actions des boutons (délégation : core.js)
+ALLEZ.actions({
+  tog: function (id) { tog(id); }, onglet: function (id, i, e) { tab(e, id, i); }
+});
+</script>
 </body>
 </html>

@@ -10,14 +10,13 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ALLEZ">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Logbook — ALLEZ</title>
+<title>Séance — ALLEZ</title>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
 <script src="data/programme.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 :root {
   --bg: #f0ece3; --bg-card: #ffffff; --bg-inner: #f7f4ef; --bg-dark: #0b1020;
@@ -187,7 +186,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
 .ftop-label{font-size:12px;letter-spacing:3px;color:#9aa0ab}
 .fquit{
   background:none;border:1px solid #3a3a3a;color:#c9ccd3;
-  padding:8px 16px;min-height:40px;font-family:'Bebas Neue',sans-serif;
+  padding:8px 16px;min-height:44px;font-family:'Bebas Neue',sans-serif;
   font-size:13px;letter-spacing:2px;cursor:pointer;border-radius:4px;transition:all .2s;
 }
 .fquit:hover{border-color:#444;color:#aaa}
@@ -234,7 +233,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
 .fpreset-lbl{font-size:11px;letter-spacing:2px;color:#8a8f99;font-family:'Inter',sans-serif}
 .fpreset{
   background:none;border:1px solid #333;color:#9aa0ab;
-  padding:8px 12px;min-height:38px;font-family:'Bebas Neue',sans-serif;
+  padding:8px 12px;min-height:44px;font-family:'Bebas Neue',sans-serif;
   font-size:13px;letter-spacing:1px;cursor:pointer;border-radius:3px;transition:all .2s;
 }
 .fpreset.on{border-color:#e8960a;color:#e8960a}
@@ -250,7 +249,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
 .ftimer-lbl{font-size:12px;letter-spacing:4px;color:#9aa0ab;margin-top:8px}
 .fskip{
   margin-top:10px;background:none;border:1px solid #3a3a3a;color:#d6d9df;
-  padding:10px 22px;min-height:42px;font-family:'Bebas Neue',sans-serif;
+  padding:10px 22px;min-height:44px;font-family:'Bebas Neue',sans-serif;
   font-size:12px;letter-spacing:2px;cursor:pointer;border-radius:3px;transition:all .2s;
 }
 .fskip:hover{border-color:#444;color:#888}
@@ -387,48 +386,43 @@ button, a, [onclick], input, select, label {
   .set-inp{padding:11px 6px}
 }
 </style>
+<style id="az-contraste">
+/* Contraste WCAG AA (phase 5, généré par _prive/gen/phase5_contraste.js) */
+.tab-btn { color: #626875 !important; }
+.tab-btn.active { color: #8a5800 !important; }
+.backup-lbl { color: #626875 !important; }
+.blk-banner a { color: #8a5800 !important; }
+</style>
+<style id="az-cibles">
+/* Cibles tactiles ≥ 44 px (phase 5) */
+.rest-next, .backup-btn, .rest-hist { min-height: 44px !important; display: inline-flex !important; align-items: center; justify-content: center; }
+</style>
 </head>
 <body>
+<a class="az-skip" href="#contenu">Aller au contenu</a>
+<div class="az-banners" data-az-banners></div><script>ALLEZ.rappels()</script>
 
-<nav id="nav">
-  <a href="index.html" class="nav-logo">ALLEZ</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Accueil</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="nutrition.html">Nutrition</a></li>
-    <li><a href="logbook.html" class="active">Logbook</a></li>
-    <li><a href="progression.html">Progression</a></li>
-    <li><a href="exercices.html">Exercices</a></li>
-    <li><a href="programme.html">Programme</a></li>
-    <li><a href="analyse.html">Analyse</a></li>
-    <li><a href="posture.html">Posture</a></li>
-    <li><a href="projection.html">Projection</a></li>
-    <li><a href="lifestyle.html">Lifestyle</a></li>
-    <li><a href="recettes.html">Recettes</a></li>
-    <li><a href="pingpong.html">Ping-Pong</a></li>
-    <li><a href="profil.html">Profil</a></li>
-  </ul>
-  <button class="nav-hamburger" id="navHbg" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
+<nav class="az-topnav" id="nav" data-az-nav aria-label="Navigation principale"></nav>
+<main id="contenu">
 
 <div class="hero">
   <div class="hero-tag">📓 Journal d'entraînement</div>
-  <h1>LOG<span>BOOK</span></h1>
+  <h1>CARNET DE <span>SÉANCE</span></h1>
   <div class="hero-sub">Note tes charges · Suis ta progression · Bats tes records</div>
   <div class="hero-stats" id="heroStats"></div>
 </div>
 
 <div class="tabs-bar">
-  <button class="tab-btn active" id="tabS" onclick="showTab('seance')">📋 Séance du jour</button>
-  <button class="tab-btn" id="tabH" onclick="showTab('historique')">📈 Historique</button>
-  <button class="tab-btn" id="tabC" onclick="showTab('courbes')">📊 Courbes Force</button>
+  <button class="tab-btn active" id="tabS" data-action="showTab" data-args="seance">📋 Séance du jour</button>
+  <button class="tab-btn" id="tabH" data-action="showTab" data-args="historique">📈 Historique</button>
+  <button class="tab-btn" id="tabC" data-action="showTab" data-args="courbes">📊 Courbes Force</button>
 </div>
 
 <div class="backup-bar">
   <span class="backup-lbl">Sauvegarde :</span>
-  <button class="backup-btn" onclick="exportData()">💾 Exporter JSON</button>
+  <button class="backup-btn" data-action="exportData">💾 Exporter JSON</button>
   <label class="backup-btn imp" for="importInput">📂 Importer JSON</label>
-  <input type="file" id="importInput" class="backup-input" accept=".json" onchange="importData(this)">
+  <input type="file" id="importInput" class="backup-input" accept=".json" data-change="importData">
 </div>
 
 <div class="main">
@@ -444,8 +438,9 @@ button, a, [onclick], input, select, label {
     <div class="save-info-title" id="saveTitle">PUSH A</div>
     <div class="save-info-sub" id="saveSub">0 / 0 séries cochées</div>
   </div>
-  <button class="save-btn" id="saveBtn" onclick="saveSession()">SAUVEGARDER</button>
+  <button class="save-btn" id="saveBtn" data-action="saveSession">SAUVEGARDER</button>
 </div>
+</main>
 
 <script>
 /* ── CONFIG ─────────────────────────────────────── */
@@ -631,7 +626,7 @@ function staleBanner() {
   var deja = !!ALLEZ.store.get(d.date + '_muscu');
   return '<div class="stale-draft" role="alert"><b>Séance non sauvegardée</b> : ' + esc(S.name) + ' du ' + esc(lbl) + ' (' + n + ' série' + (n > 1 ? 's' : '') + ' cochée' + (n > 1 ? 's' : '') + ').' +
     (deja ? ' Une séance existe déjà ce jour-là : elle sera remplacée.' : '') +
-    '<div class="stale-actions"><button class="stale-save" onclick="staleResolve(true)">Sauvegarder à sa date</button><button class="stale-drop" onclick="staleResolve(false)">Jeter ce brouillon</button></div></div>';
+    '<div class="stale-actions"><button class="stale-save" data-action="staleResolve" data-args="true">Sauvegarder à sa date</button><button class="stale-drop" data-action="staleResolve" data-args="false">Jeter ce brouillon</button></div></div>';
 }
 function staleResolve(keep) {
   if (!staleDraft) return;
@@ -676,7 +671,7 @@ function setsFor(exo) { return ALLEZ.PROGRAM.setsFor(exo, blockCode()); }
 /* ── SESSION RENDER ─────────────────────────────── */
 function sessPicker() {
   return '<div class="sess-pick" role="group" aria-label="Choisir la séance">' + TRAIN_DAYS.map(function(k){
-    return '<button class="sp-btn'+(k===actDay?' on':'')+'" onclick="pickSess('+k+')">'+SESSIONS[k].name+'<span>'+SESSIONS[k].label+'</span></button>';
+    return '<button class="sp-btn'+(k===actDay?' on':'')+'" data-action="pickSess" data-args="'+k+'">'+SESSIONS[k].name+'<span>'+SESSIONS[k].label+'</span></button>';
   }).join('') + '</div>';
 }
 function pickSess(k) {
@@ -700,8 +695,8 @@ function renderSession() {
         '<div class="rest-ico">💤</div>' +
         '<div class="rest-title">Jour de repos</div>' +
         '<div class="rest-sub">Récupération · Prochaine séance : <strong>'+actSess.name+' ('+actSess.label+')</strong><br>Séance décalée ? Lance-la quand même :</div>' +
-        '<div class="rest-actions">' + TRAIN_DAYS.map(function(k){ return '<button class="rest-next" onclick="pickSess('+k+')">'+SESSIONS[k].name+'</button>'; }).join('') + '</div>' +
-        '<a class="rest-hist" href="#" onclick="showTab(\'historique\');return false;">Voir l\'historique →</a>' +
+        '<div class="rest-actions">' + TRAIN_DAYS.map(function(k){ return '<button class="rest-next" data-action="pickSess" data-args="'+k+'">'+SESSIONS[k].name+'</button>'; }).join('') + '</div>' +
+        '<a class="rest-hist" href="#historique" data-action="showTab" data-args="historique">Voir l\'historique →</a>' +
       '</div>';
     return;
   }
@@ -717,7 +712,7 @@ function renderSession() {
     '</div>' +
     '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">' +
     (todaySaved ? '<div class="sess-saved">Séance sauvegardée</div>' : (draft ? '<div class="sess-draft">Brouillon restauré</div>' : '')) +
-    '<button class="focus-open-btn" onclick="enterFocus()">⚡ MODE FOCUS</button>' +
+    '<button class="focus-open-btn" data-action="enterFocus">⚡ MODE FOCUS</button>' +
     '</div></div>';
 
   var code = blockCode();
@@ -767,10 +762,10 @@ function renderSession() {
       '</div>' +
       (exo.lombaires === 'prudence' ? '<div class="exo-safe">🟠 Bas du dos : '+exo.consigne+'</div>' : '') +
       (exo.remplace ? '<div class="exo-sub-on">⇄ Remplace : '+esc(exo.remplaceName)+'</div>' : '') +
-      (alts.length ? '<button class="exo-sub-btn" onclick="toggleSubs('+ei+')" aria-controls="subs'+ei+'">⇄ Remplacer</button>' +
+      (alts.length ? '<button class="exo-sub-btn" data-action="toggleSubs" data-args="'+ei+'" aria-controls="subs'+ei+'">⇄ Remplacer</button>' +
         '<div class="exo-subs" id="subs'+ei+'" hidden role="group" aria-label="Exercice de remplacement">' +
-        (exo.remplace ? '<button class="sub-chip sub-back" onclick="pickSub('+ei+',\''+actSess.exercises[ei].id+'\')">↺ '+esc(exo.remplaceName)+'</button>' : '') +
-        alts.filter(function(id){ return id !== exo.id; }).map(function(id){ return '<button class="sub-chip" onclick="pickSub('+ei+',\''+id+'\')">'+esc(P.exercise(id).name)+'</button>'; }).join('') +
+        (exo.remplace ? '<button class="sub-chip sub-back" data-action="pickSub" data-args="'+ei+'|'+actSess.exercises[ei].id+'">↺ '+esc(exo.remplaceName)+'</button>' : '') +
+        alts.filter(function(id){ return id !== exo.id; }).map(function(id){ return '<button class="sub-chip" data-action="pickSub" data-args="'+ei+'|'+id+'">'+esc(P.exercise(id).name)+'</button>'; }).join('') +
         '</div>' : '') +
       '</div>';
     var conseil = '';
@@ -786,13 +781,13 @@ function renderSession() {
       '<div class="sets-hd"><span>Série</span><span>'+(isT?'Secondes':(exo.bw?'Reps/côté':'Reps'))+'</span><span>'+(isT||exo.bw?'—':'Kg')+'</span><span title="Répétitions que tu aurais encore pu faire">RIR</span><span></span></div>' +
       '<div id="rows'+ei+'">';
     dSets.forEach(function(s, si){ html += rowHTML(ei, si, s.reps, s.kg, s.done||false, exo, s.rir); });
-    html += '</div><button class="add-set" onclick="addSet('+ei+')">+ Ajouter une série</button>';
+    html += '</div><button class="add-set" data-action="addSet" data-args="'+ei+'">+ Ajouter une série</button>';
     html += '</div>' +
       '<div class="rtb" id="rtb'+ei+'">' +
       '<span class="rtb-label">⏱ REPOS</span>' +
       '<span class="rtb-num" id="rtbn'+ei+'">'+fmtSec(exo.restTime)+'</span>' +
       '<div class="rtb-bar"><div class="rtb-fill" id="rtbf'+ei+'" style="width:100%"></div></div>' +
-      '<button class="rtb-skip" onclick="skipRestTimer('+ei+')">PASSER</button>' +
+      '<button class="rtb-skip" data-action="skipRestTimer" data-args="'+ei+'">PASSER</button>' +
       '</div>' +
     '</div>';
   });
@@ -819,7 +814,7 @@ function rowHTML(ei, si, reps, kg, done, exo, rir) {
       : '<input class="set-inp" type="number" inputmode="decimal" step="0.5" min="0" placeholder="'+esc(hintKg(exo))+'" value="'+kgVal+'" data-ei="'+ei+'" data-si="'+si+'" data-t="kg" aria-label="Charge série '+(si+1)+'">'
     )+
     '<input class="set-inp rir" type="number" inputmode="numeric" step="1" min="0" max="10" placeholder="'+esc(rirCible ? String(rirCible).split('-')[0].replace('+','') : '—')+'" value="'+(rir != null ? rir : '')+'" data-ei="'+ei+'" data-si="'+si+'" data-t="rir" aria-label="RIR série '+(si+1)+'">'+
-    '<button class="set-chk'+(done?' done':'')+'" onclick="toggleDone('+ei+','+si+')" aria-label="Valider la série '+(si+1)+'">'+(done?'✓':'')+'</button>'+
+    '<button class="set-chk'+(done?' done':'')+'" data-action="toggleDone" data-args="'+ei+'|'+si+'" aria-label="Valider la série '+(si+1)+'">'+(done?'✓':'')+'</button>'+
   '</div>';
 }
 
@@ -910,7 +905,10 @@ function updateSaveSub() {
 function saveSession() {
   if (!isActive()) return;
   var doneCount = document.querySelectorAll('#viewS .set-row.done').length;
-  if (!doneCount && !confirm('Aucune série cochée. Sauvegarder quand même ?')) return;
+  if (!doneCount && !arguments[0]) {
+    ALLEZ.ui.dialog({ title: 'Aucune série cochée', intro: 'Sauvegarder quand même cette séance ?', ok: 'Sauvegarder' }).then(function (yes) { if (yes) saveSession(true); });
+    return;
+  }
   var exercises = [];
   var sets = collectSets();
   EXS.forEach(function(exo, ei) { if (sets[ei]) exercises.push(exEntry(exo, sets[ei])); });
@@ -918,7 +916,7 @@ function saveSession() {
   var prev = ALLEZ.store.get(todayKey + '_muscu') || {};
   var ok = ALLEZ.store.upsert({ date: todayKey, kind: 'muscu', seance: actSess.id, name: actSess.name, exercises: exercises,
     duration: prev.duration, bodyWeight: prev.bodyWeight, feeling: prev.feeling, note: prev.note });
-  if (!ok) { alert('La sauvegarde a échoué (stockage plein ou bloqué). Ton brouillon est conservé.'); return; }
+  if (!ok) { ALLEZ.ui.toast('La sauvegarde a échoué (stockage plein ou bloqué). Ton brouillon est conservé.'); return; }
   clearDraft(); dirty = false;
 
   var btn = document.getElementById('saveBtn');
@@ -947,10 +945,10 @@ function renderHistory() {
     var volStr = vol > 0 ? (vol>=1000?(vol/1000).toFixed(1).replace('.',',')+' t':Math.round(vol)+' kg')+' soulevés' : '';
 
     html += '<div class="hist-session" id="hs'+idx+'">';
-    html += '<div class="hist-head" onclick="toggleHist('+idx+')">';
+    html += '<div class="hist-head" data-action="toggleHist" data-args="'+idx+'">';
     html += '<div class="hist-left"><div class="hist-sname">'+esc(s.sessionName)+'</div><div class="hist-date">'+dLabel+' · '+nDone+'/'+nAll+' séries</div></div>';
     html += '<div class="hist-right">'+(volStr?'<div class="hist-vol">'+volStr+'</div>':'')+
-      '<button class="hist-del" onclick="delSess(\''+s.date+'\',event)" title="Supprimer" aria-label="Supprimer la séance">✕</button>'+
+      '<button class="hist-del" data-action="delSess" data-args="'+s.date+'" title="Supprimer" aria-label="Supprimer la séance">✕</button>'+
       '<div class="hist-arr">▼</div></div>';
     html += '</div><div class="hist-body">';
 
@@ -990,7 +988,7 @@ function lockScreen() {
   try { if ('wakeLock' in navigator) navigator.wakeLock.request('screen').then(function(l){ wakeLock = l; }).catch(function(){}); } catch(e) {}
 }
 document.addEventListener('visibilitychange', function() {
-  if (document.visibilityState === 'visible' && document.getElementById('focusOverlay').style.display === 'flex') lockScreen();
+  if (document.visibilityState === 'visible' && (document.getElementById('focusOverlay').style.display === 'flex' || rtbActive >= 0)) lockScreen();
   if (document.visibilityState === 'hidden') flushDraft();
 });
 window.addEventListener('pagehide', flushDraft);   // fermeture d'onglet, retour arrière, appli tuée en arrière-plan
@@ -1043,22 +1041,22 @@ function fRender() {
   var kStep = exo.bw ? 0 : (ALLEZ.PROGRAM.palier(exo.id, +kgVal || 0) || 1);
   var rirVal = row ? row.querySelector('[data-t="rir"]').value : '';
   var inputsHTML = '<div class="ffield">' +
-    '<div class="fstep"><button class="fstep-b" onclick="fBump(\'fReps\',-1)" aria-label="Une répétition de moins">−</button>' +
+    '<div class="fstep"><button class="fstep-b" data-action="fBump" data-args="fReps|-1" aria-label="Une répétition de moins">−</button>' +
     '<input class="finp" id="fReps" type="number" inputmode="decimal" min="0" step="1" ' +
     'placeholder="'+firstNum(exo.reps)+'" value="'+repsVal+'" aria-label="'+(isT?'Secondes':'Répétitions')+'">' +
-    '<button class="fstep-b" onclick="fBump(\'fReps\',1)" aria-label="Une répétition de plus">+</button></div>' +
+    '<button class="fstep-b" data-action="fBump" data-args="fReps|1" aria-label="Une répétition de plus">+</button></div>' +
     '<div class="finp-label">'+(isT?'SEC':'REPS')+'</div></div>';
   if (!noKg) {
     inputsHTML += '<div class="ffield">' +
-      '<div class="fstep"><button class="fstep-b" onclick="fBump(\'fKg\','+(-kStep)+')" aria-label="Moins '+kStep+' kg">−</button>' +
+      '<div class="fstep"><button class="fstep-b" data-action="fBump" data-args="fKg|'+(-kStep)+'" aria-label="Moins '+kStep+' kg">−</button>' +
       '<input class="finp" id="fKg" type="number" inputmode="decimal" ' +
       'min="0" step="0.5" placeholder="0" value="'+kgVal+'" aria-label="Charge en kg">' +
-      '<button class="fstep-b" onclick="fBump(\'fKg\','+kStep+')" aria-label="Plus '+kStep+' kg">+</button></div>' +
+      '<button class="fstep-b" data-action="fBump" data-args="fKg|'+kStep+'" aria-label="Plus '+kStep+' kg">+</button></div>' +
       '<div class="finp-label">KG (± '+String(kStep).replace('.', ',')+')</div></div>';
   }
   if (rirFor(exo)) {
     inputsHTML += '<div class="frir" role="group" aria-label="RIR : répétitions gardées en réserve"><span class="finp-label">RIR</span>' +
-      [0,1,2,3,4].map(function(v){ return '<button class="frir-b'+(rirVal !== '' && +rirVal === v ? ' on' : '')+'" onclick="fSetRir('+v+')">'+(v === 4 ? '4+' : v)+'</button>'; }).join('') + '</div>';
+      [0,1,2,3,4].map(function(v){ return '<button class="frir-b'+(rirVal !== '' && +rirVal === v ? ' on' : '')+'" data-action="fSetRir" data-args="'+v+'">'+(v === 4 ? '4+' : v)+'</button>'; }).join('') + '</div>';
   }
   document.getElementById('fInputs').innerHTML = inputsHTML;
 
@@ -1127,7 +1125,7 @@ function fAction() {
 function fFinish() {
   document.getElementById('fSetNum').textContent = 'SÉANCE TERMINÉE 💪';
   document.getElementById('fActionBtn').style.display = 'none';
-  document.getElementById('fInputs').innerHTML = '<button class="faction" onclick="exitFocus();saveSession();">SAUVEGARDER LA SÉANCE</button>';
+  document.getElementById('fInputs').innerHTML = '<button class="faction" data-action="finishSave">SAUVEGARDER LA SÉANCE</button>';
 }
 
 /* Minuteurs basés sur l'heure de fin : restent justes même si l'écran se verrouille */
@@ -1213,6 +1211,7 @@ function startRestTimer(ei, dur) {
   var bar = document.getElementById('rtb'+ei);
   if (!bar) return;
   bar.style.display = 'flex';
+  lockScreen();   // iPhone : un minuteur web ne sonne pas écran verrouillé → l'écran reste allumé pendant le repos
   _rtbTick();
   rtbIv = setInterval(_rtbTick, 250);
 }
@@ -1222,13 +1221,19 @@ function _rtbTick() {
   var fill = document.getElementById('rtbf'+rtbActive);
   if (num) num.textContent = fmtSec(left);
   if (fill) fill.style.width = Math.round(left/rtbDur*100)+'%';
-  if (left <= 0) { restAlarm([150,60,150], 660); stopRestTimer(); }
+  if (left <= 0) {
+    var late = Math.round((Date.now() - rtbEnd) / 1000);
+    restAlarm([150,60,150], 660); stopRestTimer();
+    // Appli revenue au premier plan après la fin du repos (écran verrouillé, autre appli) : message en plus du son
+    if (late >= 3) ALLEZ.ui.toast('Repos terminé il y a ' + late + ' s : série suivante !');
+  }
 }
 function stopRestTimer() {
   if (rtbIv) clearInterval(rtbIv);
   rtbIv = null;
   if (rtbActive >= 0) { var bar = document.getElementById('rtb'+rtbActive); if (bar) bar.style.display = 'none'; }
   rtbActive = -1;
+  if (wakeLock && document.getElementById('focusOverlay').style.display !== 'flex') { try { wakeLock.release(); } catch(e) {} wakeLock = null; }
 }
 function skipRestTimer(ei) { stopRestTimer(); }
 
@@ -1254,7 +1259,7 @@ function renderCurveView() {
     var sess = SESSIONS[dayNum];
     html += '<div class="curve-section-lbl">'+sess.name+' — '+sess.label+'</div><div class="curve-btns">';
     sess.exercises.forEach(function(exo) {
-      html += '<button class="curve-btn" data-exo="'+exo.id+'" onclick="selectCurve(this.getAttribute(\'data-exo\'))">'+exo.name+'</button>';
+      html += '<button class="curve-btn" data-exo="'+exo.id+'" data-action="selectCurve" data-args="'+exo.id+'">'+exo.name+'</button>';
     });
     html += '</div>';
   });
@@ -1263,7 +1268,7 @@ function renderCurveView() {
   var autres = {}; lb_load().sessions.forEach(function(s){ (s.exercises||[]).forEach(function(e){ var k = exKey(e); if (!prog[k] && ALLEZ.PROGRAM.exercise(k)) autres[k] = 1; }); });
   if (Object.keys(autres).length) {
     html += '<div class="curve-section-lbl">Remplacements</div><div class="curve-btns">' + Object.keys(autres).map(function(id){
-      return '<button class="curve-btn" data-exo="'+id+'" onclick="selectCurve(this.getAttribute(\'data-exo\'))">'+esc(ALLEZ.PROGRAM.exercise(id).name)+'</button>';
+      return '<button class="curve-btn" data-exo="'+id+'" data-action="selectCurve" data-args="'+id+'">'+esc(ALLEZ.PROGRAM.exercise(id).name)+'</button>';
     }).join('') + '</div>';
   }
   html += '</div>' +
@@ -1381,28 +1386,18 @@ function drawCurveChart(canvas, pts) {
 function exportData(){ ALLEZ.exportData(); }
 function importData(input){ ALLEZ.importData(input); }
 
-/* ── HAMBURGER ──────────────────────────────────── */
-(function(){
-  var _hbg=document.getElementById('navHbg');
-  var _nav=document.getElementById('nav');
-  if(!_hbg||!_nav)return;
-  _hbg.addEventListener('click',function(){_hbg.classList.toggle('open');_nav.classList.toggle('open');});
-  _nav.querySelectorAll('.nav-links a').forEach(function(a){a.addEventListener('click',function(){_hbg.classList.remove('open');_nav.classList.remove('open');});});
-  document.addEventListener('click',function(e){if(_nav.classList.contains('open')&&!_nav.contains(e.target)&&e.target!==_hbg){_hbg.classList.remove('open');_nav.classList.remove('open');}});
-})();
 
 /* ── INIT ───────────────────────────────────────── */
 renderStats();
 renderSession();
 </script>
-<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
 
 <!-- ══════════════════ FOCUS MODE OVERLAY ══════════════════ -->
 <div id="focusOverlay">
 
   <div class="ftop">
     <span class="ftop-label" id="fTopLabel"></span>
-    <button class="fquit" onclick="exitFocus()">✕ QUITTER</button>
+    <button class="fquit" data-action="exitFocus">✕ QUITTER</button>
   </div>
 
   <div class="fbody">
@@ -1427,25 +1422,25 @@ renderSession();
         <div class="ftimer-num" id="fTimerNum">1:30</div>
       </div>
       <div class="ftimer-lbl">REPOS</div>
-      <div class="fskip-row"><button class="fskip" onclick="fAddTime(30)">+30 S</button><button class="fskip" onclick="fSkipTimer()">PASSER ›</button></div>
+      <div class="fskip-row"><button class="fskip" data-action="fAddTime" data-args="30">+30 S</button><button class="fskip" data-action="fSkipTimer">PASSER ›</button></div>
     </div>
 
     <!-- Action -->
-    <button class="faction" id="fActionBtn" onclick="fAction()">SET TERMINÉ</button>
+    <button class="faction" id="fActionBtn" data-action="fAction">SET TERMINÉ</button>
 
     <!-- Exercise navigation -->
     <div class="fnavrow">
-      <button class="fnavbtn" onclick="fMoveEx(-1)">← EXO PRÉC.</button>
-      <button class="fnavbtn" onclick="fMoveEx(1)">EXO SUIV. →</button>
+      <button class="fnavbtn" data-action="fMoveEx" data-args="-1">← EXO PRÉC.</button>
+      <button class="fnavbtn" data-action="fMoveEx" data-args="1">EXO SUIV. →</button>
     </div>
 
     <!-- Rest duration presets -->
     <div class="fpresets">
       <span class="fpreset-lbl">REPOS</span>
-      <button class="fpreset" data-dur="60"  onclick="fSetRest(60)">1:00</button>
-      <button class="fpreset on" data-dur="90"  onclick="fSetRest(90)">1:30</button>
-      <button class="fpreset" data-dur="120" onclick="fSetRest(120)">2:00</button>
-      <button class="fpreset" data-dur="180" onclick="fSetRest(180)">3:00</button>
+      <button class="fpreset" data-dur="60"  data-action="fSetRest" data-args="60">1:00</button>
+      <button class="fpreset on" data-dur="90"  data-action="fSetRest" data-args="90">1:30</button>
+      <button class="fpreset" data-dur="120" data-action="fSetRest" data-args="120">2:00</button>
+      <button class="fpreset" data-dur="180" data-action="fSetRest" data-args="180">3:00</button>
     </div>
   </div>
 
@@ -1455,5 +1450,18 @@ renderSession();
   </div>
 
 </div>
+<script>
+// Actions des boutons (délégation : core.js)
+ALLEZ.actions({
+  showTab: function (t) { showTab(t); }, exportData: function () { exportData(); }, importData: function () { importData(this); },
+  saveSession: function () { saveSession(); }, staleResolve: function (k) { staleResolve(k); }, pickSess: function (k) { pickSess(k); },
+  enterFocus: function () { enterFocus(); }, toggleSubs: function (ei) { toggleSubs(ei); }, pickSub: function (ei, id) { pickSub(ei, String(id)); },
+  addSet: function (ei) { addSet(ei); }, skipRestTimer: function (ei) { skipRestTimer(ei); }, toggleDone: function (ei, si) { toggleDone(ei, si); },
+  toggleHist: function (i) { toggleHist(i); }, delSess: function (d, e) { delSess(String(d), e); }, fBump: function (id, d) { fBump(id, d); },
+  fSetRir: function (v) { fSetRir(v); }, finishSave: function () { exitFocus(); saveSession(); }, selectCurve: function (id) { selectCurve(String(id)); },
+  exitFocus: function () { exitFocus(); }, fAddTime: function (s) { fAddTime(s); }, fSkipTimer: function () { fSkipTimer(); }, fAction: function () { fAction(); },
+  fMoveEx: function (d) { fMoveEx(d); }, fSetRest: function (d) { fSetRest(d); }
+});
+</script>
 </body>
 </html>

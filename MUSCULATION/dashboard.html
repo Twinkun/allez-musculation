@@ -10,15 +10,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ALLEZ">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Dashboard — ALLEZ</title>
+<title>Tableau de bord — ALLEZ</title>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
 <script src="data/programme.js"></script>
 <script src="data/nutrition.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 :root {
   --bg:        #f0f2f8;
@@ -393,8 +392,27 @@ button, a, [onclick], input, select, label {
   .card:active,.goal-item:active,.log-item:active{transform:scale(0.99);}
 }
 </style>
+<style id="az-contraste">
+/* Contraste WCAG AA (phase 5, généré par _prive/gen/phase5_contraste.js) */
+.bk-btn.primary { color: #0b1020 !important; }
+.section-heading { color: #646b78 !important; }
+#sc-wtrend { color: #088646 !important; }
+#sc-leantrend > span { color: #088646 !important; }
+span[data-az="goals.leanGainLow|+n"] { color: #088646 !important; }
+span[data-az="goals.leanGainHigh|+n"] { color: #088646 !important; }
+#sc-sstrand { color: #088646 !important; }
+.up.sc-trend { color: #088646 !important; }
+</style>
+<style id="az-cibles">
+/* Cibles tactiles ≥ 44 px (phase 5) */
+.wd-box { width: 44px !important; height: 44px !important; }
+.card-link, .card-link-btn { display: inline-flex !important; align-items: center; min-height: 44px; }
+.card-link-btn { background: none; border: 0; font: inherit; cursor: pointer; padding: 0; }
+.bk-btn { min-height: 44px !important; }
+</style>
 </head>
 <body>
+<a class="az-skip" href="#contenu">Aller au contenu</a>
 
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
@@ -402,26 +420,11 @@ button, a, [onclick], input, select, label {
     <span class="logo-text">ALLEZ</span>
     <span class="logo-badge">PRO</span>
   </div>
-  <nav class="sidebar-nav">
-    <div class="nav-label">Principal</div>
-    <a class="nav-item active" href="dashboard.html"><span class="nav-icon">⚡</span>Dashboard</a>
-    <a class="nav-item" href="index.html"><span class="nav-icon">🏠</span>Accueil</a>
-    <div class="nav-label">Programme</div>
-    <a class="nav-item" href="exercices.html"><span class="nav-icon">💪</span>Exercices</a>
-    <a class="nav-item" href="logbook.html"><span class="nav-icon">📓</span>Logbook Charges</a>
-    <a class="nav-item" href="nutrition.html"><span class="nav-icon">🥗</span>Nutrition</a>
-    <a class="nav-item" href="recettes.html"><span class="nav-icon">🍳</span>Recettes</a>
-    <a class="nav-item" href="pingpong.html"><span class="nav-icon">🏓</span>Ping-Pong</a>
-    <a class="nav-item" href="profil.html"><span class="nav-icon">👤</span>Profil</a>
-    <a class="nav-item" href="progression.html"><span class="nav-icon">📈</span>Progression</a>
-    <a class="nav-item" href="posture.html"><span class="nav-icon">🎯</span>Posture</a>
-    <a class="nav-item" href="analyse.html"><span class="nav-icon">🔬</span>Analyse Physique</a>
-    <a class="nav-item" href="projection.html"><span class="nav-icon">📊</span>Projection 12 Mois</a>
-    <a class="nav-item" href="lifestyle.html"><span class="nav-icon">⚡</span>Lifestyle & Bien-être</a>
-    <a class="nav-item" href="programme.html"><span class="nav-icon">📋</span>Programme PDF</a>
+  <nav class="sidebar-nav" data-az-nav="sidebar" aria-label="Navigation principale"></nav>
+  <div class="sidebar-nav sidebar-tools">
     <div class="nav-label">Outils</div>
-    <button class="nav-item" onclick="openModal()"><span class="nav-icon">➕</span>Logger une séance<span class="nav-badge">NEW</span></button>
-  </nav>
+    <button class="nav-item" data-action="openModal"><span class="nav-icon">➕</span>Logger une séance<span class="nav-badge">NEW</span></button>
+  </div>
   <div class="sidebar-user">
     <div class="user-avatar">A</div>
     <div><div class="user-name">Mon Profil</div><div class="user-sub" id="userWeek">Débutant · Semaine 1</div></div>
@@ -431,9 +434,8 @@ button, a, [onclick], input, select, label {
 
 <!-- TOPBAR -->
 <header class="topbar">
-  <button class="mobile-menu" id="mobileMenu">☰</button>
   <div>
-    <div class="topbar-title">Dashboard</div>
+    <h1 class="topbar-title">Tableau de bord</h1>
     <div class="topbar-date" id="topbarDate"></div>
   </div>
   <div class="topbar-right">
@@ -443,7 +445,8 @@ button, a, [onclick], input, select, label {
 </header>
 
 <!-- MAIN -->
-<main class="main">
+<main class="main" id="contenu">
+  <div data-az-banners></div><script>ALLEZ.rappels()</script>
 <div class="content">
 
   <!-- BACKUP / SÉCURITÉ DES DONNÉES -->
@@ -468,9 +471,9 @@ button, a, [onclick], input, select, label {
       <div class="backup-desc" id="backupDesc">Tes données sont stockées sur cet appareil uniquement.</div>
     </div>
     <div class="backup-actions">
-      <button class="bk-btn primary" onclick="exportData()">💾 Sauvegarder</button>
+      <button class="bk-btn primary" data-action="exportData">💾 Sauvegarder</button>
       <label class="bk-btn" for="importInput">📂 Restaurer</label>
-      <input type="file" id="importInput" accept=".json" style="display:none" onchange="importData(this)">
+      <input type="file" id="importInput" accept=".json" style="display:none" data-change="importData">
     </div>
   </div>
 
@@ -578,7 +581,7 @@ button, a, [onclick], input, select, label {
           <div class="card-title">Semaine en cours</div>
           <div class="card-sub" id="weekRange">Chargement…</div>
         </div>
-        <span class="card-link" style="cursor:pointer" onclick="openModal()">+ Séance</span>
+        <button type="button" class="card-link card-link-btn" data-action="openModal">+ Séance</button>
       </div>
       <div class="week-days" id="weekGrid"></div>
       <div class="week-stats">
@@ -594,7 +597,7 @@ button, a, [onclick], input, select, label {
           <div class="card-title">Progression Force</div>
           <div class="card-sub">Départ → objectif 12 mois · barre = ton record</div>
         </div>
-        <a class="card-link" href="logbook.html">Logbook →</a>
+        <a class="card-link" href="logbook.html">Séance →</a>
       </div>
       <div class="strength-list" id="strengthList"></div>
     </div>
@@ -689,8 +692,8 @@ button, a, [onclick], input, select, label {
       </div>
     </div>
     <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeModal()">Annuler</button>
-      <button class="btn-save" onclick="logSession()">✓ Enregistrer</button>
+      <button class="btn-cancel" data-action="closeModal">Annuler</button>
+      <button class="btn-save" data-action="logSession">✓ Enregistrer</button>
     </div>
   </div>
 </div>
@@ -776,7 +779,7 @@ function renderWeek() {
     if (sdates.has(d)) { cls='done'; inner='✓'; }
     else if (d===today) { cls='today'; inner='●'; }
     else if (!PLANNED[i]) { cls='rest'; inner='~'; }
-    return `<div class="wd"><div class="wd-lbl">${DAY_ABR[i]}</div><div class="wd-box ${cls}" onclick="toggleDay('${d}')" role="button" aria-label="${DAY_ABR[i]} ${d}">${inner}</div></div>`;
+    return `<div class="wd"><div class="wd-lbl">${DAY_ABR[i]}</div><div class="wd-box ${cls}" data-action="toggleDay" data-args="${d}" role="button" tabindex="0" aria-label="${DAY_ABR[i]} ${d}">${inner}</div></div>`;
   }).join('');
   const mdates = new Set(muscu().map(s=>s.date));
   const done = wk.filter(d=>mdates.has(d)).length;
@@ -787,7 +790,7 @@ function renderWeek() {
 window.toggleDay = d => {
   // Une séance détaillée se gère dans le logbook ; ici on coche ou décoche une séance « rapide »
   const cur = ALLEZ.store.get(d + '_muscu');
-  if (cur && cur.exercises.length) { if (confirm('Cette séance vient du logbook. Ouvrir le logbook ?')) location.href='logbook.html'; return; }
+  if (cur && cur.exercises.length) { ALLEZ.ui.dialog({ title: 'Séance détaillée', intro: 'Cette séance a été saisie série par série dans l’onglet Séance. Elle se modifie là-bas.', ok: 'Ouvrir l’onglet Séance' }).then(yes => { if (yes) location.href = 'logbook.html'; }); return; }
   if (cur) ALLEZ.store.remove(cur.id); else ALLEZ.store.upsert({ date: d, kind: 'muscu' });
   renderAll();
 };
@@ -897,7 +900,7 @@ function renderNext() {
 function renderLog() {
   const sess=getSess(), el=document.getElementById('sessionList');
   if(!sess.length){
-    el.innerHTML='<div class="sess-empty">Aucune séance enregistrée.<br>Lance ta séance dans le <a href="logbook.html"><strong>logbook</strong></a>.</div>';
+    el.innerHTML='<div class="sess-empty">Aucune séance enregistrée.<br>Lance ta séance dans l’onglet <a href="logbook.html"><strong>Séance</strong></a>.</div>';
     return;
   }
   el.innerHTML=[...sess].reverse().slice(0,6).map(s=>{
@@ -909,12 +912,20 @@ function renderLog() {
       <div class="sess-icon ${m.cls}">${m.icon}</div>
       <div class="sess-info">
         <div class="sess-name">${m.label}</div>
-        <div class="sess-meta">${d}${s.source==='logbook'?' · logbook · '+nDone+' séries':''}${s.duration?' · '+esc(s.duration)+' min':''}${s.feeling?' · Ressenti '+esc(s.feeling)+'/10':''}</div>
-        ${s.note?`<div class="sess-note">${esc(s.note)}</div>`:''}
+        <div class="sess-meta"></div>
+        ${s.note?'<div class="sess-note"></div>':''}
       </div>
       ${isPR?'<span class="sess-pr">🏆 PR</span>':''}
     </div>`;
   }).join('');
+  // Durée, ressenti et note sont des saisies : remplis avec textContent
+  [...sess].reverse().slice(0,6).forEach((s,i)=>{
+    const item=el.children[i]; if(!item)return;
+    const d=ALLEZ.parseISO(s.date).toLocaleDateString('fr-FR',{weekday:'short',month:'short',day:'numeric'});
+    const nDone = s.exercises ? s.exercises.reduce((a,e)=>a+(e.sets||[]).filter(x=>x.done!==false).length,0) : 0;
+    item.querySelector('.sess-meta').textContent = d + (s.source==='logbook'?' · carnet · '+nDone+' séries':'') + (s.duration?' · '+s.duration+' min':'') + (s.feeling?' · Ressenti '+s.feeling+'/10':'');
+    const n=item.querySelector('.sess-note'); if(n) n.textContent=s.note;
+  });
 }
 
 // ── STREAK DOTS ──
@@ -960,9 +971,9 @@ window.logSession = () => {
   }
   closeModal(); renderAll();
 };
-document.getElementById('clearBtn').onclick=()=>{
-  if(confirm('Effacer les séances rapides (sans détail des séries) ?\n(Les séances détaillées du logbook ne sont pas touchées.)')){getSess().filter(s=>!s.exercises.length).forEach(s=>ALLEZ.store.remove(s.id));renderAll();}
-};
+document.getElementById('clearBtn').addEventListener('click',()=>{
+  if(confirm('Effacer les séances rapides (sans détail des séries) ?\n(Les séances détaillées de l’onglet Séance ne sont pas touchées.)')){getSess().filter(s=>!s.exercises.length).forEach(s=>ALLEZ.store.remove(s.id));renderAll();}
+});
 document.getElementById('modalOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
 
 // ── CHARTS ──
@@ -1102,20 +1113,13 @@ function renderAll(){
 }
 renderAll();
 
-// ── MOBILE SIDEBAR ──
-const sidebar = document.getElementById('sidebar');
-document.getElementById('mobileMenu').addEventListener('click', () => {
-  sidebar.classList.toggle('open');
-});
-document.querySelectorAll('.sidebar-nav .nav-item').forEach(item => {
-  item.addEventListener('click', () => sidebar.classList.remove('open'));
-});
-document.addEventListener('click', e => {
-  if (sidebar.classList.contains('open') && !sidebar.contains(e.target) && e.target.id !== 'mobileMenu') {
-    sidebar.classList.remove('open');
-  }
+</script>
+<script>
+// Actions des boutons (délégation : core.js)
+ALLEZ.actions({
+  openModal: function () { openModal(); }, closeModal: function () { closeModal(); }, logSession: function () { logSession(); },
+  exportData: function () { exportData(); }, importData: function () { importData(this); }, toggleDay: function (d) { toggleDay(String(d)); }
 });
 </script>
-<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
 </body>
 </html>

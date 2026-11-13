@@ -19,9 +19,8 @@
 <script src="data/supplements.js"></script>
 <script src="data/repas.js"></script>
 <script src="data/recettes.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 :root {
   --bg: #f0ece3;
@@ -844,7 +843,7 @@ nav {
   align-items: center;
 }
 
-.hydration-left h3 {
+.hydration-left h2 {
   font-family: var(--font-head);
   font-size: 2.5rem;
   letter-spacing: 0.04em;
@@ -932,7 +931,7 @@ nav {
   background: rgba(10,158,82,0.1);
 }
 
-.conseil-body h4 {
+.conseil-body h3 {
   font-weight: 700;
   font-size: 0.9rem;
   margin-bottom: 6px;
@@ -1346,30 +1345,28 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 @media(max-width:1000px){.supp-safety-grid.n4{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){.supp-safety-grid.n4{grid-template-columns:1fr}}
 </style>
+<style id="az-contraste">
+/* Contraste WCAG AA (phase 5, généré par _prive/gen/phase5_contraste.js) */
+.section-label { color: #08783e !important; }
+.section-sub { color: #626784 !important; }
+.section-sub span { color: #626784 !important; }
+span[data-az="nutrition.tdeeMarge|int"] { color: #626784 !important; }
+span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
+.plan-tab-btn.active { color: #0b1020 !important; }
+.courses-btn-gen { color: #0b1020 !important; }
+</style>
+<style id="az-cibles">
+/* Cibles tactiles ≥ 44 px (phase 5) */
+.top10-link, .hero-anchor, .supp-refs a { min-height: 44px !important; display: inline-flex !important; align-items: center; }
+</style>
 </head>
 <body>
+<a class="az-skip" href="#contenu">Aller au contenu</a>
+<div class="az-banners" data-az-banners></div><script>ALLEZ.rappels()</script>
 
 <!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">ALLEZ</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Accueil</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="nutrition.html" class="active">Nutrition</a></li>
-    <li><a href="logbook.html">Logbook</a></li>
-    <li><a href="progression.html">Progression</a></li>
-    <li><a href="exercices.html">Exercices</a></li>
-    <li><a href="programme.html">Programme</a></li>
-    <li><a href="analyse.html">Analyse</a></li>
-    <li><a href="posture.html">Posture</a></li>
-    <li><a href="projection.html">Projection</a></li>
-    <li><a href="lifestyle.html">Lifestyle</a></li>
-    <li><a href="recettes.html">Recettes</a></li>
-    <li><a href="pingpong.html">Ping-Pong</a></li>
-    <li><a href="profil.html">Profil</a></li>
-  </ul>
-  <button class="nav-hamburger" id="navHbg" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
+<nav class="az-topnav" data-az-nav aria-label="Navigation principale"></nav>
+<main id="contenu">
 
 <!-- HERO -->
 <div class="hero">
@@ -1681,7 +1678,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 
   <div class="hydration-block reveal">
     <div class="hydration-left">
-      <h3>2 à 2,5 L<br>à boire</h3>
+      <h2>2 à 2,5 L<br>à boire</h2>
       <p>Repère de l'EFSA pour un homme : 2,5 L d'eau totale par jour, aliments compris, soit environ 2 L de boissons. Les jours de séance ou de chaleur, ajoute 0,5 à 1 L.</p>
       <br>
       <p style="color:rgba(255,255,255,0.5);font-size:0.82rem;">
@@ -1747,56 +1744,56 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
     <div class="conseil-card">
       <div class="conseil-icon">⚖️</div>
       <div class="conseil-body">
-        <h4>Pèse-toi souvent, juge la moyenne</h4>
+        <h3>Pèse-toi souvent, juge la moyenne</h3>
         <p>Idéalement chaque matin (à jeun, après les toilettes), au moins 3 fois par semaine. Ne regarde que la <strong>moyenne de la semaine</strong> : une pesée isolée varie de ±1-2 kg (eau, sel, glycogène, créatine).</p>
       </div>
     </div>
     <div class="conseil-card">
       <div class="conseil-icon">📏</div>
       <div class="conseil-body">
-        <h4>Le mètre ruban compte plus que la balance</h4>
+        <h3>Le mètre ruban compte plus que la balance</h3>
         <p>En recomposition, le poids bouge peu (objectif ~<span data-az="goals.dWeight|+n"></span> kg sur l'année). Mesure ton tour de taille au nombril 1×/semaine, même jour, même heure. Une taille qui baisse + des charges qui montent = ça marche.</p>
       </div>
     </div>
     <div class="conseil-card">
       <div class="conseil-icon">🕐</div>
       <div class="conseil-body">
-        <h4>Glucides autour des séances</h4>
+        <h3>Glucides autour des séances</h3>
         <p>Les jours de séance, la majorité des glucides se trouve dans les repas avant et après l'entraînement (c'est ce que fait ton plan). C'est surtout pratique pour la performance : le total de la journée reste le facteur principal.</p>
       </div>
     </div>
     <div class="conseil-card">
       <div class="conseil-icon">🥚</div>
       <div class="conseil-body">
-        <h4>4 prises de 30-45 g de protéines</h4>
+        <h3>4 prises de 30-45 g de protéines</h3>
         <p>Répartir les <span data-az="nutrition.proteines"></span> g sur 4 repas optimise la synthèse musculaire sur la journée et la satiété. Il n'y a pas de « plafond de 30-40 g par repas » : un gros repas est simplement digéré plus lentement.</p>
       </div>
     </div>
     <div class="conseil-card">
       <div class="conseil-icon">🧘</div>
       <div class="conseil-body">
-        <h4>Vacuum : posture, pas brûle-graisse</h4>
+        <h3>Vacuum : posture, pas brûle-graisse</h3>
         <p>Le vacuum renforce le transverse et aide à mieux « tenir » le ventre. Mais seule la perte de gras (léger déficit les jours de repos) réduit réellement le tour de taille.</p>
       </div>
     </div>
     <div class="conseil-card">
       <div class="conseil-icon">😴</div>
       <div class="conseil-body">
-        <h4>7-9 h de sommeil</h4>
+        <h3>7-9 h de sommeil</h3>
         <p>Dormir moins de 6 h de façon chronique augmente la faim, réduit la récupération et fait baisser la testostérone. Pour la recomposition, le sommeil pèse autant que la nutrition.</p>
       </div>
     </div>
     <div class="conseil-card">
       <div class="conseil-icon">🍽️</div>
       <div class="conseil-body">
-        <h4>Un repas plaisir par semaine</h4>
+        <h3>Un repas plaisir par semaine</h3>
         <p>Un repas (pas une journée) : c'est surtout bon pour le moral et la régularité sur 12 mois. Garde une source de protéines dedans et reprends normalement au repas suivant.</p>
       </div>
     </div>
     <div class="conseil-card">
       <div class="conseil-icon">🚫</div>
       <div class="conseil-body">
-        <h4>Alcool : le plus gros frein</h4>
+        <h3>Alcool : le plus gros frein</h3>
         <p>L'alcool réduit la synthèse musculaire pendant plusieurs heures, dégrade le sommeil profond et ajoute 7 kcal/g. Jamais la veille ou le soir d'une séance ; ailleurs, 1-2 verres maximum.</p>
       </div>
     </div>
@@ -2766,9 +2763,9 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
   <div class="courses-meal-grid" id="coursesMeals"></div>
 
   <div class="courses-controls">
-    <button class="courses-ctrl-btn" onclick="coursesToggleAll(true)">Tout cocher</button>
-    <button class="courses-ctrl-btn" onclick="coursesToggleAll(false)">Tout décocher</button>
-    <button class="courses-btn-gen" onclick="coursesGenerate()">⚡ GÉNÉRER MA LISTE</button>
+    <button class="courses-ctrl-btn" data-action="coursesToggleAll" data-args="true">Tout cocher</button>
+    <button class="courses-ctrl-btn" data-action="coursesToggleAll" data-args="false">Tout décocher</button>
+    <button class="courses-btn-gen" data-action="coursesGenerate">⚡ GÉNÉRER MA LISTE</button>
   </div>
 
   <div id="coursesMsg" class="courses-msg" role="status" style="display:none"></div>
@@ -2779,14 +2776,15 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
         <div class="courses-result-title">MA LISTE DE COURSES</div>
         <div class="courses-result-sub" id="coursesResultSub"></div>
       </div>
-      <button class="courses-copy-btn" onclick="coursesCopy()">COPIER</button>
+      <button class="courses-copy-btn" data-action="coursesCopy">COPIER</button>
     </div>
     <div class="courses-cats" id="coursesCats"></div>
     <div class="courses-copied" id="coursesCopied">✓ Copié dans le presse-papier !</div>
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- FOOTER --></main>
+
 <footer>
   <span>ALLEZ — Plan nutrition</span>
   <span>
@@ -3018,7 +3016,7 @@ function animateCount(el, target, suffix, prefix) {
 
   function step(now) {
     const elapsed = now - start;
-    const progress = Math.min(elapsed / duration, 1);
+    const progress = ALLEZ.reduceMotion() ? 1 : Math.min(elapsed / duration, 1);   // mouvements réduits : valeur finale directe
     const ease = 1 - Math.pow(1 - progress, 3);
     const current = target * ease;
     el.textContent = (prefix || '') + (isDecimal ? current.toFixed(1) : Math.round(current)).toLocaleString('fr-FR') + (suffix || '');
@@ -3042,11 +3040,6 @@ const heroStats = document.querySelector('.hero-stats');
 if (heroStats) heroObserver.observe(heroStats);
 </script>
 <script>
-const _hbg = document.getElementById('navHbg');
-const _nav = document.querySelector('nav');
-_hbg.addEventListener('click', () => { _hbg.classList.toggle('open'); _nav.classList.toggle('open'); });
-document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => { _hbg.classList.remove('open'); _nav.classList.remove('open'); }); });
-document.addEventListener('click', e => { if (_nav.classList.contains('open') && !_nav.contains(e.target)) { _hbg.classList.remove('open'); _nav.classList.remove('open'); } });
 </script>
 <script>
 // ── LISTE DE COURSES ──
@@ -3151,6 +3144,11 @@ function coursesCopy() {
 
 coursesInit();
 </script>
-<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
+<script>
+// Actions des boutons (délégation : core.js)
+ALLEZ.actions({
+  coursesToggleAll: function (v) { coursesToggleAll(v); }, coursesGenerate: function () { coursesGenerate(); }, coursesCopy: function () { coursesCopy(); }
+});
+</script>
 </body>
 </html>

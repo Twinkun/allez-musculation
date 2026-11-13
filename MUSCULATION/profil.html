@@ -12,9 +12,8 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Profil — ALLEZ</title>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
 <script src="data/programme.js"></script>
@@ -26,7 +25,7 @@ body { margin: 0; background: var(--az-creme); color: var(--az-texte); font-fami
 .top { background: var(--az-nuit); color: #fff; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .top a.logo { font-family: var(--az-police-titre); font-size: 1.6rem; letter-spacing: .08em; color: var(--az-or); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
 .top a.back { color: #fff; font-size: .85rem; font-weight: 600; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 6px; }
-main { max-width: 860px; margin: 0 auto; padding: 24px 16px 40px; }
+main { max-width: 860px; margin: 0 auto; padding: 88px 16px 40px; }
 h1 { font-family: var(--az-police-titre); font-size: clamp(2.2rem, 7vw, 3.2rem); letter-spacing: .03em; line-height: 1.05; margin: 8px 0 6px; font-weight: 400; }
 h1 em { font-style: normal; color: var(--az-or-texte); }
 .lead { color: var(--az-texte-moyen); font-size: .95rem; margin: 0 0 22px; max-width: 60ch; }
@@ -52,12 +51,11 @@ label.az-btn:focus-within { outline: 2px solid var(--az-nuit); outline-offset: 2
 </style>
 </head>
 <body data-no-rappels>
-<header class="top">
-  <a class="logo" href="index.html" aria-label="ALLEZ — accueil">ALLEZ</a>
-  <a class="back" href="dashboard.html">← Suivi</a>
-</header>
+<a class="az-skip" href="#contenu">Aller au contenu</a>
+<div class="az-banners" data-az-banners></div><script>ALLEZ.rappels()</script>
+<nav class="az-topnav" data-az-nav aria-label="Navigation principale"></nav>
 
-<main>
+<main id="contenu">
   <h1>MON <em>PROFIL</em></h1>
   <p class="lead">Tes mesures restent sur cet appareil : elles ne sont jamais écrites dans le site publié ni envoyées ailleurs. Toutes les cibles de l'app (calories, objectifs, projection) sont calculées à partir d'elles.</p>
 
@@ -206,6 +204,5 @@ label.az-btn:focus-within { outline: 2px solid var(--az-nuit); outline-offset: 2
   etatPersist().then(renderSauv);
 })();
 </script>
-<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(function(){});</script>
 </body>
 </html>

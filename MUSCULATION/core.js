@@ -589,8 +589,8 @@
         var bar = doc.createElement('div'); bar.className = 'az-modal-b';
         var done = function (v) { doc.removeEventListener('keydown', onKey); ov.remove(); resolve(v); };
         var onKey = function (e) { if (e.key === 'Escape') done(false); };
-        if (o.cancel !== null) { var c = doc.createElement('button'); c.className = 'az-btn ghost'; c.type = 'button'; c.textContent = o.cancel || 'Annuler'; c.onclick = function () { done(false); }; bar.appendChild(c); }
-        var k = doc.createElement('button'); k.className = 'az-btn' + (o.danger ? ' danger' : ''); k.type = 'button'; k.textContent = o.ok || 'OK'; k.onclick = function () { done(true); }; bar.appendChild(k);
+        if (o.cancel !== null) { var c = doc.createElement('button'); c.className = 'az-btn ghost'; c.type = 'button'; c.textContent = o.cancel || 'Annuler'; c.addEventListener('click', function () { done(false); }); bar.appendChild(c); }
+        var k = doc.createElement('button'); k.className = 'az-btn' + (o.danger ? ' danger' : ''); k.type = 'button'; k.textContent = o.ok || 'OK'; k.addEventListener('click', function () { done(true); }); bar.appendChild(k);
         box.appendChild(bar); ov.appendChild(box); doc.body.appendChild(ov); doc.addEventListener('keydown', onKey); k.focus();
       });
     },
@@ -605,16 +605,48 @@
       var s = doc.createElement('span'); s.className = 'az-banner-t'; s.textContent = o.text; b.appendChild(s);
       (o.actions || []).forEach(function (a) {
         var el = doc.createElement(a.href ? 'a' : 'button'); el.className = 'az-btn' + (a.ghost ? ' ghost' : ''); el.textContent = a.label;
-        if (a.href) el.href = a.href; else { el.type = 'button'; el.onclick = function () { a.onClick(b); }; }
+        if (a.href) el.href = a.href; else { el.type = 'button'; el.addEventListener('click', function () { a.onClick(b); }); }
         b.appendChild(el);
       });
+      // Emplacement prévu par la page, sinon un conteneur commun juste après le lien d'évitement (qui reste le 1er élément focalisable)
       var host = doc.querySelector('[data-az-banners]');
-      if (host) host.appendChild(b); else doc.body.insertBefore(b, doc.body.firstChild);
+      if (!host) {
+        host = doc.createElement('div'); host.className = 'az-banners'; host.setAttribute('data-az-banners', '');
+        var skip = doc.querySelector('body > .az-skip');
+        doc.body.insertBefore(host, skip ? skip.nextSibling : doc.body.firstChild);
+      }
+      host.appendChild(b);
       return b;
     }
   };
+  // ── ACTIONS DÉCLARATIVES (à la place des onclick / onchange en ligne) ──
+  // <button data-action="nom" data-args="1|texte"> → nom.call(élément, 1, 'texte', événement) ; <input data-change="nom">.
+  // Chaque page déclare ses fonctions avec ALLEZ.actions({ nom: fonction }).
+  var ACTIONS = {};
+  function actions(map) { Object.keys(map).forEach(function (k) { ACTIONS[k] = map[k]; }); }
+  function argList(s) { return s == null || s === '' ? [] : String(s).split('|').map(function (v) { return /^-?\d+(\.\d+)?$/.test(v) ? +v : v === 'true' ? true : v === 'false' ? false : v; }); }
+  function runAction(attr, e) {
+    var t = e.target && e.target.closest ? e.target.closest('[' + attr + ']') : null; if (!t) return;
+    var fn = ACTIONS[t.getAttribute(attr)]; if (!fn) return;
+    if (t.tagName === 'A' && e.type === 'click') e.preventDefault();
+    fn.apply(t, argList(t.getAttribute('data-args')).concat([e]));
+  }
+  if (doc) {
+    doc.addEventListener('click', function (e) { runAction('data-action', e); });
+    doc.addEventListener('change', function (e) { runAction('data-change', e); });
+    // Éléments role="button" non natifs : Entrée et Espace déclenchent l'action, comme un bouton
+    doc.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var t = e.target; if (!t || !t.getAttribute || t.getAttribute('role') !== 'button' || !t.hasAttribute('data-action')) return;
+      e.preventDefault(); runAction('data-action', e);
+    });
+  }
   function page() { return (w.location.pathname.split('/').pop() || 'index.html'); }
+  // Appelée par la page juste après son emplacement de bandeaux (avant le 1er affichage : pas de décalage de mise en page),
+  // sinon au chargement du DOM. Une seule fois.
+  var remindersDone = false;
   function reminders() {
+    if (remindersDone) return; remindersDone = true;
     if (doc.body.hasAttribute('data-no-rappels')) return;
     if (!profileIsSet() && page() !== 'profil.html')
       ui.banner({ kind: 'profil', text: 'Valeurs d\'exemple affichées : ton profil n\'est pas renseigné sur cet appareil.', actions: [{ label: 'Renseigner mon profil', href: 'profil.html' }] });
@@ -641,27 +673,126 @@
     }
     el.className = 'az-start'; el.innerHTML = html;
     var ok = el.querySelector('#azStartOk'), rm = el.querySelector('#azStartRm'), inp = el.querySelector('#azStartIn');
-    ok.onclick = function () { if (!inp.value) return; setStartISO(inp.value); renderStartCard(el, onChange); if (onChange) onChange(); };
-    if (rm) rm.onclick = function () { ui.dialog({ title: 'Effacer la date de départ ?', ok: 'Effacer', danger: true }).then(function (yes) { if (!yes) return; setStartISO(null); renderStartCard(el, onChange); if (onChange) onChange(); }); };
+    ok.addEventListener('click', function () { if (!inp.value) return; setStartISO(inp.value); renderStartCard(el, onChange); if (onChange) onChange(); });
+    if (rm) rm.addEventListener('click', function () { ui.dialog({ title: 'Effacer la date de départ ?', ok: 'Effacer', danger: true }).then(function (yes) { if (!yes) return; setStartISO(null); renderStartCard(el, onChange); if (onChange) onChange(); }); });
   }
 
-  // ── BARRE DE NAVIGATION MOBILE ────────────────────────────────────
-  var TABS = [
-    { h: 'index.html', i: '🏠', t: 'Accueil' },
-    { h: 'logbook.html', i: '🏋️', t: 'Séance' },
-    { h: 'dashboard.html', i: '📊', t: 'Suivi' },
-    { h: 'nutrition.html', i: '🥗', t: 'Nutrition' },
-    { h: 'progression.html', i: '📈', t: 'Progrès' }
-  ];
-  function injectTabbar() {
-    if (doc.querySelector('.az-tabbar') || doc.body.hasAttribute('data-no-tabbar')) return;
-    var pg = page();
-    // <div> et non <nav> : les pages stylent « nav { position:fixed; top:0 … } » globalement
-    var nav = doc.createElement('div'); nav.className = 'az-tabbar'; nav.setAttribute('role', 'navigation'); nav.setAttribute('aria-label', 'Navigation principale');
-    nav.innerHTML = TABS.map(function (t) { return '<a href="' + t.h + '"' + (pg === t.h ? ' class="on" aria-current="page"' : '') + '><span class="i">' + t.i + '</span>' + t.t + '</a>'; }).join('');
-    doc.body.appendChild(nav); doc.body.classList.add('az-has-tabbar');
+  // ── NAVIGATION UNIQUE ─────────────────────────────────────────────
+  // Source unique des menus : 4 onglets + « Plus ». Barre du haut (bureau, élément [data-az-nav] de la page),
+  // barre d'onglets en bas (mobile) et panneau « Plus » sont tous construits ici.
+  var NAV = {
+    tabs: [
+      { h: 'index.html', i: '🏠', t: 'Accueil' },
+      { h: 'logbook.html', i: '🏋️', t: 'Séance' },
+      { h: 'nutrition.html', i: '🥗', t: 'Nutrition' },
+      { h: 'progression.html', i: '📈', t: 'Progrès' }
+    ],
+    plus: [
+      { g: 'Suivi', items: [{ h: 'dashboard.html', i: '📊', t: 'Tableau de bord' }, { h: 'profil.html', i: '👤', t: 'Profil et sauvegarde' }] },
+      { g: 'Entraînement', items: [{ h: 'exercices.html', i: '💪', t: 'Exercices' }, { h: 'programme.html', i: '📋', t: 'Programme imprimable' }, { h: 'posture.html', i: '🧍', t: 'Posture' }] },
+      { g: 'Cuisine', items: [{ h: 'recettes.html', i: '🍳', t: 'Recettes' }] },
+      { g: 'Bilan', items: [{ h: 'analyse.html', i: '🔬', t: 'Analyse' }, { h: 'projection.html', i: '🗓️', t: 'Projection' }, { h: 'lifestyle.html', i: '🌙', t: 'Hygiène de vie' }] },
+      { g: 'Loisirs', items: [{ h: 'pingpong.html', i: '🏓', t: 'Ping-pong' }] }
+    ],
+    parent: { 'comparatif-raquettes.html': 'pingpong.html', 'fiche-raquette-pingpong.html': 'pingpong.html' }
+  };
+  function navPage() { var p = page(); return NAV.parent[p] || p; }
+  function inPlus(p) { return NAV.plus.some(function (g) { return g.items.some(function (it) { return it.h === p; }); }); }
+  function el(tag, attrs, text) {
+    var e = doc.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (k) { e.setAttribute(k, attrs[k]); });
+    if (text != null) e.textContent = text;
+    return e;
   }
-  function onReady() { injectTabbar(); bind(); reminders(); }
+  function navLink(t, cls) {
+    var a = el('a', { href: t.h, 'class': cls }), pg = navPage();
+    if (pg === t.h) { a.classList.add('on'); a.setAttribute('aria-current', 'page'); }
+    a.appendChild(el('span', { 'class': 'i', 'aria-hidden': 'true' }, t.i)); a.appendChild(doc.createTextNode(t.t));
+    return a;
+  }
+  function plusButton(cls) {
+    var b = el('button', { type: 'button', 'class': cls + ' az-plus-btn', 'aria-haspopup': 'dialog', 'aria-expanded': 'false', 'aria-controls': 'azPlus' });
+    if (inPlus(navPage())) b.classList.add('on');
+    b.appendChild(el('span', { 'class': 'i', 'aria-hidden': 'true' }, '☰')); b.appendChild(doc.createTextNode('Plus'));
+    b.addEventListener('click', function () { togglePlus(b); });
+    return b;
+  }
+  var plusOpener = null;
+  function closePlus() {
+    var p = doc.getElementById('azPlus'); if (!p || p.hidden) return;
+    p.hidden = true; doc.querySelectorAll('.az-plus-btn').forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+    if (plusOpener) { plusOpener.focus(); plusOpener = null; }
+  }
+  function togglePlus(btn) {
+    var p = doc.getElementById('azPlus'); if (!p) return;
+    if (!p.hidden) { closePlus(); return; }
+    p.hidden = false; plusOpener = btn; btn.setAttribute('aria-expanded', 'true');
+    var first = p.querySelector('a'); if (first) first.focus();
+  }
+  function buildPlus() {
+    var ov = el('div', { id: 'azPlus', 'class': 'az-plus', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'azPlusT' }); ov.hidden = true;
+    var box = el('div', { 'class': 'az-plus-box' });
+    var hd = el('div', { 'class': 'az-plus-hd' }); hd.appendChild(el('h2', { id: 'azPlusT' }, 'Toutes les pages'));
+    var x = el('button', { type: 'button', 'class': 'az-plus-x', 'aria-label': 'Fermer' }, '✕'); x.addEventListener('click', closePlus); hd.appendChild(x);
+    box.appendChild(hd);
+    NAV.plus.forEach(function (g) {
+      var sec = el('div', { 'class': 'az-plus-g' }); sec.appendChild(el('h3', null, g.g));
+      g.items.forEach(function (it) { sec.appendChild(navLink(it, 'az-plus-a')); });
+      box.appendChild(sec);
+    });
+    ov.appendChild(box);
+    ov.addEventListener('click', function (e) { if (e.target === ov) closePlus(); });
+    doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePlus(); });
+    doc.body.appendChild(ov);
+  }
+  function injectNav() {
+    if (doc.body.hasAttribute('data-no-tabbar') || doc.getElementById('azPlus')) return;
+    // Barre du haut : logo + onglets + Plus, dans le conteneur prévu par la page (enfants [data-az-garder] conservés)
+    doc.querySelectorAll('[data-az-nav]').forEach(function (n) {
+      var side = n.getAttribute('data-az-nav') === 'sidebar', keep = [].slice.call(n.querySelectorAll('[data-az-garder]'));
+      n.textContent = '';
+      if (!side) { var logo = el('a', { href: 'index.html', 'class': 'az-logo', 'aria-label': 'ALLEZ, accueil' }, 'ALLEZ'); n.appendChild(logo); }
+      var links = el('div', { 'class': side ? 'az-side' : 'az-links' });
+      NAV.tabs.forEach(function (t) { links.appendChild(navLink(t, side ? 'az-side-a' : 'az-top-a')); });
+      links.appendChild(plusButton(side ? 'az-side-a' : 'az-top-a'));
+      n.appendChild(links);
+      keep.forEach(function (k) { n.appendChild(k); });
+    });
+    // Barre d'onglets du bas (mobile). <div role="navigation"> et non <nav> : des pages stylent « nav { position:fixed; top:0 } »
+    var bar = el('div', { 'class': 'az-tabbar', role: 'navigation', 'aria-label': 'Onglets' });
+    NAV.tabs.forEach(function (t) { bar.appendChild(navLink(t, 'az-tab')); });
+    bar.appendChild(plusButton('az-tab'));
+    doc.body.appendChild(bar); doc.body.classList.add('az-has-tabbar');
+    buildPlus();
+  }
+
+  // ── SERVICE WORKER : enregistrement et bandeau « Nouvelle version disponible » ──
+  function registerSW() {
+    var nav = w.navigator; if (!nav || !nav.serviceWorker || !/^https?:/.test(w.location.protocol)) return;
+    // Rechargement seulement après « Mettre à jour » : à la toute première installation, clients.claim() change aussi
+    // le contrôleur, et recharger à ce moment-là ferait recharger la page dès la première visite.
+    var asked = false, reloading = false;
+    nav.serviceWorker.addEventListener('controllerchange', function () { if (!asked || reloading) return; reloading = true; w.location.reload(); });
+    nav.serviceWorker.register('./sw.js').then(function (reg) {
+      var offer = function (sw) {
+        if (!sw || !nav.serviceWorker.controller) return;   // première installation : rien à proposer
+        ui.banner({ kind: 'maj', text: 'Nouvelle version disponible.', actions: [
+          { label: 'Mettre à jour', onClick: function () { asked = true; sw.postMessage('SKIP_WAITING'); } },
+          { label: 'Plus tard', ghost: true, onClick: function (b) { b.remove(); } }] });
+      };
+      if (reg.waiting) offer(reg.waiting);
+      reg.addEventListener('updatefound', function () {
+        var sw = reg.installing; if (!sw) return;
+        sw.addEventListener('statechange', function () { if (sw.state === 'installed') offer(sw); });
+      });
+      doc.addEventListener('visibilitychange', function () { if (doc.visibilityState === 'visible') reg.update().catch(function () {}); });
+    }).catch(function () {});
+  }
+  // Animations de chiffres et défilements : désactivées si l'utilisateur réduit les animations
+  function reduceMotion() { return !!(w.matchMedia && w.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+  function onReady() { injectNav(); bind(); reminders(); }
+  // Service worker après le chargement complet : sa précache ne concurrence pas le premier affichage
+  if (doc) { if (doc.readyState === 'complete') registerSW(); else w.addEventListener('load', registerSW); }
   if (doc) { if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', onReady); else onReady(); }
 
   var A = {
@@ -676,7 +807,7 @@
     backup: { build: buildBackup, parse: parseBackup, apply: applyBackup, due: backupDue, mark: markBackup, summaryLines: summaryLines },
     exportData: exportData, importData: importData, dataCount: dataCount, requestPersist: requestPersist, isPersisted: function () { return persisted; },
     value: value, bind: bind, prive: prive, hourText: hourText, sanitizeInto: sanitizeInto, ui: ui,
-    renderStartCard: renderStartCard, injectCSS: injectCSS,
+    renderStartCard: renderStartCard, injectCSS: injectCSS, rappels: reminders, NAV: NAV, reduceMotion: reduceMotion, actions: actions,
     _legacyEntries: legacyEntries, _mergeLegacy: mergeLegacy, _cleanSession: cleanSession
   };
   Object.defineProperty(A, 'GOALS', { get: goals, enumerable: true });

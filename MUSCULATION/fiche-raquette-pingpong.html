@@ -9,8 +9,8 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
   :root{
     --bg:#0b1020; --card:#141b33; --card2:#1b2444; --gold:#e8960a; --pp:#1565d4;
@@ -60,9 +60,18 @@
   .price{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold)}
   footer{color:var(--mut);font-size:12px;text-align:center;margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
   .em{color:var(--gold);font-weight:600}
+body{padding-top:64px}
+</style>
+<style id="az-cibles">
+/* Cibles tactiles ≥ 44 px (phase 5) */
+.buy { min-height: 44px !important; display: inline-flex !important; align-items: center; }
 </style>
 </head>
 <body>
+<a class="az-skip" href="#contenu">Aller au contenu</a>
+<div class="az-banners" data-az-banners></div><script>ALLEZ.rappels()</script>
+<nav class="az-topnav" data-az-nav aria-label="Navigation principale"></nav>
+<main id="contenu">
 
 <header>
   <h1>Ma raquette <span>sur-mesure</span> 🏓</h1>
@@ -99,7 +108,7 @@
   <p>Montage <b>Butterfly</b>, manche <b>FL (évasé)</b> — celui qui cale ma prise pouce-haut. <b>Lisse des deux côtés (zéro picot)</b> : je suis un attaquant qui brosse, les picots tueraient mon effet et mon arc.</p>
 
   <div class="card">
-    <table>
+    <table tabindex="0">
       <tr><th>Élément</th><th>Choix</th><th>Détail</th><th>Prix</th></tr>
       <tr>
         <td><b>Bois</b></td>
@@ -173,7 +182,7 @@
   <!-- ALTERNATIVES -->
   <h2>Les alternatives (si un jour…)</h2>
   <div class="card">
-    <table>
+    <table tabindex="0">
       <tr><th>Config</th><th>Bois</th><th>CD</th><th>RV</th><th>Budget</th></tr>
       <tr><td><span class="tag ok">Retenue</span></td><td>Innerforce ALC</td><td><b>Tenergy 05</b></td><td>Rozena</td><td>~212€</td></tr>
       <tr><td><span class="tag gold">Premium</span></td><td>Innerforce ALC<br><span class="spec">(ou Viscaria)</span></td><td>Dignics 05</td><td>Tenergy 05 FX</td><td>~262-340€</td></tr>
@@ -200,6 +209,6 @@
   </footer>
 
 </div>
-<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(function(){});</script>
+</main>
 </body>
 </html>

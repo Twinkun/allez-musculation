@@ -14,9 +14,8 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 :root {
   --bg: #f0ece3;
@@ -387,29 +386,20 @@ button, a, [onclick], input, select, label {
   .tl-card:active,.phase-item:active{transform:scale(0.99);}
 }
 </style>
+<style id="az-contraste">
+/* Contraste WCAG AA (phase 5, généré par _prive/gen/phase5_contraste.js) */
+.section-label { color: #8a5800 !important; }
+.section-sub { color: #626784 !important; }
+.section-sub strong { color: #626784 !important; }
+#jDay { color: #626784 !important; }
+</style>
 </head>
 <body>
+<a class="az-skip" href="#contenu">Aller au contenu</a>
+<div class="az-banners" data-az-banners></div><script>ALLEZ.rappels()</script>
 
-<nav>
-  <a href="index.html" class="nav-logo">ALLEZ</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Accueil</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="nutrition.html">Nutrition</a></li>
-    <li><a href="logbook.html">Logbook</a></li>
-    <li><a href="progression.html">Progression</a></li>
-    <li><a href="exercices.html">Exercices</a></li>
-    <li><a href="programme.html">Programme</a></li>
-    <li><a href="analyse.html">Analyse</a></li>
-    <li><a href="posture.html">Posture</a></li>
-    <li><a href="projection.html" class="active">Projection</a></li>
-    <li><a href="lifestyle.html">Lifestyle</a></li>
-    <li><a href="recettes.html">Recettes</a></li>
-    <li><a href="pingpong.html">Ping-Pong</a></li>
-    <li><a href="profil.html">Profil</a></li>
-  </ul>
-  <button class="nav-hamburger" id="navHbg" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
+<nav class="az-topnav" data-az-nav aria-label="Navigation principale"></nav>
+<main id="contenu">
 
 <!-- ── HERO ── -->
 <div class="hero">
@@ -508,6 +498,7 @@ button, a, [onclick], input, select, label {
 
   <div class="tl" id="timeline"></div>
 </div>
+</main>
 
 <footer>
   <span>ALLEZ — Projection Physique 12 Mois · Recomposition <span data-az="goals.weight0|n"></span> → ~<span data-az="goals.weight|n"></span> kg · <span data-az="goals.bf0|n"></span> → <span data-az="goals.bf|n"></span> %</span>
@@ -1079,18 +1070,6 @@ document.querySelectorAll('.tl-card, .reveal').forEach(el => obs.observe(el));
 // HAMBURGER NAV
 // ═══════════════════════════════════════════════════════
 
-const _hbg = document.getElementById('navHbg');
-const _nav = document.querySelector('nav');
-_hbg.addEventListener('click', () => { _hbg.classList.toggle('open'); _nav.classList.toggle('open'); });
-document.querySelectorAll('.nav-links a').forEach(a => {
-  a.addEventListener('click', () => { _hbg.classList.remove('open'); _nav.classList.remove('open'); });
-});
-document.addEventListener('click', e => {
-  if (_nav.classList.contains('open') && !_nav.contains(e.target)) {
-    _hbg.classList.remove('open'); _nav.classList.remove('open');
-  }
-});
 </script>
-<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
 </body>
 </html>

@@ -9,8 +9,8 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
   :root{
     --bg:#0b1020; --card:#141b33; --card2:#1b2444; --gold:#e8960a; --pp:#1565d4;
@@ -61,9 +61,14 @@
   .tag.new{background:rgba(58,160,255,.18);color:#7fb0ff}
   .tag.old{background:rgba(138,147,173,.18);color:#c2c9da}
   footer{color:var(--mut);font-size:12px;text-align:center;margin-top:40px;padding-top:16px;border-top:1px solid var(--line)}
+body{padding-top:64px}
 </style>
 </head>
 <body>
+<a class="az-skip" href="#contenu">Aller au contenu</a>
+<div class="az-banners" data-az-banners></div><script>ALLEZ.rappels()</script>
+<nav class="az-topnav" data-az-nav aria-label="Navigation principale"></nav>
+<main id="contenu">
 <header>
   <h1>Comparatif <span>raquettes</span> 🏓</h1>
   <p class="hsub">Ma JOOLA Infinity Carbon actuelle <b>vs</b> mon nouveau montage sur-mesure (Innerforce ALC + Tenergy 05 + Rozena). Caractéristiques réelles + notation pondérée pour MON jeu.</p>
@@ -88,7 +93,7 @@
 
   <!-- SPECS -->
   <h2>2 · Caractéristiques techniques</h2>
-  <div class="card" style="overflow-x:auto">
+  <div class="card" style="overflow-x:auto" tabindex="0" role="region" aria-label="Tableau comparatif (défilement horizontal)">
     <table>
       <tr><th>Critère</th><th class="col-old">JOOLA Infinity Carbon</th><th class="col-new">Montage sur-mesure</th></tr>
       <tr><td><b>Type</b></td><td class="col-old">Pré-montée, figée</td><td class="win-new col-new">Custom (bois + 2 gommes au choix)</td></tr>
@@ -204,6 +209,6 @@
     Notes Micron = estimations expertes (pas de mesure neutre publiée). Notation pondérée selon mon style de jeu.
   </footer>
 </div>
-<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(function(){});</script>
+</main>
 </body>
 </html>

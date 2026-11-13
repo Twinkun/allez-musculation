@@ -7,6 +7,17 @@
    3. Animations des schémas d'exercices (data/fiches.js)
    ═══════════════════════════════════════════════════════════════════ */
 
+/* ── 0. POLICES HÉBERGÉES (licence SIL OFL 1.1, voir assets/fonts/LICENCES.md) ── */
+/* Inter en graisses statiques (400 à 800) : la version variable coûtait plusieurs secondes de rendu sur mobile lent */
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/inter-latin-400.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('fonts/inter-latin-500.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/inter-latin-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/inter-latin-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 800; font-display: swap; src: url('fonts/inter-latin-800.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Bebas Neue'; font-style: normal; font-weight: 400; font-display: swap;
+  src: url('fonts/bebas-neue-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
 /* ── 1. JETONS ───────────────────────────────────────────────────── */
 :root {
   --az-or: #e8960a;            /* fonds, titres sur fond nuit (7,9:1 sur nuit) */
@@ -41,21 +52,55 @@
 .az-btn:focus-visible { outline: 2px solid var(--az-nuit); outline-offset: 2px; }
 .az-pill { display: inline-block; font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; background: rgba(232,150,10,.12); color: var(--az-or-texte); margin-left: 6px; vertical-align: middle; }
 
-/* Barre de navigation mobile */
+/* ── NAVIGATION UNIQUE (construite par core.js : Accueil · Séance · Nutrition · Progrès · Plus) ── */
+.az-skip { position: absolute; left: 8px; top: -60px; min-height: 44px; box-sizing: border-box; z-index: 3000; background: var(--az-or); color: var(--az-nuit); font: 700 .9rem/1 var(--az-police-texte); padding: 14px 18px; border-radius: 10px; text-decoration: none; }
+.az-skip:focus { top: 8px; }
+/* Barre du haut : même rendu sur toutes les pages */
+nav.az-topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 64px; display: flex; align-items: center; gap: 16px; padding: 0 32px; background: rgba(11,16,32,.97); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,.07); font-family: var(--az-police-texte); }
+.az-logo { font-family: var(--az-police-titre); font-size: 1.6rem; letter-spacing: .08em; color: var(--az-or); text-decoration: none; line-height: 44px; min-height: 44px; margin-right: auto; }
+.az-links { display: flex; gap: 4px; align-items: center; }
+.az-top-a { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 14px; border-radius: 10px; border: 0; background: none; color: rgba(255,255,255,.82); font: 600 .82rem/1 var(--az-police-texte); letter-spacing: .02em; text-decoration: none; cursor: pointer; }
+.az-top-a:hover { color: #fff; background: rgba(255,255,255,.08); }
+.az-top-a.on { color: var(--az-or); background: rgba(232,150,10,.14); }
+.az-top-a .i { font-size: 1rem; }
+nav.az-topnav :focus-visible, .az-tabbar :focus-visible, .az-plus :focus-visible { outline: 2px solid var(--az-or); outline-offset: 2px; }
+/* Variante barre latérale (tableau de bord) */
+.az-side { display: flex; flex-direction: column; gap: 2px; }
+.az-side-a { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 0 14px; border-radius: 10px; border: 0; background: none; color: rgba(255,255,255,.78); font: 600 .86rem/1 var(--az-police-texte); text-decoration: none; text-align: left; cursor: pointer; }
+.az-side-a:hover { background: rgba(255,255,255,.07); color: #fff; }
+.az-side-a.on { color: var(--az-or); background: rgba(232,150,10,.14); }
+/* Barre d'onglets du bas (mobile) */
 .az-tabbar { display: none; }
 @media (max-width: 768px) {
+  nav.az-topnav { padding: 0 16px; }
+  nav.az-topnav .az-links { display: none; }
   .az-tabbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 900; background: rgba(11,16,32,.97); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-top: 1px solid rgba(255,255,255,.08); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); }
-  .az-tabbar a { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 2px; min-height: 48px; justify-content: center; color: rgba(255,255,255,.62); text-decoration: none; font: 600 10px/1.1 Inter, system-ui, sans-serif; letter-spacing: .02em; border-radius: 10px; -webkit-tap-highlight-color: transparent; }
-  .az-tabbar a .i { font-size: 19px; line-height: 1; }
-  .az-tabbar a.on { color: var(--az-or); background: rgba(232,150,10,.10); }
-  body.az-has-tabbar { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+  .az-tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 2px; min-height: 52px; justify-content: center; color: rgba(255,255,255,.78); text-decoration: none; font: 600 11px/1.1 var(--az-police-texte); letter-spacing: .02em; border: 0; background: none; border-radius: 10px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .az-tab .i { font-size: 19px; line-height: 1; }
+  .az-tab.on { color: var(--az-or); background: rgba(232,150,10,.12); }
+  body.az-has-tabbar { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
+}
+/* Panneau « Plus » : feuille en bas sur mobile, panneau sous la barre sur bureau */
+.az-plus { position: fixed; inset: 0; z-index: 1500; background: rgba(11,16,32,.55); display: flex; align-items: flex-start; justify-content: flex-end; padding: 72px 24px 24px; font-family: var(--az-police-texte); }
+.az-plus-box { width: 100%; max-width: 380px; max-height: calc(100vh - 96px); overflow: auto; background: #fff; color: var(--az-texte); border-radius: 16px; padding: 16px 16px 20px; box-shadow: 0 18px 60px rgba(0,0,0,.35); }
+.az-plus-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.az-plus-hd h2 { font: 800 1rem/1.2 var(--az-police-texte); margin: 0; }
+.az-plus-x { width: 44px; height: 44px; border: 0; border-radius: 10px; background: var(--az-fond-doux); color: var(--az-texte); font-size: 1rem; cursor: pointer; }
+.az-plus-g h3 { font: 700 .7rem/1 var(--az-police-texte); letter-spacing: .1em; text-transform: uppercase; color: var(--az-texte-leger); margin: 14px 0 4px; }
+.az-plus-a { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 12px; border-radius: 10px; color: var(--az-texte); text-decoration: none; font-weight: 600; font-size: .95rem; }
+.az-plus-a:hover { background: var(--az-fond-doux); }
+.az-plus-a.on { background: rgba(232,150,10,.14); color: var(--az-or-texte); }
+@media (max-width: 768px) {
+  .az-plus { align-items: flex-end; justify-content: stretch; padding: 0; }
+  .az-plus-box { max-width: none; border-radius: 18px 18px 0 0; max-height: 82vh; padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
 }
 
 /* Bandeaux (profil à renseigner, rappel de sauvegarde) */
 .az-banner { position: relative; z-index: 5; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 10px auto; max-width: 1100px; width: calc(100% - 24px); background: #fff8e8; border: 1px solid rgba(232,150,10,.45); border-left: 4px solid var(--az-or); border-radius: 12px; padding: 10px 14px; font-family: var(--az-police-texte); font-size: .82rem; line-height: 1.4; color: var(--az-texte); box-shadow: 0 2px 10px rgba(0,0,0,.06); }
 .az-banner-t { flex: 1; min-width: 180px; }
-body > .az-banner:first-child, body > .az-banner + .az-banner { margin-top: 74px; }
-body > .az-banner + .az-banner { margin-top: 10px; }
+body > .az-banners { padding-top: 64px; }
+body > .az-banners:empty { display: none; }
+.az-banners .az-banner + .az-banner { margin-top: 0; }
 
 /* Boîte de dialogue et notification */
 .az-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 18px; background: rgba(11,16,32,.62); font-family: var(--az-police-texte); }
@@ -74,8 +119,11 @@ body > .az-banner + .az-banner { margin-top: 10px; }
 .az-field input:focus-visible, .az-field select:focus-visible { outline: 2px solid var(--az-or); outline-offset: 1px; }
 .az-note { font-size: .78rem; line-height: 1.5; color: var(--az-texte-leger); }
 
-@media print { .az-tabbar, .az-banner, .az-modal, .az-toast { display: none !important; } }
-@media (prefers-reduced-motion: reduce) { .az-toast { transition: none; } }
+@media print { .az-tabbar, .az-banner, .az-modal, .az-toast, nav.az-topnav, .az-plus, .az-skip { display: none !important; } }
+/* Mouvements réduits : valable pour toutes les pages (y compris celles sans règle propre) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
 
 /* ── 3. SCHÉMAS D'EXERCICES (data/fiches.js) ─────────────────────── */
 :root { --az-mp: #e8960a; --az-ms: #1560d4; --az-mi: #dde1ea; }
@@ -112,3 +160,6 @@ body > .az-banner + .az-banner { margin-top: 10px; }
 @keyframes pallof-arms{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-30deg)}}
 @keyframes plank-pulse{0%,100%{opacity:1}50%{opacity:0.6}}
 @media (prefers-reduced-motion: reduce) { svg [style*="animation"] { animation: none !important; } }
+
+/* Texte réservé aux lecteurs d'écran */
+.az-sr { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

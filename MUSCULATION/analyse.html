@@ -16,9 +16,8 @@
 <script src="core.js"></script>
 <script src="data/programme.js"></script>
 <script src="data/nutrition.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
   :root {
     --bg: #f0ece3;
@@ -712,30 +711,24 @@
 .ra-card li b{color:#1a1a2e}
 @media(max-width:900px){.ra-grid{grid-template-columns:1fr}}
 </style>
+<style id="az-contraste">
+/* Contraste WCAG AA (phase 5, généré par _prive/gen/phase5_contraste.js) */
+.gold { color: #8a5800 !important; }
+.section-sub { color: #66667a !important; }
+.footer-sub { color: #7a808e !important; }
+span[data-az="goals.weight0|n"] { color: #7a808e !important; }
+span[data-az="goals.weight|n"] { color: #7a808e !important; }
+span[data-az="goals.bf0|n"] { color: #7a808e !important; }
+span[data-az="goals.bf|n"] { color: #7a808e !important; }
+</style>
 </head>
 <body>
+<a class="az-skip" href="#contenu">Aller au contenu</a>
+<div class="az-banners" data-az-banners></div><script>ALLEZ.rappels()</script>
 
 <!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">ALLEZ</a>
-  <div class="nav-links">
-    <a href="index.html">Accueil</a>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="nutrition.html">Nutrition</a>
-    <a href="logbook.html">Logbook</a>
-    <a href="progression.html">Progression</a>
-    <a href="exercices.html">Exercices</a>
-    <a href="programme.html">Programme</a>
-    <a href="analyse.html" class="active">Analyse</a>
-    <a href="posture.html">Posture</a>
-    <a href="projection.html">Projection</a>
-    <a href="lifestyle.html">Lifestyle</a>
-    <a href="recettes.html">Recettes</a>
-    <a href="pingpong.html">Ping-Pong</a>
-    <a href="profil.html">Profil</a>
-  </div>
-  <button class="nav-hamburger" id="navHbg" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
+<nav class="az-topnav" data-az-nav aria-label="Navigation principale"></nav>
+<main id="contenu">
 
 <!-- HERO -->
 <section class="hero">
@@ -754,7 +747,8 @@
   <p class="section-sub" style="margin-top:1.5rem">En attendant : <a style="color:#8a5800" href="programme.html">ton programme</a> · <a style="color:#8a5800" href="posture.html">posture et mobilité</a> · <a style="color:#8a5800" href="progression.html">ta progression</a>.</p>
 </div>
 
-<!-- FOOTER -->
+<!-- FOOTER --></main>
+
 <footer>
   <div class="footer-logo">ALLEZ</div>
   <div class="footer-sub"><span data-az="goals.weight0|n"></span> → ~<span data-az="goals.weight|n"></span> kg · <span data-az="goals.bf0|n"></span> → <span data-az="goals.bf|n"></span> % · Recomposition 12 mois</div>
@@ -781,17 +775,11 @@
   revealEls.forEach(el => observer.observe(el));
 </script>
 <script>
-const _hbg = document.getElementById('navHbg');
-const _nav = document.querySelector('nav');
-_hbg.addEventListener('click', () => { _hbg.classList.toggle('open'); _nav.classList.toggle('open'); });
-document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => { _hbg.classList.remove('open'); _nav.classList.remove('open'); }); });
-document.addEventListener('click', e => { if (_nav.classList.contains('open') && !_nav.contains(e.target)) { _hbg.classList.remove('open'); _nav.classList.remove('open'); } });
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('analyseVide').hidden = !!ALLEZ.prive('analyse.04');
 });
 </script>
-<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
 </body>
 </html>

@@ -16,9 +16,8 @@
 <script src="core.js"></script>
 <script src="data/nutrition.js"></script>
 <script src="data/recettes.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 :root {
   --bg: #f0ece3; --bg-card: #ffffff; --bg-inner: #f7f4ef; --bg-dark: #0b1020;
@@ -179,31 +178,36 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
 .section-divider span{font-family:var(--fh);font-size:.75rem;letter-spacing:3px;color:var(--text-light);white-space:nowrap}
 .section-divider::before,.section-divider::after{content:'';flex:1;height:1px;background:var(--border)}
 </style>
+<style id="az-contraste">
+/* Contraste WCAG AA (phase 5, généré par _prive/gen/phase5_contraste.js) */
+.sel-rank { color: #a3a6b0 !important; }
+.rnd-sub { color: #626875 !important; }
+button[data-f] { color: #0b1020 !important; }
+.filt-n { opacity: 1 !important; color: #5b6270 !important; }
+.filt-btn.active .filt-n { color: #0b1020 !important; }
+.macro-v span { color: #8a5800 !important; }
+.macro-item.kcal .macro-v { color: #8a5800 !important; }
+.macro-item.prix .macro-v { color: #087a40 !important; }
+.ingr-qty { color: #8a5800 !important; }
+.step-txt em { color: #8a5800 !important; }
+.timing-block { color: #666d7a !important; }
+span[data-rv="dens"] { color: #666d7a !important; }
+</style>
+<style id="az-cibles">
+/* Cibles tactiles ≥ 44 px (phase 5) */
+.sel-pill, .filt-btn { min-height: 44px !important; display: inline-flex !important; align-items: center; }
+</style>
+<style id="az-perf">
+/* Rendu à l'approche des blocs hors écran (phase 5) : moins de mise en page au chargement */
+.recipe { content-visibility: auto; contain-intrinsic-size: auto 1500px; }
+</style>
 </head>
 <body>
+<a class="az-skip" href="#contenu">Aller au contenu</a>
+<div class="az-banners" data-az-banners></div><script>ALLEZ.rappels()</script>
 
-<nav id="mainNav">
-  <a href="index.html" class="nav-logo">ALLEZ</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Accueil</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="nutrition.html">Nutrition</a></li>
-    <li><a href="logbook.html">Logbook</a></li>
-    <li><a href="progression.html">Progression</a></li>
-    <li><a href="exercices.html">Exercices</a></li>
-    <li><a href="programme.html">Programme</a></li>
-    <li><a href="analyse.html">Analyse</a></li>
-    <li><a href="posture.html">Posture</a></li>
-    <li><a href="projection.html">Projection</a></li>
-    <li><a href="lifestyle.html">Lifestyle</a></li>
-    <li><a href="recettes.html" class="active">Recettes</a></li>
-    <li><a href="pingpong.html">Ping-Pong</a></li>
-    <li><a href="profil.html">Profil</a></li>
-  </ul>
-  <button class="nav-hamburger" id="navHbg" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+<nav class="az-topnav" id="mainNav" data-az-nav aria-label="Navigation principale"></nav>
+<main id="contenu">
 
 <div class="hero">
   <div class="hero-tag">🍳 Cuisine haute performance</div>
@@ -2856,12 +2860,15 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
 </div>
 
 </div><!-- end .main -->
+</main>
 
 <script>
 // Rendu depuis data/recettes.js : macros, densité, valeurs pour 100 g, ingrédients (une seule liste par recette)
 (function () {
   const R = ALLEZ.RECETTES, esc = ALLEZ.esc, fr = x => String(x).replace('.', ',');
-  document.querySelectorAll('.recipe').forEach(el => {
+  // Chaque fiche est remplie à l'approche de l'écran (50 fiches : le remplissage complet bloquait le chargement)
+  function remplir(el) {
+    if (el.dataset.rempli) return; el.dataset.rempli = '1';
     const rec = R.REC[el.id]; if (!rec) return;
     const tt = R.total(el.id), v = { kcal: tt.kcal, p: tt.p, g: tt.g, l: tt.l, dens: fr(R.densite(el.id)) };
     const cn = el.querySelector('[data-rec-note]'); if (cn && rec.note) cn.innerHTML = rec.note;
@@ -2872,31 +2879,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
       const c = ln.a.length && !R.qteExacte(ln) ? '<span class="ingr-compte">compté : ' + esc(R.compte(ln)) + '</span>' : '';
       return '<li class="ingr-item"><span class="ingr-qty">' + esc(ln.q) + '</span><span class="ingr-name">' + esc(ln.nom) + (ln.note ? '<span class="ingr-note">' + esc(ln.note) + '</span>' : '') + c + '</span></li>';
     }).join('') + (rec.nonCompte ? '<li class="ingr-item ingr-nc">Non compté : ' + esc(rec.nonCompte.replace(/ non comptée?s?$/, '')) + '</li>' : '');
-  });
+  }
+  const recs = document.querySelectorAll('.recipe');
+  if (!('IntersectionObserver' in window)) { recs.forEach(remplir); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { remplir(e.target); io.unobserve(e.target); } }), { rootMargin: '1200px 0px' });
+  recs.forEach(el => io.observe(el));
+  const cible = location.hash && document.getElementById(location.hash.slice(1)); if (cible && cible.classList.contains('recipe')) remplir(cible);
+  window.addEventListener('beforeprint', () => recs.forEach(remplir));
+  window.ALLEZ_remplirRecette = remplir;
 })();
 
-// Nav hamburger
-(function(){
-  const nav = document.getElementById('mainNav');
-  const hbg = document.getElementById('navHbg');
-  if(!hbg||!nav) return;
-  hbg.addEventListener('click',function(){
-    hbg.classList.toggle('open');
-    nav.classList.toggle('open');
-  });
-  nav.querySelectorAll('.nav-links a').forEach(function(a){
-    a.addEventListener('click',function(){
-      hbg.classList.remove('open');
-      nav.classList.remove('open');
-    });
-  });
-  document.addEventListener('click',function(e){
-    if(nav.classList.contains('open')&&!nav.contains(e.target)){
-      hbg.classList.remove('open');
-      nav.classList.remove('open');
-    }
-  });
-})();
 
 // Active pill on scroll (IntersectionObserver)
 (function(){
@@ -2945,8 +2937,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     var timeT = (r.querySelector('.rtag-time') ? r.querySelector('.rtag-time').textContent : '');
     var meals = Array.prototype.map.call(r.querySelectorAll('.rtag-meal'), function(m){ return m.textContent; }).join(' ');
     var tm    = parseInt((timeT.match(/(\d+)/) || [])[1] || '999', 10);
-    var pEl   = r.querySelector('.macro-item.prot .macro-v');
-    var prot  = pEl ? parseInt(pEl.textContent, 10) : 0;
+    var prot  = ALLEZ.RECETTES.REC[r.id] ? ALLEZ.RECETTES.total(r.id).p : 0;   // données, pas le DOM (fiches remplies à l'approche)
     var prxEl = r.querySelector('.macro-item.prix .macro-v');
     var prix  = prxEl ? parseFloat(prxEl.textContent.replace(',', '.')) : 999;
     switch (f) {
@@ -3055,10 +3046,5 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
 })();
 </script>
 
-<script>
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('./sw.js').catch(function(){});
-}
-</script>
 </body>
 </html>

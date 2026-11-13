@@ -10,15 +10,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ALLEZ">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Lifestyle & Bien-être — ALLEZ</title>
+<title>Hygiène de vie — ALLEZ</title>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
 <script src="data/nutrition.js"></script>
 <script src="data/supplements.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 :root {
   --bg: #f0ece3;
@@ -274,36 +273,26 @@ button, a, [onclick], input, select, label {
   .supp-card:active,.proto-item:active,.dstat-card:active{transform:scale(0.99);}
 }
 </style>
+<style id="az-contraste">
+/* Contraste WCAG AA (phase 5, généré par _prive/gen/phase5_contraste.js) */
+.gold.sec-tag { color: #8a5800 !important; }
+.sec-title span { color: #8a5800 !important; }
+.sec-sub { color: #626784 !important; }
+</style>
 </head>
 <body>
+<a class="az-skip" href="#contenu">Aller au contenu</a>
+<div class="az-banners" data-az-banners></div><script>ALLEZ.rappels()</script>
 
 <!-- NAV -->
-<nav id="mainNav">
-  <a href="index.html" class="nav-logo">ALLEZ</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Accueil</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="nutrition.html">Nutrition</a></li>
-    <li><a href="logbook.html">Logbook</a></li>
-    <li><a href="progression.html">Progression</a></li>
-    <li><a href="exercices.html">Exercices</a></li>
-    <li><a href="programme.html">Programme</a></li>
-    <li><a href="analyse.html">Analyse</a></li>
-    <li><a href="posture.html">Posture</a></li>
-    <li><a href="projection.html">Projection</a></li>
-    <li><a href="lifestyle.html" class="active">Lifestyle</a></li>
-    <li><a href="recettes.html">Recettes</a></li>
-    <li><a href="pingpong.html">Ping-Pong</a></li>
-    <li><a href="profil.html">Profil</a></li>
-  </ul>
-  <button class="nav-hamburger" id="navHbg" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
+<nav class="az-topnav" id="mainNav" data-az-nav aria-label="Navigation principale"></nav>
+<main id="contenu">
 
 <!-- HERO -->
 <div class="hero">
   <div class="hero-content">
     <div class="hero-tag">⚡ Hygiène de vie, version sourcée</div>
-    <h1>LIFESTYLE<br><span>&amp; BIEN-ÊTRE</span></h1>
+    <h1>HYGIÈNE<br><span>DE VIE</span></h1>
     <p>Sommeil, hormones, compléments, habitudes. Seulement ce qui a une source — la liste est en bas de page.</p>
     <div class="hero-stats">
       <div class="hstat"><div class="hstat-val">5</div><div class="hstat-label">Piliers</div></div>
@@ -624,9 +613,10 @@ button, a, [onclick], input, select, label {
 
 </div><!-- end page-wrap -->
 
-<!-- FOOTER -->
+<!-- FOOTER --></main>
+
 <footer>
-  <span>ALLEZ — Lifestyle & Bien-être · Programme Complet</span>
+  <span>ALLEZ — Hygiène de vie · Programme complet</span>
   <span>
     <a href="index.html">Accueil</a> &nbsp;·&nbsp;
     <a href="exercices.html">Exercices</a> &nbsp;·&nbsp;
@@ -681,21 +671,6 @@ const barObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 barEls.forEach(el => barObs.observe(el));
 
-// HAMBURGER NAV
-const _nav = document.getElementById('mainNav');
-const _hbg = document.getElementById('navHbg');
-if (_hbg) {
-  _hbg.addEventListener('click', () => { _hbg.classList.toggle('open'); _nav.classList.toggle('open'); });
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => { _hbg.classList.remove('open'); _nav.classList.remove('open'); });
-  });
-  document.addEventListener('click', e => {
-    if (_nav.classList.contains('open') && !_nav.contains(e.target)) {
-      _hbg.classList.remove('open'); _nav.classList.remove('open');
-    }
-  });
-}
 </script>
-<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
 </body>
 </html>

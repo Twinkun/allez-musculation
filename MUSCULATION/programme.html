@@ -19,14 +19,15 @@
 <script src="data/supplements.js"></script>
 <script src="data/fiches.js"></script>
 <script src="data/repas.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @page { margin: 12mm 13mm; size: A4; }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{overflow-x:hidden}
 body{font-family:'Inter',Arial,sans-serif;color:#111827;background:#fff;font-size:9pt;line-height:1.5;overflow-x:hidden}
 
-.print-btn{position:fixed;top:18px;right:18px;background:#e8960a;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(232,150,10,.4);z-index:999}
+.print-btn{position:fixed;top:76px;right:18px;background:#e8960a;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(232,150,10,.4);z-index:999}
 .print-btn:hover{background:#d4860a}
 @media print{.print-btn{display:none}.pb{page-break-before:always}}
 
@@ -47,7 +48,7 @@ body{font-family:'Inter',Arial,sans-serif;color:#111827;background:#fff;font-siz
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:14px}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
 .card{border:1px solid #e5e7eb;border-radius:8px;padding:10px 12px}
-.card h3{font-size:7pt;text-transform:uppercase;letter-spacing:1.5px;color:#9ca3af;margin-bottom:7px;font-weight:700}
+.card h2,.card h3{font-size:7pt;text-transform:uppercase;letter-spacing:1.5px;color:#9ca3af;margin-bottom:7px;font-weight:700}
 .row{display:flex;justify-content:space-between;font-size:8.5pt;padding:2.5px 0;border-bottom:1px solid #f9fafb}
 .row:last-child{border-bottom:none}
 .lbl{color:#6b7280}
@@ -139,7 +140,7 @@ body{font-family:'Inter',Arial,sans-serif;color:#111827;background:#fff;font-siz
 .info-box.red{background:#dc2626;color:#fff}
 .info-box.green{background:#14532d;color:#fff}
 .info-box.gold{background:#fff7e6;color:#4a3410;border:1px solid #f3d08a}
-.info-box h4{font-size:7.5pt;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;opacity:.75}
+.info-box h3,.info-box h4{font-size:7.5pt;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;opacity:.75}
 .info-box p{font-size:8.5pt;opacity:.95;line-height:1.55}
 
 /* NUTRITION MEALS */
@@ -282,7 +283,7 @@ a.ex-fiche-btn{text-decoration:none;display:inline-flex;align-items:center}
   .web-nav a:not(.web-nav-logo){color:rgba(255,255,255,.65);text-decoration:none;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;border-radius:6px;transition:all .2s;white-space:nowrap}
   .web-nav a:not(.web-nav-logo):hover{color:#fff;background:rgba(255,255,255,.1)}
   .web-nav a.active{color:#e8960a!important;background:rgba(232,150,10,.15)!important}
-  .web-nav-spacer{height:54px}
+  .web-nav-spacer{height:72px}
   .print-btn{top:56px!important}
   .web-nav{-webkit-overflow-scrolling:touch;scrollbar-width:none;}
   .web-nav::-webkit-scrollbar{display:none;}
@@ -293,32 +294,50 @@ a.ex-fiche-btn{text-decoration:none;display:inline-flex;align-items:center}
 }
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px;}
 </style>
+<style id="az-contraste">
+/* Contraste WCAG AA (phase 5, généré par _prive/gen/phase5_contraste.js) */
+.print-btn { color: #0b1020 !important; }
+.doc-logo span { color: #8a5800 !important; }
+.sh { color: #8a5800 !important; }
+.card h2 { color: #6b7484 !important; }
+.gold.val { color: #8a5800 !important; }
+.day-lbl { opacity: 1 !important; }
+.day.rest .day-lbl, .day.rest .day-name { color: #5b6270 !important; }
+.day.training .day-lbl, .day.activity .day-lbl { color: #d6d9e0 !important; }
+.day.activity .day-name { color: #fff !important; }
+.obj-lbl { color: #6b7484 !important; }
+.obj-tgt { color: #8a5800 !important; }
+.footer { color: #6b7484 !important; }
+.ex-fiche-btn { color: #8a5800 !important; }
+.ex-s-lbl { color: #6b7484 !important; }
+a[href$="exercices.html#ex3"] { color: #8a5800 !important; }
+a[href$="exercices.html#ex4"] { color: #8a5800 !important; }
+a[href$="exercices.html#ex5"] { color: #8a5800 !important; }
+a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
+.doc-header span { color: #8a5800 !important; }
+.m-time { color: #8a5800 !important; }
+.m-tag { color: #6b7484 !important; }
+.m-kcal { color: #8a5800 !important; }
+.m-note { color: #6b7484 !important; }
+.supp-brand { color: #6b7484 !important; }
+.t-tgt { color: #8a5800 !important; }
+</style>
+<style id="az-cibles">
+/* Cibles tactiles ≥ 44 px (phase 5) */
+@media screen { .ex-fiche-btn { min-height: 44px !important; display: inline-flex !important; align-items: center; } }
+</style>
 </head>
 <body>
+<a class="az-skip" href="#contenu">Aller au contenu</a>
+<div class="az-banners" data-az-banners></div><script>ALLEZ.rappels()</script>
 
-<nav class="web-nav">
-  <a href="index.html" class="web-nav-logo">ALLEZ</a>
-  <a href="index.html">Accueil</a>
-  <a href="dashboard.html">Dashboard</a>
-  <a href="nutrition.html">Nutrition</a>
-  <a href="logbook.html">Logbook</a>
-  <a href="progression.html">Progression</a>
-  <a href="exercices.html">Exercices</a>
-  <a href="programme.html" class="active">Programme</a>
-  <a href="analyse.html">Analyse</a>
-  <a href="posture.html">Posture</a>
-  <a href="projection.html">Projection</a>
-  <a href="lifestyle.html">Lifestyle</a>
-  <a href="recettes.html">Recettes</a>
-  <a href="pingpong.html">Ping-Pong</a>
-  <a href="profil.html">Profil</a>
-</nav>
+<nav class="az-topnav" data-az-nav aria-label="Navigation principale"></nav>
 <div class="web-nav-spacer"></div>
 
-<button class="print-btn" type="button" onclick="window.print()">🖨️ Imprimer / Sauvegarder en PDF</button>
+<button class="print-btn" type="button" data-action="imprimer">🖨️ Imprimer / Sauvegarder en PDF</button>
 
 <!-- Les 7 pages sont générées depuis core.js + data/*.js (aucune donnée dans cette page) -->
-<main id="doc"></main>
+<main id="contenu"><h1 class="az-sr">Programme imprimable</h1><div id="doc"></div></main>
 
 <script>
 (function () {
@@ -352,10 +371,10 @@ a.ex-fiche-btn{text-decoration:none;display:inline-flex;align-items:center}
   </div>
   <div class="sh">Mon Profil &amp; Contexte</div>
   <div class="grid-2" style="margin-bottom:14px">
-    <div class="card"><h3>Mensurations de départ</h3>
+    <div class="card"><h2>Mensurations de départ</h2>
       ${row('Poids', f(G.weight0, 'n') + ' kg')}${row('Taille', pr.height + ' cm')}${row('Masse grasse', f(G.bf0, 'n') + ' % (' + f(G.fat0, '1') + ' kg)')}${row('Masse maigre', f(G.lean0, '1') + ' kg')}${row('Largeur d\'épaules', f(G.shoulders0, 'n') + ' cm')}${row('Tour de taille', f(G.waist0, 'n') + ' cm')}
     </div>
-    <div class="card"><h3>Contexte &amp; programme</h3>
+    <div class="card"><h2>Contexte &amp; programme</h2>
       ${row('Niveau', 'Débutant')}
       <div class="row" id="rowParticularites" hidden><span class="lbl">Particularités</span><span class="val red" data-prive="programme.particularites"></span></div>
       ${row('Stratégie', 'Recomposition corporelle', 'gold')}${row('BMR (Mifflin-St Jeor)', int(N.bmr) + ' kcal')}${row('TDEE (×' + f(N.activite, '2') + ')', int(N.tdee) + ' kcal')}${row('Split', P.ORDER.map(sid => P.SESSIONS[sid].name.charAt(0) + P.SESSIONS[sid].name.slice(1).toLowerCase()).join(' / '))}
@@ -373,7 +392,7 @@ a.ex-fiche-btn{text-decoration:none;display:inline-flex;align-items:center}
   <div class="sh">Calories &amp; Macros</div>
   <div class="grid-2">${bar(N.train, 'training')}${bar(N.rest, 'repos', true)}</div>
   <div class="info-box blue">
-    <h4>Stratégie recomposition</h4>
+    <h3>Stratégie recomposition</h3>
     <p>Débutant + ${f(G.bf0, 'n')} % de masse grasse = prise musculaire et perte de gras simultanées. Surplus de ${f(N.train.delta, '+int')} kcal les jours d'entraînement, léger déficit au repos. Moyenne hebdomadaire : ${int(N.moyenne)} kcal, soit ≈ ${f(N.ecartMoyen, '+int')} kcal/j par rapport à la maintenance → le gras baisse (~${f(Math.abs(G.dFat) / 12, '2')} kg/mois) pendant que le muscle se construit. Résultat attendu : ${gain} kg de masse maigre, ${f(G.bf0, 'n')} → ${f(G.bf, 'n')} % de masse grasse (${f(G.dFat, '+n')} kg de gras), poids quasi stable (~${f(G.weight, 'n')} kg). Cette dépense est une estimation à ±${Math.round(ALLEZ.NUTRITION.PARAMS.incertitude * 100)} % : bilan toutes les 4 semaines.</p>
   </div>
   ${foot('Programme personnalisé 12 mois', 1)}
@@ -415,7 +434,7 @@ a.ex-fiche-btn{text-decoration:none;display:inline-flex;align-items:center}
       <span class="sb-tag">RIR selon le bloc : ${B.B1.rirC} · ${B.B2.rirC} · ${B.B3.rirC}/${B.B3.rirI}</span>
     </div>
   </div>
-  ${i === 0 ? `<div class="info-box green" style="margin-bottom:10px"><h4>Échauffement — avant chaque séance (${P.WARMUP.duree})</h4><p>${P.WARMUP.etapes.map((e, k) => '①②③④⑤⑥'.charAt(k) + ' ' + e.txt).join(' · ')}</p></div>` : ''}
+  ${i === 0 ? `<div class="info-box green" style="margin-bottom:10px"><h3>Échauffement — avant chaque séance (${P.WARMUP.duree})</h3><p>${P.WARMUP.etapes.map((e, k) => '①②③④⑤⑥'.charAt(k) + ' ' + e.txt).join(' · ')}</p></div>` : ''}
   <div class="info-box red" data-prive="programme.regles-${sid}" hidden></div>
   ${cards.map(card).join('\n')}
   ${fin.length ? `<div class="finisher"><div class="finisher-title">Finisher Core</div><div class="finisher-exs">${fin.map(it => { const e = P.EXERCISES[it.ex]; return `<span class="finisher-ex">${e.name} — ${it.sets} × ${it.reps}</span><span class="finisher-ex">${e.cue}</span><span class="finisher-ex">Repos ${it.rest} sec</span>`; }).join('')}</div></div>` : ''}
@@ -467,12 +486,12 @@ a.ex-fiche-btn{text-decoration:none;display:inline-flex;align-items:center}
   <table class="strength-table" style="margin-bottom:8px"><thead><tr><th>Heure</th><th>Repas</th><th>Macros</th></tr></thead><tbody>${rows}</tbody></table>
   <div class="info-box gold" style="margin-bottom:14px"><p><b>Total ≈ ${int(t.kcal)} kcal · P ${t.p} g · G ${t.g} g · L ${t.l} g (cible ${int(c.kcal)} · ${c.p} · ${c.g} · ${c.l}).</b> ${D.remarque}</p></div>
   <div class="sh">Mes Compléments Alimentaires</div>
-  ${al.length ? `<div class="info-box red" style="margin-bottom:10px"><h4>Cumul à corriger (limites EFSA, toutes sources)</h4><p>${al.map(a => a.texte).join(' ')}</p></div>` : ''}
+  ${al.length ? `<div class="info-box red" style="margin-bottom:10px"><h3>Cumul à corriger (limites EFSA, toutes sources)</h3><p>${al.map(a => a.texte).join(' ')}</p></div>` : ''}
   <div class="supp-grid">${supp}</div>
   <div class="sh">Repères de Charges — Départ → 12 Mois</div>
   <table class="strength-table"><thead><tr><th>Exercice</th><th>Charge de départ</th><th>Repère à 12 mois</th><th>Départ / repère</th></tr></thead><tbody>${charges}</tbody></table>
-  <div class="info-box blue" style="margin-top:14px"><h4>Règle de progression des charges</h4><p><b>${B.B2.name}</b> (semaines ${B.B2.weeks}) : ${B.B2.desc} Aux haltères, un palier vaut 1 à 2 kg ; aux machines, 2,5 à 5 kg. Jamais d'augmentation si la technique se dégrade.</p></div>
-  <div class="info-box green" style="margin-top:10px"><h4>Lexique RIR &amp; Tempo</h4><p><b>RIR</b> (Reps In Reserve) = répétitions gardées en réserve avant l'échec. Il évolue selon le bloc : <b>B1 = ${B.B1.rirC} · B2 = ${B.B2.rirC} · B3 = ${B.B3.rirC} (polyarticulaires) / ${B.B3.rirI} (isolations) · Deload = ${B.DL.rirC}</b>. Le logbook affiche la bonne valeur chaque semaine. &nbsp;|&nbsp; <b>Tempo 3-1-2-0 :</b> 3 s de descente · 1 s de pause en bas · 2 s de montée · 0 s de pause en haut.</p></div>
+  <div class="info-box blue" style="margin-top:14px"><h3>Règle de progression des charges</h3><p><b>${B.B2.name}</b> (semaines ${B.B2.weeks}) : ${B.B2.desc} Aux haltères, un palier vaut 1 à 2 kg ; aux machines, 2,5 à 5 kg. Jamais d'augmentation si la technique se dégrade.</p></div>
+  <div class="info-box green" style="margin-top:10px"><h3>Lexique RIR &amp; Tempo</h3><p><b>RIR</b> (Reps In Reserve) = répétitions gardées en réserve avant l'échec. Il évolue selon le bloc : <b>B1 = ${B.B1.rirC} · B2 = ${B.B2.rirC} · B3 = ${B.B3.rirC} (polyarticulaires) / ${B.B3.rirI} (isolations) · Deload = ${B.DL.rirC}</b>. L’onglet Séance affiche la bonne valeur chaque semaine. &nbsp;|&nbsp; <b>Tempo 3-1-2-0 :</b> 3 s de descente · 1 s de pause en bas · 2 s de montée · 0 s de pause en haut.</p></div>
   ${foot('Programme complet · 12 mois', TOTAL)}
 </div>`;
   }
@@ -484,6 +503,11 @@ a.ex-fiche-btn{text-decoration:none;display:inline-flex;align-items:center}
   if (part && !part.hidden) document.getElementById('rowParticularites').hidden = false;
 })();
 </script>
-<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
+<script>
+// Actions des boutons (délégation : core.js)
+ALLEZ.actions({
+  imprimer: function () { window.print(); }
+});
+</script>
 </body>
 </html>

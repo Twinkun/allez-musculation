@@ -14,9 +14,8 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bebas-neue-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 :root {
   --bg: #f0ece3;
@@ -145,7 +144,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 40px;
 .spin-grid { display:grid; grid-template-columns: repeat(4,1fr); gap:18px; }
 .spin { background: var(--bg-card); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); border:1px solid var(--border); text-align:center; }
 .spin .arc { font-size: 2rem; margin-bottom: 10px; }
-.spin h4 { font-size: 0.98rem; margin-bottom: 8px; }
+.spin h3 { font-size: 0.98rem; margin-bottom: 8px; }
 .spin p { font-size: 0.82rem; color: var(--text-mid); line-height:1.6; }
 .spin .tip { margin-top:12px; font-size:0.76rem; color:var(--pp); font-weight:600; background:rgba(21,101,212,0.08); border-radius:8px; padding:8px; }
 
@@ -157,7 +156,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 40px;
 .tab-panel.active { display:block; animation: fadeUp .4s ease; }
 @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 .stroke-card { background: var(--bg-card); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); border:1px solid var(--border); }
-.stroke-card h4 { font-family: var(--font-head); font-size: 1.5rem; letter-spacing:.03em; color: var(--text); margin-bottom: 6px; }
+.stroke-card h3 { font-family: var(--font-head); font-size: 1.5rem; letter-spacing:.03em; color: var(--text); margin-bottom: 6px; }
 .stroke-prio { display:inline-block; font-size:0.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:4px 10px; border-radius:100px; margin-bottom:14px; }
 .prio-hi { background: rgba(212,32,10,0.12); color: var(--red); }
 .prio-mid { background: rgba(232,150,10,0.14); color: var(--gold); }
@@ -271,29 +270,22 @@ button, a, [onclick], input, select, label {
   .card:active,.obj:active{transform:scale(0.99);}
 }
 </style>
+<style id="az-contraste">
+/* Contraste WCAG AA (phase 5, généré par _prive/gen/phase5_contraste.js) */
+.section-sub { color: #626784 !important; }
+.prio-lo.stroke-prio { color: #08783e !important; }
+</style>
+<style id="az-perf">
+/* Rendu à l'approche des blocs hors écran (phase 5) : moins de mise en page au chargement */
+main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+</style>
 </head>
 <body>
+<a class="az-skip" href="#contenu">Aller au contenu</a>
+<div class="az-banners" data-az-banners></div><script>ALLEZ.rappels()</script>
 
-<nav>
-  <a href="index.html" class="nav-logo">ALLEZ</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Accueil</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="nutrition.html">Nutrition</a></li>
-    <li><a href="logbook.html">Logbook</a></li>
-    <li><a href="progression.html">Progression</a></li>
-    <li><a href="exercices.html">Exercices</a></li>
-    <li><a href="programme.html">Programme</a></li>
-    <li><a href="analyse.html">Analyse</a></li>
-    <li><a href="posture.html">Posture</a></li>
-    <li><a href="projection.html">Projection</a></li>
-    <li><a href="lifestyle.html">Lifestyle</a></li>
-    <li><a href="recettes.html">Recettes</a></li>
-    <li><a href="pingpong.html" class="active">Ping-Pong</a></li>
-    <li><a href="profil.html">Profil</a></li>
-  </ul>
-  <button class="nav-hamburger" id="navHbg" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
+<nav class="az-topnav" data-az-nav aria-label="Navigation principale"></nav>
+<main id="contenu">
 
 <!-- HERO -->
 <header class="hero">
@@ -511,25 +503,25 @@ button, a, [onclick], input, select, label {
   <div class="spin-grid reveal">
     <div class="spin">
       <div class="arc">⤴️</div>
-      <h4>Lifté (topspin)</h4>
+      <h3>Lifté (topspin)</h3>
       <p>La balle tourne vers l'avant, plonge et rebondit en accélérant. C'est ton coup naturel de tennis.</p>
       <div class="tip">Remise : ferme ta raquette, frappe au-dessus de la balle.</div>
     </div>
     <div class="spin">
       <div class="arc">⤵️</div>
-      <h4>Coupé (backspin)</h4>
+      <h3>Coupé (backspin)</h3>
       <p>La balle tourne vers l'arrière, flotte et tombe court. Si tu frappes normalement, elle part dans le filet.</p>
       <div class="tip">Remise : ouvre la raquette, passe sous la balle (poussette ou top lent).</div>
     </div>
     <div class="spin">
       <div class="arc">↪️</div>
-      <h4>Latéral (sidespin)</h4>
+      <h3>Latéral (sidespin)</h3>
       <p>La balle dévie sur le côté au rebond. Très utilisé au service pour tromper la remise.</p>
       <div class="tip">Remise : oriente ta raquette à l'opposé de la déviation.</div>
     </div>
     <div class="spin">
       <div class="arc">⚪</div>
-      <h4>Sans effet (no spin)</h4>
+      <h3>Sans effet (no spin)</h3>
       <p>Balle « morte ». Piège classique : on croit à du coupé et on l'envoie trop haut.</p>
       <div class="tip">Remise : frappe franchement, raquette quasi droite.</div>
     </div>
@@ -581,7 +573,7 @@ button, a, [onclick], input, select, label {
   <div class="tab-panel active" id="panel-cd">
     <div class="stroke-card">
       <span class="stroke-prio prio-lo">Déjà ton point fort</span>
-      <h4>Coup droit lifté</h4>
+      <h3>Coup droit lifté</h3>
       <p style="color:var(--text-mid);font-size:0.9rem;margin-bottom:6px;">Ton arme. On la garde, on la rend juste plus régulière et moins « tout ou rien ».</p>
       <ul>
         <li>Jambes fléchies, poids d'abord sur la jambe arrière (<b>la gauche</b>, puisque tu es gaucher), puis transfert vers l'avant au contact</li>
@@ -595,7 +587,7 @@ button, a, [onclick], input, select, label {
   <div class="tab-panel" id="panel-rev">
     <div class="stroke-card">
       <span class="stroke-prio prio-hi">Ton revers « de secours »</span>
-      <h4>Revers (bloc + poussette)</h4>
+      <h3>Revers (bloc + poussette)</h3>
       <p style="color:var(--text-mid);font-size:0.9rem;margin-bottom:6px;">Avec ta prise, on ne vise PAS un top revers. On vise un revers fiable juste pour ne pas être puni — et basculer en coup droit dès que possible.</p>
       <ul>
         <li><b>Bloc revers</b> : raquette devant le ventre, légèrement fermée, FIXE. Tu absorbes la balle et tu la remets bas et profond, sans geste</li>
@@ -609,7 +601,7 @@ button, a, [onclick], input, select, label {
   <div class="tab-panel" id="panel-pou">
     <div class="stroke-card">
       <span class="stroke-prio prio-hi">Indispensable</span>
-      <h4>Poussette (push)</h4>
+      <h3>Poussette (push)</h3>
       <p style="color:var(--text-mid);font-size:0.9rem;margin-bottom:6px;">Le coup de contrôle sur balle courte et coupée. Venant du tennis, c'est ce qui te manque le plus.</p>
       <ul>
         <li>Raquette ouverte, tu passes sous la balle pour remettre du coupé</li>
@@ -623,7 +615,7 @@ button, a, [onclick], input, select, label {
   <div class="tab-panel" id="panel-bloc">
     <div class="stroke-card">
       <span class="stroke-prio prio-mid">Très rentable</span>
-      <h4>Bloc</h4>
+      <h3>Bloc</h3>
       <p style="color:var(--text-mid);font-size:0.9rem;margin-bottom:6px;">Renvoyer la balle liftée de l'adversaire sans forcer, en utilisant sa propre vitesse.</p>
       <ul>
         <li>Raquette légèrement fermée, tu « tiens » la balle juste après le rebond</li>
@@ -636,7 +628,7 @@ button, a, [onclick], input, select, label {
   <div class="tab-panel" id="panel-flip">
     <div class="stroke-card">
       <span class="stroke-prio prio-lo">Plus tard</span>
-      <h4>Flip (prise d'initiative sur balle courte)</h4>
+      <h3>Flip (prise d'initiative sur balle courte)</h3>
       <p style="color:var(--text-mid);font-size:0.9rem;margin-bottom:6px;">Attaquer une balle courte au-dessus de la table. À travailler une fois le revers et la poussette acquis.</p>
       <ul>
         <li>Avance le pied côté balle sous la table, poignet armé</li>
@@ -1116,6 +1108,7 @@ button, a, [onclick], input, select, label {
     <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:0.88rem;color:var(--text-mid);"><b style="color:var(--text);">Bois allround / offensif</b> — bois lent (contrôle) vs rapide (vitesse).</div>
   </div>
 </section>
+</main>
 
 <footer>
   <span>ALLEZ — Ping-Pong · Coaching &amp; Progression</span>
@@ -1225,12 +1218,14 @@ function renderMatches() {
     const realIdx = total - 1 - ri;
     const row = document.createElement('div');
     row.className = 'tk-row';
-    row.innerHTML =
-      '<div class="tk-res ' + m.res + '">' + m.res + '</div>' +
-      '<div class="tk-opp">' + (m.opp ? ppEsc(m.opp) : 'Adversaire') + '</div>' +
-      '<div class="tk-meta">' + (m.score ? ppEsc(m.score) : '') + '</div>' +
-      '<div class="tk-meta pts">' + (m.pts ? ppEsc(m.pts) + ' pts' : '') + '</div>' +
-      '<button class="tk-del" aria-label="Supprimer">✕</button>';
+    // Saisies de l'utilisateur : textContent uniquement ; le résultat est limité à V ou D (il sert aussi de classe CSS)
+    const res = m.res === 'V' ? 'V' : 'D';
+    const cell = (cls, txt) => { const d = document.createElement('div'); d.className = cls; d.textContent = txt; row.appendChild(d); };
+    cell('tk-res ' + res, res);
+    cell('tk-opp', m.opp || 'Adversaire');
+    cell('tk-meta', m.score || '');
+    cell('tk-meta pts', m.pts ? m.pts + ' pts' : '');
+    const del = document.createElement('button'); del.className = 'tk-del'; del.type = 'button'; del.setAttribute('aria-label', 'Supprimer ce match'); del.textContent = '✕'; row.appendChild(del);
     row.querySelector('.tk-del').addEventListener('click', () => {
       const arr = ppLoad(); arr.splice(realIdx, 1); ppSave(arr); renderMatches();
     });
@@ -1259,12 +1254,6 @@ document.querySelectorAll('.nav-links a').forEach(a => {
 });
 </script>
 <script>
-const _hbg = document.getElementById('navHbg');
-const _nav = document.querySelector('nav');
-_hbg.addEventListener('click', () => { _hbg.classList.toggle('open'); _nav.classList.toggle('open'); });
-document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => { _hbg.classList.remove('open'); _nav.classList.remove('open'); }); });
-document.addEventListener('click', e => { if (_nav.classList.contains('open') && !_nav.contains(e.target)) { _hbg.classList.remove('open'); _nav.classList.remove('open'); } });
 </script>
-<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');</script>
 </body>
 </html>
