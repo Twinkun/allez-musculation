@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
 <script src="data/nutrition.js"></script>
+<script src="data/recettes.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -121,7 +122,10 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
 .rtag-meal{background:rgba(232,150,10,0.15);color:var(--gold);border:1px solid rgba(232,150,10,0.3)}
 
 /* MACRO BAR */
-.macro-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-bottom:1px solid var(--border)}
+.macro-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-bottom:1px solid var(--border)}
+.macro-item.lip .macro-v{color:#8a5a00}
+.ingr-compte{font-size:.72rem;color:#8a5a00;display:block;margin-top:2px;font-weight:600}
+.ingr-nc{font-size:.75rem;color:var(--text-light);font-style:italic}
 .macro-item{padding:14px 8px;text-align:center;border-right:1px solid var(--border)}
 .macro-item:last-child{border-right:none}
 .macro-v{font-family:var(--fh);font-size:1.5rem;letter-spacing:.05em;line-height:1}
@@ -205,7 +209,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
   <div class="hero-tag">🍳 Cuisine haute performance</div>
   <h1>RECETTES <span>PRO</span></h1>
   <p class="hero-sub">Les 50 meilleures recettes — préparées comme un cuisinier, dosées comme un athlète. Instructions étape par étape, techniques précises.</p>
-  <p class="hero-sub" style="margin-top:10px;color:#f5b02a">⚠️ Calories et macros affichées en cours de recalcul avec la table Ciqual 2025 : elles sont aujourd'hui sous-estimées, d'environ 20 % en moyenne. Pèse tes ingrédients et garde une marge.</p>
+  <p class="hero-sub" style="margin-top:10px">Calories et macros calculées depuis les ingrédients de chaque fiche, matières grasses de cuisson comprises, avec la table Ciqual 2025 de l'Anses (poids crus). Sous chaque ingrédient, « compté » indique le poids retenu : pèse-le pour retrouver ces valeurs.</p>
   <div class="hero-stats">
     <div class="hero-stat"><div class="hstat-v">50</div><div class="hstat-l">Recettes</div></div>
     <div class="hero-stat"><div class="hstat-v"><span data-az="nutrition.proteines"></span>g</div><div class="hstat-l">Protéines / jour</div></div>
@@ -306,25 +310,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">750</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">48g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">46g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">5,85€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Pavé de saumon (avec peau)<span class="ingr-note">Frais de préférence. Épaisseur idéale : 3 cm</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Quinoa blanc sec<span class="ingr-note">Donne ~130 g cuit</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">½</span><span class="ingr-name">Avocat mûr<span class="ingr-note">Doit céder sous une légère pression du doigt</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">80 g</span><span class="ingr-name">Tomates cerises</span></li>
-        <li class="ingr-item"><span class="ingr-qty">½</span><span class="ingr-name">Concombre<span class="ingr-note">Coupé en demi-lunes de 5 mm</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 CS</span><span class="ingr-name">Huile d'olive (vinaigrette)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">½</span><span class="ingr-name">Citron (jus + zeste)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Moutarde de Dijon</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Aneth frais ou séché, sel, poivre</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -343,7 +338,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le saumon est l'un des rares aliments qui concentre <strong>oméga-3 EPA/DHA + protéines complètes + vitamine D</strong> dans le même pavé. La règle d'or : <strong>peau down, pas de beurre, ne pas toucher</strong>. La chaleur de la poêle remonte progressivement dans la chair — c'est la cuisson parfaite sans dessécher les acides gras polyinsaturés. Acheter du saumon Label Rouge ou Écossais : la chair est plus ferme et moins grasse que le saumon d'élevage standard.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -351,7 +346,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <span class="timing-sep">|</span>
     <div class="timing-block">🔥 <strong>Cuisson</strong> 15 min</div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">📦 <strong>Densité prot.</strong> 6,9 g / 100 kcal</div>
+    <div class="timing-block">📦 <strong>Densité prot.</strong> <span data-rv="dens"></span> g / 100 kcal</div>
   </div>
 </div>
 
@@ -368,33 +363,23 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">680</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">44g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">62g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">5,55€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Saumon frais qualité sashimi<span class="ingr-note">Rayé ou Atlantique. Acheter chez un poissonnier ou en surgelé sashimi-grade. Ne jamais utiliser du saumon fumé ici.</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Riz japonica sec (sushi rice)<span class="ingr-note">Riz rond japonais — pas de basmati, pas de riz long grain</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 CS</span><span class="ingr-name">Vinaigre de riz</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Sucre + pincée de sel</span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Edamame décortiqués surgelés</span></li>
-        <li class="ingr-item"><span class="ingr-qty">½</span><span class="ingr-name">Avocat (tranches)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">¼</span><span class="ingr-name">Concombre en rondelles fines</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2 CS</span><span class="ingr-name">Sauce soja (tamari sans gluten ok)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">½ cc</span><span class="ingr-name">Huile de sésame grillé</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Gingembre mariné (gari), nori, graines sésame</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
       <ol class="steps-list">
         <li class="step"><span class="step-txt"><strong>Rincer le riz 5 fois.</strong> Mettre le riz dans un bol, couvrir d'eau froide, remuer avec la main, vider. Répéter jusqu'à ce que l'eau soit <em>quasi claire</em> (5 à 7 rinçages). Cette étape est non-négociable : elle enlève l'amidon de surface responsable du riz collant et gluant.</span></li>
         <li class="step"><span class="step-txt"><strong>Cuire le riz.</strong> Riz + <em>72 ml d'eau froide</em> dans une casserole. Porter à ébullition à feu moyen, couvrir, <em>réduire au minimum</em>. Cuire <em>12 minutes</em>. Couper le feu, laisser <em>10 minutes couvert</em> sans soulever le couvercle. La vapeur emprisonnée termine la cuisson.</span></li>
-        <li class="step"><span class="step-txt"><strong>Assaisonner le riz.</strong> Mélanger vinaigre de riz + sucre + sel dans un petit bol, faire tiédir 20 secondes au micro-ondes pour dissoudre. Transférer le riz dans un plat large. Verser le mélange vinaigré et <em>incorporer avec des gestes de coupe horizontaux</em> (spatule ou cuillère en bois), jamais de mouvement circulaire qui écrase le riz. Ventiler avec un éventail ou un livre pendant que vous mélangez — le riz doit refroidir rapidement pour obtenir ce brillant caractéristique.</span></li>
+        <li class="step"><span class="step-txt"><strong>Assaisonner le riz.</strong> Mélanger vinaigre de riz + sucre + sel dans un petit bol, faire tiédir 20 secondes au micro-ondes pour dissoudre. Transférer le riz dans un plat large. Verser le mélange vinaigré et <em>incorporer avec des gestes de coupe horizontaux</em> (spatule ou cuillère en bois), jamais de mouvement circulaire qui écrase le riz. Ventiler avec un éventail ou un livre pendant que tu mélanges — le riz doit refroidir rapidement pour obtenir ce brillant caractéristique.</span></li>
         <li class="step"><span class="step-txt"><strong>Préparer le saumon.</strong> Avec un couteau bien affûté, couper le saumon en <em>dés de 2 cm</em>. Gestes décidés et fermes — ne pas scier. Réserver au frais jusqu'à l'assemblage.</span></li>
         <li class="step"><span class="step-txt"><strong>Edamame.</strong> Cuire selon l'emballage (généralement 3-4 min à l'eau bouillante salée). Égoutter, refroidir sous eau froide pour conserver la couleur verte vive.</span></li>
         <li class="step"><span class="step-txt"><strong>Sauce.</strong> Mélanger sauce soja + huile de sésame + quelques gouttes de jus de citron ou yuzu.</span></li>
@@ -406,7 +391,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le chirashi est un plat de <strong>précision technique</strong>. Le riz vinaigré (shari) est la base — si le riz est trop chaud, le vinaigre s'évapore ; trop froid, il ne s'incorpore pas. <strong>Température idéale : riz encore légèrement tiède</strong>, jamais brûlant. Concernant le saumon cru : le risque parasitaire est éliminé si le poisson a été congelé à −20°C pendant 24h (normes HACCP). Acheter du saumon surgelé sashimi-grade ou demander à votre poissonnier si le poisson a été préalablement congelé.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -431,30 +416,22 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">520</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">55g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">55g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">4,10€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">2 boîtes</span><span class="ingr-name">Thon au naturel<span class="ingr-note">~200 g net égoutté. Impérativement "au naturel", pas à l'huile — on contrôle ainsi les lipides</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">45 g</span><span class="ingr-name">Riz basmati sec<span class="ingr-note">Donne ~130 g cuit</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">250 g</span><span class="ingr-name">Brocolis (bouquets)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2 CS</span><span class="ingr-name">Sauce soja réduite en sel</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Huile de sésame grillé</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cm</span><span class="ingr-name">Gingembre frais râpé</span></li>
-        <li class="ingr-item"><span class="ingr-qty">½</span><span class="ingr-name">Citron (jus)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Graines de sésame (finition)</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
       <ol class="steps-list">
         <li class="step"><span class="step-txt"><strong>Riz basmati.</strong> Rincer une fois à l'eau froide. Porter <em>90 ml d'eau salée</em> à ébullition. Ajouter le riz, couvrir, <em>feu doux 10 minutes</em>. Éteindre, repos 3 minutes. Le basmati doit rester <em>bien séparé grain à grain</em>.</span></li>
-        <li class="step"><span class="step-txt"><strong>Brocolis vapeur.</strong> Couper en bouquets de taille uniforme (cuisson homogène). Cuire à la vapeur <em>5 à 6 minutes</em> — ils doivent être <em>vert vif et al dente</em>, avec une légère résistance sous la dent. Un brocoli mou et jaune-vert a perdu sa vitamine C et sa sulforaphane (composé anti-inflammatoire). Refroidir 30 secondes sous eau froide pour stopper la cuisson.</span></li>
+        <li class="step"><span class="step-txt"><strong>Brocolis vapeur.</strong> Couper en bouquets de taille uniforme (cuisson homogène). Cuire à la vapeur <em>5 à 6 minutes</em> — ils doivent être <em>vert vif et al dente</em>, avec une légère résistance sous la dent. Un brocoli mou et jaune-vert a perdu une partie de sa vitamine C. Refroidir 30 secondes sous eau froide pour stopper la cuisson.</span></li>
         <li class="step"><span class="step-txt"><strong>Égoutter le thon.</strong> Presser fortement le thon dans une passoire fine pour éliminer toute l'eau — un thon bien égoutté se défait en gros morceaux, bien plus agréable qu'une bouillie humide.</span></li>
         <li class="step"><span class="step-txt"><strong>Sauce.</strong> Dans un bol : sauce soja + huile de sésame + gingembre râpé + jus de citron. Mélanger.</span></li>
         <li class="step"><span class="step-txt"><strong>Dresser.</strong> Riz en base, thon défait en gros morceaux au centre, brocolis disposés autour. Verser la sauce sur l'ensemble. Terminer avec les graines de sésame.</span></li>
@@ -465,15 +442,15 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">C'est la recette la plus rapide du programme et l'une des plus efficaces en ratio protéines/coût. <strong>Le piège classique : cuire le brocoli trop longtemps.</strong> À partir de 7-8 minutes à la vapeur, les sulforaphanes sont détruits et le légume devient amer et jaune. L'huile de sésame ne doit jamais cuire — elle se rajoute toujours en finition ou dans la sauce. Chauffée, elle perd ses arômes et libère des composés indésirables.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
     <div class="timing-block">⏱ <strong>Total</strong> 15 min</div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">💪 <strong>55g prot.</strong> meilleur ratio de la sélection</div>
+    <div class="timing-block">💪 <strong><span data-rv="p"></span> g</strong> de protéines</div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">💰 <strong>4,10€</strong> le moins cher</div>
+    <div class="timing-block">💰 <strong>4,10 €</strong></div>
   </div>
 </div>
 
@@ -486,31 +463,20 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
       <span class="rtag rtag-time">⏱ 25 min</span>
       <span class="rtag rtag-diff">★★☆ Facile</span>
       <span class="rtag rtag-meal">🍽 Déj / Dîner</span>
-      <span class="rtag rtag-meal">🌿 Anti-inflam.</span>
+      <span class="rtag rtag-meal">🍛 Curry</span>
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">600</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">50g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">58g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,40€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Blanc de poulet, dés de 2 cm</span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Lentilles corail sèches<span class="ingr-note">Ne pas faire tremper — les lentilles corail cuisent directement</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 ml</span><span class="ingr-name">Lait de coco léger (14% MG)<span class="ingr-note">Pas du lait de coco entier à 24% — trop calorique</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">300 ml</span><span class="ingr-name">Bouillon de poulet faible en sel</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 CS</span><span class="ingr-name">Curry en poudre</span></li>
-        <li class="ingr-item"><span class="ingr-qty">½ cc</span><span class="ingr-name">Curcuma moulu</span></li>
-        <li class="ingr-item"><span class="ingr-qty">½ cc</span><span class="ingr-name">Cumin moulu</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Gingembre frais râpé</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Gousses d'ail émincées</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 grosse</span><span class="ingr-name">Poignée épinards frais</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Huile d'olive ou coco</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -527,7 +493,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Ce plat est un <strong>concentré d'anti-inflammatoires naturels</strong> : curcuma (curcumine), gingembre (gingérol), ail (allicine), épinards (magnésium). Parfait en récupération après une grosse séance. La torréfaction des épices n'est pas optionnelle — c'est la technique qui distingue un curry fade d'un curry profond. <strong>Règle : les épices sèches avant le liquide, toujours.</strong></div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -535,7 +501,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <span class="timing-sep">|</span>
     <div class="timing-block">🔥 <strong>Cuisson</strong> 18 min</div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">💰 <strong>3,40€</strong> le moins cher après R03</div>
+    <div class="timing-block">💰 <strong>3,40 €</strong></div>
   </div>
 </div>
 
@@ -552,24 +518,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">440</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">46g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">44g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">5,20€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">220 g</span><span class="ingr-name">Filet de cabillaud<span class="ingr-note">Aussi appelé morue fraîche. Surgelé convient très bien — décongeler 2h au réfrigérateur avant, jamais au micro-ondes</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 CS</span><span class="ingr-name">Huile d'olive</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Gousses d'ail (lamelles fines)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">½</span><span class="ingr-name">Citron (rondelles + jus)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Branches de thym frais</span></li>
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Patate douce, cubes de 2 cm</span></li>
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Brocolis en bouquets</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Sel, poivre, paprika fumé</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -587,7 +545,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le cabillaud est le <strong>poisson maigre de référence</strong> pour la recomposition corporelle : 20g prot pour seulement 90 kcal/100g, zéro gras. La papillote est la méthode de cuisson idéale car elle conserve tous les minéraux dans les jus de cuisson (aucune perte dans l'eau). <strong>Erreur classique à éviter : ouvrir la papillote trop tôt.</strong> La chaleur est entrapée — ouvrir à mi-cuisson fait s'échapper la vapeur et prolonge la cuisson de manière imprévisible.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -595,7 +553,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <span class="timing-sep">|</span>
     <div class="timing-block">🔥 <strong>Four</strong> 25 min à 190°C</div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">⚡ <strong>440 kcal</strong> idéal jour repos</div>
+    <div class="timing-block">⚡ <strong><span data-rv="kcal"></span> kcal</strong> jour de repos</div>
   </div>
 </div>
 
@@ -612,24 +570,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">650</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">52g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">75g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,80€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">180 g</span><span class="ingr-name">Blanc de poulet entier</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Cumin moulu + 1 cc paprika fumé</span></li>
-        <li class="ingr-item"><span class="ingr-qty">45 g</span><span class="ingr-name">Riz basmati sec</span></li>
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Patate douce, cubes 2 cm</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Gousses d'ail (patate douce)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 grosse</span><span class="ingr-name">Poignée épinards frais</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 CS</span><span class="ingr-name">Huile d'olive</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Citron, sel, poivre, piment d'Espelette</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -647,15 +597,15 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">C'est le <strong>repas post-workout idéal</strong> : glucides rapides (riz) + patate douce (glucides complexes, bêta-carotène) + 52g de protéines complètes. Le paprika fumé sur le poulet n'est pas décoratif — il apporte des antioxydants (capsaïcine) et le fumé crée l'illusion de grillades. <strong>Règle du repos :</strong> ne jamais couper un blanc de poulet immédiatement à la sortie de la poêle — 30-40% du jus serait perdu sur la planche à découper.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
     <div class="timing-block">⏱ <strong>Total</strong> 35 min</div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">💪 <strong>52g prot.</strong> champion glucides</div>
+    <div class="timing-block">💪 <strong><span data-rv="p"></span> g</strong> de protéines</div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">🏋 <strong>Repas post-workout</strong> optimal</div>
+    <div class="timing-block">🏋 <strong>Jour de séance</strong></div>
   </div>
 </div>
 
@@ -673,24 +623,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">500</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">46g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">60g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">4,75€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Nouilles soba sèches (100% sarrasin)<span class="ingr-note">Lire la composition : certaines soba contiennent jusqu'à 70% de blé ordinaire. Choisir 100% sarrasin pour l'index glycémique bas et le profil acides aminés</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">160 g</span><span class="ingr-name">Blanc de poulet</span></li>
-        <li class="ingr-item"><span class="ingr-qty">3 CS</span><span class="ingr-name">Sauce soja</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2 CS</span><span class="ingr-name">Mirin (vin de riz doux)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">150 ml</span><span class="ingr-name">Dashi (bouillon japonais)<span class="ingr-note">Granulés dashi en épicerie asiatique. Ou à défaut : bouillon de légumes très léger</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">½ cc</span><span class="ingr-name">Sucre</span></li>
-        <li class="ingr-item"><span class="ingr-qty">¼</span><span class="ingr-name">Concombre en julienne fine</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Nori, sésame, oignons verts, gingembre râpé</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -707,7 +649,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Les soba sont l'une des rares céréales contenant les 9 acides aminés essentiels — un profil proche des protéines animales. La <strong>sauce tsuyu maison</strong> est bien supérieure aux versions industrielles : aucun additif, niveau de sel contrôlé. Le pochage du poulet peut être fait en grande quantité (4-5 blancs à la fois) et conservé 3 jours au réfrigérateur — base de meal prep idéale.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -732,23 +674,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">660</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">50g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">42g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">4,65€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">5</span><span class="ingr-name">Œufs entiers<span class="ingr-note">Œufs Label Rouge ou bio si possible — jaune plus orangé = plus de lutéine et bêta-carotène</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Jambon blanc épais en dés<span class="ingr-note">Sans nitrites si possible (code "sans" ou "- de 50mg/kg"). Les tranches fines conviennent aussi</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">½</span><span class="ingr-name">Poivron rouge en brunoise</span></li>
-        <li class="ingr-item"><span class="ingr-qty">4</span><span class="ingr-name">Champignons de Paris émincés</span></li>
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Patate douce en cubes (à rôtir)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Beurre ou huile de noix de coco</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Ciboulette, persil frais, sel, poivre</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -766,7 +701,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">L'œuf entier est l'aliment le plus complet qui existe : <strong>score PDCAAS de 1.0</strong> (protéine de référence absolue), ratio leucine exceptionnel pour la synthèse musculaire, choline pour le foie et le cerveau. Le jaune n'est pas l'ennemi — la peur des graisses saturées des œufs est une croyance dépassée. <strong>L'omelette baveux au centre</strong> n'est pas une question de goût, c'est une question de texture : la cuisson continue sur l'assiette grâce à la chaleur résiduelle. Une omelette bien cuite à la poêle est une omelette trop cuite à l'assiette.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -774,7 +709,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <span class="timing-sep">|</span>
     <div class="timing-block">🔥 <strong>Omelette</strong> 10 min</div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">🥚 <strong>5 œufs</strong> = 30g prot. à 2€</div>
+    <div class="timing-block">🥚 <strong>5 œufs</strong> ≈ 2 €</div>
   </div>
 </div>
 
@@ -791,24 +726,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">480</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">42g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">52g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">5,10€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Crevettes décortiquées crues<span class="ingr-note">Surgelées conviennent. Décongeler 1h au frigo ou 15 min dans eau froide. Jamais au micro-ondes — elles commencent à cuire</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">45 g</span><span class="ingr-name">Riz basmati sec</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 grosse</span><span class="ingr-name">Poignée épinards frais</span></li>
-        <li class="ingr-item"><span class="ingr-qty">4</span><span class="ingr-name">Gousses d'ail émincées</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Piment rouge frais (ou piment d'Espelette)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 CS</span><span class="ingr-name">Huile d'olive</span></li>
-        <li class="ingr-item"><span class="ingr-qty">½</span><span class="ingr-name">Citron (jus)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Persil frais, sel, poivre</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -826,7 +753,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Les crevettes sont le <strong>ratio protéines/calories le plus élevé des fruits de mer</strong> : 24g prot pour 100 kcal. La règle des crevettes se résume au <strong>C vs O</strong> : forme de C = parfaitement cuites, forme de O = trop cuites. Le tout se joue en 30 secondes. Une poêle froide ou surpeuplée est l'ennemi — mieux vaut cuire en deux fois qu'une seule avec entassement. L'ail brûlé est amer : toujours en fin de cuisson, jamais en début.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -852,25 +779,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">650</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">44g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">68g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">4,45€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">180 g</span><span class="ingr-name">Bœuf émincé très finement<span class="ingr-note">Technique : congeler le steak 20 min pour qu'il soit semi-ferme, puis couper en tranches de 2mm au couteau bien affûté. Ou utiliser des tranches à fondue / shabu-shabu déjà prêtes</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 gros</span><span class="ingr-name">Oignon jaune, demi-lunes fines</span></li>
-        <li class="ingr-item"><span class="ingr-qty">3 CS</span><span class="ingr-name">Sauce soja</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2 CS</span><span class="ingr-name">Mirin</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Sucre</span></li>
-        <li class="ingr-item"><span class="ingr-qty">150 ml</span><span class="ingr-name">Dashi</span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Riz japonica sec</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Œuf (pour œuf mollet)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Oignons verts émincés, shichimi (7 épices)</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -887,7 +805,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le gyudon est le <strong>bowl de récupération par excellence au Japon</strong> — servi dans les chaînes comme Yoshinoya depuis 1899 pour les travailleurs ayant besoin d'énergie rapide. Le secret des tranches ultra-fines : <strong>congélation partielle du bœuf 20 minutes avant découpe</strong>. La chair semi-ferme permet des tranches de 1-2mm impossibles autrement. L'œuf mollet apporte 6g de protéines supplémentaires + les graisses saines des lipides du jaune pour l'absorption des vitamines liposolubles de l'ensemble du bowl. Le shichimi n'est pas facultatif — c'est lui qui élève le plat.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -911,25 +829,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">580</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">52g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">38g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">5,40€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">160 g</span><span class="ingr-name">Thon au naturel en boîte<span class="ingr-note">Égoutté soigneusement. Éviter le thon à l'huile — redondant avec l'huile d'olive de la vinaigrette</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">3</span><span class="ingr-name">Œufs<span class="ingr-note">Durs — 9 minutes précises dans eau bouillante</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Haricots verts<span class="ingr-note">Frais ou surgelés. Al dente, pas mous</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Tomates + ½ poivron rouge en lanières</span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Pommes de terre vapeur<span class="ingr-note">Petites — en rondelles de 5 mm</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">10</span><span class="ingr-name">Olives noires dénoyautées</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 CS</span><span class="ingr-name">Huile d'olive (vinaigrette)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">½</span><span class="ingr-name">Citron (jus) + 1 cc moutarde + basilic frais</span></li>
-        <li class="ingr-item"><span class="ingr-qty">opt.</span><span class="ingr-name">2 filets d'anchois (umami)</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -946,7 +855,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Cette salade cumule <strong>trois sources protéiques complémentaires</strong> : thon (protéines maigres + mercure-safe en boîte), œufs (profil complet d'acides aminés), et haricots verts (protéines végétales modérées). Les olives noires ne sont pas là pour décorer — elles apportent des <strong>polyphénols anti-inflammatoires</strong> (oleuropéine, hydroxytyrosol) et des graisses monoinsaturées identiques à l'huile d'olive. <strong>Servir à température ambiante</strong>, jamais froide sortie du frigo : les tomates et les pommes de terre développent leur pleine saveur à 18-20°C.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -971,24 +880,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">700</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">52g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">72g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">4,35€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Steak haché bœuf 5% MG<span class="ingr-note">5% MG = maigre et protéiné. Éviter le 15-20% pour ce plat : trop de graisses saturées, moins de protéines</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Pâtes complètes sèches<span class="ingr-note">IG plus bas que pâtes blanches, plus de fibres, plus de magnésium</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 boîte</span><span class="ingr-name">Tomates pelées entières (400g)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Oignon jaune émincé en dés fins</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Gousses d'ail</span></li>
-        <li class="ingr-item"><span class="ingr-qty">20 g</span><span class="ingr-name">Parmesan râpé (finition)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Basilic frais ou séché, origan, piment rouge, sel, poivre</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Huile d'olive</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1005,7 +906,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le bœuf 5% MG est un aliment quasi unique : <strong>créatine naturelle (0,7g/100g)</strong> — la seule source alimentaire significative avec le hareng. La créatine alimentaire contribue à environ 1-2g/jour sur les 3g endogènes totaux produits par le foie. Le zinc (5,7mg/100g de bœuf) est le minéral le plus critique pour la synthèse de testostérone. <strong>Astuce eau de cuisson</strong> : l'amidonnée de l'eau de pâtes est le secret des chefs italiens pour lier une sauce — elle contient des protéines et de l'amidon solubilisés qui émulsionnent huile et eau de tomate de façon naturelle.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1031,24 +932,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">640</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">46g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">70g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,10€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Cuisse de poulet désossée (sans peau facultatif)<span class="ingr-note">La cuisse est supérieure au blanc ici — sa graisse intramusculaire caramélise avec le mirin pour créer le laquage caractéristique. Blanc = trop sec avec ce type de cuisson</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">3 CS</span><span class="ingr-name">Sauce soja</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2 CS</span><span class="ingr-name">Mirin (vin de riz doux)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 CS</span><span class="ingr-name">Miel</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Fécule de maïs (Maïzena)<span class="ingr-note">Agent épaississant naturel pour la sauce teriyaki</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Riz japonica sec</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Graines de sésame blanc + oignons verts</span></li>
-        <li class="ingr-item"><span class="ingr-qty">½ CS</span><span class="ingr-name">Huile neutre (arachide ou tournesol)</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1065,7 +958,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le teriyaki maison prend <strong>3 ingrédients et 2 minutes de préparation</strong> — la version industrielle contient 12+ additifs et deux fois plus de sucre. <strong>Le secret de la peau croustillante :</strong> poêle froide. En chauffant progressivement, la graisse sous-cutanée fond et arrose naturellement la peau depuis l'intérieur. En déposant dans une poêle chaude, la peau colle et se déchire. La <strong>fécule dans la sauce teriyaki</strong> n'est pas optionnelle — sans elle, la sauce reste liquide et glisse sur la viande au lieu de l'enrober.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1073,7 +966,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <span class="timing-sep">|</span>
     <div class="timing-block">❄️ <strong>Fécule</strong> dans eau froide d'abord</div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">💰 <strong>3,10€</strong> le moins cher de R11–R20</div>
+    <div class="timing-block">💰 <strong>3,10 €</strong></div>
   </div>
 </div>
 
@@ -1087,27 +980,20 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
       <span class="rtag rtag-time">⏱ 20 min</span>
       <span class="rtag rtag-diff">★★☆ Facile</span>
       <span class="rtag rtag-meal">🍽 Dîner</span>
-      <span class="rtag rtag-meal">🌿 Gut-friendly</span>
+      <span class="rtag rtag-meal">🍲 Léger</span>
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">500</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">48g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">48g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,90€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">400 ml</span><span class="ingr-name">Bouillon dashi<span class="ingr-note">Granulés dashi en épicerie asiatique (Ajinomoto). Ou katsuobushi (copeaux bonite) infusés 5 min</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">1,5 CS</span><span class="ingr-name">Pâte miso blanche (shiro miso)<span class="ingr-note">Shiro miso = plus doux, moins salé que le miso rouge. Disponible en épicerie asiatique ou bio</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Tofu ferme en dés de 2 cm</span></li>
-        <li class="ingr-item"><span class="ingr-qty">120 g</span><span class="ingr-name">Blanc de poulet émincé très fin</span></li>
-        <li class="ingr-item"><span class="ingr-qty">5 g</span><span class="ingr-name">Algues wakamé sèches<span class="ingr-note">Gonfle 6-8× : 5g sec = ~40g réhydratées</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">45 g</span><span class="ingr-name">Riz japonica sec (cuit à part)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Oignons verts ciselés + ½ cc huile de sésame</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1116,7 +1002,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
         <li class="step"><span class="step-txt"><strong>Riz.</strong> Rincer + cuire séparément (cf. technique R02 ou R13). Réserver.</span></li>
         <li class="step"><span class="step-txt"><strong>Pocher le poulet.</strong> Amener le dashi à <em>petit frémissement</em> (70-80°C — jamais à ébullition). Ajouter le poulet émincé très fin. Cuire <em>3-4 minutes</em>. L'ébullition agiterait le bouillon et rendrait la soupe trouble.</span></li>
         <li class="step"><span class="step-txt"><strong>Tofu + wakamé.</strong> Ajouter délicatement dans le bouillon. <em>2 minutes</em>. Le tofu se réchauffe seulement, il est déjà "cuit".</span></li>
-        <li class="step"><span class="step-txt"><strong>LE MISO — règle d'or.</strong> <em>Éteindre le feu</em>. Attendre que le frémissement cesse. Prélever une louche de bouillon chaud dans un bol. Dissoudre la pâte miso dedans avec une cuillère ou un petit fouet jusqu'à homogénéité complète. Verser la solution dans la casserole et remuer. <em>Ne jamais faire bouillir la soupe après l'ajout du miso</em> — l'ébullition détruit 80% des probiotiques vivants et rend la soupe âcre et amère.</span></li>
+        <li class="step"><span class="step-txt"><strong>LE MISO — règle d'or.</strong> <em>Éteindre le feu</em>. Attendre que le frémissement cesse. Prélever une louche de bouillon chaud dans un bol. Dissoudre la pâte miso dedans avec une cuillère ou un petit fouet jusqu'à homogénéité complète. Verser la solution dans la casserole et remuer. <em>Ne jamais faire bouillir la soupe après l'ajout du miso</em> — elle devient âcre et perd son arôme.</span></li>
         <li class="step"><span class="step-txt"><strong>Dresser.</strong> Riz dans le bol, soupe miso versée par-dessus ou à côté. Huile de sésame (hors feu) + oignons verts.</span></li>
       </ol>
     </div>
@@ -1129,7 +1015,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">La pâte miso est l'un des rares aliments fermentés qui combine <strong>probiotiques vivants + protéines complètes + isoflavones + minéraux</strong>. Une soupe miso quotidienne est associée dans les études épidémiologiques japonaises à une réduction du risque cardiovasculaire malgré sa teneur en sel — grâce à ses peptides bioactifs vasodilatateurs. Le tofu ferme apporte 8g de protéines/100g avec toute la chaîne des acides aminés essentiels du soja. <strong>Plat idéal les soirs avant une séance du lendemain</strong> — digestion légère, charge glucidique modérée.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1154,24 +1040,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">580</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">48g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">60g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">4,45€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Escalope de poulet</span></li>
-        <li class="ingr-item"><span class="ingr-qty">—</span><span class="ingr-name">Marinade : 1 CS huile d'olive + 2 gousses ail haché + 1 cc herbes de Provence + jus ½ citron + sel + poivre</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Courgette en demi-lunes de 1 cm</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Poivron rouge en larges lanières</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Oignon rouge en quartiers</span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Tomates cerises entières</span></li>
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Patate douce en cubes de 2 cm</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Origan séché, thym, filet d'huile d'olive, sel</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1189,7 +1067,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Ce plat est le <strong>meal prep par excellence</strong> — préparer 3-4 escalopes et une plaque complète de légumes le dimanche couvre 3 jours de déjeuners. Les légumes rôtis se conservent 4 jours au frigo et sont meilleurs le lendemain (les saveurs se concentrent). La <strong>palette de couleurs des légumes méditerranéens</strong> n'est pas esthétique — chaque couleur correspond à un profil phytochimique distinct : lycopène (tomate, rouge), lutéine (courgette, vert), bêta-carotène (poivron orange), anthocyanine (oignon rouge). Manger coloré = manger diversifié en micronutriments.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1214,24 +1092,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">560</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">40g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">48g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,95€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Tortillas complètes (25 cm)<span class="ingr-note">Les tortillas de blé complet ont un IG plus bas et plus de fibres que les blanches. Réchauffer pour les rendre souples</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Émincé de dinde<span class="ingr-note">Ou escalope de dinde coupée en lanières. La dinde = 1g lipides / 30g protéines — l'une des viandes les plus maigres</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">½</span><span class="ingr-name">Avocat mûr en tranches</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2 CS</span><span class="ingr-name">Fromage frais léger (Philadelphia Light ou St Môret 0%)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Salade feuille de chêne ou roquette</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Tomate en rondelles fines</span></li>
-        <li class="ingr-item"><span class="ingr-qty">¼</span><span class="ingr-name">Concombre en rondelles</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Sel, cumin moulu, jus de citron</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1248,7 +1118,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Ce wrap est le <strong>meilleur repas "sans cuisine"</strong> du programme — prêt en 15 minutes, transportable au travail ou au gym. Si l'avocat est trop ferme (pas encore mûr) : le glisser dans un sac kraft avec une banane, laisser 24h à température ambiante. <strong>L'éthylène dégagé par la banane accélère la maturation.</strong> La dinde est systématiquement sous-estimée en musculation française — elle contient autant de leucine que le poulet avec moins de lipides. La leucine est l'acide aminé "switch" de la synthèse protéique musculaire (mTOR) — sa concentration dans le repas est plus importante que la quantité totale de protéines.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1273,24 +1143,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">480</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">38g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">42g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">2,75€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Farine de sarrasin (blé noir)<span class="ingr-note">100% sarrasin — naturellement sans gluten. Lire l'étiquette : certaines farines sont mélangées à du blé</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">250 ml</span><span class="ingr-name">Eau froide</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 pincée</span><span class="ingr-name">Sel fin</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Œufs entiers</span></li>
-        <li class="ingr-item"><span class="ingr-qty">80 g</span><span class="ingr-name">Jambon blanc épais en dés<span class="ingr-note">Sans nitrites de préférence. Couper en dés de 1 cm — fond dans la galette à la cuisson</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">30 g</span><span class="ingr-name">Emmental râpé</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Salade verte + tomates cerises (accompagnement)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Beurre clarifié ou huile de coco (cuisson)</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1307,7 +1169,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">La galette bretonne authentique se fait à la <strong>billig</strong> (galettière en fonte) à 220°C — en poêle à la maison, on compense par une technique rigoureuse. <strong>La température est le paramètre clé :</strong> trop froide, la pâte colle ; trop chaude, les bords brûlent avant que le centre soit cuit. Le sarrasin est l'une des cultures les plus résistantes aux pesticides — il pousse sans intervention chimique dans la plupart des exploitations. Naturellement riche en <strong>rutine</strong> (flavonoïde vasculaire qui renforce les capillaires), en magnésium et en fer non-héminique. Plat budget excellent : 2,75€ pour 38g de protéines.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1332,25 +1194,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">560</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">36g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">65g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">2,50€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Riz basmati cuit froid (de la veille)<span class="ingr-note">OBLIGATOIREMENT froid. Le riz chaud ou tiède est humide et s'agglomère en masse collante dans le wok. Préparer la veille</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">3</span><span class="ingr-name">Œufs entiers</span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Edamame décortiqués surgelés</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2 CS</span><span class="ingr-name">Sauce soja réduite en sel</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cm</span><span class="ingr-name">Gingembre frais râpé</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Oignons verts ciselés</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Huile de sésame (finition, hors feu)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cs</span><span class="ingr-name">Graines de sésame blanc</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 CS</span><span class="ingr-name">Huile neutre (wok)</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1371,7 +1224,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le riz sauté est l'art de la <strong>wok hei</strong> (氣) — littéralement "le souffle du wok" — cette légère saveur fumée obtenue quand la flamme vive caramélise les sucres du riz à très haute température. Difficile à reproduire sur plaque électrique domestique, mais s'en approcher avec un wok en acier chauffé à blanc pendant 2 minutes. <strong>L'huile de sésame ne se met jamais à cuire</strong> — c'est une huile de finition aromatique. Chauffée, elle perd tous ses arômes et libère des composés potentiellement irritants. Toujours hors feu, en dernier.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1396,24 +1249,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">560</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">38g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">65g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,75€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">3</span><span class="ingr-name">Œufs entiers</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Banane très mûre (taches brunes sur peau)<span class="ingr-note">Plus mûre = plus sucrée naturellement (amidon converti en fructose) + plus facile à écraser. Banane ferme et verte ne donne pas le même résultat</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Flocons d'avoine (à mixer)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 scoop</span><span class="ingr-name">Whey vanille ou nature (optionnel mais recommandé)<span class="ingr-note">+20g protéines sans changer la texture</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Cannelle moulue</span></li>
-        <li class="ingr-item"><span class="ingr-qty">½ cc</span><span class="ingr-name">Extrait de vanille + pincée de sel</span></li>
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Yaourt grec 0% (service)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Fruits rouges surgelés + filet de miel</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1430,7 +1275,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Ces pancakes n'ont <strong>ni farine de blé, ni levure chimique, ni sucre ajouté</strong>. La texture vient uniquement des protéines d'œuf qui coagulent + des beta-glucanes de l'avoine qui gélifient. La banane apporte le sucre naturel (fructose + glucose), l'humidité, et le liant. <strong>Variante haute-protéine :</strong> remplacer 1 œuf par 2 blancs d'œufs + ajouter la whey → 55-60g de protéines au total. Le <strong>yaourt grec est obligatoire</strong> à côté — sans lui, les pancakes sont trop secs et trop sucrés. L'acidité du yaourt équilibre la douceur de la banane.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1455,23 +1300,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">570</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">42g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">62g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">2,25€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">250 g</span><span class="ingr-name">Yaourt grec nature Total 2% ou 0%<span class="ingr-note">Éviter les yaourts aromatisés ou sucrés : jusqu'à 15g sucre ajouté par pot</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">50 g</span><span class="ingr-name">Flocons d'avoine</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Œufs (à la coque ou mollets — 6 min)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Banane mûre en rondelles</span></li>
-        <li class="ingr-item"><span class="ingr-qty">15 g</span><span class="ingr-name">Amandes effilées</span></li>
-        <li class="ingr-item"><span class="ingr-qty">5 g</span><span class="ingr-name">Miel (1 filet)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">opt.</span><span class="ingr-name">Fruits rouges, cannelle, graines de chia</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1488,7 +1326,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Ce bowl est une <strong>combinaison tri-source protéique optimisée</strong> : caséine du yaourt grec (digestion lente 4-7h, satiété maximale), protéines d'œuf (absorption intermédiaire 2-3h), beta-glucane soluble de l'avoine (fibre qui forme un gel dans l'intestin, ralentit la vidange gastrique et stabilise la glycémie). Ces trois vitesses de digestion différentes créent une <strong>libération d'acides aminés étalée sur 6-7 heures</strong> — idéal les jours de repos pour maintenir la synthèse protéique sans repas intermédiaire. <strong>Le yaourt grec aromatisé n'est pas une alternative</strong> : jusqu'à 15g de sucre ajouté par pot (l'équivalent de 3 morceaux de sucre) qui effacent les bénéfices de la caséine.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1496,7 +1334,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <span class="timing-sep">|</span>
     <div class="timing-block">🥚 <strong>Œufs</strong> 6 min exactes</div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">💰 <strong>2,25€</strong> l'un des moins chers</div>
+    <div class="timing-block">💰 <strong>2,25 €</strong></div>
   </div>
 </div>
 
@@ -1514,21 +1352,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">490</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">48g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">28g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,85€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">5</span><span class="ingr-name">Œufs entiers</span></li>
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Blanc de poulet émincé très fin<span class="ingr-note">Saisi 3 min à la poêle avant d'être incorporé à l'appareil</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Pommes de terre en rondelles<span class="ingr-note">Cuites à l'eau ~15 min. Patate douce possible en variante</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">½</span><span class="ingr-name">Oignon émincé + 1 CS huile d'olive</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Sel, poivre, persil ou ciboulette</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1545,7 +1378,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le meal prep par excellence : une seule poêle, et 3 jours de conservation. Les <strong>5 œufs entiers</strong> donnent un profil complet en acides aminés + vitamine D et choline. <strong>Naturellement low-carb</strong> — parfaite les jours de repos en sautant le riz. Le secret d'une tortilla réussie : des pommes de terre bien égouttées et une cuisson douce pour garder le cœur moelleux.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1571,21 +1404,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">610</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">52g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">65g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,70€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">180 g</span><span class="ingr-name">Blanc de poulet<span class="ingr-note">Épices tex-mex : cumin + paprika fumé + piment + origan</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">120 g</span><span class="ingr-name">Haricots noirs en boîte<span class="ingr-note">Égouttés et rincés</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">45 g</span><span class="ingr-name">Riz basmati sec → cuit</span></li>
-        <li class="ingr-item"><span class="ingr-qty">½</span><span class="ingr-name">Avocat en dés + jus de citron vert</span></li>
-        <li class="ingr-item"><span class="ingr-qty">50 g</span><span class="ingr-name">Maïs + ¼ poivron rouge + coriandre fraîche</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1602,7 +1430,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Les <strong>haricots noirs</strong> complètent le profil d'acides aminés du poulet et doublent l'apport en fibres — satiété 4-5h garantie. Le cumin facilite la digestion des légumineuses. Avec son surplus glucidique naturel (riz + haricots + maïs), c'est un <strong>repas post-entraînement idéal</strong>. Coloré et modulable : ajoute du piment selon ton goût.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1627,20 +1455,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">370</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">34g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">42g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">2,40€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">300 g</span><span class="ingr-name">Cottage cheese<span class="ingr-note">Source de caséine native — Carrefour, Lidl ou MDD</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Fruits rouges surgelés<span class="ingr-note">Framboises, myrtilles, cassis</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">40 g</span><span class="ingr-name">Granola<span class="ingr-note">Sans sucre ajouté de préférence</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">5 g</span><span class="ingr-name">Miel (1 filet) + zeste de citron jaune</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1655,15 +1479,15 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text"><strong>34g de protéines en 5 minutes pour ~2,40€</strong> — le meilleur rapport qualité/prix/praticité de la liste. Le cottage cheese est riche en <strong>caséine native</strong> : digestion lente, idéal au réveil ou avant de dormir pour nourrir les muscles toute la nuit. Les fruits rouges apportent des anthocyanines anti-inflammatoires qui accélèrent la récupération.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
     <div class="timing-block">⏱ <strong>Total</strong> 5 min</div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">💰 <strong>2,40€</strong> meilleur rapport</div>
+    <div class="timing-block">💰 <strong>2,40 €</strong></div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">🌙 <strong>Caséine</strong> avant dodo</div>
+    <div class="timing-block">🌙 <strong>Collation</strong> du soir</div>
   </div>
 </div>
 
@@ -1681,22 +1505,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">720</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">52g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">75g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">4,30€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">180 g</span><span class="ingr-name">Steak haché 5% MG<span class="ingr-note">En 2 boules écrasées fort sur poêle brûlante = croûte caramélisée</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Pain burger complet</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 tr.</span><span class="ingr-name">Cheddar</span></li>
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Patate douce (frites au four)<span class="ingr-note">Bâtonnets + 1 cc huile, four 200°C 25 min</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 CS</span><span class="ingr-name">Sauce light (yaourt 0% + moutarde + cornichon haché)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Salade, tomate, oignon rouge</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1712,7 +1530,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le burger version <strong>prise de masse propre</strong> : steak 5% + pain complet = 52g de protéines et de bons glucides pour 720 kcal. Le goût « resto » vient de la <strong>réaction de Maillard</strong> (croûte du smash sur poêle brûlante). Les frites de patate douce au four évitent la friture : index glycémique plus bas et vitamine A. La récompense parfaite des jours d'entraînement.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1737,21 +1555,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">580</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">50g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">58g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">4,00€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">160 g</span><span class="ingr-name">Blanc de poulet grillé<span class="ingr-note">Herbes de Provence + huile d'olive</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">70 g</span><span class="ingr-name">Quinoa sec → 210g cuit</span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Pois chiches en boîte<span class="ingr-note">Poêle 3 min + sel + cumin = croustillants</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">40 g</span><span class="ingr-name">Féta émiettée</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Épinards + tomates cerises + vinaigrette citron-huile d'olive</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1767,7 +1580,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text"><strong>Triple source protéique</strong> : poulet (complet), quinoa (complet, les 9 acides aminés essentiels) et pois chiches (légumineuse). La féta apporte calcium et une saveur méditerranéenne qui rend le plat addictif. Excellent chaud comme froid — parfait en <strong>boîte repas</strong> pour le bureau ou la salle.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1792,22 +1605,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">500</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">42g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">62g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,55€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">160 g</span><span class="ingr-name">Thon naturel en boîte<span class="ingr-note">Égoutté, assaisonné au ponzu 5 min avant</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Riz japonica sec → cuit + vinaigré</span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Mangue en dés (fraîche ou surgelée)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">½</span><span class="ingr-name">Avocat en dés</span></li>
-        <li class="ingr-item"><span class="ingr-qty">Sauce</span><span class="ingr-name">Ponzu : 2 CS sauce soja + jus citron vert + 1 cc miel</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Graines de sésame + oignons verts ciselés</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1823,7 +1630,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">La <strong>mangue</strong> apporte bêta-carotène, vitamine C et une douceur fruitée qui équilibre parfaitement la salinité du ponzu — une association gustative exceptionnelle. <strong>Zéro cuisson</strong> (hors riz) : léger, frais, prêt en 15 minutes à partir de simples boîtes de thon. Idéal le midi les jours de repos.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1848,21 +1655,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">430</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">46g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">20g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">4,70€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">4</span><span class="ingr-name">Œufs entiers<span class="ingr-note">Cassés directement dans la sauce, cuisson pochée</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">120 g</span><span class="ingr-name">Blanc de poulet émincé<span class="ingr-note">Saisi en premier</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">400 g</span><span class="ingr-name">Tomates pelées en boîte<span class="ingr-note">Base de la sauce</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Poivron rouge + 1 oignon + 2 gousses d'ail</span></li>
-        <li class="ingr-item"><span class="ingr-qty">Épices</span><span class="ingr-name">1 cc harissa + 1 cc cumin + paprika fumé + sel</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1879,7 +1681,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Un classique nord-africain ultra-simple — <strong>tout dans une seule poêle en 20 minutes</strong>. Seulement 20g de glucides : parfait les jours de repos en déficit léger. La <strong>tomate cuite</strong> libère bien plus de lycopène qu'en cru — un antioxydant puissant pour la récupération. À faire tourner chaque semaine.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1904,22 +1706,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">510</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">32g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">58g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,55€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Tofu ferme pressé<span class="ingr-note">Cubes marinés soja + ail, four 200°C 20 min</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Patate douce<span class="ingr-note">Cumin + paprika, même plaque que le tofu</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Pois chiches<span class="ingr-note">Sel + huile, 15 min au four</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Grosse poignée d'épinards + tomates cerises</span></li>
-        <li class="ingr-item"><span class="ingr-qty">Sauce</span><span class="ingr-name">Tahini : 2 CS tahini + jus citron + 1 gousse d'ail + 3 CS eau chaude</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Graines de sésame + grenade (garniture)</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1935,7 +1731,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le <strong>seul repas végétarien</strong> de la sélection — 32g de protéines, à compléter d'un yaourt grec ou d'une whey si tu vises ta cible. Le <strong>tahini</strong> est l'une des meilleures sources de calcium, zinc et magnésium de l'alimentation. Trois textures (croustillant, fondant, croquant) dans une seule assiette : gustativement irréprochable.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -1961,22 +1757,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">640</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">52g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">65g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">5,20€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Blanc de poulet en morceaux</span></li>
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Marinade : yaourt grec + garam masala + curcuma + cumin + ail + gingembre<span class="ingr-note">4h minimum, idéalement toute la nuit</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">400 g</span><span class="ingr-name">Sauce : tomates pelées + 1 oignon + 2 gousses d'ail</span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 ml</span><span class="ingr-name">Lait de coco léger + 2 CS crème<span class="ingr-note">Onctuosité finale</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">Épices</span><span class="ingr-name">Garam masala + coriandre moulue + paprika doux</span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Riz basmati sec</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -1993,7 +1783,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le <strong>marinage au yaourt</strong> attendrit la viande grâce aux acides lactiques — résultat digne d'un restaurant indien. Le garam masala (cardamome, cannelle, clou de girofle) est un cocktail d'anti-inflammatoires. Prépare-en double le dimanche (10 min actifs + 40 min de cuisson) : le lendemain, les épices ont infusé toute la nuit. Un vrai <strong>banger</strong>.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2019,23 +1809,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">600</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">58g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">55g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">7,60€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">120 g</span><span class="ingr-name">Blanc de poulet émincé fin</span></li>
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Crevettes décortiquées crues (surgelées)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Nouilles de riz sèches<span class="ingr-note">Trempage 30 min eau froide avant cuisson</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">3</span><span class="ingr-name">Œufs entiers<span class="ingr-note">Brouillés directement dans le wok</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">Sauce</span><span class="ingr-name">3 CS nuoc-mâm + 2 CS soja + 1 CS sucre de canne + jus citron vert</span></li>
-        <li class="ingr-item"><span class="ingr-qty">80 g</span><span class="ingr-name">Pousses de soja + 2 oignons verts + coriandre</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2 CS</span><span class="ingr-name">Cacahuètes concassées + quartiers de citron vert</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2052,7 +1835,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">La référence de la street food thaïlandaise — <strong>double protéine</strong> (poulet + crevettes) pour un profil d'acides aminés exceptionnel (58g). Le nuoc-mâm fermenté apporte un umami profond, du zinc et de la glutamine. <strong>Technique wok</strong> : feu très fort, tout va vite (10 min montre en main). Le plat le plus cher de la liste, mais le plus impactant — parfait les soirs post-workout du samedi.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2078,22 +1861,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">600</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">52g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">62g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,80€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">180 g</span><span class="ingr-name">Blanc de poulet<span class="ingr-note">En fines lanières pour une cuisson rapide et homogène</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Tortillas de blé complètes</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1½</span><span class="ingr-name">Poivrons (rouge + vert) + ½ oignon</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 CS</span><span class="ingr-name">Épices fajitas (paprika, cumin, ail, origan)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Huile + jus de citron vert</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Salsa, coriandre fraîche</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2109,7 +1886,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le banger tex-mex <strong>express et coloré</strong> : 52g de protéines maigres, des poivrons gorgés de vitamine C, et des tortillas complètes pour recharger le glycogène après l'entraînement. Le truc pour des poivrons « grillés resto » : poêle <strong>très chaude</strong> et on ne remue pas trop, pour qu'ils marquent sans rendre d'eau.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2135,21 +1912,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">560</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">42g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">60g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">4,00€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Bœuf haché 5% MG</span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Riz sec → cuit</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Œuf (au plat, jaune coulant)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">300 g</span><span class="ingr-name">Légumes : carotte + épinards + champignons + courgette</span></li>
-        <li class="ingr-item"><span class="ingr-qty">sauce</span><span class="ingr-name">Gochujang + sauce soja + huile de sésame</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2165,7 +1937,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le plat coréen complet : protéines, glucides et 4 légumes en un bol. Le gochujang (pâte de piment fermentée) apporte umami et probiotiques. Disposer les légumes par couleur avant de mélanger — c'est l'esprit du bibimbap. Idéal post-entraînement.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2191,22 +1963,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">540</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">54g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">56g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,90€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">180 g</span><span class="ingr-name">Blanc de poulet<span class="ingr-note">Mariné dans le yaourt + épices : ça l'attendrit et le parfume</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Riz basmati sec</span></li>
-        <li class="ingr-item"><span class="ingr-qty">80 g</span><span class="ingr-name">Yaourt grec 0% (sauce + ail + citron)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 CS</span><span class="ingr-name">Épices shawarma (cumin, paprika, coriandre, curcuma)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Huile d'olive</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Tomate, concombre, oignon rouge, persil, pickles</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2222,7 +1988,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le goût street-food du shawarma, version <strong>healthy et maigre</strong> : 54g de protéines pour 9g de lipides seulement. La <strong>marinade au yaourt</strong> n'est pas qu'une question de goût — son acidité lactique attendrit les fibres du poulet et le garde juteux à la cuisson. La sauce ail-citron sur base de yaourt grec ajoute des protéines sans les calories d'une sauce blanche classique.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2248,21 +2014,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">500</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">38g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">68g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,65€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Blanc de poulet émincé (mariné soja + miel + ail)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">80 g</span><span class="ingr-name">Vermicelles de riz</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Salade + menthe + coriandre + carotte râpée</span></li>
-        <li class="ingr-item"><span class="ingr-qty">sauce</span><span class="ingr-name">Nuoc-mâm + jus de citron vert + sucre + ail</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 CS</span><span class="ingr-name">Cacahuètes concassées</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2278,7 +2039,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Plat vietnamien frais et léger malgré ses 68g de glucides — idéal en été ou les jours d'entraînement. Les herbes fraîches (menthe, coriandre) apportent des micronutriments et une digestion facile. Le nuoc-mâm fermenté = umami + zinc.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2303,22 +2064,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">640</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">56g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">70g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">4,80€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Bœuf haché 5% MG</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 boîte</span><span class="ingr-name">Haricots rouges (égouttés)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">400 g</span><span class="ingr-name">Tomates pelées + 50g maïs</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Oignon + ½ poivron + 2 gousses d'ail</span></li>
-        <li class="ingr-item"><span class="ingr-qty">épices</span><span class="ingr-name">Cumin + paprika fumé + piment + origan</span></li>
-        <li class="ingr-item"><span class="ingr-qty">45 g</span><span class="ingr-name">Riz basmati sec</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2334,7 +2089,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">56g de protéines et un grand volume — très rassasiant. Bœuf (fer héminique + créatine) + haricots rouges (fibres + protéines végétales). Idéal à préparer en grande quantité le dimanche : il s'améliore en réchauffant.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2359,22 +2114,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">450</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">54g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">16g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,90€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">180 g</span><span class="ingr-name">Blanc de poulet (en aiguillettes)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Champignons de Paris</span></li>
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Brocoli (en bouquets)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Skyr / fromage blanc 0%<span class="ingr-note">Hors du feu pour la sauce, sinon il tranche</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Huile d'olive + 1 cc moutarde + ail</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Oignon, bouillon de volaille, persil, poivre</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2390,7 +2139,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le réconfort d'une <strong>sauce crémeuse</strong> sans la crème : 54g de protéines, seulement 16g de glucides et 450 kcal. L'astuce technique : le skyr s'ajoute <strong>hors du feu</strong> (au-delà de ~80°C il tranche). Résultat onctueux pour une fraction des calories d'une vraie sauce. Idéal les jours de repos en léger déficit.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2416,21 +2165,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">500</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">22g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">58g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,20€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Tortillas complètes</span></li>
-        <li class="ingr-item"><span class="ingr-qty">6</span><span class="ingr-name">Falafels (frais ou surgelés)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Houmous</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Salade + tomate + concombre</span></li>
-        <li class="ingr-item"><span class="ingr-qty">sauce</span><span class="ingr-name">Yaourt + citron + ail (option)</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2446,7 +2190,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Repas libanais végétarien, parfait à emporter. 22g de protéines végétales (pois chiches du falafel + houmous) — <strong>complète avec un yaourt grec ou une whey</strong> pour atteindre ta cible. Le tahini du houmous apporte calcium et magnésium.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2472,21 +2216,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">640</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">58g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">74g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,75€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">100 g</span><span class="ingr-name">Pâtes complètes sèches</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2 boîtes</span><span class="ingr-name">Thon naturel (200g égoutté)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Citron (zeste + jus) + 2 gousses d'ail</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 CS</span><span class="ingr-name">Huile d'olive + persil</span></li>
-        <li class="ingr-item"><span class="ingr-qty">20 g</span><span class="ingr-name">Parmesan râpé</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2502,7 +2241,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Express (15 min) et très protéiné (58g) à partir de placard. L'eau de cuisson amidonnée est le secret d'une sauce qui nappe sans crème. Le citron casse le côté « boîte » du thon. Pâtes complètes = index glycémique plus bas.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2527,21 +2266,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">500</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">38g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">65g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">1,45€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Flocons d'avoine</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 scoop</span><span class="ingr-name">Whey chocolat</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Banane</span></li>
-        <li class="ingr-item"><span class="ingr-qty">200 ml</span><span class="ingr-name">Lait demi-écrémé + 1 cc cacao</span></li>
-        <li class="ingr-item"><span class="ingr-qty">10 g</span><span class="ingr-name">Beurre de cacahuète</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2556,13 +2290,13 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Petit-déj costaud à <strong>1,45€</strong> : 38g de protéines, glucides lents (β-glucane de l'avoine = satiété). <strong>Ajoute toujours la whey hors du feu</strong> pour ne pas la dénaturer. Goût « bowl cake » qui rend le petit-déj addictif.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
     <div class="timing-block">⏱ <strong>Total</strong> 10 min</div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">💰 <strong>1,45€</strong> le moins cher</div>
+    <div class="timing-block">💰 <strong>1,45 €</strong></div>
     <span class="timing-sep">|</span>
     <div class="timing-block">🥣 <strong>Whey</strong> hors du feu</div>
   </div>
@@ -2581,21 +2315,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">420</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">34g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">42g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">2,10€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">250 g</span><span class="ingr-name">Skyr nature</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Pomme en dés</span></li>
-        <li class="ingr-item"><span class="ingr-qty">20 g</span><span class="ingr-name">Beurre de cacahuète</span></li>
-        <li class="ingr-item"><span class="ingr-qty">30 g</span><span class="ingr-name">Granola ou flocons d'avoine</span></li>
-        <li class="ingr-item"><span class="ingr-qty">5 g</span><span class="ingr-name">Miel + cannelle</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2610,13 +2339,13 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">5 minutes, 34g de protéines (caséine du skyr = satiété longue). Parfait en collation ou petit-déj rapide. La cannelle aide à stabiliser la glycémie. Ajoute la pomme et le granola au dernier moment pour le croquant.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
     <div class="timing-block">⏱ <strong>Total</strong> 5 min</div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">🌙 <strong>Caséine</strong> satiété</div>
+    <div class="timing-block">🥣 <strong>Sans cuisson</strong></div>
     <span class="timing-sep">|</span>
     <div class="timing-block">💰 <strong>2,10€</strong></div>
   </div>
@@ -2636,21 +2365,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">520</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">46g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">58g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,50€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">180 g</span><span class="ingr-name">Blanc de poulet</span></li>
-        <li class="ingr-item"><span class="ingr-qty">3</span><span class="ingr-name">Oignons émincés<span class="ingr-note">La base du yassa : beaucoup d'oignon fondu</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Citrons (jus) + 1 CS moutarde</span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Riz sec</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Olives + 1 cc huile + piment + laurier</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2666,7 +2390,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Classique sénégalais — maigre (46g de protéines, peu de gras) et plein de saveur grâce au citron et aux oignons fondus. Économique et idéal en meal prep : la sauce s'intensifie le lendemain.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2692,21 +2416,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">560</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">38g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">62g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">4,15€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Pavé de saumon</span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Riz sec</span></li>
-        <li class="ingr-item"><span class="ingr-qty">sauce</span><span class="ingr-name">Teriyaki : sauce soja + mirin + 1 cc miel</span></li>
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Brocoli vapeur</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Graines de sésame + oignon vert</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2722,13 +2441,13 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Les oméga-3 du saumon (anti-inflammatoires, récupération) + glucides du riz = repas post-entraînement parfait. La sauce teriyaki maison évite le sucre des versions industrielles. Le brocoli apporte des composés soufrés utiles en recomposition.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
     <div class="timing-block">⏱ <strong>Total</strong> 20 min</div>
     <span class="timing-sep">|</span>
-    <div class="timing-block">🐟 <strong>Oméga-3</strong> récup</div>
+    <div class="timing-block">🐟 <strong>Oméga-3</strong> EPA + DHA</div>
     <span class="timing-sep">|</span>
     <div class="timing-block">🏋 <strong>Post</strong>-workout</div>
   </div>
@@ -2747,20 +2466,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">500</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">46g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">52g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,70€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">180 g</span><span class="ingr-name">Dinde hachée</span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Polenta (semoule de maïs)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">400 g</span><span class="ingr-name">Tomates pelées + 1 oignon + 2 gousses d'ail</span></li>
-        <li class="ingr-item"><span class="ingr-qty">20 g</span><span class="ingr-name">Parmesan + herbes (origan, basilic)</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2776,7 +2491,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">La dinde est l'une des viandes les plus maigres (46g de protéines, peu de gras). La polenta est une alternative économique et sans gluten au riz/pâtes. Plat réconfortant qui se conserve et se réchauffe très bien.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2802,20 +2517,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">600</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">52g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">50g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,55€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Blanc de poulet émincé (épices tex-mex)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Tortillas (blé ou maïs)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Cheddar râpé</span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Haricots noirs + ¼ poivron + oignon</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2831,7 +2542,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">52g de protéines (poulet + cheddar + haricots). Cuisson à la poêle <strong>sans matière grasse</strong> : le fromage fait le liant et la coloration. Les haricots noirs ajoutent fibres et satiété. Idéal post-entraînement.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2857,22 +2568,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">620</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">34g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">70g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">3,40€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">180 g</span><span class="ingr-name">Tofu ferme<span class="ingr-note">Bien l'éponger + 1 cc maïzena = croustillant garanti à la poêle</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">70 g</span><span class="ingr-name">Nouilles (riz ou blé) sèches</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1½ CS</span><span class="ingr-name">Beurre de cacahuète (sauce)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Légumes sautés (poivron, chou, carotte)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Sauce soja + citron vert + ail + gingembre + sriracha</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Cacahuètes concassées, coriandre</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2888,7 +2593,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le banger <strong>végé qui ne fait aucun compromis sur le goût</strong> : tofu croustillant + sauce cacahuète crémeuse, 34g de protéines végétales complètes (le soja est l'une des rares protéines végétales à PDCAAS élevé). Le secret du tofu croustillant : bien l'<strong>éponger</strong> et le rouler dans un peu de maïzena. La sauce cacahuète apporte des bons lipides et un umami addictif.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2913,21 +2618,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">610</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">48g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">60g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">4,50€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">180 g</span><span class="ingr-name">Bœuf (bavette ou rumsteck)<span class="ingr-note">Tranché FIN dans le sens contraire des fibres = tendre</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Riz basmati sec</span></li>
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Brocoli (en bouquets)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Sauce soja + 1 cc miel + ail + gingembre</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Huile + graines de sésame + oignon vert</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2943,7 +2643,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le classique sauté asiatique <strong>beef &amp; broccoli</strong> : 48g de protéines + le fer héminique et la créatine naturelle du bœuf, parfaits pour la performance. Deux secrets de tendreté : trancher la viande <strong>fin et contre les fibres</strong>, et saisir à feu <strong>très vif et brièvement</strong> (une cuisson lente la durcit). Le brocoli blanchi garde sa couleur et son croquant.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -2969,21 +2669,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">540</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">38g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">62g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">2,70€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Riz cuit de la veille<span class="ingr-note">Le riz froid saute mieux et ne colle pas</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">3</span><span class="ingr-name">Œufs</span></li>
-        <li class="ingr-item"><span class="ingr-qty">80 g</span><span class="ingr-name">Jambon (ou poulet) en dés</span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Petits pois (surgelés)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Oignon vert + sauce soja + 1 cc huile</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -2998,7 +2693,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">L'anti-gaspi parfait pour finir le riz de la veille — 38g de protéines pour 2,70€ en 15 min. Le secret : <strong>riz bien froid</strong> et wok très chaud pour qu'il saute sans coller. Remplace le jambon par du poulet pour une version plus maigre.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -3024,22 +2719,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">600</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">33g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">72g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">2,95€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">220 g</span><span class="ingr-name">Gnocchis (rayon frais)<span class="ingr-note">Poêlés à sec sans les bouillir = dorés et moelleux dedans</span></span></li>
-        <li class="ingr-item"><span class="ingr-qty">200 g</span><span class="ingr-name">Sauce tomate / passata</span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Mozzarella</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1</span><span class="ingr-name">Œuf (poché ou au plat)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">10 g</span><span class="ingr-name">Parmesan + basilic + ail</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 cc</span><span class="ingr-name">Huile d'olive</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -3055,7 +2744,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Le confort italien <strong>pas cher et rapide</strong> (2,95€, 20 min). L'astuce qui change tout : <strong>poêler les gnocchis à sec</strong> au lieu de les bouillir — texture croustillante-moelleuse incomparable. L'œuf et la mozzarella montent l'ensemble à 33g de protéines. Idéal après une séance pour recharger le glycogène avec un plat réconfortant.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -3080,20 +2769,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">540</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">46g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">58g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">2,05€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Flocons d'avoine (mixés en farine)</span></li>
-        <li class="ingr-item"><span class="ingr-qty">1 scoop</span><span class="ingr-name">Whey vanille</span></li>
-        <li class="ingr-item"><span class="ingr-qty">2</span><span class="ingr-name">Œufs + 1 banane écrasée</span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Myrtilles + filet de lait</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -3108,7 +2793,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Petit-déj gourmand mais 46g de protéines pour 2,05€. La whey vanille sucre naturellement la pâte (pas besoin de sucre ajouté). Feu moyen impératif : trop chaud, la whey brûle. Les myrtilles apportent des antioxydants.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -3134,20 +2819,16 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     </div>
   </div>
   <div class="macro-bar">
-    <div class="macro-item kcal"><div class="macro-v">520</div><div class="macro-l">kcal</div></div>
-    <div class="macro-item prot"><div class="macro-v">36g</div><div class="macro-l">Prot.</div></div>
-    <div class="macro-item"><div class="macro-v">58g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item kcal"><div class="macro-v"><span data-rv="kcal"></span></div><div class="macro-l">kcal</div></div>
+    <div class="macro-item prot"><div class="macro-v"><span data-rv="p"></span>g</div><div class="macro-l">Prot.</div></div>
+    <div class="macro-item"><div class="macro-v"><span data-rv="g"></span>g</div><div class="macro-l">Glu.</div></div>
+    <div class="macro-item lip"><div class="macro-v"><span data-rv="l"></span>g</div><div class="macro-l">Lip.</div></div>
     <div class="macro-item prix"><div class="macro-v">4,50€</div><div class="macro-l">Prix</div></div>
   </div>
   <div class="recipe-body">
     <div>
       <div class="section-title">Ingrédients</div>
-      <ul class="ingr-list">
-        <li class="ingr-item"><span class="ingr-qty">150 g</span><span class="ingr-name">Crevettes décortiquées crues</span></li>
-        <li class="ingr-item"><span class="ingr-qty">100 ml</span><span class="ingr-name">Lait de coco léger + 1 CS pâte de curry rouge</span></li>
-        <li class="ingr-item"><span class="ingr-qty">60 g</span><span class="ingr-name">Riz basmati sec</span></li>
-        <li class="ingr-item"><span class="ingr-qty">q.s.</span><span class="ingr-name">Poivron + oignon + coriandre + citron vert</span></li>
-      </ul>
+      <ul class="ingr-list" data-rec-ingr></ul>
     </div>
     <div>
       <div class="section-title">Préparation</div>
@@ -3162,7 +2843,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
     <div class="chef-icon">👨‍🍳</div>
     <div class="chef-content">
       <div class="chef-title">Note du chef</div>
-      <div class="chef-text">Curry thaï express et parfumé. Les crevettes ont l'un des meilleurs ratios protéines/calories (et apportent iode + sélénium). ⚠️ Ne pas trop cuire les crevettes (3 min max, forme en C) — au-delà elles deviennent caoutchouteuses. Lait de coco léger pour limiter les graisses saturées.</div>
+      <div class="chef-text" data-rec-note></div>
     </div>
   </div>
   <div class="timing-row">
@@ -3177,6 +2858,23 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
 </div><!-- end .main -->
 
 <script>
+// Rendu depuis data/recettes.js : macros, densité, valeurs pour 100 g, ingrédients (une seule liste par recette)
+(function () {
+  const R = ALLEZ.RECETTES, esc = ALLEZ.esc, fr = x => String(x).replace('.', ',');
+  document.querySelectorAll('.recipe').forEach(el => {
+    const rec = R.REC[el.id]; if (!rec) return;
+    const tt = R.total(el.id), v = { kcal: tt.kcal, p: tt.p, g: tt.g, l: tt.l, dens: fr(R.densite(el.id)) };
+    const cn = el.querySelector('[data-rec-note]'); if (cn && rec.note) cn.innerHTML = rec.note;
+    el.querySelectorAll('[data-rv]').forEach(s => { s.textContent = v[s.getAttribute('data-rv')]; });
+    el.querySelectorAll('[data-alim]').forEach(s => { const a = s.getAttribute('data-alim').split('.'); s.textContent = fr(Math.round(R.ALIM[a[0]][a[1]])); });
+    const ul = el.querySelector('[data-rec-ingr]'); if (!ul) return;
+    ul.innerHTML = rec.lignes.map(ln => {
+      const c = ln.a.length && !R.qteExacte(ln) ? '<span class="ingr-compte">compté : ' + esc(R.compte(ln)) + '</span>' : '';
+      return '<li class="ingr-item"><span class="ingr-qty">' + esc(ln.q) + '</span><span class="ingr-name">' + esc(ln.nom) + (ln.note ? '<span class="ingr-note">' + esc(ln.note) + '</span>' : '') + c + '</span></li>';
+    }).join('') + (rec.nonCompte ? '<li class="ingr-item ingr-nc">Non compté : ' + esc(rec.nonCompte.replace(/ non comptée?s?$/, '')) + '</li>' : '');
+  });
+})();
+
 // Nav hamburger
 (function(){
   const nav = document.getElementById('mainNav');

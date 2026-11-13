@@ -2,7 +2,7 @@
 // Usage : const { load } = require('./helpers'); const { ALLEZ, ls } = load({ 'px_logbook': {...} });
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const ROOT = path.join(__dirname, '..', 'MUSCULATION');
-const FILES = ['core.js', 'data/programme.js', 'data/nutrition.js', 'data/supplements.js'];
+const FILES = ['core.js', 'data/programme.js', 'data/nutrition.js', 'data/supplements.js', 'data/recettes.js'];
 
 function fakeStorage(seed) {
   const m = new Map();

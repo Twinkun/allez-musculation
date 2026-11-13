@@ -18,6 +18,7 @@
 <script src="data/nutrition.js"></script>
 <script src="data/supplements.js"></script>
 <script src="data/repas.js"></script>
+<script src="data/recettes.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -721,6 +722,12 @@ nav {
   line-height: 1.5;
   margin-top: 6px;
 }
+
+/* ── TOP 50 et courses (phase 3) ── */
+.top10-link{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:700;color:#8a5800;text-decoration:none}
+.top10-link:hover{text-decoration:underline}
+.courses-msg{margin:10px 0;padding:10px 14px;border-radius:10px;background:#fff4dc;color:#6b4500;font-size:.85rem;font-weight:600}
+.courses-placard{font-size:.82rem;color:var(--text-mid);line-height:1.5;margin:6px 0 0}
 
 /* ── SUPPLEMENTS ── */
 .supp-grid {
@@ -1887,1107 +1894,861 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 <div class="section" id="sec-top50">
   <div class="section-label">Cuisine Pratique</div>
   <div class="section-title">Top 50 Plats Pour Tes Objectifs</div>
-  <div class="section-sub">50 repas classés selon densité protéique, profil anti-inflammatoire et praticité. Cuisines du monde intégrées (Japon, Italie, Mexique, Inde, Thaïlande, Liban…). Chaque repas couvre 22 à 58g de protéines.</div>
-  <div class="section-sub" style="color:#8a5800;font-weight:600">⚠️ Calories et macros affichées en cours de recalcul avec la table Ciqual 2025 : elles sont aujourd'hui sous-estimées, d'environ 20 % en moyenne. Pèse tes ingrédients et garde une marge.</div>
+  <div class="section-sub">Les 50 recettes de la page Recettes, en résumé. Cuisines du monde (Japon, Italie, Mexique, Inde, Thaïlande, Liban…). Calories et macros calculées depuis les ingrédients de chaque fiche, huile de cuisson comprise, avec la table Ciqual 2025 de l'Anses.</div>
 
   <div class="top10-list">
 
-    <div class="top10-card">
-      <div class="top10-rank">06</div>
-      <div class="top10-body">
-        <div class="top10-title">Bowl Poulet Riz Patate Douce</div>
-        <div class="top10-macros">
-          <div class="meal-macro-pill p">P 52g</div>
-          <div class="meal-macro-pill c">C 75g</div>
-          <div class="meal-macro-pill f">F 15g</div>
-          <span class="top10-kcal">650 kcal</span>
-          <span class="top10-prix">~3.80€</span>
-        </div>
-        <ul class="top10-ingr">
-          <li>180g blanc de poulet (grillé, cumin + paprika fumé)<span class="ingr-prix">~2.15€</span></li>
-          <li>45g riz basmati sec → 150g cuit<span class="ingr-prix">~0.12€</span></li>
-          <li>200g patate douce rôtie au four (ail, huile d'olive)<span class="ingr-prix">~0.55€</span></li>
-          <li>Grosse poignée d'épinards frais sautés à l'ail<span class="ingr-prix">~0.55€</span></li>
-          <li>Jus de citron, sel, poivre, piment d'Espelette<span class="ingr-prix">~0.40€</span></li>
-        </ul>
-        <div class="top10-why">Le repas de base bodybuilding par excellence. Ratio protéines/glucides parfait post-workout. Prépare-en double le dimanche — il se conserve 4 jours au frigo.</div>
-      </div>
-    </div>
-
-    <div class="top10-card r1">
+    <div class="top10-card r1" data-rec="r01">
       <div class="top10-rank r1">01</div>
       <div class="top10-body">
         <div class="top10-title">Pavé de Saumon · Quinoa · Avocat</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 48g</div>
-          <div class="meal-macro-pill c">C 46g</div>
-          <div class="meal-macro-pill f">F 40g</div>
-          <span class="top10-kcal">750 kcal</span>
-          <span class="top10-prix">~5.85€</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
+          <span class="top10-prix">~5,85€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>200g pavé de saumon à la plancha (citron, aneth, sel)<span class="ingr-prix">~3.80€</span></li>
-          <li>60g quinoa sec → 180g cuit (eau bouillante, 15 min)<span class="ingr-prix">~0.35€</span></li>
-          <li>½ avocat tranché<span class="ingr-prix">~0.60€</span></li>
-          <li>Tomates cerises + concombre<span class="ingr-prix">~0.85€</span></li>
-          <li>Vinaigrette : 1 CS huile d'olive, jus citron, moutarde<span class="ingr-prix">~0.25€</span></li>
-        </ul>
-        <div class="top10-why">Oméga-3 du saumon (anti-inflammatoire, récupération) + acides aminés complets du quinoa. Idéal les soirs de repos. Repas plus calorique (~750 kcal) : garde-le pour un jour de séance ou réduis l'avocat les jours de repos.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r01">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
-      <div class="top10-rank">08</div>
+    <div class="top10-card r2" data-rec="r02">
+      <div class="top10-rank r2">02</div>
       <div class="top10-body">
-        <div class="top10-title">Omelette Jambon · Patate Douce Rôtie</div>
+        <div class="top10-title">Chirashi Bowl · Saumon · Riz Vinaigré</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 50g</div>
-          <div class="meal-macro-pill c">C 42g</div>
-          <div class="meal-macro-pill f">F 34g</div>
-          <span class="top10-kcal">660 kcal</span>
-          <span class="top10-prix">~4.65€</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
+          <span class="top10-prix">~5,55€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>5 œufs entiers + 2 blancs (ou 5 entiers tout court)<span class="ingr-prix">~1.70€</span></li>
-          <li>100g jambon blanc tranché épais (sans nitrites si possible)<span class="ingr-prix">~1.30€</span></li>
-          <li>½ poivron rouge + champignons de Paris émincés<span class="ingr-prix">~0.85€</span></li>
-          <li>200g patate douce rôtie au four, côté<span class="ingr-prix">~0.55€</span></li>
-          <li>Herbes : ciboulette, persil. 1 cc beurre ou huile de coco<span class="ingr-prix">~0.25€</span></li>
-        </ul>
-        <div class="top10-why">Prêt en 10 minutes. Les 5 œufs entiers = profil d'acides aminés complet + vitamine D, choline. Pour le PE : les œufs font partie des meilleures sources de protéines sans contrainte biomécanique.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r02">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
-      <div class="top10-rank">12</div>
-      <div class="top10-body">
-        <div class="top10-title">Steak Haché 5% · Pâtes Complètes · Sauce Tomate Maison</div>
-        <div class="top10-macros">
-          <div class="meal-macro-pill p">P 52g</div>
-          <div class="meal-macro-pill c">C 72g</div>
-          <div class="meal-macro-pill f">F 18g</div>
-          <span class="top10-kcal">700 kcal</span>
-          <span class="top10-prix">~4.35€</span>
-        </div>
-        <ul class="top10-ingr">
-          <li>200g steak haché bœuf 5% MG (poêle antiadhésive)<span class="ingr-prix">~2.60€</span></li>
-          <li>100g pâtes complètes sèches → 250g cuites al dente<span class="ingr-prix">~0.28€</span></li>
-          <li>Sauce : 1 boîte tomates pelées + 1 oignon + 2 gousses d'ail + basilic<span class="ingr-prix">~1.00€</span></li>
-          <li>20g parmesan râpé (par-dessus, en fin)<span class="ingr-prix">~0.40€</span></li>
-          <li>Sel, poivre, origan, piment rouge en option<span class="ingr-prix">~0.05€</span></li>
-        </ul>
-        <div class="top10-why">Budget très accessible, charge glycémique modérée grâce aux pâtes complètes. Le bœuf apporte créatine naturelle + zinc + fer héminique. Plat de pré-workout de premier choix.</div>
-      </div>
-    </div>
-
-    <div class="top10-card r3">
+    <div class="top10-card r3" data-rec="r03">
       <div class="top10-rank r3">03</div>
       <div class="top10-body">
         <div class="top10-title">Thon · Riz Basmati · Brocolis Vapeur</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 55g</div>
-          <div class="meal-macro-pill c">C 55g</div>
-          <div class="meal-macro-pill f">F 8g</div>
-          <span class="top10-kcal">520 kcal</span>
-          <span class="top10-prix">~4.10€</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
+          <span class="top10-prix">~4,10€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>2 boîtes thon naturel (eau) égouttées = 200g net<span class="ingr-prix">~2.50€</span></li>
-          <li>45g riz basmati sec → 150g cuit<span class="ingr-prix">~0.12€</span></li>
-          <li>250g brocolis vapeur (micro-ondes 5 min suffit)<span class="ingr-prix">~0.55€</span></li>
-          <li>Sauce : sauce soja + 1 cc huile de sésame + gingembre râpé<span class="ingr-prix">~0.60€</span></li>
-          <li>Citron + graines de sésame<span class="ingr-prix">~0.30€</span></li>
-        </ul>
-        <div class="top10-why">Repas le plus rapide de la liste (15 min). Ratio protéines/calories excellent (55g pour 520 kcal). Le brocoli apporte fibres, vitamine C et beaucoup de volume pour très peu de calories — idéal en recomposition.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r03">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+
+    <div class="top10-card" data-rec="r06">
+      <div class="top10-rank">06</div>
+      <div class="top10-body">
+        <div class="top10-title">Bowl Poulet Riz Patate Douce</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
+          <span class="top10-prix">~3.80€</span>
+        </div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r06">Voir la recette →</a>
+      </div>
+    </div>
+
+
+    <div class="top10-card" data-rec="r08">
+      <div class="top10-rank">08</div>
+      <div class="top10-body">
+        <div class="top10-title">Omelette Jambon · Patate Douce Rôtie</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
+          <span class="top10-prix">~4.65€</span>
+        </div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r08">Voir la recette →</a>
+      </div>
+    </div>
+
+    <div class="top10-card" data-rec="r12">
+      <div class="top10-rank">12</div>
+      <div class="top10-body">
+        <div class="top10-title">Steak Haché 5% · Pâtes Complètes · Sauce Tomate Maison</div>
+        <div class="top10-macros">
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
+          <span class="top10-prix">~4.35€</span>
+        </div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r12">Voir la recette →</a>
+      </div>
+    </div>
+
+
+    <div class="top10-card" data-rec="r20">
       <div class="top10-rank">20</div>
       <div class="top10-body">
         <div class="top10-title">Bowl Petit-Déjeuner Protéiné (Yaourt + Avoine + Œufs)</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 42g</div>
-          <div class="meal-macro-pill c">C 62g</div>
-          <div class="meal-macro-pill f">F 14g</div>
-          <span class="top10-kcal">570 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~2.25€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>250g yaourt grec Total 2% ou 0%<span class="ingr-prix">~1.00€</span></li>
-          <li>50g flocons d'avoine (crus ou overnight oats)<span class="ingr-prix">~0.10€</span></li>
-          <li>2 œufs à la coque ou mollets (6 min dans l'eau bouillante)<span class="ingr-prix">~0.60€</span></li>
-          <li>1 banane mûre tranchée<span class="ingr-prix">~0.25€</span></li>
-          <li>15g amandes effilées + 1 filet de miel (5g)<span class="ingr-prix">~0.30€</span></li>
-        </ul>
-        <div class="top10-why">Le meilleur déjeuner pour les jours de repos. Digestion lente (caséine du yaourt + β-glucane avoine) = satiété 4-5h. Couvre environ 25% de ton apport protéique journalier dès le matin.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r20">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r15">
       <div class="top10-rank">15</div>
       <div class="top10-body">
         <div class="top10-title">Poulet Mariné · Légumes Méditerranéens Rôtis</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 48g</div>
-          <div class="meal-macro-pill c">C 60g</div>
-          <div class="meal-macro-pill f">F 12g</div>
-          <span class="top10-kcal">580 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~4.45€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>200g escalope poulet (marinade : huile d'olive, ail, herbes de Provence, jus citron, 30 min min.)<span class="ingr-prix">~2.65€</span></li>
-          <li>300g légumes mélangés : courgette + poivron rouge + oignon rouge + tomates cerises<span class="ingr-prix">~1.20€</span></li>
-          <li>200g patate douce en cubes (tout au four, 200°C, 25 min)<span class="ingr-prix">~0.55€</span></li>
-          <li>Sel, poivre, origan séché, thym<span class="ingr-prix">~0.05€</span></li>
-        </ul>
-        <div class="top10-why">Meal prep idéal — tout sur une seule plaque en 30 min. Les légumes colorés apportent lycopène, bêta-carotène, vitamine C. Rôtir concentre les saveurs sans ajouter de calories.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r15">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r16">
       <div class="top10-rank">16</div>
       <div class="top10-body">
         <div class="top10-title">Wraps Dinde · Avocat · Fromage Frais</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 40g</div>
-          <div class="meal-macro-pill c">C 48g</div>
-          <div class="meal-macro-pill f">F 20g</div>
-          <span class="top10-kcal">560 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.95€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>2 tortillas complètes (ou 1 grande)<span class="ingr-prix">~0.40€</span></li>
-          <li>150g émincé de dinde (grillé à la poêle, sel + cumin)<span class="ingr-prix">~1.50€</span></li>
-          <li>½ avocat en tranches<span class="ingr-prix">~0.60€</span></li>
-          <li>2 CS fromage frais (Philadelphia léger ou St Môret)<span class="ingr-prix">~0.65€</span></li>
-          <li>Salade verte + tomates + concombre en rondelles + jus de citron<span class="ingr-prix">~0.80€</span></li>
-        </ul>
-        <div class="top10-why">Le meilleur repas "en déplacement" ou au bureau. Se prépare en 8 minutes. La dinde est l'une des viandes les plus maigres qui existent (1g de lipides pour 30g de protéines/100g).</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r16">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r04">
       <div class="top10-rank">04</div>
       <div class="top10-body">
         <div class="top10-title">Lentilles Corail · Poulet · Curry Coco</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 50g</div>
-          <div class="meal-macro-pill c">C 58g</div>
-          <div class="meal-macro-pill f">F 18g</div>
-          <span class="top10-kcal">600 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.40€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>100g lentilles corail sèches (rincées, cuisson 15 min)<span class="ingr-prix">~0.35€</span></li>
-          <li>150g poulet coupé en dés (poêle ou ajouté direct dans la casserole)<span class="ingr-prix">~1.80€</span></li>
-          <li>100ml lait de coco léger<span class="ingr-prix">~0.35€</span></li>
-          <li>Épices : 1 CS curry, ½ cc curcuma, ½ cc cumin, 1 cc gingembre râpé, 2 gousses d'ail<span class="ingr-prix">~0.25€</span></li>
-          <li>Grosse poignée d'épinards frais (en fin de cuisson)<span class="ingr-prix">~0.55€</span></li>
-          <li>Riz basmati 40g sec en accompagnement (optionnel)<span class="ingr-prix">~0.10€</span></li>
-        </ul>
-        <div class="top10-why">Les lentilles corail = double protéine (végétale + animale) + fer + zinc. Le curcuma apporte du goût et de la couleur (aux doses culinaires, son effet anti-inflammatoire reste modeste). Plat économique, rassasiant, très dense en micronutriments.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r04">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r18">
       <div class="top10-rank">18</div>
       <div class="top10-body">
         <div class="top10-title">Riz Sauté aux Œufs · Edamame · Sauce Soja</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 36g</div>
-          <div class="meal-macro-pill c">C 65g</div>
-          <div class="meal-macro-pill f">F 16g</div>
-          <span class="top10-kcal">560 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~2.50€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>200g riz basmati cuit (de la veille — le riz froid saute mieux)<span class="ingr-prix">~0.17€</span></li>
-          <li>3 œufs entiers (battus, ajoutés directement dans le wok)<span class="ingr-prix">~0.90€</span></li>
-          <li>100g edamame décortiqués (rayon surgelés, 3 min micro-ondes)<span class="ingr-prix">~0.56€</span></li>
-          <li>2 CS sauce soja réduite en sel<span class="ingr-prix">~0.48€</span></li>
-          <li>1 cc huile de sésame (en fin), gingembre râpé, 2 oignons verts<span class="ingr-prix">~0.30€</span></li>
-          <li>Graines de sésame blanc pour finir<span class="ingr-prix">~0.10€</span></li>
-        </ul>
-        <div class="top10-why">L'anti-gaspillage parfait pour finir le riz de la veille. L'edamame apporte des isoflavones, phytostérols et protéines végétales complètes. Prêt en 8 minutes chrono, très satisfaisant gustativement.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r18">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card r2">
-      <div class="top10-rank r2">02</div>
-      <div class="top10-body">
-        <div class="top10-title">Chirashi Bowl · Saumon · Riz Vinaigré <span class="tag-jp">🇯🇵 Japonais</span></div>
-        <div class="top10-macros">
-          <div class="meal-macro-pill p">P 44g</div>
-          <div class="meal-macro-pill c">C 62g</div>
-          <div class="meal-macro-pill f">F 24g</div>
-          <span class="top10-kcal">680 kcal</span>
-          <span class="top10-prix">~5.55€</span>
-        </div>
-        <ul class="top10-ingr">
-          <li>150g saumon frais en dés (sashimi grade si possible)<span class="ingr-prix">~2.85€</span></li>
-          <li>60g riz japonica sec → cuit + 1 CS vinaigre de riz + 1 cc sucre + pincée sel<span class="ingr-prix">~0.35€</span></li>
-          <li>100g edamame décortiqués (surgelés, 3 min micro-ondes)<span class="ingr-prix">~0.56€</span></li>
-          <li>½ avocat + ¼ concombre en rondelles fines<span class="ingr-prix">~0.73€</span></li>
-          <li>Gingembre mariné (gari) + algues nori coupées en lanières<span class="ingr-prix">~0.65€</span></li>
-          <li>Sauce : 2 CS sauce soja + ½ cc huile de sésame + jus citron ou yuzu<span class="ingr-prix">~0.40€</span></li>
-        </ul>
-        <div class="top10-why">Tout ce que le saumon #1 offre — oméga-3, protéines complètes — avec en plus l'edamame (isoflavones), le gingembre (anti-inflammatoire), et le plaisir durable d'un plat que tu adoreras refaire.</div>
-      </div>
-    </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r07">
       <div class="top10-rank">07</div>
       <div class="top10-body">
         <div class="top10-title">Soba Froides · Poulet · Sauce Tsuyu <span class="tag-jp">🇯🇵 Japonais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 46g</div>
-          <div class="meal-macro-pill c">C 60g</div>
-          <div class="meal-macro-pill f">F 6g</div>
-          <span class="top10-kcal">500 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~4.75€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>100g nouilles soba sèches (sarrasin — cuisson 4 min, rincer à l'eau froide)<span class="ingr-prix">~0.90€</span></li>
-          <li>160g blanc de poulet grillé, tranché fin en biais<span class="ingr-prix">~1.92€</span></li>
-          <li>Sauce tsuyu : 3 CS sauce soja + 2 CS mirin + 150ml dashi (ou eau + 1 cc dashi en poudre)<span class="ingr-prix">~1.40€</span></li>
-          <li>¼ concombre en julienne + ½ feuille nori coupée<span class="ingr-prix">~0.30€</span></li>
-          <li>Graines de sésame + oignons verts + gingembre râpé<span class="ingr-prix">~0.20€</span></li>
-        </ul>
-        <div class="top10-why">Les soba = index glycémique bas (≈55) vs pâtes classiques (≈70). Repas ultra-léger parfait les jours de repos. Le sarrasin est riche en fibres et en magnésium.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r07">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r10">
       <div class="top10-rank">10</div>
       <div class="top10-body">
         <div class="top10-title">Gyudon · Bœuf Oignon · Riz <span class="tag-jp">🇯🇵 Japonais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 44g</div>
-          <div class="meal-macro-pill c">C 68g</div>
-          <div class="meal-macro-pill f">F 22g</div>
-          <span class="top10-kcal">650 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~4.45€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>180g bœuf émincé très fin (ou steak haché façonné en fines lamelles)<span class="ingr-prix">~2.52€</span></li>
-          <li>1 gros oignon émincé en demi-lunes<span class="ingr-prix">~0.25€</span></li>
-          <li>Sauce : 3 CS sauce soja + 2 CS mirin + 1 cc sucre + 150ml dashi (ou eau)<span class="ingr-prix">~1.00€</span></li>
-          <li>60g riz japonica sec (riz à sushi) cuit à la casserole<span class="ingr-prix">~0.20€</span></li>
-          <li>1 œuf mollet (6 min) posé au centre du bol<span class="ingr-prix">~0.30€</span></li>
-          <li>Oignons verts ciselés — shichimi (7 épices) optionnel<span class="ingr-prix">~0.20€</span></li>
-        </ul>
-        <div class="top10-why">Le plat populaire japonais par excellence. Le bœuf apporte créatine naturelle + zinc + fer héminique, trois nutriments intéressants pour la performance. L'œuf mollet ajoute un shot de protéines complet.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r10">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r13">
       <div class="top10-rank">13</div>
       <div class="top10-body">
         <div class="top10-title">Donburi Teriyaki Poulet <span class="tag-jp">🇯🇵 Japonais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 46g</div>
-          <div class="meal-macro-pill c">C 70g</div>
-          <div class="meal-macro-pill f">F 20g</div>
-          <span class="top10-kcal">640 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.10€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>200g cuisse de poulet désossée (plus moelleuse que le blanc pour ce plat)<span class="ingr-prix">~1.70€</span></li>
-          <li>Sauce teriyaki maison : 3 CS sauce soja + 2 CS mirin + 1 CS miel + 1 cc fécule de maïs<span class="ingr-prix">~1.00€</span></li>
-          <li>60g riz japonica sec cuit<span class="ingr-prix">~0.20€</span></li>
-          <li>Graines de sésame blanc + oignons verts ciselés<span class="ingr-prix">~0.15€</span></li>
-          <li>½ CS huile neutre pour la poêle (arachide ou tournesol)<span class="ingr-prix">~0.05€</span></li>
-        </ul>
-        <div class="top10-why">Le mirin donne la brillance et le goût sucré-salé typique. La cuisse de poulet a plus de graisses intramusculaires que le blanc → plus de saveur, plus de satisfaction. Plat très facile à aimer et donc à manger régulièrement.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r13">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r14">
       <div class="top10-rank">14</div>
       <div class="top10-body">
         <div class="top10-title">Soupe Miso · Tofu · Poulet · Riz <span class="tag-jp">🇯🇵 Japonais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 48g</div>
-          <div class="meal-macro-pill c">C 48g</div>
-          <div class="meal-macro-pill f">F 12g</div>
-          <span class="top10-kcal">500 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.90€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>200ml bouillon dashi (sachet katsuobushi ou dashi en poudre)<span class="ingr-prix">~0.25€</span></li>
-          <li>1,5 CS pâte miso blanche (shiro miso — dissoudre hors ébullition)<span class="ingr-prix">~0.60€</span></li>
-          <li>150g tofu ferme en dés (ou tofu soyeux)<span class="ingr-prix">~0.90€</span></li>
-          <li>120g blanc de poulet émincé fin, poché directement dans le bouillon<span class="ingr-prix">~1.44€</span></li>
-          <li>5g algues wakamé sèches (réhydratées = 40g)<span class="ingr-prix">~0.33€</span></li>
-          <li>45g riz japonica cuit à part, servi dans le bol<span class="ingr-prix">~0.15€</span></li>
-          <li>Oignons verts + ½ cc huile de sésame pour finir<span class="ingr-prix">~0.20€</span></li>
-        </ul>
-        <div class="top10-why">La pâte miso est un aliment fermenté, intéressant pour la variété de l'alimentation (attention, elle est salée). Repas chaud, réconfortant, idéal les soirs d'hiver ou les jours de repos.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r14">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r05">
       <div class="top10-rank">05</div>
       <div class="top10-body">
         <div class="top10-title">Cabillaud en Papillote · Patate Douce · Brocoli</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 46g</div>
-          <div class="meal-macro-pill c">C 44g</div>
-          <div class="meal-macro-pill f">F 6g</div>
-          <span class="top10-kcal">440 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~5.20€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>220g filet de cabillaud (papillote alu ou papier cuisson)<span class="ingr-prix">~3.95€</span></li>
-          <li>Dans la papillote : 1 CS huile d'olive + 2 gousses d'ail + jus citron + thym + sel<span class="ingr-prix">~0.25€</span></li>
-          <li>200g patate douce en cubes (vapeur ou micro-ondes 6 min)<span class="ingr-prix">~0.55€</span></li>
-          <li>200g brocolis vapeur<span class="ingr-prix">~0.44€</span></li>
-          <li>Cuisson four : 190°C, 15 min — ne jamais dépasser</li>
-        </ul>
-        <div class="top10-why">Repas le moins calorique de la liste (440 kcal) pour un maximum de protéines (46g). Idéal les jours de repos si tu vises le déficit léger. Le cabillaud est l'une des sources de protéines les plus digestes.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r05">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r09">
       <div class="top10-rank">09</div>
       <div class="top10-body">
         <div class="top10-title">Crevettes Sautées · Riz · Épinards · Ail</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 42g</div>
-          <div class="meal-macro-pill c">C 52g</div>
-          <div class="meal-macro-pill f">F 8g</div>
-          <span class="top10-kcal">480 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~5.10€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>200g crevettes décortiquées crues (surgelées ok — décongeler au frigo la veille)<span class="ingr-prix">~4.00€</span></li>
-          <li>45g riz basmati sec cuit<span class="ingr-prix">~0.12€</span></li>
-          <li>Grosse poignée d'épinards frais (fondent à la poêle en 2 min)<span class="ingr-prix">~0.55€</span></li>
-          <li>3-4 gousses d'ail émincées + piment rouge + persil frais<span class="ingr-prix">~0.20€</span></li>
-          <li>1 CS huile d'olive + jus d'un demi citron<span class="ingr-prix">~0.25€</span></li>
-        </ul>
-        <div class="top10-why">Les crevettes sont une source d'iode (thyroïde), sélénium (antioxydant) et astaxanthine (pigment anti-inflammatoire). Cuisson ultra-rapide (3 min à la poêle). Idéal si tu rentres tard et as peu de temps.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r09">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r11">
       <div class="top10-rank">11</div>
       <div class="top10-body">
         <div class="top10-title">Salade Niçoise Protéinée</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 52g</div>
-          <div class="meal-macro-pill c">C 38g</div>
-          <div class="meal-macro-pill f">F 22g</div>
-          <span class="top10-kcal">580 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~5.40€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>160g thon naturel en boîte (égouttés)<span class="ingr-prix">~1.80€</span></li>
-          <li>3 œufs durs (9 min dans eau bouillante)<span class="ingr-prix">~0.90€</span></li>
-          <li>150g haricots verts cuits (vapeur ou blanchi)<span class="ingr-prix">~0.60€</span></li>
-          <li>2 tomates + ½ poivron rouge en lanières<span class="ingr-prix">~1.30€</span></li>
-          <li>100g pommes de terre vapeur (petites, en rondelles)<span class="ingr-prix">~0.13€</span></li>
-          <li>10 olives noires dénoyautées<span class="ingr-prix">~0.40€</span></li>
-          <li>Vinaigrette : 1 CS huile d'olive + citron + 1 cc moutarde + basilic + anchois optionnel<span class="ingr-prix">~0.25€</span></li>
-        </ul>
-        <div class="top10-why">Plat estival anti-gaspillage par excellence. Très riche en protéines (52g) avec peu de glucides — parfait les jours de repos pour rester en déficit léger. Les olives et l'huile d'olive apportent de bonnes graisses monoinsaturées.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r11">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r17">
       <div class="top10-rank">17</div>
       <div class="top10-body">
         <div class="top10-title">Galette de Sarrasin · Œuf · Jambon · Emmental</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 38g</div>
-          <div class="meal-macro-pill c">C 42g</div>
-          <div class="meal-macro-pill f">F 18g</div>
-          <span class="top10-kcal">480 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~2.75€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>Pâte à galette : 100g farine de sarrasin + 250ml eau + 1 pincée sel (repos 30 min, 2 galettes)<span class="ingr-prix">~0.22€</span></li>
-          <li>2 œufs entiers (cuits dans la galette pliée en forme de carré)<span class="ingr-prix">~0.60€</span></li>
-          <li>80g jambon blanc épais (ou jambon de Paris sans nitrite)<span class="ingr-prix">~1.05€</span></li>
-          <li>30g emmental râpé fondu<span class="ingr-prix">~0.25€</span></li>
-          <li>Salade verte + tomates cerises en accompagnement<span class="ingr-prix">~0.60€</span></li>
-        </ul>
-        <div class="top10-why">Le sarrasin est naturellement sans gluten et contient du fer, magnésium et rutine. Repas convivial, facile à varier (champignons, saumon fumé, chèvre). Moins dense en protéines que les autres — compléter avec une whey ou un yaourt grec.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r17">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r19">
       <div class="top10-rank">19</div>
       <div class="top10-body">
         <div class="top10-title">Pancakes Avoine · Banane · Œufs</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 38g</div>
-          <div class="meal-macro-pill c">C 65g</div>
-          <div class="meal-macro-pill f">F 14g</div>
-          <span class="top10-kcal">560 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.75€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>3 œufs entiers<span class="ingr-prix">~0.90€</span></li>
-          <li>1 banane mûre bien écrasée à la fourchette<span class="ingr-prix">~0.25€</span></li>
-          <li>60g flocons d'avoine mixés finement (= farine d'avoine)<span class="ingr-prix">~0.12€</span></li>
-          <li>1 scoop whey vanille ou nature (optionnel mais recommandé)<span class="ingr-prix">~1.15€</span></li>
-          <li>1 cc cannelle + 1 pincée sel + ½ cc extrait vanille<span class="ingr-prix">~0.20€</span></li>
-          <li>200g yaourt grec 0% pour servir (+ quelques fruits rouges)<span class="ingr-prix">~1.10€</span></li>
-        </ul>
-        <div class="top10-why">Idéal le matin d'un jour d'entraînement — forte charge glucidique et protéique. Le ranking est bas non par manque de qualité mais parce que c'est un petit-déjeuner spécifique, pas un repas universel. Avec la whey, ça monte à 55g de protéines facilement.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r19">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r21">
       <div class="top10-rank">21</div>
       <div class="top10-body">
         <div class="top10-title">Tortilla Espagnole Protéinée · Poulet · Pommes de Terre</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 48g</div>
-          <div class="meal-macro-pill c">C 28g</div>
-          <div class="meal-macro-pill f">F 20g</div>
-          <span class="top10-kcal">490 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.85€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>5 œufs entiers<span class="ingr-prix">~1.50€</span></li>
-          <li>150g blanc de poulet émincé très fin (saisi 3 min à la poêle avant d'incorporer)<span class="ingr-prix">~1.80€</span></li>
-          <li>200g pommes de terre cuites à l'eau en rondelles (ou patate douce pour variante)<span class="ingr-prix">~0.25€</span></li>
-          <li>½ oignon émincé + 1 CS huile d'olive<span class="ingr-prix">~0.20€</span></li>
-          <li>Sel, poivre, persil frais ou ciboulette<span class="ingr-prix">~0.10€</span></li>
-        </ul>
-        <div class="top10-why">Se mange chaud ou froid — le meal prep par excellence (3 jours au frigo). Les 5 œufs entiers donnent un profil complet en acides aminés essentiels + vitamine D + choline. Low carb naturellement : parfait les jours de repos si tu sautes le riz. Cuisson unique en poêle antiadhésive, 25 min.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r21">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r22">
       <div class="top10-rank">22</div>
       <div class="top10-body">
         <div class="top10-title">Bowl Mexicain · Poulet Épicé · Haricots Noirs · Guacamole</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 52g</div>
-          <div class="meal-macro-pill c">C 65g</div>
-          <div class="meal-macro-pill f">F 14g</div>
-          <span class="top10-kcal">610 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.70€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>180g blanc de poulet (épices tex-mex : cumin + paprika fumé + piment + origan)<span class="ingr-prix">~2.15€</span></li>
-          <li>120g haricots noirs en boîte égouttés et rincés<span class="ingr-prix">~0.35€</span></li>
-          <li>45g riz basmati sec cuit<span class="ingr-prix">~0.12€</span></li>
-          <li>½ avocat en dés + jus de citron vert<span class="ingr-prix">~0.60€</span></li>
-          <li>50g maïs + ¼ poivron rouge + coriandre fraîche<span class="ingr-prix">~0.35€</span></li>
-        </ul>
-        <div class="top10-why">Les haricots noirs complètent le profil d'acides aminés du poulet et doublent l'apport en fibres — très rassasiant. Le cumin facilite la digestion des légumineuses. Parfait post-entraînement avec surplus glucidique naturel. Coloré, varié, anti-monotonie.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r22">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r23">
       <div class="top10-rank">23</div>
       <div class="top10-body">
         <div class="top10-title">Cottage Cheese · Fruits Rouges · Granola Protéiné</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 34g</div>
-          <div class="meal-macro-pill c">C 42g</div>
-          <div class="meal-macro-pill f">F 6g</div>
-          <span class="top10-kcal">370 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~2.40€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>300g cottage cheese (Carrefour, Lidl ou MDD — source de caséine native)<span class="ingr-prix">~1.35€</span></li>
-          <li>100g fruits rouges surgelés (framboises, myrtilles, cassis)<span class="ingr-prix">~0.55€</span></li>
-          <li>40g granola (sans sucre ajouté de préférence)<span class="ingr-prix">~0.40€</span></li>
-          <li>1 filet de miel (5g) + zeste de citron jaune<span class="ingr-prix">~0.10€</span></li>
-        </ul>
-        <div class="top10-why">34g de protéines en 5 minutes de préparation pour ~2.40€ — meilleur rapport qualité/prix/praticité de la liste. Le cottage cheese est riche en caséine native : digestion lente, idéal le matin ou avant de dormir. Les fruits rouges apportent fibres, vitamine C et antioxydants pour très peu de calories.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r23">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r24">
       <div class="top10-rank">24</div>
       <div class="top10-body">
         <div class="top10-title">Smash Burger Maison · Cheddar · Frites de Patate Douce <span class="tag-jp" style="background:rgba(60,59,110,0.1);color:#3c3b6e;border-color:rgba(60,59,110,0.25)">🇺🇸 Américain</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 52g</div>
-          <div class="meal-macro-pill c">C 75g</div>
-          <div class="meal-macro-pill f">F 24g</div>
-          <span class="top10-kcal">720 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~4.30€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>180g steak haché 5% MG (en 2 boules écrasées fort sur poêle brûlante)<span class="ingr-prix">~2.40€</span></li>
-          <li>1 pain burger complet<span class="ingr-prix">~0.45€</span></li>
-          <li>1 tranche de cheddar<span class="ingr-prix">~0.30€</span></li>
-          <li>200g patate douce en frites au four (1 cc huile, 200°C 25 min)<span class="ingr-prix">~0.55€</span></li>
-          <li>Sauce yaourt-moutarde-cornichon + salade, tomate, oignon rouge<span class="ingr-prix">~0.60€</span></li>
-        </ul>
-        <div class="top10-why">Le burger version recomposition : steak 5% + pain complet donnent 52g de protéines et de bons glucides pour 720 kcal seulement. Le goût « resto » vient de la réaction de Maillard — on écrase fort le steak sur une poêle brûlante pour créer la croûte. Les frites de patate douce au four remplacent la friture (index glycémique plus bas, vitamine A). La récompense des jours d'entraînement.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r24">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r25">
       <div class="top10-rank">25</div>
       <div class="top10-body">
         <div class="top10-title">Quinoa · Poulet Grillé · Pois Chiches Rôtis · Féta</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 50g</div>
-          <div class="meal-macro-pill c">C 58g</div>
-          <div class="meal-macro-pill f">F 16g</div>
-          <span class="top10-kcal">580 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~4.00€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>160g blanc de poulet grillé (herbes de Provence + huile d'olive)<span class="ingr-prix">~1.92€</span></li>
-          <li>70g quinoa sec → 210g cuit<span class="ingr-prix">~0.40€</span></li>
-          <li>100g pois chiches en boîte égouttés (poêle 3 min + sel + cumin = croustillants)<span class="ingr-prix">~0.35€</span></li>
-          <li>40g féta émiettée<span class="ingr-prix">~0.65€</span></li>
-          <li>Épinards + tomates cerises + vinaigrette citron-huile d'olive<span class="ingr-prix">~0.50€</span></li>
-        </ul>
-        <div class="top10-why">Triple source protéique — poulet (complet), quinoa (complet, les 9 acides aminés essentiels) et pois chiches (légumineuse). La féta apporte calcium et une saveur méditerranéenne qui rend ce plat addictif. Chaud ou froid, il reste excellent — parfait en boîte repas pour manger au bureau ou au gym.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r25">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r26">
       <div class="top10-rank">26</div>
       <div class="top10-body">
         <div class="top10-title">Poke Bowl Thon · Mangue · Avocat · Sauce Ponzu</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 42g</div>
-          <div class="meal-macro-pill c">C 62g</div>
-          <div class="meal-macro-pill f">F 10g</div>
-          <span class="top10-kcal">500 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.55€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>160g thon naturel en boîte (égoutté, assaisonné sauce ponzu 5 min avant)<span class="ingr-prix">~1.30€</span></li>
-          <li>60g riz japonica sec → cuit + vinaigré<span class="ingr-prix">~0.20€</span></li>
-          <li>100g mangue fraîche ou surgelée en dés<span class="ingr-prix">~0.60€</span></li>
-          <li>½ avocat en dés<span class="ingr-prix">~0.58€</span></li>
-          <li>Sauce ponzu : 2 CS sauce soja + jus citron vert + 1 cc miel<span class="ingr-prix">~0.35€</span></li>
-          <li>Graines de sésame + oignons verts ciselés<span class="ingr-prix">~0.12€</span></li>
-        </ul>
-        <div class="top10-why">La mangue apporte bêta-carotène, vitamine C et une douceur fruitée qui équilibre la salinité du ponzu — association gustative exceptionnelle. Zéro cuisson requise. Idéal le midi les jours de repos : léger, frais, préparable en 15 minutes avec des boîtes de thon.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r26">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r27">
       <div class="top10-rank">27</div>
       <div class="top10-body">
         <div class="top10-title">Shakshuka Protéinée · Œufs Pochés · Poulet · Poivrons</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 46g</div>
-          <div class="meal-macro-pill c">C 20g</div>
-          <div class="meal-macro-pill f">F 18g</div>
-          <span class="top10-kcal">430 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~4.70€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>4 œufs entiers (cassés directement dans la sauce — cuisson pochée)<span class="ingr-prix">~1.20€</span></li>
-          <li>120g blanc de poulet émincé (saisi en premier dans la poêle)<span class="ingr-prix">~1.44€</span></li>
-          <li>1 boîte tomates pelées (400g) — base de la sauce<span class="ingr-prix">~0.80€</span></li>
-          <li>1 poivron rouge + 1 oignon + 2 gousses d'ail<span class="ingr-prix">~1.00€</span></li>
-          <li>Épices : 1 cc harissa + 1 cc cumin + paprika fumé + sel<span class="ingr-prix">~0.25€</span></li>
-        </ul>
-        <div class="top10-why">Plat nord-africain ultra-simple — tout dans une seule poêle en 20 minutes. Seulement 20g de glucides : parfait les jours de repos en déficit léger. La tomate cuite libère plus de lycopène qu'en cru (antioxydant). Un classique à faire tourner chaque semaine.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r27">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r28">
       <div class="top10-rank">28</div>
       <div class="top10-body">
         <div class="top10-title">Buddha Bowl · Tofu Croustillant · Patate Douce · Tahini</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 32g</div>
-          <div class="meal-macro-pill c">C 58g</div>
-          <div class="meal-macro-pill f">F 18g</div>
-          <span class="top10-kcal">510 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.55€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>200g tofu ferme pressé (cubes : sauce soja + ail, four 200°C 20 min — croustillant dehors, fondant dedans)<span class="ingr-prix">~1.20€</span></li>
-          <li>200g patate douce rôtie (cumin + paprika, même plaque que le tofu)<span class="ingr-prix">~0.55€</span></li>
-          <li>100g pois chiches rôtis (sel + huile, 15 min four)<span class="ingr-prix">~0.35€</span></li>
-          <li>Grosse poignée d'épinards + tomates cerises<span class="ingr-prix">~0.55€</span></li>
-          <li>Sauce tahini : 2 CS tahini + jus citron + 1 gousse d'ail + 3 CS eau chaude<span class="ingr-prix">~0.60€</span></li>
-          <li>Graines de sésame + grenade (garniture)<span class="ingr-prix">~0.20€</span></li>
-        </ul>
-        <div class="top10-why">L'unique repas végétarien de la liste — 32g de protéines, à compléter avec un yaourt grec ou une whey. Le tahini est l'une des meilleures sources de calcium, zinc et magnésium de l'alimentation. Trois textures différentes (croustillant, fondant, croquant) en une seule assiette — gustativement irréprochable.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r28">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r29">
       <div class="top10-rank">29</div>
       <div class="top10-body">
         <div class="top10-title">Poulet Tikka Masala Maison · Riz Basmati <span class="tag-banger">★ Banger</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 52g</div>
-          <div class="meal-macro-pill c">C 65g</div>
-          <div class="meal-macro-pill f">F 18g</div>
-          <span class="top10-kcal">640 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~5.20€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>200g blanc de poulet en morceaux<span class="ingr-prix">~2.40€</span></li>
-          <li>Marinade (4h ou nuit) : 150g yaourt grec + garam masala + curcuma + cumin + ail + gingembre<span class="ingr-prix">~0.75€</span></li>
-          <li>Sauce : 1 boîte tomates pelées + 1 oignon + 2 gousses d'ail (revenir 10 min, mixer)<span class="ingr-prix">~1.00€</span></li>
-          <li>100ml lait de coco léger + 2 CS crème (pour onctuosité finale)<span class="ingr-prix">~0.50€</span></li>
-          <li>Épices sauce : garam masala + coriandre moulue + paprika doux<span class="ingr-prix">~0.35€</span></li>
-          <li>60g riz basmati sec<span class="ingr-prix">~0.16€</span></li>
-        </ul>
-        <div class="top10-why">Le marinage yaourt attendrit la viande grâce aux acides lactiques — résultat identique à un restaurant indien. Le garam masala contient cardamome, cannelle, clou de girofle : des épices très parfumées qui permettent de manger sain sans s'ennuyer. Prépare-en double le dimanche soir (10 min actifs + 40 min cuisson) — meilleur le lendemain quand les épices ont infusé toute la nuit.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r29">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r30">
       <div class="top10-rank">30</div>
       <div class="top10-body">
         <div class="top10-title">Pad Thaï · Poulet · Crevettes · Cacahuètes <span class="tag-banger">★ Banger</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 58g</div>
-          <div class="meal-macro-pill c">C 55g</div>
-          <div class="meal-macro-pill f">F 16g</div>
-          <span class="top10-kcal">600 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~7.60€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>120g blanc de poulet émincé fin<span class="ingr-prix">~1.44€</span></li>
-          <li>150g crevettes décortiquées crues surgelées<span class="ingr-prix">~3.00€</span></li>
-          <li>150g nouilles de riz sèches (trempage 30 min eau froide avant cuisson)<span class="ingr-prix">~0.90€</span></li>
-          <li>3 œufs entiers (brouillés directement dans le wok en cours de cuisson)<span class="ingr-prix">~0.90€</span></li>
-          <li>Sauce pad thaï : 3 CS nuoc-mâm + 2 CS sauce soja + 1 CS sucre de canne + jus citron vert<span class="ingr-prix">~0.55€</span></li>
-          <li>80g pousses de soja + 2 oignons verts + coriandre fraîche<span class="ingr-prix">~0.45€</span></li>
-          <li>2 CS cacahuètes concassées + quartiers citron vert (service)<span class="ingr-prix">~0.20€</span></li>
-        </ul>
-        <div class="top10-why">Le plat de référence de la street food thaïlandaise — double protéine (poulet + crevettes) pour un profil d'acides aminés exceptionnel. Le nuoc-mâm fermenté apporte umami profond, zinc et glutamine naturelle. Technique wok : feu très fort, tout va vite (10 min de cuisson max). Le plat le plus cher de la liste mais aussi le plus impactant gustativement. À faire les soirs post-workout du samedi.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r30">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r31">
       <div class="top10-rank">31</div>
       <div class="top10-body">
         <div class="top10-title">Fajitas de Poulet · Poivrons · Tortillas <span class="tag-jp" style="background:rgba(0,104,71,0.1);color:#006847;border-color:rgba(0,104,71,0.25)">🇲🇽 Mexicain</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 52g</div>
-          <div class="meal-macro-pill c">C 62g</div>
-          <div class="meal-macro-pill f">F 16g</div>
-          <span class="top10-kcal">600 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.80€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>180g blanc de poulet en fines lanières<span class="ingr-prix">~1.60€</span></li>
-          <li>2 tortillas de blé complètes<span class="ingr-prix">~0.70€</span></li>
-          <li>1½ poivrons (rouge + vert) + ½ oignon<span class="ingr-prix">~0.90€</span></li>
-          <li>1 CS épices fajitas + 1 cc huile + citron vert<span class="ingr-prix">~0.30€</span></li>
-          <li>Salsa + coriandre fraîche<span class="ingr-prix">~0.30€</span></li>
-        </ul>
-        <div class="top10-why">Le banger tex-mex express et coloré : 52g de protéines maigres, des poivrons gorgés de vitamine C, et des tortillas complètes pour recharger le glycogène après l'entraînement. Le secret de poivrons « grillés resto » : poêle très chaude et on ne remue pas trop, pour qu'ils marquent sans rendre d'eau.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r31">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r32">
       <div class="top10-rank">32</div>
       <div class="top10-body">
         <div class="top10-title">Bibimbap Bœuf · Riz · Légumes · Œuf <span class="tag-jp" style="background:rgba(0,71,160,0.1);color:#0047a0;border-color:rgba(0,71,160,0.25)">🇰🇷 Coréen</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 42g</div>
-          <div class="meal-macro-pill c">C 60g</div>
-          <div class="meal-macro-pill f">F 16g</div>
-          <span class="top10-kcal">560 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~4.00€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>150g bœuf haché 5% MG<span class="ingr-prix">~1.95€</span></li>
-          <li>60g riz sec + 1 œuf<span class="ingr-prix">~0.46€</span></li>
-          <li>300g légumes : carotte + épinards + champignons + courgette<span class="ingr-prix">~0.85€</span></li>
-          <li>Sauce : gochujang + sauce soja + huile de sésame<span class="ingr-prix">~0.74€</span></li>
-        </ul>
-        <div class="top10-why">Plat coréen complet : protéines, glucides et 4 légumes en un bol. Le gochujang (pâte de piment fermentée) apporte umami et probiotiques. Disposer les légumes par couleur avant de mélanger. Idéal post-entraînement.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r32">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r33">
       <div class="top10-rank">33</div>
       <div class="top10-body">
         <div class="top10-title">Poulet Shawarma Bowl · Riz · Sauce Yaourt-Ail <span class="tag-jp" style="background:rgba(0,122,61,0.1);color:#007a3d;border-color:rgba(0,122,61,0.25)">🇱🇧 Libanais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 54g</div>
-          <div class="meal-macro-pill c">C 56g</div>
-          <div class="meal-macro-pill f">F 11g</div>
-          <span class="top10-kcal">540 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.90€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>180g blanc de poulet (mariné au yaourt + épices)<span class="ingr-prix">~1.65€</span></li>
-          <li>60g riz basmati sec<span class="ingr-prix">~0.18€</span></li>
-          <li>80g yaourt grec 0% (sauce ail-citron)<span class="ingr-prix">~0.50€</span></li>
-          <li>Épices shawarma (cumin, paprika, coriandre, curcuma) + 1 cc huile<span class="ingr-prix">~0.45€</span></li>
-          <li>Tomate, concombre, oignon rouge, persil + pickles<span class="ingr-prix">~1.12€</span></li>
-        </ul>
-        <div class="top10-why">Le goût street-food du shawarma en version healthy et maigre : 54g de protéines pour seulement 11g de lipides. La marinade au yaourt n'est pas qu'une question de goût — son acidité lactique attendrit les fibres du poulet et le garde juteux. La sauce ail-citron sur base de yaourt grec ajoute des protéines sans les calories d'une sauce blanche classique.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r33">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r34">
       <div class="top10-rank">34</div>
       <div class="top10-body">
         <div class="top10-title">Bun Cha · Poulet · Vermicelles · Herbes <span class="tag-jp" style="background:rgba(218,37,29,0.1);color:#da251d;border-color:rgba(218,37,29,0.25)">🇻🇳 Vietnamien</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 38g</div>
-          <div class="meal-macro-pill c">C 68g</div>
-          <div class="meal-macro-pill f">F 8g</div>
-          <span class="top10-kcal">500 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.65€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>150g blanc de poulet (mariné soja + miel + ail)<span class="ingr-prix">~1.80€</span></li>
-          <li>80g vermicelles de riz<span class="ingr-prix">~0.50€</span></li>
-          <li>Salade + menthe + coriandre + carotte râpée<span class="ingr-prix">~0.75€</span></li>
-          <li>Sauce nuoc-mâm + citron vert + 1 CS cacahuètes<span class="ingr-prix">~0.60€</span></li>
-        </ul>
-        <div class="top10-why">Plat vietnamien frais et léger. Les herbes fraîches (menthe, coriandre) apportent micronutriments et digestion facile. Le nuoc-mâm fermenté = umami + zinc. Idéal en été ou les jours d'entraînement.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r34">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r35">
       <div class="top10-rank">35</div>
       <div class="top10-body">
         <div class="top10-title">Chili Con Carne · Bœuf · Haricots · Riz</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 56g</div>
-          <div class="meal-macro-pill c">C 70g</div>
-          <div class="meal-macro-pill f">F 15g</div>
-          <span class="top10-kcal">640 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~4.80€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>200g bœuf haché 5% MG<span class="ingr-prix">~2.60€</span></li>
-          <li>1 boîte haricots rouges + 50g maïs<span class="ingr-prix">~0.60€</span></li>
-          <li>400g tomates pelées<span class="ingr-prix">~0.80€</span></li>
-          <li>Oignon + ½ poivron + ail + épices<span class="ingr-prix">~0.64€</span></li>
-          <li>45g riz basmati sec<span class="ingr-prix">~0.16€</span></li>
-        </ul>
-        <div class="top10-why">56g de protéines et un grand volume — très rassasiant. Bœuf (fer héminique + créatine) + haricots rouges (fibres + protéines végétales). Parfait à préparer en grande quantité : il s'améliore en réchauffant.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r35">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r36">
       <div class="top10-rank">36</div>
       <div class="top10-body">
         <div class="top10-title">Poulet Crémeux aux Champignons · Brocoli</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 54g</div>
-          <div class="meal-macro-pill c">C 16g</div>
-          <div class="meal-macro-pill f">F 19g</div>
-          <span class="top10-kcal">450 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.90€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>180g blanc de poulet (en aiguillettes)<span class="ingr-prix">~1.60€</span></li>
-          <li>150g champignons de Paris<span class="ingr-prix">~0.80€</span></li>
-          <li>200g brocoli<span class="ingr-prix">~0.70€</span></li>
-          <li>100g skyr / fromage blanc 0% (sauce)<span class="ingr-prix">~0.40€</span></li>
-          <li>1 cc huile + moutarde + ail + oignon + bouillon<span class="ingr-prix">~0.40€</span></li>
-        </ul>
-        <div class="top10-why">Le réconfort d'une sauce crémeuse sans la crème : 54g de protéines, seulement 16g de glucides et 450 kcal. L'astuce technique : le skyr s'ajoute hors du feu (au-delà de ~80°C il tranche) — résultat onctueux pour une fraction des calories d'une vraie sauce. Idéal les jours de repos en léger déficit.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r36">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r37">
       <div class="top10-rank">37</div>
       <div class="top10-body">
         <div class="top10-title">Wrap Falafel · Houmous · Crudités <span class="tag-jp" style="background:rgba(0,122,61,0.1);color:#007a3d;border-color:rgba(0,122,61,0.25)">🇱🇧 Libanais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 22g</div>
-          <div class="meal-macro-pill c">C 58g</div>
-          <div class="meal-macro-pill f">F 20g</div>
-          <span class="top10-kcal">500 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.20€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>2 tortillas complètes<span class="ingr-prix">~0.40€</span></li>
-          <li>6 falafels (frais ou surgelés)<span class="ingr-prix">~1.20€</span></li>
-          <li>60g houmous<span class="ingr-prix">~0.60€</span></li>
-          <li>Salade + tomate + concombre + sauce yaourt<span class="ingr-prix">~1.00€</span></li>
-        </ul>
-        <div class="top10-why">Repas libanais végétarien, parfait à emporter. 22g de protéines végétales (pois chiches du falafel + houmous) — compléter d'un yaourt grec ou d'une whey. Le tahini du houmous apporte calcium et magnésium.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r37">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r38">
       <div class="top10-rank">38</div>
       <div class="top10-body">
         <div class="top10-title">Pâtes au Thon · Citron · Ail · Parmesan <span class="tag-jp" style="background:rgba(0,140,69,0.1);color:#008c45;border-color:rgba(0,140,69,0.25)">🇮🇹 Italien</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 58g</div>
-          <div class="meal-macro-pill c">C 74g</div>
-          <div class="meal-macro-pill f">F 12g</div>
-          <span class="top10-kcal">640 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.75€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>100g pâtes complètes sèches<span class="ingr-prix">~0.28€</span></li>
-          <li>2 boîtes thon naturel (200g égoutté)<span class="ingr-prix">~2.50€</span></li>
-          <li>1 citron (zeste + jus) + 2 gousses d'ail<span class="ingr-prix">~0.40€</span></li>
-          <li>1 CS huile d'olive + persil + 20g parmesan<span class="ingr-prix">~0.57€</span></li>
-        </ul>
-        <div class="top10-why">Express (15 min) et très protéiné (58g) à partir de placard. L'eau de cuisson amidonnée est le secret d'une sauce qui nappe sans crème. Le citron casse le côté « boîte » du thon. Pâtes complètes = index glycémique plus bas.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r38">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r39">
       <div class="top10-rank">39</div>
       <div class="top10-body">
         <div class="top10-title">Porridge Protéiné · Chocolat · Banane</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 38g</div>
-          <div class="meal-macro-pill c">C 65g</div>
-          <div class="meal-macro-pill f">F 10g</div>
-          <span class="top10-kcal">500 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~1.45€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>60g flocons d'avoine<span class="ingr-prix">~0.12€</span></li>
-          <li>1 scoop whey chocolat<span class="ingr-prix">~0.60€</span></li>
-          <li>1 banane + 200ml lait demi-écrémé + cacao<span class="ingr-prix">~0.58€</span></li>
-          <li>10g beurre de cacahuète<span class="ingr-prix">~0.15€</span></li>
-        </ul>
-        <div class="top10-why">Petit-déj costaud à 1,45€ : 38g de protéines, glucides lents (β-glucane de l'avoine = satiété). Ajoute toujours la whey hors du feu pour ne pas la dénaturer. Goût « bowl cake » qui rend le petit-déj addictif.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r39">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r40">
       <div class="top10-rank">40</div>
       <div class="top10-body">
         <div class="top10-title">Skyr Bowl · Beurre de Cacahuète · Pomme</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 34g</div>
-          <div class="meal-macro-pill c">C 42g</div>
-          <div class="meal-macro-pill f">F 13g</div>
-          <span class="top10-kcal">420 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~2.10€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>250g skyr nature<span class="ingr-prix">~1.10€</span></li>
-          <li>1 pomme en dés<span class="ingr-prix">~0.30€</span></li>
-          <li>20g beurre de cacahuète<span class="ingr-prix">~0.30€</span></li>
-          <li>30g granola + miel + cannelle<span class="ingr-prix">~0.40€</span></li>
-        </ul>
-        <div class="top10-why">5 minutes, 34g de protéines (caséine du skyr = satiété longue). Parfait en collation ou petit-déj rapide. La cannelle aide à stabiliser la glycémie. Ajoute pomme et granola au dernier moment pour le croquant.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r40">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r41">
       <div class="top10-rank">41</div>
       <div class="top10-body">
         <div class="top10-title">Poulet Yassa · Oignons Citron · Riz <span class="tag-jp" style="background:rgba(0,133,63,0.1);color:#00853f;border-color:rgba(0,133,63,0.25)">🇸🇳 Sénégalais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 46g</div>
-          <div class="meal-macro-pill c">C 58g</div>
-          <div class="meal-macro-pill f">F 12g</div>
-          <span class="top10-kcal">520 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.50€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>180g blanc de poulet<span class="ingr-prix">~2.15€</span></li>
-          <li>3 oignons émincés<span class="ingr-prix">~0.45€</span></li>
-          <li>2 citrons (jus) + 1 CS moutarde<span class="ingr-prix">~0.45€</span></li>
-          <li>60g riz sec + olives + épices + laurier<span class="ingr-prix">~0.45€</span></li>
-        </ul>
-        <div class="top10-why">Classique sénégalais maigre (46g de protéines, peu de gras) et plein de saveur grâce au citron et aux oignons fondus. Économique et idéal en meal prep : la sauce s'intensifie le lendemain.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r41">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r42">
       <div class="top10-rank">42</div>
       <div class="top10-body">
         <div class="top10-title">Saumon Teriyaki · Riz · Brocoli <span class="tag-jp">🇯🇵 Japonais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 38g</div>
-          <div class="meal-macro-pill c">C 62g</div>
-          <div class="meal-macro-pill f">F 18g</div>
-          <span class="top10-kcal">560 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~4.15€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>150g pavé de saumon<span class="ingr-prix">~2.85€</span></li>
-          <li>60g riz sec<span class="ingr-prix">~0.20€</span></li>
-          <li>Sauce teriyaki : soja + mirin + miel<span class="ingr-prix">~0.50€</span></li>
-          <li>150g brocoli + sésame + oignon vert<span class="ingr-prix">~0.60€</span></li>
-        </ul>
-        <div class="top10-why">Oméga-3 du saumon (anti-inflammatoires, récupération) + glucides du riz = repas post-entraînement parfait. La sauce teriyaki maison évite le sucre des versions industrielles. Le brocoli ajoute volume, fibres et vitamine C.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r42">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r43">
       <div class="top10-rank">43</div>
       <div class="top10-body">
         <div class="top10-title">Boulettes de Dinde · Sauce Tomate · Polenta</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 46g</div>
-          <div class="meal-macro-pill c">C 52g</div>
-          <div class="meal-macro-pill f">F 12g</div>
-          <span class="top10-kcal">500 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.70€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>180g dinde hachée<span class="ingr-prix">~1.90€</span></li>
-          <li>60g polenta (semoule de maïs)<span class="ingr-prix">~0.25€</span></li>
-          <li>400g tomates pelées + oignon + ail<span class="ingr-prix">~1.05€</span></li>
-          <li>20g parmesan + herbes<span class="ingr-prix">~0.50€</span></li>
-        </ul>
-        <div class="top10-why">La dinde est l'une des viandes les plus maigres (46g de protéines, peu de gras). La polenta est une alternative économique et sans gluten au riz. Plat réconfortant qui se réchauffe très bien.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r43">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r44">
       <div class="top10-rank">44</div>
       <div class="top10-body">
         <div class="top10-title">Quesadilla Poulet · Cheddar · Haricots Noirs <span class="tag-jp" style="background:rgba(0,104,71,0.1);color:#006847;border-color:rgba(0,104,71,0.25)">🇲🇽 Mexicain</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 52g</div>
-          <div class="meal-macro-pill c">C 50g</div>
-          <div class="meal-macro-pill f">F 21g</div>
-          <span class="top10-kcal">600 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.55€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>150g blanc de poulet (épices tex-mex)<span class="ingr-prix">~1.80€</span></li>
-          <li>2 tortillas<span class="ingr-prix">~0.40€</span></li>
-          <li>60g cheddar râpé<span class="ingr-prix">~0.65€</span></li>
-          <li>60g haricots noirs + ¼ poivron + oignon<span class="ingr-prix">~0.70€</span></li>
-        </ul>
-        <div class="top10-why">52g de protéines (poulet + cheddar + haricots). Cuisson à la poêle sans matière grasse : le fromage fait le liant et la coloration. Les haricots noirs ajoutent fibres et satiété. Idéal post-entraînement.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r44">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r45">
       <div class="top10-rank">45</div>
       <div class="top10-body">
         <div class="top10-title">Tofu Croustillant · Sauce Cacahuète · Nouilles <span class="tag-jp" style="background:rgba(165,25,49,0.1);color:#a51931;border-color:rgba(165,25,49,0.25)">🇹🇭 Thaï</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 34g</div>
-          <div class="meal-macro-pill c">C 70g</div>
-          <div class="meal-macro-pill f">F 23g</div>
-          <span class="top10-kcal">620 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~3.40€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>180g tofu ferme (épongé + maïzena = croustillant)<span class="ingr-prix">~1.20€</span></li>
-          <li>70g nouilles (riz ou blé) sèches<span class="ingr-prix">~0.40€</span></li>
-          <li>1½ CS beurre de cacahuète (sauce)<span class="ingr-prix">~0.40€</span></li>
-          <li>200g légumes sautés (poivron, chou, carotte)<span class="ingr-prix">~0.90€</span></li>
-          <li>Sauce soja + citron vert + ail + gingembre + sriracha + cacahuètes<span class="ingr-prix">~0.50€</span></li>
-        </ul>
-        <div class="top10-why">Le banger végé qui ne fait aucun compromis sur le goût : tofu croustillant + sauce cacahuète crémeuse, 34g de protéines végétales complètes (le soja est l'une des rares protéines végétales à PDCAAS élevé). Le secret du tofu croustillant : bien l'éponger et le rouler dans un peu de maïzena. La sauce cacahuète apporte de bons lipides et un umami addictif.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r45">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r46">
       <div class="top10-rank">46</div>
       <div class="top10-body">
         <div class="top10-title">Bœuf Sauté aux Brocolis · Riz · Sauce Soja-Sésame</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 48g</div>
-          <div class="meal-macro-pill c">C 60g</div>
-          <div class="meal-macro-pill f">F 20g</div>
-          <span class="top10-kcal">610 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~4.50€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>180g bœuf (bavette/rumsteck) en fines lanières<span class="ingr-prix">~2.60€</span></li>
-          <li>60g riz basmati sec<span class="ingr-prix">~0.20€</span></li>
-          <li>200g brocoli en bouquets<span class="ingr-prix">~0.70€</span></li>
-          <li>Sauce soja + 1 cc miel + ail + gingembre<span class="ingr-prix">~0.50€</span></li>
-          <li>1 cc huile + graines de sésame + oignon vert<span class="ingr-prix">~0.50€</span></li>
-        </ul>
-        <div class="top10-why">Le classique sauté asiatique beef &amp; broccoli : 48g de protéines + le fer héminique et la créatine naturelle du bœuf, parfaits pour la performance. Deux secrets de tendreté : trancher la viande fin et contre les fibres, et saisir à feu très vif et brièvement (une cuisson lente la durcit). Le brocoli blanchi garde sa couleur et son croquant.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r46">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r47">
       <div class="top10-rank">47</div>
       <div class="top10-body">
         <div class="top10-title">Riz Cantonais Protéiné · Œufs · Jambon <span class="tag-jp" style="background:rgba(222,41,16,0.1);color:#de2910;border-color:rgba(222,41,16,0.25)">🇨🇳 Chinois</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 38g</div>
-          <div class="meal-macro-pill c">C 62g</div>
-          <div class="meal-macro-pill f">F 16g</div>
-          <span class="top10-kcal">540 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~2.70€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>200g riz cuit de la veille<span class="ingr-prix">~0.17€</span></li>
-          <li>3 œufs<span class="ingr-prix">~0.90€</span></li>
-          <li>80g jambon (ou poulet) en dés<span class="ingr-prix">~0.80€</span></li>
-          <li>60g petits pois + oignon vert + sauce soja<span class="ingr-prix">~0.83€</span></li>
-        </ul>
-        <div class="top10-why">L'anti-gaspi parfait pour finir le riz de la veille — 38g de protéines pour 2,70€ en 15 min. Le secret : riz bien froid et wok très chaud pour qu'il saute sans coller. Version plus maigre avec du poulet à la place du jambon.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r47">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r48">
       <div class="top10-rank">48</div>
       <div class="top10-body">
         <div class="top10-title">Gnocchis Poêlés · Tomate · Mozzarella · Œuf <span class="tag-jp" style="background:rgba(0,140,69,0.1);color:#008c45;border-color:rgba(0,140,69,0.25)">🇮🇹 Italien</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 33g</div>
-          <div class="meal-macro-pill c">C 72g</div>
-          <div class="meal-macro-pill f">F 20g</div>
-          <span class="top10-kcal">600 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~2.95€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>220g gnocchis (rayon frais, poêlés à sec)<span class="ingr-prix">~0.90€</span></li>
-          <li>200g sauce tomate / passata<span class="ingr-prix">~0.50€</span></li>
-          <li>60g mozzarella<span class="ingr-prix">~0.70€</span></li>
-          <li>1 œuf (poché ou au plat)<span class="ingr-prix">~0.30€</span></li>
-          <li>10g parmesan + basilic + ail + 1 cc huile d'olive<span class="ingr-prix">~0.55€</span></li>
-        </ul>
-        <div class="top10-why">Le confort italien pas cher et rapide (2,95€, 20 min). L'astuce qui change tout : poêler les gnocchis à sec au lieu de les bouillir — texture croustillante dehors, moelleuse dedans. L'œuf et la mozzarella montent l'ensemble à 33g de protéines. Idéal après une séance pour recharger le glycogène avec un plat réconfortant.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r48">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r49">
       <div class="top10-rank">49</div>
       <div class="top10-body">
         <div class="top10-title">Pancakes Protéinés · Myrtilles</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 46g</div>
-          <div class="meal-macro-pill c">C 58g</div>
-          <div class="meal-macro-pill f">F 14g</div>
-          <span class="top10-kcal">540 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~2.05€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>60g flocons d'avoine (mixés)<span class="ingr-prix">~0.12€</span></li>
-          <li>1 scoop whey vanille<span class="ingr-prix">~0.60€</span></li>
-          <li>2 œufs + 1 banane<span class="ingr-prix">~0.85€</span></li>
-          <li>60g myrtilles + filet de lait<span class="ingr-prix">~0.48€</span></li>
-        </ul>
-        <div class="top10-why">Petit-déj gourmand mais 46g de protéines pour 2,05€. La whey vanille sucre naturellement la pâte (zéro sucre ajouté). Feu moyen impératif : trop chaud, la whey brûle. Les myrtilles apportent des antioxydants.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r49">Voir la recette →</a>
       </div>
     </div>
 
-    <div class="top10-card">
+    <div class="top10-card" data-rec="r50">
       <div class="top10-rank">50</div>
       <div class="top10-body">
         <div class="top10-title">Crevettes Curry Coco · Riz <span class="tag-jp" style="background:rgba(165,25,49,0.1);color:#a51931;border-color:rgba(165,25,49,0.25)">🇹🇭 Thaï</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P 36g</div>
-          <div class="meal-macro-pill c">C 58g</div>
-          <div class="meal-macro-pill f">F 16g</div>
-          <span class="top10-kcal">520 kcal</span>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
           <span class="top10-prix">~4.50€</span>
         </div>
-        <ul class="top10-ingr">
-          <li>150g crevettes décortiquées crues<span class="ingr-prix">~3.00€</span></li>
-          <li>100ml lait de coco + 1 CS pâte de curry rouge<span class="ingr-prix">~0.65€</span></li>
-          <li>60g riz basmati sec<span class="ingr-prix">~0.16€</span></li>
-          <li>Poivron + oignon + coriandre + citron vert<span class="ingr-prix">~0.69€</span></li>
-        </ul>
-        <div class="top10-why">Curry thaï express et parfumé. Les crevettes ont l'un des meilleurs ratios protéines/calories (+ iode et sélénium). ⚠️ Ne pas trop cuire (3 min max, forme en C). Lait de coco léger pour limiter les graisses saturées.</div>
+        <ul class="top10-ingr" data-rec-ingr></ul>
+        <div class="top10-why" data-rec-note></div>
+        <a class="top10-link" href="recettes.html#r50">Voir la recette →</a>
       </div>
     </div>
 
@@ -3000,7 +2761,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 <div class="section" id="sec-courses">
   <div class="section-label">Pratique</div>
   <div class="section-title">Liste de Courses Auto</div>
-  <div class="section-sub">Coche les repas que tu veux cuisiner cette semaine — ta liste est générée instantanément, groupée par rayon supermarché avec les quantités totales.</div>
+  <div class="section-sub">Coche les repas que tu veux cuisiner cette semaine : la liste additionne les ingrédients des fiches, en grammes, groupés par rayon.</div>
 
   <div class="courses-meal-grid" id="coursesMeals"></div>
 
@@ -3009,6 +2770,8 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
     <button class="courses-ctrl-btn" onclick="coursesToggleAll(false)">Tout décocher</button>
     <button class="courses-btn-gen" onclick="coursesGenerate()">⚡ GÉNÉRER MA LISTE</button>
   </div>
+
+  <div id="coursesMsg" class="courses-msg" role="status" style="display:none"></div>
 
   <div id="coursesResult" class="courses-result" style="display:none">
     <div class="courses-result-hd">
@@ -3190,7 +2953,21 @@ const mealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.meal-timeline').forEach(t => mealObserver.observe(t));
 
-// ── TOP 20 SORT ──
+// ── TOP 50 : rendu depuis data/recettes.js ──
+(function () {
+  var R = ALLEZ.RECETTES, esc = ALLEZ.esc;
+  document.querySelectorAll('.top10-card[data-rec]').forEach(function (el) {
+    var id = el.getAttribute('data-rec'), rec = R.REC[id]; if (!rec) return;
+    var tt = R.total(id), v = { kcal: tt.kcal, p: tt.p, g: tt.g, l: tt.l, dens: String(R.densite(id)).replace('.', ',') };
+    var cn = el.querySelector('[data-rec-note]'); if (cn) cn.innerHTML = rec.note;   // HTML du dépôt, sans donnée utilisateur
+    el.querySelectorAll('[data-rv]').forEach(function (s) { s.textContent = v[s.getAttribute('data-rv')]; });
+    el.querySelectorAll('[data-alim]').forEach(function (s) { var a = s.getAttribute('data-alim').split('.'); s.textContent = Math.round(R.ALIM[a[0]][a[1]]); });
+    var ul = el.querySelector('[data-rec-ingr]');
+    if (ul) ul.innerHTML = rec.lignes.filter(function (ln) { return ln.a.length; }).map(function (ln) { return '<li>' + esc(ln.q) + ' ' + esc(ln.nom) + '</li>'; }).join('');
+  });
+})();
+
+// ── TOP 50 : tri par rang ──
 (function(){
   var list = document.querySelector('.top10-list');
   if (!list) return;
@@ -3273,668 +3050,103 @@ document.addEventListener('click', e => { if (_nav.classList.contains('open') &&
 </script>
 <script>
 // ── LISTE DE COURSES ──
-var MEALS_DB = [
-  {id:1, title:'Pavé de Saumon · Quinoa · Avocat', ingr:[
-    {k:'saumon', n:'Saumon (pavé frais)', q:200, u:'g', c:'poisson'},
-    {k:'quinoa', n:'Quinoa', q:60, u:'g', c:'feculents'},
-    {k:'avocat', n:'Avocat', q:0.5, u:'pièce', c:'legumes'},
-    {k:'tomates_cerises', n:'Tomates cerises', q:100, u:'g', c:'legumes'},
-    {k:'concombre', n:'Concombre', q:0.5, u:'pièce', c:'legumes'},
-    {k:'citron', n:'Citron', q:1, u:'pièce', c:'legumes'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
-    {k:'moutarde', n:'Moutarde', q:1, u:'cs', c:'condiments'},
-  ]},
-  {id:2, title:'Chirashi Bowl · Saumon', ingr:[
-    {k:'saumon', n:'Saumon (qualité sashimi)', q:150, u:'g', c:'poisson'},
-    {k:'riz_sushi', n:'Riz à sushi', q:60, u:'g', c:'feculents'},
-    {k:'vinaigre_riz', n:'Vinaigre de riz', q:1, u:'CS', c:'condiments'},
-    {k:'edamame', n:'Edamame (surgelés)', q:100, u:'g', c:'surgeles'},
-    {k:'avocat', n:'Avocat', q:0.5, u:'pièce', c:'legumes'},
-    {k:'concombre', n:'Concombre', q:0.25, u:'pièce', c:'legumes'},
-    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
-    {k:'sauce_soja', n:'Sauce soja', q:2, u:'CS', c:'condiments'},
-    {k:'huile_sesame', n:'Huile de sésame', q:1, u:'cs', c:'condiments'},
-    {k:'nori', n:'Feuilles de nori', q:2, u:'feuille', c:'conserves'},
-    {k:'gingembre', n:'Gingembre mariné (gari)', q:1, u:'cs', c:'condiments'},
-  ]},
-  {id:3, title:'Thon · Riz Basmati · Brocolis', ingr:[
-    {k:'thon_boite', n:'Thon naturel en boîte', q:2, u:'boîte', c:'conserves'},
-    {k:'riz_basmati', n:'Riz basmati', q:45, u:'g', c:'feculents'},
-    {k:'brocoli', n:'Brocoli', q:250, u:'g', c:'legumes'},
-    {k:'sauce_soja', n:'Sauce soja', q:1, u:'CS', c:'condiments'},
-    {k:'huile_sesame', n:'Huile de sésame', q:1, u:'cs', c:'condiments'},
-    {k:'gingembre', n:'Gingembre frais', q:1, u:'morceau', c:'condiments'},
-    {k:'citron', n:'Citron', q:0.5, u:'pièce', c:'legumes'},
-    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
-  ]},
-  {id:4, title:'Lentilles Corail · Poulet · Curry Coco', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:150, u:'g', c:'viandes'},
-    {k:'lentilles_corail', n:'Lentilles corail', q:100, u:'g', c:'feculents'},
-    {k:'lait_coco', n:'Lait de coco léger', q:100, u:'g', c:'conserves'},
-    {k:'epinards', n:'Épinards frais', q:80, u:'g', c:'legumes'},
-    {k:'riz_basmati', n:'Riz basmati', q:40, u:'g', c:'feculents'},
-    {k:'oignon', n:'Oignon', q:1, u:'pièce', c:'legumes'},
-    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
-    {k:'gingembre', n:'Gingembre frais', q:1, u:'morceau', c:'condiments'},
-    {k:'curry', n:'Curry en poudre', q:1, u:'CS', c:'condiments'},
-    {k:'curcuma', n:'Curcuma', q:1, u:'cs', c:'condiments'},
-    {k:'cumin', n:'Cumin', q:1, u:'cs', c:'condiments'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
-  ]},
-  {id:5, title:'Cabillaud en Papillote · Patate Douce · Brocoli', ingr:[
-    {k:'cabillaud', n:'Cabillaud (filet)', q:220, u:'g', c:'poisson'},
-    {k:'patate_douce', n:'Patate douce', q:200, u:'g', c:'legumes'},
-    {k:'brocoli', n:'Brocoli', q:200, u:'g', c:'legumes'},
-    {k:'citron', n:'Citron', q:1, u:'pièce', c:'legumes'},
-    {k:'herbes_prov', n:'Herbes de Provence', q:1, u:'cs', c:'condiments'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
-    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
-  ]},
-  {id:6, title:'Bowl Poulet · Riz · Patate Douce', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:180, u:'g', c:'viandes'},
-    {k:'riz_basmati', n:'Riz basmati', q:45, u:'g', c:'feculents'},
-    {k:'patate_douce', n:'Patate douce', q:200, u:'g', c:'legumes'},
-    {k:'epinards', n:'Épinards frais', q:80, u:'g', c:'legumes'},
-    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
-    {k:'citron', n:'Citron', q:0.5, u:'pièce', c:'legumes'},
-    {k:'cumin', n:'Cumin', q:1, u:'cs', c:'condiments'},
-    {k:'paprika', n:'Paprika fumé', q:1, u:'cs', c:'condiments'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
-  ]},
-  {id:7, title:'Soba Froides · Poulet · Sauce Tsuyu', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:160, u:'g', c:'viandes'},
-    {k:'soba', n:'Nouilles soba', q:100, u:'g', c:'feculents'},
-    {k:'sauce_soja', n:'Sauce soja', q:3, u:'CS', c:'condiments'},
-    {k:'mirin', n:'Mirin', q:2, u:'CS', c:'condiments'},
-    {k:'dashi', n:'Dashi (granulés)', q:1, u:'cs', c:'condiments'},
-    {k:'concombre', n:'Concombre', q:0.25, u:'pièce', c:'legumes'},
-    {k:'nori', n:'Feuilles de nori', q:1, u:'feuille', c:'conserves'},
-    {k:'cebette', n:'Cébette / oignon vert', q:2, u:'tige', c:'legumes'},
-    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
-    {k:'gingembre', n:'Gingembre frais', q:1, u:'morceau', c:'condiments'},
-  ]},
-  {id:8, title:'Omelette Jambon · Patate Douce Rôtie', ingr:[
-    {k:'oeufs', n:'Œufs', q:5, u:'pièce', c:'oeufs'},
-    {k:'jambon_blanc', n:'Jambon blanc', q:100, u:'g', c:'viandes'},
-    {k:'poivron_rouge', n:'Poivron rouge', q:0.5, u:'pièce', c:'legumes'},
-    {k:'champignons', n:'Champignons de Paris', q:100, u:'g', c:'legumes'},
-    {k:'patate_douce', n:'Patate douce', q:200, u:'g', c:'legumes'},
-    {k:'ciboulette', n:'Ciboulette fraîche', q:1, u:'bouquet', c:'legumes'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
-  ]},
-  {id:9, title:'Crevettes Sautées · Riz · Épinards', ingr:[
-    {k:'crevettes', n:'Crevettes décortiquées', q:200, u:'g', c:'surgeles'},
-    {k:'riz_basmati', n:'Riz basmati', q:45, u:'g', c:'feculents'},
-    {k:'epinards', n:'Épinards frais', q:100, u:'g', c:'legumes'},
-    {k:'ail', n:'Ail', q:4, u:'gousse', c:'condiments'},
-    {k:'piment_rouge', n:'Piment rouge frais', q:1, u:'pièce', c:'legumes'},
-    {k:'persil', n:'Persil frais', q:1, u:'bouquet', c:'legumes'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
-    {k:'citron', n:'Citron', q:0.5, u:'pièce', c:'legumes'},
-  ]},
-  {id:10, title:'Gyudon · Bœuf Oignon · Riz', ingr:[
-    {k:'boeuf', n:'Bœuf (tranches fines)', q:180, u:'g', c:'viandes'},
-    {k:'riz_japonais', n:'Riz japonais (Koshi-hikari)', q:60, u:'g', c:'feculents'},
-    {k:'oeufs', n:'Œufs', q:1, u:'pièce', c:'oeufs'},
-    {k:'oignon', n:'Oignon', q:1, u:'pièce', c:'legumes'},
-    {k:'cebette', n:'Cébette / oignon vert', q:2, u:'tige', c:'legumes'},
-    {k:'sauce_soja', n:'Sauce soja', q:3, u:'CS', c:'condiments'},
-    {k:'mirin', n:'Mirin', q:2, u:'CS', c:'condiments'},
-    {k:'dashi', n:'Dashi (granulés)', q:1, u:'cs', c:'condiments'},
-  ]},
-  {id:11, title:'Salade Niçoise Protéinée', ingr:[
-    {k:'thon_boite', n:'Thon naturel en boîte', q:2, u:'boîte', c:'conserves'},
-    {k:'oeufs', n:'Œufs', q:3, u:'pièce', c:'oeufs'},
-    {k:'haricots_verts', n:'Haricots verts', q:150, u:'g', c:'legumes'},
-    {k:'tomates', n:'Tomates', q:2, u:'pièce', c:'legumes'},
-    {k:'poivron_rouge', n:'Poivron rouge', q:0.5, u:'pièce', c:'legumes'},
-    {k:'pommes_de_terre', n:'Pommes de terre', q:100, u:'g', c:'legumes'},
-    {k:'olives_noires', n:'Olives noires dénoyautées', q:60, u:'g', c:'conserves'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
-    {k:'citron', n:'Citron', q:0.5, u:'pièce', c:'legumes'},
-    {k:'moutarde', n:'Moutarde', q:1, u:'cs', c:'condiments'},
-    {k:'basilic', n:'Basilic frais', q:1, u:'bouquet', c:'legumes'},
-  ]},
-  {id:12, title:'Steak Haché · Pâtes Complètes · Sauce Tomate', ingr:[
-    {k:'steak_hache', n:'Steak haché 5% MG', q:200, u:'g', c:'viandes'},
-    {k:'pates_completes', n:'Pâtes complètes', q:100, u:'g', c:'feculents'},
-    {k:'tomates_pelees', n:'Tomates pelées (boîte 400g)', q:1, u:'boîte', c:'conserves'},
-    {k:'parmesan', n:'Parmesan râpé', q:20, u:'g', c:'oeufs'},
-    {k:'oignon', n:'Oignon', q:1, u:'pièce', c:'legumes'},
-    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
-    {k:'basilic', n:'Basilic frais', q:1, u:'bouquet', c:'legumes'},
-    {k:'origan', n:'Origan séché', q:1, u:'cs', c:'condiments'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
-  ]},
-  {id:13, title:'Donburi Teriyaki Poulet', ingr:[
-    {k:'poulet_cuisse', n:'Cuisse de poulet désossée', q:200, u:'g', c:'viandes'},
-    {k:'riz_japonais', n:'Riz japonais (Koshi-hikari)', q:60, u:'g', c:'feculents'},
-    {k:'sauce_soja', n:'Sauce soja', q:3, u:'CS', c:'condiments'},
-    {k:'mirin', n:'Mirin', q:2, u:'CS', c:'condiments'},
-    {k:'miel', n:'Miel', q:1, u:'CS', c:'condiments'},
-    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
-    {k:'cebette', n:'Cébette / oignon vert', q:2, u:'tige', c:'legumes'},
-    {k:'huile_neutre', n:'Huile neutre (tournesol)', q:1, u:'CS', c:'condiments'},
-  ]},
-  {id:14, title:'Soupe Miso · Tofu · Poulet · Riz', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:120, u:'g', c:'viandes'},
-    {k:'tofu', n:'Tofu ferme', q:150, u:'g', c:'oeufs'},
-    {k:'riz_japonais', n:'Riz japonais (Koshi-hikari)', q:45, u:'g', c:'feculents'},
-    {k:'miso', n:'Pâte miso', q:2, u:'CS', c:'conserves'},
-    {k:'dashi', n:'Dashi (granulés)', q:1, u:'cs', c:'condiments'},
-    {k:'wakame', n:'Algues wakame séchées', q:1, u:'cs', c:'conserves'},
-    {k:'cebette', n:'Cébette / oignon vert', q:2, u:'tige', c:'legumes'},
-    {k:'huile_sesame', n:'Huile de sésame', q:1, u:'cs', c:'condiments'},
-  ]},
-  {id:15, title:'Poulet Mariné · Légumes Méditerranéens', ingr:[
-    {k:'poulet_blanc', n:'Escalope de poulet', q:200, u:'g', c:'viandes'},
-    {k:'courgette', n:'Courgette', q:1, u:'pièce', c:'legumes'},
-    {k:'oignon_rouge', n:'Oignon rouge', q:1, u:'pièce', c:'legumes'},
-    {k:'poivron_rouge', n:'Poivron rouge', q:1, u:'pièce', c:'legumes'},
-    {k:'tomates_cerises', n:'Tomates cerises', q:100, u:'g', c:'legumes'},
-    {k:'patate_douce', n:'Patate douce', q:200, u:'g', c:'legumes'},
-    {k:'huile_olive', n:"Huile d'olive", q:2, u:'CS', c:'condiments'},
-    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
-    {k:'herbes_prov', n:'Herbes de Provence', q:1, u:'cs', c:'condiments'},
-    {k:'citron', n:'Citron', q:1, u:'pièce', c:'legumes'},
-  ]},
-  {id:16, title:'Wraps Dinde · Avocat · Fromage Frais', ingr:[
-    {k:'dinde', n:'Blanc de dinde', q:150, u:'g', c:'viandes'},
-    {k:'tortillas', n:'Tortillas blé complet', q:2, u:'pièce', c:'feculents'},
-    {k:'avocat', n:'Avocat', q:0.5, u:'pièce', c:'legumes'},
-    {k:'fromage_frais', n:'Fromage frais léger', q:60, u:'g', c:'oeufs'},
-    {k:'tomates_cerises', n:'Tomates cerises', q:80, u:'g', c:'legumes'},
-    {k:'concombre', n:'Concombre', q:0.5, u:'pièce', c:'legumes'},
-    {k:'salade', n:'Salade verte (jeunes pousses)', q:40, u:'g', c:'legumes'},
-    {k:'citron', n:'Citron', q:0.5, u:'pièce', c:'legumes'},
-  ]},
-  {id:17, title:'Galette de Sarrasin · Œuf · Jambon · Emmental', ingr:[
-    {k:'farine_sarrasin', n:'Farine de sarrasin', q:100, u:'g', c:'feculents'},
-    {k:'oeufs', n:'Œufs', q:2, u:'pièce', c:'oeufs'},
-    {k:'jambon_blanc', n:'Jambon blanc', q:80, u:'g', c:'viandes'},
-    {k:'emmental', n:'Emmental râpé', q:30, u:'g', c:'oeufs'},
-    {k:'tomates_cerises', n:'Tomates cerises', q:80, u:'g', c:'legumes'},
-    {k:'salade', n:'Salade verte (jeunes pousses)', q:40, u:'g', c:'legumes'},
-  ]},
-  {id:18, title:'Riz Sauté aux Œufs · Edamame · Sauce Soja', ingr:[
-    {k:'oeufs', n:'Œufs', q:3, u:'pièce', c:'oeufs'},
-    {k:'riz_basmati', n:'Riz basmati', q:80, u:'g', c:'feculents'},
-    {k:'edamame', n:'Edamame (surgelés)', q:100, u:'g', c:'surgeles'},
-    {k:'sauce_soja', n:'Sauce soja', q:2, u:'CS', c:'condiments'},
-    {k:'huile_sesame', n:'Huile de sésame', q:1, u:'cs', c:'condiments'},
-    {k:'gingembre', n:'Gingembre frais', q:1, u:'morceau', c:'condiments'},
-    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
-    {k:'cebette', n:'Cébette / oignon vert', q:2, u:'tige', c:'legumes'},
-  ]},
-  {id:19, title:'Pancakes Avoine · Banane · Œufs', ingr:[
-    {k:'oeufs', n:'Œufs', q:3, u:'pièce', c:'oeufs'},
-    {k:'banane', n:'Banane', q:1, u:'pièce', c:'legumes'},
-    {k:'flocons_avoine', n:"Flocons d'avoine", q:60, u:'g', c:'feculents'},
-    {k:'whey', n:'Whey protéine (vanille)', q:1, u:'scoop', c:'oeufs'},
-    {k:'cannelle', n:'Cannelle', q:1, u:'cs', c:'condiments'},
-    {k:'yaourt_grec', n:'Yaourt grec 0%', q:200, u:'g', c:'oeufs'},
-    {k:'fruits_rouges', n:'Fruits rouges', q:80, u:'g', c:'surgeles'},
-  ]},
-  {id:20, title:'Bowl Petit-Déjeuner Protéiné', ingr:[
-    {k:'yaourt_grec', n:'Yaourt grec 0%', q:250, u:'g', c:'oeufs'},
-    {k:'flocons_avoine', n:"Flocons d'avoine", q:50, u:'g', c:'feculents'},
-    {k:'oeufs', n:'Œufs', q:2, u:'pièce', c:'oeufs'},
-    {k:'banane', n:'Banane', q:1, u:'pièce', c:'legumes'},
-    {k:'amandes', n:'Amandes effilées', q:15, u:'g', c:'conserves'},
-    {k:'miel', n:'Miel', q:1, u:'cs', c:'condiments'},
-  ]},
-  {id:21, title:'Tortilla Espagnole Protéinée', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:150, u:'g', c:'viandes'},
-    {k:'oeufs', n:'Œufs', q:5, u:'pièce', c:'oeufs'},
-    {k:'pommes_de_terre', n:'Pommes de terre', q:200, u:'g', c:'legumes'},
-    {k:'oignon', n:'Oignon', q:0.5, u:'pièce', c:'legumes'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
-    {k:'persil', n:'Persil frais', q:1, u:'bouquet', c:'legumes'},
-  ]},
-  {id:22, title:'Bowl Mexicain · Poulet · Haricots Noirs', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:180, u:'g', c:'viandes'},
-    {k:'haricots_noirs', n:'Haricots noirs (boîte)', q:120, u:'g', c:'conserves'},
-    {k:'riz_basmati', n:'Riz basmati', q:45, u:'g', c:'feculents'},
-    {k:'avocat', n:'Avocat', q:0.5, u:'pièce', c:'legumes'},
-    {k:'mais', n:'Maïs (boîte)', q:50, u:'g', c:'conserves'},
-    {k:'poivron_rouge', n:'Poivron rouge', q:0.25, u:'pièce', c:'legumes'},
-    {k:'coriandre', n:'Coriandre fraîche', q:1, u:'bouquet', c:'legumes'},
-    {k:'citron_vert', n:'Citron vert', q:1, u:'pièce', c:'legumes'},
-    {k:'cumin', n:'Cumin', q:1, u:'cs', c:'condiments'},
-    {k:'paprika', n:'Paprika fumé', q:1, u:'cs', c:'condiments'},
-  ]},
-  {id:23, title:'Cottage Cheese · Fruits Rouges · Granola', ingr:[
-    {k:'cottage_cheese', n:'Cottage cheese', q:300, u:'g', c:'oeufs'},
-    {k:'fruits_rouges', n:'Fruits rouges (surgelés)', q:100, u:'g', c:'surgeles'},
-    {k:'granola', n:'Granola', q:40, u:'g', c:'feculents'},
-    {k:'miel', n:'Miel', q:1, u:'cs', c:'condiments'},
-  ]},
-  {id:24, title:'Smash Burger Maison · Frites de Patate Douce', ingr:[
-    {k:'boeuf_hache', n:'Steak haché 5% MG', q:180, u:'g', c:'viandes'},
-    {k:'pain_burger', n:'Pain burger complet', q:1, u:'pièce', c:'feculents'},
-    {k:'cheddar', n:'Cheddar (tranche)', q:1, u:'tranche', c:'oeufs'},
-    {k:'patate_douce', n:'Patate douce', q:200, u:'g', c:'legumes'},
-    {k:'yaourt_grec', n:'Yaourt 0% (sauce)', q:30, u:'g', c:'oeufs'},
-    {k:'moutarde', n:'Moutarde + cornichon', q:1, u:'cs', c:'condiments'},
-    {k:'salade', n:'Salade + tomate + oignon rouge', q:1, u:'bouquet', c:'legumes'},
-  ]},
-  {id:25, title:'Quinoa · Poulet · Pois Chiches · Féta', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:160, u:'g', c:'viandes'},
-    {k:'quinoa', n:'Quinoa', q:70, u:'g', c:'feculents'},
-    {k:'pois_chiches', n:'Pois chiches (boîte)', q:100, u:'g', c:'conserves'},
-    {k:'feta', n:'Féta', q:40, u:'g', c:'oeufs'},
-    {k:'epinards', n:'Épinards frais', q:80, u:'g', c:'legumes'},
-    {k:'tomates_cerises', n:'Tomates cerises', q:80, u:'g', c:'legumes'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
-    {k:'citron', n:'Citron', q:0.5, u:'pièce', c:'legumes'},
-    {k:'herbes_prov', n:'Herbes de Provence', q:1, u:'cs', c:'condiments'},
-  ]},
-  {id:26, title:'Poke Bowl Thon · Mangue · Avocat · Ponzu', ingr:[
-    {k:'thon_boite', n:'Thon naturel en boîte', q:2, u:'boîte', c:'conserves'},
-    {k:'riz_sushi', n:'Riz à sushi', q:60, u:'g', c:'feculents'},
-    {k:'mangue', n:'Mangue', q:100, u:'g', c:'legumes'},
-    {k:'avocat', n:'Avocat', q:0.5, u:'pièce', c:'legumes'},
-    {k:'sauce_soja', n:'Sauce soja', q:2, u:'CS', c:'condiments'},
-    {k:'vinaigre_riz', n:'Vinaigre de riz', q:1, u:'CS', c:'condiments'},
-    {k:'citron_vert', n:'Citron vert', q:1, u:'pièce', c:'legumes'},
-    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
-    {k:'cebette', n:'Cébette / oignon vert', q:2, u:'tige', c:'legumes'},
-  ]},
-  {id:27, title:'Shakshuka Protéinée · Œufs · Poulet', ingr:[
-    {k:'oeufs', n:'Œufs', q:4, u:'pièce', c:'oeufs'},
-    {k:'poulet_blanc', n:'Blanc de poulet', q:120, u:'g', c:'viandes'},
-    {k:'tomates_pelees', n:'Tomates pelées (boîte 400g)', q:1, u:'boîte', c:'conserves'},
-    {k:'poivron_rouge', n:'Poivron rouge', q:1, u:'pièce', c:'legumes'},
-    {k:'oignon', n:'Oignon', q:1, u:'pièce', c:'legumes'},
-    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
-    {k:'harissa', n:'Harissa', q:1, u:'cs', c:'condiments'},
-    {k:'cumin', n:'Cumin', q:1, u:'cs', c:'condiments'},
-    {k:'paprika', n:'Paprika fumé', q:1, u:'cs', c:'condiments'},
-  ]},
-  {id:28, title:'Buddha Bowl · Tofu · Patate Douce · Tahini', ingr:[
-    {k:'tofu', n:'Tofu ferme', q:200, u:'g', c:'oeufs'},
-    {k:'patate_douce', n:'Patate douce', q:200, u:'g', c:'legumes'},
-    {k:'pois_chiches', n:'Pois chiches (boîte)', q:100, u:'g', c:'conserves'},
-    {k:'epinards', n:'Épinards frais', q:80, u:'g', c:'legumes'},
-    {k:'tomates_cerises', n:'Tomates cerises', q:60, u:'g', c:'legumes'},
-    {k:'tahini', n:'Tahini (crème de sésame)', q:2, u:'CS', c:'condiments'},
-    {k:'citron', n:'Citron', q:1, u:'pièce', c:'legumes'},
-    {k:'ail', n:'Ail', q:1, u:'gousse', c:'condiments'},
-    {k:'sauce_soja', n:'Sauce soja', q:1, u:'CS', c:'condiments'},
-    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
-  ]},
-  {id:29, title:'Poulet Tikka Masala · Riz Basmati', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:200, u:'g', c:'viandes'},
-    {k:'yaourt_grec', n:'Yaourt grec', q:150, u:'g', c:'oeufs'},
-    {k:'tomates_pelees', n:'Tomates pelées (boîte 400g)', q:1, u:'boîte', c:'conserves'},
-    {k:'lait_coco', n:'Lait de coco léger', q:100, u:'g', c:'conserves'},
-    {k:'riz_basmati', n:'Riz basmati', q:60, u:'g', c:'feculents'},
-    {k:'oignon', n:'Oignon', q:1, u:'pièce', c:'legumes'},
-    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
-    {k:'gingembre', n:'Gingembre frais', q:1, u:'morceau', c:'condiments'},
-    {k:'garam_masala', n:'Garam masala', q:1, u:'CS', c:'condiments'},
-    {k:'curcuma', n:'Curcuma', q:1, u:'cs', c:'condiments'},
-    {k:'cumin', n:'Cumin', q:1, u:'cs', c:'condiments'},
-    {k:'coriandre_moul', n:'Coriandre moulue', q:1, u:'cs', c:'condiments'},
-    {k:'creme', n:'Crème (optionnel, 2 CS)', q:2, u:'CS', c:'oeufs'},
-  ]},
-  {id:30, title:'Pad Thaï · Poulet · Crevettes', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:120, u:'g', c:'viandes'},
-    {k:'crevettes', n:'Crevettes décortiquées', q:150, u:'g', c:'surgeles'},
-    {k:'nouilles_riz', n:'Nouilles de riz', q:150, u:'g', c:'feculents'},
-    {k:'oeufs', n:'Œufs', q:3, u:'pièce', c:'oeufs'},
-    {k:'pousses_soja', n:'Pousses de soja', q:80, u:'g', c:'legumes'},
-    {k:'cebette', n:'Cébette / oignon vert', q:2, u:'tige', c:'legumes'},
-    {k:'cacahuetes', n:'Cacahuètes concassées', q:30, u:'g', c:'conserves'},
-    {k:'nuoc_mam', n:'Nuoc-mâm (sauce poisson)', q:3, u:'CS', c:'condiments'},
-    {k:'sauce_soja', n:'Sauce soja', q:2, u:'CS', c:'condiments'},
-    {k:'sucre_canne', n:'Sucre de canne', q:1, u:'CS', c:'condiments'},
-    {k:'citron_vert', n:'Citron vert', q:2, u:'pièce', c:'legumes'},
-    {k:'coriandre', n:'Coriandre fraîche', q:1, u:'bouquet', c:'legumes'},
-  ]},
-  {id:31, title:'Fajitas de Poulet · Poivrons · Tortillas', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:180, u:'g', c:'viandes'},
-    {k:'tortillas', n:'Tortillas de blé complètes', q:2, u:'pièce', c:'feculents'},
-    {k:'poivron_rouge', n:'Poivrons (rouge + vert)', q:1.5, u:'pièce', c:'legumes'},
-    {k:'oignon', n:'Oignon', q:0.5, u:'pièce', c:'legumes'},
-    {k:'epices_fajitas', n:'Épices fajitas', q:1, u:'CS', c:'condiments'},
-    {k:'citron_vert', n:'Citron vert', q:0.5, u:'pièce', c:'legumes'},
-    {k:'salsa', n:'Salsa + coriandre', q:1, u:'bouquet', c:'legumes'},
-  ]},
-  {id:32, title:'Bibimbap Bœuf · Riz · Légumes', ingr:[
-    {k:'boeuf_hache', n:'Bœuf haché 5%', q:150, u:'g', c:'viandes'},
-    {k:'riz_basmati', n:'Riz', q:60, u:'g', c:'feculents'},
-    {k:'oeufs', n:'Œufs', q:1, u:'pièce', c:'oeufs'},
-    {k:'carotte', n:'Carotte', q:1, u:'pièce', c:'legumes'},
-    {k:'epinards', n:'Épinards frais', q:100, u:'g', c:'legumes'},
-    {k:'champignons', n:'Champignons', q:60, u:'g', c:'legumes'},
-    {k:'courgette', n:'Courgette', q:0.5, u:'pièce', c:'legumes'},
-    {k:'gochujang', n:'Gochujang (pâte de piment)', q:1, u:'cs', c:'condiments'},
-    {k:'sauce_soja', n:'Sauce soja', q:1, u:'CS', c:'condiments'},
-    {k:'huile_sesame', n:'Huile de sésame', q:1, u:'cs', c:'condiments'},
-  ]},
-  {id:33, title:'Poulet Shawarma Bowl · Riz · Sauce Yaourt-Ail', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:180, u:'g', c:'viandes'},
-    {k:'riz_basmati', n:'Riz basmati', q:60, u:'g', c:'feculents'},
-    {k:'yaourt_grec', n:'Yaourt grec 0%', q:80, u:'g', c:'oeufs'},
-    {k:'epices_shawarma', n:'Épices shawarma', q:1, u:'CS', c:'condiments'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'cs', c:'condiments'},
-    {k:'tomates', n:'Tomate + concombre + oignon rouge', q:150, u:'g', c:'legumes'},
-    {k:'pickles', n:'Pickles + persil', q:1, u:'bouquet', c:'legumes'},
-  ]},
-  {id:34, title:'Bun Cha · Poulet · Vermicelles', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:150, u:'g', c:'viandes'},
-    {k:'vermicelles_riz', n:'Vermicelles de riz', q:80, u:'g', c:'feculents'},
-    {k:'salade', n:'Salade verte', q:0.5, u:'pièce', c:'legumes'},
-    {k:'menthe', n:'Menthe + coriandre', q:1, u:'bouquet', c:'legumes'},
-    {k:'carotte', n:'Carotte', q:1, u:'pièce', c:'legumes'},
-    {k:'nuoc_mam', n:'Nuoc-mâm', q:2, u:'CS', c:'condiments'},
-    {k:'citron_vert', n:'Citron vert', q:1, u:'pièce', c:'legumes'},
-    {k:'cacahuetes', n:'Cacahuètes', q:1, u:'CS', c:'conserves'},
-  ]},
-  {id:35, title:'Chili Con Carne · Bœuf · Haricots', ingr:[
-    {k:'boeuf_hache', n:'Bœuf haché 5%', q:200, u:'g', c:'viandes'},
-    {k:'haricots_rouges', n:'Haricots rouges (boîte)', q:240, u:'g', c:'conserves'},
-    {k:'tomates_pelees', n:'Tomates pelées (boîte)', q:400, u:'g', c:'conserves'},
-    {k:'mais', n:'Maïs', q:50, u:'g', c:'conserves'},
-    {k:'oignon', n:'Oignon', q:1, u:'pièce', c:'legumes'},
-    {k:'poivron_rouge', n:'Poivron rouge', q:0.5, u:'pièce', c:'legumes'},
-    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
-    {k:'riz_basmati', n:'Riz basmati', q:45, u:'g', c:'feculents'},
-  ]},
-  {id:36, title:'Poulet Crémeux aux Champignons · Brocoli', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:180, u:'g', c:'viandes'},
-    {k:'champignons', n:'Champignons de Paris', q:150, u:'g', c:'legumes'},
-    {k:'brocoli', n:'Brocoli', q:200, u:'g', c:'legumes'},
-    {k:'skyr', n:'Skyr / fromage blanc 0%', q:100, u:'g', c:'oeufs'},
-    {k:'oignon', n:'Oignon', q:0.5, u:'pièce', c:'legumes'},
-    {k:'moutarde', n:'Moutarde + ail + bouillon', q:1, u:'cs', c:'condiments'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'cs', c:'condiments'},
-  ]},
-  {id:37, title:'Wrap Falafel · Houmous', ingr:[
-    {k:'tortillas', n:'Tortillas complètes', q:2, u:'pièce', c:'feculents'},
-    {k:'falafel', n:'Falafels', q:6, u:'pièce', c:'surgeles'},
-    {k:'houmous', n:'Houmous', q:60, u:'g', c:'conserves'},
-    {k:'salade', n:'Salade + tomate + concombre', q:1, u:'bouquet', c:'legumes'},
-    {k:'yaourt_grec', n:'Yaourt (sauce)', q:50, u:'g', c:'oeufs'},
-  ]},
-  {id:38, title:'Pâtes au Thon · Citron · Parmesan', ingr:[
-    {k:'pates', n:'Pâtes complètes', q:100, u:'g', c:'feculents'},
-    {k:'thon_boite', n:'Thon naturel en boîte', q:2, u:'boîte', c:'conserves'},
-    {k:'citron', n:'Citron', q:1, u:'pièce', c:'legumes'},
-    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'CS', c:'condiments'},
-    {k:'parmesan', n:'Parmesan', q:20, u:'g', c:'oeufs'},
-  ]},
-  {id:39, title:'Porridge Protéiné · Chocolat · Banane', ingr:[
-    {k:'flocons_avoine', n:"Flocons d'avoine", q:60, u:'g', c:'feculents'},
-    {k:'whey', n:'Whey chocolat', q:1, u:'scoop', c:'condiments'},
-    {k:'banane', n:'Banane', q:1, u:'pièce', c:'legumes'},
-    {k:'lait', n:'Lait demi-écrémé', q:200, u:'ml', c:'oeufs'},
-    {k:'cacao', n:'Cacao en poudre', q:1, u:'cs', c:'condiments'},
-    {k:'beurre_cacahuete', n:'Beurre de cacahuète', q:10, u:'g', c:'condiments'},
-  ]},
-  {id:40, title:'Skyr Bowl · Beurre de Cacahuète · Pomme', ingr:[
-    {k:'skyr', n:'Skyr nature', q:250, u:'g', c:'oeufs'},
-    {k:'pomme', n:'Pomme', q:1, u:'pièce', c:'legumes'},
-    {k:'beurre_cacahuete', n:'Beurre de cacahuète', q:20, u:'g', c:'condiments'},
-    {k:'granola', n:'Granola', q:30, u:'g', c:'feculents'},
-    {k:'miel', n:'Miel', q:5, u:'g', c:'condiments'},
-  ]},
-  {id:41, title:'Poulet Yassa · Oignons Citron · Riz', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:180, u:'g', c:'viandes'},
-    {k:'oignon', n:'Oignons', q:3, u:'pièce', c:'legumes'},
-    {k:'citron', n:'Citrons', q:2, u:'pièce', c:'legumes'},
-    {k:'moutarde', n:'Moutarde', q:1, u:'CS', c:'condiments'},
-    {k:'riz_basmati', n:'Riz', q:60, u:'g', c:'feculents'},
-    {k:'olives', n:'Olives', q:8, u:'pièce', c:'conserves'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'cs', c:'condiments'},
-  ]},
-  {id:42, title:'Saumon Teriyaki · Riz · Brocoli', ingr:[
-    {k:'saumon', n:'Pavé de saumon', q:150, u:'g', c:'poisson'},
-    {k:'riz_basmati', n:'Riz', q:60, u:'g', c:'feculents'},
-    {k:'sauce_soja', n:'Sauce soja', q:2, u:'CS', c:'condiments'},
-    {k:'mirin', n:'Mirin', q:1, u:'CS', c:'condiments'},
-    {k:'miel', n:'Miel', q:1, u:'cs', c:'condiments'},
-    {k:'brocoli', n:'Brocoli', q:150, u:'g', c:'legumes'},
-    {k:'sesame', n:'Graines de sésame', q:1, u:'CS', c:'condiments'},
-  ]},
-  {id:43, title:'Boulettes de Dinde · Sauce Tomate · Polenta', ingr:[
-    {k:'dinde_hachee', n:'Dinde hachée', q:180, u:'g', c:'viandes'},
-    {k:'polenta', n:'Polenta (semoule de maïs)', q:60, u:'g', c:'feculents'},
-    {k:'tomates_pelees', n:'Tomates pelées (boîte)', q:400, u:'g', c:'conserves'},
-    {k:'oignon', n:'Oignon', q:1, u:'pièce', c:'legumes'},
-    {k:'ail', n:'Ail', q:2, u:'gousse', c:'condiments'},
-    {k:'parmesan', n:'Parmesan', q:20, u:'g', c:'oeufs'},
-  ]},
-  {id:44, title:'Quesadilla Poulet · Cheddar · Haricots Noirs', ingr:[
-    {k:'poulet_blanc', n:'Blanc de poulet', q:150, u:'g', c:'viandes'},
-    {k:'tortillas', n:'Tortillas', q:2, u:'pièce', c:'feculents'},
-    {k:'cheddar', n:'Cheddar râpé', q:60, u:'g', c:'oeufs'},
-    {k:'haricots_noirs', n:'Haricots noirs (boîte)', q:60, u:'g', c:'conserves'},
-    {k:'poivron_rouge', n:'Poivron rouge', q:0.25, u:'pièce', c:'legumes'},
-    {k:'oignon', n:'Oignon', q:0.5, u:'pièce', c:'legumes'},
-  ]},
-  {id:45, title:'Tofu Croustillant · Sauce Cacahuète · Nouilles', ingr:[
-    {k:'tofu', n:'Tofu ferme', q:180, u:'g', c:'oeufs'},
-    {k:'nouilles_riz', n:'Nouilles (riz ou blé)', q:70, u:'g', c:'feculents'},
-    {k:'beurre_cacahuete', n:'Beurre de cacahuète', q:1.5, u:'CS', c:'condiments'},
-    {k:'legumes_sautes', n:'Légumes (poivron, chou, carotte)', q:200, u:'g', c:'legumes'},
-    {k:'sauce_soja', n:'Sauce soja + sriracha', q:2, u:'CS', c:'condiments'},
-    {k:'citron_vert', n:'Citron vert', q:1, u:'pièce', c:'legumes'},
-    {k:'gingembre', n:'Gingembre + ail', q:1, u:'morceau', c:'condiments'},
-    {k:'cacahuetes', n:'Cacahuètes + coriandre', q:1, u:'CS', c:'conserves'},
-  ]},
-  {id:46, title:'Bœuf Sauté aux Brocolis · Riz', ingr:[
-    {k:'boeuf_bavette', n:'Bœuf (bavette / rumsteck)', q:180, u:'g', c:'viandes'},
-    {k:'riz_basmati', n:'Riz basmati', q:60, u:'g', c:'feculents'},
-    {k:'brocoli', n:'Brocoli', q:200, u:'g', c:'legumes'},
-    {k:'sauce_soja', n:'Sauce soja + miel', q:2, u:'CS', c:'condiments'},
-    {k:'ail', n:'Ail + gingembre', q:2, u:'gousse', c:'condiments'},
-    {k:'sesame', n:'Graines de sésame + oignon vert', q:1, u:'CS', c:'condiments'},
-  ]},
-  {id:47, title:'Riz Cantonais Protéiné · Œufs · Jambon', ingr:[
-    {k:'riz_basmati', n:'Riz (cuit de la veille)', q:200, u:'g', c:'feculents'},
-    {k:'oeufs', n:'Œufs', q:3, u:'pièce', c:'oeufs'},
-    {k:'jambon', n:'Jambon (ou poulet)', q:80, u:'g', c:'viandes'},
-    {k:'petits_pois', n:'Petits pois (surgelés)', q:60, u:'g', c:'surgeles'},
-    {k:'cebette', n:'Oignon vert', q:2, u:'tige', c:'legumes'},
-    {k:'sauce_soja', n:'Sauce soja', q:1, u:'CS', c:'condiments'},
-  ]},
-  {id:48, title:'Gnocchis Poêlés · Tomate · Mozzarella · Œuf', ingr:[
-    {k:'gnocchi', n:'Gnocchis (frais)', q:220, u:'g', c:'feculents'},
-    {k:'sauce_tomate', n:'Sauce tomate / passata', q:200, u:'g', c:'conserves'},
-    {k:'mozzarella', n:'Mozzarella', q:60, u:'g', c:'oeufs'},
-    {k:'oeufs', n:'Œuf', q:1, u:'pièce', c:'oeufs'},
-    {k:'parmesan', n:'Parmesan + basilic', q:10, u:'g', c:'oeufs'},
-    {k:'huile_olive', n:"Huile d'olive", q:1, u:'cs', c:'condiments'},
-  ]},
-  {id:49, title:'Pancakes Protéinés · Myrtilles', ingr:[
-    {k:'flocons_avoine', n:"Flocons d'avoine", q:60, u:'g', c:'feculents'},
-    {k:'whey', n:'Whey vanille', q:1, u:'scoop', c:'condiments'},
-    {k:'oeufs', n:'Œufs', q:2, u:'pièce', c:'oeufs'},
-    {k:'banane', n:'Banane', q:1, u:'pièce', c:'legumes'},
-    {k:'myrtilles', n:'Myrtilles', q:60, u:'g', c:'legumes'},
-    {k:'lait', n:'Lait', q:50, u:'ml', c:'oeufs'},
-  ]},
-  {id:50, title:'Crevettes Curry Coco · Riz', ingr:[
-    {k:'crevettes', n:'Crevettes décortiquées', q:150, u:'g', c:'surgeles'},
-    {k:'lait_coco', n:'Lait de coco léger', q:100, u:'ml', c:'conserves'},
-    {k:'pate_curry', n:'Pâte de curry rouge', q:1, u:'CS', c:'condiments'},
-    {k:'riz_basmati', n:'Riz basmati', q:60, u:'g', c:'feculents'},
-    {k:'poivron_rouge', n:'Poivron rouge', q:0.5, u:'pièce', c:'legumes'},
-    {k:'oignon', n:'Oignon', q:0.5, u:'pièce', c:'legumes'},
-    {k:'citron_vert', n:'Citron vert', q:1, u:'pièce', c:'legumes'},
-    {k:'coriandre', n:'Coriandre fraîche', q:1, u:'bouquet', c:'legumes'},
-  ]},
-];
-
-var CATS_CONFIG = [
-  {k:'viandes',   label:'Viandes & Volailles',         icon:'🥩'},
-  {k:'poisson',   label:'Poissons & Fruits de mer',    icon:'🐟'},
-  {k:'surgeles',  label:'Surgelés',                    icon:'❄️'},
-  {k:'oeufs',     label:'Œufs & Produits Laitiers',    icon:'🥚'},
-  {k:'legumes',   label:'Légumes & Fruits Frais',       icon:'🥦'},
-  {k:'feculents', label:'Féculents & Céréales',         icon:'🌾'},
-  {k:'conserves', label:'Conserves & Bocaux',           icon:'🥫'},
-  {k:'condiments',label:'Épices & Condiments',          icon:'🫙'},
-];
-
+// Source unique : data/recettes.js (mêmes ingrédients que les fiches et que le calcul des macros, en grammes)
+var R = ALLEZ.RECETTES;
+var RAYON_ICO = { 'Viandes & poissons': '🥩', 'Œufs & produits laitiers': '🥚', 'Fruits & légumes': '🥦', 'Féculents & céréales': '🌾', 'Légumineuses & conserves': '🥫', 'Traiteur': '🧆', 'Épicerie & condiments': '🫙' };
 var coursesSelected = new Set();
-
-function coursesFmtQty(q, u) {
-  if (u === 'g') return '<b>' + Math.round(q) + 'g</b>';
-  var n;
-  if (['pièce','boîte','gousse','tige','bouquet','feuille','scoop','morceau'].indexOf(u) !== -1) {
-    n = Math.ceil(q);
-    return '<b>' + n + '</b> ' + u + (n > 1 && u !== 'morceau' ? 's' : '');
-  }
-  if (u === 'tube') return '<b>1</b> tube';
-  n = Math.round(q * 10) / 10;
-  return '<b>' + n + '</b> ' + u;
+// Sélection enregistrée : numéros 1 à 50 (format historique de px_courses_sel)
+function coursesIds() { return Array.from(coursesSelected).sort(function (a, b) { return a - b; }).map(function (n) { return 'r' + String(n).padStart(2, '0'); }).filter(function (id) { return R.REC[id]; }); }
+function coursesSave() { try { localStorage.setItem('px_courses_sel', JSON.stringify(Array.from(coursesSelected))); } catch (e) {} }
+function coursesQty(it) {
+  var g = it.g >= 1000 ? (Math.round(it.g / 100) / 10).toString().replace('.', ',') + ' kg' : it.g + ' g';
+  return it.pieces ? g + ' (≈ ' + it.pieces + ' pièce' + (it.pieces > 1 ? 's' : '') + ')' : g;
 }
-
-function coursesBuildResult() {
-  var result = {};
-  var selectedMeals = MEALS_DB.filter(function(m) { return coursesSelected.has(m.id); });
-  selectedMeals.forEach(function(meal) {
-    meal.ingr.forEach(function(ingr) {
-      if (result[ingr.k]) {
-        result[ingr.k].count++;
-        if (result[ingr.k].u === ingr.u) result[ingr.k].q += ingr.q;
-      } else {
-        result[ingr.k] = {n:ingr.n, q:ingr.q, u:ingr.u, c:ingr.c, count:1};
-      }
-    });
-  });
-  var byCat = {};
-  Object.keys(result).forEach(function(k) {
-    var item = result[k];
-    if (!byCat[item.c]) byCat[item.c] = [];
-    byCat[item.c].push({k:k, n:item.n, q:item.q, u:item.u, count:item.count});
-  });
-  return {result:result, byCat:byCat};
-}
+function coursesMsg(txt) { var m = document.getElementById('coursesMsg'); if (m) { m.textContent = txt; m.style.display = txt ? 'block' : 'none'; } }
 
 function coursesInit() {
-  var saved = localStorage.getItem('px_courses_sel');
-  if (saved) try { coursesSelected = new Set(JSON.parse(saved)); } catch(e) {}
+  try { var saved = localStorage.getItem('px_courses_sel'); if (saved) coursesSelected = new Set(JSON.parse(saved).map(Number).filter(function (n) { return n >= 1 && n <= 50; })); } catch (e) {}
   var grid = document.getElementById('coursesMeals');
   if (!grid) return;
-  var sorted = MEALS_DB.slice().sort(function(a,b){ return a.id - b.id; });
-  sorted.forEach(function(meal) {
-    var isJP = [2,7,10,13,14,42].indexOf(meal.id) !== -1;
-    var isBanger = [29,30].indexOf(meal.id) !== -1;
-    var ck = coursesSelected.has(meal.id);
+  R.ORDER.forEach(function (id) {
+    var num = parseInt(id.slice(1), 10), ck = coursesSelected.has(num);
     var div = document.createElement('div');
     div.className = 'courses-meal-item' + (ck ? ' ck' : '');
-    div.dataset.id = meal.id;
-    div.innerHTML =
-      '<div class="courses-meal-chk">' + (ck ? '✓' : '') + '</div>' +
-      '<div class="courses-meal-rank">' + String(meal.id).padStart(2,'0') + '</div>' +
-      '<div class="courses-meal-name">' + meal.title + (isJP ? ' <span style="font-size:.6rem;color:#bc002d">🇯🇵</span>' : '') + (isBanger ? ' <span style="font-size:.6rem;color:#b8700a;font-weight:700">★</span>' : '') + '</div>';
-    div.addEventListener('click', function() {
-      var id = parseInt(this.dataset.id);
-      var chk = this.querySelector('.courses-meal-chk');
-      if (coursesSelected.has(id)) {
-        coursesSelected.delete(id); this.classList.remove('ck'); chk.textContent = '';
-      } else {
-        coursesSelected.add(id); this.classList.add('ck'); chk.textContent = '✓';
-      }
-      localStorage.setItem('px_courses_sel', JSON.stringify(Array.from(coursesSelected)));
-    });
+    div.dataset.id = num;
+    div.setAttribute('role', 'checkbox'); div.setAttribute('aria-checked', ck ? 'true' : 'false'); div.tabIndex = 0;
+    div.innerHTML = '<div class="courses-meal-chk">' + (ck ? '✓' : '') + '</div><div class="courses-meal-rank">' + String(num).padStart(2, '0') + '</div><div class="courses-meal-name"></div>';
+    div.querySelector('.courses-meal-name').textContent = R.REC[id].titre;
+    function toggle() {
+      var on = !coursesSelected.has(num);
+      if (on) coursesSelected.add(num); else coursesSelected.delete(num);
+      div.classList.toggle('ck', on); div.setAttribute('aria-checked', on ? 'true' : 'false');
+      div.querySelector('.courses-meal-chk').textContent = on ? '✓' : '';
+      coursesSave(); coursesMsg('');
+    }
+    div.addEventListener('click', toggle);
+    div.addEventListener('keydown', function (e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); } });
     grid.appendChild(div);
   });
 }
 
 function coursesToggleAll(state) {
   coursesSelected.clear();
-  document.querySelectorAll('.courses-meal-item').forEach(function(el) {
-    var chk = el.querySelector('.courses-meal-chk');
-    if (state) {
-      el.classList.add('ck'); chk.textContent = '✓';
-      coursesSelected.add(parseInt(el.dataset.id));
-    } else {
-      el.classList.remove('ck'); chk.textContent = '';
-    }
+  document.querySelectorAll('.courses-meal-item').forEach(function (el) {
+    el.classList.toggle('ck', state); el.setAttribute('aria-checked', state ? 'true' : 'false');
+    el.querySelector('.courses-meal-chk').textContent = state ? '✓' : '';
+    if (state) coursesSelected.add(parseInt(el.dataset.id, 10));
   });
-  localStorage.setItem('px_courses_sel', JSON.stringify(Array.from(coursesSelected)));
+  coursesSave(); coursesMsg('');
 }
 
 function coursesGenerate() {
-  if (coursesSelected.size === 0) { alert('Coche au moins un repas !'); return; }
-  var data = coursesBuildResult();
-  var catsEl = document.getElementById('coursesCats');
+  var ids = coursesIds();
+  if (!ids.length) { coursesMsg('Coche au moins un repas.'); return; }
+  coursesMsg('');
+  var data = R.courses(ids), catsEl = document.getElementById('coursesCats'), total = 0;
   catsEl.innerHTML = '';
-  var totalItems = 0;
-  function cfUrl(name){
-    var t = name.toLowerCase()
-      .replace(/\([^)]*\)/g,'')
-      .replace(/\d+\s*%/g,'')
-      .replace(/œ/g,'oe')
-      .replace(/[éèê]/g,'e').replace(/[àâ]/g,'a').replace(/[îï]/g,'i').replace(/[ôö]/g,'o').replace(/[ûù]/g,'u').replace(/ç/g,'c')
-      .replace(/[^a-z0-9 ]/g,' ')
-      .replace(/\s+/g,' ').trim();
-    return 'https://www.carrefour.fr/s?q=' + encodeURIComponent(t);
-  }
-  CATS_CONFIG.forEach(function(cat) {
-    if (!data.byCat[cat.k]) return;
-    var items = data.byCat[cat.k].sort(function(a,b){ return a.n.localeCompare(b.n,'fr'); });
-    totalItems += items.length;
-    var sec = document.createElement('div');
-    sec.className = 'courses-cat';
-    var title = document.createElement('div');
-    title.className = 'courses-cat-title';
-    title.innerHTML = '<span>' + cat.icon + '</span> ' + cat.label;
-    sec.appendChild(title);
-    var ul = document.createElement('ul');
-    ul.className = 'courses-items-list';
-    items.forEach(function(item) {
-      var li = document.createElement('li');
-      li.className = 'courses-item';
-      li.innerHTML =
-        '<span class="courses-item-name">' + item.n + '</span>' +
-        '<span class="courses-item-right">' +
-          '<span class="courses-item-qty">' + coursesFmtQty(item.q, item.u) +
-          (item.count > 1 ? ' <span style="color:var(--text-light);font-size:.7rem">· ' + item.count + ' repas</span>' : '') + '</span>' +
-          '<a class="cf-link" href="' + cfUrl(item.n) + '" target="_blank" rel="noopener" title="Chercher « ' + item.n + ' » sur Carrefour Drive">🔍</a>' +
-        '</span>';
-      ul.appendChild(li);
+  data.rayons.forEach(function (ry) {
+    var sec = document.createElement('div'); sec.className = 'courses-cat';
+    var title = document.createElement('div'); title.className = 'courses-cat-title';
+    title.textContent = (RAYON_ICO[ry.rayon] || '🛒') + ' ' + ry.rayon; sec.appendChild(title);
+    var ul = document.createElement('ul'); ul.className = 'courses-items-list';
+    ry.items.forEach(function (it) {
+      total++;
+      var li = document.createElement('li'); li.className = 'courses-item';
+      var nm = document.createElement('span'); nm.className = 'courses-item-name'; nm.textContent = it.nom;
+      var q = document.createElement('span'); q.className = 'courses-item-right';
+      q.innerHTML = '<span class="courses-item-qty"><b></b></span>'; q.querySelector('b').textContent = coursesQty(it);
+      li.appendChild(nm); li.appendChild(q); ul.appendChild(li);
     });
-    sec.appendChild(ul);
-    catsEl.appendChild(sec);
+    sec.appendChild(ul); catsEl.appendChild(sec);
   });
-  document.getElementById('coursesResultSub').textContent =
-    coursesSelected.size + ' repas sélectionné' + (coursesSelected.size > 1 ? 's' : '') + ' · ' + totalItems + ' articles groupés par rayon · 🔍 = recherche Carrefour Drive';
+  if (data.placard.length) {
+    var pl = document.createElement('div'); pl.className = 'courses-cat';
+    pl.innerHTML = '<div class="courses-cat-title">🧂 À vérifier dans le placard (non pesé)</div><p class="courses-placard"></p>';
+    pl.querySelector('p').textContent = data.placard.join(' · ');
+    catsEl.appendChild(pl);
+  }
+  document.getElementById('coursesResultSub').textContent = ids.length + ' repas · ' + total + ' articles par rayon · quantités en grammes, poids crus (riz cuit converti en riz cru)';
   var resultEl = document.getElementById('coursesResult');
   resultEl.style.display = 'block';
   document.getElementById('coursesCopied').style.display = 'none';
-  setTimeout(function() { resultEl.scrollIntoView({behavior:'smooth', block:'start'}); }, 80);
+  setTimeout(function () { resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 80);
 }
 
-function coursesCopy() {
-  if (coursesSelected.size === 0) return;
-  var data = coursesBuildResult();
-  var lines = ['MA LISTE DE COURSES — ALLEZ', '(' + coursesSelected.size + ' repas)', ''];
-  CATS_CONFIG.forEach(function(cat) {
-    if (!data.byCat[cat.k]) return;
-    lines.push(cat.icon + ' ' + cat.label.toUpperCase());
-    data.byCat[cat.k].sort(function(a,b){ return a.n.localeCompare(b.n,'fr'); }).forEach(function(item) {
-      var qty;
-      if (item.u === 'g') qty = Math.round(item.q) + 'g';
-      else if (['pièce','boîte','gousse','tige','bouquet','feuille','scoop','morceau'].indexOf(item.u) !== -1) qty = Math.ceil(item.q) + ' ' + item.u;
-      else qty = (Math.round(item.q*10)/10) + ' ' + item.u;
-      lines.push('  ☐ ' + item.n + ' — ' + qty);
-    });
+function coursesText() {
+  var ids = coursesIds(), data = R.courses(ids), lines = ['MA LISTE DE COURSES — ALLEZ', '(' + ids.length + ' repas)', ''];
+  data.rayons.forEach(function (ry) {
+    lines.push(ry.rayon.toUpperCase());
+    ry.items.forEach(function (it) { lines.push('  ☐ ' + it.nom + ' — ' + coursesQty(it)); });
     lines.push('');
   });
-  navigator.clipboard.writeText(lines.join('\n')).then(function() {
-    var cp = document.getElementById('coursesCopied');
-    cp.style.display = 'block';
-    setTimeout(function(){ cp.style.display = 'none'; }, 3000);
-  }).catch(function() {
-    alert('Copie non disponible. Sélectionne le texte manuellement.');
-  });
+  if (data.placard.length) lines.push('À VÉRIFIER DANS LE PLACARD', '  ' + data.placard.join(' · '));
+  return lines.join('\n');
+}
+function coursesCopy() {
+  if (!coursesIds().length) return;
+  var ok = function () { var cp = document.getElementById('coursesCopied'); cp.style.display = 'block'; setTimeout(function () { cp.style.display = 'none'; }, 3000); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(coursesText()).then(ok).catch(function () { coursesMsg('Copie impossible sur ce navigateur : sélectionne la liste à la main.'); });
+  else coursesMsg('Copie impossible sur ce navigateur : sélectionne la liste à la main.');
 }
 
 coursesInit();
