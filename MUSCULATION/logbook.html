@@ -696,7 +696,7 @@ function renderSession() {
         '<div class="rest-title">Jour de repos</div>' +
         '<div class="rest-sub">Récupération · Prochaine séance : <strong>'+actSess.name+' ('+actSess.label+')</strong><br>Séance décalée ? Lance-la quand même :</div>' +
         '<div class="rest-actions">' + TRAIN_DAYS.map(function(k){ return '<button class="rest-next" data-action="pickSess" data-args="'+k+'">'+SESSIONS[k].name+'</button>'; }).join('') + '</div>' +
-        '<a class="rest-hist" href="#historique" data-action="showTab" data-args="historique">Voir l\'historique →</a>' +
+        '<a class="rest-hist" href="#viewH" data-action="showTab" data-args="historique">Voir l\'historique →</a>' +
       '</div>';
     return;
   }

@@ -1813,7 +1813,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
     <div class="erreur-item">
       <div class="erreur-x">✕</div>
       <div class="erreur-body">
-        <h4>Manger "en bulk" sans compter les calories</h4>
+        <h4>Manger «&nbsp;en bulk&nbsp;» sans compter les calories</h4>
         <p>Sans pesée, la plupart des gens se trompent de 20 à 40 % sur ce qu'ils mangent. Sans comptage les premières semaines, tu navigues à l'aveugle.</p>
         <div class="erreur-fix">✓ Solution : utilise MyFitnessPal ou Cronometer pendant 4-6 semaines pour calibrer ton instinct.</div>
       </div>
@@ -1858,7 +1858,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
     <div class="erreur-item">
       <div class="erreur-x">✕</div>
       <div class="erreur-body">
-        <h4>Négliger les lipides "par peur de grossir"</h4>
+        <h4>Négliger les lipides «&nbsp;par peur de grossir&nbsp;»</h4>
         <p>Manger gras ne fait pas grossir en soi : c'est le surplus calorique global qui compte. Sous ~20 % des calories en lipides, la testostérone tend à baisser (~−10 à −15 %, Whittaker 2021).</p>
         <div class="erreur-fix">✓ Solution : maintiens minimum 60-70g de lipides/jour, surtout monoinsaturés (huile d'olive, avocat, noix).</div>
       </div>
@@ -2822,7 +2822,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="meal-time-col"><div class="meal-time-bubble ${m.couleur}">${M.timeText(id, m)}</div><div class="meal-time-label">${m.label}</div></div>
       <div class="meal-card">
         <div class="meal-header"><div class="meal-name">${m.nom}</div><div class="meal-kcal" style="color:${COL[m.couleur] || 'inherit'}">${t ? '~' + t.kcal + ' kcal' : m.tag}${prix(m.prix)}</div></div>
-        ${t ? `<div class="meal-macros-row"><div class="meal-macro-pill p">P: ${t.p}g</div><div class="meal-macro-pill c">G: ${t.g}g</div><div class="meal-macro-pill f">L: ${t.l}g</div></div>` : ''}
+        ${t ? `<div class="meal-macros-row"><div class="meal-macro-pill p">P&nbsp;: ${t.p}&nbsp;g</div><div class="meal-macro-pill c">G&nbsp;: ${t.g}&nbsp;g</div><div class="meal-macro-pill f">L&nbsp;: ${t.l}&nbsp;g</div></div>` : ''}
         <ul class="meal-foods">${M.foodLines(m).map(x => `<li>${x}</li>`).join('')}</ul>
         ${m.note ? `<div class="meal-note">${m.note}</div>` : ''}
       </div>

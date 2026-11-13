@@ -1,5 +1,24 @@
 # Journal des changements — ALLEZ
 
+## v2 — phase 6 « Vérification » et publication (fusion dans `main`)
+
+### Corrigé pendant la vérification
+- `posture.html` : 4 dosages écrits en dur (rowing, incliné, dead bug, planche latérale) → lus dans `data/programme.js` ; Pallof press : dosage par défaut des données.
+- `progression.html` : « +217 / −333 / ≈ −100 kcal » de l'ancien profil → calculés depuis le profil.
+- Lien « Voir l'historique » du jour de repos (logbook) : ancre inexistante corrigée.
+- Typographie : macros du plan repas « P : 11 g », 23 guillemets droits → « … » (posture, recettes, nutrition).
+- `.gitignore` : dossiers photos désignés par un motif générique ; script de publication `publier-v2.cmd` ignoré.
+- Service worker `allez-v70`.
+
+### Vérifié (preuves dans le récapitulatif de fin de phase)
+- 72 tests Node, dont `tests/verification.test.js` : grep anti-duplication (programme, cibles, recettes, compléments, plan repas définis seulement dans `data/`) et grep de confidentialité sur tout ce qui est publié.
+- `_prive/tests/phase6.js` 21/21 : 64 rendus sans erreur console ni débordement, 131 liens internes et ancres sans erreur, 16/16 pages hors ligne avec polices, scénario complet (date de départ → PUSH → onglet fermé → reprise → validation → tableau de bord, série, records → export → vidage → import identique), migration des 3 anciens formats.
+- Phases 3, 4, 5 rejouées (33/33, 33/33, 30/30), axe-core 0 violation, cibles tactiles conformes.
+- Lighthouse mobile complet, 16 pages, avant/après (voir le tableau du §14 d'AUDIT.md) : après = Performance 96 à 100, Accessibilité 100, Bonnes pratiques 96 à 100.
+
+### Publication
+- `publier-v2.cmd` (racine du clone) remplace `publier.cmd` : publie depuis le clone, `data/` et `assets/` compris, jamais depuis OneDrive. Procédure dans `CLAUDE.md`.
+
 ## v2 — phase 5 « Interface, accessibilité, performance, service worker » (branche `refonte-v2`, non publiée)
 
 ### Navigation unique, en français

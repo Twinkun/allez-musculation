@@ -451,7 +451,7 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
     <div><div class="m-time">${M.timeText(id, m)}</div><div class="m-tag">${m.label}</div></div>
     <div class="m-card">
       <div class="m-header"><span class="m-name">${m.nom}</span><span class="m-kcal">${tt ? '~' + tt.kcal + ' kcal' : m.tag}</span></div>
-      ${tt ? `<div class="m-macros"><span class="mp p">P: ${tt.p}g</span><span class="mp c">G: ${tt.g}g</span><span class="mp f">L: ${tt.l}g</span></div>` : ''}
+      ${tt ? `<div class="m-macros"><span class="mp p">P&nbsp;: ${tt.p}&nbsp;g</span><span class="mp c">G&nbsp;: ${tt.g}&nbsp;g</span><span class="mp f">L&nbsp;: ${tt.l}&nbsp;g</span></div>` : ''}
       <ul class="m-foods">${M.foodLines(m).map(x => `<li>${x}</li>`).join('')}</ul>
       ${m.note ? `<div class="m-note">${m.note}</div>` : ''}
     </div>

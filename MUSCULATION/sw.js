@@ -1,4 +1,4 @@
-const CACHE = 'allez-v69';
+const CACHE = 'allez-v70';
 
 const LOCAL_ASSETS = [
   './index.html',

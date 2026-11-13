@@ -24,11 +24,14 @@ PWA de suivi de musculation. HTML/CSS/JS sans build ni dépendance, servie par G
 - `node --test tests/*.test.js` (noyau, programme, nutrition, compléments, recettes, logbook, corrections de contenu, interface).
 - Tests navigateur (Playwright, Edge) : dans `_prive/tests/`, hors dépôt (`phase3.js`, `phase4.js`, `phase5.js`, `p5axe.js`, `p5cibles.js`, `p5shots.js`).
 - Lighthouse : `LH_CPU=1 node lh.js <racine> <sortie> <pages>` (serveur gzip comme GitHub Pages). Sur cette machine (indice CPU ≈ 300, catégorie « mobile milieu de gamme »), la documentation Lighthouse prescrit un multiplicateur ×1 ; le ×4 par défaut vise un ordinateur haut de gamme.
-- Après une modification du site : incrémenter `CACHE` dans `sw.js` et tenir la liste `LOCAL_ASSETS` à jour.
+- Après une modification du site : tenir la liste `LOCAL_ASSETS` de `sw.js` à jour (la version `CACHE` est incrémentée par `publier-v2.cmd`).
 
-## Publier
-- `publier.cmd` (hors dépôt) recopie un ancien dossier de travail par-dessus `MUSCULATION/` et ne copie pas les sous-dossiers `data/` et `assets/`. **Ne pas l'utiliser avec la v2** tant que la procédure n'est pas refaite.
-- Branche de travail : `refonte-v2`. `main` = version en ligne.
+## Dossier de travail et publication
+- **Seul dossier de travail : `C:\Users\Twink\allez-musculation`** (clone git). L'ancien dossier OneDrive est une archive de la v65 (« ALLEZ-v65-ARCHIVE-ne-plus-utiliser ») : ne jamais y travailler ni en copier quoi que ce soit.
+- `main` = version en ligne (GitHub Pages : https://twinkun.github.io/allez-musculation/MUSCULATION/). Travailler sur une branche, fusionner dans `main` quand les vérifications passent.
+- **Publier** : sur `main`, double-clic sur `publier-v2.cmd` (racine du clone, ignoré par git). Il refuse de tourner hors du clone ou hors de `main`, lance `node --test tests/`, vérifie que `_prive/` est ignoré, incrémente `CACHE` dans `sw.js`, ajoute tout `MUSCULATION/` (`data/` et `assets/` compris), committe et pousse. `publier-v2.cmd --essai` fait les contrôles sans rien modifier.
+- Avant de publier : `node --test tests/` puis, dans `_prive/tests/`, `node phase6.js` (pages, liens, hors ligne, scénario complet, migration). Après : `node phase6.js ../../MUSCULATION https://twinkun.github.io/allez-musculation/MUSCULATION/` contrôle le site en ligne.
+- L'ancien `publier.cmd` (copie depuis OneDrive, sans `data/` ni `assets/`) ne doit plus jamais servir.
 
 ## Contenu privé
 - `[data-prive="clé"]` : remplacé par le bloc du même nom du fichier privé importé (HTML assaini : balises de texte, `class`, `style` simple). Sans import, l'élément garde son texte générique (`data-prive-garder`) ou reste masqué.

@@ -7,8 +7,7 @@ Thumbs.db
 *.tmp
 
 # PRIVE — ne jamais publier (photos, medical, notes perso)
-MUSCULATION/Photo Physique/
-MUSCULATION/Photo ping pong/
+MUSCULATION/Photo*/
 MUSCULATION/memory/
 MUSCULATION/PROJET.md
 MUSCULATION/PROMPTS.md
@@ -24,3 +23,6 @@ AUDIT.md
 # Dossier prive de travail (table CIQUAL source, tests Playwright, profil de depart, rapports) - ne jamais publier
 _prive/
 node_modules/
+
+# Script de publication (local, voir CLAUDE.md)
+publier-v2.cmd
