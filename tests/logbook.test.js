@@ -46,7 +46,7 @@ test('sauvegarde : le brouillon mis de côté (jour précédent) fait partie de 
 
 test('logbook.html : brouillon d\'un autre jour signalé et récupérable, record au 1RM estimé, colonne RIR, recopie de la charge', () => {
   const t = fs.readFileSync(path.join(ROOT, 'logbook.html'), 'utf8');
-  ['px_logbook_draft_prev', 'staleResolve(true)', 'staleResolve(false)', 'ALLEZ.PROGRAM.best(', 'P.suggest(', 'data-t="rir"', 'function propagateKg'].forEach(s => assert.ok(t.includes(s), s));
+  ['px_logbook_draft_prev', 'data-action="staleResolve" data-args="true"', 'data-action="staleResolve" data-args="false"', 'ALLEZ.PROGRAM.best(', 'P.suggest(', 'data-t="rir"', 'function propagateKg'].forEach(s => assert.ok(t.includes(s), s));
   assert.ok(!/getHistMax/.test(t));
 });
 
