@@ -294,8 +294,93 @@
   // Charge proposée selon le bloc : en deload, charge × load (0,6), arrondie au 0,5 kg
   function chargeBloc(kg, code) { kg = +kg || 0; var l = block(code).load; return kg > 0 && l !== 1 ? Math.round(kg * l * 2) / 2 : kg; }
 
+  // 1RM estimé, formule de Brzycki : charge × 36 / (37 − reps). Brzycki 1993, JOPERD, DOI 10.1080/07303084.1993.10606684.
+  // Non défini au-delà de 36 répétitions ; comme Epley, c'est un repère de comparaison, pas une mesure.
+  function brzycki(kg, reps) { kg = +kg || 0; reps = +reps || 0; return kg > 0 && reps > 0 && reps < 37 ? Math.round(kg * 36 / (37 - reps) * 10) / 10 : 0; }
+  // Bas de la fourchette : « 12-15 » → 12, « 10-12/côté » → 10, « 15 » → 15, « max » → null
+  function repsMin(reps) { var s = String(reps || ''); if (/^\s*max/i.test(s)) return null; var m = s.match(/\d+/); return m ? +m[0] : null; }
+  function faites(sets) { return (sets || []).filter(function (s) { return s.done !== false && (+s.reps || 0) > 0; }); }
+  // Charge de travail d'une séance : la plus lourde des séries faites
+  function chargeTravail(sets) { var k = 0; faites(sets).forEach(function (s) { if ((+s.kg || 0) > k) k = +s.kg; }); return k; }
+  function volumeSets(sets) { var v = 0; faites(sets).forEach(function (s) { v += (+s.reps || 0) * (+s.kg || 0); }); return Math.round(v * 10) / 10; }
+  // Échec au bas de la fourchette : une série faite à la charge de travail sous le minimum de répétitions
+  function echecBas(sets, reps) {
+    var lo = repsMin(reps), k = chargeTravail(sets);
+    return !!lo && k > 0 && faites(sets).some(function (s) { return (+s.kg || 0) === k && (+s.reps || 0) < lo; });
+  }
+  // Matériel, pour le palier de charge suivant. Paliers courants en salle, à vérifier dans la tienne :
+  // haltères de 1 kg en 1 kg jusqu'à 10 kg puis de 2 kg en 2 kg ; câble, machine et barre chargée : 2,5 kg.
+  var EQUIP = {
+    'dev-incline': 'halteres', 'elev-lat': 'halteres', 'dev-militaire': 'halteres', 'rowing-unilateral': 'halteres', 'oiseau-incline': 'halteres',
+    'curl-alternes': 'halteres', 'arnold-press': 'halteres', 'curl-concentre': 'halteres', 'curl-marteau': 'halteres',
+    'ecarte-cable': 'cable', 'ext-triceps': 'cable', 'face-pull': 'cable', 'tirage-vertical': 'cable', 'rowing-cable': 'cable', 'elev-lat-cable': 'cable',
+    'ext-overhead': 'cable', 'pallof-press': 'cable', 'ext-triceps-barre-v': 'cable', 'tirage-vertical-neutre': 'cable', 'curl-poulie': 'cable', 'oiseau-cable': 'cable', 'crunch-cable': 'cable',
+    'curl-ez': 'barre',
+    'dev-incline-machine': 'machine', 'dev-epaules-machine': 'machine', 'pec-deck': 'machine', 'pec-deck-inverse': 'machine', 'rowing-machine': 'machine'
+  };
+  function palier(exId, kg) { var e = EQUIP[exId]; return !e ? 0 : e === 'halteres' ? ((+kg || 0) < 10 ? 1 : 2) : 2.5; }
+  // Charge suggérée pour la prochaine séance. hist : séances passées du même créneau, la plus récente d'abord ([{ sets }] ou [sets]),
+  // sans les séances de deload (leurs charges réduites fausseraient la base). Règles, dans cet ordre :
+  //  deload → charge × 0,6 · deux échecs de suite au bas de la fourchette, à la même charge → −10 %
+  //  · toutes les séries au haut de la fourchette → + 1 palier, reps au bas de la fourchette · sinon même charge.
+  function suggest(exId, reps, hist, code) {
+    var h = (hist || []).map(function (x) { return Array.isArray(x) ? x : (x && x.sets) || []; }).filter(function (s) { return faites(s).length; });
+    if (!h.length) return null;
+    var kg = chargeTravail(h[0]);
+    if (!(kg > 0)) return null;                                         // sans charge : la progression se fait en répétitions
+    if (code === 'DL') return { kg: chargeBloc(kg, 'DL'), why: 'deload', base: kg };
+    if (h.length > 1 && chargeTravail(h[1]) === kg && echecBas(h[0], reps) && echecBas(h[1], reps)) return { kg: Math.round(kg * 0.9 * 2) / 2, why: 'baisse', base: kg };
+    if (toutAuHaut(h[0], reps)) { var p = palier(exId, kg); if (p) return { kg: Math.round((kg + p) * 2) / 2, why: 'monte', base: kg, palier: p, reps: repsMin(reps) }; }
+    return { kg: kg, why: 'garde', base: kg };
+  }
+  // Records d'un exercice. entries : [{ date, sets }]. 1RM estimé (Epley et Brzycki), meilleur volume d'une séance (reps × kg), répétitions sans charge.
+  function records(entries) {
+    var r = { e1rm: 0, e1rmDate: null, brzycki: 0, volume: 0, volumeDate: null, reps: 0 };
+    (entries || []).forEach(function (en) {
+      faites(en.sets).forEach(function (s) {
+        var e = e1rm(s.kg, s.reps), b = brzycki(s.kg, s.reps);
+        if (e > r.e1rm) { r.e1rm = e; r.e1rmDate = en.date; }
+        if (b > r.brzycki) r.brzycki = b;
+        if (!(+s.kg > 0) && +s.reps > r.reps) r.reps = +s.reps;
+      });
+      var v = volumeSets(en.sets); if (v > r.volume) { r.volume = v; r.volumeDate = en.date; }
+    });
+    return r;
+  }
+  // Résumé d'une séance d'un exercice : « 3×12 @ 14 kg, RIR 2 » ; « 12/11/10 @ 14 kg » ; « 2×12 @ 14 kg + 1×10 @ 16 kg »
+  function fmtNum(n) { return String(n).replace('.', ','); }
+  function resume(sets, unit) {
+    var f = faites(sets); if (!f.length) return '';
+    var u = unit === 'sec' ? ' s' : '', groups = [];
+    f.forEach(function (s) { var kg = +s.kg || 0, g = groups[groups.length - 1]; if (g && g.kg === kg) g.reps.push(+s.reps); else groups.push({ kg: kg, reps: [+s.reps] }); });
+    var txt = groups.map(function (g) {
+      var same = g.reps.every(function (r) { return r === g.reps[0]; });
+      return (same ? g.reps.length + '×' + g.reps[0] : g.reps.join('/')) + u + (g.kg > 0 ? ' @ ' + fmtNum(g.kg) + ' kg' : '');
+    }).join(' + ');
+    var rirs = f.filter(function (s) { return s.rir != null && s.rir !== ''; }).map(function (s) { return +s.rir; });
+    if (rirs.length) { var lo = Math.min.apply(null, rirs), hi = Math.max.apply(null, rirs); txt += ', RIR ' + (lo === hi ? lo : lo + '-' + hi); }
+    return txt;
+  }
+  // Substitutions proposées pour un exercice (jamais un exercice déconseillé pour le bas du dos)
+  function subsOf(exId) { var e = EXERCISES[exId]; return e ? (e.subs || []).filter(function (id) { return EXERCISES[id] && EXERCISES[id].lombaires !== 'eviter'; }) : []; }
+  // Exercice du logbook remplacé par subId : séries, repos et fourchette du créneau ; nom, muscle, unité et consignes du remplaçant.
+  // Si l'unité change (secondes ↔ répétitions), la fourchette vient du programme du remplaçant ou de sa prescription par défaut.
+  function substitute(lx, subId) {
+    var e = EXERCISES[subId]; if (!e || subsOf(lx.id).indexOf(subId) < 0) return lx;
+    var o = {}; Object.keys(lx).forEach(function (k) { o[k] = lx[k]; });
+    o.id = e.id; o.name = displayName(e); o.muscle = e.muscle; o.t = e.type; o.tempo = e.tempo; o.unit = e.unit || 'reps'; o.bw = !!e.bw;
+    o.lombaires = e.lombaires; o.consigne = e.consigne; o.hint = ''; o.remplace = lx.id; o.remplaceName = lx.name;
+    if (o.unit !== (lx.unit || 'reps')) {
+      var it = null; ORDER.forEach(function (sid) { SESSIONS[sid].items.forEach(function (x) { if (!it && x.ex === subId) it = x; }); });
+      o.reps = it ? it.reps : e.defaut ? e.defaut.reps : o.reps;
+    }
+    return o;
+  }
+
   A.PROGRAM = {
     e1rm: e1rm, best: best, repsMax: repsMax, toutAuHaut: toutAuHaut, chargeBloc: chargeBloc,
+    brzycki: brzycki, repsMin: repsMin, chargeTravail: chargeTravail, volumeSets: volumeSets, echecBas: echecBas, palier: palier, suggest: suggest,
+    records: records, resume: resume, subsOf: subsOf, substitute: substitute,
     BLOCKS: BLOCKS, MUSCLES: MUSCLES, EXERCISES: EXERCISES, SESSIONS: SESSIONS, ORDER: ORDER, byDay: BY_DAY, otherDays: OTHER_DAYS, DAY_NAMES: DAY_NAMES, WARMUP: WARMUP,
     exercise: exercise, findByName: findByName, displayName: displayName, block: block, currentBlockCode: currentBlockCode,
     setsFor: setsFor, rirFor: rirFor, repsLabel: repsLabel, prescription: prescription,

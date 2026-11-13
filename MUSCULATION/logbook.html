@@ -353,6 +353,27 @@ button, a, [onclick], input, select, label {
 .hist-pill.undone{opacity:.5;text-decoration:line-through}
 .save-prog{position:absolute;left:0;top:0;height:3px;background:var(--green);width:0;transition:width .3s}
 .fskip-row{display:flex;gap:10px}
+/* ── PHASE 4 : suggestion, records, substitution, saisie en 2 taps ── */
+.exo-rec{padding:6px 20px;font-size:.7rem;color:#0a6e3a;background:rgba(10,158,82,.06);border-bottom:1px solid var(--border);line-height:1.5}
+.exo-sub-btn{min-height:44px;padding:0 14px;border-radius:100px;border:1px solid var(--border);background:var(--bg-inner);color:var(--text-mid);font-size:.74rem;font-weight:700;cursor:pointer;font-family:var(--f)}
+.exo-sub-btn:hover{border-color:var(--blue);color:var(--blue)}
+.exo-subs{display:flex;flex-wrap:wrap;gap:6px;width:100%}
+.exo-subs[hidden]{display:none}
+.sub-chip{min-height:44px;padding:0 14px;border-radius:12px;border:1px solid rgba(21,96,212,.3);background:rgba(21,96,212,.06);color:#0f4aa8;font-size:.78rem;font-weight:600;cursor:pointer;font-family:var(--f);text-align:left}
+.sub-chip.sub-back{border-color:var(--border);background:#fff;color:var(--text-mid)}
+.exo-sub-on{width:100%;font-size:.72rem;font-weight:700;color:#0f4aa8}
+.finputs{flex-wrap:wrap;row-gap:18px}
+.fstep{display:flex;align-items:center;gap:6px}
+.fstep .finp{width:84px}
+.fstep-b{width:52px;height:56px;border-radius:10px;border:1px solid #3a3a3a;background:#141414;color:#fff;font-size:28px;line-height:1;cursor:pointer;font-family:'Inter',sans-serif}
+.fstep-b:active{background:#262626}
+.frir{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;flex-wrap:wrap}
+.frir .finp-label{margin-right:4px}
+.frir-b{min-width:48px;height:48px;border-radius:10px;border:1px solid #3a3a3a;background:#111;color:#d6d9df;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;cursor:pointer}
+.draft-warn{background:#fdecea;border:1px solid #f3b4ab;border-left:4px solid var(--red);border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:.88rem;line-height:1.5;color:#5c1208}
+.draft-warn[hidden]{display:none}
+.hist-sub{font-weight:600;color:#0f4aa8;font-size:.74rem}
+.frir-b.on{background:#e8960a;border-color:#e8960a;color:#000}
 @media(max-width:768px){
   .hero{padding:26px 18px 20px}
   .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -411,6 +432,7 @@ button, a, [onclick], input, select, label {
 </div>
 
 <div class="main">
+  <div id="draftWarn" class="draft-warn" role="alert" hidden><b>Brouillon non enregistré</b> : le stockage du navigateur est plein ou bloqué. Garde l'onglet ouvert et sauvegarde la séance dès que possible.</div>
   <div id="viewS"></div>
   <div id="viewH" style="display:none"></div>
   <div id="viewC" style="display:none"></div>
@@ -439,8 +461,15 @@ var DRAFT_KEY = 'px_logbook_draft';
 ALLEZ.reloadOnNewDay();   // le brouillon est enregistré à chaque saisie : rien n'est perdu au rechargement
 
 function localISO(d) { return ALLEZ.localISO(d); }
+function kgStr(n) { return String(n).replace('.', ',') + ' kg'; }
 function esc(v) { return String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function isTimeEx(e) { return e.unit === 'sec'; }
+// Entrée du journal : l'identifiant suit l'exercice réellement fait ; « remplace » garde la trace de la substitution
+function exEntry(exo, sets) {
+  var o = { exId: exo.id, name: exo.name, muscle: exo.muscle, unit: isTimeEx(exo) ? 'sec' : 'reps', sets: sets };
+  if (exo.remplace) o.remplace = exo.remplace;
+  return o;
+}
 function firstNum(r) { var m = /\d+/.exec(String(r)); return m ? +m[0] : 10; }
 
 var todayNum    = new Date().getDay();
@@ -449,7 +478,7 @@ var todayLabel  = new Date().toLocaleDateString('fr-FR', { weekday:'long', day:'
 todayLabel      = todayLabel.charAt(0).toUpperCase() + todayLabel.slice(1);
 var isPlannedDay = !!PLANNED[todayNum];
 var forced = false;                             // séance lancée un jour de repos (rattrapage)
-var actDay, actSess;
+var actDay, actSess, subs = {}, EXS = [];
 (function initDay(){
   // Séance déjà commencée/sauvegardée aujourd'hui → on la reprend
   var d = lb_draft(); var saved = getTodaySess();
@@ -457,8 +486,44 @@ var actDay, actSess;
   else if (saved && SESSIONS[saved.dayNum]) { actDay = saved.dayNum; forced = !isPlannedDay || saved.dayNum !== todayNum; }
   else actDay = isPlannedDay ? todayNum : NEXT_TRAIN[todayNum];
   actSess = SESSIONS[actDay];
+  restoreSubs();
 })();
 function isActive() { return isPlannedDay || forced; }
+
+/* ── SUBSTITUTIONS ── */
+// subs : rang de l'exercice → identifiant du remplaçant (machine prise, matériel absent…). EXS = exercices réellement faits.
+function setEXS() { EXS = actSess.exercises.map(function(e, ei){ return subs[ei] ? ALLEZ.PROGRAM.substitute(e, subs[ei]) : e; }); }
+// Reprise : depuis le brouillon du jour, sinon depuis la séance déjà sauvegardée aujourd'hui (champ « remplace »)
+function restoreSubs() {
+  subs = {};
+  var d = lb_draft(), S = actSess;
+  if (d && d.date === todayKey && d.dayNum === actDay && d.subs) {
+    Object.keys(d.subs).forEach(function(ei){ var e = S.exercises[ei]; if (e && ALLEZ.PROGRAM.subsOf(e.id).indexOf(d.subs[ei]) >= 0) subs[ei] = d.subs[ei]; });
+  } else {
+    var t = getTodaySess();
+    if (t && t.dayNum === actDay) (t.exercises || []).forEach(function(x){
+      if (!x.remplace) return;
+      S.exercises.forEach(function(e, ei){ if (e.id === x.remplace && ALLEZ.PROGRAM.subsOf(e.id).indexOf(x.exId) >= 0) subs[ei] = x.exId; });
+    });
+  }
+  setEXS();
+}
+function toggleSubs(ei) { var el = document.getElementById('subs'+ei); if (el) el.hidden = !el.hidden; }
+function pickSub(ei, subId) {
+  var orig = actSess.exercises[ei];
+  var next = subId === orig.id ? null : subId;
+  if ((subs[ei] || null) === next) { toggleSubs(ei); return; }
+  var c = document.getElementById('rows'+ei);
+  if (c && c.querySelector('.set-row.done') && !confirm('Des séries de cet exercice sont déjà cochées. Les remplacer par le nouvel exercice ?')) return;
+  if (next) subs[ei] = next; else delete subs[ei];
+  setEXS();
+  // brouillon : on garde les autres exercices, on repart de zéro pour celui-ci
+  var d = { date: todayKey, dayNum: actDay, sets: collectSets(), subs: subs, ids: EXS.map(function(e){ return e.id; }), ts: Date.now() };
+  delete d.sets[ei];
+  dirty = true; writeDraft(d);
+  renderSession();
+  var card = document.getElementById('ec'+ei); if (card && card.scrollIntoView) card.scrollIntoView({ block: 'nearest' });
+}
 
 /* ── STORAGE ─────────────────────────────────────── */
 function exKey(e) { return e.exId || ALLEZ.PROGRAM.findByName(e.name) || e.name; }   // identifiant stable (les anciens noms sont des alias)
@@ -469,11 +534,20 @@ function lb_load() {
 }
 function lb_draft() { try { return JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); } catch(e) { return null; } }
 
-function getLastSess(dayNum) {
-  var s = lb_load().sessions.filter(function(s){ return s.dayNum === dayNum && s.date !== todayKey; });
-  s.sort(function(a,b){ return b.date.localeCompare(a.date); });
-  return s[0] || null;
+// Séances passées de ce créneau (même séance, hors aujourd'hui) où l'exercice a été fait, la plus récente d'abord : [{ date, sets }]
+function slotHist(dayNum, exId) {
+  return lb_load().sessions.filter(function(s){ return s.dayNum === dayNum && s.date !== todayKey; })
+    .sort(function(a,b){ return b.date.localeCompare(a.date); })
+    .map(function(s){ var e = (s.exercises || []).find(function(x){ return exKey(x) === exId; }); return e && e.sets.length ? { date: s.date, sets: e.sets } : null; })
+    .filter(Boolean);
 }
+// Toutes les séances passées de l'exercice (records), quel que soit le créneau
+function exHist(exId) {
+  var out = [];
+  lb_load().sessions.forEach(function(s){ if (s.date === todayKey) return; (s.exercises || []).forEach(function(e){ if (exKey(e) === exId) out.push({ date: s.date, sets: e.sets || [] }); }); });
+  return out;
+}
+function isDeloadDate(iso) { var st = ALLEZ.status(iso + 'T12:00:00'); return !!(st.started && st.block && st.block.code === 'DL'); }
 function getTodaySess() {
   return lb_load().sessions.find(function(s){ return s.date === todayKey; }) || null;
 }
@@ -499,12 +573,32 @@ function collectRows(c) {
 }
 function collectSets() {
   var out = {};
-  actSess.exercises.forEach(function(exo, ei) { var c = document.getElementById('rows'+ei); if (c) out[ei] = collectRows(c); });
+  EXS.forEach(function(exo, ei) { var c = document.getElementById('rows'+ei); if (c) out[ei] = collectRows(c); });
   return out;
 }
+// Brouillon : séries par rang d'exercice + identifiants (ids) et substitutions, pour être relu même si l'ordre change
+function writeDraft(d) {
+  var ok = true;
+  try { localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); } catch(e) { ok = false; }
+  var w = document.getElementById('draftWarn'); if (w) w.hidden = ok;
+  return ok;
+}
+// dirty : une saisie a eu lieu depuis le dernier enregistrement de la séance. Sans saisie, quitter l'appli ne recrée pas
+// de brouillon (sinon une séance déjà sauvegardée réapparaîtrait le lendemain comme « non sauvegardée »).
+var dirty = false;
+function flushDraft() { if (dirty) saveDraft(); }
 function saveDraft() {
   if (!isActive()) return;
-  try { localStorage.setItem(DRAFT_KEY, JSON.stringify({ date: todayKey, dayNum: actDay, sets: collectSets(), ts: Date.now() })); } catch(e) {}
+  dirty = true;
+  writeDraft({ date: todayKey, dayNum: actDay, sets: collectSets(), subs: subs, ids: EXS.map(function(e){ return e.id; }), ts: Date.now() });
+}
+// Séries du brouillon pour l'exercice affiché au rang ei (recherche par identifiant si le brouillon en porte)
+function draftSetsFor(d, ei, exo) {
+  if (!d || !d.sets) return null;
+  var j = ei;
+  if (Array.isArray(d.ids)) { j = d.ids.indexOf(exo.id); if (d.ids[ei] === exo.id) j = ei; }
+  var s = j >= 0 ? d.sets[j] : null;
+  return s && s.length ? s : null;
 }
 function clearDraft() { try { localStorage.removeItem(DRAFT_KEY); } catch(e) {} }
 
@@ -522,7 +616,11 @@ var staleDraft = (function(){
 })();
 function draftExercises(d) {
   var S = SESSIONS[d.dayNum], out = [];
-  S.exercises.forEach(function(exo, ei) { var sets = (d.sets || {})[ei]; if (sets && sets.length) out.push({ exId: exo.id, name: exo.name, muscle: exo.muscle, unit: isTimeEx(exo) ? 'sec' : 'reps', sets: sets }); });
+  S.exercises.forEach(function(orig, ei) {
+    var exo = d.subs && d.subs[ei] ? ALLEZ.PROGRAM.substitute(orig, d.subs[ei]) : orig;
+    var sets = draftSetsFor(d, ei, exo);
+    if (sets) out.push(exEntry(exo, sets));
+  });
   return out;
 }
 function staleBanner() {
@@ -589,6 +687,7 @@ function pickSess(k) {
   }
   clearDraft();
   actDay = k; actSess = SESSIONS[k]; forced = !isPlannedDay || k !== todayNum;
+  restoreSubs();
   renderStats(); renderSession();
 }
 
@@ -607,7 +706,6 @@ function renderSession() {
     return;
   }
 
-  var lastSess   = getLastSess(actDay);
   var todaySaved = getTodaySess();
   if (todaySaved && todaySaved.dayNum !== actDay) todaySaved = null;
   var draft = lb_draft();
@@ -623,38 +721,43 @@ function renderSession() {
     '</div></div>';
 
   var code = blockCode();
-  actSess.exercises.forEach(function(exo, ei) {
+  var P = ALLEZ.PROGRAM;
+  EXS.forEach(function(exo, ei) {
     var isT = isTimeEx(exo);
     var nSets = setsFor(exo);
-    var lastExo = lastSess ? (lastSess.exercises||[]).find(function(e){ return exKey(e)===exo.id; }) : null;
+    var hist = slotHist(actDay, exo.id);
+    var lastExo = hist[0] || null;
     var savedExo = todaySaved ? (todaySaved.exercises||[]).find(function(e){ return exKey(e)===exo.id; }) : null;
+    var dDraft = draftSetsFor(draft, ei, exo);
+    // Base de la suggestion : séances hors deload (leurs charges réduites ne servent pas de référence)
+    var sug = (isT || exo.bw) ? null : P.suggest(exo.id, exo.reps, hist.filter(function(h){ return !isDeloadDate(h.date); }), code);
 
     var dSets = [];
-    if (draft && draft.sets && draft.sets[ei] && draft.sets[ei].length) {
-      dSets = draft.sets[ei];
+    if (dDraft) {
+      dSets = dDraft;
     } else if (savedExo && savedExo.sets.length) {
       dSets = savedExo.sets;
-    } else if (lastExo && lastExo.sets.length) {
-      // Deload : charges de la dernière séance × 0,6 (bloc DL) ; sinon reprises telles quelles
-      dSets = lastExo.sets.slice(0, Math.max(nSets, 1)).map(function(s){ return { reps: s.reps, kg: ALLEZ.PROGRAM.chargeBloc(s.kg, code), done: false }; });
+    } else if (lastExo) {
+      // Charge suggérée (deload, −10 %, palier ou même charge) ; répétitions de la dernière fois, ou bas de fourchette après un palier
+      dSets = lastExo.sets.slice(0, Math.max(nSets, 1)).map(function(s){ return { reps: sug && sug.reps ? sug.reps : s.reps, kg: sug ? sug.kg : (s.kg || 0), done: false }; });
       while (dSets.length < nSets) dSets.push({ reps: dSets[dSets.length-1].reps, kg: dSets[dSets.length-1].kg, done: false });
     } else {
       for (var i = 0; i < nSets; i++) dSets.push({ reps: firstNum(exo.reps), kg: 0, done: false });
     }
 
-    var lastStr = '';
-    if (lastExo && lastExo.sets.length) {
-      var maxKg = Math.max.apply(null, lastExo.sets.map(function(s){ return s.kg||0; }));
-      var repsList = lastExo.sets.map(function(s){ return s.reps||0; }).join('/');
-      lastStr = lastExo.sets.length+' séries · '+repsList+(isT?' s':' reps')+(maxKg>0?' · max '+String(maxKg).replace('.',',')+' kg':'');
-    }
+    var lastStr = lastExo ? P.resume(lastExo.sets, exo.unit) : '';
     var rir = rirFor(exo);
+    var rec = P.records(exHist(exo.id));
+    var recStr = rec.e1rm > 0
+      ? '1RM estimé ' + kgStr(rec.e1rm) + ' (Epley) · ' + kgStr(rec.brzycki) + ' (Brzycki) · meilleur volume ' + kgStr(rec.volume)
+      : (rec.reps > 0 ? 'meilleure série ' + rec.reps + (isT ? ' s' : ' reps') : '');
+    var alts = P.subsOf(actSess.exercises[ei].id);
 
     html += '<div class="exo-card'+(exo.t==='k'?' exo-fin':'')+'" id="ec'+ei+'">';
     html += '<div class="exo-head">' +
       '<div class="exo-name">'+exo.name+'</div>' +
       '<div class="exo-muscle">'+exo.muscle+'</div>' +
-      '<div class="pr-badge" id="pr'+ei+'" title="Record : meilleur 1RM estimé (formule d\'Epley : charge × (1 + reps/30)), ou plus de répétitions sans charge">🏆 Record</div>' +
+      '<div class="pr-badge" id="pr'+ei+'" title="Record : meilleur 1RM estimé (Epley : charge × (1 + reps/30)), meilleur volume de séance (reps × kg), ou plus de répétitions sans charge">🏆 Record</div>' +
       '<div class="exo-meta">' +
         '<span class="exo-target" title="Séries × répétitions cibles">🎯 '+nSets+' × '+exo.reps+'</span>' +
         '<span class="exo-rest" title="Repos entre séries">⏱ '+exo.restTime+' s</span>' +
@@ -663,13 +766,22 @@ function renderSession() {
         (exo.hint ? '<span class="exo-hint" title="Charge indicative pour débuter">'+exo.hint+'</span>' : '') +
       '</div>' +
       (exo.lombaires === 'prudence' ? '<div class="exo-safe">🟠 Bas du dos : '+exo.consigne+'</div>' : '') +
+      (exo.remplace ? '<div class="exo-sub-on">⇄ Remplace : '+esc(exo.remplaceName)+'</div>' : '') +
+      (alts.length ? '<button class="exo-sub-btn" onclick="toggleSubs('+ei+')" aria-controls="subs'+ei+'">⇄ Remplacer</button>' +
+        '<div class="exo-subs" id="subs'+ei+'" hidden role="group" aria-label="Exercice de remplacement">' +
+        (exo.remplace ? '<button class="sub-chip sub-back" onclick="pickSub('+ei+',\''+actSess.exercises[ei].id+'\')">↺ '+esc(exo.remplaceName)+'</button>' : '') +
+        alts.filter(function(id){ return id !== exo.id; }).map(function(id){ return '<button class="sub-chip" onclick="pickSub('+ei+',\''+id+'\')">'+esc(P.exercise(id).name)+'</button>'; }).join('') +
+        '</div>' : '') +
       '</div>';
     var conseil = '';
-    if (lastExo && !savedExo && !(draft && draft.sets && draft.sets[ei])) {
-      if (code === 'DL' && !isT && !exo.bw) conseil = 'Deload : charges de la dernière séance −40 %, déjà appliquées ci-dessous.';
-      else if (code !== 'DL' && !isT && !exo.bw && ALLEZ.PROGRAM.toutAuHaut(lastExo.sets, exo.reps)) conseil = 'Toutes les séries au haut de la fourchette : monte d\'un palier de charge (le plus petit disponible) et repars du bas de la fourchette.';
+    if (sug && !savedExo && !dDraft) {
+      if (sug.why === 'deload') conseil = 'Deload : ' + kgStr(sug.base) + ' −40 % = ' + kgStr(sug.kg) + ', déjà appliqué ci-dessous.';
+      else if (sug.why === 'baisse') conseil = 'Deux séances de suite sous le bas de la fourchette à ' + kgStr(sug.base) + ' : on redescend de 10 %, ' + kgStr(sug.kg) + '.';
+      else if (sug.why === 'monte') conseil = 'Toutes les séries au haut de la fourchette : +' + kgStr(sug.palier) + ' (plus petit palier courant, à ajuster selon ta salle), ' + kgStr(sug.kg) + ', reps au bas de la fourchette.';
+      else conseil = 'Même charge, ' + kgStr(sug.kg) + ' : vise une répétition de plus que la dernière fois.';
     }
-    if (lastStr) html += '<div class="exo-last">Dernière fois : <strong>'+lastStr+'</strong>' + (conseil ? '<span class="exo-conseil">→ ' + conseil + '</span>' : '') + '</div>';
+    if (lastStr) html += '<div class="exo-last">Dernière fois : <strong>'+esc(lastStr)+'</strong>' + (conseil ? '<span class="exo-conseil">→ ' + conseil + '</span>' : '') + '</div>';
+    if (recStr) html += '<div class="exo-rec">🏆 Records : '+recStr+'</div>';
     html += '<div class="sets-wrap">' +
       '<div class="sets-hd"><span>Série</span><span>'+(isT?'Secondes':(exo.bw?'Reps/côté':'Reps'))+'</span><span>'+(isT||exo.bw?'—':'Kg')+'</span><span title="Répétitions que tu aurais encore pu faire">RIR</span><span></span></div>' +
       '<div id="rows'+ei+'">';
@@ -690,7 +802,7 @@ function renderSession() {
   document.getElementById('saveTitle').textContent = actSess.name;
   updateSaveSub();
   attachInputListeners();
-  actSess.exercises.forEach(function(_,ei){ checkPR(ei); });
+  EXS.forEach(function(_,ei){ checkPR(ei); });
 }
 
 // Charge indicative de départ (programme) en indice, tant qu'aucune charge n'est saisie
@@ -717,7 +829,7 @@ function attachInputListeners() {
     if (inp.dataset.t === 'kg' && inp.dataset.si === '0') inp.dataset.prev = inp.value;
     inp.addEventListener('input', function() {
       if (this.dataset.t === 'kg' && this.dataset.si === '0') propagateKg(this);
-      if (this.dataset.t === 'kg') checkPR(parseInt(this.dataset.ei));
+      if (this.dataset.t !== 'rir') checkPR(parseInt(this.dataset.ei));
       updateSaveSub(); saveDraft();
     });
   });
@@ -734,7 +846,7 @@ function propagateKg(first) {
 }
 
 function addSet(ei) {
-  var exo = actSess.exercises[ei];
+  var exo = EXS[ei];
   var container = document.getElementById('rows'+ei);
   var rows = container.querySelectorAll('.set-row');
   var si = rows.length;
@@ -760,11 +872,12 @@ function toggleDone(ei, si) {
   row.classList.toggle('done');
   btn.classList.toggle('done');
   btn.textContent = btn.classList.contains('done') ? '✓' : '';
-  updateSaveSub(); saveDraft();
+  updateSaveSub(); saveDraft(); checkPR(ei);
+  audioUnlock();
   if (btn.classList.contains('done')) {
     if (navigator.vibrate) navigator.vibrate(30);
     if (document.getElementById('focusOverlay').style.display !== 'flex') {
-      startRestTimer(ei, (actSess.exercises[ei] && actSess.exercises[ei].restTime) || 90);
+      startRestTimer(ei, (EXS[ei] && EXS[ei].restTime) || 90);
     }
   } else if (rtbActive === ei) {
     stopRestTimer();
@@ -772,15 +885,18 @@ function toggleDone(ei, si) {
 }
 
 function checkPR(ei) {
-  var hist = getHistBest(actSess.exercises[ei]);
+  var hist = getHistBest(EXS[ei]);
   var container = document.getElementById('rows'+ei);
   if (!container) return;
-  // séries en cours de saisie comprises (cochées ou non) : le badge réagit dès la frappe
-  var now = ALLEZ.PROGRAM.best(collectRows(container).map(function(s){ return { reps: s.reps, kg: s.kg }; }));
+  // séries cochées seulement : les lignes préremplies avec la charge suggérée ne déclenchent pas de faux record
+  var rows = collectRows(container).filter(function(s){ return s.done; }).map(function(s){ return { reps: s.reps, kg: s.kg }; });
+  var now = ALLEZ.PROGRAM.best(rows);
   var badge = document.getElementById('pr'+ei);
-  // Record seulement s'il existe un historique à battre (pas dès la 1re séance) : 1RM estimé, ou répétitions sans charge
-  var on = hist.e1rm > 0 ? now.e1rm > hist.e1rm : (hist.reps > 0 && now.reps > hist.reps);
-  if (badge) badge.classList.toggle('on', on);
+  // Record seulement s'il existe un historique à battre (pas dès la 1re séance) : 1RM estimé, meilleur volume de séance, ou répétitions sans charge
+  var volPast = ALLEZ.PROGRAM.records(exHist(EXS[ei].id)).volume, volNow = ALLEZ.PROGRAM.volumeSets(rows);
+  var e1 = hist.e1rm > 0 && now.e1rm > hist.e1rm, vol = volPast > 0 && volNow > volPast;
+  var on = hist.e1rm > 0 ? (e1 || vol) : (hist.reps > 0 && now.reps > hist.reps);
+  if (badge) { badge.classList.toggle('on', on); badge.textContent = on && !e1 && vol ? '🏆 Record de volume' : '🏆 Record'; }
 }
 
 function updateSaveSub() {
@@ -797,16 +913,13 @@ function saveSession() {
   if (!doneCount && !confirm('Aucune série cochée. Sauvegarder quand même ?')) return;
   var exercises = [];
   var sets = collectSets();
-  actSess.exercises.forEach(function(exo, ei) {
-    if (!sets[ei]) return;
-    exercises.push({ exId: exo.id, name: exo.name, muscle: exo.muscle, unit: isTimeEx(exo) ? 'sec' : 'reps', sets: sets[ei] });
-  });
+  EXS.forEach(function(exo, ei) { if (sets[ei]) exercises.push(exEntry(exo, sets[ei])); });
   // Une séance de musculation par jour ; durée, poids et note déjà saisis ailleurs sont conservés
   var prev = ALLEZ.store.get(todayKey + '_muscu') || {};
   var ok = ALLEZ.store.upsert({ date: todayKey, kind: 'muscu', seance: actSess.id, name: actSess.name, exercises: exercises,
     duration: prev.duration, bodyWeight: prev.bodyWeight, feeling: prev.feeling, note: prev.note });
   if (!ok) { alert('La sauvegarde a échoué (stockage plein ou bloqué). Ton brouillon est conservé.'); return; }
-  clearDraft();
+  clearDraft(); dirty = false;
 
   var btn = document.getElementById('saveBtn');
   btn.textContent = 'SAUVEGARDÉ ✓'; btn.classList.add('saved');
@@ -843,7 +956,8 @@ function renderHistory() {
 
     (s.exercises||[]).forEach(function(e) {
       var isSec = e.unit === 'sec' || e.muscle === 'Gainage';
-      html += '<div class="hist-exo"><div class="hist-exo-name">'+esc(e.name)+'</div><div class="hist-pills">';
+      var rx = e.remplace ? ALLEZ.PROGRAM.exercise(e.remplace) : null;
+      html += '<div class="hist-exo"><div class="hist-exo-name">'+esc(e.name)+(rx ? ' <span class="hist-sub">⇄ à la place de '+esc(rx.name)+'</span>' : '')+'</div><div class="hist-pills">';
       var maxKg = Math.max.apply(null, (e.sets||[]).map(function(st){ return st.kg||0; }).concat([0]));
       (e.sets||[]).forEach(function(st,si){
         var top = (st.kg||0) > 0 && st.kg === maxKg;
@@ -877,22 +991,24 @@ function lockScreen() {
 }
 document.addEventListener('visibilitychange', function() {
   if (document.visibilityState === 'visible' && document.getElementById('focusOverlay').style.display === 'flex') lockScreen();
-  if (document.visibilityState === 'hidden') saveDraft();
+  if (document.visibilityState === 'hidden') flushDraft();
 });
+window.addEventListener('pagehide', flushDraft);   // fermeture d'onglet, retour arrière, appli tuée en arrière-plan
 
 function enterFocus() {
   if (!isActive()) return;
   var found = false;
-  for (var ei = 0; ei < actSess.exercises.length && !found; ei++) {
+  for (var ei = 0; ei < EXS.length && !found; ei++) {
     var rows = document.querySelectorAll('#rows'+ei+' .set-row');
     for (var si = 0; si < rows.length; si++) {
       if (!rows[si].classList.contains('done')) { fExIdx = ei; fSetIdx = si; found = true; break; }
     }
   }
   if (!found) { fExIdx = 0; fSetIdx = 0; }
+  audioUnlock();
   fPhase = 'input';
   stopRestTimer();
-  fSetRest((actSess.exercises[fExIdx] && actSess.exercises[fExIdx].restTime) || 90);
+  fSetRest((EXS[fExIdx] && EXS[fExIdx].restTime) || 90);
   document.getElementById('focusOverlay').style.display = 'flex';
   document.body.style.overflow = 'hidden';
   lockScreen();
@@ -907,12 +1023,12 @@ function exitFocus() {
 }
 
 function fRender() {
-  var exo = actSess.exercises[fExIdx];
+  var exo = EXS[fExIdx];
   var rows = document.querySelectorAll('#rows'+fExIdx+' .set-row');
   var total = rows.length;
   var isT = isTimeEx(exo), noKg = isT || exo.bw;
 
-  document.getElementById('fTopLabel').textContent = actSess.name + ' · EXO ' + (fExIdx+1) + '/' + actSess.exercises.length;
+  document.getElementById('fTopLabel').textContent = actSess.name + ' · EXO ' + (fExIdx+1) + '/' + EXS.length;
   document.getElementById('fProg').textContent = '🎯 ' + total + ' × ' + exo.reps + (exo.hint ? '  ·  ' + exo.hint : '');
   document.getElementById('fExName').textContent = exo.name.toUpperCase();
   document.getElementById('fMuscle').textContent = exo.muscle.toUpperCase();
@@ -923,15 +1039,26 @@ function fRender() {
   var kgEl   = row ? row.querySelector('[data-t="kg"]') : null;
   var kgVal  = kgEl ? (kgEl.readOnly ? '' : (kgEl.value || '')) : '';
 
+  // Saisie en 2 taps : valeurs préremplies (charge suggérée), on ajuste au besoin avec − / +, on touche le RIR, puis « Série terminée »
+  var kStep = exo.bw ? 0 : (ALLEZ.PROGRAM.palier(exo.id, +kgVal || 0) || 1);
+  var rirVal = row ? row.querySelector('[data-t="rir"]').value : '';
   var inputsHTML = '<div class="ffield">' +
+    '<div class="fstep"><button class="fstep-b" onclick="fBump(\'fReps\',-1)" aria-label="Une répétition de moins">−</button>' +
     '<input class="finp" id="fReps" type="number" inputmode="decimal" min="0" step="1" ' +
-    'placeholder="'+firstNum(exo.reps)+'" value="'+repsVal+'">' +
+    'placeholder="'+firstNum(exo.reps)+'" value="'+repsVal+'" aria-label="'+(isT?'Secondes':'Répétitions')+'">' +
+    '<button class="fstep-b" onclick="fBump(\'fReps\',1)" aria-label="Une répétition de plus">+</button></div>' +
     '<div class="finp-label">'+(isT?'SEC':'REPS')+'</div></div>';
   if (!noKg) {
-    inputsHTML += '<div class="finp-sep">×</div>' +
-      '<div class="ffield"><input class="finp" id="fKg" type="number" inputmode="decimal" ' +
-      'min="0" step="0.5" placeholder="0" value="'+kgVal+'">' +
-      '<div class="finp-label">KG</div></div>';
+    inputsHTML += '<div class="ffield">' +
+      '<div class="fstep"><button class="fstep-b" onclick="fBump(\'fKg\','+(-kStep)+')" aria-label="Moins '+kStep+' kg">−</button>' +
+      '<input class="finp" id="fKg" type="number" inputmode="decimal" ' +
+      'min="0" step="0.5" placeholder="0" value="'+kgVal+'" aria-label="Charge en kg">' +
+      '<button class="fstep-b" onclick="fBump(\'fKg\','+kStep+')" aria-label="Plus '+kStep+' kg">+</button></div>' +
+      '<div class="finp-label">KG (± '+String(kStep).replace('.', ',')+')</div></div>';
+  }
+  if (rirFor(exo)) {
+    inputsHTML += '<div class="frir" role="group" aria-label="RIR : répétitions gardées en réserve"><span class="finp-label">RIR</span>' +
+      [0,1,2,3,4].map(function(v){ return '<button class="frir-b'+(rirVal !== '' && +rirVal === v ? ' on' : '')+'" onclick="fSetRir('+v+')">'+(v === 4 ? '4+' : v)+'</button>'; }).join('') + '</div>';
   }
   document.getElementById('fInputs').innerHTML = inputsHTML;
 
@@ -971,12 +1098,26 @@ function fSyncToLogbook() {
   updateSaveSub(); saveDraft();
 }
 
+function fBump(id, d) {
+  var el = document.getElementById(id); if (!el) return;
+  var v = (parseFloat(el.value) || parseFloat(el.placeholder) || 0) + d;
+  el.value = String(Math.max(0, Math.round(v * 2) / 2));
+  fSyncToLogbook();
+}
+function fSetRir(v) {
+  var row = document.querySelectorAll('#rows'+fExIdx+' .set-row')[fSetIdx]; if (!row) return;
+  var el = row.querySelector('[data-t="rir"]'); if (!el) return;
+  el.value = el.value !== '' && +el.value === v ? '' : String(v);   // second tap sur la même valeur : effacé
+  document.querySelectorAll('.frir-b').forEach(function(b, i){ b.classList.toggle('on', el.value !== '' && +el.value === i); });
+  saveDraft();
+}
+
 function fAction() {
   fSyncToLogbook();
   var rows = document.querySelectorAll('#rows'+fExIdx+' .set-row');
   var row = rows[fSetIdx];
   if (row && !row.classList.contains('done')) toggleDone(fExIdx, fSetIdx);
-  var isLast = fExIdx === actSess.exercises.length - 1 && fSetIdx === rows.length - 1;
+  var isLast = fExIdx === EXS.length - 1 && fSetIdx === rows.length - 1;
   if (isLast) { fRender(); fFinish(); return; }
   fPhase = 'rest';
   fRender();
@@ -1008,10 +1149,20 @@ function fStartTimer() {
   fTimerIv = setInterval(tick, 250);
 }
 function fmtSec(t) { var m = Math.floor(t/60), s = t%60; return m + ':' + (s<10?'0':'') + s; }
+// Le son doit être autorisé par un geste : le contexte audio est créé (ou relancé) au tap qui coche la série,
+// puis réutilisé à la fin du repos. Vibration : Android seulement (navigator.vibrate n'existe pas sur iPhone).
+var audioCtx = null;
+function audioUnlock() {
+  try {
+    if (!audioCtx) { var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return; audioCtx = new AC(); }
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+  } catch(e) {}
+}
 function restAlarm(pattern, freq) {
   if (navigator.vibrate) navigator.vibrate(pattern);
   try {
-    var ac = new (window.AudioContext||window.webkitAudioContext)();
+    var ac = audioCtx; if (!ac) return;
+    if (ac.state === 'suspended') ac.resume();
     var osc = ac.createOscillator(), g = ac.createGain();
     osc.connect(g); g.connect(ac.destination);
     osc.frequency.value = freq;
@@ -1028,7 +1179,7 @@ function fAdvance() {
   var rows = document.querySelectorAll('#rows'+fExIdx+' .set-row');
   if (fSetIdx + 1 < rows.length) {
     fSetIdx++; fPhase = 'input';
-    fSetRest((actSess.exercises[fExIdx] && actSess.exercises[fExIdx].restTime) || 90);
+    fSetRest((EXS[fExIdx] && EXS[fExIdx].restTime) || 90);
     fRender();
   } else {
     fMoveEx(1);
@@ -1037,12 +1188,12 @@ function fAdvance() {
 
 function fMoveEx(dir) {
   clearInterval(fTimerIv);
-  fExIdx = Math.max(0, Math.min(actSess.exercises.length-1, fExIdx+dir));
+  fExIdx = Math.max(0, Math.min(EXS.length-1, fExIdx+dir));
   var rows = document.querySelectorAll('#rows'+fExIdx+' .set-row');
   fSetIdx = 0;
   for (var i = 0; i < rows.length; i++) { if (!rows[i].classList.contains('done')) { fSetIdx = i; break; } }
   fPhase = 'input';
-  fSetRest((actSess.exercises[fExIdx] && actSess.exercises[fExIdx].restTime) || 90);
+  fSetRest((EXS[fExIdx] && EXS[fExIdx].restTime) || 90);
   fRender();
 }
 
@@ -1107,6 +1258,14 @@ function renderCurveView() {
     });
     html += '</div>';
   });
+  // Exercices de remplacement déjà enregistrés : leur historique a sa propre courbe
+  var prog = {}; TRAIN_DAYS.forEach(function(d){ SESSIONS[d].exercises.forEach(function(e){ prog[e.id] = 1; }); });
+  var autres = {}; lb_load().sessions.forEach(function(s){ (s.exercises||[]).forEach(function(e){ var k = exKey(e); if (!prog[k] && ALLEZ.PROGRAM.exercise(k)) autres[k] = 1; }); });
+  if (Object.keys(autres).length) {
+    html += '<div class="curve-section-lbl">Remplacements</div><div class="curve-btns">' + Object.keys(autres).map(function(id){
+      return '<button class="curve-btn" data-exo="'+id+'" onclick="selectCurve(this.getAttribute(\'data-exo\'))">'+esc(ALLEZ.PROGRAM.exercise(id).name)+'</button>';
+    }).join('') + '</div>';
+  }
   html += '</div>' +
     '<div class="curve-wrap">' +
     '<div id="curveTitleRow" style="display:none"><div class="curve-title" id="curveTitle"></div></div>' +
@@ -1154,14 +1313,13 @@ function selectCurve(exoId) {
   drawCurveChart(canvas, pts);
 
   var first = pts[0].kg, last = pts[pts.length-1].kg;
-  var maxKg = Math.max.apply(null, pts.map(function(p){ return p.kg; }));
-  var gain = first > 0 ? ((last/first - 1)*100).toFixed(0) : '—';
+  var rec = ALLEZ.PROGRAM.records(lb.sessions.map(function(s){ var e = (s.exercises||[]).find(function(x){ return exKey(x) === exoId; }); return e ? { date: s.date, sets: e.sets || [] } : null; }).filter(Boolean));
   statRow.style.display = 'flex';
   statRow.innerHTML =
-    '<div class="cs-item"><span class="cs-v">'+first+' kg</span><span class="cs-l">Départ</span></div>' +
-    '<div class="cs-item"><span class="cs-v">'+last+' kg</span><span class="cs-l">Actuel</span></div>' +
-    '<div class="cs-item pr"><span class="cs-v">'+maxKg+' kg</span><span class="cs-l">PR</span></div>' +
-    '<div class="cs-item gain"><span class="cs-v">+'+(gain==='—'?'0':gain)+'%</span><span class="cs-l">Progression</span></div>';
+    '<div class="cs-item"><span class="cs-v">'+kgStr(first)+'</span><span class="cs-l">Départ</span></div>' +
+    '<div class="cs-item"><span class="cs-v">'+kgStr(last)+'</span><span class="cs-l">Actuel</span></div>' +
+    '<div class="cs-item pr"><span class="cs-v">'+kgStr(rec.e1rm)+'</span><span class="cs-l" title="Epley ; Brzycki : '+kgStr(rec.brzycki)+'">1RM estimé</span></div>' +
+    '<div class="cs-item gain"><span class="cs-v">'+kgStr(rec.volume)+'</span><span class="cs-l">Meilleur volume</span></div>';
 }
 
 function drawCurveChart(canvas, pts) {

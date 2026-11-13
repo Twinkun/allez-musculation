@@ -199,7 +199,9 @@
   function cleanExercise(e) {
     if (!e || typeof e !== 'object') return null;
     var name = cleanStr(e.name, 120); if (!name && !e.exId) return null;
-    return { exId: typeof e.exId === 'string' ? e.exId.slice(0, 60) : exIdFromName(name), name: name, muscle: cleanStr(e.muscle, 120), unit: e.unit === 'sec' ? 'sec' : 'reps', sets: Array.isArray(e.sets) ? e.sets.map(cleanSet) : [] };
+    var o = { exId: typeof e.exId === 'string' ? e.exId.slice(0, 60) : exIdFromName(name), name: name, muscle: cleanStr(e.muscle, 120), unit: e.unit === 'sec' ? 'sec' : 'reps', sets: Array.isArray(e.sets) ? e.sets.map(cleanSet) : [] };
+    if (typeof e.remplace === 'string' && e.remplace) o.remplace = e.remplace.slice(0, 60);   // substitution : exercice du programme remplacé ce jour-là
+    return o;
   }
   // Normalise une séance (du journal ou d'un import) ; renvoie null si elle est inexploitable
   function cleanSession(s) {
