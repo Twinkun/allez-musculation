@@ -280,6 +280,10 @@ button, a, [onclick], input, select, label {
 /* Rendu à l'approche des blocs hors écran (phase 5) : moins de mise en page au chargement */
 main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-size: auto 900px; }
 </style>
+<style id="az-cibles">
+/* Cibles tactiles ≥ 44 px */
+.tk-del { min-width: 44px !important; min-height: 44px !important; }
+</style>
 </head>
 <body>
 <a class="az-skip" href="#contenu">Aller au contenu</a>
@@ -355,7 +359,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
 
   <div class="grid-4 reveal">
     <div class="card top-green"><div class="card-icon">✅</div><div class="card-title">Contre les 500-599 · 5 V – 0 D</div><div class="card-text">Tu gagnes tout ce que tu dois gagner. Rien à changer.</div></div>
-    <div class="card top-red"><div class="card-icon">⚠️</div><div class="card-title">Contre les 600-699 · 3 V – 5 D</div><div class="card-text">C'est là que partent tes points : <b>−3,8 à −7,5 par défaite</b>, environ 28 points sur la saison, les trois quarts de tout ce que tu as perdu.</div></div>
+    <div class="card top-red"><div class="card-icon">⚠️</div><div class="card-title">Contre les 600-699 · 3 V – 5 D</div><div class="card-text">C'est là que partent tes points : <b>−3,8 à −7,5 par défaite</b>, environ 29 points sur la saison, soit les quatre cinquièmes de tout ce que tu as perdu.</div></div>
     <div class="card top-pp"><div class="card-icon">🚀</div><div class="card-title">Contre les 700-899 · 6 V – 4 D</div><div class="card-text">Tes perfs : <b>+10 à +17 points</b> chacune. Tu joues mieux contre plus fort que toi.</div></div>
     <div class="card top-orange"><div class="card-icon">🧱</div><div class="card-title">Contre les 900 et plus · 0 V – 2 D</div><div class="card-text">Défaites attendues, presque gratuites (0 et −0,5 point).</div></div>
   </div>
@@ -375,7 +379,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
     <div class="card top-pp"><div class="card-icon">🛡️</div><div class="card-title">3 · 15 minutes de revers à chaque club</div><div class="card-text">Mardi et vendredi, 15 min de <b>bloc</b> et de <b>poussette longue</b> côté revers, en panier de balles ou en exercice. Pas pour attaquer : pour ne plus donner le point quand l'adversaire t'y envoie.</div></div>
     <div class="card top-pp"><div class="card-icon">🔄</div><div class="card-title">4 · Change une chose pour la revanche</div><div class="card-text">Contre un joueur qui t'a déjà vu jouer, change <b>une chose dès le premier set</b> : le service d'entrée, la zone ciblée (son coude plutôt que son revers) ou le rythme. Il s'est préparé à ton match d'avant, pas à celui-là.</div></div>
     <div class="card top-pp"><div class="card-icon">🎯</div><div class="card-title">5 · Un service long de temps en temps</div><div class="card-text">Garde ton schéma service court puis attaque, mais glisse <b>1 service long et rapide dans le coude sur 5</b>. À 600-700, ceux qui t'attendent court sont pris de vitesse : point direct ou remise facile.</div></div>
-    <div class="card top-pp"><div class="card-icon">🧠</div><div class="card-title">6 · Jouer à 80 % contre ton niveau</div><div class="card-text">Contre un 600, la faute directe coûte plus cher que le coup gagnant ne rapporte. Vise <b>la table d'abord</b>, accélère seulement sur balle haute. Passer de 3 à 5 victoires sur 8 contre les 600 vaut environ <b>+20 à +25 points</b> sur la saison.</div></div>
+    <div class="card top-pp"><div class="card-icon">🧠</div><div class="card-title">6 · Jouer à 80 % contre ton niveau</div><div class="card-text">Contre un 600, la faute directe coûte plus cher que le coup gagnant ne rapporte. Vise <b>la table d'abord</b>, accélère seulement sur balle haute. Passer de 3 à 5 victoires sur 8 contre les 600 vaut environ <b>+25 à +30 points</b> sur la saison.</div></div>
   </div>
 </section>
 
@@ -468,12 +472,12 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
     <div class="card top-pp">
       <div class="card-icon">🏓</div>
       <div class="card-title">Ce que c'est vraiment</div>
-      <div class="card-text">Une pré-montée « ready-to-play » correcte. « Professionnelle / céramique / approuvée ITTF » = <b>argument commercial</b> : l'homologation ITTF signifie juste que la gomme est légale en compétition, pas qu'elle est de niveau pro.</div>
+      <div class="card-text">Une pré-montée prête à jouer, correcte. « Professionnelle / céramique / approuvée ITTF » = <b>argument commercial</b> : l'homologation ITTF signifie juste que la gomme est légale en compétition, pas qu'elle est de niveau pro.</div>
     </div>
     <div class="card top-orange">
       <div class="card-icon">⚡</div>
       <div class="card-title">Rapide… peut-être trop</div>
-      <div class="card-text">Le carbone la rend rapide. Pour un joueur de moins d'un an qui construit son toucher et ses effets, beaucoup de vitesse = plus dur à contrôler. Tu gagnes avec, garde-la — mais un bois plus lent aide à <b>apprendre l'effet</b>.</div>
+      <div class="card-text">Le carbone la rend rapide. Pour un joueur d'environ un an de pratique qui construit son toucher et ses effets, beaucoup de vitesse = plus dur à contrôler. Tu gagnes avec, garde-la — mais un bois plus lent aide à <b>apprendre l'effet</b>.</div>
     </div>
     <div class="card top-red">
       <div class="card-icon">🔧</div>
@@ -482,7 +486,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
     </div>
   </div>
   <div class="callout reveal" style="margin-top:20px;">
-    <b>Ton prochain montage est décidé :</b> un <b>sur-mesure Butterfly</b> (manche FL) — bois <b>Innerforce Layer ALC</b> (carbone interne = toucher + gros sweet spot), coup droit <b>Tenergy 05</b> (l'arme des loopeurs, arc haut qui pardonne) et revers <b>Rozena</b> (souple, bloc + coupe). Total <b>~212 €</b>, pensé exactement pour ton jeu coup-droit-dominant à mi-distance. Le détail complet (specs, liens d'achat, montage) et le comparatif chiffré avec ta JOOLA actuelle sont sur les fiches dédiées :
+    <b>Ton prochain montage est décidé :</b> un <b>sur-mesure Butterfly</b> (manche FL) — bois <b>Innerforce Layer ALC</b> (carbone interne = toucher + grande zone de frappe utile), coup droit <b>Tenergy 05</b> (la référence des joueurs de topspin, arc haut qui pardonne) et revers <b>Rozena</b> (souple, bloc + coupe). Total <b>~212 €</b>, pensé exactement pour ton jeu coup-droit-dominant à mi-distance. Le détail complet (specs, liens d'achat, montage) et le comparatif chiffré avec ta JOOLA actuelle sont sur les fiches dédiées :
     <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;">
       <a href="fiche-raquette-pingpong.html" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#0b1020;font-weight:700;font-size:0.9rem;padding:11px 18px;border-radius:10px;">🏓 Ma fiche raquette sur-mesure</a>
       <a href="comparatif-raquettes.html" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--pp);border:1.5px solid var(--pp);font-weight:700;font-size:0.9rem;padding:11px 18px;border-radius:10px;">⚖️ Comparatif JOOLA vs sur-mesure</a>
@@ -515,7 +519,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
       <p style="font-size:0.86rem;color:var(--text-mid);text-align:center;margin-top:8px;line-height:1.6;">Ton coup droit croisé file naturellement vers le <b>revers</b> du droitier — son côté le plus faible. C'est ta diagonale « gratuite ».</p>
     </div>
     <div class="tac-list">
-      <div class="tac"><div class="ic">🎯</div><div><b>Sers wide sur son coup droit</b><p>Un service latéral qui sort du côté coup droit du droitier l'oblige à s'écarter de la table : il libère tout le revers pour ta balle suivante.</p></div></div>
+      <div class="tac"><div class="ic">🎯</div><div><b>Sers excentré sur son coup droit</b><p>Un service latéral qui sort du côté coup droit du droitier l'oblige à s'écarter de la table : il libère tout le revers pour ta balle suivante.</p></div></div>
       <div class="tac"><div class="ic">↗️</div><div><b>Attaque la diagonale revers</b><p>Ton coup droit croisé attaque son revers. Enchaîne dessus jusqu'à ce qu'il craque ou qu'il découvre son coup droit.</p></div></div>
       <div class="tac"><div class="ic">🔄</div><div><b>Joue le « grand angle »</b><p>En gaucher, le coup droit décroisé (ligne) sort très large côté coup droit adverse : un angle que les droitiers voient rarement.</p></div></div>
       <div class="tac"><div class="ic">👥</div><div><b>En double, tu es en or</b><p>Une paire gaucher + droitier ne se gêne pas dans les déplacements. Si tu joues le double en équipe, c'est un avantage tactique énorme.</p></div></div>
@@ -726,12 +730,12 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
   </div>
 
   <div class="grid-2 reveal" style="margin-bottom:6px;align-items:start;">
-    <div class="card top-green"><div class="card-title">💥 Il pop la balle haut (sur le sans-effet)</div><div class="card-text">Le scénario que tu adores : <b>smash direct</b> dans le grand angle ouvert (souvent son revers, ou le coin coup droit vide). Sois prêt à attaquer DÈS que tu as servi sans-effet — la balle haute arrive vite.</div></div>
+    <div class="card top-green"><div class="card-title">💥 Il remonte la balle haut (sur le sans-effet)</div><div class="card-text">Le scénario que tu adores : <b>smash direct</b> dans le grand angle ouvert (souvent son revers, ou le coin coup droit vide). Sois prêt à attaquer DÈS que tu as servi sans-effet — la balle haute arrive vite.</div></div>
     <div class="card top-pp"><div class="card-title">🌀 Il pousse long/mou (sur le coupé)</div><div class="card-text"><b>Ouvre en coup droit</b> (technique de la section « attaquer la balle coupée »). À 600, presque personne n'attaque une coupette courte bien faite : tu récupères l'initiative.</div></div>
   </div>
 
   <div class="callout reveal" style="margin-bottom:6px;">
-    <b>Honnêteté de coach :</b> « jamais renvoyé » n'existe pas, et au début ton coupé ne sera pas très lourd (ta prise verrouille le poignet — compense par la <b>vitesse d'avant-bras</b> et un contact <b>très fin</b>). Mais ce piège à double détente est, à ton niveau, ce qui se rapproche le plus d'un service ingagnable. Compte <b>2-3 semaines de panier de balles</b> pour le rôder. Bonus : ajoute un soupçon de <b>latéral</b> au coupé (geste qui balaie un peu sur le côté) → encore plus dur à lire pour un droitier.
+    <b>Honnêteté de coach :</b> « jamais renvoyé » n'existe pas, et au début ton coupé ne sera pas très lourd (ta prise verrouille le poignet — compense par la <b>vitesse d'avant-bras</b> et un contact <b>très fin</b>). Mais ce piège à double détente est, à ton niveau, ce qui se rapproche le plus d'un service ingagnable. Compte <b>2-3 semaines de panier de balles</b> pour le roder. Bonus : ajoute un soupçon de <b>latéral</b> au coupé (geste qui balaie un peu sur le côté) → encore plus dur à lire pour un droitier.
   </div>
 
   <div class="callout reveal" style="margin-bottom:6px;">
@@ -956,12 +960,12 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
   <div class="reveal">
     <div class="section-label">Structurer tes séances</div>
     <h2 class="section-title">Plan d'entraînement type</h2>
-    <p class="section-sub">3 séances par semaine si tu peux. La clé : ne pas faire que des matchs. Les matchs entretiennent ton niveau ; les <b>exercices répétés</b> (régularité) le font monter.</p>
+    <p class="section-sub">Tes 2 soirées de club (mardi et vendredi, 2 h 30) : fais tourner ces 3 thèmes d'une soirée à l'autre, environ 1 h d'exercices puis des matchs libres. La clé : ne pas faire que des matchs. Les matchs entretiennent ton niveau ; les <b>exercices répétés</b> (régularité) le font monter.</p>
   </div>
 
   <div class="plan-grid reveal">
     <div class="day">
-      <div class="day-head"><div class="d">Séance 1</div><div class="t">Régularité &amp; revers</div></div>
+      <div class="day-head"><div class="d">Thème A</div><div class="t">Régularité &amp; revers</div></div>
       <div class="day-body">
         <div class="drill"><b>Échauffement 10 min</b><span>Coup droit / revers diagonale, balles lentes</span></div>
         <div class="drill"><b>Bloc revers ×15 min</b><span>Le partenaire attaque ton revers, tu remets bas et profond (ton revers « de secours »)</span></div>
@@ -970,7 +974,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
       </div>
     </div>
     <div class="day">
-      <div class="day-head"><div class="d">Séance 2</div><div class="t">Service &amp; jeu court</div></div>
+      <div class="day-head"><div class="d">Thème B</div><div class="t">Service &amp; jeu court</div></div>
       <div class="day-body">
         <div class="drill"><b>Panier de services ×15 min</b><span>30 balles par service (coupé court, latéral, long), seul sur une table</span></div>
         <div class="drill"><b>Service + 3ᵉ balle ×15 min</b><span>Tu sers court coupé, le partenaire pousse, tu attaques en coup droit (ton schéma gagnant)</span></div>
@@ -979,7 +983,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
       </div>
     </div>
     <div class="day">
-      <div class="day-head"><div class="d">Séance 3</div><div class="t">Déplacements &amp; match</div></div>
+      <div class="day-head"><div class="d">Thème C</div><div class="t">Déplacements &amp; match</div></div>
       <div class="day-body">
         <div class="drill"><b>Jeu de jambes ×10 min</b><span>Pas chassés, position de base, replacement au centre</span></div>
         <div class="drill"><b>Exercice « Falkenberg » ×15 min</b><span>Revers – coup droit côté revers – coup droit côté coup droit, en boucle</span></div>
@@ -1024,9 +1028,9 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
       <div class="tac"><div class="ic">⏱️</div><div><b>Routine entre les points</b><p>Respire, essuie la main, fixe ta cible, sers. Cette routine de 3-4 s te recentre et t'évite d'enchaîner les fautes sous pression.</p></div></div>
     </div>
     <div class="tac-list">
-      <div class="tac"><div class="ic">🔄</div><div><b>Quand ça va mal, change tout</b><p>Tu mènes le set adverse ? Casse le rythme : change de service, ralentis, vise l'autre coin. Ne « subis » jamais une série en répétant la même chose.</p></div></div>
-      <div class="tac"><div class="ic">🎯</div><div><b>Joue les points importants simplement</b><p>À 9-9, sors ton service le plus fiable et ton schéma le plus rôdé. Pas le moment de tenter le coup parfait — le moment de ne pas faire de faute.</p></div></div>
-      <div class="tac"><div class="ic">💪</div><div><b>Reste positif, langage corporel haut</b><p>Tête haute entre les points, même menée. Les adversaires sentent le découragement. Ta progression rapide est une force mentale : tu n'as rien à perdre, tout à apprendre.</p></div></div>
+      <div class="tac"><div class="ic">🔄</div><div><b>Quand ça va mal, change tout</b><p>Tu es mené, ou tu viens de perdre 3 points de suite ? Casse le rythme : change de service, ralentis, vise l'autre coin. Ne « subis » jamais une série en répétant la même chose.</p></div></div>
+      <div class="tac"><div class="ic">🎯</div><div><b>Joue les points importants simplement</b><p>À 9-9, sors ton service le plus fiable et ton schéma le plus rodé. Pas le moment de tenter le coup parfait — le moment de ne pas faire de faute.</p></div></div>
+      <div class="tac"><div class="ic">💪</div><div><b>Reste positif, langage corporel haut</b><p>Tête haute entre les points, même mené. Les adversaires sentent le découragement. Ta progression rapide est une force mentale : tu n'as rien à perdre, tout à apprendre.</p></div></div>
     </div>
   </div>
 </section>
@@ -1036,7 +1040,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
 <!-- PICOTS -->
 <section class="section">
   <div class="reveal">
-    <div class="section-label">Le matchup piège</div>
+    <div class="section-label">Le duel piège</div>
     <h2 class="section-title">Picots, anti-top &amp; défenseurs</h2>
     <p class="section-sub">À 600-700, tu vas tomber sur des revêtements bizarres (picots, anti-top) et des défenseurs qui coupent loin de la table. C'est LE genre de match qu'on perd « sans comprendre ». Voici la clé pour ne plus te faire avoir.</p>
   </div>
@@ -1111,7 +1115,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
   </div>
 
   <div class="callout reveal" style="margin-top:20px;">
-    <b>Système de points FFTT (rappel) :</b> tout licencié démarre à <b>500 points</b>. Tu gagnes des points en battant un joueur mieux classé (et tu en perds peu en t'inclinant face à plus fort). Le classement est recalculé à chaque phase. Battre des joueurs au-dessus de 550-600 est le moyen le plus rapide de grimper — d'où l'intérêt de noter les points de tes adversaires ci-dessus.
+    <b>Système de points FFTT (rappel) :</b> tout licencié démarre à <b>500 points</b>. Tu gagnes des points en battant un joueur mieux classé (et tu en perds peu en t'inclinant face à plus fort). Les points sont mis à jour chaque mois et le classement officiel à chaque phase. Battre des joueurs mieux classés que toi (700 et plus) rapporte le plus ; ne plus perdre contre les 600 est aujourd'hui ton plus gros levier — d'où l'intérêt de noter le classement de tes adversaires ci-dessus.
   </div>
 </section>
 
@@ -1184,7 +1188,7 @@ const OBJECTIVES = [
   { id: 'service', label: 'Maîtriser 3 services au même geste (coupé court, latéral, long)' },
   { id: 'schema',  label: 'Schéma gagnant : service court coupé → attaque coup droit (3ᵉ balle)' },
   { id: 'lecture', label: 'Lire l\'effet adverse à la gomme/raquette, pas à la balle' },
-  { id: 'points',  label: 'Franchir 700 points officiels' },
+  { id: 'points',  label: 'Franchir 750 points officiels' },
 ];
 function objLoad() { try { return JSON.parse(localStorage.getItem(OBJ_KEY)) || {}; } catch(e) { return {}; } }
 function objSave(s) { localStorage.setItem(OBJ_KEY, JSON.stringify(s)); }

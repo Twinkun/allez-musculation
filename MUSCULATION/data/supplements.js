@@ -19,7 +19,7 @@
     b6:   { label: 'Vitamine B6', unit: 'mg', ul: 12, scope: 'total', source: 'EFSA 2023', doi: '10.2903/j.efsa.2023.8006' },
     mg:   { label: 'Magnésium', unit: 'mg', ul: 250, scope: 'supp', source: 'Comité scientifique de l\'alimentation humaine 2001, repris par l\'EFSA' }
   };
-  // Apports alimentaires du plan repas (3 journées types, avec ou sans poisson gras), calculés avec la table Ciqual 2025 (Anses, DOI 10.57745/RDMHWY)
+  // Apports alimentaires du plan repas (journées types, avec ou sans poisson gras : fourchette basse à haute), calculés avec la table Ciqual 2025 (Anses, DOI 10.57745/RDMHWY)
   var FOOD = { vitd: [2.1, 10.5], zinc: [9.0, 10.3], b6: [2.5, 3.5] };
 
   var REF = {

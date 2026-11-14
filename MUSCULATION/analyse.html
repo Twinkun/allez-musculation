@@ -716,10 +716,21 @@
 .gold { color: #8a5800 !important; }
 .section-sub { color: #66667a !important; }
 .footer-sub { color: #7a808e !important; }
-span[data-az="goals.weight0|n"] { color: #7a808e !important; }
-span[data-az="goals.weight|n"] { color: #7a808e !important; }
-span[data-az="goals.bf0|n"] { color: #7a808e !important; }
-span[data-az="goals.bf|n"] { color: #7a808e !important; }
+.footer-sub span[data-az] { color: #7a808e !important; }
+/* Contenu privé affiché */
+.error-fix, .error-fix span, .pos .contrast-title, .positive .gen-title { color: #15803d !important; }
+.p3 .phase-num { color: #166534 !important; }
+.ex-note, .ex-note span, .ms-highlight, .ms-highlight span, .priority-impact, .post .struct-solutions-title, .post .struct-name, .p1 .phase-num { color: #8a5800 !important; }
+.neg .contrast-title, .negative .gen-title { color: #b91c1c !important; }
+.p2 .phase-num, .scol .struct-solutions-title { color: #1d4ed8 !important; }
+.phase-period { color: #55556a !important; }
+</style>
+<style id="az-mobile">
+/* Mobile : rien ne dépasse de l'écran (contenu rogné par overflow-x:hidden) */
+/* Contenu privé : phrase avec valeurs calculées (chaque <span> devenait une colonne), étiquettes de l'échelle qui se chevauchaient */
+.bf-info-chip { display: block !important; }
+.bf-markers-row .bf-marker:first-child { transform: none !important; align-items: flex-start !important; }
+.bf-markers-row .bf-marker:last-child { transform: translateX(-100%) !important; align-items: flex-end !important; }
 </style>
 </head>
 <body>

@@ -29,7 +29,7 @@ body{font-family:'Inter',Arial,sans-serif;color:#111827;background:#fff;font-siz
 
 .print-btn{position:fixed;top:76px;right:18px;background:#e8960a;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(232,150,10,.4);z-index:999}
 .print-btn:hover{background:#d4860a}
-@media print{.print-btn{display:none}.pb{page-break-before:always}}
+@media print{.print-btn{display:none}.pb{page-break-before:always}.ex,.meal-item,.info-box,.macro-bar,.sb,tr{break-inside:avoid;page-break-inside:avoid}.footer{break-before:avoid;page-break-before:avoid}}
 
 .page{max-width:184mm;margin:0 auto;padding:6mm 0}
 
@@ -321,6 +321,9 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
 .m-note { color: #6b7484 !important; }
 .supp-brand { color: #6b7484 !important; }
 .t-tgt { color: #8a5800 !important; }
+/* Règles privées (encadré rouge) */
+.info-box.red { background: #b91c1c !important; }
+.info-box.red h4, .info-box.red p { color: #fff !important; opacity: 1 !important; }
 </style>
 <style id="az-cibles">
 /* Cibles tactiles ≥ 44 px (phase 5) */
@@ -336,7 +339,7 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
 
 <button class="print-btn" type="button" data-action="imprimer">🖨️ Imprimer / Sauvegarder en PDF</button>
 
-<!-- Les 7 pages sont générées depuis core.js + data/*.js (aucune donnée dans cette page) -->
+<!-- Les 8 sections sont générées depuis core.js + data/*.js (aucune donnée dans cette page) -->
 <main id="contenu"><h1 class="az-sr">Programme imprimable</h1><div id="doc"></div></main>
 
 <script>
@@ -347,7 +350,7 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
   const TOTAL = 1 + P.ORDER.length + 4;
   const SB = { push: 'sb-push', pull: 'sb-pull', vshape: 'sb-vs' }, EXC = { push: 'push-ex', pull: 'pull-ex', vshape: 'vs-ex' };
   const row = (l, v, c) => `<div class="row"><span class="lbl">${l}</span><span class="val${c ? ' ' + c : ''}">${v}</span></div>`;
-  const foot = (t, n) => `<div class="footer">ALLEZ · ${t} · Page ${n}/${TOTAL}</div>`;
+  const foot = (t, n) => `<div class="footer">ALLEZ · ${t} · Section ${n}/${TOTAL}</div>`;
   const gain = f(G.leanGainLow, '+n') + ' à ' + f(G.leanGainHigh, '+n');
 
   // ── PAGE 1 : vue d'ensemble ──
@@ -355,11 +358,11 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
     const jours = ['LUN', 'MAR', 'MER', 'JEU', 'VEN', 'SAM', 'DIM'].map((lbl, i) => {
       const dn = (i + 1) % 7, X = P.sessionForDay(dn), o = P.otherDays[dn];
       if (X) return `<div class="day training"><div class="day-lbl">${lbl}</div><div class="day-name">${X.name}</div><div class="day-time">${heure(X) || 'Séance'}</div></div>`;
-      if (o) return `<div class="day activity"><div class="day-lbl">${lbl}</div><div class="day-name">Ping-pong</div><div class="day-time">Club ${f(N.pingpongHeures, 'n')} h</div></div>`;
+      if (o) return `<div class="day activity"><div class="day-lbl">${lbl}</div><div class="day-name">Ping-pong</div><div class="day-time">Club 2 h 30</div></div>`;
       return `<div class="day rest"><div class="day-lbl">${lbl}</div><div class="day-name">Repos</div><div class="day-time">~</div></div>`;
     }).join('');
     const obj = (l, a, b) => `<div class="obj-card"><div class="obj-lbl">${l}</div><div class="obj-cur">${a}</div><div class="obj-arr">→</div><div class="obj-tgt">${b}</div></div>`;
-    const bar = (D, lbl, dark) => `<div><div class="macro-bar"${dark ? ' style="background:#1f2937"' : ''}><div class="mb-item"><div class="mb-val">${int(D.kcal)}</div><div class="mb-lbl">kcal ${lbl}</div></div><div class="mb-item"><div class="mb-val">P ${D.p}g</div><div class="mb-lbl">protéines</div></div><div class="mb-item"><div class="mb-val">C ${D.g}g</div><div class="mb-lbl">glucides</div></div><div class="mb-item"><div class="mb-val">L ${D.l}g</div><div class="mb-lbl">lipides</div></div></div></div>`;
+    const bar = (D, lbl, dark) => `<div><div class="macro-bar"${dark ? ' style="background:#1f2937"' : ''}><div class="mb-item"><div class="mb-val">${int(D.kcal)}</div><div class="mb-lbl">kcal ${lbl}</div></div><div class="mb-item"><div class="mb-val">P ${D.p} g</div><div class="mb-lbl">protéines</div></div><div class="mb-item"><div class="mb-val">G ${D.g} g</div><div class="mb-lbl">glucides</div></div><div class="mb-item"><div class="mb-val">L ${D.l} g</div><div class="mb-lbl">lipides</div></div></div></div>`;
     return `<div class="page">
   <div class="doc-header">
     <div class="doc-logo">ALL<span>EZ</span></div>
@@ -460,7 +463,7 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
     return `<div class="page pb">
   <div class="doc-header" style="margin-bottom:14px">
     <div style="font-size:18pt;font-weight:900;letter-spacing:3px;color:#0b1020">NUTRITION <span style="color:#e8960a">${D.titreLong.replace('&', '&amp;')}</span></div>
-    <div style="text-align:right;font-size:8pt;color:#6b7280">${D.seance ? 'Jour de muscu' + (h ? ' · séance ' + h : '') : 'Jour de ping-pong · club ' + f(N.pingpongHeures, 'n') + ' h'}<br><b>≈ ${int(t.kcal)} kcal · P ${t.p} g · G ${t.g} g · L ${t.l} g (cible ${int(c.kcal)} · ${c.p} · ${c.g} · ${c.l})</b></div>
+    <div style="text-align:right;font-size:8pt;color:#6b7280">${D.seance ? 'Jour de muscu' + (h ? ' · séance ' + h : '') : 'Jour de ping-pong · club 2 h 30'}<br><b>≈ ${int(t.kcal)} kcal · P ${t.p} g · G ${t.g} g · L ${t.l} g (cible ${int(c.kcal)} · ${c.p} · ${c.g} · ${c.l})</b></div>
   </div>
   ${D.repas.map(meal).join('\n')}
   ${foot('Nutrition ' + D.jours, n)}
@@ -484,7 +487,7 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
     return `<div class="page pb">
   <div class="sh">Jours de Repos — ${D.jours} (${int(c.kcal)} kcal)</div>
   <table class="strength-table" style="margin-bottom:8px"><thead><tr><th>Heure</th><th>Repas</th><th>Macros</th></tr></thead><tbody>${rows}</tbody></table>
-  <div class="info-box gold" style="margin-bottom:14px"><p><b>Total ≈ ${int(t.kcal)} kcal · P ${t.p} g · G ${t.g} g · L ${t.l} g (cible ${int(c.kcal)} · ${c.p} · ${c.g} · ${c.l}).</b> ${D.remarque}</p></div>
+  <div class="info-box gold" style="margin-bottom:14px"><p><b>Total ≈ ${int(t.kcal)} kcal · P ${t.p} g · G ${t.g} g · L ${t.l} g (cible ${int(c.kcal)} · ${c.p} · ${c.g} · ${c.l})</b> — ${D.remarque}</p></div>
   <div class="sh">Mes Compléments Alimentaires</div>
   ${al.length ? `<div class="info-box red" style="margin-bottom:10px"><h3>Cumul à corriger (limites EFSA, toutes sources)</h3><p>${al.map(a => a.texte).join(' ')}</p></div>` : ''}
   <div class="supp-grid">${supp}</div>

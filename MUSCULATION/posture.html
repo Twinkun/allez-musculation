@@ -348,6 +348,14 @@ div[data-prive="posture.22"] { color: #626784 !important; }
 div[data-prive="posture.23"] { color: #626784 !important; }
 div[data-prive="posture.26"] { color: #626784 !important; }
 div[data-prive="posture.30"] { color: #626784 !important; }
+/* Contenu privé affiché */
+.section .section-sub, [data-prive] .section-sub { color: #5a5f7a !important; }
+.sev-1 { color: #086b39 !important; } .sev-2 { color: #8a5800 !important; } .sev-3 { color: #a8400f !important; } .sev-4 { color: #b01a08 !important; }
+</style>
+<style id="az-mobile">
+/* Mobile : rien ne dépasse de l'écran */
+.erreur-fix { display: block !important; }
+@media (max-width: 768px) { .breath-layout { grid-template-columns: minmax(0, 1fr) !important; } .breath-visual, .breath-cards, .breath-card { min-width: 0; max-width: 100%; } }
 </style>
 </head>
 <body>
@@ -421,7 +429,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       <div class="posture-points good">
         <div class="posture-point"><div class="pp-dot"></div>Oreilles alignées avec les épaules (tête neutre)</div>
         <div class="posture-point"><div class="pp-dot"></div>Épaules en arrière et en bas (omoplates soudées)</div>
-        <div class="posture-point"><div class="pp-dot"></div>Cage thoracique sortie, sternum «&nbsp;fier&nbsp;»</div>
+        <div class="posture-point"><div class="pp-dot"></div>Grandi, sternum haut, côtes basses «&nbsp;rangées&nbsp;»</div>
         <div class="posture-point"><div class="pp-dot"></div>Colonne en courbes naturelles (lordose/cyphose normales)</div>
         <div class="posture-point"><div class="pp-dot"></div>Abdominaux légèrement engagés (transverse actif)</div>
         <div class="posture-point"><div class="pp-dot"></div><span data-prive="posture.08" data-prive-garder>Élargit visuellement le torse</span></div>
@@ -434,9 +442,8 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       <div class="conseil-col-title">Habitudes à Adopter</div>
       <div class="conseil-items">
         <div class="conseil-item">Déverrouille tes épaules toutes les heures si tu travailles assis</div>
-        <div class="conseil-item">Dors sur le dos ou le côté, jamais le ventre (accentue la cyphose)</div>
-        <div class="conseil-item">Chin tuck 10× chaque matin dès le réveil</div>
-        <div class="conseil-item">Pousse «&nbsp;sternum vers le ciel&nbsp;» en position debout</div>
+        <div class="conseil-item">Chin tuck 2 × 15 chaque matin dès le réveil</div>
+        <div class="conseil-item">Debout : grandis-toi (sommet du crâne vers le plafond), côtes basses rangées</div>
         <div class="conseil-item">Sac à dos plutôt que sac sur une épaule</div>
         <div class="conseil-item">Écran d'ordinateur à hauteur des yeux</div>
       </div>
@@ -444,12 +451,12 @@ div[data-prive="posture.30"] { color: #626784 !important; }
     <div class="conseil-col">
       <div class="conseil-col-title">À l'Entraînement</div>
       <div class="conseil-items">
-        <div class="conseil-item">Début de chaque séance : 5 min de posture + activation épaules</div>
-        <div class="conseil-item">Ratio dos/pectoraux : 2 pour 1 en volume</div>
-        <div class="conseil-item">Face pull à chaque séance upper body (Push · Pull · V-SHAPE)</div>
+        <div class="conseil-item">Échauffement de chaque séance : respiration 90/90, band pull-apart, face pull léger</div>
+        <div class="conseil-item">Plus de volume pour le dos et l'arrière des épaules que pour les pectoraux</div>
+        <div class="conseil-item">Face pull à chacune des 3 séances (Push · Pull · V-Shape)</div>
         <div class="conseil-item">Inclinaison 30° pour le développé (jamais plat lourd)</div>
         <div class="conseil-item">Amplitude complète sur tous les exercices dos</div>
-        <div class="conseil-item">Excentrique lent sur le tirage (3-4 secondes)</div>
+        <div class="conseil-item">Retour freiné sur les tirages (3 secondes)</div>
       </div>
     </div>
     <div class="conseil-col">
@@ -503,7 +510,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       <div class="muscle-icon">⚙️</div>
       <div class="muscle-name">Deltoïde Postérieur</div>
       <div class="muscle-role">Face arrière de l'épaule. Rotation externe, rétraction. Équilibre avec le deltoïde antérieur.</div>
-      <div class="muscle-why">Souvent négligé au profit du deltoïde antérieur (développé, élévations frontales). L'oiseau sur banc incliné et l'élévation latérale câble à la face ciblent ce muscle qui ouvre les épaules vers l'arrière.</div>
+      <div class="muscle-why">Souvent négligé au profit du deltoïde antérieur (développé, élévations frontales). L'oiseau buste appuyé sur banc incliné et le face pull ciblent ce muscle qui ouvre les épaules vers l'arrière.</div>
     </div>
 
     <div class="muscle-card prio-2">
@@ -526,7 +533,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       <div class="muscle-prio-badge">🟢 Priorité 3</div>
       <div class="muscle-icon">🧱</div>
       <div class="muscle-name">Transverse Abdominal</div>
-      <div class="muscle-role">Muscle «&nbsp;corset&nbsp;» profond. Stabilise le tronc et réduit le tour de taille.</div>
+      <div class="muscle-role">Muscle «&nbsp;corset&nbsp;» profond. Stabilise le tronc et aide à tenir le ventre.</div>
       <div class="muscle-why">Le vacuum abdominal active directement le transverse. Un transverse fort maintient la posture debout sans effort conscient et réduit visuellement le ventre — ton objectif prioritaire.</div>
     </div>
 
@@ -594,7 +601,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       </div>
       <div class="ex-tags">
         <span class="ex-tag sets">3 × 10 reps</span>
-        <span class="ex-tag freq">Avant chaque séance upper</span>
+        <span class="ex-tag freq">Bonus · jours de repos</span>
       </div>
       <div class="ex-steps">
         <div class="ex-step"><div class="ex-step-num">1</div>Dos contre le mur, talons, fesses, dos et nuque en contact avec la surface.</div>
@@ -615,13 +622,13 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       </div>
       <div class="ex-tags">
         <span class="ex-tag sets">2 × 15 reps</span>
-        <span class="ex-tag freq">Échauffement Pull / Upper</span>
+        <span class="ex-tag freq">Échauffement des 3 séances</span>
       </div>
       <div class="ex-steps">
         <div class="ex-step"><div class="ex-step-num">1</div>Tiens un élastique de résistance légère devant toi à hauteur de poitrine, paumes vers le bas.</div>
         <div class="ex-step"><div class="ex-step-num">2</div>Étire l'élastique en ouvrant les bras sur le côté, en pinçant les omoplates ensemble.</div>
         <div class="ex-step"><div class="ex-step-num">3</div>L'élastique touche ta poitrine à la position finale. Tiens 1 sec, ressens la contraction entre les omoplates.</div>
-        <div class="ex-step"><div class="ex-step-num">4</div>Reviens lentement à la position départ (3 secondes de retour).</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Reviens lentement à la position de départ (2 secondes de retour).</div>
       </div>
       <div class="ex-tip">Pas d'élastique ? Remplace par le face pull câble à poids très léger. Même bénéfice neuromusculaire.</div>
     </div>
@@ -636,7 +643,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       </div>
       <div class="ex-tags">
         <span class="ex-tag sets">2 × 12 chaque</span>
-        <span class="ex-tag freq">3× par semaine</span>
+        <span class="ex-tag freq">Bonus · jours de repos</span>
       </div>
       <div class="ex-steps">
         <div class="ex-step"><div class="ex-step-num">1</div>Allonge-toi sur le ventre, front contre le sol, bras tendus devant toi (position Superman).</div>
@@ -659,13 +666,13 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       </div>
       <div class="ex-tags">
         <span class="ex-tag sets" data-prog="face-pull">voir ton programme</span>
-        <span class="ex-tag freq">Chaque séance upper</span>
+        <span class="ex-tag freq">À chacune des 3 séances</span>
       </div>
       <div class="ex-steps">
         <div class="ex-step"><div class="ex-step-num">1</div>Câble à hauteur de tête, corde. Recule jusqu'à avoir les bras tendus, prise neutre.</div>
         <div class="ex-step"><div class="ex-step-num">2</div>Tire vers le visage en écartant les mains (finit de chaque côté du visage, coudes hauts).</div>
         <div class="ex-step"><div class="ex-step-num">3</div>À la position finale : rotation externe maximale (pouces pointent vers l'arrière). Tiens 2 sec.</div>
-        <div class="ex-step"><div class="ex-step-num">4</div>Retour lent, 3-4 secondes. Ne laisse PAS le poids tomber.</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Retour lent, 3 secondes. Ne laisse PAS le poids tomber.</div>
       </div>
       <div class="ex-tip" data-prive="posture.16" data-prive-garder>C'est l'exercice le plus important pour corriger la posture enroulée. Ne le bâcle jamais. Poids léger, technique parfaite.</div>
     </div>
@@ -680,15 +687,15 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       </div>
       <div class="ex-tags">
         <span class="ex-tag sets" data-prog="rowing-unilateral">voir ton programme</span>
-        <span class="ex-tag freq">Chaque séance Pull</span>
+        <span class="ex-tag freq">Jeudi · séance Pull</span>
       </div>
       <div class="ex-steps">
         <div class="ex-step"><div class="ex-step-num">1</div>Genou et main droits sur le banc, dos plat et horizontal. Haltère dans la main gauche, bras tendu.</div>
         <div class="ex-step"><div class="ex-step-num">2</div>Tire le coude vers le haut en gardant le coude proche du corps. L'haltère monte jusqu'à la hanche.</div>
         <div class="ex-step"><div class="ex-step-num">3</div>Au sommet : pince fort l'omoplate. Tiens 1 seconde. Sens le grand dorsal compressé.</div>
-        <div class="ex-step"><div class="ex-step-num">4</div>Descends en 3-4 secondes, bras complètement tendu en bas (étire le grand dorsal).</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Descends en 3 secondes, bras complètement tendu en bas (étire le grand dorsal).</div>
       </div>
-      <div class="ex-tip" data-prive="posture.17" data-prive-garder>Commence toujours par ton côté le plus faible. Si l'autre domine, fais une série supplémentaire du côté faible. Le buste en appui sur le banc décharge les lombaires.</div>
+      <div class="ex-tip" data-prive="posture.17" data-prive-garder>Commence toujours par ton côté le plus faible et fais le même nombre de répétitions de l'autre côté. Le buste en appui sur le banc décharge les lombaires.</div>
     </div>
 
     <div class="ex-card">
@@ -701,7 +708,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       </div>
       <div class="ex-tags">
         <span class="ex-tag sets">3 × 15 reps</span>
-        <span class="ex-tag freq">3× par semaine</span>
+        <span class="ex-tag freq">Bonus · jours de repos</span>
       </div>
       <div class="ex-steps">
         <div class="ex-step"><div class="ex-step-num">1</div>En position de planche haute (comme une pompe), bras tendus.</div>
@@ -722,13 +729,13 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       </div>
       <div class="ex-tags">
         <span class="ex-tag sets" data-prog="dev-incline">voir ton programme</span>
-        <span class="ex-tag freq">Chaque séance Push</span>
+        <span class="ex-tag freq">Lundi et samedi</span>
       </div>
       <div class="ex-steps">
         <div class="ex-step"><div class="ex-step-num">1</div>Banc à 30° (pas 45° — ça recrute trop les épaules). Haltères à hauteur des épaules, coudes à 45-60° du buste.</div>
         <div class="ex-step"><div class="ex-step-num">2</div>Pousse les haltères vers le haut et légèrement vers l'intérieur. Pince les pectoraux au sommet.</div>
-        <div class="ex-step"><div class="ex-step-num">3</div>Descends lentement (3 sec), amplitude complète sans hyperstression au bas du mouvement.</div>
-        <div class="ex-step"><div class="ex-step-num">4</div>L'inclinaison cible le pectoraux supérieur — qui compense esthétiquement la concavité centrale.</div>
+        <div class="ex-step"><div class="ex-step-num">3</div>Descends lentement (3 s), amplitude complète sans forcer l'étirement en bas du mouvement.</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>L'inclinaison cible le haut des pectoraux, qui habille le haut du torse.</div>
       </div>
       <div class="ex-tip" data-prive="posture.18" data-prive-garder>Préféré au développé plat : meilleur recrutement du haut de la poitrine.</div>
     </div>
@@ -745,7 +752,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       </div>
       <div class="ex-tags">
         <span class="ex-tag sets" data-prog="dead-bug">voir ton programme</span>
-        <span class="ex-tag freq">Fin de chaque séance</span>
+        <span class="ex-tag freq">Jeudi · fin de séance Pull</span>
       </div>
       <div class="ex-steps">
         <div class="ex-step"><div class="ex-step-num">1</div>Sur le dos, bras tendus vers le plafond, hanches et genoux à 90° (position «&nbsp;table renversée&nbsp;»).</div>
@@ -766,15 +773,15 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       </div>
       <div class="ex-tags">
         <span class="ex-tag sets" data-prog="pallof-press">voir ton programme</span>
-        <span class="ex-tag freq">Fin de séance Push ou Pull</span>
+        <span class="ex-tag freq">À la place de la planche latérale</span>
       </div>
       <div class="ex-steps">
         <div class="ex-step"><div class="ex-step-num">1</div>Câble à hauteur de nombril, debout de côté par rapport à la machine. Tiens la poignée à deux mains contre le sternum.</div>
         <div class="ex-step"><div class="ex-step-num">2</div>Pousse les bras devant toi à bout de bras. Le câble tire vers le côté — résiste à cette rotation.</div>
-        <div class="ex-step"><div class="ex-step-num">3</div>Tiens 2 secondes à bout de bras, buste parfaitement de face. Aucune rotation.</div>
+        <div class="ex-step"><div class="ex-step-num">3</div>Tiens 1 à 2 secondes à bout de bras, buste parfaitement de face. Aucune rotation.</div>
         <div class="ex-step"><div class="ex-step-num">4</div>Ramène les mains au sternum. Répète. Toujours faire les deux côtés.</div>
       </div>
-      <div class="ex-tip" data-prive="posture.20" data-prive-garder>Fais 1 série supplémentaire du côté le plus faible. L'anti-rotation renforce le tronc sans aucune flexion lombaire.</div>
+      <div class="ex-tip" data-prive="posture.20" data-prive-garder>Commence par ton côté le plus faible, même nombre de répétitions des deux côtés. L'anti-rotation renforce le tronc sans aucune flexion lombaire.</div>
     </div>
 
     <div class="ex-card">
@@ -782,18 +789,18 @@ div[data-prive="posture.30"] { color: #626784 !important; }
         <div class="ex-num">3</div>
         <div class="ex-meta">
           <div class="ex-name">Vacuum Abdominal</div>
-          <div class="ex-target">Transverse · Réduction tour de taille</div>
+          <div class="ex-target">Transverse · Tenue du ventre</div>
         </div>
       </div>
       <div class="ex-tags">
-        <span class="ex-tag sets">5 × 20-30 sec</span>
+        <span class="ex-tag sets">3 × 10-20 s, puis 30-45 s</span>
         <span class="ex-tag freq">Chaque matin à jeun</span>
       </div>
       <div class="ex-steps">
         <div class="ex-step"><div class="ex-step-num">1</div>Debout, mains sur les genoux légèrement fléchis. Expire COMPLÈTEMENT tout l'air des poumons.</div>
         <div class="ex-step"><div class="ex-step-num">2</div>Rentre le ventre au maximum vers la colonne vertébrale, comme si tu voulais coller le nombril au dos.</div>
         <div class="ex-step"><div class="ex-step-num">3</div>Maintiens la contraction 20-30 secondes en prenant de légères respirations par le nez (ne bloque pas l'air). Relâche.</div>
-        <div class="ex-step"><div class="ex-step-num">4</div>Respire normalement 15-20 sec puis recommence. 5 séries quotidiennes.</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Respire normalement 15-20 s puis recommence. 3 séries par jour.</div>
       </div>
       <div class="ex-tip">Le vacuum aide à mieux tenir le ventre ; aucun délai n'est démontré et cibler le transverse n'est pas supérieur à un gainage général (Saragiotto 2016). La vraie perte de centimètres, elle, vient du déficit calorique — le vacuum ne brûle pas de gras.</div>
     </div>
@@ -808,13 +815,13 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       </div>
       <div class="ex-tags">
         <span class="ex-tag sets" data-prog="planche-laterale">voir ton programme</span>
-        <span class="ex-tag freq">3× par semaine</span>
+        <span class="ex-tag freq">Samedi · fin de séance V-Shape</span>
       </div>
       <div class="ex-steps">
         <div class="ex-step"><div class="ex-step-num">1</div>Sur le côté, appui sur l'avant-bras et le bord du pied. Corps en ligne droite de la tête aux pieds.</div>
         <div class="ex-step"><div class="ex-step-num">2</div>Soulève les hanches jusqu'à alignement parfait — pas d'affaissement, pas de fesses en l'air.</div>
         <div class="ex-step"><div class="ex-step-num">3</div>Maintiens la position. Respire normalement pendant la contraction.</div>
-        <div class="ex-step"><div class="ex-step-num">4</div>Fais 1 série supplémentaire en appui sur le côté le plus difficile à tenir (souvent le côté faible).</div>
+        <div class="ex-step"><div class="ex-step-num">4</div>Commence par le côté le plus difficile à tenir, même durée des deux côtés.</div>
       </div>
       <div class="ex-tip" data-prive="posture.21" data-prive-garder>Gaine le carré des lombes et les obliques avec une charge modérée sur la colonne (McGill). Chaque côté travaille séparément.</div>
     </div>
@@ -842,7 +849,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
         <div class="stretch-name">Étirement du Pectoral Mineur (coin de porte)</div>
         <div class="stretch-target">Pectoral mineur · Deltoïde antérieur</div>
         <div class="stretch-desc">Place tes avant-bras sur un encadrement de porte (coudes à 90°). Avance lentement le buste vers l'avant jusqu'à sentir un étirement profond dans le devant des épaules. Tête neutre, sternum qui «&nbsp;sort&nbsp;» vers l'avant.</div>
-        <div class="stretch-sets">3 × 30 sec · 2× par jour (matin + soir)</div>
+        <div class="stretch-sets">3 × 30 s le matin · 2 × 30 s le soir</div>
       </div>
     </div>
 
@@ -850,14 +857,14 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       <div class="stretch-timer">
         <div class="stretch-timer-ring">
           <svg viewBox="0 0 72 72"><circle class="str-ring-track" cx="36" cy="36" r="30"/><circle class="str-ring-fill" cx="36" cy="36" r="30" style="stroke-dashoffset:47"/></svg>
-          <div class="str-ring-text">45s</div>
+          <div class="str-ring-text">30s</div>
         </div>
       </div>
       <div class="stretch-body">
         <div class="stretch-name">Extension Thoracique sur Mousse / Rouleau</div>
         <div class="stretch-target">Thorax · Cyphose dorsale · Mobilité colonne</div>
-        <div class="stretch-desc">Place un rouleau de yoga perpendiculairement à ta colonne (sous les omoplates). Laisse la tête et le bassin descendre vers le sol. Reste 45 sec, respire profondément. Descends le rouleau de 2-3 cm et répète sur toute la zone dorsale.</div>
-        <div class="stretch-sets">5 positions × 45 sec · Chaque matin</div>
+        <div class="stretch-desc">Place un rouleau de yoga perpendiculairement à ta colonne (sous les omoplates). Laisse la tête et le bassin descendre vers le sol. Reste 30 s, respire profondément. Descends le rouleau de 2-3 cm et répète sur toute la zone dorsale.</div>
+        <div class="stretch-sets">5 positions × 30 s · Chaque matin</div>
       </div>
     </div>
 
@@ -872,7 +879,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
         <div class="stretch-name">Étirement du Grand Dorsal (enfant modifié)</div>
         <div class="stretch-target">Grand dorsal · Teres major · Intercostaux</div>
         <div class="stretch-desc">À genoux, étends les bras devant toi sur le sol, assis sur les talons. Laisse la poitrine descendre vers le sol. Pour accentuer l'étirement du grand dorsal, décale les mains légèrement sur le côté droit — l'étirement se concentre alors sur le côté opposé. Insiste sur le côté le plus raide.</div>
-        <div class="stretch-sets">3 × 20 sec / côté · Fin de séance Pull</div>
+        <div class="stretch-sets">3 × 20 s / côté · Après chaque séance</div>
       </div>
     </div>
 
@@ -880,14 +887,14 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       <div class="stretch-timer">
         <div class="stretch-timer-ring">
           <svg viewBox="0 0 72 72"><circle class="str-ring-track" cx="36" cy="36" r="30"/><circle class="str-ring-fill" cx="36" cy="36" r="30" style="stroke-dashoffset:55"/></svg>
-          <div class="str-ring-text">40s</div>
+          <div class="str-ring-text">30s</div>
         </div>
       </div>
       <div class="stretch-body">
         <div class="stretch-name">Thread the Needle (Fil de l'Aiguille)</div>
         <div class="stretch-target">Rotation thoracique · Capsule postérieure épaule</div>
         <div class="stretch-desc">À quatre pattes (mains-genoux). Passe le bras droit sous ton corps en le glissant vers la gauche jusqu'à ce que l'épaule touche le sol. Tête posée sur le côté. Maintiens l'étirement. Alterne les côtés. Excellent pour la mobilité thoracique en rotation — c'est là que la rotation doit se faire, pas dans les lombaires.</div>
-        <div class="stretch-sets">3 × 40 sec / côté · Chaque jour</div>
+        <div class="stretch-sets">2 × 30 s / côté · Après chaque séance</div>
       </div>
     </div>
 
@@ -902,7 +909,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
         <div class="stretch-name">Étirement Cervical Latéral</div>
         <div class="stretch-target">Trapèze supérieur · SCM · Scalènes</div>
         <div class="stretch-desc">Assis, attrape le bord de la chaise de la main droite pour fixer l'épaule droite. Incline la tête vers la gauche jusqu'à sentir l'étirement dans le cou. N'aide PAS avec la main — laisse le poids de la tête agir. Côté le plus raide en priorité.</div>
-        <div class="stretch-sets">3 × 30 sec / côté · Matin et soir</div>
+        <div class="stretch-sets">2 × 30 s / côté · Après chaque séance</div>
       </div>
     </div>
 
@@ -916,7 +923,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       <div class="stretch-body">
         <div class="stretch-name">Cat-Cow (Chat-Vache)</div>
         <div class="stretch-target">Colonne vertébrale · Mobilité segmentaire · Respiration</div>
-        <div class="stretch-desc">À quatre pattes. Inspire et creuse le dos (tête et bassin vers le haut = vache). Expire et arrondis le dos au maximum en rentrant la tête et le bassin (= chat). Chaque cycle : 4 sec inspiration, 4 sec expiration. Mobilise toute la chaîne postérieure et améliore la mobilité thoracique.</div>
+        <div class="stretch-desc">À quatre pattes. Inspire et creuse le dos (tête et bassin vers le haut = vache). Expire et arrondis le dos en rentrant la tête et le bassin (= chat), sans forcer en fin d'amplitude. Chaque cycle : 4 s d'inspiration, 4 s d'expiration. Mobilise toute la chaîne postérieure et améliore la mobilité thoracique.</div>
         <div class="stretch-sets">10 cycles lents · Chaque matin · En réveil</div>
       </div>
     </div>
@@ -965,9 +972,9 @@ div[data-prive="posture.30"] { color: #626784 !important; }
 
     <div class="breath-cards">
       <div class="breath-card">
-        <div class="breath-card-label">Respiration Box (récupération)</div>
-        <div class="breath-card-title">Box Breathing 4-4-4-4</div>
-        <div class="breath-card-text">Idéale entre les séries lourdes et avant de dormir. Réduit le cortisol, stabilise la fréquence cardiaque, améliore la concentration. Utilisée par les forces spéciales pour gérer le stress.</div>
+        <div class="breath-card-label">Respiration carrée (récupération)</div>
+        <div class="breath-card-title">Respiration carrée 4-4-4-4</div>
+        <div class="breath-card-text">Idéale entre les séries lourdes et avant de dormir : elle aide à faire redescendre la fréquence cardiaque et la tension.</div>
         <div class="breath-timing">
           <div class="breath-timing-box bt-inhale"><div class="bt-val">4s</div><div class="bt-lbl">Inspire</div></div>
           <div class="breath-timing-box bt-hold"><div class="bt-val">4s</div><div class="bt-lbl">Retiens</div></div>
@@ -990,7 +997,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
       <div class="breath-card">
         <div class="breath-card-label">Respiration 360°</div>
         <div class="breath-card-title">Expansion Thoracique Complète</div>
-        <div class="breath-card-text">En inspirant, visualise que ta cage thoracique s'expand dans toutes les directions — devant, derrière, et surtout sur les côtés. Évite la respiration haute (qui soulève les épaules). Place les mains sur les côtes : tu dois les sentir s'écarter latéralement.</div>
+        <div class="breath-card-text">En inspirant, visualise que ta cage thoracique s'ouvre dans toutes les directions — devant, derrière, et surtout sur les côtés. Évite la respiration haute (qui soulève les épaules). Place les mains sur les côtes : tu dois les sentir s'écarter latéralement.</div>
         <div style="margin-top:12px;padding:10px 12px;background:rgba(10,138,158,0.08);border-radius:8px;font-size:0.8rem;color:var(--text-mid)">
           Pratique 5 min / jour sur le rouleau de mousse : la position d'extension thoracique force mécaniquement une respiration 360° et améliore la mobilité de la cage thoracique.
         </div>
@@ -1022,7 +1029,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
     <div class="erreur-card">
       <div class="erreur-header"><div class="erreur-x">✕</div><div class="erreur-title">Sur-entraîner les pectoraux</div></div>
       <div class="erreur-text" data-prive="posture.27" data-prive-garder>Se concentrer sur la poitrine en négligeant le dos entretient les épaules enroulées.</div>
-      <div class="erreur-fix">✓ Ratio dos/pecto = 2:1 en volume. Pour chaque série de pectoraux, fais deux séries de dos.</div>
+      <div class="erreur-fix"><span>✓ Plus de volume pour le dos que pour les pectoraux. Dans le programme : <span data-az="programme.volume.dorsal.direct"></span> séries de grand dorsal, <span data-az="programme.volume.haut-dos.direct"></span> de haut du dos et <span data-az="programme.volume.delt-post.direct"></span> d'arrière d'épaule par semaine, pour <span data-az="programme.volume.pectoraux.direct"></span> de pectoraux.</span></div>
     </div>
     <div class="erreur-card">
       <div class="erreur-header"><div class="erreur-x">✕</div><div class="erreur-title">Développé couché plat barre prise large</div></div>
@@ -1032,7 +1039,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
     <div class="erreur-card">
       <div class="erreur-header"><div class="erreur-x">✕</div><div class="erreur-title">Négliger le face pull</div></div>
       <div class="erreur-text">Le face pull est souvent perçu comme «&nbsp;accessoire&nbsp;» et supprimé quand la séance est longue. Garde-le : il fait travailler à la fois les rotateurs externes et l'arrière de l'épaule, qui équilibrent les exercices de poussée.</div>
-      <div class="erreur-fix">✓ Face pull = exercice intouchable. Il est dans chaque séance upper body (Push · Pull · V-SHAPE), même si tu dois raccourcir ailleurs.</div>
+      <div class="erreur-fix">✓ Face pull = exercice intouchable. Il est dans chacune des 3 séances (Push · Pull · V-Shape), même si tu dois raccourcir ailleurs.</div>
     </div>
     <div class="erreur-card">
       <div class="erreur-header"><div class="erreur-x">✕</div><div class="erreur-title">Hyperextension lombaire pour «&nbsp;sortir&nbsp;» le sternum</div></div>
@@ -1047,7 +1054,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
     <div class="erreur-card">
       <div class="erreur-header"><div class="erreur-x">✕</div><div class="erreur-title">Ignorer la mobilité thoracique</div></div>
       <div class="erreur-text">La région thoracique se rigidifie avec la posture assise prolongée. Une colonne thoracique peu mobile limite l'amplitude des exercices de dos et d'épaules, et augmente la compensation cervicale et lombaire.</div>
-      <div class="erreur-fix">✓ Extension sur rouleau + Thread the needle + Cat-cow = 10 min quotidiennes de mobilité thoracique active.</div>
+      <div class="erreur-fix">✓ Extension sur rouleau et chat-vache chaque matin, fil de l'aiguille après chaque séance : la mobilité thoracique s'entretient un peu chaque jour.</div>
     </div>
   </div>
 </div>
@@ -1058,7 +1065,7 @@ div[data-prive="posture.30"] { color: #626784 !important; }
 <div class="section">
   <div class="section-label">Routine</div>
   <div class="section-title">Ton Protocole Quotidien</div>
-  <div class="section-sub" data-prive="posture.30" data-prive-garder>20 minutes par jour en dehors de tes séances de musculation pour corriger la posture. C'est peu, c'est efficace.</div>
+  <div class="section-sub" data-prive="posture.30" data-prive-garder>15 minutes par jour (matin et soir), plus 10 minutes d'étirements après chaque séance. C'est peu, c'est efficace.</div>
 
   <div class="protocol-timeline reveal">
     <div class="proto-item">
@@ -1067,11 +1074,11 @@ div[data-prive="posture.30"] { color: #626784 !important; }
         <div class="proto-when morning">Matin — Réveil (10 min)</div>
         <div class="proto-title">Réveil Postural</div>
         <ul class="proto-list">
-          <li>Chin tuck × 15 reps (repositionne la tête avant la journée)</li>
-          <li>Cat-cow × 10 cycles lents (mobilise la colonne après la nuit)</li>
-          <li>Extension thoracique sur rouleau — 5 positions × 30 sec</li>
-          <li>Vacuum abdominal × 5 séries × 20-30 sec</li>
-          <li>Étirement pectoral mineur au coin de porte × 3 × 30 sec</li>
+          <li>Chin tuck 2 × 15 (repositionne la tête avant la journée)</li>
+          <li>Chat-vache — 10 cycles lents (mobilise la colonne après la nuit)</li>
+          <li>Extension thoracique sur rouleau — 5 positions × 30 s</li>
+          <li>Vacuum abdominal 3 × 10-20 s (30-45 s avec l'habitude)</li>
+          <li>Étirement du pectoral mineur au coin de porte — 3 × 30 s</li>
         </ul>
       </div>
     </div>
@@ -1088,12 +1095,12 @@ div[data-prive="posture.30"] { color: #626784 !important; }
     <div class="proto-item">
       <div class="proto-dot-col"><div class="proto-dot postworkout">💪</div></div>
       <div class="proto-body">
-        <div class="proto-when postworkout">Après séance (5 min)</div>
+        <div class="proto-when postworkout">Après séance (10 min)</div>
         <div class="proto-title">Étirements Ciblés</div>
         <ul class="proto-list">
-          <li>Étirement grand dorsal (enfant modifié) × 3 × 20 sec / côté</li>
-          <li>Thread the needle × 3 × 40 sec / côté (rotation thoracique)</li>
-          <li>Étirement cervical latéral × 3 × 30 sec / côté</li>
+          <li>Étirement du grand dorsal (enfant modifié) — 3 × 20 s / côté</li>
+          <li>Fil de l'aiguille — 2 × 30 s / côté (rotation thoracique)</li>
+          <li>Étirement cervical latéral — 2 × 30 s / côté</li>
           <li>Respiration diaphragmatique 10 cycles (retour au calme)</li>
         </ul>
       </div>
@@ -1105,8 +1112,8 @@ div[data-prive="posture.30"] { color: #626784 !important; }
         <div class="proto-when evening">Soir — Coucher (5 min)</div>
         <div class="proto-title">Récupération Posturale</div>
         <ul class="proto-list">
-          <li>Étirement pectoral mineur × 2 × 30 sec</li>
-          <li>Box breathing 4-4-4-4 × 5 cycles (activation parasympathique)</li>
+          <li>Étirement du pectoral mineur — 2 × 30 s</li>
+          <li>Respiration carrée 4-4-4-4, 5 cycles (retour au calme)</li>
           <li>Position de sommeil : celle où tu dors bien et sans douleur ; aucune n'est démontrée meilleure pour la posture</li>
                   </ul>
       </div>

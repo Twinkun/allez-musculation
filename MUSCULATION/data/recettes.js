@@ -121,7 +121,7 @@
       note: "Le saumon apporte dans le même pavé des oméga-3 EPA et DHA, des protéines et de la vitamine D. La règle d'or : <strong>peau contre la poêle, pas de beurre, ne pas toucher</strong>. La chaleur remonte progressivement dans la chair : l'intérieur reste rosé et nacré.",
       lignes: [
         {"q":"200 g","nom":"Pavé de saumon (avec peau)","note":"Frais de préférence. Épaisseur idéale : 3 cm","a":[["saumon",200]]},
-        {"q":"60 g","nom":"Quinoa blanc sec","note":"Donne ~130 g cuit","a":[["quinoa",60]]},
+        {"q":"60 g","nom":"Quinoa blanc sec","note":"Donne ~170 g cuit","a":[["quinoa",60]]},
         {"q":"½","nom":"Avocat mûr","note":"Doit céder sous une légère pression du doigt","a":[["avocat",70]]},
         {"q":"80 g","nom":"Tomates cerises","note":"","a":[["tomatecerise",80]]},
         {"q":"½","nom":"Concombre","note":"Coupé en demi-lunes de 5 mm","a":[["concombre",150]]},
@@ -133,7 +133,7 @@
     r02: { titre: "Chirashi Bowl · Saumon · Riz Vinaigré",
       note: "Le chirashi est un plat de <strong>précision</strong>. Le riz vinaigré (shari) est la base : trop chaud, le vinaigre s'évapore ; trop froid, il ne s'incorpore pas. <strong>Riz encore légèrement tiède</strong>, jamais brûlant. Poisson cru : la réglementation européenne impose une congélation à −20 °C pendant au moins 24 h contre les parasites. Achète du saumon surgelé qualité sashimi ou demande à ton poissonnier s'il a été congelé.",
       lignes: [
-        {"q":"150 g","nom":"Saumon frais qualité sashimi","note":"Rayé ou Atlantique. Acheter chez un poissonnier ou en surgelé sashimi-grade. Ne jamais utiliser du saumon fumé ici.","a":[["saumon",150]]},
+        {"q":"150 g","nom":"Saumon frais qualité sashimi","note":"Saumon atlantique (Écosse, Norvège). Acheter chez un poissonnier ou en surgelé sashimi-grade. Ne jamais utiliser du saumon fumé ici.","a":[["saumon",150]]},
         {"q":"60 g","nom":"Riz japonica sec (sushi rice)","note":"Riz rond japonais — pas de basmati, pas de riz long grain","a":[["rizblanc_cru",60]]},
         {"q":"1 CS","nom":"Vinaigre de riz","note":"","a":[]},
         {"q":"1 cc","nom":"Sucre + pincée de sel","note":"","a":[["sucre",4]]},
@@ -292,7 +292,7 @@
         {"q":"q.s.","nom":"Oignons verts ciselés + ½ cc huile de sésame","note":"","a":[["huilesesame",2.2]]}
       ] },
     r15: { titre: "Poulet Mariné · Légumes Méditerranéens Rôtis",
-      note: "Le <strong>meal prep par excellence</strong> : 3-4 escalopes et une plaque de légumes le dimanche couvrent 3 jours de déjeuners. Les légumes rôtis se gardent 4 jours au frigo. Varier les couleurs des légumes, c'est varier les vitamines et les fibres.",
+      note: "Le <strong>plat à préparer d'avance par excellence</strong> : 3-4 escalopes et une plaque de légumes le dimanche couvrent 3 jours de déjeuners. Les légumes rôtis se gardent 4 jours au frigo. Varier les couleurs des légumes, c'est varier les vitamines et les fibres.",
       lignes: [
         {"q":"200 g","nom":"Escalope de poulet","note":"","a":[["poulet",200]]},
         {"q":"—","nom":"Marinade : 1 CS huile d'olive + 2 gousses ail haché + 1 cc herbes de Provence + jus ½ citron + sel + poivre","note":"","a":[["huileolive",18],["ail",8],["citron",20]]},
@@ -364,7 +364,7 @@
         {"q":"opt.","nom":"Fruits rouges, cannelle, graines de chia","note":"","a":[]}
       ] },
     r21: { titre: "Tortilla Espagnole Protéinée · Poulet · Pommes de Terre",
-      note: "Le meal prep par excellence : une seule poêle et 3 jours de conservation. Les œufs entiers apportent protéines, vitamine D et choline. Le secret d'une tortilla réussie : des pommes de terre bien égouttées et une cuisson douce pour garder le cœur moelleux.",
+      note: "Le plat à préparer d'avance par excellence : une seule poêle et 3 jours de conservation. Les œufs entiers apportent protéines, vitamine D et choline. Le secret d'une tortilla réussie : des pommes de terre bien égouttées et une cuisson douce pour garder le cœur moelleux.",
       lignes: [
         {"q":"5","nom":"Œufs entiers","note":"","a":[["oeuf",260]]},
         {"q":"150 g","nom":"Blanc de poulet émincé très fin","note":"Saisi 3 min à la poêle avant d'être incorporé à l'appareil","a":[["poulet",150]]},
@@ -390,7 +390,7 @@
         {"q":"5 g","nom":"Miel (1 filet) + zeste de citron jaune","note":"","a":[["miel",5]]}
       ] },
     r24: { titre: "Smash Burger Maison · Cheddar · Frites de Patate Douce",
-      note: "Le burger <strong>version recomposition</strong> : steak 5 %, pain complet et frites de patate douce au four (sans friture). Le goût « resto » vient de la <strong>réaction de Maillard</strong> : la croûte du smash sur poêle brûlante.",
+      note: "Le burger <strong>version allégée</strong> : steak 5 %, pain complet et frites de patate douce au four (sans friture). Le goût « resto » vient de la <strong>réaction de Maillard</strong> : la croûte du smash sur poêle brûlante.",
       lignes: [
         {"q":"180 g","nom":"Steak haché 5% MG","note":"En 2 boules écrasées fort sur poêle brûlante = croûte caramélisée","a":[["hache5",180]]},
         {"q":"1","nom":"Pain burger complet","note":"","a":[["painburger",70]]},
@@ -553,7 +553,7 @@
         {"q":"5 g","nom":"Miel + cannelle","note":"","a":[["miel",5]]}
       ] },
     r41: { titre: "Poulet Yassa · Oignons Citron · Riz",
-      note: "Classique sénégalais, maigre et plein de saveur grâce au citron et aux oignons fondus. Économique et idéal en meal prep : la sauce s'intensifie le lendemain.",
+      note: "Classique sénégalais, maigre et plein de saveur grâce au citron et aux oignons fondus. Économique et idéal à préparer d'avance : la sauce s'intensifie le lendemain.",
       lignes: [
         {"q":"180 g","nom":"Blanc de poulet","note":"","a":[["poulet",180]]},
         {"q":"3","nom":"Oignons émincés","note":"La base du yassa : beaucoup d'oignon fondu","a":[["oignon",330]]},

@@ -430,7 +430,7 @@ button, a, [onclick], input, select, label {
 
 <!-- ── POINT DE DÉPART ── -->
 <div class="section">
-  <div class="section-label">Baseline</div>
+  <div class="section-label">Référence</div>
   <div class="section-title">Point de Départ</div>
   <div class="section-sub">Tes mesures de départ (profil). <strong>À refaire le jour J</strong> (<span id="jDay">date à choisir sur le dashboard</span>) : c'est ce point zéro qui servira à toutes les comparaisons. Même heure, même lumière, mêmes angles.</div>
 
@@ -452,7 +452,7 @@ button, a, [onclick], input, select, label {
         </div>
         <div class="start-stat">
           <span class="start-val"><span data-az="goals.biceps0|n"></span> cm</span>
-          <span class="start-lbl">Biceps tendu</span>
+          <span class="start-lbl">Biceps contracté</span>
         </div>
         <div class="start-stat">
           <span class="start-val"><span data-az="profile.height|n"></span> cm</span>
@@ -492,7 +492,7 @@ button, a, [onclick], input, select, label {
 <div class="section">
   <div class="section-label">Timeline</div>
   <div class="section-title">Évolution Mois par Mois</div>
-  <div class="section-sub">Photos à prendre à chaque date anniversaire du jour J, le matin à jeun. Même position, même lumière naturelle. Les milestones M3 · M6 · M9 · M12 sont les bilans comparatifs officiels.</div>
+  <div class="section-sub">Photos à prendre à chaque date anniversaire du jour J, le matin à jeun. Même position, même lumière naturelle. Les étapes M3 · M6 · M9 · M12 sont les bilans comparatifs.</div>
 
   <div class="phase-bar reveal" id="phaseBar"></div>
 
@@ -529,7 +529,7 @@ const TIMELINE_DATA = [
     sil: { sw: 46, ww: 34, hw: 42, at: 8.5 },
     strengths: [
       'Biceps = ton meilleur groupe : il réagira vite',
-      'Taille naturellement fine — le levier V-taper est déjà là',
+      'Taille naturellement fine — le levier de la silhouette en V est déjà là',
       'Courbatures fortes la 1re semaine, puis nettement moins',
     ],
     changes: [
@@ -613,9 +613,9 @@ const TIMELINE_DATA = [
     n: 6, weeks: 'Semaines 22–26', phase: 'B3 · Cycle 2 + Deload', cycle: 2, color: 'purple',
     sil: { sw: 48.8, ww: 33.2, hw: 42, at: 9.5 },
     strengths: [
-      'V-taper amorcé et photographiable',
+      'Silhouette en V amorcée, visible sur photo',
       'Largeur d\'épaules ~+1,5 cm vs M0',
-      'Biceps ~+1 cm tendu',
+      'Biceps contracté ~+1 cm',
     ],
     changes: [
       'Masse grasse ~{bf} %',
@@ -649,7 +649,7 @@ const TIMELINE_DATA = [
     strengths: [
       'Haut du corps clairement plus dense qu\'au départ',
       'Pectoraux hauts mieux remplis',
-      'Bras ~+1 à 2 cm tendu vs M0',
+      'Biceps contracté ~+1 à 2 cm vs M0',
     ],
     changes: [
       'Masse grasse ~{bf} %',
@@ -689,7 +689,7 @@ const TIMELINE_DATA = [
       'Masse grasse ~{bf} %',
       'Progression en charge plus lente : normal après 9 mois',
       'Abdos encore peu visibles (il faut ~12 % de MG pour les voir)',
-      'Préparer la suite : année 2 en prise de masse propre',
+      'Préparer la suite : année 2, on continue la prise de masse lente',
     ],
     insight: 'Dernier cycle. On consolide : charges, technique, sommeil. Pas de changement de programme maintenant.',
     milestone: false
@@ -706,9 +706,9 @@ const TIMELINE_DATA = [
       'Masse grasse ~{bf} %',
       'Tour de taille ~{waist} cm',
       'Ventre plat de face, léger relief en haut des abdos sous lumière directe',
-      'Corps prêt pour un surplus calorique léger en année 2',
+      'Base prête pour continuer la prise de masse lente en année 2',
     ],
-    insight: 'Avant-dernier mois. Les raisons de continuer sont maintenant visibles dans le miroir et dans le logbook.',
+    insight: 'Avant-dernier mois. Les raisons de continuer sont maintenant visibles dans le miroir et dans le carnet de séance.',
     milestone: false
   },
   {
@@ -717,12 +717,12 @@ const TIMELINE_DATA = [
     strengths: [
       '{dLeanLow} à {dLean} kg de masse maigre en 12 mois (eau de la créatine incluse)',
       '~{bf} % de masse grasse, ~{dFat} kg de gras',
-      'V-taper visible : épaules ~{dShoulders} cm, taille ~{dWaist} cm',
-      'Bras ~{biceps} cm tendu',
+      'Silhouette en V visible : épaules ~{dShoulders} cm, taille ~{dWaist} cm',
+      'Biceps contracté ~{biceps} cm',
     ],
     changes: [
       'Photos M0 / M12 : transformation nette',
-      'Nouvelle base pour l\'année 2 : prise de masse propre (~+150-250 kcal/j)',
+      'Nouvelle base pour l\'année 2 : même prise de masse lente, calories recalculées sur ton nouveau poids',
       'Objectif année 2 : pousser épaules, dos et bras sur cette base',
       'Bilan médical lombaire si douleurs encore présentes',
     ],
@@ -980,8 +980,8 @@ function renderTimeline() {
                   <div class="tl-stat-key">Masse maigre gagnée</div>
                 </div>
                 <div class="tl-stat">
-                  <div class="tl-stat-val" style="color:${col}">−${deltaBF}%</div>
-                  <div class="tl-stat-key">MG perdue (pts)</div>
+                  <div class="tl-stat-val" style="color:${col}">−${deltaBF} pt</div>
+                  <div class="tl-stat-key">Masse grasse (points)</div>
                 </div>
               </div>
             </div>

@@ -392,10 +392,21 @@ button, a, [onclick], input, select, label {
 .tab-btn.active { color: #8a5800 !important; }
 .backup-lbl { color: #626875 !important; }
 .blk-banner a { color: #8a5800 !important; }
+/* Carte d'exercice (visible les jours de séance) */
+.exo-hint, .sess-date { color: #5b616e !important; }
+.exo-muscle, .exo-rir { color: #8a5800 !important; }
+.exo-rest { color: #086b39 !important; }
+/* Dernière séance, historique, courbes */
+.exo-last, .set-inp.bw, #saveSub, .curve-section-lbl, .hist-empty, .hist-empty div { color: #5b616e !important; }
+.hist-vol { color: #8a5800 !important; }
 </style>
 <style id="az-cibles">
 /* Cibles tactiles ≥ 44 px (phase 5) */
 .rest-next, .backup-btn, .rest-hist { min-height: 44px !important; display: inline-flex !important; align-items: center; justify-content: center; }
+.set-inp, .add-set, .focus-open-btn { min-height: 44px !important; }
+.set-chk { width: 44px !important; height: 44px !important; }
+.curve-btn, .hist-del { min-height: 44px !important; }
+.hist-del { min-width: 44px !important; }
 </style>
 </head>
 <body>
@@ -420,8 +431,8 @@ button, a, [onclick], input, select, label {
 
 <div class="backup-bar">
   <span class="backup-lbl">Sauvegarde :</span>
-  <button class="backup-btn" data-action="exportData">💾 Exporter JSON</button>
-  <label class="backup-btn imp" for="importInput">📂 Importer JSON</label>
+  <button class="backup-btn" data-action="exportData">💾 Sauvegarder</button>
+  <label class="backup-btn imp" for="importInput">📂 Restaurer</label>
   <input type="file" id="importInput" class="backup-input" accept=".json" data-change="importData">
 </div>
 
@@ -1393,7 +1404,7 @@ renderSession();
 </script>
 
 <!-- ══════════════════ FOCUS MODE OVERLAY ══════════════════ -->
-<div id="focusOverlay">
+<div id="focusOverlay" role="dialog" aria-modal="true" aria-label="Mode focus">
 
   <div class="ftop">
     <span class="ftop-label" id="fTopLabel"></span>
@@ -1426,7 +1437,7 @@ renderSession();
     </div>
 
     <!-- Action -->
-    <button class="faction" id="fActionBtn" data-action="fAction">SET TERMINÉ</button>
+    <button class="faction" id="fActionBtn" data-action="fAction">SÉRIE TERMINÉE</button>
 
     <!-- Exercise navigation -->
     <div class="fnavrow">
