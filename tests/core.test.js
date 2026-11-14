@@ -35,8 +35,11 @@ test('profil saisi → objectifs = départ + écarts du modèle ; PROJ du mois 1
   const G = ALLEZ.GOALS, P = ALLEZ.PROJ, r1 = x => Math.round(x * 10) / 10;
   assert.equal(G.weight0, 80); assert.equal(G.bf0, 22);
   assert.equal(G.lean0, r1(80 * 0.78));                       // 62,4
-  assert.equal(G.weight, 81.5); assert.equal(G.bf, 17.5); assert.equal(G.waist, 86);
-  assert.equal(G.lean, r1(G.lean0 + 4.5)); assert.equal(G.leanLow, r1(G.lean0 + 2.5));
+  // prise de masse lente : +3 kg, masse maigre +3,5 à +4,5 kg, masse grasse déduite (1 − maigre / poids)
+  assert.equal(G.weight, 83); assert.equal(G.waist, 88.5);
+  assert.equal(G.lean, r1(G.lean0 + 4.5)); assert.equal(G.leanLow, r1(G.lean0 + 3.5));
+  assert.equal(G.bf, r1(100 * (1 - G.lean / G.weight)));         // 19,4
+  assert.ok(G.fat < G.fat0);                                    // le gras ne monte pas
   assert.equal(G.shoulders, 49); assert.equal(G.chest, 105); assert.equal(G.biceps, '38–39');
   ['weight', 'bf', 'lean', 'waist'].forEach(k => { assert.equal(P[k][0], G[k + '0']); assert.equal(P[k][12], G[k]); });
   assert.equal(P.leanLow[12], G.leanLow);
@@ -221,8 +224,8 @@ test('rappel de sauvegarde : plus de 5 nouvelles séances ou plus de 14 jours av
 test('liaison : value() et fmt()', () => {
   const { ALLEZ } = load({});
   ALLEZ.setProfile(PROFIL_TEST);
-  assert.equal(ALLEZ.value('goals.weight'), 81.5);
-  assert.equal(ALLEZ.value('proj.bf.12'), 17.5);
+  assert.equal(ALLEZ.value('goals.weight'), 83);
+  assert.equal(ALLEZ.value('proj.bf.12'), 19.4);
   assert.equal(ALLEZ.value('profile.height'), 182);
   assert.equal(ALLEZ.fmt(81.5, '1'), '81,5'); assert.equal(ALLEZ.fmt(2650, 'int'), '2 650'); assert.equal(ALLEZ.fmt(4.5, '+1'), '+4,5'); assert.equal(ALLEZ.fmt(-4, '+0'), '−4');
   assert.equal(ALLEZ.fmt(undefined, '1'), '—');

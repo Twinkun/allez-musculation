@@ -133,25 +133,27 @@
   function clearProfile() { lsDel(PROFILE_KEY); cache.raw = undefined; }
 
   // ── OBJECTIFS & PROJECTION (calculés depuis le profil, valeurs de FIN de mois) ──
-  // Modèle de recomposition sur 12 mois (débutant, haut du corps, créatine incluse) : écarts par rapport au départ.
-  // Masse maigre : fourchette +2,5 à +4,5 kg ; les courbes ci-dessous décrivent le haut de la fourchette.
+  // Modèle de prise de masse lente sur 12 mois (débutant, haut du corps, créatine incluse) : écarts par rapport au départ.
+  // Poids : +0,25 kg/mois environ (+3 kg sur l'année). Masse maigre : fourchette +3,5 à +4,5 kg ; les courbes décrivent le haut
+  // de la fourchette. La masse grasse n'est pas fixée à part : elle découle du poids et de la masse maigre (gras = poids − maigre).
   var MODEL = {
-    dWeight: [0, 0.5, 0.9, 1.1, 1.3, 1.5, 1.5, 1.5, 1.6, 1.6, 1.6, 1.5, 1.5],
-    dBf:     [0, -0.4, -0.9, -1.3, -1.7, -2.1, -2.4, -2.8, -3.1, -3.5, -3.8, -4.2, -4.5],
+    dWeight: [0, 0.4, 0.8, 1.1, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0],
     dLean:   [0, 0.8, 1.4, 1.9, 2.3, 2.7, 3.0, 3.3, 3.6, 3.9, 4.1, 4.3, 4.5],
-    dWaist:  [0, -0.5, -1, -1.5, -1.5, -2, -2.5, -2.5, -3, -3.5, -3.5, -4, -4],
-    leanGainLow: 2.5, leanGainHigh: 4.5,
+    dWaist:  [0, -0.5, -0.5, -0.5, -1, -1, -1, -1, -1, -1.5, -1.5, -1.5, -1.5],
+    leanGainLow: 3.5, leanGainHigh: 4.5,
     dShoulders: 3, dBiceps: [2, 3], dChest: 5,
-    // Horizons plus lointains : fourchettes d'écart par rapport au départ (pratiquant naturel régulier)
-    an2: { weight: [4, 6], lean: [7, 8], biceps: [3, 4], chest: [8, 11], bf: [-6.5, -5.5] },
+    // Horizons plus lointains : fourchettes d'écart par rapport au départ (pratiquant naturel régulier ; à 5 ans, une phase de sèche incluse)
+    an2: { weight: [5, 7], lean: [7, 8], biceps: [3, 4], chest: [8, 11], bf: [-4, -3] },
     an5: { weight: [7, 11], lean: [11, 13], biceps: [4, 5], chest: [13, 17], bf: [-8.5, -7.5] }
   };
   function compute() {
     var p = profile(); if (cache.goals) return;
     var s = p.start, lean0 = r1(s.weight * (1 - s.bf / 100));
     var add = function (base, arr, k) { return arr.map(function (d) { return r1(base + d * (k === undefined ? 1 : k)); }); };
+    var weight = add(s.weight, MODEL.dWeight), lean = add(lean0, MODEL.dLean);
     var proj = {
-      weight: add(s.weight, MODEL.dWeight), bf: add(s.bf, MODEL.dBf), lean: add(lean0, MODEL.dLean),
+      weight: weight, lean: lean,
+      bf: weight.map(function (wt, i) { return i === 0 ? s.bf : r1(100 * (1 - lean[i] / wt)); }),
       leanLow: add(lean0, MODEL.dLean, MODEL.leanGainLow / MODEL.leanGainHigh), waist: add(s.waist, MODEL.dWaist)
     };
     var n = proj.weight.length - 1;

@@ -13,13 +13,14 @@ test('nutrition : cibles calculées depuis le profil (Mifflin-St Jeor), cohéren
   assert.equal(N.tdee, Math.round((3 * N.train.depense + 2 * N.pingpong.depense + 2 * N.rest.depense) / 7));
   assert.equal(N.activite, Math.round(N.tdee / N.bmr * 100) / 100);
   [N.train, N.pingpong, N.rest].forEach(d => { assert.equal(d.kcal % 50, 0); assert.equal(d.delta, d.kcal - d.depense); });
-  assert.ok(N.train.delta > 0); assert.ok(N.pingpong.delta < 0); assert.ok(N.rest.delta < N.pingpong.delta);
+  // prise de masse lente : surplus les jours de muscu, ~maintenance au ping-pong (± arrondi à 50 kcal), sous la dépense au repos
+  assert.ok(N.train.delta > 0); assert.ok(Math.abs(N.pingpong.delta) <= 25); assert.ok(N.rest.delta < 0);
   assert.ok(N.pingpong.g > N.train.g && N.train.g > N.rest.g);                 // le plus de glucides les jours de club
   assert.equal(N.proteines, 180);                                              // 2,25 g/kg × 80, arrondi à 5 g
   // les macros redonnent les calories à ±3 kcal (arrondi des glucides)
   [N.train, N.pingpong, N.rest].forEach(d => assert.ok(Math.abs(d.p * 4 + d.g * 4 + d.l * 9 - d.kcal) <= 3));
   assert.equal(N.moyenne, Math.round((3 * N.train.kcal + 2 * N.pingpong.kcal + 2 * N.rest.kcal) / 7));
-  assert.equal(N.ecartMoyen, N.moyenne - N.tdee); assert.ok(N.ecartMoyen < 0 && N.ecartMoyen > -150);   // légère sous-maintenance
+  assert.equal(N.ecartMoyen, N.moyenne - N.tdee); assert.ok(N.ecartMoyen > 0 && N.ecartMoyen < 200);    // léger surplus (~+0,25 kg/mois)
   assert.equal(N.proteinesMin, 128); assert.equal(N.proteinesMax, 176);
 });
 

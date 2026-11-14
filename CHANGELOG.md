@@ -1,5 +1,12 @@
 # Journal des changements — ALLEZ
 
+## Prise de masse lente : objectif ~73 kg à 1 an (branche `prise-lente`)
+
+- `core.js` MODEL : poids +3 kg sur 12 mois (~+0,25 kg/mois), masse maigre +3,5 à +4,5 kg, taille −1,5 cm. La masse grasse projetée n'est plus une série à part : elle est déduite (1 − maigre / poids), donc toujours cohérente. Horizon 2 ans : +5 à +7 kg.
+- `data/nutrition.js` : muscu = dépense + 10 %, ping-pong = dépense, repos = dépense − 3 % → moyenne ≈ dépense + 80 kcal/j.
+- `data/repas.js` : portions recalées à ±1 % des nouvelles cibles (miel et patate douce Lun-Jeu, patate douce samedi, riz du dîner ping-pong, riz et huile au repos).
+- Textes : « recomposition » → « prise de masse lente » sur toutes les pages ; règles d'ajustement mensuel réécrites (cible +0,2 à +0,4 kg/mois, taille stable).
+
 ## Mesures réelles, tempos et ping-pong 2×/semaine (branche `mesures-reelles`)
 
 ### Nutrition : 3 types de journées

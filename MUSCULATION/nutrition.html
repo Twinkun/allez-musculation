@@ -1383,7 +1383,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
         Plan Nutrition Personnalisé
       </div>
       <h1>FORGE<br><em>TON</em><br>CORPS</h1>
-      <p>Plan nutritionnel calculé sur mesure pour ta morphologie, ton objectif de recomposition (perdre du gras en construisant du muscle) et ton niveau d'activité. Basé sur la formule Mifflin-St Jeor.</p>
+      <p>Plan nutritionnel calculé sur mesure pour ta morphologie, ton objectif de prise de masse lente (construire du muscle en gardant le ventre sous contrôle) et ton niveau d'activité. Basé sur la formule Mifflin-St Jeor.</p>
     </div>
     <!-- DROITE -->
     <div class="hero-right">
@@ -1425,7 +1425,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
 <div class="section" id="sec-calories">
   <div class="section-label">Calories</div>
   <div class="section-title">Ton Budget Calorique</div>
-  <div class="section-sub">Dépense calculée jour par jour : métabolisme de base (Mifflin-St Jeor) × <span data-az="nutrition.palBase|1"></span> pour une journée de bureau sans sport, plus le coût de l'activité du jour (Compendium des activités physiques : musculation <span data-az="nutrition.muscuMet|n"></span> MET pendant <span data-az="nutrition.muscuHeures|2"></span> h, ping-pong <span data-az="nutrition.pingpongMet|n"></span> MET pendant <span data-az="nutrition.pingpongHeures|n"></span> h). C'est une estimation : ton vrai besoin peut varier d'environ ±<span data-az="nutrition.tdeeMarge|int"></span> kcal — d'où le bilan toutes les 4 semaines (voir Conseils). Stratégie recomposition, par rapport à la dépense de chaque jour : <span data-az="nutrition.train.delta|+int"></span> kcal les jours de muscu, <span data-az="nutrition.pingpong.delta|+int"></span> kcal les jours de ping-pong, <span data-az="nutrition.rest.delta|+int"></span> kcal au repos.</div>
+  <div class="section-sub">Dépense calculée jour par jour : métabolisme de base (Mifflin-St Jeor) × <span data-az="nutrition.palBase|1"></span> pour une journée de bureau sans sport, plus le coût de l'activité du jour (Compendium des activités physiques : musculation <span data-az="nutrition.muscuMet|n"></span> MET pendant <span data-az="nutrition.muscuHeures|2"></span> h, ping-pong <span data-az="nutrition.pingpongMet|n"></span> MET pendant <span data-az="nutrition.pingpongHeures|n"></span> h). C'est une estimation : ton vrai besoin peut varier d'environ ±<span data-az="nutrition.tdeeMarge|int"></span> kcal — d'où le bilan toutes les 4 semaines (voir Conseils). Stratégie prise de masse lente, par rapport à la dépense de chaque jour : <span data-az="nutrition.train.delta|+int"></span> kcal les jours de muscu, <span data-az="nutrition.pingpong.delta|+int"></span> kcal les jours de ping-pong, <span data-az="nutrition.rest.delta|+int"></span> kcal au repos.</div>
 
   <!-- FORMULE -->
   <div class="calorie-formula reveal">
@@ -1465,7 +1465,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="cycling-day">Muscu · lun, jeu, sam</div>
       <div class="cycling-kcal-big" data-az="nutrition.train.kcal|int"></div>
       <div style="font-size:.75rem;color:var(--text-light);">kcal</div>
-      <div class="cycling-desc">Dépense du jour <span data-az="nutrition.train.delta|+int"></span> kcal : léger surplus pour construire. Glucides autour de la séance pour la performance et la récupération.</div>
+      <div class="cycling-desc">Dépense du jour <span data-az="nutrition.train.delta|+int"></span> kcal : surplus pour construire. Glucides autour de la séance pour la performance et la récupération.</div>
     </div>
     <div class="cycling-card pp">
       <div class="cycling-day">Ping-pong · mar, ven</div>
@@ -1483,7 +1483,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="cycling-day">Moyenne Semaine</div>
       <div class="cycling-kcal-big" data-az="nutrition.moyenne|int"></div>
       <div style="font-size:.75rem;color:var(--text-light);">kcal</div>
-      <div class="cycling-desc"><span data-az="nutrition.joursSeance"></span> jours de muscu + <span data-az="nutrition.joursPingpong"></span> de ping-pong + <span data-az="nutrition.joursRepos"></span> de repos = légère sous-maintenance (<span data-az="nutrition.ecartMoyen|+int"></span> kcal/j). Recomposition : perte de gras progressive en construisant du muscle.</div>
+      <div class="cycling-desc"><span data-az="nutrition.joursSeance"></span> jours de muscu + <span data-az="nutrition.joursPingpong"></span> de ping-pong + <span data-az="nutrition.joursRepos"></span> de repos = léger surplus (<span data-az="nutrition.ecartMoyen|+int"></span> kcal/j) : environ +0,25 kg par mois, surtout du muscle.</div>
     </div>
   </div>
 
@@ -1757,20 +1757,20 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
 
 <div class="section-divider"></div>
 
-<!-- SECTION 7 : CONSEILS LEAN BULK -->
+<!-- SECTION 7 : CONSEILS PRISE DE MASSE LENTE -->
 <div class="section" id="sec-conseils">
   <div class="section-label">Stratégie</div>
-  <div class="section-title">Conseils Recomposition</div>
-  <div class="section-sub">Débutant + <span data-az="goals.bf0|n"></span> % de masse grasse = tu peux perdre du gras et construire du muscle en même temps. Conséquence : la balance bouge peu, il faut suivre les bons indicateurs.</div>
+  <div class="section-title">Conseils Prise de Masse Lente</div>
+  <div class="section-sub">Débutant + <span data-az="goals.bf0|n"></span> % de masse grasse : un petit surplus construit le muscle vite sans faire grossir le ventre, à condition de prendre lentement (~0,25 kg par mois, <span data-az="goals.dWeight|+n"></span> kg sur l'année). Il faut suivre les bons indicateurs.</div>
 
   <div class="adjust-box reveal">
     <div class="adjust-title">🎛️ Ajuster les calories — bilan toutes les 4 semaines</div>
     <div class="adjust-sub">Compare la moyenne de poids de la semaine 4 à celle de la semaine 1, le tour de taille et ton logbook.</div>
-    <div class="adjust-row"><div class="adjust-ico">✅</div><div class="adjust-if">Taille ↓ · charges ↑ · poids stable (±0,5 kg/mois)</div><div class="adjust-then">Parfait. Ne change rien.</div></div>
-    <div class="adjust-row"><div class="adjust-ico">⬆️</div><div class="adjust-if">Poids qui monte de plus de 0,5 kg/mois ET taille qui ne baisse pas</div><div class="adjust-then">−150 kcal les jours de repos (≈ −35 g de glucides : 45 g de riz cru en moins).</div></div>
-    <div class="adjust-row"><div class="adjust-ico">⬇️</div><div class="adjust-if">Poids qui baisse de plus de 0,5 kg/mois, charges qui stagnent, faim forte</div><div class="adjust-then">+150 kcal les jours de séance (1 banane + 20 g d'avoine en plus).</div></div>
+    <div class="adjust-row"><div class="adjust-ico">✅</div><div class="adjust-if">Poids +0,2 à +0,4 kg/mois · taille stable (±1 cm) · charges ↑</div><div class="adjust-then">Parfait. Ne change rien.</div></div>
+    <div class="adjust-row"><div class="adjust-ico">⬆️</div><div class="adjust-if">Poids qui monte de plus de 0,5 kg/mois OU taille qui prend plus de 1 cm</div><div class="adjust-then">−150 kcal les jours de repos (≈ −35 g de glucides : 45 g de riz cru en moins).</div></div>
+    <div class="adjust-row"><div class="adjust-ico">⬇️</div><div class="adjust-if">Poids stable ou en baisse sur 4 semaines, charges qui stagnent, faim forte</div><div class="adjust-then">+150 kcal les jours de muscu (1 banane + 20 g d'avoine en plus).</div></div>
     <div class="adjust-row"><div class="adjust-ico">⏸️</div><div class="adjust-if">Rien ne bouge depuis 4 semaines (poids, taille, charges)</div><div class="adjust-then">Avant de toucher aux calories : vérifie la pesée réelle des aliments (sous-estimation fréquente de 20-30 %), le sommeil et la régularité des séances.</div></div>
-    <div class="adjust-row"><div class="adjust-ico">🏁</div><div class="adjust-if">Masse grasse ≈ <span data-az="goals.bf|n"></span> % (fin d'année 1)</div><div class="adjust-then">Passe en prise de masse propre : +150 à 250 kcal/jour, objectif +0,25 à 0,5 kg/mois.</div></div>
+    <div class="adjust-row"><div class="adjust-ico">🏁</div><div class="adjust-if">Fin d'année 1 (~<span data-az="goals.weight|n"></span> kg, ~<span data-az="goals.bf|n"></span> % de masse grasse)</div><div class="adjust-then">On continue la prise lente en année 2. Si la masse grasse dépasse ~19 %, 6 à 8 semaines de légère sèche (−300 kcal/jour), puis reprise.</div></div>
   </div>
 
   <div class="conseils-grid reveal">
@@ -1785,7 +1785,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="conseil-icon">📏</div>
       <div class="conseil-body">
         <h3>Le mètre ruban compte plus que la balance</h3>
-        <p>En recomposition, le poids bouge peu (objectif ~<span data-az="goals.dWeight|+n"></span> kg sur l'année). Mesure ton tour de taille au nombril 1×/semaine, même jour, même heure. Une taille qui baisse + des charges qui montent = ça marche.</p>
+        <p>En prise lente, le poids monte doucement (objectif <span data-az="goals.dWeight|+n"></span> kg sur l'année). Mesure ton tour de taille au nombril 1×/semaine, le matin à jeun. Une taille stable + des charges qui montent = le poids gagné est du muscle.</p>
       </div>
     </div>
     <div class="conseil-card">
@@ -1806,14 +1806,14 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="conseil-icon">🧘</div>
       <div class="conseil-body">
         <h3>Vacuum : posture, pas brûle-graisse</h3>
-        <p>Le vacuum renforce le transverse et aide à mieux « tenir » le ventre. Mais seule la perte de gras (léger déficit les jours de repos) réduit réellement le tour de taille.</p>
+        <p>Le vacuum renforce le transverse et aide à mieux « tenir » le ventre. Mais seule la perte de gras réduit réellement le tour de taille : en prise lente, vise une taille stable ; elle baissera lors d'une phase de sèche.</p>
       </div>
     </div>
     <div class="conseil-card">
       <div class="conseil-icon">😴</div>
       <div class="conseil-body">
         <h3>7-9 h de sommeil</h3>
-        <p>Dormir moins de 6 h de façon chronique augmente la faim, réduit la récupération et fait baisser la testostérone. Pour la recomposition, le sommeil pèse autant que la nutrition.</p>
+        <p>Dormir moins de 6 h de façon chronique augmente la faim, réduit la récupération et fait baisser la testostérone. Pour construire du muscle sans prendre de gras, le sommeil pèse autant que la nutrition.</p>
       </div>
     </div>
     <div class="conseil-card">
@@ -1856,7 +1856,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="erreur-x">✕</div>
       <div class="erreur-body">
         <h4>Ne pas manger assez de protéines</h4>
-        <p>Le piège le plus fréquent. ~1,6 g/kg couvre l'essentiel des gains musculaires (méta-analyse Morton 2018) ; jusqu'à 2,2 g/kg reste utile en déficit et pour la satiété. Ton plan vise <span data-az="nutrition.proteines"></span> g (<span data-az="nutrition.proteinesParKg|2"></span> g/kg) : volontairement confortable pour la recomposition.</p>
+        <p>Le piège le plus fréquent. ~1,6 g/kg couvre l'essentiel des gains musculaires (méta-analyse Morton 2018) ; jusqu'à 2,2 g/kg reste utile en déficit et pour la satiété. Ton plan vise <span data-az="nutrition.proteines"></span> g (<span data-az="nutrition.proteinesParKg|2"></span> g/kg)  : volontairement confortable, une marge de sécurité qui aide aussi la satiété.</p>
         <div class="erreur-fix">✓ Solution : priorise une source protéique à chaque repas. Vise 30-40g par repas, 4x/jour.</div>
       </div>
     </div>
@@ -1875,7 +1875,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="erreur-body">
         <h4>Surplus trop important (bulk classique)</h4>
         <p>À <span data-az="goals.bf0|n"></span> % de masse grasse, un surplus de +500 kcal ou plus fait surtout prendre du gras, en particulier au ventre. Le muscle ne se construit pas plus vite pour autant.</p>
-        <div class="erreur-fix">✓ Solution : comme ton plan — <span data-az="nutrition.train.delta|+int"></span> kcal les jours de séance et un léger déficit les jours de repos.</div>
+        <div class="erreur-fix">✓ Solution : comme ton plan — <span data-az="nutrition.train.delta|+int"></span> kcal les jours de muscu, <span data-az="nutrition.pingpong.delta|+int"></span> les jours de ping-pong, <span data-az="nutrition.rest.delta|+int"></span> au repos : en moyenne <span data-az="nutrition.ecartMoyen|+int"></span> kcal/j, soit ~0,25 kg par mois.</div>
       </div>
     </div>
 

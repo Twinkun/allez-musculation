@@ -377,7 +377,7 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
     <div class="card"><h2>Contexte &amp; programme</h2>
       ${row('Niveau', 'Débutant')}
       <div class="row" id="rowParticularites" hidden><span class="lbl">Particularités</span><span class="val red" data-prive="programme.particularites"></span></div>
-      ${row('Stratégie', 'Recomposition corporelle', 'gold')}${row('BMR (Mifflin-St Jeor)', int(N.bmr) + ' kcal')}${row('Dépense moyenne (×' + f(N.activite, '2') + ')', int(N.tdee) + ' kcal')}${row('Split', P.ORDER.map(sid => P.SESSIONS[sid].name.charAt(0) + P.SESSIONS[sid].name.slice(1).toLowerCase()).join(' / '))}
+      ${row('Stratégie', 'Prise de masse lente', 'gold')}${row('BMR (Mifflin-St Jeor)', int(N.bmr) + ' kcal')}${row('Dépense moyenne (×' + f(N.activite, '2') + ')', int(N.tdee) + ' kcal')}${row('Split', P.ORDER.map(sid => P.SESSIONS[sid].name.charAt(0) + P.SESSIONS[sid].name.slice(1).toLowerCase()).join(' / '))}
     </div>
   </div>
   <div class="sh">Calendrier Hebdomadaire</div>
@@ -392,8 +392,8 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
   <div class="sh">Calories &amp; Macros</div>
   <div>${bar(N.train, 'muscu')}${bar(N.pingpong, 'ping-pong')}${bar(N.rest, 'repos', true)}</div>
   <div class="info-box blue">
-    <h3>Stratégie recomposition</h3>
-    <p>Débutant + ${f(G.bf0, 'n')} % de masse grasse = prise musculaire et perte de gras simultanées. Par rapport à la dépense de chaque jour : ${f(N.train.delta, '+int')} kcal les jours de muscu, ${f(N.pingpong.delta, '+int')} kcal les jours de ping-pong, ${f(N.rest.delta, '+int')} kcal au repos. Moyenne hebdomadaire : ${int(N.moyenne)} kcal, soit ≈ ${f(N.ecartMoyen, '+int')} kcal/j par rapport à la maintenance → le gras baisse (~${f(Math.abs(G.dFat) / 12, '2')} kg/mois) pendant que le muscle se construit. Résultat attendu : ${gain} kg de masse maigre, ${f(G.bf0, 'n')} → ${f(G.bf, 'n')} % de masse grasse (${f(G.dFat, '+n')} kg de gras), poids quasi stable (~${f(G.weight, 'n')} kg). Cette dépense est une estimation à ±${Math.round(ALLEZ.NUTRITION.PARAMS.incertitude * 100)} % : bilan toutes les 4 semaines.</p>
+    <h3>Stratégie : prise de masse lente</h3>
+    <p>Débutant + ${f(G.bf0, 'n')} % de masse grasse : un petit surplus construit le muscle vite sans faire grossir le ventre. Par rapport à la dépense de chaque jour : ${f(N.train.delta, '+int')} kcal les jours de muscu, ${f(N.pingpong.delta, '+int')} kcal les jours de ping-pong, ${f(N.rest.delta, '+int')} kcal au repos. Moyenne hebdomadaire : ${int(N.moyenne)} kcal, soit ≈ ${f(N.ecartMoyen, '+int')} kcal/j par rapport à la dépense → environ +0,25 kg par mois, surtout du muscle. Résultat attendu : ${gain} kg de masse maigre, ${f(G.bf0, 'n')} → ${f(G.bf, 'n')} % de masse grasse (${f(G.dFat, '+n')} kg de gras), poids ${f(G.weight0, 'n')} → ~${f(G.weight, 'n')} kg. Cette dépense est une estimation à ±${Math.round(ALLEZ.NUTRITION.PARAMS.incertitude * 100)} % : bilan toutes les 4 semaines.</p>
   </div>
   ${foot('Programme personnalisé 12 mois', 1)}
 </div>`;

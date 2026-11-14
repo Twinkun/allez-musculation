@@ -308,7 +308,7 @@
           "aliments": [
             "70 g de flocons d'avoine (eau ou lait végétal)",
             "150 g de skyr nature",
-            "1 c. à café de miel + 80 g de fruits rouges",
+            "1 c. à soupe de miel + 80 g de fruits rouges",
             "15 g d'amandes ou de noix",
             "{MATIN}"
           ],
@@ -325,7 +325,7 @@
             ],
             [
               "miel",
-              7.0
+              21.0
             ],
             [
               "fruitsrouges",
@@ -416,7 +416,7 @@
           "aliments": [
             "{SOIR}",
             "150 g de saumon ou maquereau (2-3×/semaine — sinon 180 g de cabillaud ou poulet + 1 c. à soupe d'huile)",
-            "220 g de patate douce rôtie",
+            "280 g de patate douce rôtie",
             "Salade verte, vinaigrette citron-moutarde"
           ],
           "prix": 3.6,
@@ -427,7 +427,7 @@
             ],
             [
               "patatedouce",
-              220.0
+              280.0
             ],
             [
               "laitue",
@@ -620,7 +620,7 @@
           "aliments": [
             "{SOIR}",
             "150 g de saumon ou maquereau",
-            "200 g de patate douce rôtie",
+            "300 g de patate douce rôtie",
             "2 œufs brouillés",
             "Salade verte, vinaigrette citron"
           ],
@@ -632,7 +632,7 @@
             ],
             [
               "patatedouce",
-              200.0
+              300.0
             ],
             [
               "oeuf",
@@ -698,7 +698,7 @@
           "nom": "Déjeuner",
           "aliments": [
             "150 g de blanc de poulet (ou poisson, dinde, bœuf 5 %)",
-            "80 g de riz basmati cru (~200 g cuit)",
+            "110 g de riz basmati cru (~275 g cuit)",
             "250 g de légumes",
             "1 c. à soupe d'huile d'olive"
           ],
@@ -710,7 +710,7 @@
             ],
             [
               "basmati_cru",
-              80.0
+              110.0
             ],
             [
               "haricotvert",
@@ -772,7 +772,7 @@
             "150 g de saumon ou maquereau (sinon 180 g de poisson blanc + 1 c. à soupe d'huile en plus)",
             "100 g de lentilles cuites",
             "250 g de légumes rôtis",
-            "1 c. à café d'huile d'olive (le saumon apporte déjà ses graisses)"
+            "2 c. à café d'huile d'olive"
           ],
           "prix": 3.9,
           "compo": [
@@ -794,12 +794,12 @@
             ],
             [
               "huileolive",
-              4.5
+              9.0
             ]
           ]
         }
       ],
-      "remarque": "le jour le plus léger : déficit modéré, protéines maintenues."
+      "remarque": "le jour le plus léger : juste sous la dépense du jour, protéines maintenues."
     },
     "pingpong": {
       "titre": "Ping-pong",
@@ -924,7 +924,7 @@
           "nom": "Dîner — 2 h avant le club",
           "aliments": [
             "120 g de saumon (ou 150 g de poulet)",
-            "100 g de riz basmati cru (~250 g cuit)",
+            "120 g de riz basmati cru (~300 g cuit)",
             "150 g de courgettes",
             "Un filet de citron",
             "{SOIR}"
@@ -938,7 +938,7 @@
             ],
             [
               "basmati_cru",
-              100
+              120
             ],
             [
               "courgette",

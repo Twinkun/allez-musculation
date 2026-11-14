@@ -8,7 +8,8 @@
   'use strict';
   var A = w.ALLEZ = w.ALLEZ || {};
 
-  // Paramètres de la stratégie (recomposition : léger surplus les jours de muscu, léger déficit les jours de ping-pong, déficit au repos)
+  // Paramètres de la stratégie (prise de masse lente, ~+0,25 kg/mois : surplus les jours de muscu, maintenance les jours de ping-pong,
+  // léger déficit au repos ; en moyenne un petit surplus sur la semaine)
   // Dépense d'un jour = métabolisme de base × niveau d'activité d'une journée sans sport + coût net de l'activité du jour
   // (coût net = (MET − 1) × poids × durée : le 1 MET de repos est déjà compté dans la journée de base).
   var PARAMS = {
@@ -18,11 +19,11 @@
       pingpong: { met: 4.0, heures: 2.5,  jours: 2 }    // Compendium 2011, code 15660 (tennis de table) · mardi et vendredi, 2 h 30
     },
     joursRepos: 2,
-    margeSeance: 1.04,          // jour de muscu = dépense du jour + 4 % (léger surplus pour construire)
-    margePingpong: 0.96,        // jour de ping-pong = dépense du jour − 4 %
-    margeRepos: 0.90,           // jour de repos = dépense du jour − 10 %
+    margeSeance: 1.10,          // jour de muscu = dépense du jour + 10 % (surplus pour construire)
+    margePingpong: 1.00,        // jour de ping-pong = dépense du jour (maintenance)
+    margeRepos: 0.97,           // jour de repos = dépense du jour − 3 %
     arrondiKcal: 50,
-    proteinesParKg: 2.25,       // un peu au-dessus de la plage utile (1,6 à 2,2 g/kg : Morton 2018, DOI 10.1136/bjsports-2017-097608) : marge pour les jours en déficit
+    proteinesParKg: 2.25,       // un peu au-dessus de la plage utile (1,6 à 2,2 g/kg : Morton 2018, DOI 10.1136/bjsports-2017-097608)  : marge de sécurité et satiété
     lipidesSeanceParKg: 1.0,
     lipidesPingpongParKg: 1.0,
     lipidesReposParKg: 1.05,
