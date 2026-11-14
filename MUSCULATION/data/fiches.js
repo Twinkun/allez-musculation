@@ -208,7 +208,7 @@ const FICHES = [
    breath:"⬆ Expire en montant → ⬇ Inspire lentement en descendant (3s)",
    amp:"Haltères pendants (bras vers le sol) — bras à l'horizontale ou légèrement au-dessus",
    posture:["Tête dans l'alignement du dos (regarder le sol)","Épaules basses, pas de haussement de trapèzes","Front/poitrine en contact avec le banc","Légère flexion des coudes fixe tout le mouvement"],
-   errors:[{"b":"Monter trop haut (trapèzes)","g":"Arrêter à l'horizontale — delts postérieurs ciblés"},{"b":"Haltères trop lourds","g":"Très léger (3-5 kg pour débuter) — isolation pure"},{"b":"Lever le torse du banc","g":"Poitrine reste collée au banc tout le mouvement"},{"b":"Descente sans contrôle","g":"Descente lente en 3 s, tension constante"}],
+   errors:[{"b":"Monter trop haut (trapèzes)","g":"Arrêter à l'horizontale — delts postérieurs ciblés"},{"b":"Haltères trop lourds","g":"Très léger (3-5 kg pour débuter) — isolation pure"},{"b":"Lever le torse du banc","g":"Poitrine reste collée au banc tout le mouvement"},{"b":"Descente sans contrôle","g":"Descente lente en 2 s, tension constante"}],
    injury:["Un des exercices les plus importants pour la santé des épaules","Commencer très léger (3-5 kg) : le deltoïde postérieur est un petit muscle","Rotation externe en fin = sécurité articulaire"],
    schema:[{"lbl":"Position départ","txt":"Ventre sur le banc incliné, bras pendants, haltères légers"},{"lbl":"Ouverture","txt":"Arc de cercle sur les côtés jusqu'à l'horizontale, coudes qui guident"},{"lbl":"Contraction & retour","txt":"Pause 1 s, descente lente en 2 s"}]},
 
@@ -310,7 +310,7 @@ const FICHES = [
    posture:["Côtes basses pendant toute la série (elles ont tendance à ressortir bras en l'air)","Dos droit contre le dossier","Abdos engagés, pas de cambrure","Rotation continue et fluide pendant tout le mouvement","Coudes qui montent de 90° pendant le mouvement"],
    errors:[{"b":"Rotation trop rapide ou partielle","g":"Rotation complète et lente — amplitude maximale"},{"b":"Cambrer le dos","g":"Dos plat et abdos serrés"},{"b":"Trop lourd = perte de la rotation","g":"Léger et technique — la rotation est l'exercice"}],
    injury:["Exercice technique — commencer léger pour maîtriser la rotation","Si douleur d'épaule: séparer en presse standard sans rotation au début"],
-   schema:[{"lbl":"Position départ","txt":"Assis, haltères devant le visage, paumes vers soi (fin de curl), coudes à 90°"},{"lbl":"Poussée + rotation","txt":"Pousser vers le haut en tournant progressivement les paumes vers l'extérieur"},{"lbl":"Contraction & retour","txt":"Bras quasi-tendus en haut, paumes vers l'avant, retour inverse contrôlé en 2s"}]},
+   schema:[{"lbl":"Position départ","txt":"Assis, haltères devant le visage, paumes vers soi (fin de curl), coudes à 90°"},{"lbl":"Poussée + rotation","txt":"Pousser vers le haut en tournant progressivement les paumes vers l'extérieur"},{"lbl":"Contraction & retour","txt":"Bras quasi-tendus en haut, paumes vers l'avant, retour inverse contrôlé en 3s"}]},
 
   {id:27,
    key:"elev-lat-cable",

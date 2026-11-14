@@ -540,6 +540,7 @@
   }
   function prive(key) { var p = lsGet('px_prive', null); var v = p && p.blocs ? p.blocs[key] : null; return typeof v === 'string' ? v : null; }
   // Assainit le HTML du contenu privé importé : liste blanche de balises, aucun script ni lien
+  var AZ_OK = /^(goals|proj|profile|start|nutrition|programme|supp)(\.[\w-]+)*(\|\+?(n|int|\d))?$/;
   var TAGS_OK = { P: 1, DIV: 1, SPAN: 1, STRONG: 1, B: 1, EM: 1, I: 1, U: 1, BR: 1, UL: 1, OL: 1, LI: 1, H2: 1, H3: 1, H4: 1, H5: 1, TABLE: 1, THEAD: 1, TBODY: 1, TR: 1, TH: 1, TD: 1, SMALL: 1, SUP: 1, SUB: 1 };
   function sanitizeInto(target, html) {
     var tpl = doc.createElement('template'); tpl.innerHTML = html;
@@ -548,7 +549,8 @@
         if (n.nodeType === 3) return;
         if (n.nodeType !== 1 || !TAGS_OK[n.tagName]) { n.parentNode.removeChild(n); return; }
         Array.prototype.slice.call(n.attributes).forEach(function (a) {
-          var ok = a.name === 'class' || a.name === 'colspan' || a.name === 'rowspan' || (a.name === 'style' && /^[\w\s#%.,:;()\-'"!]*$/.test(a.value) && !/url|expression|import|position\s*:\s*fixed/i.test(a.value));
+          var ok = a.name === 'class' || a.name === 'colspan' || a.name === 'rowspan' || (a.name === 'style' && /^[\w\s#%.,:;()\-'"!]*$/.test(a.value) && !/url|expression|import|position\s*:\s*fixed/i.test(a.value)) ||
+            (a.name === 'data-az' && AZ_OK.test(a.value));   // valeur calculée (profil, objectifs, nutrition…), écrite en textContent par bindAz
           if (!ok) n.removeAttribute(a.name);
         });
         walk(n);
@@ -563,15 +565,18 @@
     var t = (+base.split(':')[0]) * 60 + (+base.split(':')[1]) + (+m[2]); t = ((t % 1440) + 1440) % 1440;
     return Math.floor(t / 60) + 'h' + String(t % 60).padStart(2, '0');
   }
-  function bind(root) {
-    if (!doc) return; root = root || doc;
+  function bindAz(root) {
     root.querySelectorAll('[data-az]').forEach(function (el) {
       var a = el.getAttribute('data-az').split('|'); el.textContent = fmt(value(a[0]), a[1]);
     });
+  }
+  function bind(root) {
+    if (!doc) return; root = root || doc;
+    bindAz(root);
     root.querySelectorAll('[data-az-h]').forEach(function (el) { var t = hourText(el.getAttribute('data-az-h')); if (t) el.textContent = t; });
     root.querySelectorAll('[data-prive]').forEach(function (el) {
       var html = prive(el.getAttribute('data-prive'));
-      if (html) { sanitizeInto(el, html); el.hidden = false; } else if (!el.hasAttribute('data-prive-garder')) el.hidden = true;
+      if (html) { sanitizeInto(el, html); bindAz(el); el.hidden = false; } else if (!el.hasAttribute('data-prive-garder')) el.hidden = true;
     });
     root.querySelectorAll('[data-si-profil]').forEach(function (el) { el.hidden = (el.getAttribute('data-si-profil') === 'exemple') === profileIsSet(); });
   }

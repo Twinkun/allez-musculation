@@ -14,7 +14,7 @@
     facteurSeance: 1.09,        // jour de séance = dépense × 1,09
     facteurRepos: 0.865,        // jour de repos = dépense × 0,865
     arrondiKcal: 50,
-    proteinesParKg: 2.25,       // haut de la plage utile (1,6 à 2,2 g/kg : Morton 2018, DOI 10.1136/bjsports-2017-097608)
+    proteinesParKg: 2.25,       // un peu au-dessus de la plage utile (1,6 à 2,2 g/kg : Morton 2018, DOI 10.1136/bjsports-2017-097608) : marge pour les jours en déficit
     lipidesSeanceParKg: 1.0,
     lipidesReposParKg: 1.05,
     arrondiGrammes: 5,
