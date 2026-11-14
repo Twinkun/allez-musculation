@@ -1,5 +1,11 @@
 # Journal des changements — ALLEZ
 
+## Ping-pong D3 / 650 pts, recettes, barre du haut (branche `prise-lente`)
+
+- `pingpong.html` : D3, 650 points, saison 2026-27 (14 V – 11 D) présentée par tranche de classement adverse, sans nom d'adversaire ; 6 conseils pour passer de 650 à 800 ; repères 550-600 → 600-700. `fiche-raquette-pingpong.html` : niveau à jour, nom du club retiré. Les 25 matchs (avec noms) vivent dans le fichier privé et arrivent dans le tracker à l'import.
+- `recettes.html` : « Surprends-moi » atteint la bonne recette (fiches en `content-visibility:auto` rendues avant le saut, `goToRecipe`, aussi pour les pastilles et `#rNN`), bulle au-dessus de la barre d'onglets, « Ta collation », type de journée lu dans `ALLEZ.NUTRITION.dayKind` (charge `data/programme.js`).
+- Mobile, profil renseigné : le haut du bandeau d'en-tête de pingpong, posture et lifestyle passait sous la barre fixe (48 px < 64 px) → 88 px, 48 px quand un bandeau est affiché.
+
 ## Prise de masse lente : objectif ~73 kg à 1 an (branche `prise-lente`)
 
 - `core.js` MODEL : poids +3 kg sur 12 mois (~+0,25 kg/mois), masse maigre +3,5 à +4,5 kg, taille −1,5 cm. La masse grasse projetée n'est plus une série à part : elle est déduite (1 − maigre / poids), donc toujours cohérente. Horizon 2 ans : +5 à +7 kg.

@@ -243,7 +243,8 @@ footer a { color: var(--gold); text-decoration: none; }
   nav.open .nav-links li { list-style: none; }
   nav.open .nav-links a { padding: 10px 14px; color: rgba(255,255,255,0.8); font-size: 0.9rem; min-height: 48px; display: flex; align-items: center; }
   .nav-links { display: none; }
-  .hero { padding: 48px 20px 40px; min-height: 360px; }
+  .hero { padding: 88px 20px 40px; min-height: 360px; }
+  .az-banners:not(:empty) ~ main .hero { padding-top: 48px; }   /* bandeau affiché : il occupe déjà la place de la barre fixe */
   .section { padding: 48px 20px; scroll-margin-top: 72px; }
   .section-divider { margin: 0 24px; }
   .grid-2, .grid-3, .grid-4, .compare, .spin-grid, .plan-grid, .profile-stats, .tk-stats { grid-template-columns: 1fr; }
@@ -292,13 +293,13 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
   <div class="hero-content">
     <div class="hero-badge"><span></span>Tennis de table · Coaching personnalisé</div>
     <h1>PING-<em>PONG</em><br>PROGRESSION</h1>
-    <p>Gaucher, moins d'un an de pratique, déjà 14 victoires pour 4 défaites en compétition. Tu montes vite. Voici le plan pour transformer ton style « tennis » en arme et grimper au-delà de la D4.</p>
+    <p>Gaucher, environ un an de pratique, monté en D3 et à 650 points : +100 points depuis septembre. Tu bats déjà des 700-800. Le cap suivant, 800, passe par une chose : arrêter de perdre contre les joueurs de ton niveau.</p>
     <div class="hero-tags">
       <span class="hero-tag hl">🏓 Gaucher</span>
-      <span class="hero-tag hl">Division 4</span>
-      <span class="hero-tag hl">550 points</span>
-      <span class="hero-tag">14 V – 4 D</span>
-      <span class="hero-tag">&lt; 1 an de jeu</span>
+      <span class="hero-tag hl">Division 3</span>
+      <span class="hero-tag hl">650 points</span>
+      <span class="hero-tag">Saison : 14 V – 11 D</span>
+      <span class="hero-tag">~1 an de jeu</span>
     </div>
   </div>
 </header>
@@ -312,9 +313,9 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
   </div>
 
   <div class="profile-stats reveal">
-    <div class="pstat"><div class="v">78%</div><div class="l">Ratio victoires</div></div>
-    <div class="pstat"><div class="v gold">550</div><div class="l">Points officiels</div></div>
-    <div class="pstat"><div class="v">D4</div><div class="l">Division (équipe)</div></div>
+    <div class="pstat"><div class="v">56%</div><div class="l">Victoires (saison 26-27)</div></div>
+    <div class="pstat"><div class="v gold">650</div><div class="l">Points officiels</div></div>
+    <div class="pstat"><div class="v">D3</div><div class="l">Division (équipe)</div></div>
     <div class="pstat"><div class="v gold">Rare</div><div class="l">Gaucher : rareté = atout</div></div>
   </div>
 
@@ -327,7 +328,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
     <div class="card top-green">
       <div class="card-icon">📈</div>
       <div class="card-title">Atout n°2 — Marge de progrès</div>
-      <div class="card-text">Moins d'un an, 78% de victoires : tu es en pleine phase d'apprentissage rapide. Chaque point technique corrigé maintenant rapporte gros — bien plus qu'un joueur installé depuis 10 ans.</div>
+      <div class="card-text">Environ un an de pratique et déjà +100 points cette saison : tu es en pleine phase d'apprentissage rapide. Chaque point technique corrigé maintenant rapporte gros — bien plus qu'un joueur installé depuis 10 ans.</div>
     </div>
     <div class="card top-orange">
       <div class="card-icon">🎾</div>
@@ -336,9 +337,45 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
     </div>
     <div class="card top-pp">
       <div class="card-icon">🎯</div>
-      <div class="card-title">Niveau réel — 550 pts</div>
-      <div class="card-text">En France, un licencié démarre à 500 pts. À 550 tu as déjà gagné des matchs « comptés ». L'objectif réaliste sur 12 mois : <b>franchir 700-800 pts</b> et verrouiller un revers de secours fiable (bloc).</div>
+      <div class="card-title">Niveau réel — 650 pts</div>
+      <div class="card-text">Tout licencié démarre à 500 pts : tu en as pris 150, dont 100 depuis septembre. Objectif réaliste d'ici la fin de saison : <b>750 à 800 pts</b>. Le levier n'est pas de battre plus fort (tu le fais déjà), c'est de <b>gagner contre les 600</b>.</div>
     </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SAISON 2026-27 -->
+<section class="section">
+  <div class="reveal">
+    <div class="section-label">Saison 2026-27</div>
+    <h2 class="section-title">Ta saison en chiffres</h2>
+    <p class="section-sub">Depuis septembre : <b>14 victoires, 11 défaites</b>, environ <b>+130 points gagnés et −36 perdus</b>, soit ~+94. Classé par niveau de l'adversaire (son classement actuel), un schéma saute aux yeux.</p>
+  </div>
+
+  <div class="grid-4 reveal">
+    <div class="card top-green"><div class="card-icon">✅</div><div class="card-title">Contre les 500-599 · 5 V – 0 D</div><div class="card-text">Tu gagnes tout ce que tu dois gagner. Rien à changer.</div></div>
+    <div class="card top-red"><div class="card-icon">⚠️</div><div class="card-title">Contre les 600-699 · 3 V – 5 D</div><div class="card-text">C'est là que partent tes points : <b>−3,8 à −7,5 par défaite</b>, environ 28 points sur la saison, les trois quarts de tout ce que tu as perdu.</div></div>
+    <div class="card top-pp"><div class="card-icon">🚀</div><div class="card-title">Contre les 700-899 · 6 V – 4 D</div><div class="card-text">Tes perfs : <b>+10 à +17 points</b> chacune. Tu joues mieux contre plus fort que toi.</div></div>
+    <div class="card top-orange"><div class="card-icon">🧱</div><div class="card-title">Contre les 900 et plus · 0 V – 2 D</div><div class="card-text">Défaites attendues, presque gratuites (0 et −0,5 point).</div></div>
+  </div>
+
+  <div class="decision reveal" style="margin-top:28px">
+    <span class="verdict">Pourquoi tu perds contre ton niveau</span>
+    <h3>Contre plus fort, la balle vient. Contre ton niveau, c'est à toi de faire le jeu.</h3>
+    <p>Un 750 joue des balles franches et rapides : c'est exactement ce que ton coup droit de gaucher aime contrer. Un joueur de ton niveau remet, coupe, joue lent et vise ton revers : c'est à toi de construire le point, et c'est là que viennent les fautes. Autre signal : <b>deux joueurs battus à l'aller t'ont battu au retour</b>. Ils avaient trouvé la parade, probablement ton revers et le jeu sans rythme.</p>
+  </div>
+
+  <div class="reveal" style="margin-top:28px">
+    <h3 class="section-title" style="font-size:1.6rem">6 conseils pour passer de 650 à 800</h3>
+  </div>
+  <div class="grid-3 reveal">
+    <div class="card top-pp"><div class="card-icon">📝</div><div class="card-title">1 · Un mot après chaque défaite</div><div class="card-text">Dans le tracker, note le style de l'adversaire dans le score : <b>coupeur, picots, remiseur, cible mon revers, services courts</b>. Au bout de 4 ou 5 défaites, ton vrai point faible sera écrit noir sur blanc.</div></div>
+    <div class="card top-pp"><div class="card-icon">🐢</div><div class="card-title">2 · Le plan B contre les remiseurs</div><div class="card-text">Quand rien ne vient : ne tente pas le coup gagnant sur la 1ʳᵉ balle. <b>Top d'ouverture lent et haut</b>, beaucoup de frottement, dans le coude adverse, puis attaque la balle suivante. Gagner en 3 coups plutôt qu'en 1.</div></div>
+    <div class="card top-pp"><div class="card-icon">🛡️</div><div class="card-title">3 · 15 minutes de revers à chaque club</div><div class="card-text">Mardi et vendredi, 15 min de <b>bloc</b> et de <b>poussette longue</b> côté revers, en panier de balles ou en exercice. Pas pour attaquer : pour ne plus donner le point quand l'adversaire t'y envoie.</div></div>
+    <div class="card top-pp"><div class="card-icon">🔄</div><div class="card-title">4 · Change une chose pour la revanche</div><div class="card-text">Contre un joueur qui t'a déjà vu jouer, change <b>une chose dès le premier set</b> : le service d'entrée, la zone ciblée (son coude plutôt que son revers) ou le rythme. Il s'est préparé à ton match d'avant, pas à celui-là.</div></div>
+    <div class="card top-pp"><div class="card-icon">🎯</div><div class="card-title">5 · Un service long de temps en temps</div><div class="card-text">Garde ton schéma service court puis attaque, mais glisse <b>1 service long et rapide dans le coude sur 5</b>. À 600-700, ceux qui t'attendent court sont pris de vitesse : point direct ou remise facile.</div></div>
+    <div class="card top-pp"><div class="card-icon">🧠</div><div class="card-title">6 · Jouer à 80 % contre ton niveau</div><div class="card-text">Contre un 600, la faute directe coûte plus cher que le coup gagnant ne rapporte. Vise <b>la table d'abord</b>, accélère seulement sur balle haute. Passer de 3 à 5 victoires sur 8 contre les 600 vaut environ <b>+20 à +25 points</b> sur la saison.</div></div>
   </div>
 </section>
 
@@ -349,7 +386,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
   <div class="reveal">
     <div class="section-label">Ta signature</div>
     <h2 class="section-title">Ta prise, ton style</h2>
-    <p class="section-sub">Tu as une prise vraiment rare — la tranche du bois calée dans la paume, main reculée, façon coup droit de tennis. On te le fait remarquer à chaque compétition… et tu gagnes quand même (14-4). Donc on ne la « casse » pas : on en fait une <b>arme</b> et on bâtit ton jeu autour.</p>
+    <p class="section-sub">Tu as une prise vraiment rare — la tranche du bois calée dans la paume, main reculée, façon coup droit de tennis. On te le fait remarquer à chaque compétition… et tu gagnes quand même (6 victoires contre des 700-800 cette saison). Donc on ne la « casse » pas : on en fait une <b>arme</b> et on bâtit ton jeu autour.</p>
   </div>
 
   <div class="compare reveal">
@@ -365,7 +402,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
     <div class="cmp bad">
       <div class="cmp-label">Ses limites → à compenser (pas à supprimer)</div>
       <ul>
-        <li><b>Revers difficile à lifter/placer</b> : c'est ton trou, tout joueur de 550+ va le chercher</li>
+        <li><b>Revers difficile à lifter/placer</b> : c'est ton trou, tout joueur de 600+ va le chercher</li>
         <li>Poignet peu mobile : variation fine d'effet plus dure sur certains services</li>
         <li>Jeu court / touché délicat : poussette courte et flip moins naturels</li>
         <li>Replacement exigeant : jouer coup droit partout demande de bonnes jambes</li>
@@ -408,7 +445,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
     <div class="card top-orange"><div class="card-icon">🦵</div><div class="card-title">Tu vas chercher en fente</div><div class="card-text">Tu compenses le placement par de grandes <b>fentes/allonges</b> au lieu de petits pas. Résultat : contact souvent bas, tardif et loin du corps.</div></div>
     <div class="card top-pp"><div class="card-icon">🎾</div><div class="card-title">Coup droit ample façon tennis</div><div class="card-text">Grand armé, finition haute : <b>lourd et puissant</b>, mais lent à réarmer dans les échanges rapides.</div></div>
     <div class="card top-pp"><div class="card-icon">🧍</div><div class="card-title">Posture un peu haute</div><div class="card-text">Tu restes assez droit et de côté/loin de la table. Plus <b>fléchi + poids sur l'avant</b> = meilleure réactivité et premier pas plus rapide.</div></div>
-    <div class="card top-green"><div class="card-icon">⚡</div><div class="card-title">Gros atout : tes jambes</div><div class="card-text">Déplacement et explosivité <b>au-dessus de la moyenne 550-600</b>. Belle base à canaliser.</div></div>
+    <div class="card top-green"><div class="card-icon">⚡</div><div class="card-title">Gros atout : tes jambes</div><div class="card-text">Déplacement et explosivité <b>au-dessus de la moyenne 600-700</b>. Belle base à canaliser.</div></div>
   </div>
 
   <h3 style="margin:30px 0 14px;font-family:var(--font-head);font-size:1.5rem;letter-spacing:.03em;">Tes 3 réglages prioritaires (coche quand c'est acquis)</h3>
@@ -497,7 +534,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
   <div class="reveal">
     <div class="section-label">Lire et produire</div>
     <h2 class="section-title">Les effets</h2>
-    <p class="section-sub">Au-delà de la D4, presque tous les points se gagnent ou se perdent sur l'effet. Venant du tennis tu sens déjà le lifté ; le vrai saut de niveau, c'est <b>lire l'effet adverse</b> et gérer le coupé.</p>
+    <p class="section-sub">Au-delà de la D3, presque tous les points se gagnent ou se perdent sur l'effet. Venant du tennis tu sens déjà le lifté ; le vrai saut de niveau, c'est <b>lire l'effet adverse</b> et gérer le coupé.</p>
   </div>
 
   <div class="spin-grid reveal">
@@ -594,7 +631,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
         <li><b>Poussette revers</b> : raquette ouverte, tu passes sous la balle coupée pour remettre court et bas</li>
         <li>Objectif réaliste : tenir 15-20 blocs revers sans faute et ne <b>jamais</b> offrir de balle haute</li>
         <li>Dès que tu peux, <b>pivote</b> pour reprendre en coup droit — c'est là qu'est ta puissance</li>
-        <li>Tant que ton revers est un trou total, un joueur de 550+ jouera 100 % dessus : un bloc fiable suffit à fermer cette porte</li>
+        <li>Tant que ton revers est un trou total, un joueur de 600+ jouera 100 % dessus : un bloc fiable suffit à fermer cette porte</li>
       </ul>
     </div>
   </div>
@@ -750,7 +787,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
   </div>
 
   <div class="callout reveal" style="margin-top:24px;">
-    <b>Le schéma qui gagne contre du 550-600 — service + 3ᵉ balle :</b> à ce niveau, presque tout le monde <b>pousse</b> les balles courtes, souvent long et un peu haut. Donc : tu sers <b>court coupé</b> → il pousse → tu enchaînes ton <b>coup droit topspin</b>. Répète ce schéma encore et encore. C'est LA combinaison qui fait basculer les matchs serrés à ton niveau. Entraîne-le en boucle (15 min « je sers, partenaire pousse, j'attaque la 3ᵉ »).
+    <b>Le schéma qui gagne contre du 600-700 — service + 3ᵉ balle :</b> à ce niveau, presque tout le monde <b>pousse</b> les balles courtes, souvent long et un peu haut. Donc : tu sers <b>court coupé</b> → il pousse → tu enchaînes ton <b>coup droit topspin</b>. Répète ce schéma encore et encore. C'est LA combinaison qui fait basculer les matchs serrés à ton niveau. Entraîne-le en boucle (15 min « je sers, partenaire pousse, j'attaque la 3ᵉ »).
   </div>
 
   <h3 style="margin:40px 0 10px;font-family:var(--font-head);font-size:1.6rem;letter-spacing:.03em;">Remise de service — pourquoi tu n'en passes qu'1 sur 2</h3>
@@ -968,9 +1005,9 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
   </div>
 
   <div class="decision reveal" style="margin-bottom:32px;">
-    <span class="verdict">Plan de match type · adversaire 550-600</span>
+    <span class="verdict">Plan de match type · adversaire 600-700</span>
     <h3>Ta recette pour faire tomber un joueur de ton niveau</h3>
-    <p>À 550-600, le profil type : <b>revers instable</b>, <b>lit mal l'effet au service</b>, <b>pousse les balles courtes</b> (souvent long et un peu haut), et <b>recule</b> dès que ça va vite. Ta feuille de route, dans l'ordre :</p>
+    <p>À 600-700, le profil type : <b>revers instable</b>, <b>lit mal l'effet au service</b>, <b>pousse les balles courtes</b> (souvent long et un peu haut), et <b>recule</b> dès que ça va vite. Ta feuille de route, dans l'ordre :</p>
     <ol style="color:rgba(255,255,255,0.8);font-size:0.9rem;line-height:1.9;margin:6px 0 0 18px;">
       <li><b>Sers court coupé</b> → il pousse → <b>attaque ta 3ᵉ balle en coup droit.</b> C'est ta première source de points.</li>
       <li><b>Trouve son revers</b> dès les 2 premiers points et <b>martèle-le</b> jusqu'à ce qu'il craque.</li>
@@ -1001,7 +1038,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
   <div class="reveal">
     <div class="section-label">Le matchup piège</div>
     <h2 class="section-title">Picots, anti-top &amp; défenseurs</h2>
-    <p class="section-sub">À 550-600, tu vas tomber sur des revêtements bizarres (picots, anti-top) et des défenseurs qui coupent loin de la table. C'est LE genre de match qu'on perd « sans comprendre ». Voici la clé pour ne plus te faire avoir.</p>
+    <p class="section-sub">À 600-700, tu vas tomber sur des revêtements bizarres (picots, anti-top) et des défenseurs qui coupent loin de la table. C'est LE genre de match qu'on perd « sans comprendre ». Voici la clé pour ne plus te faire avoir.</p>
   </div>
 
   <div class="callout reveal" style="margin-bottom:24px;">
@@ -1048,7 +1085,7 @@ main .section:not(:first-of-type) { content-visibility: auto; contain-intrinsic-
   <div class="reveal">
     <div class="section-label">Suivi compétition</div>
     <h2 class="section-title">Tracker de matchs</h2>
-    <p class="section-sub">Note chaque match officiel. L'app calcule ton ratio et garde l'historique en local. Démarre avec ton bilan actuel (14 V – 4 D) ou repars de zéro pour la nouvelle saison.</p>
+    <p class="section-sub">Note chaque match officiel. L'app calcule ton ratio et garde l'historique en local. Ta saison 2026-27 (25 matchs) arrive avec l'import de ton fichier privé ; ajoute ensuite chaque nouveau match.</p>
   </div>
 
   <div class="tracker reveal">

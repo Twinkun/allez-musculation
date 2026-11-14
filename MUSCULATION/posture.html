@@ -302,7 +302,8 @@ footer a { color: var(--gold); text-decoration: none; }
   nav.open .nav-links li { list-style: none; }
   nav.open .nav-links a { padding: 10px 14px; color: rgba(255,255,255,0.8); font-size: 0.9rem; min-height: 48px; display: flex; align-items: center; }
   .nav-links { display: none; }
-  .hero { padding: 48px 20px 40px; }
+  .hero { padding: 88px 20px 40px; }
+  .az-banners:not(:empty) ~ main .hero { padding-top: 48px; }   /* bandeau affiché : il occupe déjà la place de la barre fixe */
   .section { padding: 48px 20px; scroll-margin-top: 72px; }
   .section-divider { margin: 0 24px; }
   .understand-grid { grid-template-columns: 1fr; }

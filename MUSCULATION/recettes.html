@@ -14,6 +14,7 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/base.css">
 <script src="core.js"></script>
+<script src="data/programme.js"></script>
 <script src="data/nutrition.js"></script>
 <script src="data/recettes.js"></script>
 <link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
@@ -100,7 +101,7 @@ nav.open .nav-links a{padding:10px 14px;font-size:.88rem;color:rgba(255,255,255,
 .rnd-btn:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(232,150,10,0.45)}
 .rnd-btn:active{transform:translateY(0)}
 .rnd-sub{font-size:.72rem;color:var(--text-light);margin-top:7px}
-.rnd-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--bg-dark);color:#fff;padding:13px 24px;border-radius:16px;font-size:.86rem;font-weight:600;box-shadow:0 10px 34px rgba(0,0,0,0.35);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:200;border:1px solid rgba(232,150,10,0.45);max-width:90vw;text-align:center}
+.rnd-toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--bg-dark);color:#fff;padding:13px 24px;border-radius:16px;font-size:.86rem;font-weight:600;box-shadow:0 10px 34px rgba(0,0,0,0.35);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:200;border:1px solid rgba(232,150,10,0.45);max-width:90vw;text-align:center}
 .rnd-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .rnd-toast .rt-gold{color:var(--gold-l);font-weight:800}
 @keyframes rndPulse{0%,100%{box-shadow:var(--shadow)}30%{box-shadow:0 0 0 4px rgba(232,150,10,0.55),0 10px 34px rgba(232,150,10,0.4)}}
@@ -2983,7 +2984,27 @@ span[data-rv="dens"] { color: #666d7a !important; }
   });
 })();
 
-// Bouton Aléatoire — repas du moment (selon l'heure + le jour)
+// Aller à une recette. Les fiches ont content-visibility:auto (rendu différé) : tant qu'elles n'ont pas été affichées,
+// leur hauteur est estimée et la position de la cible est fausse. On force le rendu des fiches qui la précèdent.
+window.goToRecipe = function (el, smooth) {
+  if (!el) return;
+  var all = document.querySelectorAll('.recipe');
+  for (var i = 0; i < all.length && all[i] !== el; i++) all[i].style.contentVisibility = 'visible';
+  el.style.contentVisibility = 'visible';
+  // Saut direct (« instant » passe outre scroll-behavior:smooth) : un défilement animé sur 15 000 px était parfois
+  // interrompu en route. Recalage à l'image suivante, une fois les fiches voisines rendues.
+  var go = function () { var y = el.getBoundingClientRect().top + window.pageYOffset - 130; window.scrollTo({ top: Math.max(0, y), behavior: 'instant' }); };
+  go(); requestAnimationFrame(function () { requestAnimationFrame(go); });
+};
+document.addEventListener('click', function (e) {
+  var a = e.target.closest('a[href^="#r"]'); if (!a) return;
+  var el = document.getElementById(a.getAttribute('href').slice(1));
+  if (!el || !el.classList.contains('recipe')) return;
+  e.preventDefault(); history.replaceState(null, '', '#' + el.id); window.goToRecipe(el, true);
+});
+if (/^#r\d+$/.test(location.hash)) window.addEventListener('load', function () { window.goToRecipe(document.getElementById(location.hash.slice(1)), false); });
+
+// Bouton Aléatoire — repas du moment (selon l'heure + le type de journée : muscu, ping-pong, repos)
 (function(){
   var rndBtn = document.getElementById('rndBtn');
   if (!rndBtn) return;
@@ -2993,12 +3014,14 @@ span[data-rv="dens"] { color: #666d7a !important; }
 
   rndBtn.addEventListener('click', function(){
     var now = new Date(), h = now.getHours(), day = now.getDay();
-    var isTraining = (day === 1 || day === 4 || day === 6); // Lun / Jeu / Sam
+    var kind = (ALLEZ.NUTRITION && ALLEZ.NUTRITION.dayKind) ? ALLEZ.NUTRITION.dayKind(day) : ((day === 1 || day === 4 || day === 6) ? 'train' : 'rest');
+    var isTraining = kind !== 'rest';   // muscu et ping-pong : jours riches en glucides
+    var dayLabel = { train: '(jour de muscu)', pingpong: '(jour de ping-pong)', rest: '(jour de repos)' }[kind];
     var moment, label;
-    if (h < 11)      { moment = 'petitdej';  label = 'petit-déjeuner'; }
-    else if (h < 15) { moment = 'dejeuner';  label = 'déjeuner'; }
-    else if (h < 18) { moment = 'collation'; label = 'collation'; }
-    else             { moment = 'diner';     label = 'dîner'; }
+    if (h < 11)      { moment = 'petitdej';  label = 'Ton petit-déjeuner'; }
+    else if (h < 15) { moment = 'dejeuner';  label = 'Ton déjeuner'; }
+    else if (h < 18) { moment = 'collation'; label = 'Ta collation'; }
+    else             { moment = 'diner';     label = 'Ton dîner'; }
 
     var recipes = Array.prototype.slice.call(document.querySelectorAll('.recipe'));
     var pool = recipes.filter(function(r){
@@ -3026,9 +3049,8 @@ span[data-rv="dens"] { color: #666d7a !important; }
     var allB = document.querySelector('.filt-btn[data-f="all"]'); if (allB) allB.classList.add('active');
     var pill = document.querySelector('.sel-pill[href="#' + pick.id + '"]'); if (pill) pill.classList.add('active');
 
-    // Scroll vers la recette (compense la nav + le sélecteur sticky)
-    var y = pick.getBoundingClientRect().top + window.pageYOffset - 130;
-    window.scrollTo({ top: y, behavior: 'smooth' });
+    // Scroll vers la recette (position exacte, voir goToRecipe)
+    window.goToRecipe(pick, true);
     void pick.offsetWidth; // relance l'animation
     pick.classList.add('rnd-highlight');
     setTimeout(function(){ pick.classList.remove('rnd-highlight'); }, 2600);
@@ -3037,7 +3059,8 @@ span[data-rv="dens"] { color: #666d7a !important; }
     if (toast) {
       var tEl = pick.querySelector('.recipe-title');
       var title = tEl ? tEl.textContent : '';
-      toast.innerHTML = '🎲 Ton ' + label + ' ' + (isTraining ? '(jour training)' : '(jour repos)') + ' : <span class="rt-gold">' + title + '</span>';
+      toast.textContent = '🎲 ' + label + ' ' + dayLabel + ' : ';
+      var tg = document.createElement('span'); tg.className = 'rt-gold'; tg.textContent = title; toast.appendChild(tg);
       toast.classList.add('show');
       clearTimeout(toastTimer);
       toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 4500);

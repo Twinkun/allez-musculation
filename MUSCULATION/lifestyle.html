@@ -239,7 +239,8 @@ footer a:hover { color: var(--gold); }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
-  .hero { padding: 48px 20px 40px; }
+  .hero { padding: 88px 20px 40px; }
+  .az-banners:not(:empty) ~ main .hero { padding-top: 48px; }   /* bandeau affiché : il occupe déjà la place de la barre fixe */
   .page-wrap { padding: 0 16px; }
   .card-grid { grid-template-columns: 1fr; }
   .dark-banner { grid-template-columns: 1fr; gap: 24px; padding: 32px 24px; }
