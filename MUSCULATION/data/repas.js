@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════════════════════════
-   ALLEZ — data/repas.js · SOURCE UNIQUE du plan repas (3 journées types)
+   ALLEZ — data/repas.js · SOURCE UNIQUE du plan repas (4 journées types)
    ALLEZ.MEALS : repas, composition en grammes, totaux calculés.
    Valeurs pour 100 g : table Ciqual 2025 (Anses, DOI 10.57745/RDMHWY) ;
    USDA FoodData Central pour les aliments absents de Ciqual (src).
    Aucun horaire ici : offset = minutes par rapport à l'heure de séance
-   (journées A et B) ou au petit-déjeuner (repos, journée C), heures
+   (journées A et B), au début du club (ping-pong, journée D) ou au petit-déjeuner (repos, journée C), heures
    saisies dans le profil privé.
    Fichier généré : ne pas modifier les totaux à la main, ils sont calculés.
    Chargé après core.js et data/supplements.js.
@@ -308,7 +308,7 @@
           "aliments": [
             "70 g de flocons d'avoine (eau ou lait végétal)",
             "150 g de skyr nature",
-            "1 c. à soupe de miel + 80 g de fruits rouges",
+            "1 c. à café de miel + 80 g de fruits rouges",
             "15 g d'amandes ou de noix",
             "{MATIN}"
           ],
@@ -325,7 +325,7 @@
             ],
             [
               "miel",
-              21.0
+              7.0
             ],
             [
               "fruitsrouges",
@@ -416,7 +416,7 @@
           "aliments": [
             "{SOIR}",
             "150 g de saumon ou maquereau (2-3×/semaine — sinon 180 g de cabillaud ou poulet + 1 c. à soupe d'huile)",
-            "250 g de patate douce rôtie",
+            "220 g de patate douce rôtie",
             "Salade verte, vinaigrette citron-moutarde"
           ],
           "prix": 3.6,
@@ -427,7 +427,7 @@
             ],
             [
               "patatedouce",
-              250.0
+              220.0
             ],
             [
               "laitue",
@@ -656,7 +656,7 @@
       "titreLong": "JOURS DE REPOS",
       "seance": false,
       "slot": "C",
-      "jours": "Mardi, mercredi, vendredi, dimanche",
+      "jours": "Mercredi et dimanche",
       "repas": [
         {
           "offset": 0,
@@ -772,7 +772,7 @@
             "150 g de saumon ou maquereau (sinon 180 g de poisson blanc + 1 c. à soupe d'huile en plus)",
             "100 g de lentilles cuites",
             "250 g de légumes rôtis",
-            "1 c. à soupe d'huile d'olive"
+            "1 c. à café d'huile d'olive (le saumon apporte déjà ses graisses)"
           ],
           "prix": 3.9,
           "compo": [
@@ -794,12 +794,203 @@
             ],
             [
               "huileolive",
-              13.5
+              4.5
             ]
           ]
         }
       ],
-      "remarque": "le vendredi (ping-pong) : ajoute 1 banane + 1 tranche de pain avant le club (~+150 kcal)."
+      "remarque": "le jour le plus léger : déficit modéré, protéines maintenues."
+    },
+    "pingpong": {
+      "titre": "Ping-pong",
+      "titreLong": "MARDI & VENDREDI — PING-PONG",
+      "seance": false,
+      "kind": "pingpong",
+      "slot": "D",
+      "jours": "Mardi et vendredi",
+      "repas": [
+        {
+          "offset": -750,
+          "label": "Petit-déj",
+          "couleur": "green",
+          "nom": "Petit-déjeuner",
+          "aliments": [
+            "250 g de skyr nature",
+            "80 g de flocons d'avoine",
+            "15 g d'amandes",
+            "80 g de fruits rouges",
+            "1 c. à soupe de miel",
+            "{MATIN}",
+            "{CREATINE}"
+          ],
+          "prix": 2.5,
+          "compo": [
+            [
+              "skyr",
+              250
+            ],
+            [
+              "avoine",
+              80
+            ],
+            [
+              "amande",
+              15
+            ],
+            [
+              "fruitsrouges",
+              80
+            ],
+            [
+              "miel",
+              21
+            ]
+          ]
+        },
+        {
+          "offset": -480,
+          "label": "Déjeuner",
+          "couleur": "blue",
+          "nom": "Déjeuner complet",
+          "aliments": [
+            "150 g de blanc de poulet (ou poisson, dinde, bœuf 5 %)",
+            "100 g de riz basmati cru (~250 g cuit)",
+            "200 g de légumes verts",
+            "1 c. à soupe d'huile d'olive"
+          ],
+          "prix": 2.1,
+          "compo": [
+            [
+              "poulet",
+              150
+            ],
+            [
+              "basmati_cru",
+              100
+            ],
+            [
+              "haricotvert",
+              67
+            ],
+            [
+              "courgette",
+              67
+            ],
+            [
+              "brocoli",
+              66
+            ],
+            [
+              "huileolive",
+              13.5
+            ]
+          ]
+        },
+        {
+          "offset": -240,
+          "label": "Collation",
+          "couleur": "green",
+          "nom": "Collation de l'après-midi",
+          "aliments": [
+            "100 g de cottage cheese",
+            "2 tranches de pain complet",
+            "10 g de beurre de cacahuète",
+            "1 pomme"
+          ],
+          "prix": 1.6,
+          "compo": [
+            [
+              "cottage",
+              100
+            ],
+            [
+              "paincomplet",
+              70
+            ],
+            [
+              "beurrecacahuete",
+              10
+            ],
+            [
+              "pomme",
+              150
+            ]
+          ]
+        },
+        {
+          "offset": -120,
+          "label": "Dîner",
+          "couleur": "purple",
+          "nom": "Dîner — 2 h avant le club",
+          "aliments": [
+            "120 g de saumon (ou 150 g de poulet)",
+            "100 g de riz basmati cru (~250 g cuit)",
+            "150 g de courgettes",
+            "Un filet de citron",
+            "{SOIR}"
+          ],
+          "prix": 3.2,
+          "note": "Repas riche en glucides et léger en graisses, 2 h avant : digéré au début du club, réserves pleines pour 2 h 30.",
+          "compo": [
+            [
+              "saumon",
+              120
+            ],
+            [
+              "basmati_cru",
+              100
+            ],
+            [
+              "courgette",
+              150
+            ],
+            [
+              "citron",
+              15
+            ]
+          ]
+        },
+        {
+          "offset": 0,
+          "label": "Club",
+          "couleur": "gold",
+          "nom": "Pendant le club (2 h 30)",
+          "aliments": [
+            "500 ml à 1 L d'eau par petites gorgées entre les matchs",
+            "1 banane après 1 h, 1 banane après 2 h"
+          ],
+          "prix": 0.5,
+          "note": "Au-delà d'1 h d'effort, 30 à 60 g de glucides par heure aident à garder la lucidité et la vitesse en fin de séance.",
+          "compo": [
+            [
+              "banane",
+              240
+            ]
+          ]
+        },
+        {
+          "offset": 150,
+          "label": "Après",
+          "couleur": "purple",
+          "nom": "Après le club",
+          "aliments": [
+            "1 dose de whey dans 200 ml de lait"
+          ],
+          "prix": 0.9,
+          "note": "Petite collation protéinée avant de dormir : elle aide la récupération sans alourdir la nuit. Pas de vrai repas à 23 h.",
+          "compo": [
+            [
+              "whey",
+              30
+            ],
+            [
+              "lait",
+              206
+            ]
+          ]
+        }
+      ],
+      "remarque": "jour sans muscu mais avec 2 h 30 de club : plus de glucides que le jour de repos, calories proches du jour de séance."
     }
   };
 
@@ -815,13 +1006,13 @@
     return { kcal: r(t.kcal / 10) * 10, p: r(t.p), g: r(t.g), l: r(t.l) };
   }
   // Cible du jour (data/nutrition.js) et écart du plan en %
-  function target(id) { var N = A.NUTRITION.current(); return DAYS[id].seance ? N.train : N.rest; }
+  function target(id) { var N = A.NUTRITION.current(), d = DAYS[id]; return d.seance ? N.train : d.kind === 'pingpong' ? N.pingpong : N.rest; }
   function gap(id) { var t = dayTotal(id), c = target(id); return Math.round((t.kcal - c.kcal) / c.kcal * 100); }
   // Heure affichée : heure réelle si le profil privé la contient, sinon repère relatif
   function timeText(id, m) {
     var d = DAYS[id], h = A.hourText(d.slot + ':' + m.offset);
     if (h) return h;
-    if (m.offset === 0) return d.seance ? 'Séance' : 'Matin';
+    if (m.offset === 0) return d.seance ? 'Séance' : d.kind === 'pingpong' ? 'Club' : 'Matin';
     var a = Math.abs(m.offset), txt = Math.floor(a / 60) + 'h' + (a % 60 ? String(a % 60).padStart(2, '0') : '');
     return (m.offset < 0 ? '−' : '+') + txt;
   }
@@ -838,5 +1029,5 @@
     return out;
   }
 
-  A.MEALS = { FOODS: FOODS, DAYS: DAYS, ORDER: ['lj', 'sam', 'repos'], mealTotal: mealTotal, dayTotal: dayTotal, target: target, gap: gap, timeText: timeText, foodLines: foodLines };
+  A.MEALS = { FOODS: FOODS, DAYS: DAYS, ORDER: ['lj', 'sam', 'pingpong', 'repos'], mealTotal: mealTotal, dayTotal: dayTotal, target: target, gap: gap, timeText: timeText, foodLines: foodLines };
 })(typeof window !== 'undefined' ? window : globalThis);

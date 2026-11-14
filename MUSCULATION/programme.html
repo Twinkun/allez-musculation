@@ -344,7 +344,7 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
   const P = ALLEZ.PROGRAM, N = ALLEZ.NUTRITION.current(), S = ALLEZ.SUPPLEMENTS, M = ALLEZ.MEALS, G = ALLEZ.GOALS, pr = ALLEZ.profile();
   const f = ALLEZ.fmt, esc = ALLEZ.esc, int = ALLEZ.int;
   const heure = X => ALLEZ.hourText(X.slot + ':0');
-  const TOTAL = 1 + P.ORDER.length + 3;
+  const TOTAL = 1 + P.ORDER.length + 4;
   const SB = { push: 'sb-push', pull: 'sb-pull', vshape: 'sb-vs' }, EXC = { push: 'push-ex', pull: 'pull-ex', vshape: 'vs-ex' };
   const row = (l, v, c) => `<div class="row"><span class="lbl">${l}</span><span class="val${c ? ' ' + c : ''}">${v}</span></div>`;
   const foot = (t, n) => `<div class="footer">ALLEZ · ${t} · Page ${n}/${TOTAL}</div>`;
@@ -355,7 +355,7 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
     const jours = ['LUN', 'MAR', 'MER', 'JEU', 'VEN', 'SAM', 'DIM'].map((lbl, i) => {
       const dn = (i + 1) % 7, X = P.sessionForDay(dn), o = P.otherDays[dn];
       if (X) return `<div class="day training"><div class="day-lbl">${lbl}</div><div class="day-name">${X.name}</div><div class="day-time">${heure(X) || 'Séance'}</div></div>`;
-      if (o) return `<div class="day activity"><div class="day-lbl">${lbl}</div><div class="day-name">Ping-pong</div><div class="day-time">Cardio léger</div></div>`;
+      if (o) return `<div class="day activity"><div class="day-lbl">${lbl}</div><div class="day-name">Ping-pong</div><div class="day-time">Club ${f(N.pingpongHeures, 'n')} h</div></div>`;
       return `<div class="day rest"><div class="day-lbl">${lbl}</div><div class="day-name">Repos</div><div class="day-time">~</div></div>`;
     }).join('');
     const obj = (l, a, b) => `<div class="obj-card"><div class="obj-lbl">${l}</div><div class="obj-cur">${a}</div><div class="obj-arr">→</div><div class="obj-tgt">${b}</div></div>`;
@@ -377,7 +377,7 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
     <div class="card"><h2>Contexte &amp; programme</h2>
       ${row('Niveau', 'Débutant')}
       <div class="row" id="rowParticularites" hidden><span class="lbl">Particularités</span><span class="val red" data-prive="programme.particularites"></span></div>
-      ${row('Stratégie', 'Recomposition corporelle', 'gold')}${row('BMR (Mifflin-St Jeor)', int(N.bmr) + ' kcal')}${row('TDEE (×' + f(N.activite, '2') + ')', int(N.tdee) + ' kcal')}${row('Split', P.ORDER.map(sid => P.SESSIONS[sid].name.charAt(0) + P.SESSIONS[sid].name.slice(1).toLowerCase()).join(' / '))}
+      ${row('Stratégie', 'Recomposition corporelle', 'gold')}${row('BMR (Mifflin-St Jeor)', int(N.bmr) + ' kcal')}${row('Dépense moyenne (×' + f(N.activite, '2') + ')', int(N.tdee) + ' kcal')}${row('Split', P.ORDER.map(sid => P.SESSIONS[sid].name.charAt(0) + P.SESSIONS[sid].name.slice(1).toLowerCase()).join(' / '))}
     </div>
   </div>
   <div class="sh">Calendrier Hebdomadaire</div>
@@ -390,10 +390,10 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
     ${obj('Épaules / Taille', f(G.shoulders0, 'n') + ' / ' + f(G.waist0, 'n') + ' cm', '~' + f(G.shoulders, 'n') + ' / ' + f(G.waist, 'n') + ' cm')}
   </div>
   <div class="sh">Calories &amp; Macros</div>
-  <div class="grid-2">${bar(N.train, 'training')}${bar(N.rest, 'repos', true)}</div>
+  <div>${bar(N.train, 'muscu')}${bar(N.pingpong, 'ping-pong')}${bar(N.rest, 'repos', true)}</div>
   <div class="info-box blue">
     <h3>Stratégie recomposition</h3>
-    <p>Débutant + ${f(G.bf0, 'n')} % de masse grasse = prise musculaire et perte de gras simultanées. Surplus de ${f(N.train.delta, '+int')} kcal les jours d'entraînement, léger déficit au repos. Moyenne hebdomadaire : ${int(N.moyenne)} kcal, soit ≈ ${f(N.ecartMoyen, '+int')} kcal/j par rapport à la maintenance → le gras baisse (~${f(Math.abs(G.dFat) / 12, '2')} kg/mois) pendant que le muscle se construit. Résultat attendu : ${gain} kg de masse maigre, ${f(G.bf0, 'n')} → ${f(G.bf, 'n')} % de masse grasse (${f(G.dFat, '+n')} kg de gras), poids quasi stable (~${f(G.weight, 'n')} kg). Cette dépense est une estimation à ±${Math.round(ALLEZ.NUTRITION.PARAMS.incertitude * 100)} % : bilan toutes les 4 semaines.</p>
+    <p>Débutant + ${f(G.bf0, 'n')} % de masse grasse = prise musculaire et perte de gras simultanées. Par rapport à la dépense de chaque jour : ${f(N.train.delta, '+int')} kcal les jours de muscu, ${f(N.pingpong.delta, '+int')} kcal les jours de ping-pong, ${f(N.rest.delta, '+int')} kcal au repos. Moyenne hebdomadaire : ${int(N.moyenne)} kcal, soit ≈ ${f(N.ecartMoyen, '+int')} kcal/j par rapport à la maintenance → le gras baisse (~${f(Math.abs(G.dFat) / 12, '2')} kg/mois) pendant que le muscle se construit. Résultat attendu : ${gain} kg de masse maigre, ${f(G.bf0, 'n')} → ${f(G.bf, 'n')} % de masse grasse (${f(G.dFat, '+n')} kg de gras), poids quasi stable (~${f(G.weight, 'n')} kg). Cette dépense est une estimation à ±${Math.round(ALLEZ.NUTRITION.PARAMS.incertitude * 100)} % : bilan toutes les 4 semaines.</p>
   </div>
   ${foot('Programme personnalisé 12 mois', 1)}
 </div>`;
@@ -460,7 +460,7 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
     return `<div class="page pb">
   <div class="doc-header" style="margin-bottom:14px">
     <div style="font-size:18pt;font-weight:900;letter-spacing:3px;color:#0b1020">NUTRITION <span style="color:#e8960a">${D.titreLong.replace('&', '&amp;')}</span></div>
-    <div style="text-align:right;font-size:8pt;color:#6b7280">Jour d'entraînement${h ? ' · séance ' + h : ''}<br><b>≈ ${int(t.kcal)} kcal · P ${t.p} g · G ${t.g} g · L ${t.l} g (cible ${int(c.kcal)} · ${c.p} · ${c.g} · ${c.l})</b></div>
+    <div style="text-align:right;font-size:8pt;color:#6b7280">${D.seance ? 'Jour de muscu' + (h ? ' · séance ' + h : '') : 'Jour de ping-pong · club ' + f(N.pingpongHeures, 'n') + ' h'}<br><b>≈ ${int(t.kcal)} kcal · P ${t.p} g · G ${t.g} g · L ${t.l} g (cible ${int(c.kcal)} · ${c.p} · ${c.g} · ${c.l})</b></div>
   </div>
   ${D.repas.map(meal).join('\n')}
   ${foot('Nutrition ' + D.jours, n)}
@@ -497,7 +497,7 @@ a[href$="exercices.html#ex7"] { color: #8a5800 !important; }
   }
 
   const doc = document.getElementById('doc');
-  doc.innerHTML = [page1()].concat(P.ORDER.map(pageSeance)).concat([pageRepas('lj', TOTAL - 2), pageRepas('sam', TOTAL - 1), pageFin()]).join('\n');
+  doc.innerHTML = [page1()].concat(P.ORDER.map(pageSeance)).concat([pageRepas('lj', TOTAL - 3), pageRepas('sam', TOTAL - 2), pageRepas('pingpong', TOTAL - 1), pageFin()]).join('\n');
   ALLEZ.bind(doc);
   const part = doc.querySelector('[data-prive="programme.particularites"]');
   if (part && !part.hidden) document.getElementById('rowParticularites').hidden = false;

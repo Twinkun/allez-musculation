@@ -257,7 +257,7 @@ nav {
 /* ── CALORIE DASHBOARD ── */
 .calorie-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   margin-bottom: 40px;
 }
@@ -281,6 +281,10 @@ nav {
 
 .cal-card.training::before { background: linear-gradient(90deg, var(--green), var(--green-light)); }
 .cal-card.rest::before { background: linear-gradient(90deg, var(--carbs), #4a90e2); }
+.cal-card.pingpong::before { background: linear-gradient(90deg, #1565d4, #5b8fe0); }
+.cal-card.pingpong .cal-type, .cycling-card.pp .cycling-day, .cycling-card.pp .cycling-kcal-big { color: #1565d4; }
+.cycling-card.pp { border-top: 3px solid #1565d4; }
+.formula-detail { margin-top: 14px; font-size: .85rem; line-height: 1.55; }
 
 .cal-type {
   font-size: 0.72rem;
@@ -673,7 +677,7 @@ nav {
 /* ── CYCLING SECTION ── */
 .cycling-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   margin-bottom: 16px;
 }
@@ -1343,6 +1347,7 @@ button, a, [onclick], .courses-meal-item, .plan-tab-btn {
 .supp-refs{display:block;font-size:.72rem;margin-top:3px;color:var(--text-light)}
 .supp-refs a{color:inherit;text-decoration:underline}
 @media(max-width:1000px){.supp-safety-grid.n4{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:769px) and (max-width:1100px){.cycling-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){.supp-safety-grid.n4{grid-template-columns:1fr}}
 </style>
 <style id="az-contraste">
@@ -1385,7 +1390,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="hero-stats">
         <div class="hero-stat-item">
           <div class="hero-stat-val" data-az="nutrition.train.kcal|int"></div>
-          <div class="hero-stat-lbl">Kcal entraînement</div>
+          <div class="hero-stat-lbl">Kcal jour de muscu</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-val" data-az="nutrition.pingpong.kcal|int"></div>
+          <div class="hero-stat-lbl">Kcal jour de ping-pong</div>
         </div>
         <div class="hero-stat-item">
           <div class="hero-stat-val" data-az="nutrition.rest.kcal|int"></div>
@@ -1394,10 +1403,6 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
         <div class="hero-stat-item">
           <div class="hero-stat-val"><span data-az="nutrition.proteines"></span>g</div>
           <div class="hero-stat-lbl">Protéines / jour</div>
-        </div>
-        <div class="hero-stat-item">
-          <div class="hero-stat-val" data-az="nutrition.train.delta|+int"></div>
-          <div class="hero-stat-lbl">Surplus training</div>
         </div>
       </div>
       <div class="hero-anchors">
@@ -1420,7 +1425,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
 <div class="section" id="sec-calories">
   <div class="section-label">Calories</div>
   <div class="section-title">Ton Budget Calorique</div>
-  <div class="section-sub">Calculé avec Mifflin-St Jeor × <span data-az="nutrition.activite|2"></span> (3 séances + 1 activité cardio, travail de bureau). C'est une estimation : ton vrai besoin peut varier d'environ ±<span data-az="nutrition.tdeeMarge|int"></span> kcal — d'où le bilan toutes les 4 semaines (voir Conseils). Stratégie recomposition : <span data-az="nutrition.train.delta|+int"></span> kcal les jours de séance, <span data-az="nutrition.rest.delta|+int"></span> kcal au repos.</div>
+  <div class="section-sub">Dépense calculée jour par jour : métabolisme de base (Mifflin-St Jeor) × <span data-az="nutrition.palBase|1"></span> pour une journée de bureau sans sport, plus le coût de l'activité du jour (Compendium des activités physiques : musculation <span data-az="nutrition.muscuMet|n"></span> MET pendant <span data-az="nutrition.muscuHeures|2"></span> h, ping-pong <span data-az="nutrition.pingpongMet|n"></span> MET pendant <span data-az="nutrition.pingpongHeures|n"></span> h). C'est une estimation : ton vrai besoin peut varier d'environ ±<span data-az="nutrition.tdeeMarge|int"></span> kcal — d'où le bilan toutes les 4 semaines (voir Conseils). Stratégie recomposition, par rapport à la dépense de chaque jour : <span data-az="nutrition.train.delta|+int"></span> kcal les jours de muscu, <span data-az="nutrition.pingpong.delta|+int"></span> kcal les jours de ping-pong, <span data-az="nutrition.rest.delta|+int"></span> kcal au repos.</div>
 
   <!-- FORMULE -->
   <div class="calorie-formula reveal">
@@ -1448,37 +1453,44 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="formula-op">× <span data-az="nutrition.activite|2"></span> =</div>
       <div class="formula-step formula-result">
         <div class="formula-step-val" data-az="nutrition.tdee|int"></div>
-        <div class="formula-step-lbl">TDEE kcal</div>
+        <div class="formula-step-lbl">Dépense moyenne kcal</div>
       </div>
     </div>
+    <p class="formula-detail">Jour de repos : <span data-az="nutrition.base|int"></span> kcal (métabolisme de base × <span data-az="nutrition.palBase|1"></span>) · jour de muscu : + <span data-az="nutrition.coutMuscu|int"></span> kcal = <span data-az="nutrition.train.depense|int"></span> · jour de ping-pong : + <span data-az="nutrition.coutPingpong|int"></span> kcal = <span data-az="nutrition.pingpong.depense|int"></span>. Sur la semaine (<span data-az="nutrition.joursSeance"></span> muscu, <span data-az="nutrition.joursPingpong"></span> ping-pong, <span data-az="nutrition.joursRepos"></span> repos), ça revient à ton métabolisme de base × <span data-az="nutrition.activite|2"></span>.</p>
   </div>
 
   <!-- CYCLING CARDS -->
   <div class="cycling-grid reveal">
     <div class="cycling-card t">
-      <div class="cycling-day">Jour Entraînement</div>
+      <div class="cycling-day">Muscu · lun, jeu, sam</div>
       <div class="cycling-kcal-big" data-az="nutrition.train.kcal|int"></div>
       <div style="font-size:.75rem;color:var(--text-light);">kcal</div>
-      <div class="cycling-desc">TDEE <span data-az="nutrition.train.delta|+int"></span> kcal de surplus contrôlé. Glucides élevés autour de la séance pour la performance et la récupération.</div>
+      <div class="cycling-desc">Dépense du jour <span data-az="nutrition.train.delta|+int"></span> kcal : léger surplus pour construire. Glucides autour de la séance pour la performance et la récupération.</div>
+    </div>
+    <div class="cycling-card pp">
+      <div class="cycling-day">Ping-pong · mar, ven</div>
+      <div class="cycling-kcal-big" data-az="nutrition.pingpong.kcal|int"></div>
+      <div style="font-size:.75rem;color:var(--text-light);">kcal</div>
+      <div class="cycling-desc">Dépense du jour <span data-az="nutrition.pingpong.delta|+int"></span> kcal. Le plus de glucides de la semaine : 2 h 30 de club, il faut du carburant.</div>
     </div>
     <div class="cycling-card r">
-      <div class="cycling-day">Jour de Repos</div>
+      <div class="cycling-day">Repos · mer, dim</div>
       <div class="cycling-kcal-big" data-az="nutrition.rest.kcal|int"></div>
       <div style="font-size:.75rem;color:var(--text-light);">kcal</div>
-      <div class="cycling-desc">Légèrement sous le TDEE repos. Protéines maintenues. Glucides réduits, lipides augmentés.</div>
+      <div class="cycling-desc">Dépense du jour <span data-az="nutrition.rest.delta|+int"></span> kcal. Protéines maintenues. Glucides réduits, lipides un peu augmentés.</div>
     </div>
     <div class="cycling-card c">
       <div class="cycling-day">Moyenne Semaine</div>
       <div class="cycling-kcal-big" data-az="nutrition.moyenne|int"></div>
       <div style="font-size:.75rem;color:var(--text-light);">kcal</div>
-      <div class="cycling-desc"><span data-az="nutrition.joursSeance"></span> jours de séance + <span data-az="nutrition.joursRepos"></span> jours de repos = légère sous-maintenance (<span data-az="nutrition.ecartMoyen|+int"></span> kcal/j). Recomposition active : perte grasse progressive avec préservation musculaire.</div>
+      <div class="cycling-desc"><span data-az="nutrition.joursSeance"></span> jours de muscu + <span data-az="nutrition.joursPingpong"></span> de ping-pong + <span data-az="nutrition.joursRepos"></span> de repos = légère sous-maintenance (<span data-az="nutrition.ecartMoyen|+int"></span> kcal/j). Recomposition : perte de gras progressive en construisant du muscle.</div>
     </div>
   </div>
 
   <!-- CALORIE CARDS -->
   <div class="calorie-grid reveal">
     <div class="cal-card training">
-      <div class="cal-type">Jour d'entraînement</div>
+      <div class="cal-type">Jour de muscu</div>
       <div class="cal-main">
         <div class="cal-num" data-az="nutrition.train.kcal|int"></div>
         <div class="cal-unit">kcal</div>
@@ -1494,6 +1506,27 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
         </div>
         <div class="macro-chip f">
           <div class="macro-chip-val"><span data-az="nutrition.train.l"></span>g</div>
+          <div class="macro-chip-lbl">Lipides</div>
+        </div>
+      </div>
+    </div>
+    <div class="cal-card pingpong">
+      <div class="cal-type">Jour de ping-pong</div>
+      <div class="cal-main">
+        <div class="cal-num" data-az="nutrition.pingpong.kcal|int"></div>
+        <div class="cal-unit">kcal</div>
+      </div>
+      <div class="cal-breakdown">
+        <div class="macro-chip p">
+          <div class="macro-chip-val"><span data-az="nutrition.proteines"></span>g</div>
+          <div class="macro-chip-lbl">Protéines</div>
+        </div>
+        <div class="macro-chip c">
+          <div class="macro-chip-val"><span data-az="nutrition.pingpong.g"></span>g</div>
+          <div class="macro-chip-lbl">Glucides</div>
+        </div>
+        <div class="macro-chip f">
+          <div class="macro-chip-val"><span data-az="nutrition.pingpong.l"></span>g</div>
           <div class="macro-chip-lbl">Lipides</div>
         </div>
       </div>
@@ -1528,7 +1561,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
 <div class="section" id="sec-macros">
   <div class="section-label">Macronutriments</div>
   <div class="section-title">Répartition des Macros</div>
-  <div class="section-sub">Basé sur les jours d'entraînement. Les jours de repos : mêmes protéines, glucides réduits à <span data-az="nutrition.rest.g"></span> g, lipides <span data-az="nutrition.rest.l"></span> g.</div>
+  <div class="section-sub">Basé sur les jours de muscu. Mêmes protéines tous les jours ; glucides <span data-az="nutrition.pingpong.g"></span> g et lipides <span data-az="nutrition.pingpong.l"></span> g les jours de ping-pong, glucides <span data-az="nutrition.rest.g"></span> g et lipides <span data-az="nutrition.rest.l"></span> g les jours de repos.</div>
 
   <div class="macro-visual reveal">
     <div class="macro-card p">
@@ -2841,7 +2874,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
   </div>`;
   }
   document.getElementById('planTabs').innerHTML = M.ORDER.map((id, i) => {
-    const D = M.DAYS[id], h = D.seance ? heure(D) : null;
+    const D = M.DAYS[id], h = D.seance ? heure(D) : D.kind === 'pingpong' ? ALLEZ.hourText(D.slot + ':0') : null;
     return `<button class="plan-tab-btn${i ? '' : ' active'}" type="button" role="tab" aria-selected="${i ? 'false' : 'true'}" data-plan="${id}">${D.titre.replace('&', '&amp;')}${h ? ' — ' + h : ''}</button>`;
   }).join('');
   document.getElementById('planHost').innerHTML = M.ORDER.map(plan).join('\n');
@@ -3029,9 +3062,9 @@ const heroObserver = new IntersectionObserver((entries) => {
   if (entries[0].isIntersecting) {
     const NN = ALLEZ.NUTRITION.current(), hv = document.querySelectorAll('.hero-stat-val');
     animateCount(hv[0], NN.train.kcal, '');
-    animateCount(hv[1], NN.rest.kcal, '');
-    animateCount(hv[2], NN.proteines, 'g');
-    animateCount(hv[3], NN.train.delta, '', '+');
+    animateCount(hv[1], NN.pingpong.kcal, '');
+    animateCount(hv[2], NN.rest.kcal, '');
+    animateCount(hv[3], NN.proteines, 'g');
     heroObserver.disconnect();
   }
 }, { threshold: 0.5 });

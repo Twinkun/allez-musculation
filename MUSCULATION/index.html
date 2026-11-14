@@ -861,7 +861,7 @@ p[data-prive="index.progression"] { color: #666d7a !important; }
           </div>
           <div class="bf-info">
             <h3><span data-az="goals.lean0|1"></span> kg <em>de masse maigre</em></h3>
-            <p>Recomposition ciblée : <span data-az="nutrition.train.delta|+int"></span> kcal de surplus les jours d'entraînement, déficit modéré au repos (<span data-az="nutrition.rest.delta|+int"></span> kcal). Moyenne hebdo ≈ <span data-az="nutrition.ecartMoyen|+int"></span> kcal/j par rapport à la maintenance. Débutant + <span data-az="goals.bf0|n"></span> % de gras = recomposition : on perd du gras tout en construisant du muscle. Objectif an 1 : <span data-az="goals.bf|n"></span> % de MG et <span data-az="goals.leanGainLow|+n"></span> à <span data-az="goals.leanGainHigh|+n"></span> kg de masse maigre, à poids quasi stable.</p>
+            <p>Recomposition ciblée, par rapport à la dépense de chaque jour : <span data-az="nutrition.train.delta|+int"></span> kcal les jours de muscu, <span data-az="nutrition.pingpong.delta|+int"></span> kcal les jours de ping-pong, <span data-az="nutrition.rest.delta|+int"></span> kcal au repos. Moyenne hebdo ≈ <span data-az="nutrition.ecartMoyen|+int"></span> kcal/j par rapport à la maintenance. Débutant + <span data-az="goals.bf0|n"></span> % de gras = recomposition : on perd du gras tout en construisant du muscle. Objectif an 1 : <span data-az="goals.bf|n"></span> % de MG et <span data-az="goals.leanGainLow|+n"></span> à <span data-az="goals.leanGainHigh|+n"></span> kg de masse maigre, à poids quasi stable.</p>
           </div>
         </div>
       </div>
@@ -965,7 +965,7 @@ p[data-prive="index.progression"] { color: #666d7a !important; }
   <div class="container">
     <div class="eyebrow">Structure hebdomadaire</div>
     <h2 class="sh">MON <span>PROGRAMME</span></h2>
-    <p class="sp"><span id="progJours"></span> Muscles prioritaires stimulés 2-3×/semaine. Core et posture intégrés 10 min en fin de chaque séance. Programme 100 % haut du corps (choix assumé). Le ping-pong du vendredi fait bouger les jambes, mais ce n'est pas un travail de force.</p>
+    <p class="sp"><span id="progJours"></span> Muscles prioritaires stimulés 2-3×/semaine. Core et posture intégrés 10 min en fin de chaque séance. Programme 100 % haut du corps (choix assumé). Le ping-pong du mardi et du vendredi (2 × 2 h 30) fait travailler les jambes et le cardio, mais ce n'est pas un travail de force.</p>
     <div class="split-grid" id="splitGrid"></div>
     <div class="vol-box reveal">
       <div class="vol-title">VOLUME HEBDOMADAIRE PAR GROUPE MUSCULAIRE</div>
@@ -1440,15 +1440,13 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'🥗', period:'MATIN',          title:'Petit-déjeuner protéiné',               detail:'40–50g protéines · œufs · fromage blanc · avoine' },
     { icon:'🤸', period:'RÉCUPÉRATION',   title:'Étirements épaules & triceps · 10 min', detail:'Ciblé Push A du lundi · maintiens 30 sec par position' },
     { icon:'🧴', period:'RÉCUPÉRATION',   title:'Foam roller dos & épaules · 5 min',     detail:'Haut du dos · omoplates · libère les tensions musculaires' },
-    { icon:'🚶', period:'RÉCUPÉRATION',   title:'Marche active · 30 min',                detail:'Pas soutenu · bras qui bougent · sans téléphone · 5000 pas+' },
     { icon:'📚', period:'JOURNÉE',        title:'Lecture · 20 min',                      detail:'Livre physique · pas d\'article, pas d\'écran' },
     { icon:'💼', period:'JOURNÉE',        title:'Travail profond · 90 min',              detail:'Notifs off · téléphone retourné · une seule tâche' },
-    { icon:'🍽️', period:'SOIR',           title:'Dîner · ~40 g de protéines',               detail:'Poisson ou viande + féculent + légumes · voir plan Nutrition · pas d\'alcool' },
+    { icon:'🍽️', period:'SOIR',           title:'Dîner · 2 h avant le club',             detail:'Riz + saumon ou poulet + légumes · riche en glucides, léger en graisses · voir plan Nutrition' },
     { icon:'💊', period:'SOIR',           title:'Compléments du soir',                   detail: STACK_SOIR + ' · ' + SUP.momentText('soir') },
-    { icon:'🧘', period:'SOIR',           title:'Étirements posture · 10 min',           detail:'Ouverture poitrine · pso-iliaque · dos — doux et lent' },
-    { icon:'📝', period:'COUCHER',        title:'Journaling · 5 min',                    detail:'3 réussites · 1 amélioration demain · ferme le livre' },
-    { icon:'📵', period:'COUCHER',        title:'Zéro écran · 30 min',                   detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
-    { icon:'🛏️', period:'COUCHER',        title:'Lumières éteintes',                     detail:'Avant minuit — le sommeil construit le physique' },
+    { icon:'🏓', period:'SOIR',           title:'Ping-pong · club 2 h 30',               detail:'Échauffe épaules et poignets · eau par petites gorgées · 1 banane après 1 h et après 2 h' },
+    { icon:'🥛', period:'SOIR',           title:'Après le club · shaker',                detail:'1 dose de whey dans 200 ml de lait · pas de vrai repas avant de dormir' },
+    { icon:'🛏️', period:'COUCHER',        title:'Au lit dès le retour',                  detail:'Douche tiède, pas d\'écran · vise 7 h 30 de sommeil' },
   ];
 
   var T_MERCREDI = [
@@ -1481,15 +1479,14 @@ document.querySelectorAll('.circ').forEach(el => cIO.observe(el));
     { icon:'✍️', period:'MATIN',          title:'3 priorités du jour',                   detail:'Par écrit — une seule priorité absolue numérotée 1' },
     { icon:'🥗', period:'MATIN',          title:'Petit-déjeuner protéiné',               detail:'40–50g protéines · œufs · fromage blanc · avoine' },
     { icon:'🤸', period:'RÉCUPÉRATION',   title:'Étirements dos & biceps · 10 min',      detail:'Ciblé Pull A du jeudi · grand dorsal · biceps — 30 sec chaque' },
-    { icon:'🏓', period:'SOIR',           title:'Ping-pong · entraînement club',         detail:'Cardio + jambes de la semaine · échauffe épaules et poignets avant' },
     { icon:'📚', period:'JOURNÉE',        title:'Lecture · 20 min',                      detail:'Livre physique · pas d\'article, pas d\'écran' },
     { icon:'💼', period:'JOURNÉE',        title:'Bilan semaine · 15 min',                detail:'Objectifs atteints · nutrition · séances · mindset — évaluer' },
-    { icon:'🎒', period:'SOIR',           title:'Préparer sac sport samedi',             detail:'Tenue · serviette · eau · créatine · écouteurs — tout prêt ce soir' },
-    { icon:'🍽️', period:'SOIR',           title:'Dîner · ~40 g de protéines',               detail:'Poisson ou viande + féculent + légumes · voir plan Nutrition · pas d\'alcool' },
+    { icon:'🎒', period:'SOIR',           title:'Préparer sac sport samedi',             detail:'Tenue · serviette · eau · créatine · écouteurs — tout prêt avant le club' },
+    { icon:'🍽️', period:'SOIR',           title:'Dîner · 2 h avant le club',             detail:'Riz + saumon ou poulet + légumes · riche en glucides, léger en graisses · voir plan Nutrition' },
     { icon:'💊', period:'SOIR',           title:'Compléments du soir',                   detail: STACK_SOIR + ' · ' + SUP.momentText('soir') },
-    { icon:'📝', period:'COUCHER',        title:'Journaling · 5 min',                    detail:'3 réussites de la semaine · intention pour le week-end' },
-    { icon:'📵', period:'COUCHER',        title:'Zéro écran · 30 min',                   detail:'Chambre fraîche 18–20°C · lecture ou étirements' },
-    { icon:'🛏️', period:'COUCHER',        title:'Lumières éteintes',                     detail:'Avant minuit — récupération avant la séance samedi' },
+    { icon:'🏓', period:'SOIR',           title:'Ping-pong · club 2 h 30',               detail:'Échauffe épaules et poignets · eau par petites gorgées · 1 banane après 1 h et après 2 h' },
+    { icon:'🥛', period:'SOIR',           title:'Après le club · shaker',                detail:'1 dose de whey dans 200 ml de lait · pas de vrai repas avant de dormir' },
+    { icon:'🛏️', period:'COUCHER',        title:'Au lit dès le retour',                  detail:'Douche tiède, pas d\'écran · séance V-Shape demain : vise 7 h 30 de sommeil' },
   ];
 
   var T_DIMANCHE = [

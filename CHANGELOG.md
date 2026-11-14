@@ -1,5 +1,17 @@
 # Journal des changements — ALLEZ
 
+## Mesures réelles, tempos et ping-pong 2×/semaine (branche `mesures-reelles`)
+
+### Nutrition : 3 types de journées
+- `data/nutrition.js` : dépense calculée jour par jour = métabolisme de base × 1,4 (journée de bureau, FAO/WHO/UNU 2004) + coût net de l'activité (Compendium 2011 : musculation 3,5 MET × 1,25 h, code 02054 ; tennis de table 4 MET × 2,5 h, code 15660). Cibles : muscu = dépense + 4 %, ping-pong = dépense − 4 %, repos = dépense − 10 %. `delta` = écart à la dépense du jour. Nouveaux : `pingpong`, `dayKind(jour)`, `forDay(jour)`.
+- Ping-pong le mardi et le vendredi (`OTHER_DAYS`), 2 h 30 au club.
+- `data/repas.js` : 4ᵉ journée « Ping-pong », calée sur le début du club (horaire privé D) ; plans Lun-Jeu et Repos recalés à ≤ 2 % de leur cible (miel, patate douce, huile du dîner). Ce fichier est maintenu à la main : `_prive/gen/gen_repas.py` est périmé.
+- Pages : nutrition (cartes, formule, onglet du plan), programme imprimable (8 pages, journée ping-pong), tableau de bord (cible du jour), accueil (mardi et vendredi), progression, profil (horaire du club).
+
+### Mesures réelles et tempos
+- Contenu privé : les chiffres liés au profil (poids, masse grasse, masse maigre, objectifs à 1, 2 et 5 ans, kcal, protéines, séries par semaine) sont calculés. `core.js` accepte `data-az` dans le contenu privé (chemins sur liste blanche, écriture en `textContent`).
+- Tempos notés dans un seul format : phase freinée · pause en étirement · phase d'effort · pause en contraction. 12 tempos alignés sur la pause décrite dans la fiche. Fiches Arnold (retour en 3 s) et oiseau (descente en 2 s) corrigées.
+
 ## v2 — phase 6 « Vérification » et publication (fusion dans `main`)
 
 ### Corrigé pendant la vérification

@@ -1031,9 +1031,9 @@ function drawWeight() {
 
 function drawDonut() {
   const canvas=document.getElementById('donutChart'); if(!canvas)return;
-  const train=!!P.byDay[new Date().getDay()];
-  const D = train ? N.train : N.rest, M = {k:D.kcal,p:D.p,c:D.g,l:D.l};
-  document.getElementById('macroSub').textContent = (train?'Jour training':'Jour repos') + ' · ' + M.k.toLocaleString('fr-FR') + ' kcal';
+  const kind = ALLEZ.NUTRITION.dayKind(new Date().getDay());
+  const D = N[kind], M = {k:D.kcal,p:D.p,c:D.g,l:D.l};
+  document.getElementById('macroSub').textContent = ({ train: 'Jour de muscu', pingpong: 'Jour de ping-pong', rest: 'Jour de repos' })[kind] + ' · ' + M.k.toLocaleString('fr-FR') + ' kcal';
   const chips=document.querySelectorAll('.macro-chip .mc-val');
   if(chips.length>=3){ chips[0].textContent=M.p+'g'; chips[1].textContent=M.c+'g'; chips[2].textContent=M.l+'g'; }
   const dv=document.querySelector('.donut-val'); if(dv) dv.textContent=M.k;

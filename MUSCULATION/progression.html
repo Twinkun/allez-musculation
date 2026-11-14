@@ -386,7 +386,7 @@ button, a, [onclick], input, select, label {
 .section-label { color: #8a5800 !important; }
 .section-sub { color: #626784 !important; }
 span[data-az="nutrition.train.kcal|int"] { color: #626784 !important; }
-span[data-az="nutrition.rest.kcal|int"] { color: #626784 !important; }
+span[data-az="nutrition.rest.kcal|int"], span[data-az="nutrition.pingpong.kcal|int"] { color: #626784 !important; }
 button[data-bloc="b1"] { color: #0b1020 !important; }
 </style>
 <style id="az-cibles">
@@ -501,7 +501,7 @@ button[data-bloc="b1"] { color: #0b1020 !important; }
 <div class="section">
   <div class="section-label">Évolution</div>
   <div class="section-title">Graphiques de Progression</div>
-  <div class="section-sub">Courbes projetées sur 12 mois (recomposition : <span data-az="nutrition.train.kcal|int"></span> kcal training / <span data-az="nutrition.rest.kcal|int"></span> kcal repos). Tes mesures réelles s'affichent à leur date, par rapport à ton jour J.</div>
+  <div class="section-sub">Courbes projetées sur 12 mois (recomposition : <span data-az="nutrition.train.kcal|int"></span> kcal les jours de muscu, <span data-az="nutrition.pingpong.kcal|int"></span> les jours de ping-pong, <span data-az="nutrition.rest.kcal|int"></span> au repos). Tes mesures réelles s'affichent à leur date, par rapport à ton jour J.</div>
 
   <div class="chart-grid reveal">
     <div class="chart-card full">
@@ -608,7 +608,7 @@ button[data-bloc="b1"] { color: #0b1020 !important; }
 <div class="section">
   <div class="section-label">Simulation</div>
   <div class="section-title">Transformation Mois par Mois</div>
-  <div class="section-sub">Projection réaliste en recomposition (<span data-az="nutrition.train.delta|+int"></span> kcal les jours d'entraînement, <span data-az="nutrition.rest.delta|+int"></span> kcal au repos → moyenne <span data-az="nutrition.ecartMoyen|+int"></span> kcal/j, calculés depuis ton profil) : le gras baisse lentement pendant que la masse maigre monte, donc le poids bouge peu. Valeurs de fin de mois.</div>
+  <div class="section-sub">Projection réaliste en recomposition (<span data-az="nutrition.train.delta|+int"></span> kcal les jours de muscu, <span data-az="nutrition.pingpong.delta|+int"></span> les jours de ping-pong, <span data-az="nutrition.rest.delta|+int"></span> au repos, par rapport à la dépense du jour → moyenne <span data-az="nutrition.ecartMoyen|+int"></span> kcal/j, calculés depuis ton profil) : le gras baisse lentement pendant que la masse maigre monte, donc le poids bouge peu. Valeurs de fin de mois.</div>
 
   <div class="sim-grid" id="simGrid"></div>
 </div>

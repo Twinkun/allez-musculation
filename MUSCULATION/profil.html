@@ -72,7 +72,8 @@ label.az-btn:focus-within { outline: 2px solid var(--az-nuit); outline-offset: 2
       </div>
     </form>
     <div class="resume" aria-live="polite">
-      <div><b><span data-az="nutrition.train.kcal|int"></span></b><span>kcal jour de séance</span></div>
+      <div><b><span data-az="nutrition.train.kcal|int"></span></b><span>kcal jour de muscu</span></div>
+      <div><b><span data-az="nutrition.pingpong.kcal|int"></span></b><span>kcal jour de ping-pong</span></div>
       <div><b><span data-az="nutrition.rest.kcal|int"></span></b><span>kcal jour de repos</span></div>
       <div><b><span data-az="nutrition.proteines"></span> g</b><span>protéines par jour</span></div>
       <div><b><span data-az="goals.lean0|1"></span> kg</b><span>masse maigre de départ</span></div>
@@ -157,11 +158,12 @@ label.az-btn:focus-within { outline: 2px solid var(--az-nuit); outline-offset: 2
   function renderHoraires() {
     const h = prive().horaires || {};
     $('horaires').innerHTML = Object.keys(SLOTS).map(k => `<label class="az-field">Séance — ${esc(SLOTS[k].join(' et '))}<input type="time" id="h_${k}" value="${esc(h[k] || '')}"></label>`).join('')
+      + `<label class="az-field">Début du club de ping-pong (${esc(Object.keys(ALLEZ.PROGRAM.otherDays).map(d => ALLEZ.PROGRAM.DAY_NAMES[d].toLowerCase()).join(' et '))})<input type="time" id="h_D" value="${esc(h.D || '')}"></label>`
       + `<label class="az-field">Petit-déjeuner les jours de repos<input type="time" id="h_C" value="${esc(h.C || '')}"></label>`;
   }
   $('btnHoraires').addEventListener('click', () => {
     const p = prive(); p.horaires = {};
-    Object.keys(SLOTS).concat(['C']).forEach(k => { const v = $('h_' + k).value; if (/^\d{2}:\d{2}$/.test(v)) p.horaires[k] = v; });
+    Object.keys(SLOTS).concat(['D', 'C']).forEach(k => { const v = $('h_' + k).value; if (/^\d{2}:\d{2}$/.test(v)) p.horaires[k] = v; });
     ALLEZ.lsSet('px_prive', p); ALLEZ.ui.toast('Horaires enregistrés.');
   });
 

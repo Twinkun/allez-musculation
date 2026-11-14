@@ -180,7 +180,10 @@
   };
   var ORDER = ['push', 'pull', 'vshape'];
   var BY_DAY = { 1: 'push', 4: 'pull', 6: 'vshape' };          // jour de la semaine (0 = dimanche) → séance
-  var OTHER_DAYS = { 5: { kind: 'pingpong', name: 'PING-PONG', focus: 'Activité cardio · repos musculaire' } };
+  var OTHER_DAYS = {
+    2: { kind: 'pingpong', name: 'PING-PONG', focus: 'Club · 2 h 30 · cardio et jambes, repos du haut du corps' },
+    5: { kind: 'pingpong', name: 'PING-PONG', focus: 'Club · 2 h 30 · cardio et jambes, repos du haut du corps' }
+  };
   var DAY_NAMES = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 
   // Échauffement commun aux 3 séances
