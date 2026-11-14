@@ -295,6 +295,13 @@ button[data-f] { color: #0b1020 !important; }
 .bdg:not(.on) .bdg-icon { opacity: .45; }
 .bdg-name { color: #1a1a2e !important; }
 .bdg-desc { color: #5b6270 !important; }
+/* Fiche ouverte */
+.info-blk-t, .tab-btn { color: #5b616e !important; }
+.tab-btn.active { color: #1a1a2e !important; }
+.mp.mlbl { color: #8a5800 !important; }
+.ms.mlbl { color: #1d4ed8 !important; }
+.mlbl.mp, .mlbl.ms { opacity: 1 !important; }
+.yt-btn { background: #c40000 !important; color: #fff !important; }
 </style>
 <style id="az-cibles">
 /* Cibles tactiles ≥ 44 px (phase 5) */
@@ -311,10 +318,10 @@ button[data-f] { color: #0b1020 !important; }
 
 <header class="hero">
   <div class="hero-tag">📚 Guide Pédagogique Complet</div>
-  <h1>LES <span><span id="nbTitre"></span> EXERCICES</span><br>DU PROGRAMME</h1>
-  <p>Technique parfaite, muscles ciblés, erreurs à éviter — tout ce qu'un débutant doit savoir pour progresser sans se blesser.</p>
+  <h1>LES <span><span id="nbTitre"></span> FICHES</span><br>D'EXERCICES</h1>
+  <p>Technique parfaite, muscles ciblés, erreurs à éviter — tout ce qu'un débutant doit savoir pour progresser sans se blesser. Le filtre « Mon programme » garde les exercices de tes séances et de l'échauffement ; les autres fiches sont des variantes ou des exercices écartés. Les séries affichées sont celles du programme complet (blocs 2 et 3) : le carnet de séance donne le nombre exact de la semaine.</p>
   <div class="hero-stats">
-    <div class="hstat"><div class="hstat-num" id="nbFiches"></div><div class="hstat-label">Exercices</div></div>
+    <div class="hstat"><div class="hstat-num" id="nbFiches"></div><div class="hstat-label">Fiches</div></div>
     <div class="hstat"><div class="hstat-num">4</div><div class="hstat-label">Catégories</div></div>
     <div class="hstat"><div class="hstat-num">6</div><div class="hstat-label">Onglets / exercice</div></div>
     <div class="hstat"><div class="hstat-num">12</div><div class="hstat-label">Mois de progression</div></div>
@@ -496,17 +503,17 @@ document.getElementById('pgrid').innerHTML=PROG.map(p=>`<div class="pm"><div cla
 
 // ─── BADGES ──────────────────────────────────────────────────────────────────
 const BDGS=[
-  {icon:"🥇",name:"Première Séance",desc:"1ère séance enregistrée",k:1},
-  {icon:"🔥",name:"Première Semaine",desc:"3 séances complétées",k:3},
+  {icon:"🥇",name:"Première Séance",desc:"1re séance enregistrée",k:1},
+  {icon:"🔥",name:"Trois Séances",desc:"3 séances complétées",k:3},
   {icon:"💪",name:"10 Séances",desc:"10 séances complétées",k:10},
-  {icon:"📈",name:"1er Record",desc:"Premier PR enregistré",k:-1},
+  {icon:"📈",name:"1er Record",desc:"Une charge battue sur un exercice",k:-1},
   {icon:"🏋️",name:"Mois 1 Complet",desc:"12 séances complétées",k:12},
   {icon:"⚖️",name:"Constance",desc:"30 séances complétées",k:30},
-  {icon:"🎯",name:"Technique Pro",desc:"50 séances complétées",k:50},
   {icon:"🦁",name:"Cycle 2 Lancé",desc:"39 séances (13 semaines)",k:39},
-  {icon:"🌟",name:"V-Shape Builder",desc:"Objectif épaules visibles",k:60},
-  {icon:"💎",name:"6 Mois Steady",desc:"78 séances complétées",k:78},
-  {icon:"🚀",name:"1 An Discipline",desc:"144 séances complétées",k:144},
+  {icon:"🎯",name:"50 Séances",desc:"50 séances complétées",k:50},
+  {icon:"🌟",name:"60 Séances",desc:"60 séances complétées",k:60},
+  {icon:"💎",name:"6 Mois Réguliers",desc:"78 séances complétées",k:78},
+  {icon:"🚀",name:"1 An de Discipline",desc:"144 séances (11 séances sur 12)",k:144},
   {icon:"🏆",name:"Programme Maîtrisé",desc:"156 séances — année parfaite",k:156}
 ];
 // Séances de musculation du journal unique (core.js) — le ping-pong ne compte pas

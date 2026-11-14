@@ -1118,6 +1118,7 @@ footer a {
 .plan-total-lbl{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 .plan-total-val{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.04em;color:var(--gold);margin:4px 0}
 .plan-total-sub{font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.45}
+.plan-total{position:relative;z-index:1}
 button, a, [onclick], .courses-meal-item, .plan-tab-btn {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
@@ -1359,10 +1360,19 @@ span[data-az="nutrition.tdeeMarge|int"] { color: #626784 !important; }
 span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
 .plan-tab-btn.active { color: #0b1020 !important; }
 .courses-btn-gen { color: #0b1020 !important; }
+.foods-card.p .foods-card-title { color: #b8430f !important; }
 </style>
 <style id="az-cibles">
 /* Cibles tactiles ≥ 44 px (phase 5) */
 .top10-link, .hero-anchor, .supp-refs a { min-height: 44px !important; display: inline-flex !important; align-items: center; }
+</style>
+<style id="az-mobile">
+.erreur-fix { display: block !important; }
+/* Mobile : rien ne dépasse de l'écran (contenu rogné par overflow-x:hidden) */
+@media (max-width: 768px) {
+  .hero-content { grid-template-columns: minmax(0, 1fr) !important; min-width: 0; width: 100%; }
+  .hero-left, .hero-right { min-width: 0; }
+}
 </style>
 </head>
 <body>
@@ -1401,7 +1411,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
           <div class="hero-stat-lbl">Kcal repos</div>
         </div>
         <div class="hero-stat-item">
-          <div class="hero-stat-val"><span data-az="nutrition.proteines"></span>g</div>
+          <div class="hero-stat-val"><span data-az="nutrition.proteines"></span> g</div>
           <div class="hero-stat-lbl">Protéines / jour</div>
         </div>
       </div>
@@ -1450,7 +1460,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
         <div class="formula-step-val" data-az="nutrition.bmr|int"></div>
         <div class="formula-step-lbl">BMR kcal</div>
       </div>
-      <div class="formula-op">× <span data-az="nutrition.activite|2"></span> =</div>
+      <div class="formula-op">× <span data-az="nutrition.activite|2"></span> ≈</div>
       <div class="formula-step formula-result">
         <div class="formula-step-val" data-az="nutrition.tdee|int"></div>
         <div class="formula-step-lbl">Dépense moyenne kcal</div>
@@ -1497,15 +1507,15 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       </div>
       <div class="cal-breakdown">
         <div class="macro-chip p">
-          <div class="macro-chip-val"><span data-az="nutrition.proteines"></span>g</div>
+          <div class="macro-chip-val"><span data-az="nutrition.proteines"></span>&nbsp;g</div>
           <div class="macro-chip-lbl">Protéines</div>
         </div>
         <div class="macro-chip c">
-          <div class="macro-chip-val"><span data-az="nutrition.train.g"></span>g</div>
+          <div class="macro-chip-val"><span data-az="nutrition.train.g"></span>&nbsp;g</div>
           <div class="macro-chip-lbl">Glucides</div>
         </div>
         <div class="macro-chip f">
-          <div class="macro-chip-val"><span data-az="nutrition.train.l"></span>g</div>
+          <div class="macro-chip-val"><span data-az="nutrition.train.l"></span>&nbsp;g</div>
           <div class="macro-chip-lbl">Lipides</div>
         </div>
       </div>
@@ -1518,15 +1528,15 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       </div>
       <div class="cal-breakdown">
         <div class="macro-chip p">
-          <div class="macro-chip-val"><span data-az="nutrition.proteines"></span>g</div>
+          <div class="macro-chip-val"><span data-az="nutrition.proteines"></span>&nbsp;g</div>
           <div class="macro-chip-lbl">Protéines</div>
         </div>
         <div class="macro-chip c">
-          <div class="macro-chip-val"><span data-az="nutrition.pingpong.g"></span>g</div>
+          <div class="macro-chip-val"><span data-az="nutrition.pingpong.g"></span>&nbsp;g</div>
           <div class="macro-chip-lbl">Glucides</div>
         </div>
         <div class="macro-chip f">
-          <div class="macro-chip-val"><span data-az="nutrition.pingpong.l"></span>g</div>
+          <div class="macro-chip-val"><span data-az="nutrition.pingpong.l"></span>&nbsp;g</div>
           <div class="macro-chip-lbl">Lipides</div>
         </div>
       </div>
@@ -1539,15 +1549,15 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       </div>
       <div class="cal-breakdown">
         <div class="macro-chip p">
-          <div class="macro-chip-val"><span data-az="nutrition.proteines"></span>g</div>
+          <div class="macro-chip-val"><span data-az="nutrition.proteines"></span>&nbsp;g</div>
           <div class="macro-chip-lbl">Protéines</div>
         </div>
         <div class="macro-chip c">
-          <div class="macro-chip-val"><span data-az="nutrition.rest.g"></span>g</div>
+          <div class="macro-chip-val"><span data-az="nutrition.rest.g"></span>&nbsp;g</div>
           <div class="macro-chip-lbl">Glucides</div>
         </div>
         <div class="macro-chip f">
-          <div class="macro-chip-val"><span data-az="nutrition.rest.l"></span>g</div>
+          <div class="macro-chip-val"><span data-az="nutrition.rest.l"></span>&nbsp;g</div>
           <div class="macro-chip-lbl">Lipides</div>
         </div>
       </div>
@@ -1639,11 +1649,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="foods-card-title">Protéines</div>
       <ul class="foods-items">
         <li>Blanc de poulet <span><span data-alim="poulet:p:100"></span> g P / 100 g cru</span></li>
-        <li>Thon au naturel <span>25g P / 100g</span></li>
+        <li>Thon au naturel <span><span data-alim="thon:p:100"></span> g P / 100 g égoutté</span></li>
         <li>Saumon <span><span data-alim="saumon:p:100"></span> g P / 100 g</span></li>
         <li>Œufs entiers <span><span data-alim="oeuf:p:100"></span> g P / 100 g</span></li>
         <li>Skyr / Fromage blanc 0 % <span><span data-alim="skyr:p:100"></span> g P / 100 g</span></li>
-        <li>Jambon blanc dégraissé <span>22g P / 100g</span></li>
+        <li>Jambon blanc <span><span data-alim="jambon:p:100"></span> g P / 100 g</span></li>
         <li>Whey <span><span data-alim="whey:p:30"></span> g P / dose de 30 g</span></li>
       </ul>
     </div>
@@ -1656,8 +1666,8 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
         <li>Patate douce <span><span data-alim="patatedouce:g:100"></span> g G / 100 g</span></li>
         <li>Pain complet <span><span data-alim="paincomplet:g:100"></span> g G / 100 g</span></li>
         <li>Banane <span><span data-alim="banane:g:100"></span> g G / 100 g</span></li>
-        <li>Riz complet <span>72g G / 100g sec</span></li>
-        <li>Légumineuses <span>20g G + protéines</span></li>
+        <li>Quinoa <span><span data-alim="quinoa:g:100"></span> g G / 100 g cru</span></li>
+        <li>Lentilles cuites <span><span data-alim="lentillecuite:g:100"></span> g G + <span data-alim="lentillecuite:p:100"></span> g P / 100 g</span></li>
       </ul>
     </div>
 
@@ -1665,7 +1675,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="foods-card-title">Lipides</div>
       <ul class="foods-items">
         <li>Huile d'olive vierge <span><span data-alim="huileolive:l:13.5"></span> g L / c. à soupe (13,5 g)</span></li>
-        <li>Avocat <span>15g L / 100g</span></li>
+        <li>Avocat <span><span data-alim="avocat:l:100"></span> g L / 100 g</span></li>
         <li>Amandes <span><span data-alim="amande:l:100"></span> g L / 100 g</span></li>
         <li>Œufs entiers <span><span data-alim="oeuf:l:52"></span> g L / œuf (52 g)</span></li>
         <li>Saumon / Maquereau <span>Oméga-3 +++</span></li>
@@ -1682,10 +1692,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
 <div class="section" id="sec-repas">
   <div class="section-label">Exemple de Journée</div>
   <div class="section-title">Plan Repas — Journées Types</div>
-  <div class="section-sub">Trois journées types : les deux jours de séance (créneaux différents) et le jour de repos. Totaux calculés depuis les ingrédients avec la table Ciqual 2025 (Anses). Les compléments sont placés au bon moment.</div>
+  <div class="section-sub">Quatre journées types : les deux créneaux de séance (lundi et jeudi, samedi), le jour de ping-pong et le jour de repos. Totaux calculés depuis les ingrédients avec la table Ciqual 2025 (Anses). Les compléments sont placés au bon moment.</div>
 
   <div class="plan-toggle" id="planTabs" role="tablist" aria-label="Journée type"></div>
   <div id="planHost"></div>
+  <p class="section-sub" style="margin-top:18px;margin-bottom:0"><b>Lire le total.</b> C'est la cible en calories que le plan respecte. Les protéines dépassent la cible : elle est un minimum, et le riz, l'avoine et le pain en apportent aussi. Les glucides affichés sont plus bas que la cible parce que la table Ciqual compte les fibres à part (environ 40 g par jour dans ce plan), alors que la cible est un simple reste de calories.</p>
 
 </div>
 
@@ -1765,7 +1776,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
 
   <div class="adjust-box reveal">
     <div class="adjust-title">🎛️ Ajuster les calories — bilan toutes les 4 semaines</div>
-    <div class="adjust-sub">Compare la moyenne de poids de la semaine 4 à celle de la semaine 1, le tour de taille et ton logbook.</div>
+    <div class="adjust-sub">Compare la moyenne de poids de la semaine 4 à celle de la semaine 1, le tour de taille et ton carnet de séance. Le premier mois, la créatine ajoute 0,5 à 1 kg d'eau dans les muscles : ne compte pas ce kilo, et fais ton premier bilan sur les semaines 5 à 8.</div>
     <div class="adjust-row"><div class="adjust-ico">✅</div><div class="adjust-if">Poids +0,2 à +0,4 kg/mois · taille stable (±1 cm) · charges ↑</div><div class="adjust-then">Parfait. Ne change rien.</div></div>
     <div class="adjust-row"><div class="adjust-ico">⬆️</div><div class="adjust-if">Poids qui monte de plus de 0,5 kg/mois OU taille qui prend plus de 1 cm</div><div class="adjust-then">−150 kcal les jours de repos (≈ −35 g de glucides : 45 g de riz cru en moins).</div></div>
     <div class="adjust-row"><div class="adjust-ico">⬇️</div><div class="adjust-if">Poids stable ou en baisse sur 4 semaines, charges qui stagnent, faim forte</div><div class="adjust-then">+150 kcal les jours de muscu (1 banane + 20 g d'avoine en plus).</div></div>
@@ -1846,7 +1857,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
     <div class="erreur-item">
       <div class="erreur-x">✕</div>
       <div class="erreur-body">
-        <h4>Manger «&nbsp;en bulk&nbsp;» sans compter les calories</h4>
+        <h4>Manger «&nbsp;pour prendre&nbsp;» sans compter les calories</h4>
         <p>Sans pesée, la plupart des gens se trompent de 20 à 40 % sur ce qu'ils mangent. Sans comptage les premières semaines, tu navigues à l'aveugle.</p>
         <div class="erreur-fix">✓ Solution : utilise MyFitnessPal ou Cronometer pendant 4-6 semaines pour calibrer ton instinct.</div>
       </div>
@@ -1857,15 +1868,15 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="erreur-body">
         <h4>Ne pas manger assez de protéines</h4>
         <p>Le piège le plus fréquent. ~1,6 g/kg couvre l'essentiel des gains musculaires (méta-analyse Morton 2018) ; jusqu'à 2,2 g/kg reste utile en déficit et pour la satiété. Ton plan vise <span data-az="nutrition.proteines"></span> g (<span data-az="nutrition.proteinesParKg|2"></span> g/kg)  : volontairement confortable, une marge de sécurité qui aide aussi la satiété.</p>
-        <div class="erreur-fix">✓ Solution : priorise une source protéique à chaque repas. Vise 30-40g par repas, 4x/jour.</div>
+        <div class="erreur-fix">✓ Solution : priorise une source protéique à chaque repas. Vise 30 à 45 g par repas, 4 fois par jour.</div>
       </div>
     </div>
 
     <div class="erreur-item">
       <div class="erreur-x">✕</div>
       <div class="erreur-body">
-        <h4>Sauter le repas post-workout</h4>
-        <p>La fenêtre péri-séance est plus large qu'on ne le croyait : c'est surtout ton apport protéique <b>total sur la journée</b> (<span data-az="nutrition.proteines"></span> g) qui construit le muscle. Un repas riche en protéines dans les ~2h autour de la séance reste une bonne habitude, mais rate-le occasionnellement ne « gâche » pas ta séance — ne saute juste pas tes prises de la journée.</p>
+        <h4>Sauter le repas d'après séance</h4>
+        <p>La fenêtre péri-séance est plus large qu'on ne le croyait : c'est surtout ton apport protéique <b>total sur la journée</b> (<span data-az="nutrition.proteines"></span> g) qui construit le muscle. Un repas riche en protéines dans les 2 h autour de la séance reste une bonne habitude, mais le rater de temps en temps ne « gâche » pas ta séance — ne saute juste pas tes prises de la journée.</p>
         <div class="erreur-fix">✓ Solution : prépare ton shaker avant de partir. Il t'attend dans ton sac de sport.</div>
       </div>
     </div>
@@ -1873,7 +1884,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
     <div class="erreur-item">
       <div class="erreur-x">✕</div>
       <div class="erreur-body">
-        <h4>Surplus trop important (bulk classique)</h4>
+        <h4>Surplus trop important (prise de masse « à l'ancienne »)</h4>
         <p>À <span data-az="goals.bf0|n"></span> % de masse grasse, un surplus de +500 kcal ou plus fait surtout prendre du gras, en particulier au ventre. Le muscle ne se construit pas plus vite pour autant.</p>
         <div class="erreur-fix">✓ Solution : comme ton plan — <span data-az="nutrition.train.delta|+int"></span> kcal les jours de muscu, <span data-az="nutrition.pingpong.delta|+int"></span> les jours de ping-pong, <span data-az="nutrition.rest.delta|+int"></span> au repos : en moyenne <span data-az="nutrition.ecartMoyen|+int"></span> kcal/j, soit ~0,25 kg par mois.</div>
       </div>
@@ -1893,7 +1904,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="erreur-body">
         <h4>Négliger les lipides «&nbsp;par peur de grossir&nbsp;»</h4>
         <p>Manger gras ne fait pas grossir en soi : c'est le surplus calorique global qui compte. Sous ~20 % des calories en lipides, la testostérone tend à baisser (~−10 à −15 %, Whittaker 2021).</p>
-        <div class="erreur-fix">✓ Solution : maintiens minimum 60-70g de lipides/jour, surtout monoinsaturés (huile d'olive, avocat, noix).</div>
+        <div class="erreur-fix">✓ Solution : garde au moins 60 à 70 g de lipides par jour, surtout monoinsaturés (huile d'olive, avocat, noix).</div>
       </div>
     </div>
 
@@ -1902,7 +1913,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="erreur-body">
         <h4>Penser que plus de whey = plus de muscle</h4>
         <p>Au-delà de tes besoins (~<span data-az="nutrition.proteines"></span> g/j), les protéines en plus servent surtout d'énergie : aucun muscle supplémentaire. 3 shakers par jour à la place des repas = moins de fibres, de vitamines et de satiété.</p>
-        <div class="erreur-fix">✓ Solution : food first. La whey complète l'alimentation, elle ne la remplace pas.</div>
+        <div class="erreur-fix">✓ Solution : les vrais repas d'abord. La whey complète l'alimentation, elle ne la remplace pas.</div>
       </div>
     </div>
 
@@ -1933,11 +1944,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Pavé de Saumon · Quinoa · Avocat</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~5,85€</span>
+          <span class="top10-prix">~5,85 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -1950,11 +1961,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Chirashi Bowl · Saumon · Riz Vinaigré</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~5,55€</span>
+          <span class="top10-prix">~5,55 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -1967,11 +1978,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Thon · Riz Basmati · Brocolis Vapeur</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~4,10€</span>
+          <span class="top10-prix">~4,10 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -1983,13 +1994,13 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
     <div class="top10-card" data-rec="r06">
       <div class="top10-rank">06</div>
       <div class="top10-body">
-        <div class="top10-title">Bowl Poulet Riz Patate Douce</div>
+        <div class="top10-title">Bowl Poulet · Riz · Patate Douce</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.80€</span>
+          <span class="top10-prix">~3,80 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2003,11 +2014,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Omelette Jambon · Patate Douce Rôtie</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~4.65€</span>
+          <span class="top10-prix">~4,65 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2020,11 +2031,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Steak Haché 5% · Pâtes Complètes · Sauce Tomate Maison</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~4.35€</span>
+          <span class="top10-prix">~4,35 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2036,13 +2047,13 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
     <div class="top10-card" data-rec="r20">
       <div class="top10-rank">20</div>
       <div class="top10-body">
-        <div class="top10-title">Bowl Petit-Déjeuner Protéiné (Yaourt + Avoine + Œufs)</div>
+        <div class="top10-title">Bowl Petit-Déjeuner Protéiné · Yaourt · Avoine · Œufs</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~2.25€</span>
+          <span class="top10-prix">~2,25 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2055,11 +2066,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Poulet Mariné · Légumes Méditerranéens Rôtis</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~4.45€</span>
+          <span class="top10-prix">~4,45 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2072,11 +2083,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Wraps Dinde · Avocat · Fromage Frais</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.95€</span>
+          <span class="top10-prix">~3,95 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2089,11 +2100,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Lentilles Corail · Poulet · Curry Coco</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.40€</span>
+          <span class="top10-prix">~3,40 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2106,11 +2117,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Riz Sauté aux Œufs · Edamame · Sauce Soja</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~2.50€</span>
+          <span class="top10-prix">~2,50 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2124,11 +2135,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Soba Froides · Poulet · Sauce Tsuyu <span class="tag-jp">🇯🇵 Japonais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~4.75€</span>
+          <span class="top10-prix">~4,75 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2141,11 +2152,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Gyudon · Bœuf Oignon · Riz <span class="tag-jp">🇯🇵 Japonais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~4.45€</span>
+          <span class="top10-prix">~4,45 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2158,11 +2169,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Donburi Teriyaki Poulet <span class="tag-jp">🇯🇵 Japonais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.10€</span>
+          <span class="top10-prix">~3,10 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2175,11 +2186,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Soupe Miso · Tofu · Poulet · Riz <span class="tag-jp">🇯🇵 Japonais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.90€</span>
+          <span class="top10-prix">~3,90 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2192,11 +2203,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Cabillaud en Papillote · Patate Douce · Brocoli</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~5.20€</span>
+          <span class="top10-prix">~5,20 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2209,11 +2220,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Crevettes Sautées · Riz · Épinards · Ail</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~5.10€</span>
+          <span class="top10-prix">~5,10 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2226,11 +2237,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Salade Niçoise Protéinée</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~5.40€</span>
+          <span class="top10-prix">~5,40 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2243,11 +2254,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Galette de Sarrasin · Œuf · Jambon · Emmental</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~2.75€</span>
+          <span class="top10-prix">~2,75 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2260,11 +2271,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Pancakes Avoine · Banane · Œufs</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.75€</span>
+          <span class="top10-prix">~3,75 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2277,11 +2288,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Tortilla Espagnole Protéinée · Poulet · Pommes de Terre</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.85€</span>
+          <span class="top10-prix">~3,85 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2294,11 +2305,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Bowl Mexicain · Poulet Épicé · Haricots Noirs · Guacamole</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.70€</span>
+          <span class="top10-prix">~3,70 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2311,11 +2322,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Cottage Cheese · Fruits Rouges · Granola Protéiné</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~2.40€</span>
+          <span class="top10-prix">~2,40 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2328,11 +2339,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Smash Burger Maison · Cheddar · Frites de Patate Douce <span class="tag-jp" style="background:rgba(60,59,110,0.1);color:#3c3b6e;border-color:rgba(60,59,110,0.25)">🇺🇸 Américain</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~4.30€</span>
+          <span class="top10-prix">~4,30 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2345,11 +2356,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Quinoa · Poulet Grillé · Pois Chiches Rôtis · Féta</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~4.00€</span>
+          <span class="top10-prix">~4,00 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2362,11 +2373,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Poke Bowl Thon · Mangue · Avocat · Sauce Ponzu</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.55€</span>
+          <span class="top10-prix">~3,55 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2379,11 +2390,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Shakshuka Protéinée · Œufs Pochés · Poulet · Poivrons</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~4.70€</span>
+          <span class="top10-prix">~4,70 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2396,11 +2407,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Buddha Bowl · Tofu Croustillant · Patate Douce · Tahini</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.55€</span>
+          <span class="top10-prix">~3,55 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2411,13 +2422,13 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
     <div class="top10-card" data-rec="r29">
       <div class="top10-rank">29</div>
       <div class="top10-body">
-        <div class="top10-title">Poulet Tikka Masala Maison · Riz Basmati <span class="tag-banger">★ Banger</span></div>
+        <div class="top10-title">Poulet Tikka Masala Maison · Riz Basmati <span class="tag-banger">★ Coup de cœur</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~5.20€</span>
+          <span class="top10-prix">~5,20 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2428,13 +2439,13 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
     <div class="top10-card" data-rec="r30">
       <div class="top10-rank">30</div>
       <div class="top10-body">
-        <div class="top10-title">Pad Thaï · Poulet · Crevettes · Cacahuètes <span class="tag-banger">★ Banger</span></div>
+        <div class="top10-title">Pad Thaï · Poulet · Crevettes · Cacahuètes <span class="tag-banger">★ Coup de cœur</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~7.60€</span>
+          <span class="top10-prix">~7,60 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2447,11 +2458,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Fajitas de Poulet · Poivrons · Tortillas <span class="tag-jp" style="background:rgba(0,104,71,0.1);color:#006847;border-color:rgba(0,104,71,0.25)">🇲🇽 Mexicain</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.80€</span>
+          <span class="top10-prix">~3,80 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2464,11 +2475,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Bibimbap Bœuf · Riz · Légumes · Œuf <span class="tag-jp" style="background:rgba(0,71,160,0.1);color:#0047a0;border-color:rgba(0,71,160,0.25)">🇰🇷 Coréen</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~4.00€</span>
+          <span class="top10-prix">~4,00 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2481,11 +2492,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Poulet Shawarma Bowl · Riz · Sauce Yaourt-Ail <span class="tag-jp" style="background:rgba(0,122,61,0.1);color:#007a3d;border-color:rgba(0,122,61,0.25)">🇱🇧 Libanais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.90€</span>
+          <span class="top10-prix">~3,90 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2496,13 +2507,13 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
     <div class="top10-card" data-rec="r34">
       <div class="top10-rank">34</div>
       <div class="top10-body">
-        <div class="top10-title">Bun Cha · Poulet · Vermicelles · Herbes <span class="tag-jp" style="background:rgba(218,37,29,0.1);color:#da251d;border-color:rgba(218,37,29,0.25)">🇻🇳 Vietnamien</span></div>
+        <div class="top10-title">Bun Cha · Poulet Grillé · Vermicelles · Herbes <span class="tag-jp" style="background:rgba(218,37,29,0.1);color:#da251d;border-color:rgba(218,37,29,0.25)">🇻🇳 Vietnamien</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.65€</span>
+          <span class="top10-prix">~3,65 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2513,13 +2524,13 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
     <div class="top10-card" data-rec="r35">
       <div class="top10-rank">35</div>
       <div class="top10-body">
-        <div class="top10-title">Chili Con Carne · Bœuf · Haricots · Riz</div>
+        <div class="top10-title">Chili Con Carne · Bœuf · Haricots Rouges · Riz</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~4.80€</span>
+          <span class="top10-prix">~4,80 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2532,11 +2543,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Poulet Crémeux aux Champignons · Brocoli</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.90€</span>
+          <span class="top10-prix">~3,90 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2549,11 +2560,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Wrap Falafel · Houmous · Crudités <span class="tag-jp" style="background:rgba(0,122,61,0.1);color:#007a3d;border-color:rgba(0,122,61,0.25)">🇱🇧 Libanais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.20€</span>
+          <span class="top10-prix">~3,20 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2566,11 +2577,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Pâtes au Thon · Citron · Ail · Parmesan <span class="tag-jp" style="background:rgba(0,140,69,0.1);color:#008c45;border-color:rgba(0,140,69,0.25)">🇮🇹 Italien</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.75€</span>
+          <span class="top10-prix">~3,75 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2583,11 +2594,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Porridge Protéiné · Chocolat · Banane</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~1.45€</span>
+          <span class="top10-prix">~1,45 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2600,11 +2611,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Skyr Bowl · Beurre de Cacahuète · Pomme</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~2.10€</span>
+          <span class="top10-prix">~2,10 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2617,11 +2628,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Poulet Yassa · Oignons Citron · Riz <span class="tag-jp" style="background:rgba(0,133,63,0.1);color:#00853f;border-color:rgba(0,133,63,0.25)">🇸🇳 Sénégalais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.50€</span>
+          <span class="top10-prix">~3,50 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2634,11 +2645,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Saumon Teriyaki · Riz · Brocoli <span class="tag-jp">🇯🇵 Japonais</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~4.15€</span>
+          <span class="top10-prix">~4,15 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2651,11 +2662,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Boulettes de Dinde · Sauce Tomate · Polenta</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.70€</span>
+          <span class="top10-prix">~3,70 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2668,11 +2679,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Quesadilla Poulet · Cheddar · Haricots Noirs <span class="tag-jp" style="background:rgba(0,104,71,0.1);color:#006847;border-color:rgba(0,104,71,0.25)">🇲🇽 Mexicain</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.55€</span>
+          <span class="top10-prix">~3,55 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2685,11 +2696,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Tofu Croustillant · Sauce Cacahuète · Nouilles <span class="tag-jp" style="background:rgba(165,25,49,0.1);color:#a51931;border-color:rgba(165,25,49,0.25)">🇹🇭 Thaï</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~3.40€</span>
+          <span class="top10-prix">~3,40 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2702,11 +2713,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Bœuf Sauté aux Brocolis · Riz · Sauce Soja-Sésame</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~4.50€</span>
+          <span class="top10-prix">~4,50 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2717,13 +2728,13 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
     <div class="top10-card" data-rec="r47">
       <div class="top10-rank">47</div>
       <div class="top10-body">
-        <div class="top10-title">Riz Cantonais Protéiné · Œufs · Jambon <span class="tag-jp" style="background:rgba(222,41,16,0.1);color:#de2910;border-color:rgba(222,41,16,0.25)">🇨🇳 Chinois</span></div>
+        <div class="top10-title">Riz Cantonais Protéiné · Œufs · Jambon · Petits Pois <span class="tag-jp" style="background:rgba(222,41,16,0.1);color:#de2910;border-color:rgba(222,41,16,0.25)">🇨🇳 Chinois</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~2.70€</span>
+          <span class="top10-prix">~2,70 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2736,11 +2747,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Gnocchis Poêlés · Tomate · Mozzarella · Œuf <span class="tag-jp" style="background:rgba(0,140,69,0.1);color:#008c45;border-color:rgba(0,140,69,0.25)">🇮🇹 Italien</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~2.95€</span>
+          <span class="top10-prix">~2,95 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2753,11 +2764,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Pancakes Protéinés · Myrtilles</div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~2.05€</span>
+          <span class="top10-prix">~2,05 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2770,11 +2781,11 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
       <div class="top10-body">
         <div class="top10-title">Crevettes Curry Coco · Riz <span class="tag-jp" style="background:rgba(165,25,49,0.1);color:#a51931;border-color:rgba(165,25,49,0.25)">🇹🇭 Thaï</span></div>
         <div class="top10-macros">
-          <div class="meal-macro-pill p">P <span data-rv="p"></span>g</div>
-          <div class="meal-macro-pill c">G <span data-rv="g"></span>g</div>
-          <div class="meal-macro-pill f">L <span data-rv="l"></span>g</div>
+          <div class="meal-macro-pill p">P <span data-rv="p"></span>&nbsp;g</div>
+          <div class="meal-macro-pill c">G <span data-rv="g"></span>&nbsp;g</div>
+          <div class="meal-macro-pill f">L <span data-rv="l"></span>&nbsp;g</div>
           <span class="top10-kcal"><span data-rv="kcal"></span> kcal</span>
-          <span class="top10-prix">~4.50€</span>
+          <span class="top10-prix">~4,50 €</span>
         </div>
         <ul class="top10-ingr" data-rec-ingr></ul>
         <div class="top10-why" data-rec-note></div>
@@ -2841,7 +2852,7 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
   document.querySelectorAll('[data-pct-az]').forEach(el => el.setAttribute('data-pct', N.train[el.getAttribute('data-pct-az')]));
   // Aliments : valeur pour la quantité indiquée, depuis la table du plan repas
   document.querySelectorAll('[data-alim]').forEach(el => {
-    const a = el.getAttribute('data-alim').split(':'), F = M.FOODS[a[0]];
+    const a = el.getAttribute('data-alim').split(':'), F = M.FOODS[a[0]] || (ALLEZ.RECETTES && ALLEZ.RECETTES.ALIM[a[0]]);   // plan repas, sinon table des recettes
     if (F) el.textContent = f(F[a[1]] * (+a[2]) / 100, 'n');
   });
 
@@ -2863,13 +2874,14 @@ span[data-az="nutrition.rest.delta|+int"] { color: #626784 !important; }
   }
   function plan(id, i) {
     const D = M.DAYS[id], t = M.dayTotal(id), c = M.target(id), g = M.gap(id);
-    const rem = D.remarque && !/^écart/.test(D.remarque) ? ' — ' + D.remarque : '';
+    const rem = D.remarque ? ' — ' + D.remarque : '';
+    const ecart = g === 0 ? 'écart inférieur à 1 %' : 'écart ' + f(g, '+int') + ' %';
     return `<div class="meal-timeline" id="plan-${id}" role="tabpanel"${i ? ' style="display:none"' : ''}>
     ${D.repas.map(m => meal(id, m)).join('\n')}
     <div class="plan-total">
       <div class="plan-total-lbl">Total de la journée</div>
       <div class="plan-total-val">≈ ${int(t.kcal)} kcal · P ${t.p} g · G ${t.g} g · L ${t.l} g</div>
-      <div class="plan-total-sub">Cible ${int(c.kcal)} kcal · P ${c.p} · G ${c.g} · L ${c.l} (écart ${f(g, '+int')} %)${rem}</div>
+      <div class="plan-total-sub">Cible ${int(c.kcal)} kcal · P ${c.p} · G ${c.g} · L ${c.l} (${ecart} sur les calories)${rem}</div>
     </div>
   </div>`;
   }

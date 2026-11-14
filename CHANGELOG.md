@@ -1,5 +1,35 @@
 # Journal des changements — ALLEZ
 
+## Rendu final : relecture complète, cohérence et mobile (branche `rendu-final`)
+
+Relecture de tout le projet : données, texte affiché des 16 pages avec le profil réel, plan du jour, 50 recettes, notes privées. Contrôles étendus à tous les états (jour de séance, mode focus, historique, fiches et fenêtres ouvertes, contenu privé affiché).
+
+### Données
+- `data/programme.js` : 6 tempos alignés sur la pause décrite dans la fiche (rowing haltère, tractions, band pull-apart, Pallof, oiseau câble, crunch câble) ; repères de charge aux haltères conformes aux paliers du matériel (plus de 11 ni de 13 kg) ; tractions à l'élastique sur le cycle 1 (au poids du corps vers le 5e-6e mois, comme la projection) ; repères au poids du corps sans nombre de séries (il dépend du bloc).
+- `core.js` : fourchettes à 5 ans cohérentes entre elles (le poids découle de la masse maigre et de la masse grasse).
+- `data/fiches.js` : durées contradictoires dans une même fiche (oiseau, élévations câble, extension overhead, vacuum), « 3 séries/bras » du curl concentré, position de descente du développé militaire, animation dédiée à la respiration 90/90, libellés d'animation en français, typographie (« 3 s », espace avant les deux-points).
+- `data/repas.js` : notes sans chiffre ni heure en dur, café 45 à 60 min avant (comme Hygiène de vie), verre d'eau du réveil à 300 ml (comme le tableau d'hydratation).
+- `data/recettes.js` : 4 notes reformulées, quinoa cuit ~170 g.
+
+### Pages
+- Recettes : 9 pieds de fiche affichaient un nombre de protéines écrit en dur et faux → lus dans les données ; étiquettes en français (le tirage « Surprends-moi » s'appuie dessus) ; allégation sur le miso et chiffre inventé retirés.
+- Nutrition : « Quatre journées types », formule « ≈ », aliments prioritaires lus dans les tables (avocat 20,6 g), note « Lire le total » (pourquoi protéines et glucides du plan diffèrent de la cible), bilan du 1er mois (eau de la créatine), prix à virgule, titres identiques aux fiches.
+- Tableau de bord : hydratation alignée sur la page Nutrition (2 à 2,5 L, 2,5 à 3 L les jours d'effort), ping-pong « mardi et vendredi », jours de ping-pong visibles dans la semaine en cours, libellés français.
+- Accueil : plan du jour relu (coucher avancé la veille d'une séance du matin, mêmes repères que les autres pages), phrase finale calée sur la date de départ, calories des jours de ping-pong.
+- Progression, projection : « biceps contracté » partout, année 2 = prise de masse lente poursuivie, titres français.
+- Posture : contradictions levées (position de sommeil, chin tuck, durées des étirements, fréquences des exercices, règle du côté faible : même nombre de répétitions), exercices hors programme marqués « bonus, jours de repos ».
+- Ping-pong et raquettes : chiffres de saison recalculés (29 points perdus contre les 600, soit les quatre cinquièmes), objectif 750 points, 2 soirées de club et 3 thèmes, « 11 critères sur 14 ».
+- Programme imprimable : pieds « Section n/8 » (une section peut dépasser une feuille A4), blocs non coupés à l'impression.
+
+### Mobile et accessibilité
+- Contenu rogné à droite (masqué par `overflow-x:hidden`, donc invisible pour le contrôle de débordement) : en-tête de Nutrition, bloc « série » de Progression, cartes du tableau de bord, phrase « Solution » de Nutrition, pastille de l'analyse. Colonnes `minmax(0, 1fr)`, rangées de 7 cases adaptées à la largeur.
+- Contraste AA et cibles ≥ 44 px dans les états jamais contrôlés : carnet un jour de séance, historique, courbes, plan du jour, fiches ouvertes, contenu privé (analyse, posture, programme). 121 constats → 0.
+- Fenêtres « séance rapide » et « mode focus » déclarées comme boîtes de dialogue, champs reliés à leur étiquette.
+
+### Vérification
+- 81 tests Node, dont `tests/rendu-final.test.js` (tempo et fiche, paliers d'haltères, fourchettes à 5 ans, recettes liées aux données, franglais, phrases en conteneur flex).
+- `_prive/tests/` : `etats.js` (axe-core, cibles, erreurs console dans 5 états × interactions), `rogne.js` (contenu rogné à 360, 390 et 412 px), `colonnes.js` (phrases coupées en colonnes). À relancer avant chaque publication, en plus de `phase6.js`.
+
 ## Ping-pong D3 / 650 pts, recettes, barre du haut (branche `prise-lente`)
 
 - `pingpong.html` : D3, 650 points, saison 2026-27 (14 V – 11 D) présentée par tranche de classement adverse, sans nom d'adversaire ; 6 conseils pour passer de 650 à 800 ; repères 550-600 → 600-700. `fiche-raquette-pingpong.html` : niveau à jour, nom du club retiré. Les 25 matchs (avec noms) vivent dans le fichier privé et arrivent dans le tracker à l'import.

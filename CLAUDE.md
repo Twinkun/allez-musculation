@@ -24,6 +24,9 @@ PWA de suivi de musculation. HTML/CSS/JS sans build ni dépendance, servie par G
 - `node --test tests/*.test.js` (noyau, programme, nutrition, compléments, recettes, logbook, corrections de contenu, interface).
 - Tests navigateur (Playwright, Edge) : dans `_prive/tests/`, hors dépôt (`phase3.js`, `phase4.js`, `phase5.js`, `p5axe.js`, `p5cibles.js`, `p5shots.js`).
 - Lighthouse : `LH_CPU=1 node lh.js <racine> <sortie> <pages>` (serveur gzip comme GitHub Pages). Sur cette machine (indice CPU ≈ 300, catégorie « mobile milieu de gamme »), la documentation Lighthouse prescrit un multiplicateur ×1 ; le ×4 par défaut vise un ordinateur haut de gamme.
+- **Contrôles dans tous les états** (`_prive/tests/`) : `node etats.js` (axe-core, cibles tactiles et erreurs console : sans données, avec profil privé et séances, lundi / mardi / mercredi / samedi, fenêtres et onglets ouverts), `node rogne.js` (contenu rogné à 360, 390 et 412 px : `overflow-x:hidden` le cache au contrôle de débordement), `node colonnes.js` (phrase coupée en colonnes). Un contrôle fait un jour sans séance ou sans contenu privé ne prouve rien pour les autres états.
+- **Pièges de mise en page** : une colonne de grille s'écrit `minmax(0, 1fr)` dès que son contenu peut être large (bande défilante, rangée de cases) ; une phrase qui contient un `<span data-az>` ne se met jamais directement dans un conteneur `display:flex` (chaque morceau devient une colonne) : l'envelopper dans un seul `<span>`.
+- **Tempo** : phase freinée · pause en étirement · phase d'effort · pause en contraction. Le tempo de `data/programme.js` et les durées de la fiche se corrigent ensemble (`tests/rendu-final.test.js`).
 - Après une modification du site : tenir la liste `LOCAL_ASSETS` de `sw.js` à jour (la version `CACHE` est incrémentée par `publier-v2.cmd`).
 
 ## Dossier de travail et publication

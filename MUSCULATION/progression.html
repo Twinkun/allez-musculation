@@ -388,11 +388,30 @@ button, a, [onclick], input, select, label {
 span[data-az="nutrition.train.kcal|int"] { color: #626784 !important; }
 span[data-az="nutrition.rest.kcal|int"], span[data-az="nutrition.pingpong.kcal|int"] { color: #626784 !important; }
 button[data-bloc="b1"] { color: #0b1020 !important; }
+/* Frise des blocs et onglets de bloc */
+.bloc-item:nth-child(2) .bloc-dot, .bloc-item:nth-child(5) .bloc-dot { color: #086b39 !important; }
+.bloc-item:nth-child(4) .bloc-dot { color: #8a5800 !important; }
+.bloc-item.done .bloc-dot { color: #fff !important; }
+.week-tab.active { color: #0b1020 !important; }
 </style>
 <style id="az-cibles">
 /* Cibles tactiles ≥ 44 px (phase 5) */
 .tracker-form input, .input-grid input { min-height: 44px !important; }
 .streak-day { width: 44px !important; height: 44px !important; }
+.tracker-delete { min-width: 44px !important; min-height: 44px !important; }
+</style>
+<style id="az-mobile">
+/* Mobile : rien ne dépasse de l'écran (contenu rogné par overflow-x:hidden) */
+@media (max-width: 768px) {
+  .streak-block { grid-template-columns: minmax(0, 1fr) !important; padding: 28px 14px !important; gap: 28px !important; }
+  .streak-left, .streak-right { min-width: 0; }
+  .streak-input-row { flex-wrap: wrap; }
+  .streak-input-row > * { flex: 1 1 100%; min-width: 0; min-height: 44px; }
+  .streak-week { grid-template-columns: repeat(7, minmax(0, 1fr)) !important; gap: 2px !important; }
+  .streak-day { width: 100% !important; max-width: 44px; justify-self: center; }
+  .streak-stats-row { gap: 12px !important; }
+  .streak-stat { flex: 1; min-width: 0; }
+}
 </style>
 </head>
 <body>
@@ -406,7 +425,7 @@ button[data-bloc="b1"] { color: #0b1020 !important; }
 <div class="hero">
   <div class="hero-content">
     <div class="hero-badge"><span></span>Suivi de Transformation</div>
-    <h1>TRACK<br><em>YOUR</em><br>PROGRESS</h1>
+    <h1>SUIS<br><em>TA</em><br>PROGRESSION</h1>
     <p>Tableau de bord complet pour suivre ta transformation semaine par semaine. Graphiques, mensurations, progression en force et système de motivation.</p>
     <div class="hero-stats">
       <div>
@@ -415,7 +434,7 @@ button[data-bloc="b1"] { color: #0b1020 !important; }
       </div>
       <div>
         <div class="hero-stat-val">12</div>
-        <div class="hero-stat-lbl">Blocs de 4 sem. + 4 deloads</div>
+        <div class="hero-stat-lbl">Blocs de 4 semaines + 4 deloads</div>
       </div>
       <div>
         <div class="hero-stat-val"><span data-az="goals.leanGainLow|+n"></span> à <span data-az="goals.leanGainHigh|+n"></span> kg</div>
@@ -520,7 +539,7 @@ button[data-bloc="b1"] { color: #0b1020 !important; }
       <div class="chart-subtitle">Courbe = projection · Points remplis = tes mesures réelles</div>
       <canvas id="bfChart" height="200"></canvas>
       <div class="chart-legend">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> BF% projeté</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> Masse grasse projetée (%)</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--purple);border:2px solid #fff;box-shadow:0 0 0 1.5px var(--purple);border-radius:50%"></div> Données réelles</div>
       </div>
     </div>
@@ -567,8 +586,8 @@ button[data-bloc="b1"] { color: #0b1020 !important; }
       <div class="bloc-weeks">Sem. 13</div>
     </div>
     <div class="bloc-item">
-      <div class="bloc-dot">B4</div>
-      <div class="bloc-label">Cycles 2-4</div>
+      <div class="bloc-dot">↻</div>
+      <div class="bloc-label">Cycles 2 à 4</div>
       <div class="bloc-weeks">Sem. 14-52</div>
     </div>
   </div>
@@ -596,7 +615,7 @@ button[data-bloc="b1"] { color: #0b1020 !important; }
     <button class="str-btn" data-cat="push">Push</button>
     <button class="str-btn" data-cat="pull">Pull</button>
     <button class="str-btn" data-cat="vshape">V-Shape</button>
-    <button class="str-btn" data-cat="core">Core / Jambes</button>
+    <button class="str-btn" data-cat="core">Core</button>
   </div>
 
   <div class="strength-grid reveal" id="strengthGrid"></div>
@@ -651,7 +670,7 @@ button[data-bloc="b1"] { color: #0b1020 !important; }
           <input type="number" inputmode="decimal" id="in-chest" step="0.5" placeholder="cm">
         </div>
         <div class="input-group">
-          <label>Biceps tendu (cm)</label>
+          <label>Biceps contracté (cm)</label>
           <input type="number" inputmode="decimal" id="in-bicep" step="0.5" placeholder="cm">
         </div>
         <div class="input-group">
@@ -680,9 +699,9 @@ button[data-bloc="b1"] { color: #0b1020 !important; }
 
 <!-- SECTION 7 : ACHIEVEMENTS -->
 <div class="section">
-  <div class="section-label">Achievements</div>
+  <div class="section-label">Récompenses</div>
   <div class="section-title">Badges & Objectifs</div>
-  <div class="section-sub">Débloque des badges en atteignant tes objectifs de progression. Chaque milestone compte.</div>
+  <div class="section-sub">Débloque des badges en atteignant tes objectifs de progression. Chaque étape compte.</div>
 
   <div class="achievements-grid reveal" id="achievementsGrid"></div>
 </div>
@@ -692,7 +711,7 @@ button[data-bloc="b1"] { color: #0b1020 !important; }
 <!-- SECTION 8 : MOTIVATION STREAK -->
 <div class="section">
   <div class="section-label">Motivation</div>
-  <div class="section-title">Ton Streak d'Entraînement</div>
+  <div class="section-title">Ta Série d'Entraînement</div>
   <div class="section-sub">Les séances de l’onglet Séance et du tableau de bord sont comptées automatiquement. Tu peux aussi cocher un jour à la main. La régularité est le facteur n°1.</div>
 
   <div class="streak-block reveal">
@@ -780,7 +799,7 @@ const SIM_FOCUS = [
   'Bilan 9 mois : ~' + _f(_PJ.bf[9]) + ' % de MG, taille ~' + _f(_PJ.waist[9] - _G.waist0, '+n') + ' cm. Silhouette en V lisible habillé.',
   'Dernier cycle : consolider les charges, soigner la technique et le sommeil.',
   'Le ventre est plus plat ; les abdos restent peu visibles à ~' + _f(_PJ.bf[11]) + ' % (normal : il faut ~12 % pour les voir).',
-  'Bilan 12 mois : ' + _f(_G.leanGainLow, '+n') + ' à ' + _f(_G.leanGainHigh, '+n') + ' kg de masse maigre, ~' + _f(_G.bf) + ' % MG, taille ~' + _f(_G.waist) + ' cm. Base solide pour une année 2 en prise de masse propre.',
+  'Bilan 12 mois : ' + _f(_G.leanGainLow, '+n') + ' à ' + _f(_G.leanGainHigh, '+n') + ' kg de masse maigre, ~' + _f(_G.bf) + ' % MG, taille ~' + _f(_G.waist) + ' cm. Base solide pour continuer la prise de masse lente en année 2.',
 ];
 const simMonths = SIM_FOCUS.map((focus, i) => ({
   n: i + 1, poids: ALLEZ.PROJ.weight[i + 1], bf: ALLEZ.PROJ.bf[i + 1], muscle: ALLEZ.PROJ.lean[i + 1], tour: ALLEZ.PROJ.waist[i + 1], focus,

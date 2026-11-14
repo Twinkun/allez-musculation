@@ -6,7 +6,8 @@
    Aucun horaire ici : offset = minutes par rapport à l'heure de séance
    (journées A et B), au début du club (ping-pong, journée D) ou au petit-déjeuner (repos, journée C), heures
    saisies dans le profil privé.
-   Fichier généré : ne pas modifier les totaux à la main, ils sont calculés.
+   Fichier maintenu à la main : les portions (compo, en grammes) se modifient ici ;
+   les totaux ne s'écrivent jamais, ils sont calculés.
    Chargé après core.js et data/supplements.js.
    ═══════════════════════════════════════════════════════════════════ */
 (function (w) {
@@ -268,7 +269,7 @@
           "nom": "Pendant la séance",
           "aliments": [
             "500–750 ml d'eau par petites gorgées",
-            "Café noir 30-45 min avant si tu en as l'habitude (≤ 200 mg de caféine)",
+            "Café noir 45 à 60 min avant si tu en as l'habitude (≤ 200 mg de caféine)",
             "Pas de shaker pendant l'effort : inutile"
           ],
           "tag": "Hydratation"
@@ -444,7 +445,7 @@
           ]
         }
       ],
-      "remarque": "écart < 2 % : dans la marge de précision des étiquettes."
+      "remarque": "protéines au-dessus de la cible, glucides en dessous : voir la note sous le plan."
     },
     "sam": {
       "titre": "Samedi",
@@ -459,7 +460,7 @@
           "couleur": "gold",
           "nom": "Réveil",
           "aliments": [
-            "500 ml d'eau",
+            "Un grand verre d'eau (300 ml)",
             "Café ou thé sans sucre si habitude"
           ],
           "tag": "Hydratation"
@@ -509,7 +510,7 @@
           "nom": "Pendant la séance",
           "aliments": [
             "500–750 ml d'eau par petites gorgées",
-            "Café noir 30-45 min avant si tu en as l'habitude (≤ 200 mg de caféine)",
+            "Café noir 45 à 60 min avant si tu en as l'habitude (≤ 200 mg de caféine)",
             "Pas de shaker pendant l'effort : inutile"
           ],
           "tag": "Hydratation"
@@ -649,7 +650,7 @@
           ]
         }
       ],
-      "remarque": "le samedi tourne un peu plus protéiné et un peu moins glucidique : calories identiques, aucun souci."
+      "remarque": "le samedi tourne un peu plus protéiné que les autres jours de muscu : calories identiques, aucun souci."
     },
     "repos": {
       "titre": "Jour de repos",
@@ -742,7 +743,7 @@
             "1 tranche de pain complet"
           ],
           "prix": 1.7,
-          "note": "La whey n'est pas réservée aux jours de séance : elle sert ici à atteindre les 160 g de protéines sans exploser les calories.",
+          "note": "La whey n'est pas réservée aux jours de séance : elle sert ici à atteindre ta cible de protéines sans exploser les calories.",
           "compo": [
             [
               "whey",
@@ -977,7 +978,7 @@
             "1 dose de whey dans 200 ml de lait"
           ],
           "prix": 0.9,
-          "note": "Petite collation protéinée avant de dormir : elle aide la récupération sans alourdir la nuit. Pas de vrai repas à 23 h.",
+          "note": "Petite collation protéinée avant de dormir : elle aide la récupération sans alourdir la nuit. Pas de vrai repas si tard.",
           "compo": [
             [
               "whey",

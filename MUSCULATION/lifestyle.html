@@ -280,6 +280,10 @@ button, a, [onclick], input, select, label {
 .sec-title span { color: #8a5800 !important; }
 .sec-sub { color: #626784 !important; }
 </style>
+<style id="az-cibles">
+/* Cibles tactiles ≥ 44 px */
+a[href^="#src-"] { min-height: 44px !important; min-width: 44px !important; display: inline-flex !important; align-items: center; justify-content: center; }
+</style>
 </head>
 <body>
 <a class="az-skip" href="#contenu">Aller au contenu</a>
@@ -330,7 +334,7 @@ button, a, [onclick], input, select, label {
       <div class="proto-num">02</div>
       <div>
         <div class="proto-content-title">Entraînement en force : régularité et progression</div>
-        <div class="proto-content-body">Le pic de testostérone qui suit une séance est bref et n'explique pas la prise de muscle : inutile de choisir des exercices « pour les hormones ». Ce qui compte, c'est la régularité et la progression des charges dans tes fourchettes de répétitions.<span data-prive="lifestyle.01" hidden></span></div>
+        <div class="proto-content-body">Le pic de testostérone qui suit une séance est bref et n'explique pas la prise de muscle : inutile de choisir des exercices « pour les hormones ». Ce qui compte, c'est la régularité et la progression des charges dans tes fourchettes de répétitions. <span data-prive="lifestyle.01" hidden></span></div>
       </div>
       <div class="proto-impact"><a href="#src-west2010">West 2010</a></div>
     </div>
@@ -348,7 +352,7 @@ button, a, [onclick], input, select, label {
       <div class="proto-num">04</div>
       <div>
         <div class="proto-content-title">Ne descends pas trop bas en graisses</div>
-        <div class="proto-content-body">Dans une méta-analyse d'essais, les régimes pauvres en graisses s'accompagnent d'une testostérone plus basse que les régimes plus riches en graisses. Ton plan vise environ 25 à 30 % des calories en lipides. Garde les graisses saturées sous le repère de l'Anses (12 % des calories au plus) : privilégie huile d'olive, avocat, noix et poissons gras.</div>
+        <div class="proto-content-body">Dans une méta-analyse d'essais, les régimes pauvres en graisses s'accompagnent d'une testostérone plus basse que les régimes plus riches en graisses. Ton plan apporte environ <span data-az="nutrition.pingpong.lPct"></span> à <span data-az="nutrition.rest.lPct"></span> % des calories en lipides selon le type de journée. Garde les graisses saturées sous le repère de l'Anses (12 % des calories au plus) : privilégie huile d'olive, avocat, noix et poissons gras.</div>
       </div>
       <div class="proto-impact"><a href="#src-whittaker2021">Whittaker 2021</a> · <a href="#src-anses2011">Anses 2011</a></div>
     </div>
@@ -539,7 +543,7 @@ button, a, [onclick], input, select, label {
     <div class="checklist-cols">
       <div class="check-item"><div class="check-box"></div>7 à 9 h de sommeil, horaires réguliers</div>
       <div class="check-item"><div class="check-box"></div>Entraînement ou mouvement (même 20 min de marche)</div>
-      <div class="check-item"><div class="check-box"></div><span data-az="nutrition.proteines"></span> g de protéines atteints dans la journée</div>
+      <div class="check-item"><div class="check-box"></div><span><span data-az="nutrition.proteines"></span> g de protéines atteints dans la journée</span></div>
       <div class="check-item"><div class="check-box"></div>Compléments du matin avec le petit-déjeuner : <span id="chkMatin"></span></div>
       <div class="check-item"><div class="check-box"></div>Compléments du soir avec le dîner : <span id="chkSoir"></span> (rien à ajouter en plus)</div>
       <div class="check-item"><div class="check-box"></div>Environ 2 L d'eau bue, plus les jours de séance</div>
@@ -567,7 +571,7 @@ button, a, [onclick], input, select, label {
     <a href="nutrition.html" class="syn-card">
       <div class="syn-icon">🥗</div>
       <div class="syn-title">NUTRITION</div>
-      <div class="syn-body">Ton plan <span data-az="nutrition.train.kcal|int"></span> / <span data-az="nutrition.rest.kcal|int"></span> kcal, avec assez de lipides, et le bilan de sécurité de tes compléments.</div>
+      <div class="syn-body">Ton plan <span data-az="nutrition.train.kcal|int"></span> / <span data-az="nutrition.pingpong.kcal|int"></span> / <span data-az="nutrition.rest.kcal|int"></span> kcal (muscu, ping-pong, repos), avec assez de lipides, et le bilan de sécurité de tes compléments.</div>
       <div class="syn-link">Voir le plan nutrition →</div>
     </a>
     <a href="progression.html" class="syn-card">

@@ -213,6 +213,7 @@ a.btn-log { text-decoration:none; display:inline-flex; align-items:center; }
 .wd-box.done { background: rgba(10,158,82,.1); border-color: rgba(10,158,82,.5); color: var(--green); font-weight: 800; }
 .wd-box.today { border-color: var(--gold); background: rgba(232,150,10,.08); color: var(--gold); font-weight: 700; }
 .wd-box.rest { background: rgba(21,96,212,.05); border-color: rgba(21,96,212,.2); color: rgba(21,96,212,.5); }
+.wd-box.pp { background: rgba(21,96,212,.08); border-color: rgba(21,96,212,.35); font-size: .95rem; }
 
 .week-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
 .ws { background: var(--bg-inner); border-radius: var(--radius-sm); padding: 10px 12px; text-align: center; border: 1px solid var(--border); }
@@ -402,6 +403,8 @@ span[data-az="goals.leanGainLow|+n"] { color: #088646 !important; }
 span[data-az="goals.leanGainHigh|+n"] { color: #088646 !important; }
 #sc-sstrand { color: #088646 !important; }
 .up.sc-trend { color: #088646 !important; }
+#backupDesc { color: #5b616e !important; }
+.inp-lbl { color: #5b616e !important; }
 </style>
 <style id="az-cibles">
 /* Cibles tactiles ≥ 44 px (phase 5) */
@@ -409,6 +412,19 @@ span[data-az="goals.leanGainHigh|+n"] { color: #088646 !important; }
 .card-link, .card-link-btn { display: inline-flex !important; align-items: center; min-height: 44px; }
 .card-link-btn { background: none; border: 0; font: inherit; cursor: pointer; padding: 0; }
 .bk-btn { min-height: 44px !important; }
+.modal .inp { min-height: 44px !important; }
+</style>
+<style id="az-mobile">
+/* Mobile : rien ne dépasse de l'écran (contenu rogné par overflow-x:hidden) */
+@media (max-width: 900px) {
+  .row-2-1, .row-3, .row-3b { grid-template-columns: minmax(0, 1fr) !important; }
+  .card { min-width: 0; }
+}
+@media (max-width: 480px) {
+  .card { padding-left: 16px !important; padding-right: 16px !important; }
+  .week-days { grid-template-columns: repeat(7, minmax(0, 1fr)) !important; gap: 2px !important; }
+  .wd-box { width: 100% !important; max-width: 44px; }
+}
 </style>
 </head>
 <body>
@@ -418,12 +434,11 @@ span[data-az="goals.leanGainHigh|+n"] { color: #088646 !important; }
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
     <span class="logo-text">ALLEZ</span>
-    <span class="logo-badge">PRO</span>
   </div>
   <nav class="sidebar-nav" data-az-nav="sidebar" aria-label="Navigation principale"></nav>
   <div class="sidebar-nav sidebar-tools">
     <div class="nav-label">Outils</div>
-    <button class="nav-item" data-action="openModal"><span class="nav-icon">➕</span>Logger une séance<span class="nav-badge">NEW</span></button>
+    <button class="nav-item" data-action="openModal"><span class="nav-icon">➕</span>Séance rapide</button>
   </div>
   <div class="sidebar-user">
     <div class="user-avatar">A</div>
@@ -513,7 +528,7 @@ span[data-az="goals.leanGainHigh|+n"] { color: #088646 !important; }
     </div>
     <div class="stat-card">
       <div class="stat-card-bar" style="background:var(--gold-g)"></div>
-      <div class="sc-label">🔥 Streak actuel</div>
+      <div class="sc-label">🔥 Série en cours</div>
       <div class="sc-val" id="sc-streak">0 <span class="sc-unit">séances</span></div>
       <div class="sc-sub" id="sc-best">Record : 0 séance</div>
       <div class="sc-trend up">Régularité = transformation</div>
@@ -542,7 +557,7 @@ span[data-az="goals.leanGainHigh|+n"] { color: #088646 !important; }
       <div class="chart-legend">
         <div class="leg"><div class="leg-dot" style="background:var(--blue)"></div>Poids total (kg)</div>
         <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>Masse maigre (kg)</div>
-        <div class="leg"><div class="leg-dot" style="background:var(--purple);opacity:.6"></div>BF% projeté</div>
+        <div class="leg"><div class="leg-dot" style="background:var(--purple);opacity:.6"></div>Masse grasse projetée (%)</div>
       </div>
     </div>
 
@@ -565,7 +580,7 @@ span[data-az="goals.leanGainHigh|+n"] { color: #088646 !important; }
           <div class="macro-chip"><div class="mc-val" style="color:var(--orange)"></div><div class="mc-lbl">Protéines</div></div>
           <div class="macro-chip"><div class="mc-val" style="color:var(--blue)"></div><div class="mc-lbl">Glucides</div></div>
           <div class="macro-chip"><div class="mc-val" style="color:var(--purple)"></div><div class="mc-lbl">Lipides</div></div>
-          <div class="macro-chip"><div class="mc-val" style="color:var(--teal)">3–3,5 L</div><div class="mc-lbl">Eau / jour</div></div>
+          <div class="macro-chip"><div class="mc-val" id="mcEau" style="color:var(--teal)">2 à 2,5 L</div><div class="mc-lbl">Eau à boire</div></div>
         </div>
       </div>
     </div>
@@ -636,17 +651,17 @@ span[data-az="goals.leanGainHigh|+n"] { color: #088646 !important; }
 
     <div class="card">
       <div class="card-title" style="margin-bottom:3px">Motivation</div>
-      <div class="card-sub">Citation du jour & streak visuel</div>
+      <div class="card-sub">Citation du jour et régularité</div>
       <div class="motivation-inner">
-        <div class="moti-quote" id="dailyQuote">""</div>
+        <div class="moti-quote" id="dailyQuote"></div>
         <div class="moti-author">— ALLEZ</div>
       </div>
       <div class="streak-section">
-        <div class="streak-label">Streak — 28 derniers jours</div>
+        <div class="streak-label">Régularité — 28 derniers jours</div>
         <div class="streak-dots" id="streakDots"></div>
         <div class="streak-mini">
           <div class="sms"><div class="sms-v" id="sm-total" style="color:var(--blue)">0</div><div class="sms-l">Séances</div></div>
-          <div class="sms"><div class="sms-v" id="sm-streak" style="color:var(--gold)">0</div><div class="sms-l">Streak</div></div>
+          <div class="sms"><div class="sms-v" id="sm-streak" style="color:var(--gold)">0</div><div class="sms-l">Série</div></div>
           <div class="sms"><div class="sms-v" id="sm-best" style="color:var(--green)">0</div><div class="sms-l">Record</div></div>
         </div>
       </div>
@@ -658,37 +673,37 @@ span[data-az="goals.leanGainHigh|+n"] { color: #088646 !important; }
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <div class="modal-title">Logger une Séance</div>
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Séance rapide">
+    <div class="modal-title">Séance Rapide</div>
     <div class="modal-sub">Enregistre ta séance pour suivre ta progression.</div>
     <div class="modal-grid">
       <div class="inp-g">
-        <label class="inp-lbl">Type de séance</label>
+        <label class="inp-lbl" for="log-type">Type de séance</label>
         <select class="inp" id="log-type">
           <option value="push">Push — Pec + Épaules + Tri (Lundi)</option>
           <option value="pull">Pull — Dos + Biceps (Jeudi)</option>
           <option value="upper">V-Shape — Épaules + Dos + Bras (Samedi)</option>
-          <option value="legs">Ping-pong · Cardio (Vendredi)</option>
+          <option value="legs">Ping-pong · Club (Mardi et vendredi)</option>
           <option value="other">Autre</option>
         </select>
       </div>
       <div class="inp-g">
-        <label class="inp-lbl">Durée (min)</label>
+        <label class="inp-lbl" for="log-dur">Durée (min)</label>
         <input class="inp" id="log-dur" type="number" placeholder="60" min="10" max="180">
       </div>
       <div class="inp-g">
-        <label class="inp-lbl">Poids du jour (kg)</label>
-        <input class="inp" id="log-w" type="number" step="0.1" placeholder="71.0">
+        <label class="inp-lbl" for="log-w">Poids du jour (kg)</label>
+        <input class="inp" id="log-w" type="number" step="0.1" placeholder="kg">
       </div>
       <div class="inp-g">
-        <label class="inp-lbl">Ressenti (1-10)</label>
+        <label class="inp-lbl" for="log-feel">Ressenti (1-10)</label>
         <input class="inp" id="log-feel" type="number" min="1" max="10" placeholder="7">
       </div>
     </div>
     <div class="modal-full">
       <div class="inp-g">
-        <label class="inp-lbl">Note / PR du jour</label>
-        <input class="inp" id="log-note" type="text" placeholder="ex: Développé incliné 18 kg × 10 — nouveau PR !">
+        <label class="inp-lbl" for="log-note">Note / record du jour</label>
+        <input class="inp" id="log-note" type="text" placeholder="ex. : développé incliné 18 kg × 10, nouveau record">
       </div>
     </div>
     <div class="modal-actions">
@@ -767,7 +782,8 @@ tick(); setInterval(tick, 10000);
 
 // ── WEEK ──
 const DAY_ABR = ['LUN','MAR','MER','JEU','VEN','SAM','DIM'];
-const PLANNED = [1, 2, 3, 4, 5, 6, 0].map(dn => !!P.byDay[dn]);
+const DOW = [1, 2, 3, 4, 5, 6, 0];                                 // lundi → dimanche, en numéros de jour
+const PLANNED = DOW.map(dn => !!P.byDay[dn]);
 const getWeekDates = () => ALLEZ.weekDates();
 function renderWeek() {
   const sess = getSess(), wk = getWeekDates(), today = localISO();
@@ -778,6 +794,7 @@ function renderWeek() {
     let cls='', inner='';
     if (sdates.has(d)) { cls='done'; inner='✓'; }
     else if (d===today) { cls='today'; inner='●'; }
+    else if (P.otherDays[DOW[i]]) { cls='pp'; inner='🏓'; }
     else if (!PLANNED[i]) { cls='rest'; inner='~'; }
     return `<div class="wd"><div class="wd-lbl">${DAY_ABR[i]}</div><div class="wd-box ${cls}" data-action="toggleDay" data-args="${d}" role="button" tabindex="0" aria-label="${DAY_ABR[i]} ${d}">${inner}</div></div>`;
   }).join('');
@@ -841,7 +858,7 @@ function renderStrength() {
         <div class="str-range">${s.b1} → ${s.b3} kg</div>
       </div>
       <div class="str-bar"><div class="str-fill" data-w="${pct}" style="background:${s.color}"></div></div>
-      <div class="goal-detail">${best ? 'Record : ' + num(best, best%1?1:0) + ' kg' : 'Pas encore loggé'}</div>
+      <div class="goal-detail">${best ? 'Record : ' + num(best, best%1?1:0) + ' kg' : 'Pas encore enregistré'}</div>
     </div>`; }).join('');
 }
 
@@ -893,7 +910,7 @@ function renderNext() {
         <div class="nw-ex-spec">${e.s}</div>
       </div>`).join('')}
     </div>
-    ${w.type==='legs' ? `<a class="nw-btn" href="pingpong.html" style="display:block;text-align:center;text-decoration:none">🏓 Ouvrir le suivi ping-pong</a>` : `<a class="nw-btn" href="logbook.html" style="display:block;text-align:center;text-decoration:none">▶ Lancer dans le logbook</a>`}`;
+    ${w.type==='legs' ? `<a class="nw-btn" href="pingpong.html" style="display:block;text-align:center;text-decoration:none">🏓 Ouvrir le suivi ping-pong</a>` : `<a class="nw-btn" href="logbook.html" style="display:block;text-align:center;text-decoration:none">▶ Ouvrir le carnet de séance</a>`}`;
 }
 
 // ── SESSION LOG ──
@@ -940,7 +957,7 @@ function renderStreak() {
 
 // ── QUOTE ──
 function renderQuote() {
-  document.getElementById('dailyQuote').textContent = '"'+QUOTES[new Date().getDate()%QUOTES.length]+'"';
+  document.getElementById('dailyQuote').textContent = '« ' + QUOTES[new Date().getDate()%QUOTES.length] + ' »';
 }
 
 // ── MODAL (séance rapide, sans détail des séries) ──
@@ -1033,10 +1050,11 @@ function drawDonut() {
   const canvas=document.getElementById('donutChart'); if(!canvas)return;
   const kind = ALLEZ.NUTRITION.dayKind(new Date().getDay());
   const D = N[kind], M = {k:D.kcal,p:D.p,c:D.g,l:D.l};
-  document.getElementById('macroSub').textContent = ({ train: 'Jour de muscu', pingpong: 'Jour de ping-pong', rest: 'Jour de repos' })[kind] + ' · ' + M.k.toLocaleString('fr-FR') + ' kcal';
+  document.getElementById('macroSub').textContent = ({ train: 'Jour de muscu', pingpong: 'Jour de ping-pong', rest: 'Jour de repos' })[kind] + ' · ' + ALLEZ.int(M.k) + ' kcal';
   const chips=document.querySelectorAll('.macro-chip .mc-val');
-  if(chips.length>=3){ chips[0].textContent=M.p+'g'; chips[1].textContent=M.c+'g'; chips[2].textContent=M.l+'g'; }
-  const dv=document.querySelector('.donut-val'); if(dv) dv.textContent=M.k;
+  if(chips.length>=3){ chips[0].textContent=M.p+' g'; chips[1].textContent=M.c+' g'; chips[2].textContent=M.l+' g'; }
+  const eau=document.getElementById('mcEau'); if(eau) eau.textContent = kind === 'rest' ? '2 à 2,5 L' : '2,5 à 3 L';
+  const dv=document.querySelector('.donut-val'); if(dv) dv.textContent=ALLEZ.int(M.k);
   const ctx=canvas.getContext('2d'), cx=75,cy=75,r=64,t=14;
   ctx.clearRect(0,0,150,150);
   const slices=[{v:M.p*4,c:'#e05a1e'},{v:M.c*4,c:'#1560d4'},{v:M.l*9,c:'#7c10d4'}];
@@ -1082,7 +1100,7 @@ function renderBackup(){
   if(count===0){
     card.className='backup-card';icoEl.textContent='💾';
     titleEl.textContent='Sauvegarde des données';
-    descEl.textContent='Tes données restent sur cet appareil. Dès que tu logges des séances, pense à les sauvegarder régulièrement.';
+    descEl.textContent='Tes données restent sur cet appareil. Dès que tu enregistres des séances, pense à les sauvegarder régulièrement.';
     return;
   }
   var atRisk=false,msg='';

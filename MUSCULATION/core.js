@@ -144,7 +144,8 @@
     dShoulders: 3, dBiceps: [2, 3], dChest: 5,
     // Horizons plus lointains : fourchettes d'écart par rapport au départ (pratiquant naturel régulier ; à 5 ans, une phase de sèche incluse)
     an2: { weight: [5, 7], lean: [7, 8], biceps: [3, 4], chest: [8, 11], bf: [-4, -3] },
-    an5: { weight: [7, 11], lean: [11, 13], biceps: [4, 5], chest: [13, 17], bf: [-8.5, -7.5] }
+    // an5 : les trois fourchettes se tiennent entre elles (poids = masse maigre / (1 − masse grasse)) pour un départ autour de 20 % de masse grasse
+    an5: { weight: [6, 9], lean: [11, 13], biceps: [4, 5], chest: [13, 17], bf: [-8.5, -7.5] }
   };
   function compute() {
     var p = profile(); if (cache.goals) return;
